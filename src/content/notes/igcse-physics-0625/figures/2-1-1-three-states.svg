@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t211ts">
+  <title id="t211ts">Three identical closed jars. The first holds a solid block resting on the bottom, keeping its own shape. The second holds a liquid that fills only the lower part of the jar, with a flat top surface. The third holds a gas, shaded through the whole jar because it spreads out to fill all of it</title>
+  <g font-size="16" font-weight="bold" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="110" y="40">solid</text>
+    <text x="300" y="40">liquid</text>
+    <text x="490" y="40">gas</text>
+  </g>
+  <rect x="80" y="160" width="60" height="50" fill="var(--t1-ink)" fill-opacity="0.45" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="231" y="150" width="138" height="60" fill="var(--t3-ink)" fill-opacity="0.35"/>
+  <line x1="230" y1="150" x2="370" y2="150" stroke="var(--t3-ink)" stroke-width="2"/>
+  <rect x="421" y="61" width="138" height="149" fill="var(--t5-ink)" fill-opacity="0.18"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <rect x="40" y="60" width="140" height="150"/>
+    <rect x="230" y="60" width="140" height="150"/>
+    <rect x="420" y="60" width="140" height="150"/>
+    <line x1="34" y1="60" x2="186" y2="60" stroke-width="4"/>
+    <line x1="224" y1="60" x2="376" y2="60" stroke-width="4"/>
+    <line x1="414" y1="60" x2="566" y2="60" stroke-width="4"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="110" y="236">fixed shape</text>
+    <text x="110" y="254">fixed volume</text>
+    <text x="110" y="272">does not flow</text>
+    <text x="300" y="236">fixed volume</text>
+    <text x="300" y="254">takes the container's shape</text>
+    <text x="300" y="272">flows</text>
+    <text x="490" y="236">no fixed shape or volume</text>
+    <text x="490" y="254">fills the whole container</text>
+    <text x="490" y="272">flows, easily compressed</text>
+  </g>
+</svg>

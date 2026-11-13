@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 410" role="img" aria-labelledby="t234flask">
+  <title id="t234flask">Cross-section of a vacuum flask holding a hot liquid. A container with two walls has a vacuum in the gap between them, and the surfaces facing the gap are silvered. An insulating stopper closes the top, and an outer case protects the container</title>
+  <path d="M125,112 V370 Q125,392 147,392 H293 Q315,392 315,370 V112" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M161,140 V330 Q161,344 175,344 H265 Q279,344 279,330 V140 Z" fill="var(--t1-ink)" fill-opacity="0.25"/>
+  <g fill="none" stroke-width="4">
+    <path d="M140,80 V340 Q140,366 166,366 H274 Q300,366 300,340 V80" stroke="var(--muted)"/>
+    <path d="M160,80 V330 Q160,346 176,346 H264 Q280,346 280,330 V80" stroke="var(--muted)"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <path d="M140,80 V340 Q140,366 166,366 H274 Q300,366 300,340 V80"/>
+    <path d="M160,80 V330 Q160,346 176,346 H264 Q280,346 280,330 V80"/>
+    <line x1="140" y1="80" x2="160" y2="80"/>
+    <line x1="280" y1="80" x2="300" y2="80"/>
+  </g>
+  <rect x="163" y="52" width="114" height="52" rx="4" fill="var(--t2-ink)" fill-opacity="0.5" stroke="currentColor" stroke-width="1.5"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="360" y="64">stopper (thermal insulator):</text>
+    <text x="360" y="80">less conduction and convection</text>
+    <text x="360" y="96">out of the top</text>
+    <text x="360" y="164">silvered surfaces:</text>
+    <text x="360" y="180">reflect thermal radiation</text>
+    <text x="360" y="244">vacuum between the walls:</text>
+    <text x="360" y="260">no particles, so no conduction</text>
+    <text x="360" y="276">or convection across the gap</text>
+    <text x="360" y="320">hot liquid</text>
+    <text x="360" y="390">outer case</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <line x1="355" y1="76" x2="279" y2="78"/>
+    <line x1="355" y1="172" x2="302" y2="190"/>
+    <line x1="355" y1="172" x2="282" y2="200"/>
+    <line x1="355" y1="252" x2="290" y2="262"/>
+    <line x1="355" y1="316" x2="250" y2="300"/>
+    <line x1="355" y1="386" x2="316" y2="378"/>
+  </g>
+</svg>

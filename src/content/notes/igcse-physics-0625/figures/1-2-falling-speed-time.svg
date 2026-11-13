@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="t12fallingspe">
+<title id="t12fallingspe">Sketch of speed against time for two objects dropped from rest. Line A, with no air resistance, is a straight line from the origin sloping up steeply. Curve B, with air resistance, starts at the origin with the same slope as A, then gets less and less steep and levels off along a horizontal dashed line labelled terminal velocity.</title>
+<path d="M50 230 L392 230" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="400,230 392,234 392,226" fill="currentColor"/>
+<path d="M50 230 L50 30" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="50,22 54,30 46,30" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="400" y="250" fill="currentColor" text-anchor="end">time</text>
+<text font-family="inherit" font-size="12" x="58" y="28" fill="currentColor" text-anchor="start">speed</text>
+<text font-family="inherit" font-size="11" x="44" y="244" fill="currentColor" text-anchor="end">0</text>
+<path d="M50 230 L170 40" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="12" x="178" y="48" fill="var(--t2-ink)" text-anchor="start">A: no air resistance</text>
+<path d="M50 230 C 95 160, 150 110, 380 104" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<path d="M50 104 L390 104" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text font-family="inherit" font-size="12" x="386" y="96" fill="var(--muted)" text-anchor="end">terminal velocity</text>
+<text font-family="inherit" font-size="12" x="300" y="132" fill="var(--t1-ink)" text-anchor="middle">B: with air resistance</text>
+</svg>

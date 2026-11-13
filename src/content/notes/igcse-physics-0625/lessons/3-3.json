@@ -1,0 +1,981 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "3.3",
+  "slug": "electromagnetic-spectrum",
+  "title": "Electromagnetic spectrum",
+  "level": "Core",
+  "topic": 3,
+  "summary": "Light is one of seven kinds of [[electromagnetic-wave|electromagnetic wave]], from [[radio-waves|radio waves]] to [[gamma-rays|gamma rays]]. Learn their order, what each is used for, how each can harm you, and how satellites carry signals. Extended adds the speed $3.0 \\times 10^8\\ \\text{m/s}$, why each communication system uses its [[wave|waves]], and analogue versus [[digital-signal|digital signals]].",
+  "goals": [
+    {
+      "text": "Put the seven regions of the [[electromagnetic-spectrum|electromagnetic spectrum]] in order, both by [[frequency|frequency]] and by [[wavelength|wavelength]].",
+      "bullets": [
+        "3.3-1"
+      ]
+    },
+    {
+      "text": "Recall that every electromagnetic wave travels at the same speed in a [[vacuum|vacuum]].",
+      "bullets": [
+        "3.3-2"
+      ]
+    },
+    {
+      "text": "Describe typical uses of each region, and the harm each can do to people after too much exposure.",
+      "bullets": [
+        "3.3-3",
+        "3.3-4"
+      ]
+    },
+    {
+      "text": "Recall that satellites communicate mainly using [[microwaves|microwaves]], and which satellite phones and TV use low orbit or geostationary satellites.",
+      "bullets": [
+        "3.3-5"
+      ]
+    },
+    {
+      "text": "Use $3.0 \\times 10^8\\ \\text{m/s}$ for electromagnetic waves in a vacuum or air, and explain which waves phones, Wi-Fi, Bluetooth and [[optical-fibre|optical fibres]] use.",
+      "bullets": [
+        "3.3-6",
+        "3.3-7"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Tell analogue and digital signals apart, and explain why digital signals carry more data further.",
+      "bullets": [
+        "3.3-8",
+        "3.3-9",
+        "3.3-10"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.3.3",
+    "3.1",
+    "3.2.2",
+    "3.2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "EM spectrum order",
+    "uses of electromagnetic waves",
+    "dangers of X-rays and ultraviolet",
+    "geostationary satellite microwaves",
+    "analogue and digital signals",
+    "speed of light 3 x 10^8"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-wave-equation",
+      "prompt": "A wave has frequency $50\\ \\text{Hz}$ and wavelength $4.0\\ \\text{m}$. What is its speed?",
+      "hint": "Use $v = f\\lambda$.",
+      "options": [
+        {
+          "text": "$v = 200\\ \\text{m/s}$",
+          "correct": true
+        },
+        {
+          "text": "$v = 12.5\\ \\text{m/s}$",
+          "correct": false
+        },
+        {
+          "text": "$v = 54\\ \\text{m/s}$",
+          "correct": false
+        },
+        {
+          "text": "$v = 0.08\\ \\text{m/s}$",
+          "correct": false
+        }
+      ],
+      "explain": "$v = f\\lambda = 50 \\times 4.0 = 200\\ \\text{m/s}$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "50*4.0",
+        "unit": "m/s"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-red-violet",
+      "prompt": "Which colour of visible light has the shortest wavelength?",
+      "hint": "Think of the order R O Y G B I V.",
+      "options": [
+        {
+          "text": "violet",
+          "correct": true
+        },
+        {
+          "text": "red",
+          "correct": false
+        },
+        {
+          "text": "green",
+          "correct": false
+        },
+        {
+          "text": "yellow",
+          "correct": false
+        }
+      ],
+      "explain": "Wavelength gets shorter from red to violet, so violet's is the shortest. Revise it in {{lesson:3.2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "violet"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "regions",
+      "heading": "The seven regions, in order",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light is not the only wave of its kind. It belongs to a family of [[electromagnetic-wave|electromagnetic waves]], and most of them are invisible."
+        },
+        {
+          "type": "definition",
+          "term": "electromagnetic spectrum",
+          "statement": "The full range of electromagnetic waves, arranged in order of frequency (or wavelength). It has seven main regions, from radio waves at one end to gamma rays at the other.",
+          "plain": "A family of seven kinds of wave, of which light is one."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-em-spectrum",
+          "alt": "The electromagnetic spectrum as a row of seven boxes. From left to right: radio waves; microwaves; infrared; visible light, highlighted; ultraviolet; X-rays; gamma rays. Above the boxes a wave has a long wavelength at the radio end, getting shorter and shorter towards the gamma end. Below, one arrow points right, labelled frequency increases, and another points left, labelled wavelength increases. A note says they all have the same speed in a vacuum.",
+          "caption": "From radio waves to gamma rays, frequency goes up and wavelength goes down."
+        },
+        {
+          "type": "text",
+          "text": "In order of increasing [[frequency|frequency]], lowest first: radio waves, microwaves and infrared; then visible light; then ultraviolet, [[x-rays|X-rays]] and [[gamma-rays|gamma rays]]."
+        },
+        {
+          "type": "text",
+          "text": "In order of increasing [[wavelength|wavelength]] the list runs backwards, shortest first: gamma rays, X-rays and ultraviolet; then visible light; then infrared, microwaves and radio waves."
+        },
+        {
+          "type": "text",
+          "text": "A memory aid for the frequency order: \"Rabbits Mate In Very Unusual eXpensive Gardens\". Visible light sits in the middle. Infrared is just beyond red, and ultraviolet is just beyond violet."
+        },
+        {
+          "type": "text",
+          "text": "Every electromagnetic wave is a [[transverse-wave|transverse wave]]. In a [[vacuum|vacuum]] they all travel at the same very high speed. Radio waves and gamma rays given out at the same moment by an exploding star reach a telescope in space at the same moment."
+        },
+        {
+          "type": "text",
+          "text": "This is why the two orders are opposite. With $v = f\\lambda$ and the same $v$, a higher frequency means a shorter wavelength."
+        },
+        {
+          "type": "text",
+          "text": "The speed of every electromagnetic wave in a vacuum is $3.0 \\times 10^8\\ \\text{m/s}$. In air it is almost exactly the same, so use $3.0 \\times 10^8\\ \\text{m/s}$ in air too. You must remember this value.",
+          "level": "Extended"
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking X-rays or gamma rays travel faster because they have a higher frequency. In a vacuum every region has the same speed; only frequency and wavelength change."
+        },
+        {
+          "type": "example",
+          "id": "ex-order-wavelength",
+          "question": "Write these four regions in order of increasing wavelength: infrared, gamma rays, microwaves, ultraviolet.",
+          "steps": [
+            "Write the whole spectrum, shortest wavelength first: gamma rays, X-rays and ultraviolet; then visible light; then infrared, microwaves and radio waves.",
+            "Pick out the four regions in that order."
+          ],
+          "answer": "Wavelength increases from gamma rays towards radio waves. So in order of increasing wavelength: gamma rays, ultraviolet, infrared, microwaves.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "gamma rays, ultraviolet, infrared, microwaves",
+            "requires": [
+              [
+                "from gamma rays towards radio waves",
+                "gamma rays to radio waves"
+              ],
+              "gamma rays, ultraviolet, infrared, microwaves"
+            ],
+            "forbids": [
+              "microwaves, infrared, ultraviolet, gamma rays"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-radio-wavelength",
+          "question": "A local radio station broadcasts on a frequency of $95\\ \\text{MHz}$. Radio waves travel at $3.0 \\times 10^8\\ \\text{m/s}$. Calculate the wavelength of the radio waves.",
+          "steps": [
+            "Convert the frequency: $95\\ \\text{MHz} = 95 \\times 10^6\\ \\text{Hz}$.",
+            "Rearrange $v = f\\lambda$: $\\lambda = \\frac{v}{f}$.",
+            "Substitute: $\\lambda = \\frac{3.0 \\times 10^8}{95 \\times 10^6} = 3.157...\\ \\text{m}$.",
+            "Round to 2 significant figures, like the speed."
+          ],
+          "answer": "$\\lambda \\approx 3.2\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.0*10**8/(95*10**6)",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-uv-frequency",
+          "question": "An ultraviolet lamp gives out radiation of wavelength $3.6 \\times 10^{-7}\\ \\text{m}$ in air. Calculate its frequency.",
+          "steps": [
+            "The speed is not given, so recall it: $v = 3.0 \\times 10^8\\ \\text{m/s}$ in air.",
+            "Rearrange $v = f\\lambda$: $f = \\frac{v}{\\lambda}$.",
+            "Substitute: $f = \\frac{3.0 \\times 10^8}{3.6 \\times 10^{-7}} = 8.33... \\times 10^{14}\\ \\text{Hz}$.",
+            "Check the power of ten: dividing by $10^{-7}$ adds 7 to the power, so $10^{8}$ becomes $10^{15}$, and $\\frac{3.0}{3.6} = 0.833$ gives $8.3 \\times 10^{14}$."
+          ],
+          "answer": "$f \\approx 8.3 \\times 10^{14}\\ \\text{Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.0*10**8/(3.6*10**(-7))",
+            "sf": 2,
+            "unit": "Hz"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-between-regions",
+          "prompt": "Which region of the electromagnetic spectrum lies between microwaves and visible light?",
+          "hint": "Write out the order from radio waves upwards.",
+          "options": [
+            {
+              "text": "infrared",
+              "correct": true
+            },
+            {
+              "text": "ultraviolet",
+              "correct": false
+            },
+            {
+              "text": "radio waves",
+              "correct": false
+            },
+            {
+              "text": "X-rays",
+              "correct": false
+            }
+          ],
+          "explain": "Going up in frequency: radio waves, microwaves, infrared, then visible light. Ultraviolet lies beyond the violet end of visible light.",
+          "verify": {
+            "kind": "choice",
+            "truth": "infrared"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-same-speed",
+          "prompt": "A space probe sends radio waves and gamma rays from the same point at the same moment. How do their speeds through the vacuum of space compare?",
+          "hint": "Both are electromagnetic waves.",
+          "options": [
+            {
+              "text": "they have the same speed",
+              "correct": true
+            },
+            {
+              "text": "the gamma rays are faster",
+              "correct": false
+            },
+            {
+              "text": "the radio waves are faster",
+              "correct": false
+            },
+            {
+              "text": "the radio waves cannot travel through a vacuum",
+              "correct": false
+            }
+          ],
+          "explain": "In a vacuum, radio waves, gamma rays and every region in between move equally fast. Gamma rays have a much shorter wavelength, not a higher speed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they have the same speed"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gamma-wavelength",
+          "prompt": "A gamma ray has a frequency of $6.0 \\times 10^{19}\\ \\text{Hz}$. What is its wavelength in a vacuum?",
+          "hint": "Recall the speed in a vacuum, then use $\\lambda = \\frac{v}{f}$. Watch the powers of ten.",
+          "options": [
+            {
+              "text": "$\\lambda = 5.0 \\times 10^{-12}\\ \\text{m}$",
+              "correct": true
+            },
+            {
+              "text": "$\\lambda = 5.0 \\times 10^{-11}\\ \\text{m}$",
+              "correct": false
+            },
+            {
+              "text": "$\\lambda = 2.0 \\times 10^{11}\\ \\text{m}$",
+              "correct": false
+            },
+            {
+              "text": "$\\lambda = 1.8 \\times 10^{28}\\ \\text{m}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\lambda = \\frac{3.0 \\times 10^8}{6.0 \\times 10^{19}} = 0.50 \\times 10^{-11} = 5.0 \\times 10^{-12}\\ \\text{m}$. Dividing $f$ by $v$ instead gives $2.0 \\times 10^{11}$; multiplying them gives $1.8 \\times 10^{28}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.0*10**8/(6.0*10**19)",
+            "sf": 2,
+            "unit": "m"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "uses-harm",
+      "heading": "Uses and dangers of each region",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each region behaves differently: some pass through walls or skin, some are absorbed by water, some make special inks glow. That decides what each one is used for."
+        },
+        {
+          "type": "text",
+          "text": "1. [[radio-waves|Radio waves]]: radio and television broadcasts. Radio telescopes in astronomy detect radio waves from stars and galaxies. RFID (radio frequency identification) tags, in contactless cards, shop security tags and pet microchips, answer a reader using radio waves."
+        },
+        {
+          "type": "text",
+          "text": "2. [[microwaves|Microwaves]]: satellite television, mobile phones (cell phones) and microwave ovens. In an oven, water in the food absorbs the microwaves and heats up."
+        },
+        {
+          "type": "text",
+          "text": "3. Infrared: electric grills and toasters heat food with infrared. TV remote controls send short-range infrared signals. Intruder alarms detect the infrared from a warm body, and thermal imaging cameras show warmer objects brighter. Infrared also carries data in [[optical-fibre|optical fibres]]."
+        },
+        {
+          "type": "text",
+          "text": "4. Visible light: seeing, photography and lighting (illumination)."
+        },
+        {
+          "type": "text",
+          "text": "5. [[ultraviolet-radiation|Ultraviolet]]: security marking with special ink that is invisible until it glows under an ultraviolet lamp. The same idea detects fake bank notes, because real notes carry ink that glows. Ultraviolet also sterilises water by killing bacteria."
+        },
+        {
+          "type": "text",
+          "text": "6. [[x-rays|X-rays]]: medical scanning, because X-rays pass through soft tissue but are absorbed by bone. Airport security scanners use them to see inside luggage."
+        },
+        {
+          "type": "text",
+          "text": "7. [[gamma-rays|Gamma rays]]: sterilising food and medical equipment by killing bacteria. In hospitals they are used to detect cancer and to treat it, by killing cancer cells."
+        },
+        {
+          "type": "examTip",
+          "text": "\"State a use\": be specific. \"Medical\" or \"cancer\" scores nothing; \"imaging broken bones\" (X-rays) or \"killing cancer cells\" (gamma rays) earns the mark."
+        },
+        {
+          "type": "text",
+          "text": "Too much exposure to some regions harms people. Each harms in its own way, so learn them separately."
+        },
+        {
+          "type": "text",
+          "text": "1. Microwaves heat body cells from the inside, as they heat food."
+        },
+        {
+          "type": "text",
+          "text": "2. Infrared causes skin burns."
+        },
+        {
+          "type": "text",
+          "text": "3. Ultraviolet damages surface cells of the skin and the eyes. This can lead to skin cancer and eye conditions such as cataracts."
+        },
+        {
+          "type": "text",
+          "text": "4. X-rays and gamma rays pass deep into the body. They can damage cells or cause mutations (changes to a cell's DNA), which can lead to cancer."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing only \"it is dangerous\" or \"it burns you\". Name what is damaged and what it leads to: for ultraviolet, damage to skin cells leading to skin cancer."
+        },
+        {
+          "type": "example",
+          "id": "ex-hospital-uses",
+          "question": "A hospital uses both X-rays and gamma rays. Describe one use of each, and one harmful effect that both can have on staff exposed too often.",
+          "steps": [
+            "Give a precise use for each region, then name the damage and its result."
+          ],
+          "answer": "X-rays are used to make images of bones, for example to find a fracture. Gamma rays are used to kill cancer cells, or to sterilise medical equipment. Too much exposure to either can damage cells deep in the body or cause mutations, which can lead to cancer.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "X-rays image bones; gamma rays treat cancer or sterilise equipment; both damage cells or cause mutations",
+            "requires": [
+              [
+                "images of bones",
+                "image bones",
+                "scan bones"
+              ],
+              [
+                "kill cancer cells",
+                "treat cancer",
+                "sterilise medical equipment"
+              ],
+              [
+                "damage cells",
+                "cause mutations"
+              ]
+            ],
+            "forbids": [
+              "skin burns",
+              "heats cells"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-sunbed",
+          "question": "A sunbed gives out ultraviolet radiation. Describe the harm to a person who uses it too often.",
+          "steps": [
+            "Say which cells ultraviolet damages, then the conditions that damage leads to."
+          ],
+          "answer": "Ultraviolet damages the surface cells of the skin and the eyes. This can lead to skin cancer. It can also cause eye conditions such as cataracts.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "damages surface cells of skin and eyes; skin cancer; eye conditions",
+            "requires": [
+              [
+                "surface cells",
+                "skin cells"
+              ],
+              "skin cancer",
+              [
+                "eye conditions",
+                "cataracts",
+                "damage to the eyes"
+              ]
+            ],
+            "forbids": [
+              "mutation of cells deep",
+              "internal heating"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-thermal-camera",
+          "prompt": "Rescuers use a camera that shows warm people as bright shapes, even in complete darkness. Which radiation does the camera detect?",
+          "hint": "Warm objects give out more of this radiation than cool ones.",
+          "options": [
+            {
+              "text": "infrared",
+              "correct": true
+            },
+            {
+              "text": "ultraviolet",
+              "correct": false
+            },
+            {
+              "text": "microwaves",
+              "correct": false
+            },
+            {
+              "text": "X-rays",
+              "correct": false
+            }
+          ],
+          "explain": "Thermal imaging detects infrared: a warm body gives out more infrared than its cooler surroundings.",
+          "verify": {
+            "kind": "choice",
+            "truth": "infrared"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sterilise",
+          "prompt": "Which pair of regions are both used to kill bacteria?",
+          "hint": "One sterilises water; the other sterilises food and medical equipment.",
+          "options": [
+            {
+              "text": "ultraviolet and gamma rays",
+              "correct": true
+            },
+            {
+              "text": "radio waves and infrared",
+              "correct": false
+            },
+            {
+              "text": "visible light and microwaves",
+              "correct": false
+            },
+            {
+              "text": "radio waves and X-rays",
+              "correct": false
+            }
+          ],
+          "explain": "Ultraviolet sterilises water. Gamma rays sterilise food and medical equipment.",
+          "verify": {
+            "kind": "choice",
+            "truth": "ultraviolet and gamma rays"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-microwave-harm",
+          "prompt": "What is the main harmful effect on people of too much exposure to microwaves?",
+          "hint": "Think about what a microwave oven does to food.",
+          "options": [
+            {
+              "text": "heating of cells inside the body",
+              "correct": true
+            },
+            {
+              "text": "skin cancer",
+              "correct": false
+            },
+            {
+              "text": "mutations caused by rays passing deep into the body",
+              "correct": false
+            },
+            {
+              "text": "cataracts from damage to the eye surface",
+              "correct": false
+            }
+          ],
+          "explain": "Microwaves heat body cells internally. Skin cancer and eye damage come from ultraviolet; mutations deep inside come from X-rays and gamma rays.",
+          "verify": {
+            "kind": "choice",
+            "truth": "heating of cells inside the body"
+          }
+        }
+      ]
+    },
+    {
+      "id": "communication",
+      "heading": "Satellites and wireless communication",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Artificial satellites orbit the Earth and relay signals around it. Communication with them is mainly by microwaves, which pass through the atmosphere easily."
+        },
+        {
+          "type": "text",
+          "text": "A geostationary satellite orbits above the equator once every 24 hours, in the same direction as the Earth spins, so it keeps pace with the ground below and stays above the same point."
+        },
+        {
+          "type": "text",
+          "text": "A dish pointed at a geostationary satellite never needs to move. Direct broadcast satellite television and some satellite phones use geostationary satellites."
+        },
+        {
+          "type": "text",
+          "text": "Low orbit satellites are much closer to the Earth and cross the sky quickly. Some satellite phones use them; the phone links to whichever satellite is overhead."
+        },
+        {
+          "type": "example",
+          "id": "ex-fixed-dish",
+          "question": "A house has a satellite TV dish bolted to the wall in one position. Explain why the dish never needs to be turned, and state which waves carry the signal.",
+          "steps": [
+            "Link the type of satellite to what it does in the sky, then name the region."
+          ],
+          "answer": "The TV signal comes from a geostationary satellite. It orbits above the equator once every 24 hours, in the same direction as the Earth spins, so it stays over one fixed spot on the Earth's surface. So a fixed dish always points at it. The signal is carried by microwaves.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "geostationary; same point above the Earth; microwaves",
+            "requires": [
+              "geostationary",
+              [
+                "over one fixed spot",
+                "above the same point",
+                "same position"
+              ],
+              "microwaves"
+            ],
+            "forbids": [
+              "low orbit",
+              "radio waves carry"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-satellite-region",
+          "prompt": "Which region of the electromagnetic spectrum is mainly used to communicate with artificial satellites?",
+          "hint": "It must pass easily through the atmosphere and is also used by mobile phones.",
+          "options": [
+            {
+              "text": "microwaves",
+              "correct": true
+            },
+            {
+              "text": "X-rays",
+              "correct": false
+            },
+            {
+              "text": "ultraviolet",
+              "correct": false
+            },
+            {
+              "text": "visible light",
+              "correct": false
+            }
+          ],
+          "explain": "Satellite links mainly use microwaves. X-rays and ultraviolet are largely absorbed by the atmosphere.",
+          "verify": {
+            "kind": "choice",
+            "truth": "microwaves"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-satellite-orbit",
+          "prompt": "Which kind of satellite do some satellite phones use, besides geostationary ones?",
+          "hint": "One kind stays over one spot; the other is much nearer the ground.",
+          "options": [
+            {
+              "text": "low orbit satellites",
+              "correct": true
+            },
+            {
+              "text": "satellites that use gamma rays",
+              "correct": false
+            },
+            {
+              "text": "satellites that use infrared",
+              "correct": false
+            },
+            {
+              "text": "no other kind",
+              "correct": false
+            }
+          ],
+          "explain": "Some satellite phones use low orbit satellites; others, like satellite TV, use geostationary ones. Both use microwaves.",
+          "verify": {
+            "kind": "choice",
+            "truth": "low orbit satellites"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Many everyday systems use electromagnetic waves. The reason for each choice is examined.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "1. Mobile phones and wireless internet (Wi-Fi) use microwaves. Microwaves pass through some walls, and they need only a short aerial to send and receive.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "2. Bluetooth uses radio waves. Radio waves get through walls, though they lose strength doing so. Bluetooth only links devices a few metres apart, so the weaker signal is still good enough.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "3. Cable television and high-speed broadband use optical fibres carrying visible light or infrared. Glass lets visible light and some infrared through. Light and short-wavelength infrared can carry huge amounts of data each second.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-phone-microwaves",
+          "question": "Explain why mobile phones use microwaves to send and receive calls.",
+          "steps": [
+            "Give both reasons: what the waves can do, and what the phone needs to send and receive them."
+          ],
+          "answer": "Microwaves can pass through some walls, so a phone works indoors. Microwaves need only a short aerial to send and receive them, so the aerial fits inside a small phone.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "pass through some walls; short aerial",
+            "requires": [
+              [
+                "pass through some walls",
+                "penetrate some walls"
+              ],
+              "short aerial"
+            ],
+            "forbids": [
+              "pass through all walls"
+            ]
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-broadband",
+          "prompt": "Why are optical fibres used for high-speed broadband?",
+          "hint": "Think about the glass, and about how much data the light can carry.",
+          "options": [
+            {
+              "text": "glass lets visible light and some infrared through, and these carry data at high rates",
+              "correct": true
+            },
+            {
+              "text": "radio waves travel faster in glass than in air",
+              "correct": false
+            },
+            {
+              "text": "microwaves need only a short aerial",
+              "correct": false
+            },
+            {
+              "text": "gamma rays pass easily through glass",
+              "correct": false
+            }
+          ],
+          "explain": "Optical fibres carry visible light or infrared. Glass lets these through, and they can carry a lot of data each second.",
+          "verify": {
+            "kind": "choice",
+            "truth": "glass lets visible light and some infrared through, and these carry data at high rates"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "signals",
+      "heading": "Analogue and digital signals",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A signal carries information, such as speech or data. It can be analogue or digital."
+        },
+        {
+          "type": "definition",
+          "term": "analogue signal",
+          "statement": "A signal that varies continuously and can take any value within its range.",
+          "plain": "A smooth signal that copies the shape of what it carries."
+        },
+        {
+          "type": "definition",
+          "term": "digital signal",
+          "statement": "A signal that has only two values, written as 1 and 0 (high and low).",
+          "plain": "A signal made of on-off pulses."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-analogue-digital",
+          "alt": "Two graphs of signal against time. Left, an analogue signal: a smooth wavy line that rises and falls continuously and takes many different values. Right, a digital signal: a line that jumps straight between two levels only, a high level labelled 1 and a low level labelled 0, making rectangular pulses.",
+          "caption": "An [[analogue-signal|analogue signal]] can take any value; a [[digital-signal|digital signal]] only 1 or 0."
+        },
+        {
+          "type": "text",
+          "text": "Sound can be sent either way. A microphone turns sound into an analogue electrical signal that rises and falls like the sound wave. It can be sent like that, or converted into a stream of 1s and 0s and sent as a digital signal."
+        },
+        {
+          "type": "text",
+          "text": "Every signal gets weaker and picks up random disturbances (noise) as it travels. So it must be boosted at intervals along the way."
+        },
+        {
+          "type": "figure",
+          "id": "3-3-regeneration",
+          "alt": "Two rows of three small graphs showing a signal on a long journey. Top row, digital: the signal sent is clean rectangular pulses; after a long distance the pulses are smaller and covered in random wiggles of noise, but each is still clearly high or low; after a regenerator the pulses are clean and full size again, exactly as sent. Bottom row, analogue: the signal sent is a smooth wave; after a long distance it is smaller and noisy; after an amplifier it is full size again, but the noise has been made bigger too.",
+          "caption": "A digital signal can be rebuilt exactly; an analogue signal keeps its noise."
+        },
+        {
+          "type": "text",
+          "text": "Boosting an analogue signal boosts the noise too, so noise builds up over a long distance. A digital signal only has to be read as 1 or 0, so a regenerator can rebuild it exactly, with the noise removed."
+        },
+        {
+          "type": "text",
+          "text": "Digital signalling has two benefits. It can send data at a higher rate. It also has a greater range, because the signal can be regenerated accurately again and again."
+        },
+        {
+          "type": "example",
+          "id": "ex-digital-range",
+          "question": "A long-distance telephone line uses digital signals. Explain why a digital signal can travel a much greater distance than an analogue signal without losing quality.",
+          "steps": [
+            "Say what happens to any signal on a long journey, then compare how each type is boosted."
+          ],
+          "answer": "Any signal gets weaker and picks up noise as it travels. When an analogue signal is amplified, the noise is amplified too, so the noise builds up. A digital signal has only two values, 1 and 0. So it can be regenerated accurately, with the noise removed, and the signal can go much further.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "signals weaken and pick up noise; amplifying analogue amplifies noise; digital has two values; regenerated accurately",
+            "requires": [
+              "noise",
+              [
+                "noise is amplified too",
+                "amplifies the noise"
+              ],
+              [
+                "two values",
+                "1 and 0"
+              ],
+              [
+                "regenerated accurately",
+                "regenerated exactly"
+              ]
+            ],
+            "forbids": [
+              "digital signals travel faster"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-signal-type",
+          "prompt": "A thermometer's output can be any voltage between $0$ and $5\\ \\text{V}$, changing smoothly as the temperature changes. What type of signal is this?",
+          "hint": "Can it take any value, or only two?",
+          "options": [
+            {
+              "text": "analogue",
+              "correct": true
+            },
+            {
+              "text": "digital",
+              "correct": false
+            },
+            {
+              "text": "neither, because it is not a wave",
+              "correct": false
+            },
+            {
+              "text": "digital, because it has a top and a bottom value",
+              "correct": false
+            }
+          ],
+          "explain": "It varies continuously and can take any value in its range, so it is analogue. A digital signal has only two values.",
+          "verify": {
+            "kind": "choice",
+            "truth": "analogue"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-voice",
+          "prompt": "A person speaks into a phone. Which statement about sending their voice is correct?",
+          "hint": "What does the microphone produce first?",
+          "options": [
+            {
+              "text": "the voice gives an analogue signal, which can be sent as analogue or converted to digital",
+              "correct": true
+            },
+            {
+              "text": "the voice gives a digital signal, which must be converted to analogue to be sent",
+              "correct": false
+            },
+            {
+              "text": "a voice can only ever be sent as an analogue signal",
+              "correct": false
+            },
+            {
+              "text": "a voice can only ever be sent as a digital signal",
+              "correct": false
+            }
+          ],
+          "explain": "Sound varies smoothly, so the microphone gives an analogue signal. It can be sent as it is, or turned into 1s and 0s and sent digitally.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the voice gives an analogue signal, which can be sent as analogue or converted to digital"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-regenerate",
+          "prompt": "Why can a digital signal be regenerated accurately?",
+          "hint": "What does the regenerator have to decide about each pulse?",
+          "options": [
+            {
+              "text": "it has only two values, so each pulse just has to be read as 1 or 0",
+              "correct": true
+            },
+            {
+              "text": "it travels faster than an analogue signal, so it picks up no noise",
+              "correct": false
+            },
+            {
+              "text": "it never gets weaker as it travels",
+              "correct": false
+            },
+            {
+              "text": "amplifying it removes all the noise from an analogue signal",
+              "correct": false
+            }
+          ],
+          "explain": "Noise changes a pulse a little, but it is still clearly high or low. The regenerator sends out a clean 1 or 0 for each.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it has only two values, so each pulse just has to be read as 1 or 0"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The spectrum by increasing frequency (decreasing wavelength): radio waves, microwaves and infrared; then visible light; then ultraviolet, X-rays and gamma rays.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a vacuum, all electromagnetic waves move at one and the same speed. So a higher frequency means a shorter wavelength.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Speed of electromagnetic waves in a vacuum: $3.0 \\times 10^8\\ \\text{m/s}$, and almost exactly the same in air.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Uses: radio (broadcasts, astronomy, RFID); microwaves (satellite TV, mobile phones, ovens); infrared (grills, remote controls, intruder alarms, thermal imaging, optical fibres); visible (vision, photography, lighting); ultraviolet (security marking, fake notes, sterilising water); X-rays (medical and security scanning); gamma (sterilising food and equipment, detecting and treating cancer).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Harm from too much exposure: microwaves heat body cells internally; infrared burns skin; ultraviolet damages skin and eye cells (skin cancer, eye conditions); X-rays and gamma rays damage cells or cause mutations.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Satellites communicate mainly by microwaves. Satellite TV and some satellite phones use geostationary satellites; some satellite phones use low orbit satellites.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Phones and Wi-Fi: microwaves (pass through some walls, short aerial). Bluetooth: radio waves (pass through walls, weakened). Optical fibres: visible light or infrared (glass is transparent to them, high data rates).",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Analogue signals vary continuously; digital signals have only two values, 1 and 0. Digital gives a higher data rate and a greater range, because it can be regenerated accurately.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping the two orders. Fix one fact: radio waves have the longest wavelength and the lowest frequency. Then frequency rises, and wavelength falls, towards gamma rays.",
+    "Saying higher-frequency waves are faster. In a vacuum every electromagnetic wave has the same speed; a higher frequency only means a shorter wavelength.",
+    "Giving a vague use such as \"medical\". Say what is done: X-rays image bones, gamma rays kill cancer cells or sterilise equipment.",
+    "Describing harm as just \"dangerous\". Name the damage: ultraviolet damages skin and eye cells, leading to skin cancer; X-rays and gamma rays damage cells or cause mutations.",
+    "Losing the power of ten when dividing by a number like $10^{-7}$. Dividing by $10^{-7}$ is the same as multiplying by $10^{7}$."
+  ],
+  "examTips": [
+    "Spectrum chart questions (Paper 3/4): write the seven regions in order in the margin, and mark which end has the long wavelength, before you fill in the gaps or name the arrow's property.",
+    "\"Describe\" a harmful effect: name the cells damaged and the result, such as \"damages surface cells of the skin, leading to skin cancer\".",
+    "\"Explain\" the benefits of digital signals (Paper 4): give a higher data rate, then link the greater range to accurate regeneration because there are only two values."
+  ],
+  "readingMinutes": 28
+}

@@ -1,0 +1,730 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.1.2",
+  "slug": "particle-model",
+  "title": "Particle model",
+  "level": "Core",
+  "topic": 2,
+  "summary": "The [[particle-model|kinetic particle model]] says everything is made of tiny particles that are always moving. How the particles are arranged, how far apart they are and how fast they move explains [[solid|solids]], [[liquid|liquids]] and [[gas|gases]], [[temperature|temperature]] and [[gas-pressure|gas pressure]]. [[brownian-motion|Brownian motion]], the random jiggling of smoke specks in air, shows that the particles are really there.",
+  "goals": [
+    {
+      "text": "Describe how the particles of a solid, a liquid and a gas are arranged, how far apart they are and how they move, and draw a simple particle diagram of each.",
+      "bullets": [
+        "2.1.2-1"
+      ]
+    },
+    {
+      "text": "Link the temperature of a substance to how fast its particles move, and say what happens at [[absolute-zero|absolute zero]].",
+      "bullets": [
+        "2.1.2-2"
+      ]
+    },
+    {
+      "text": "Explain the [[pressure|pressure]] of a gas, and what makes it change, using particles hitting a surface.",
+      "bullets": [
+        "2.1.2-3"
+      ]
+    },
+    {
+      "text": "Describe Brownian motion, explain it with random collisions, and say why it is evidence for the particle model.",
+      "bullets": [
+        "2.1.2-4",
+        "2.1.2-5"
+      ]
+    },
+    {
+      "text": "Explain the properties of each state using the forces between particles, how far apart they are and how they move.",
+      "bullets": [
+        "2.1.2-6"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe gas pressure as the force per unit area from collisions, and explain how light, fast [[molecule|molecules]] can move much heavier microscopic particles.",
+      "bullets": [
+        "2.1.2-7",
+        "2.1.2-8"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.1",
+    "1.8",
+    "2.1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "kinetic particle model",
+    "particle diagrams of solids liquids and gases",
+    "arrangement separation and motion of particles",
+    "absolute zero",
+    "gas pressure particles",
+    "Brownian motion smoke cell"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-easily-compressed",
+      "prompt": "Which state of matter is easily compressed?",
+      "hint": "Think of pumping air into a tyre.",
+      "options": [
+        {
+          "text": "gas",
+          "correct": true
+        },
+        {
+          "text": "liquid",
+          "correct": false
+        },
+        {
+          "text": "solid",
+          "correct": false
+        }
+      ],
+      "explain": "Only a gas is easily squashed into a smaller volume. Solids and liquids are very hard to compress. Revise it in {{lesson:2.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "gas"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-box-pressure",
+      "prompt": "A box of weight $90\\ \\text{N}$ rests on a base of area $0.30\\ \\text{m}^2$. What pressure does it exert on the floor, in Pa?",
+      "hint": "Pressure is force divided by area.",
+      "answer": {
+        "value": 300,
+        "tolerance": 0.5
+      },
+      "explain": "$p = \\frac{F}{A} = \\frac{90}{0.30} = 300\\ \\text{Pa}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "90/0.30",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "particle-structure",
+      "heading": "Particles in solids, liquids and gases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:2.1.1}} you learned how solids, liquids and gases behave. The [[particle-model|kinetic particle model]] explains why. It says all matter is made of tiny particles that are always moving."
+        },
+        {
+          "type": "text",
+          "text": "Depending on the substance, the particles are [[atom|atoms]], [[molecule|molecules]] or [[ion|ions]]. They are far too small to see, even with a microscope. A substance has the same particles in every state. What changes is how they are arranged, how far apart they are and how they move."
+        },
+        {
+          "type": "text",
+          "text": "In a solid, the particles are close together, touching their neighbours, in a regular pattern. Each one stays in place and can only vibrate about a fixed position."
+        },
+        {
+          "type": "text",
+          "text": "In a liquid, the particles are still close together, almost touching, but in an irregular arrangement. They are not fixed in place: they move around each other. That is why a liquid can flow."
+        },
+        {
+          "type": "text",
+          "text": "Gas particles are far apart, with lots of empty space between them, in a random arrangement. They move fast in all directions, in straight lines between collisions with each other and with the walls."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-2-particle-diagrams",
+          "alt": "Three closed boxes showing particle diagrams, with every particle drawn as a circle of the same size. Solid: circles touching in neat rows and columns, a regular pattern, with small marks showing they vibrate about fixed positions. Liquid: circles mostly touching but in no pattern, filling the lower part of the box. Gas: six circles far apart, spread through the whole box, each with an arrow pointing in a different direction. Labels underneath say: solid, regular pattern, close together, vibrate about fixed positions; liquid, irregular arrangement, close together, move around each other; gas, random arrangement, far apart, move fast in all directions.",
+          "caption": "Particle diagrams. The particles are the same size in all three states."
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 3/4 may ask you to draw particle diagrams. Draw every particle as a circle of the same size: touching in neat rows for a solid, mostly touching in no pattern for a liquid, and a few spread far apart for a gas."
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing bigger particles for a gas, or saying the particles expand when heated. The particles stay the same size; only their spacing and their motion change."
+        },
+        {
+          "type": "example",
+          "id": "ex-solder-melts",
+          "question": "A soldering iron melts a piece of solder. Describe how the particles of the solder change as it melts. Comment on their arrangement, separation and motion.",
+          "steps": [
+            "Make one point each for arrangement, separation and motion, comparing the solid with the liquid."
+          ],
+          "answer": "In the solid, the particles are in a regular pattern; in the liquid, they are in an irregular arrangement. In both states the particles are close together, so their separation hardly changes. In the solid, each particle can only vibrate about a fixed position; in the liquid, the particles move around each other.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "regular to irregular arrangement; still close together; vibrate about fixed positions to moving around each other",
+            "requires": [
+              "regular pattern",
+              "irregular arrangement",
+              "close together",
+              "vibrate about a fixed position",
+              "move around each other"
+            ],
+            "forbids": [
+              "far apart in the liquid",
+              "particles get bigger",
+              "particles expand"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-liquid-particles",
+          "prompt": "Which row describes the particles in a liquid?",
+          "hint": "A liquid can flow, but it is very hard to compress.",
+          "options": [
+            {
+              "text": "close together, irregular arrangement, moving around each other",
+              "correct": true
+            },
+            {
+              "text": "close together, regular pattern, vibrating about fixed positions",
+              "correct": false
+            },
+            {
+              "text": "far apart, random arrangement, moving fast in all directions",
+              "correct": false
+            },
+            {
+              "text": "far apart, regular pattern, vibrating about fixed positions",
+              "correct": false
+            }
+          ],
+          "explain": "Liquid particles are almost touching, so a liquid is hard to compress, but they move around each other, so it flows. Fixed positions in a regular pattern is a solid; far apart and fast is a gas.",
+          "verify": {
+            "kind": "choice",
+            "truth": "close together, irregular arrangement, moving around each other"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-solid-diagram",
+          "prompt": "Which feature should a particle diagram of a solid show?",
+          "hint": "Solids have a fixed shape. How are their particles arranged?",
+          "options": [
+            {
+              "text": "circles touching in neat rows",
+              "correct": true
+            },
+            {
+              "text": "circles touching but in no pattern",
+              "correct": false
+            },
+            {
+              "text": "a few circles spread far apart",
+              "correct": false
+            },
+            {
+              "text": "smaller circles than in the liquid diagram",
+              "correct": false
+            }
+          ],
+          "explain": "Solid particles touch in a regular pattern. No pattern is a liquid; far apart is a gas. The particles are the same size in every state.",
+          "verify": {
+            "kind": "choice",
+            "truth": "circles touching in neat rows"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "The properties of each state depend on the forces between the particles, how far apart they are and how they move. The particles can be atoms, molecules or ions; in a metal, free electrons also move between the ions."
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "In a solid, strong forces hold the particles close together in fixed positions, so a solid keeps its shape and is very hard to compress. In a liquid, the forces still keep the particles close, so the volume is fixed. But the particles can move past each other, so a liquid flows."
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "In a gas, the particles are so far apart that the forces between them are very weak. Nothing holds them together, so they spread out to fill any container, and the big gaps let a gas be compressed easily."
+        },
+        {
+          "type": "check",
+          "id": "check-gas-forces",
+          "level": "Extended",
+          "prompt": "Which statement describes the forces between the particles of a gas?",
+          "hint": "How far apart are gas particles?",
+          "options": [
+            {
+              "text": "very weak, because the particles are far apart",
+              "correct": true
+            },
+            {
+              "text": "strong enough to hold the particles in fixed positions",
+              "correct": false
+            },
+            {
+              "text": "strong enough to give the gas a fixed volume",
+              "correct": false
+            },
+            {
+              "text": "very strong, because the particles move fast",
+              "correct": false
+            }
+          ],
+          "explain": "Gas particles are far apart, so the forces between them are very weak. Nothing holds them in place or keeps the volume fixed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "very weak, because the particles are far apart"
+          }
+        }
+      ]
+    },
+    {
+      "id": "temperature-pressure",
+      "heading": "Temperature, absolute zero and gas pressure",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The particles of a substance don't all move at the same speed: some are faster, some slower. The [[temperature|temperature]] tells you about their average. The higher the temperature, the faster the particles move on average, and the greater their average [[kinetic-energy|kinetic energy]]."
+        },
+        {
+          "type": "text",
+          "text": "Heating a substance increases its [[internal-energy|internal energy]]. If it does not change state, its particles speed up and its temperature rises. In a solid, \"faster\" means the particles vibrate more strongly about their fixed positions. Cooling slows the particles down."
+        },
+        {
+          "type": "text",
+          "text": "Keep cooling a substance and its particles keep slowing down. At about $-273\\ \\text{°C}$ they have the least kinetic energy they can possibly have, so nothing can be colder. This lowest possible temperature is called [[absolute-zero|absolute zero]]. It is $0\\ \\text{K}$ on the kelvin scale, which you will use in {{lesson:2.1.3}}."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing absolute zero as $273\\ \\text{°C}$ (no minus sign) or as $0\\ \\text{°C}$. It is $-273\\ \\text{°C}$, which is $0\\ \\text{K}$."
+        },
+        {
+          "type": "check",
+          "id": "check-absolute-zero-particles",
+          "prompt": "What is true of the particles of a substance at absolute zero?",
+          "hint": "Absolute zero is the coldest possible temperature.",
+          "options": [
+            {
+              "text": "they have the least possible kinetic energy",
+              "correct": true
+            },
+            {
+              "text": "they move at their fastest",
+              "correct": false
+            },
+            {
+              "text": "they shrink to their smallest size",
+              "correct": false
+            },
+            {
+              "text": "they spread as far apart as possible",
+              "correct": false
+            }
+          ],
+          "explain": "Colder means slower particles. At absolute zero, $-273\\ \\text{°C}$, their kinetic energy is as small as it can be. The particles never change size.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they have the least possible kinetic energy"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Now picture a gas in a closed container. Its particles move fast in random directions and keep hitting the walls. Each hit pushes on the wall. Huge numbers of hits every second give a steady push on every part of the wall: this is the [[gas-pressure|gas pressure]]."
+        },
+        {
+          "type": "text",
+          "text": "So the pressure rises if the particles hit the walls more often, or hit them harder. For a closed container that cannot change size, there are two ways to do this:"
+        },
+        {
+          "type": "text",
+          "text": "1. Heat the gas. Its particles move faster, so they hit the walls more often and harder."
+        },
+        {
+          "type": "text",
+          "text": "2. Add more gas, as when you pump up a tyre. At the same temperature, more particles hit each part of the wall every second. (Changing the volume is in {{lesson:2.1.3}}.)"
+        },
+        {
+          "type": "example",
+          "id": "ex-football-pumped",
+          "question": "A football is pumped up. More air is pushed in, while the volume and the temperature of the air inside stay about the same. Explain, in terms of particles, why the pressure of the air inside the ball increases.",
+          "steps": [
+            "Say what changes (the number of particles) and what doesn't (their average speed). Then link this to the hits on the inside of the ball, then to the pressure."
+          ],
+          "answer": "There are more air particles in the same space. The temperature is the same, so the particles move at the same average speed. More particles hit each part of the inside of the ball every second. So the total force on the inside of the ball is greater, and the pressure increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more particles in same volume; same average speed; more hits on the walls per second; greater force; pressure increases",
+            "requires": [
+              "more air particles",
+              "same average speed",
+              [
+                "every second",
+                "more often"
+              ],
+              [
+                "total force",
+                "greater force"
+              ],
+              "pressure increases"
+            ],
+            "forbids": [
+              "particles move faster",
+              "collide with each other more",
+              "particles get bigger"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Explaining gas pressure with the particles hitting each other. The pressure comes from particles hitting the walls of the container, or any surface in the gas."
+        },
+        {
+          "type": "check",
+          "id": "check-warmed-jar",
+          "prompt": "A sealed glass jar of air is warmed. Its volume does not change. Why does the pressure of the air inside increase?",
+          "hint": "What does a higher temperature do to the particles' average speed?",
+          "options": [
+            {
+              "text": "the particles move faster, so they hit the walls more often and harder",
+              "correct": true
+            },
+            {
+              "text": "the particles collide with each other more often",
+              "correct": false
+            },
+            {
+              "text": "the particles get bigger and push on the walls",
+              "correct": false
+            },
+            {
+              "text": "the particles move closer together",
+              "correct": false
+            }
+          ],
+          "explain": "Faster particles hit the walls more often and harder. Collisions between particles don't push on the walls, the particles don't grow, and in a sealed jar their spacing stays the same.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the particles move faster, so they hit the walls more often and harder"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "More precisely, each particle exerts a small force on the wall as it bounces off. The pressure is the total force of all the collisions on each unit area of the wall: $p = \\frac{F}{A}$ ({{lesson:1.8}}). Faster particles hit more often and each hit gives a bigger force, so the force on each square metre rises."
+        },
+        {
+          "type": "example",
+          "id": "ex-piston-force",
+          "level": "Extended",
+          "question": "Gas is trapped in a cylinder by a piston of area $0.012\\ \\text{m}^2$. The collisions of the gas particles exert a total force of $1800\\ \\text{N}$ on the piston. Calculate the pressure of the gas.",
+          "steps": [
+            "Pressure is force per unit area: $p = \\frac{F}{A}$.",
+            "Substitute: $p = \\frac{1800}{0.012} = 150\\,000\\ \\text{Pa}$.",
+            "The data have 2 significant figures, so write the answer to 2 significant figures in standard form."
+          ],
+          "answer": "$p = 1.5 \\times 10^{5}\\ \\text{Pa}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1800/0.012",
+            "sf": 2,
+            "unit": "Pa"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pressure-meaning",
+          "level": "Extended",
+          "prompt": "In the particle model, what is the pressure of a gas on a surface?",
+          "hint": "Pressure is always force divided by area.",
+          "options": [
+            {
+              "text": "the total force of particle collisions on each unit area of the surface",
+              "correct": true
+            },
+            {
+              "text": "the number of particles in each unit volume of the gas",
+              "correct": false
+            },
+            {
+              "text": "the kinetic energy of one particle when it hits the surface",
+              "correct": false
+            },
+            {
+              "text": "the force between neighbouring gas particles",
+              "correct": false
+            }
+          ],
+          "explain": "Each collision pushes on the surface. The total force divided by the area is the pressure.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the total force of particle collisions on each unit area of the surface"
+          }
+        }
+      ]
+    },
+    {
+      "id": "brownian",
+      "heading": "Brownian motion: evidence for moving particles",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't see the particles of a gas or a liquid, but you can see what they do. Shine a bright light from the side into a small glass cell of smoky air, and look through a microscope. The smoke shows up as bright specks that jiggle about at random and never stop."
+        },
+        {
+          "type": "text",
+          "text": "Pollen grains floating in water do the same. This random movement of tiny visible particles in a liquid or gas is called [[brownian-motion|Brownian motion]]. The visible bits are microscopic particles: far bigger than molecules, but still too small to see without a microscope."
+        },
+        {
+          "type": "text",
+          "text": "Why do they move? Air is made of tiny molecules moving fast in random directions. They strike each smoke particle from every side. At any moment the hits on one side don't balance the hits on the other, so the smoke particle is pushed one way. A moment later the push is in a different direction."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-2-brownian-motion",
+          "alt": "Two drawings. Left: a large microscopic particle with much smaller molecules around it, each with an arrow pointing at the particle. At this instant four molecules hit it from the left and only one from the right, so a thick arrow shows an unbalanced push to the right. A label says the molecules are tiny, light, fast and too small to see. Right: the path of one microscopic particle from start to end, made of short straight steps that change direction at random.",
+          "caption": "Uneven hits from molecules push a microscopic particle along a random path."
+        },
+        {
+          "type": "text",
+          "text": "This is evidence for the kinetic particle model. Nothing else is pushing the specks, so the air or water must be made of particles too small to see, moving fast and at random."
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 1/2 questions often describe this set-up. The bright specks are light scattered by the smoke particles. The air molecules are far too small to see, even through the microscope."
+        },
+        {
+          "type": "example",
+          "id": "ex-milk-droplets",
+          "question": "A drop of milk is mixed with water and looked at through a microscope. Tiny droplets of fat in the milk are seen to wobble about at random. Explain this motion.",
+          "steps": [
+            "Describe the water molecules first (size, speed, direction), then their collisions with a fat droplet, then the result."
+          ],
+          "answer": "The water molecules are very small and move fast in random directions. They collide with each fat droplet from all sides. At any instant, the collisions on one side do not balance those on the other side. So the droplet is pushed in a random direction, and this direction keeps changing.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "water molecules small, fast, random; collide with droplet from all sides; uneven collisions; pushed in random, changing direction",
+            "requires": [
+              "water molecules",
+              [
+                "move fast",
+                "fast-moving"
+              ],
+              "random directions",
+              "from all sides",
+              [
+                "do not balance",
+                "uneven"
+              ],
+              "random direction"
+            ],
+            "forbids": [
+              "droplets hit each other",
+              "warmed by the light",
+              "convection"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the specks move because they hit each other, or because the light warms them. They are pushed by uneven hits from the much smaller molecules around them."
+        },
+        {
+          "type": "check",
+          "id": "check-soot-cause",
+          "prompt": "Tiny grains of soot are mixed into water. Through a microscope they are seen moving about at random. What causes this?",
+          "hint": "What is the water made of, and what are those particles doing?",
+          "options": [
+            {
+              "text": "water molecules hitting the grains unevenly from different sides",
+              "correct": true
+            },
+            {
+              "text": "the grains colliding with each other",
+              "correct": false
+            },
+            {
+              "text": "the microscope lamp warming the grains",
+              "correct": false
+            },
+            {
+              "text": "convection currents carrying the grains around",
+              "correct": false
+            }
+          ],
+          "explain": "Fast, randomly moving water molecules hit each grain unevenly. Convection would carry the grains along together, not jiggle each one at random.",
+          "verify": {
+            "kind": "choice",
+            "truth": "water molecules hitting the grains unevenly from different sides"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-brownian-evidence",
+          "prompt": "Why is Brownian motion evidence for the kinetic particle model?",
+          "hint": "What must be hitting the visible specks?",
+          "options": [
+            {
+              "text": "it shows the liquid or gas is made of tiny moving particles that cannot be seen",
+              "correct": true
+            },
+            {
+              "text": "it shows the microscopic particles are alive",
+              "correct": false
+            },
+            {
+              "text": "it shows particles get bigger when they are heated",
+              "correct": false
+            },
+            {
+              "text": "it shows liquids and gases flow in currents",
+              "correct": false
+            }
+          ],
+          "explain": "Something invisible pushes the specks about at random: the fast molecules around them.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it shows the liquid or gas is made of tiny moving particles that cannot be seen"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "A smoke particle is many times heavier than an air molecule, so one hit barely moves it. But the air molecules are light and very fast, and huge numbers of them hit it every second. Their uneven hits are enough to move it."
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Use the words carefully. The particles of the liquid or gas are molecules (or atoms, in a gas such as argon). Smoke particles and pollen grains are microscopic particles, each made of a huge number of atoms. Never call them molecules, and never say you can see the molecules."
+        },
+        {
+          "type": "example",
+          "id": "ex-smoke-heavier",
+          "level": "Extended",
+          "question": "In a smoke cell, each smoke particle is much heavier than an air molecule. Explain how collisions with air molecules can still make the smoke particles move. Use the terms molecules and microscopic particles correctly.",
+          "steps": [
+            "Compare the masses and speeds first. Then explain why the hits are uneven, and what that does to a smoke particle."
+          ],
+          "answer": "The air molecules are much lighter than the smoke particles, but they move very fast. Huge numbers of them hit each smoke particle every second, from all directions. At any instant more molecules hit one side than the other, so there is an unbalanced force on the microscopic particle. This moves the smoke particle a short way in a random direction. The direction keeps changing, because the collisions are random.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "molecules much lighter but very fast; huge numbers of hits; uneven, so unbalanced force on microscopic particle; moves in random, changing direction",
+            "requires": [
+              "much lighter",
+              "move very fast",
+              "huge numbers",
+              "unbalanced force",
+              "microscopic particle",
+              "random direction"
+            ],
+            "forbids": [
+              "heavier air molecules",
+              "see the molecules",
+              "smoke molecules"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pollen-hitters",
+          "level": "Extended",
+          "prompt": "Pollen grains in water show Brownian motion. Which describes the particles that hit the grains?",
+          "hint": "The particles doing the hitting can't be seen.",
+          "options": [
+            {
+              "text": "water molecules, much lighter and faster than the grains",
+              "correct": true
+            },
+            {
+              "text": "water molecules, much heavier than the grains",
+              "correct": false
+            },
+            {
+              "text": "other pollen grains, moving slowly",
+              "correct": false
+            },
+            {
+              "text": "pollen molecules escaping from the grains",
+              "correct": false
+            }
+          ],
+          "explain": "Water molecules are tiny, light and fast. The grains are microscopic particles, not molecules.",
+          "verify": {
+            "kind": "choice",
+            "truth": "water molecules, much lighter and faster than the grains"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Solid: close together, regular pattern, vibrate about fixed positions. Liquid: close together, irregular arrangement, move around each other. Gas: far apart, random arrangement, move fast in all directions."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The higher the temperature of a substance, the faster its particles move on average and the greater their average kinetic energy. Absolute zero, $-273\\ \\text{°C}$ ($0\\ \\text{K}$), is the lowest possible temperature: the particles have the least possible kinetic energy."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Gas pressure comes from particles hitting the walls of the container. In a container of fixed size, the pressure rises if the particles hit the walls more often or harder: heating the gas or adding more gas does this."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Brownian motion: microscopic particles in a liquid or gas move at random because fast, randomly moving molecules hit them unevenly from all sides. It is evidence for the kinetic particle model."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Forces between particles: strong in solids (fixed positions) and liquids (close but moving past each other); very weak in gases, because the particles are far apart."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Gas pressure is the total force of the particle collisions on each unit area of a surface, $p = \\frac{F}{A}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "In Brownian motion, light, fast molecules (or atoms) move much heavier microscopic particles. The visible specks are microscopic particles, never molecules."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Describing liquid particles as in a regular pattern or fixed positions. That is a solid; liquid particles are close together but move around each other.",
+    "Saying solid particles don't move. They can't move around, but they vibrate about fixed positions.",
+    "Saying particles get bigger when heated. They stay the same size; they just move faster.",
+    "Explaining gas pressure with particles hitting each other. Pressure comes from particles hitting the walls.",
+    "Calling the smoke specks in Brownian motion molecules, or saying they hit each other. They are microscopic particles pushed by uneven hits from invisible molecules."
+  ],
+  "examTips": [
+    "\"Describe\" the particles of a state: one point each for arrangement, separation and motion. In a comparison, mention both states in every point.",
+    "\"Explain\" a pressure change in linked steps: the particles' speed or number, how often and how hard they hit the walls, then the pressure.",
+    "\"Explain\" Brownian motion: small, fast, randomly moving molecules hit the visible particle unevenly from all sides, so it moves in a random, changing direction."
+  ],
+  "readingMinutes": 24
+}

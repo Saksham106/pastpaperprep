@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 270" role="img" aria-labelledby="t174sw">
+<title id="t174sw">Two motors side by side, each on a beam, with a rope down to an identical crate of weight 400 N. In each view the crate starts on the floor, shown dashed, and ends 2.0 m higher, shown solid. Both motors do 800 J of work. Motor A takes 4.0 s, so its power is 200 W. Motor B takes 8.0 s, so its power is 100 W.</title>
+<text font-family="inherit" font-size="13" x="135" y="20" fill="currentColor" text-anchor="middle">Motor A</text>
+<text font-family="inherit" font-size="13" x="405" y="20" fill="currentColor" text-anchor="middle">Motor B</text>
+<path d="M270 10 V260" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 5"/>
+<path d="M40 40 H230" stroke="currentColor" stroke-width="3"/>
+<rect x="85" y="42" width="40" height="24" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<text font-family="inherit" font-size="11" x="105" y="58" fill="var(--t1-ink)" text-anchor="middle">motor</text>
+<path d="M105 66 V100" stroke="currentColor" stroke-width="1.2"/>
+<rect x="80" y="100" width="50" height="36" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="11" x="105" y="122" fill="currentColor" text-anchor="middle">400 N</text>
+<rect x="80" y="174" width="50" height="36" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<path d="M30 210 H240" stroke="currentColor" stroke-width="1.4"/>
+<path d="M150 210 L150 145" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="150,136 145.5,145 154.5,145" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="158" y="178" fill="var(--t2-ink)" text-anchor="start">2.0 m</text>
+<text font-family="inherit" font-size="12" x="135" y="232" fill="currentColor" text-anchor="middle">work done 800 J in 4.0 s</text>
+<text font-family="inherit" font-size="13" x="135" y="252" fill="var(--t1-ink)" text-anchor="middle">power 200 W</text>
+<path d="M310 40 H500" stroke="currentColor" stroke-width="3"/>
+<rect x="355" y="42" width="40" height="24" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<text font-family="inherit" font-size="11" x="375" y="58" fill="var(--t1-ink)" text-anchor="middle">motor</text>
+<path d="M375 66 V100" stroke="currentColor" stroke-width="1.2"/>
+<rect x="350" y="100" width="50" height="36" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="11" x="375" y="122" fill="currentColor" text-anchor="middle">400 N</text>
+<rect x="350" y="174" width="50" height="36" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<path d="M300 210 H510" stroke="currentColor" stroke-width="1.4"/>
+<path d="M420 210 L420 145" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="420,136 415.5,145 424.5,145" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="428" y="178" fill="var(--t2-ink)" text-anchor="start">2.0 m</text>
+<text font-family="inherit" font-size="12" x="405" y="232" fill="currentColor" text-anchor="middle">work done 800 J in 8.0 s</text>
+<text font-family="inherit" font-size="13" x="405" y="252" fill="var(--t1-ink)" text-anchor="middle">power 100 W</text>
+</svg>

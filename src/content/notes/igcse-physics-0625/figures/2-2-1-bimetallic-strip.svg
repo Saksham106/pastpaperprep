@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 280" role="img" aria-labelledby="t221bm">
+  <title id="t221bm">Two drawings of a bimetallic strip made of brass bonded on top of iron, clamped at its left end. Cold, the strip is straight. Heated, it bends downwards, with the brass on the outside of the curve, because brass expands more than iron</title>
+  <g font-size="15" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="160" y="40">cold: straight</text>
+    <text x="440" y="40">heated: bends</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5">
+    <rect x="40" y="92" width="20" height="56" fill="var(--muted)" fill-opacity="0.35"/>
+    <rect x="60" y="110" width="200" height="10" fill="var(--t2-ink)" fill-opacity="0.7"/>
+    <rect x="60" y="120" width="200" height="10" fill="var(--t4-ink)" fill-opacity="0.7"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5">
+    <rect x="330" y="92" width="20" height="56" fill="var(--muted)" fill-opacity="0.35"/>
+    <path d="M350,110 A210,210 0 0 1 531.2,213.8 L522.6,218.9 A200,200 0 0 0 350,120 Z" fill="var(--t2-ink)" fill-opacity="0.7"/>
+    <path d="M350,120 A200,200 0 0 1 522.6,218.9 L513.9,224.0 A190,190 0 0 0 350,130 Z" fill="var(--t4-ink)" fill-opacity="0.7"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="190" y="88">brass</text>
+    <text x="190" y="162">iron</text>
+    <text x="35" y="178" fill="var(--muted)">clamp</text>
+    <text x="420" y="78">brass: expands more,</text>
+    <text x="420" y="94">on the outside of the curve</text>
+    <text x="360" y="230">iron: expands less,</text>
+    <text x="360" y="246">on the inside</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <line x1="206" y1="92" x2="206" y2="108"/>
+    <line x1="203" y1="150" x2="203" y2="132"/>
+    <line x1="47" y1="166" x2="50" y2="150"/>
+    <line x1="452" y1="99" x2="450" y2="135"/>
+    <line x1="420" y1="216" x2="456" y2="164"/>
+  </g>
+</svg>

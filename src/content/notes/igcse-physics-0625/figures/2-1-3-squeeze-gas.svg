@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 260" role="img" aria-labelledby="t213sq">
+  <title id="t213sq">Two identical cylinders with the same eight gas particles sealed in by a piston. On the left the piston is pulled out and the gas has a large volume. On the right the piston is pushed halfway in at the same temperature, so the same particles are crowded into half the volume and hit the walls more often</title>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <polyline points="250,40 30,40 30,180 250,180"/>
+    <polyline points="590,40 370,40 370,180 590,180"/>
+  </g>
+  <g fill="var(--muted)" stroke="currentColor" stroke-width="1.5">
+    <rect x="240" y="42" width="12" height="136"/>
+    <rect x="470" y="42" width="12" height="136"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2">
+    <line x1="252" y1="110" x2="290" y2="110"/>
+    <line x1="482" y1="110" x2="605" y2="110"/>
+  </g>
+  <g fill="var(--t2-ink)">
+    <circle cx="60" cy="70" r="6"/><circle cx="130" cy="60" r="6"/><circle cx="200" cy="85" r="6"/><circle cx="90" cy="120" r="6"/>
+    <circle cx="160" cy="135" r="6"/><circle cx="215" cy="155" r="6"/><circle cx="55" cy="160" r="6"/><circle cx="120" cy="95" r="6"/>
+    <circle cx="390" cy="65" r="6"/><circle cx="425" cy="58" r="6"/><circle cx="455" cy="80" r="6"/><circle cx="400" cy="115" r="6"/>
+    <circle cx="440" cy="130" r="6"/><circle cx="455" cy="160" r="6"/><circle cx="388" cy="158" r="6"/><circle cx="425" cy="95" r="6"/>
+  </g>
+  <g stroke="var(--t2-ink)" stroke-width="1.5" fill="none">
+    <line x1="66" y1="66" x2="84" y2="56"/><line x1="136" y1="64" x2="152" y2="76"/><line x1="206" y1="80" x2="224" y2="70"/><line x1="84" y1="124" x2="66" y2="134"/>
+    <line x1="166" y1="138" x2="184" y2="128"/><line x1="221" y1="152" x2="232" y2="140"/><line x1="49" y1="163" x2="40" y2="150"/><line x1="114" y1="99" x2="98" y2="87"/>
+    <line x1="396" y1="61" x2="412" y2="51"/><line x1="431" y1="62" x2="446" y2="72"/><line x1="461" y1="76" x2="466" y2="62"/><line x1="394" y1="119" x2="380" y2="129"/>
+    <line x1="446" y1="134" x2="462" y2="142"/><line x1="461" y1="164" x2="466" y2="172"/><line x1="382" y1="162" x2="376" y2="170"/><line x1="419" y1="99" x2="405" y2="90"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="140" y="205">larger volume</text>
+    <text x="480" y="205">half the volume, same temperature</text>
+    <text x="140" y="225" font-size="12" fill="var(--muted)">further to travel between hits</text>
+    <text x="480" y="225" font-size="12" fill="var(--muted)">more hits on the walls each second</text>
+    <text x="310" y="250" font-size="12" fill="var(--muted)">same number of particles in both</text>
+  </g>
+</svg>

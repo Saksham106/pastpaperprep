@@ -2,13 +2,13 @@
   {
     "id": "pressure",
     "term": "pressure",
-    "definition": "TODO: Force per unit area, p = F/A; unit Pa (N/m2); depends on both force and area",
+    "definition": "The force per unit area, acting at right angles to a surface, $p = \\frac{F}{A}$; measured in pascals ($1\\ \\text{Pa} = 1\\ \\text{N/m}^2$), and bigger for a bigger force on the same area or the same force on a smaller area.",
     "lesson": "1.8"
   },
   {
     "id": "liquid-pressure",
     "term": "liquid pressure",
-    "definition": "TODO: Pressure beneath a liquid surface increases with depth and density; Δp = ρgΔh (Extended)",
+    "definition": "The pressure caused by the weight of a liquid at a point below its surface; in a liquid at rest it increases with depth and with the density of the liquid, whatever the shape of the container (Extended: $\\Delta p = \\rho g \\Delta h$).",
     "lesson": "1.8"
   }
 ]

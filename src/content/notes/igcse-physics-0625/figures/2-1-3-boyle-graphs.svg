@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 370" role="img" aria-labelledby="t213bg">
+  <title id="t213bg">Two graphs for a fixed mass of gas at constant temperature. Left: pressure against volume is a curve that falls steeply at small volumes and then levels off, never touching either axis. Right: pressure against 1 over volume is a straight line through the origin</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="70" y1="320" x2="290" y2="320"/>
+    <line x1="70" y1="320" x2="70" y2="40"/>
+    <polyline points="282,315 290,320 282,325"/>
+    <polyline points="65,48 70,40 75,48"/>
+    <line x1="380" y1="320" x2="600" y2="320"/>
+    <line x1="380" y1="320" x2="380" y2="40"/>
+    <polyline points="592,315 600,320 592,325"/>
+    <polyline points="375,48 380,40 385,48"/>
+  </g>
+  <polyline points="102.3,60.4 106.5,90.5 110.8,114.4 115.0,133.7 119.3,149.8 123.5,163.3 127.8,174.8 132.0,184.7 136.2,193.4 140.5,201.0 144.7,207.7 149.0,213.8 153.2,219.2 157.4,224.1 161.7,228.5 165.9,232.6 170.2,236.3 174.4,239.7 178.6,242.8 182.9,245.7 187.1,248.4 191.4,250.9 195.6,253.2 199.8,255.4 204.1,257.4 208.3,259.4 212.6,261.2 216.8,262.9 221.0,264.5 225.3,266.0 229.5,267.4 233.8,268.8 238.0,270.1 242.2,271.3 246.5,272.5 250.7,273.6 255.0,274.7 259.2,275.7 263.4,276.6 267.7,277.6 271.9,278.5" fill="none" stroke="var(--t2-ink)" stroke-width="2.5" stroke-linejoin="round"/>
+  <line x1="380" y1="320" x2="572" y2="60" stroke="var(--t2-ink)" stroke-width="2.5"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="62" y="334" text-anchor="end">0</text>
+    <text x="78" y="32">pressure p</text>
+    <text x="290" y="344" text-anchor="end">volume V</text>
+    <text x="372" y="334" text-anchor="end">0</text>
+    <text x="388" y="32">pressure p</text>
+    <text x="600" y="344" text-anchor="end">1 / V</text>
+    <text x="180" y="365" text-anchor="middle" font-size="12" fill="var(--muted)">a curve: double V, p halves</text>
+    <text x="490" y="365" text-anchor="middle" font-size="12" fill="var(--muted)">a straight line through the origin</text>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="t231ice">
+  <title id="t231ice">A slanted test tube full of water. Ice is held down at the bottom by metal gauze. A flame heats the tube near the top, where the water boils. The ice at the bottom has still not melted</title>
+  <g transform="rotate(-25 300 200)">
+    <path d="M110,180 L470,180 L470,220 L110,220 A20,20 0 0 1 110,180 Z" fill="var(--t1-ink)" fill-opacity="0.15"/>
+    <path d="M470,180 L110,180 A20,20 0 0 0 110,220 L470,220" fill="none" stroke="currentColor" stroke-width="2"/>
+    <rect x="96" y="186" width="34" height="28" rx="4" fill="var(--t3-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.5"/>
+    <g stroke="currentColor" stroke-width="1.5">
+      <line x1="138" y1="182" x2="138" y2="218"/>
+      <line x1="144" y1="182" x2="144" y2="218"/>
+      <line x1="150" y1="182" x2="150" y2="218"/>
+    </g>
+    <g fill="none" stroke="currentColor" stroke-width="1.2">
+      <circle cx="380" cy="208" r="4"/>
+      <circle cx="400" cy="196" r="5"/>
+      <circle cx="420" cy="210" r="4"/>
+      <circle cx="440" cy="194" r="5"/>
+      <circle cx="455" cy="207" r="3"/>
+    </g>
+  </g>
+  <path d="M420,248 C395,218 405,193 420,165 C435,193 445,218 420,248 Z" fill="var(--t2-ink)" fill-opacity="0.55" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M420,244 C410,226 413,210 420,198 C427,210 430,226 420,244 Z" fill="var(--t5-ink)" fill-opacity="0.6"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="430" y="70">water boils here</text>
+    <text x="455" y="215">flame heats</text>
+    <text x="455" y="231">the top</text>
+    <text x="30" y="330">ice held down by metal gauze:</text>
+    <text x="30" y="346">still not melted</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <line x1="470" y1="76" x2="438" y2="132"/>
+    <line x1="140" y1="318" x2="140" y2="290"/>
+  </g>
+</svg>

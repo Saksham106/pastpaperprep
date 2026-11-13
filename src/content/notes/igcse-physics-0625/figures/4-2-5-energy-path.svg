@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 180" role="img" aria-labelledby="t425ep">
+<title id="t425ep">Energy path through a circuit, as three boxes joined by arrows from left to right. The first box is the source: a cell or the mains supply. An arrow labelled electrical work, by the current, leads to the second box: the components, such as a lamp, heater or motor. A second arrow labelled heating, light and sound leads to the third box: the surroundings, which get warmer.</title>
+<rect x="5" y="50" width="140" height="80" rx="6" fill="none" stroke="var(--t1-ink)" stroke-width="1.5"/>
+<text font-family="inherit" font-size="14" x="75" y="78" fill="var(--t1-ink)" text-anchor="middle">source</text>
+<text font-family="inherit" font-size="13" x="75" y="98" fill="currentColor" text-anchor="middle">cell or</text>
+<text font-family="inherit" font-size="13" x="75" y="115" fill="currentColor" text-anchor="middle">mains supply</text>
+<path d="M145 90 L245 90" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<polygon points="255,90 245,95 245,85" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="200" y="78" fill="currentColor" text-anchor="middle">electrical work</text>
+<text font-family="inherit" font-size="12" x="200" y="110" fill="var(--muted)" text-anchor="middle">by the current</text>
+<rect x="255" y="50" width="140" height="80" rx="6" fill="none" stroke="var(--t2-ink)" stroke-width="1.5"/>
+<text font-family="inherit" font-size="14" x="325" y="78" fill="var(--t2-ink)" text-anchor="middle">components</text>
+<text font-family="inherit" font-size="13" x="325" y="98" fill="currentColor" text-anchor="middle">lamp, heater,</text>
+<text font-family="inherit" font-size="13" x="325" y="115" fill="currentColor" text-anchor="middle">motor</text>
+<path d="M395 90 L495 90" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<polygon points="505,90 495,95 495,85" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="450" y="78" fill="currentColor" text-anchor="middle">heating, light</text>
+<text font-family="inherit" font-size="12" x="450" y="110" fill="var(--muted)" text-anchor="middle">and sound</text>
+<rect x="505" y="50" width="140" height="80" rx="6" fill="none" stroke="var(--t4-ink)" stroke-width="1.5"/>
+<text font-family="inherit" font-size="14" x="575" y="78" fill="var(--t4-ink)" text-anchor="middle">surroundings</text>
+<text font-family="inherit" font-size="13" x="575" y="98" fill="currentColor" text-anchor="middle">air and objects</text>
+<text font-family="inherit" font-size="13" x="575" y="115" fill="currentColor" text-anchor="middle">get warmer</text>
+</svg>

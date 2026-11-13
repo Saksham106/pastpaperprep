@@ -1,0 +1,805 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.1",
+  "slug": "simple-phenomena-of-magnetism",
+  "title": "Simple phenomena of magnetism",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A [[magnet|magnet]] has a north pole and a south pole: like poles repel and unlike poles attract. A magnet also attracts iron and steel by making them into magnets. Around every magnet is a [[magnetic-field|magnetic field]], which you can map with a compass or iron filings.",
+  "goals": [
+    {
+      "text": "Say how [[magnetic-pole|magnetic poles]] push and pull on each other and on magnetic materials, using attract, repel, magnetised and unmagnetised, and tell magnetic from non-magnetic materials.",
+      "bullets": [
+        "4.1-1",
+        "4.1-4"
+      ]
+    },
+    {
+      "text": "Describe [[induced-magnetism|induced magnetism]], and compare soft iron ([[temporary-magnet|temporary magnets]]) with steel ([[permanent-magnet|permanent magnets]]).",
+      "bullets": [
+        "4.1-2",
+        "4.1-3"
+      ]
+    },
+    {
+      "text": "Describe uses of permanent magnets and [[electromagnet|electromagnets]].",
+      "bullets": [
+        "4.1-9"
+      ]
+    },
+    {
+      "text": "Describe a magnetic field, say how its direction is defined, and draw the field around a bar magnet.",
+      "bullets": [
+        "4.1-5",
+        "4.1-6",
+        "4.1-7"
+      ]
+    },
+    {
+      "text": "Map a field using a plotting compass or iron filings, and find its direction with a compass.",
+      "bullets": [
+        "4.1-8"
+      ]
+    },
+    {
+      "text": "Explain magnetic [[force|forces]] as fields interacting, and judge field strength from line spacing.",
+      "bullets": [
+        "4.1-10",
+        "4.1-11"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "magnetic field lines bar magnet",
+    "like poles repel",
+    "induced magnetism",
+    "soft iron vs steel",
+    "plotting compass field lines",
+    "magnetic and non-magnetic materials"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-unit-of-force",
+      "prompt": "What is the unit of force?",
+      "hint": "The same unit is used for weight.",
+      "options": [
+        {
+          "text": "newton",
+          "correct": true
+        },
+        {
+          "text": "kilogram",
+          "correct": false
+        },
+        {
+          "text": "joule",
+          "correct": false
+        },
+        {
+          "text": "watt",
+          "correct": false
+        }
+      ],
+      "explain": "Force is measured in newtons (N). Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "newton"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-force-effects",
+      "prompt": "A force acts on an object. Which of these can it NOT do?",
+      "hint": "A force can change how an object moves or its shape.",
+      "options": [
+        {
+          "text": "change the object's mass",
+          "correct": true
+        },
+        {
+          "text": "change the object's speed",
+          "correct": false
+        },
+        {
+          "text": "change the object's direction of motion",
+          "correct": false
+        },
+        {
+          "text": "change the object's shape",
+          "correct": false
+        }
+      ],
+      "explain": "A [[force|force]] can change an object's speed, direction or shape, but not its mass. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "change the object's mass"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "poles",
+      "heading": "Poles, attraction and repulsion",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Hang a bar magnet from a thread and it turns to lie north–south. The end that points north is the north pole (N pole); the other end is the south pole (S pole)."
+        },
+        {
+          "type": "text",
+          "text": "Like poles (N and N, or S and S) repel: they push apart. Unlike poles (N and S) attract. Magnets do this without touching."
+        },
+        {
+          "type": "text",
+          "text": "Magnetic materials are attracted by a magnet and can be made into magnets: iron, steel, nickel and cobalt. Non-magnetic materials, such as copper, aluminium, plastic and wood, are not attracted and cannot be magnetised."
+        },
+        {
+          "type": "text",
+          "text": "Magnetic material that is not acting as a magnet is unmagnetised, and a magnet attracts it at either pole. Once made into a magnet, it is magnetised, with its own N and S poles."
+        },
+        {
+          "type": "examTip",
+          "text": "Repulsion is the only sure test for a magnet. Both a magnet and unmagnetised iron can be attracted, but only a magnet can be repelled."
+        },
+        {
+          "type": "example",
+          "id": "ex-needle-magnetised-test",
+          "question": "Priya has a steel needle and a bar magnet with labelled poles. Describe how she could test whether the needle is magnetised.",
+          "steps": [
+            "Find the result only a magnet can give. Test both ends of the needle with both poles."
+          ],
+          "answer": "Hold each end of the needle near the N pole, then near the S pole. If an end is repelled by either pole, the needle is magnetised. If both ends are attracted to both poles, it is unmagnetised, because a magnet attracts unmagnetised steel at either pole.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "test each end with each pole; repulsion shows it is magnetised; attraction to both poles means unmagnetised",
+            "requires": [
+              "N pole",
+              "S pole",
+              "each end",
+              "repelled",
+              "unmagnetised"
+            ],
+            "forbids": [
+              "attraction shows it is magnetised",
+              "attracted, so it is magnetised"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-s-poles",
+          "prompt": "The S pole of one bar magnet is pushed towards the S pole of another. What happens?",
+          "hint": "Are these like poles or unlike poles?",
+          "options": [
+            {
+              "text": "they repel",
+              "correct": true
+            },
+            {
+              "text": "they attract",
+              "correct": false
+            },
+            {
+              "text": "there is no force between them",
+              "correct": false
+            }
+          ],
+          "explain": "S and S are like poles, and like poles repel.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they repel"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-attracted",
+          "prompt": "Which object would be attracted by a magnet?",
+          "hint": "Only a few metals are magnetic materials.",
+          "options": [
+            {
+              "text": "a nickel washer",
+              "correct": true
+            },
+            {
+              "text": "a copper coin",
+              "correct": false
+            },
+            {
+              "text": "an aluminium drinks can",
+              "correct": false
+            },
+            {
+              "text": "a brass key",
+              "correct": false
+            }
+          ],
+          "explain": "Nickel is a magnetic material. Copper, aluminium and brass are metals, but non-magnetic.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a nickel washer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "induced",
+      "heading": "Induced magnetism: soft iron and steel",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Why does a magnet attract an unmagnetised iron nail? Near the magnet, the nail becomes a magnet itself: this is [[induced-magnetism|induced magnetism]]."
+        },
+        {
+          "type": "text",
+          "text": "The end of the nail nearest the magnet becomes the opposite pole, so they attract. Next to an N pole it becomes an S pole; next to an S pole it becomes an N pole."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-induced-nail",
+          "alt": "A bar magnet on the left with its S pole at the left end and its N pole at the right end. To its right, with a small gap, lies an iron nail that was unmagnetised. The end of the nail nearest the magnet is labelled S and its far end, the point, is labelled N. Arrows between the magnet and the nail point towards each other, labelled attract. A note says the end of the nail nearest the N pole becomes an S pole, and unlike poles attract.",
+          "caption": "The magnet induces an S pole in the near end of the nail, so they attract."
+        },
+        {
+          "type": "text",
+          "text": "Soft iron is easy to magnetise and loses its magnetism as soon as the magnet is removed. It makes a [[temporary-magnet|temporary magnet]]."
+        },
+        {
+          "type": "text",
+          "text": "Steel is harder to magnetise, but it keeps its magnetism. It makes a [[permanent-magnet|permanent magnet]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-chain-of-clips",
+          "question": "A steel paper clip hangs from the N pole of a bar magnet. A second paper clip hangs from the bottom of the first, not touching the magnet. Explain why the second clip does not fall.",
+          "steps": [
+            "Say what the magnet does to the first clip, then what the first clip does to the second."
+          ],
+          "answer": "The magnet induces magnetism in the first clip, with an S pole at its top, next to the N pole, so its bottom becomes an N pole. The first clip then induces magnetism in the second clip, with an S pole at its top. Unlike poles attract, so the second clip is held on.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "first clip becomes induced magnet, S at top, N at bottom; it induces S at the top of the second clip; unlike poles attract",
+            "requires": [
+              "induces magnetism",
+              "S pole at its top",
+              "bottom becomes an N pole",
+              "second clip",
+              "unlike poles attract"
+            ],
+            "forbids": [
+              "like poles attract",
+              "because steel is a metal"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rods-results-table",
+          "question": "A student holds a rod against a strong magnet and counts the paper clips that hang in a chain from it, then removes the magnet and counts again. Rod A holds 9 clips, then 0. Rod B holds 4 clips, then 3. One rod is soft iron and one is steel. Identify each, and explain.",
+          "steps": [
+            "The count after the magnet is removed shows which rod keeps its magnetism."
+          ],
+          "answer": "Rod A is soft iron and rod B is steel. Rod A holds no clips once the magnet is removed, so it loses its magnetism easily. It holds the most clips with the magnet there, as soft iron is easy to magnetise. Rod B still holds clips without the magnet, so it stays magnetised, like steel.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "A soft iron: loses magnetism (0 clips after), easily magnetised (most clips with magnet); B steel: keeps magnetism (3 clips after)",
+            "requires": [
+              "Rod A is soft iron",
+              "rod B is steel",
+              "loses its magnetism",
+              "easy to magnetise",
+              "stays magnetised"
+            ],
+            "forbids": [
+              "Rod A is steel",
+              "rod B is soft iron"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Picking the rod that holds the most clips while the magnet is there as the permanent magnet. Look at the count after the magnet is removed: the rod that still holds clips is the steel one."
+        },
+        {
+          "type": "check",
+          "id": "check-iron-steel-row",
+          "prompt": "Which description fits soft iron?",
+          "hint": "Soft iron makes a temporary magnet.",
+          "options": [
+            {
+              "text": "easy to magnetise and easy to demagnetise",
+              "correct": true
+            },
+            {
+              "text": "easy to magnetise and hard to demagnetise",
+              "correct": false
+            },
+            {
+              "text": "hard to magnetise and hard to demagnetise",
+              "correct": false
+            },
+            {
+              "text": "hard to magnetise and easy to demagnetise",
+              "correct": false
+            }
+          ],
+          "explain": "Soft iron gains and loses magnetism easily. Steel is harder to magnetise but keeps its magnetism.",
+          "verify": {
+            "kind": "choice",
+            "truth": "easy to magnetise and easy to demagnetise"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uses",
+      "heading": "Permanent magnets and electromagnets in use",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[electromagnet|electromagnet]] is a coil of wire wound round a soft-iron core. A current in the coil magnetises the core; switch it off and the core loses its magnetism. You will meet the field of a current in {{lesson:4.5.3}}."
+        },
+        {
+          "type": "text",
+          "text": "A permanent magnet gives a field all the time, with no power supply. An electromagnet can be switched on and off, and a bigger current makes it stronger."
+        },
+        {
+          "type": "text",
+          "text": "Permanent magnets: compass needles, fridge-door seals, cupboard catches, loudspeakers, microphones and electric motors. Electromagnets: scrap-yard lifting magnets, electric door locks, electric bells and relays."
+        },
+        {
+          "type": "example",
+          "id": "ex-door-lock",
+          "question": "A fire door is held open by an electromagnet in the wall, which attracts a steel plate on the door. When the fire alarm sounds, the current is switched off and the door closes. Explain why an electromagnet with a soft-iron core is used, rather than a permanent magnet or a steel core.",
+          "steps": [
+            "Say what the magnet must do when the alarm sounds, then why each other choice fails."
+          ],
+          "answer": "The door must be released when the alarm sounds, so the magnet must be switched off. A permanent magnet cannot be switched off. Soft iron loses its magnetism as soon as the current stops, but a steel core would stay magnetised and keep holding the plate.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "door must be released, so magnet must switch off; permanent magnet cannot; soft iron loses magnetism when current stops; steel would stay magnetised",
+            "requires": [
+              "switched off",
+              "permanent magnet cannot",
+              "soft iron loses its magnetism",
+              "current stops",
+              [
+                "steel core would stay magnetised",
+                "steel would stay magnetised"
+              ]
+            ],
+            "forbids": [
+              "steel loses its magnetism",
+              "soft iron stays magnetised"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-permanent-use",
+          "prompt": "Which of these uses a permanent magnet rather than an electromagnet?",
+          "hint": "Which one never needs to be switched off?",
+          "options": [
+            {
+              "text": "a compass needle",
+              "correct": true
+            },
+            {
+              "text": "a lifting magnet on a scrap-yard crane",
+              "correct": false
+            },
+            {
+              "text": "an electric door lock",
+              "correct": false
+            }
+          ],
+          "explain": "A compass needle must stay magnetised. The crane and the lock must let go, so they use electromagnets.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a compass needle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-lines",
+      "heading": "Magnetic fields and field lines",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "magnetic field",
+          "statement": "A region in which any magnetic pole feels a force, such as the space around a magnet.",
+          "plain": "The space around a magnet where its pull or push reaches."
+        },
+        {
+          "type": "text",
+          "text": "By agreement, the direction of the [[magnetic-field|magnetic field]] at a point is the way an N pole placed there would be pushed. An S pole is pushed the opposite way."
+        },
+        {
+          "type": "text",
+          "text": "[[magnetic-field-line|Magnetic field lines]] show the field. Outside a magnet each line leaves the N pole, curves round and enters the S pole, with an arrow. The lines never cross, and they are closest together at the poles."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-bar-magnet-field",
+          "alt": "A bar magnet with its N pole on the left and its S pole on the right. Curved field lines leave the N pole, loop round above and below the magnet, and enter the S pole. Arrows on the lines point from N towards S. One straight line leaves the N end pointing left, away from the magnet, and another straight line on the right points left, into the S end. The lines are closest together at the two poles and spread out further away. None of the lines cross.",
+          "caption": "The field around a bar magnet. The pattern is the same above and below the magnet."
+        },
+        {
+          "type": "examTip",
+          "text": "To draw the field, use smooth curves from the N pole to the S pole, an arrow on every line, and the same pattern above and below the magnet."
+        },
+        {
+          "type": "example",
+          "id": "ex-label-poles-arrows",
+          "question": "Field lines are drawn round an unlabelled bar magnet. Their arrows point away from end P and into end Q. Which end is the N pole? Explain.",
+          "steps": [
+            "Recall which way the arrows point near each pole."
+          ],
+          "answer": "Field-line arrows point away from an N pole and into an S pole. The arrows point away from end P, so P is the N pole. They point into end Q, so Q is the S pole.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "arrows point away from N and into S; arrows leave P so P is N; arrows enter Q so Q is S",
+            "requires": [
+              "away from an N pole",
+              "P is the N pole",
+              "Q is the S pole"
+            ],
+            "forbids": [
+              "P is the S pole",
+              "Q is the N pole",
+              "from the S pole to the N pole"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-force-each-pole",
+          "question": "At point K near a magnet, the magnetic field points due east. A tiny magnet is placed at K. State the direction of the force on (a) its N pole and (b) its S pole.",
+          "steps": [
+            "The field's direction is defined by the force on an N pole; an S pole is pushed the opposite way."
+          ],
+          "answer": "(a) The force on the N pole is due east, along the field. (b) The force on the S pole is due west, opposite to the field.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "N pole force along the field (east); S pole force opposite (west)",
+            "requires": [
+              "N pole is due east",
+              "S pole is due west"
+            ],
+            "forbids": [
+              "N pole is due west",
+              "S pole is due east"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-field-meaning",
+          "prompt": "Four small objects are placed in turn at the same point near one pole of a bar magnet. Which one feels a force from the magnet's field?",
+          "hint": "A magnetic field pushes or pulls on magnetic poles. Which object has poles of its own?",
+          "options": [
+            {
+              "text": "a small plotting compass",
+              "correct": true
+            },
+            {
+              "text": "a gold ring",
+              "correct": false
+            },
+            {
+              "text": "a glass marble",
+              "correct": false
+            },
+            {
+              "text": "a plastic ruler",
+              "correct": false
+            }
+          ],
+          "explain": "The compass needle is a tiny magnet, so the field pushes and pulls on its poles. Gold, glass and plastic are non-magnetic, so the field exerts no force on them.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a small plotting compass"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-field-above-middle",
+          "prompt": "A bar magnet lies with its N pole on the left. Which way does the field point just above the middle of the magnet?",
+          "hint": "Follow a field line from the N pole over the top of the magnet.",
+          "options": [
+            {
+              "text": "to the right, towards the S pole",
+              "correct": true
+            },
+            {
+              "text": "to the left, towards the N pole",
+              "correct": false
+            },
+            {
+              "text": "straight up, away from the magnet",
+              "correct": false
+            },
+            {
+              "text": "straight down, into the magnet",
+              "correct": false
+            }
+          ],
+          "explain": "Above the middle, the lines run parallel to the magnet, from N towards S: to the right.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the right, towards the S pole"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plotting",
+      "heading": "Plotting field lines",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A plotting compass has a tiny magnet for a needle, free to turn. Its N end points along the field where it sits, so it shows the field's direction at that point."
+        },
+        {
+          "type": "text",
+          "text": "To plot one field line, lay the magnet on paper:"
+        },
+        {
+          "type": "text",
+          "text": "1. Put the compass near the N pole and mark a dot at the N end of the needle."
+        },
+        {
+          "type": "text",
+          "text": "2. Move the compass so the S end of its needle is over that dot, and mark a new dot at the N end."
+        },
+        {
+          "type": "text",
+          "text": "3. Repeat until you reach the S pole. Join the dots with a smooth line and add an arrow from N to S. Start from other points to plot more lines."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-compass-plotting",
+          "alt": "A bar magnet with its N pole on the left and S pole on the right. A curved row of dots starts near the N pole, arches over the top of the magnet and ends near the S pole, with a dashed line joining them. Two small plotting compasses sit on the row of dots. Each needle lies along the curve, with its shaded N end pointing the way the row goes, from the N pole towards the S pole. One label points to a compass. Another label says a dot is marked at the N end of the needle. Notes say to move the compass along dot by dot from the N pole to the S pole, then join the dots with a smooth line and add an arrow from N to S.",
+          "caption": "Plotting a field line, dot by dot, with a plotting compass."
+        },
+        {
+          "type": "text",
+          "text": "Iron filings show the whole pattern at once. Sprinkle them on paper laid over the magnet and tap gently. Each filing becomes an induced magnet and lines up with the field. Filings show no direction, so use a compass for the arrows."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-plotting",
+          "question": "Describe how to use a plotting compass to draw one magnetic field line of a bar magnet, including its direction.",
+          "steps": [
+            "Give the steps in order: start, mark, move, repeat, join, arrow."
+          ],
+          "answer": "Put the plotting compass near the N pole of the magnet, on paper. Mark a dot at the N end of the needle. Move the compass so the other end of the needle is over the dot, and mark a new dot at the N end. Repeat until you reach the S pole. Join the dots with a smooth curve, and add an arrow from the N pole to the S pole.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "compass near N pole; dot at N end of needle; move compass so tail on dot; repeat to S pole; join dots; arrow from N to S",
+            "requires": [
+              "near the N pole",
+              "N end of the needle",
+              "dot",
+              "Move the compass",
+              "Repeat",
+              "Join the dots",
+              "arrow"
+            ],
+            "forbids": [
+              "from the S pole to the N pole",
+              "iron filings show the direction"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-filings-direction",
+          "prompt": "Why can iron filings not show the direction of a magnetic field?",
+          "hint": "Think about whether a filing has a fixed N end before it goes near the magnet.",
+          "options": [
+            {
+              "text": "the filings line up with the field but neither end is marked as N",
+              "correct": true
+            },
+            {
+              "text": "iron is not a magnetic material",
+              "correct": false
+            },
+            {
+              "text": "the filings point at right angles to the field",
+              "correct": false
+            }
+          ],
+          "explain": "Each filing lines up with the field, but nothing shows which end is N.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the filings line up with the field but neither end is marked as N"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compass-beyond-s",
+          "prompt": "A plotting compass sits just beyond the S end of a bar magnet, on the line through the magnet's middle. Which way does the N end of its needle point?",
+          "hint": "Field lines go into the S pole.",
+          "options": [
+            {
+              "text": "towards the S pole of the magnet",
+              "correct": true
+            },
+            {
+              "text": "away from the S pole of the magnet",
+              "correct": false
+            },
+            {
+              "text": "at right angles to the magnet",
+              "correct": false
+            }
+          ],
+          "explain": "The field runs into the S pole, and the needle's N end points along the field.",
+          "verify": {
+            "kind": "choice",
+            "truth": "towards the S pole of the magnet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-strength-forces",
+      "heading": "Field strength and forces between fields",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The spacing of field lines shows how strong the field is. Close lines mean a strong field; widely spaced lines mean a weak one. Around a bar magnet, the field is strongest at the poles."
+        },
+        {
+          "type": "check",
+          "id": "check-spacing-strength",
+          "prompt": "On a field-line diagram, the lines near point L are much closer together than the lines near point M. Which statement is correct?",
+          "hint": "Line spacing shows field strength.",
+          "options": [
+            {
+              "text": "the field is stronger at L than at M",
+              "correct": true
+            },
+            {
+              "text": "the field is stronger at M than at L",
+              "correct": false
+            },
+            {
+              "text": "the field has the same strength at L and M",
+              "correct": false
+            }
+          ],
+          "explain": "Closer lines mean a stronger field.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the field is stronger at L than at M"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Magnets push and pull without touching because each has its own field. When two magnets are close, their fields overlap and combine: the force comes from this interaction."
+        },
+        {
+          "type": "figure",
+          "id": "4-1-two-magnets",
+          "alt": "Two diagrams side by side. Left: two bar magnets in a line, the N pole of the first facing the S pole of the second across a small gap. Field lines run straight across the gap from the N pole to the S pole, close together, with arrows pointing from N to S. Two more lines bulge slightly above and below the gap. A label says the lines join across the gap, and the heading says unlike poles facing attract. Right: two bar magnets with their N poles facing each other across a gap. Field lines leave each N pole, go into the gap, then turn sharply up or down, away from each other, with arrows pointing up and down away from the magnets. The lines from the two magnets never meet. At the centre of the gap is a point X with no field lines. A label says the lines push apart and there is no field at X, and the heading says like poles facing repel.",
+          "caption": "Combined fields of two magnets. The lines join between unlike poles and push apart between like poles."
+        },
+        {
+          "type": "text",
+          "text": "Between unlike poles, lines run from one magnet into the other, and the magnets attract. Between like poles, the lines turn away from each other, and the magnets repel. At X the fields cancel."
+        },
+        {
+          "type": "text",
+          "text": "A magnet attracts iron in the same way: its field induces magnetism in the iron, and the iron's field interacts with the magnet's."
+        },
+        {
+          "type": "example",
+          "id": "ex-fields-attract",
+          "question": "Two bar magnets lie end to end with the N pole of one facing the S pole of the other, a short gap apart. Explain, in terms of magnetic fields, why they attract.",
+          "steps": [
+            "Say that each magnet has a field, how the fields combine, and what the lines do in the gap."
+          ],
+          "answer": "Each magnet has its own magnetic field. In the gap the two fields overlap and interact. The field lines run from the N pole of one magnet into the S pole of the other. This interaction between the fields pulls the magnets together.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "each magnet has a field; fields overlap and interact; lines run from N of one into S of the other; interaction pulls them together",
+            "requires": [
+              "own magnetic field",
+              "interact",
+              "from the N pole of one magnet into the S pole of the other",
+              "pulls the magnets together"
+            ],
+            "forbids": [
+              "the field lines cross",
+              "like poles attract"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Like poles repel; unlike poles attract. A magnet attracts unmagnetised magnetic materials at either pole, so only repulsion proves an object is a magnet.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Magnetic materials (iron, steel, nickel, cobalt) are attracted by a magnet and can be magnetised. Non-magnetic materials, including copper and aluminium, are not.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Induced magnetism: a magnetic material near a magnet becomes a magnet, with the opposite pole at the end nearest the magnet's pole.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Soft iron is easy to magnetise and loses its magnetism easily (temporary magnets, electromagnet cores). Steel is harder to magnetise but keeps its magnetism (permanent magnets).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A magnetic field is a region where any magnetic pole feels a force. Its direction is the direction of the force an N pole would feel there.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Outside a bar magnet, field lines run from N to S, never cross, and crowd together at the poles. Plot them with a compass, or show the pattern with iron filings.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The closer together the field lines, the stronger the field. Magnetic forces come from the interaction between magnetic fields.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying a magnet attracts all metals. Only magnetic materials (iron, steel, nickel, cobalt) are attracted.",
+    "Taking attraction as proof of a magnet. Unmagnetised iron is attracted too: test for repulsion.",
+    "Choosing steel for an electromagnet's core. Steel stays magnetised when the current stops; use soft iron.",
+    "Drawing field-line arrows from S to N, or labelling the poles backwards. The arrows point away from N and into S."
+  ],
+  "examTips": [
+    "\"Explain\" why iron is attracted to a magnet: magnetism is induced in it, the near end becomes the opposite pole, and unlike poles attract.",
+    "\"State\" the field's direction: the direction of the force on an N pole. Saying \"on a magnet\" does not name the pole."
+  ],
+  "readingMinutes": 26
+}

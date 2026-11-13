@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.1.1",
+  "slug": "states-of-matter",
+  "title": "States of matter",
+  "level": "Core",
+  "topic": 2,
+  "summary": "At a given temperature, a substance is usually a [[solid|solid]], a [[liquid|liquid]] or a [[gas|gas]], and you can tell them apart by their shape, their volume, whether they flow and how easily they squash. Heating or cooling changes one state into another. Each change has a name you need to know: [[melting|melting]], freezing, [[boiling|boiling]], [[evaporation|evaporation]] and [[condensation|condensation]].",
+  "goals": [
+    {
+      "text": "Describe the shape, volume, flow and compressibility of solids, liquids and gases, and use them to identify a state.",
+      "bullets": [
+        "2.1.1-1"
+      ]
+    },
+    {
+      "text": "Compare the densities of the three states, and say why only a gas is easily compressed.",
+      "bullets": [
+        "2.1.1-1"
+      ]
+    },
+    {
+      "text": "Name each change of state between solid, liquid and gas.",
+      "bullets": [
+        "2.1.1-2"
+      ]
+    },
+    {
+      "text": "Use a melting point and a boiling point to state what state a substance is in, and say what happens to its mass, volume and density when it changes state.",
+      "bullets": [
+        "2.1.1-1",
+        "2.1.1-2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "properties of solids liquids and gases",
+    "states of matter",
+    "names of changes of state",
+    "melting freezing boiling condensation",
+    "difference between a liquid and a gas",
+    "why gases can be compressed"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-density-block",
+      "prompt": "A block has a mass of $45\\ \\text{g}$ and a volume of $15\\ \\text{cm}^3$. What is its [[density|density]], in g/cm³?",
+      "hint": "Density is mass divided by volume.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0.05
+      },
+      "explain": "$\\rho = \\frac{m}{V} = \\frac{45}{15} = 3.0\\ \\text{g/cm}^3$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45/15",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gas-at-room-temperature",
+      "prompt": "Which of these substances is a gas at room temperature?",
+      "hint": "Which one do you breathe in?",
+      "options": [
+        {
+          "text": "oxygen",
+          "correct": true
+        },
+        {
+          "text": "mercury",
+          "correct": false
+        },
+        {
+          "text": "salt",
+          "correct": false
+        },
+        {
+          "text": "wax",
+          "correct": false
+        }
+      ],
+      "explain": "Oxygen is a gas in the air around you. Mercury is a liquid metal, and salt and wax are solids at room temperature.",
+      "verify": {
+        "kind": "choice",
+        "truth": "oxygen"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "properties",
+      "heading": "Telling solids, liquids and gases apart",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Matter comes in three states: solid, liquid and gas. One substance can be in all three. Water is solid as ice, liquid from the tap and a gas as steam."
+        },
+        {
+          "type": "text",
+          "text": "Four properties tell the states apart: whether the shape is fixed, whether the volume is fixed, whether it can flow, and how easily it can be compressed (squashed into a smaller volume)."
+        },
+        {
+          "type": "text",
+          "text": "A [[solid|solid]] has a fixed shape and a fixed volume. It cannot flow, and squeezing it hardly changes its volume. A stone stays the same shape whatever box you put it in."
+        },
+        {
+          "type": "text",
+          "text": "A [[liquid|liquid]] has a fixed volume but no fixed shape. It flows and takes the shape of the part of the container it fills, with a flat surface on top. Like a solid, it is very hard to compress."
+        },
+        {
+          "type": "text",
+          "text": "A [[gas|gas]] has no fixed shape and no fixed volume. It flows and spreads out to fill the whole of any closed container. It is easily compressed, which is how a pump squeezes lots of air into a tyre."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-1-three-states",
+          "alt": "Three identical closed jars. The first holds a solid block resting on the bottom, keeping its own shape. The second holds a liquid that fills only the lower part of the jar, with a flat top surface. The third holds a gas, shaded through the whole jar because it spreads out to fill all of it. Under each jar are its properties. Solid: fixed shape, fixed volume, does not flow. Liquid: fixed volume, takes the container's shape, flows. Gas: no fixed shape or volume, fills the whole container, flows, easily compressed.",
+          "caption": "The same jar holding a solid, a liquid and a gas."
+        },
+        {
+          "type": "text",
+          "text": "The reason is the spacing of the particles. In solids and liquids the particles are close together, so there is almost no space to squash them into. In a gas they are far apart, so they can be pushed closer. You will meet this particle model in {{lesson:2.1.2}}."
+        },
+        {
+          "type": "text",
+          "text": "Because gas particles are so far apart, a gas has a much lower [[density|density]] than a solid or a liquid. A solid is usually a little denser than the same substance as a liquid. Water is the well-known exception: ice is less dense than water, so it floats."
+        },
+        {
+          "type": "example",
+          "id": "ex-syringe-air-water",
+          "question": "A student blocks the end of a syringe full of air and pushes the plunger hard. She then repeats this with the syringe full of water. Describe and explain what she finds.",
+          "steps": [
+            "Say what happens to the plunger for each substance, then link each result to the spacing of the particles."
+          ],
+          "answer": "With air, the plunger moves in a long way, because a gas is easily compressed. The air particles are far apart, so they can be pushed closer together. With water, the plunger hardly moves, because a liquid is very hard to compress. The water particles are already close together, so there is almost no space to push them into.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "air: plunger moves in, gas easily compressed, particles far apart; water: plunger hardly moves, liquid very hard to compress, particles close together",
+            "requires": [
+              "easily compressed",
+              "far apart",
+              [
+                "hardly moves",
+                "barely moves"
+              ],
+              [
+                "very hard to compress",
+                "cannot be compressed easily"
+              ],
+              "close together"
+            ],
+            "forbids": [
+              "water is easily compressed",
+              "particles get smaller",
+              "particles shrink"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-identify-three-samples",
+          "question": "Three samples are tested. Sample X keeps the same shape when it is moved from a box onto a plate. Sample Y takes the shape of each beaker it is poured into, but its volume stays at $50\\ \\text{cm}^3$. Sample Z is let into an empty sealed bottle and fills all of it. State the state of matter of each sample, and give the property that shows it.",
+          "steps": [
+            "Look for the property that only one state has: a fixed shape (solid), a fixed volume but no fixed shape (liquid), or filling the whole container (gas)."
+          ],
+          "answer": "X is a solid, because it has a fixed shape. Y is a liquid, because it has a fixed volume but no fixed shape. Z is a gas, because it spreads out to fill the whole container.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "X solid (fixed shape); Y liquid (fixed volume, no fixed shape); Z gas (fills whole container)",
+            "requires": [
+              "X is a solid",
+              "fixed shape",
+              "Y is a liquid",
+              "fixed volume",
+              "Z is a gas",
+              [
+                "fill the whole container",
+                "fills the whole container"
+              ]
+            ],
+            "forbids": [
+              "X is a liquid",
+              "Y is a gas",
+              "Z is a liquid"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a liquid fills its container. A liquid keeps its own volume and fills only the lower part. Only a gas always fills the whole container."
+        },
+        {
+          "type": "check",
+          "id": "check-flow-liquid-gas",
+          "prompt": "Which property do liquids and gases both have, but solids do not?",
+          "hint": "Think about pouring each one.",
+          "options": [
+            {
+              "text": "they can flow",
+              "correct": true
+            },
+            {
+              "text": "they have a fixed volume",
+              "correct": false
+            },
+            {
+              "text": "they are easily compressed",
+              "correct": false
+            },
+            {
+              "text": "they have a fixed shape",
+              "correct": false
+            }
+          ],
+          "explain": "Liquids and gases both flow, because their particles can move past each other. Only a liquid has a fixed volume, only a gas is easily compressed, and only a solid has a fixed shape.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they can flow"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pump-tyre",
+          "prompt": "A pump pushes more and more air into a bicycle tyre, though the tyre hardly gets bigger. Which property of gases makes this possible?",
+          "hint": "The same space ends up holding much more air.",
+          "options": [
+            {
+              "text": "gases are easily compressed",
+              "correct": true
+            },
+            {
+              "text": "gases have a fixed volume",
+              "correct": false
+            },
+            {
+              "text": "gases have a high density",
+              "correct": false
+            },
+            {
+              "text": "gases cannot flow",
+              "correct": false
+            }
+          ],
+          "explain": "Gas particles are far apart, so more air can be squeezed into the same space. A gas has no fixed volume, a low density, and it flows.",
+          "verify": {
+            "kind": "choice",
+            "truth": "gases are easily compressed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "changes-of-state",
+      "heading": "Changes of state and their names",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Heating or cooling a substance can change its state. It is still the same substance, made of the same particles, so its mass does not change."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-1-changes-of-state",
+          "alt": "Three boxes in a row labelled solid, liquid and gas. Arrows pointing right show the changes on heating: solid to liquid is melting, and liquid to gas is boiling or evaporation. Arrows pointing left show the changes on cooling: liquid to solid is freezing, also called solidification, and gas to liquid is condensation.",
+          "caption": "The names of the changes of state. Heating goes right, cooling goes left."
+        },
+        {
+          "type": "text",
+          "text": "Learn the names of the four changes. [[melting|Melting]] is solid to liquid. Freezing, also called solidification, is liquid to solid. [[condensation|Condensation]] is gas to liquid, like drops forming on a cold window. Liquid to gas is boiling or evaporation."
+        },
+        {
+          "type": "text",
+          "text": "[[boiling|Boiling]] happens at one temperature, the boiling point, with bubbles of gas forming all through the liquid. [[evaporation|Evaporation]] happens only at the surface, and also below the boiling point: a puddle dries up without boiling. You will compare them in {{lesson:2.2.3}}."
+        },
+        {
+          "type": "text",
+          "text": "Some questions call any change from liquid to gas \"vaporisation\". A few substances, such as dry ice, change straight between solid and gas, but you do not need to name those changes."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up melting and freezing. Melting starts with a solid; freezing ends with one. Freezing does not have to be cold: molten iron freezes at about $1500\\ \\text{°C}$."
+        },
+        {
+          "type": "check",
+          "id": "check-wax-freezing",
+          "prompt": "Hot liquid wax drips onto a cold bench and turns solid. What is this change of state called?",
+          "hint": "Which state does it start in, and which does it end in?",
+          "options": [
+            {
+              "text": "freezing",
+              "correct": true
+            },
+            {
+              "text": "melting",
+              "correct": false
+            },
+            {
+              "text": "condensation",
+              "correct": false
+            },
+            {
+              "text": "evaporation",
+              "correct": false
+            }
+          ],
+          "explain": "Liquid to solid is freezing (solidification). Melting is the reverse, solid to liquid. Condensation is gas to liquid, and evaporation is liquid to gas.",
+          "verify": {
+            "kind": "choice",
+            "truth": "freezing"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A pure substance melts at a fixed temperature, its melting point, and freezes at that same temperature. It boils at its boiling point. At a given pressure, it is a solid below its melting point, a liquid between the two, and a gas above its boiling point."
+        },
+        {
+          "type": "example",
+          "id": "ex-ethanol-states",
+          "question": "Ethanol has a melting point of $-114\\ \\text{°C}$ and a boiling point of $78\\ \\text{°C}$. State whether ethanol is a solid, a liquid or a gas at $-130\\ \\text{°C}$, at $25\\ \\text{°C}$ and at $85\\ \\text{°C}$.",
+          "steps": [
+            "Put the temperatures in order. With negative numbers, the more negative one is colder: $-130\\ \\text{°C}$ is below $-114\\ \\text{°C}$.",
+            "Compare each temperature with the melting point and the boiling point."
+          ],
+          "answer": "At $-130\\ \\text{°C}$ ethanol is a solid, because this is below its melting point. At $25\\ \\text{°C}$ it is a liquid, because this is between its melting and boiling points. At $85\\ \\text{°C}$ it is a gas, because this is above its boiling point.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "-130 °C below -114 °C: solid; 25 °C between: liquid; 85 °C above 78 °C: gas",
+            "requires": [
+              "is a solid",
+              "below its melting point",
+              "is a liquid",
+              "between its melting and boiling points",
+              "is a gas",
+              "above its boiling point"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mercury-state",
+          "prompt": "Mercury melts at $-39\\ \\text{°C}$ and boils at $357\\ \\text{°C}$. What state is mercury in at $-45\\ \\text{°C}$?",
+          "hint": "Is $-45\\ \\text{°C}$ warmer or colder than $-39\\ \\text{°C}$?",
+          "options": [
+            {
+              "text": "solid",
+              "correct": true
+            },
+            {
+              "text": "liquid",
+              "correct": false
+            },
+            {
+              "text": "gas",
+              "correct": false
+            }
+          ],
+          "explain": "$-45\\ \\text{°C}$ is colder than $-39\\ \\text{°C}$, so it is below the melting point and mercury is a solid. Reading $45$ as bigger than $39$ gives \"liquid\" by mistake.",
+          "verify": {
+            "kind": "choice",
+            "truth": "solid"
+          }
+        },
+        {
+          "type": "text",
+          "text": "When a liquid boils, the mass stays the same but the particles spread far apart. So the volume increases hugely and the density, $\\rho = \\frac{m}{V}$, falls. Condensing reverses this."
+        },
+        {
+          "type": "example",
+          "id": "ex-steam-density",
+          "question": "In a laboratory, $0.20\\ \\text{kg}$ of water is boiled away. All the steam is collected in a large bag kept at $100\\ \\text{°C}$, where it takes up $0.34\\ \\text{m}^3$. Calculate the density of the steam.",
+          "steps": [
+            "The mass does not change when water boils, so the steam's mass is $m = 0.20\\ \\text{kg}$.",
+            "Write the equation: $\\rho = \\frac{m}{V}$.",
+            "Substitute: $\\rho = \\frac{0.20}{0.34} = 0.588\\ \\text{kg/m}^3$.",
+            "Give 2 significant figures, as in the data. Liquid water has a density of about $1000\\ \\text{kg/m}^3$, so steam is well over a thousand times less dense."
+          ],
+          "answer": "$\\rho \\approx 0.59\\ \\text{kg/m}^3$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.20/0.34",
+            "sf": 2,
+            "unit": "kg/m^3"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 1/2 often asks how mass, volume or density change in a change of state. The mass never changes; work out the volume next, then the density from $\\rho = \\frac{m}{V}$."
+        },
+        {
+          "type": "check",
+          "id": "check-condense-mass-density",
+          "prompt": "Steam condenses to liquid water. What happens to its mass and its density?",
+          "hint": "No particles are lost, but they end up much closer together.",
+          "options": [
+            {
+              "text": "mass stays the same, density increases",
+              "correct": true
+            },
+            {
+              "text": "mass stays the same, density decreases",
+              "correct": false
+            },
+            {
+              "text": "mass increases, density increases",
+              "correct": false
+            },
+            {
+              "text": "mass decreases, density stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "The same particles are there, so the mass stays the same. They move close together, so the volume falls and the density $\\frac{m}{V}$ increases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "mass stays the same, density increases"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Solid: fixed shape and fixed volume; does not flow; very hard to compress."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Liquid: fixed volume but no fixed shape (takes the shape of the part of the container it fills); flows; very hard to compress."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Gas: no fixed shape or volume (fills any closed container); flows; easily compressed; much lower density than a solid or a liquid."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Melting: solid to liquid. Freezing (solidification): liquid to solid. Boiling and evaporation: liquid to gas. Condensation: gas to liquid."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "At a given pressure, a pure substance is a solid below its melting point, a liquid between its melting and boiling points, and a gas above its boiling point."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A change of state does not change the mass. Liquid to gas makes the volume much larger and the density much smaller; gas to liquid does the reverse."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying a liquid fills its container. It has a fixed volume and fills only the lower part; only a gas fills the whole container.",
+    "Mixing up melting (solid to liquid) and freezing (liquid to solid). Check which state the substance starts in.",
+    "Calling liquid to gas \"condensation\". Condensation is gas to liquid, like drops on a cold window.",
+    "Thinking steam has less mass than the water it came from because it rises away. No particles are lost, so the mass of steam equals the mass of water that boiled; only the volume grows and the density falls.",
+    "Comparing negative temperatures the wrong way. $-45\\ \\text{°C}$ is colder than $-39\\ \\text{°C}$."
+  ],
+  "examTips": [
+    "Paper 1/2 often lists properties in a table. Check every entry in a row: one wrong property rules the whole row out.",
+    "\"Compare\" two states: mention both in each point, such as \"a gas is easily compressed but a liquid is not\".",
+    "\"State\" the name of a change of state: one word, spelt clearly, is enough. Use melting, freezing (or solidification), boiling, evaporation or condensation."
+  ],
+  "readingMinutes": 16
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" role="img" aria-labelledby="t152span">
+<title id="t152span">A spanner seen from the front, gripping a nut on the left. The centre of the nut is the pivot. The handle runs horizontally to the right. A force F pushes straight down on the right-hand end of the handle, at right angles to it. A dashed line below the spanner marks the perpendicular distance d, from the centre of the nut across to the line of the force. A curved arrow round the nut shows that the force turns the spanner clockwise.</title>
+<polygon points="80,78 102,90 102,114 80,126 58,114 58,90" fill="var(--t3-ink)" fill-opacity="0.2" stroke="currentColor" stroke-width="1.4"/>
+<path d="M58 70 A36 36 0 1 1 58 134" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M112 93 H380 Q390 102 380 111 H112" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="80" cy="102" r="3.5" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="80" y="56" fill="currentColor" text-anchor="middle">pivot (centre of nut)</text>
+<path d="M370 113 V176" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<polygon points="370,186 365,175 375,175" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="380" y="160" fill="var(--t1-ink)" text-anchor="start">force F</text>
+<path d="M80 130 V214 M370 190 V214" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+<path d="M88 206 H362" stroke="var(--t2-ink)" stroke-width="1.6" stroke-dasharray="6 4"/>
+<polygon points="80,206 90,201 90,211" fill="var(--t2-ink)"/>
+<polygon points="370,206 360,201 360,211" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="225" y="228" fill="var(--t2-ink)" text-anchor="middle">perpendicular distance d</text>
+<path d="M126 70 A52 52 0 0 1 132 130" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="131,138 127,126 137,128" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="142" y="140" fill="var(--muted)" text-anchor="start">turns clockwise</text>
+</svg>

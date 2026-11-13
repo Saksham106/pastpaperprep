@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="t422dir">
+<title id="t422dir">A cell and a lamp joined in a single loop. The cell is in the top wire with its positive terminal on the left and its negative terminal on the right. Outside the loop, an arrow labelled conventional current leaves the positive terminal and goes anticlockwise round the circuit: left along the top, down the left side, along the bottom through the lamp and up the right side to the negative terminal. Inside the loop, an arrow labelled electron flow goes the opposite way, clockwise, from the negative terminal round to the positive terminal.</title>
+<g stroke="currentColor" stroke-width="2.2" fill="none">
+<line x1="110" y1="80" x2="250" y2="80"/><line x1="262" y1="80" x2="410" y2="80"/>
+<line x1="110" y1="80" x2="110" y2="220"/><line x1="410" y1="80" x2="410" y2="220"/>
+<line x1="110" y1="220" x2="245" y2="220"/><line x1="275" y1="220" x2="410" y2="220"/>
+<circle cx="260" cy="220" r="15"/>
+<line x1="249.4" y1="209.4" x2="270.6" y2="230.6"/><line x1="270.6" y1="209.4" x2="249.4" y2="230.6"/>
+</g>
+<line x1="250" y1="58" x2="250" y2="102" stroke="currentColor" stroke-width="2.2"/>
+<line x1="262" y1="68" x2="262" y2="92" stroke="currentColor" stroke-width="6"/>
+<g font-family="inherit" font-size="18" fill="currentColor" text-anchor="middle"><text x="236" y="58">+</text><text x="278" y="62">−</text></g>
+<g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle"><text x="256" y="40">cell</text><text x="260" y="256">lamp</text></g>
+<line x1="200.0" y1="62.0" x2="151.0" y2="62.0" stroke="var(--t2-ink)" stroke-width="2.4"/><polygon points="140.0,62.0 151.0,56.5 151.0,67.5" fill="var(--t2-ink)"/>
+<line x1="90.0" y1="120.0" x2="90.0" y2="169.0" stroke="var(--t2-ink)" stroke-width="2.4"/><polygon points="90.0,180.0 84.5,169.0 95.5,169.0" fill="var(--t2-ink)"/>
+<line x1="320.0" y1="240.0" x2="369.0" y2="240.0" stroke="var(--t2-ink)" stroke-width="2.4"/><polygon points="380.0,240.0 369.0,245.5 369.0,234.5" fill="var(--t2-ink)"/>
+<line x1="430.0" y1="180.0" x2="430.0" y2="131.0" stroke="var(--t2-ink)" stroke-width="2.4"/><polygon points="430.0,120.0 435.5,131.0 424.5,131.0" fill="var(--t2-ink)"/>
+<text x="20" y="150" font-family="inherit" font-size="13" fill="var(--t2-ink)" text-anchor="middle" transform="rotate(-90 20 150)">conventional current</text>
+<text x="500" y="150" font-family="inherit" font-size="13" fill="var(--t2-ink)" text-anchor="middle" transform="rotate(90 500 150)">conventional current</text>
+<line x1="320.0" y1="100.0" x2="369.0" y2="100.0" stroke="var(--t3-ink)" stroke-width="2.4"/><polygon points="380.0,100.0 369.0,105.5 369.0,94.5" fill="var(--t3-ink)"/>
+<line x1="390.0" y1="120.0" x2="390.0" y2="169.0" stroke="var(--t3-ink)" stroke-width="2.4"/><polygon points="390.0,180.0 384.5,169.0 395.5,169.0" fill="var(--t3-ink)"/>
+<line x1="200.0" y1="200.0" x2="151.0" y2="200.0" stroke="var(--t3-ink)" stroke-width="2.4"/><polygon points="140.0,200.0 151.0,194.5 151.0,205.5" fill="var(--t3-ink)"/>
+<line x1="130.0" y1="180.0" x2="130.0" y2="131.0" stroke="var(--t3-ink)" stroke-width="2.4"/><polygon points="130.0,120.0 135.5,131.0 124.5,131.0" fill="var(--t3-ink)"/>
+<text x="260" y="150" font-family="inherit" font-size="13" fill="var(--t3-ink)" text-anchor="middle">electron flow: from − round to +</text>
+<text x="260" y="290" font-family="inherit" font-size="13" fill="var(--t2-ink)" text-anchor="middle">conventional current: from + round to −</text>
+</svg>

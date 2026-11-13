@@ -1,0 +1,577 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.1.3",
+  "slug": "gases-and-the-absolute-scale-of-temperature",
+  "title": "Gases and the absolute scale of temperature",
+  "level": "Core",
+  "topic": 2,
+  "summary": "A sealed [[gas|gas]] pushes harder on its container when it gets hotter or is squeezed into less space, because its particles hit the walls more often (and, when hotter, harder). Scientists also measure [[temperature|temperature]] from [[absolute-zero|absolute zero]], in [[kelvin|kelvin]]: add 273 to a Celsius temperature. Extended adds [[boyle-s-law|Boyle's law]], $pV = \\text{constant}$.",
+  "goals": [
+    {
+      "text": "Describe, in terms of particles, how heating or cooling a sealed gas in a fixed volume changes its [[pressure|pressure]].",
+      "bullets": [
+        "2.1.3-1"
+      ]
+    },
+    {
+      "text": "Describe, in terms of particles, how squeezing or expanding a gas at constant temperature, with no gas escaping, changes its pressure.",
+      "bullets": [
+        "2.1.3-1"
+      ]
+    },
+    {
+      "text": "Convert temperatures between degrees Celsius and kelvin with $T = \\theta + 273$.",
+      "bullets": [
+        "2.1.3-2"
+      ]
+    },
+    {
+      "text": "Use $pV = \\text{constant}$ when a fixed mass of gas is kept at constant temperature, and sketch its graphs.",
+      "bullets": [
+        "2.1.3-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.8",
+    "2.1.1",
+    "2.1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "convert celsius to kelvin",
+    "absolute scale of temperature",
+    "gas pressure and temperature particles",
+    "why gas pressure increases when compressed",
+    "Boyle's law pV constant",
+    "pressure against volume graph"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-pressure-calc",
+      "prompt": "A force of $60\\ \\text{N}$ acts at right angles to an area of $0.20\\ \\text{m}^2$. What is the pressure?",
+      "hint": "Pressure is force divided by area.",
+      "options": [
+        {
+          "text": "$300\\ \\text{Pa}$",
+          "correct": true
+        },
+        {
+          "text": "$12\\ \\text{Pa}$",
+          "correct": false
+        },
+        {
+          "text": "$0.0033\\ \\text{Pa}$",
+          "correct": false
+        }
+      ],
+      "explain": "$p = \\frac{F}{A} = \\frac{60}{0.20} = 300\\ \\text{Pa}$. Revise it in {{lesson:1.8}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "60/0.20",
+        "unit": "Pa"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-gas-pressure-cause",
+      "prompt": "What causes the pressure that a gas exerts on the walls of its container?",
+      "hint": "Think about what the moving particles do when they reach a wall.",
+      "options": [
+        {
+          "text": "gas particles colliding with the walls",
+          "correct": true
+        },
+        {
+          "text": "gas particles sticking to the walls",
+          "correct": false
+        },
+        {
+          "text": "the weight of the particles resting on the bottom",
+          "correct": false
+        },
+        {
+          "text": "the particles swelling up as they move",
+          "correct": false
+        }
+      ],
+      "explain": "Gas particles move quickly in random directions. Each collision with a wall pushes on it, and together these pushes are the pressure. Revise it in {{lesson:2.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "gas particles colliding with the walls"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-absolute-zero",
+      "prompt": "What is absolute zero?",
+      "hint": "It is linked to how much the particles move.",
+      "options": [
+        {
+          "text": "the lowest possible temperature, where the particles have the least kinetic energy",
+          "correct": true
+        },
+        {
+          "text": "the temperature at which pure water freezes",
+          "correct": false
+        },
+        {
+          "text": "the temperature at which the particles move fastest",
+          "correct": false
+        }
+      ],
+      "explain": "Absolute zero, about $-273\\ \\text{°C}$, is the lowest possible temperature: the particles have the least kinetic energy they can have. Water freezes at $0\\ \\text{°C}$. Revise it in {{lesson:2.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the lowest possible temperature, where the particles have the least kinetic energy"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "gas-pressure",
+      "heading": "Why the pressure of a gas changes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Put your finger over the end of a bicycle pump and push the handle in: the trapped air pushes back harder and harder. An aerosol can says \"do not heat\": warming the gas inside raises its pressure, and the can could burst."
+        },
+        {
+          "type": "text",
+          "text": "In both, the mass of gas is fixed: no gas gets in or out, yet its pressure changes. The particles of a gas move quickly in random directions, and each one that hits a wall pushes on it. The [[gas-pressure|gas pressure]] is the force of all these collisions on each unit area of wall."
+        },
+        {
+          "type": "text",
+          "text": "So the pressure rises if the particles hit the walls more often, or hit them harder. Everything in this section comes from those two ideas."
+        },
+        {
+          "type": "text",
+          "text": "First, heat a gas in a sealed, rigid container, so its volume can't change. Its temperature rises, so its particles move faster on average: their average kinetic energy increases. They hit the walls more often, and harder each time, so the pressure increases. Cooling does the opposite: the particles slow down and the pressure falls."
+        },
+        {
+          "type": "example",
+          "id": "ex-dive-cylinder-sun",
+          "question": "A steel diving cylinder full of air is left in hot sunshine on the deck of a boat. Its volume does not change. Explain, in terms of particles, why the pressure of the air inside increases.",
+          "steps": [
+            "Start with the temperature, then the particles' speed, then the two ways their collisions with the walls change."
+          ],
+          "answer": "The air warms up, so its particles gain kinetic energy and move faster on average. The faster particles hit the walls of the cylinder more often. Each collision is also harder, so it exerts a greater force on the wall. More frequent, harder collisions give a greater force on each unit area of wall, so the pressure increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "temperature rises; particles move faster on average; hit the walls more often; harder collisions, greater force; pressure increases",
+            "requires": [
+              [
+                "faster on average"
+              ],
+              [
+                "more often",
+                "more frequently"
+              ],
+              [
+                "greater force",
+                "harder"
+              ],
+              "walls",
+              "pressure increases"
+            ],
+            "forbids": [
+              "particles expand",
+              "particles get bigger",
+              "volume increases"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that the particles bump into each other, or forgetting \"on average\". Say the particles move faster on average and hit the walls of the container more often."
+        },
+        {
+          "type": "text",
+          "text": "Next, keep the temperature the same and push a piston in slowly, so the gas has a smaller volume. The temperature hasn't changed, so the particles' average speed doesn't change. But the same particles now share less space, so each one has less distance to travel between hits on the walls. The walls are hit more often, so the pressure increases. Let the gas expand into a larger volume and the walls are hit less often: the pressure falls."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-3-squeeze-gas",
+          "alt": "Two identical cylinders, each holding the same eight gas particles sealed in by a piston. In the left cylinder the piston is pulled out, so the gas has a large volume and the particles have further to travel between hits on the walls. In the right cylinder the piston is pushed halfway in at the same temperature, so the same particles fill half the volume and hit the walls more often each second.",
+          "caption": "Same particles, same average speed, less space: more collisions with the walls each second."
+        },
+        {
+          "type": "example",
+          "id": "ex-pump-finger-squeeze",
+          "question": "A student holds a finger over the outlet of a bicycle pump and pushes the handle in slowly, so the temperature of the trapped air stays the same. Explain, in terms of particles, why the pressure of the trapped air increases.",
+          "steps": [
+            "Say what stays the same (the speed), what changes (the volume), and what that does to the collisions with the walls."
+          ],
+          "answer": "The temperature does not change, so the air particles keep the same average speed. Pushing the handle in makes the volume of the trapped air smaller, so the particles have less distance to travel between the walls. They hit the walls more often. More collisions each second give a greater force on each unit area of wall, so the pressure increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same temperature so same average speed; volume smaller; hit walls more often; greater force per unit area; pressure increases",
+            "requires": [
+              "same average speed",
+              "smaller",
+              [
+                "more often",
+                "more frequently"
+              ],
+              "walls",
+              "pressure increases"
+            ],
+            "forbids": [
+              "move faster",
+              "particles get smaller",
+              "fewer particles"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the particles speed up when a gas is squeezed at constant temperature. Their average speed stays the same; only how often they hit the walls changes. The particles don't shrink either: the same number of particles fill less space."
+        },
+        {
+          "type": "check",
+          "id": "check-cooled-flask",
+          "prompt": "A sealed glass flask of air is carried from a warm laboratory into a cold room. Its volume stays the same. Why does the pressure of the air inside fall?",
+          "hint": "What does a lower temperature do to the particles' average speed?",
+          "options": [
+            {
+              "text": "the particles move more slowly, so they hit the walls less often and less hard",
+              "correct": true
+            },
+            {
+              "text": "the particles move more slowly, so they hit the walls more often",
+              "correct": false
+            },
+            {
+              "text": "the particles get smaller as they cool",
+              "correct": false
+            },
+            {
+              "text": "the particles stop moving and settle on the bottom",
+              "correct": false
+            }
+          ],
+          "explain": "A lower temperature means a lower average kinetic energy. Slower particles strike the walls less frequently and less hard, so the pressure drops. They don't shrink, and they never stop moving.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the particles move more slowly, so they hit the walls less often and less hard"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plunger-pulled-out",
+          "prompt": "Air is sealed in a syringe. The plunger is pulled out slowly, so the temperature of the air stays constant. What happens?",
+          "hint": "The temperature is constant, so is the particles' speed. What does the extra space change?",
+          "options": [
+            {
+              "text": "the particles hit the walls less often, so the pressure decreases",
+              "correct": true
+            },
+            {
+              "text": "the particles move more slowly, so the pressure decreases",
+              "correct": false
+            },
+            {
+              "text": "the particles hit the walls more often, so the pressure increases",
+              "correct": false
+            },
+            {
+              "text": "some particles disappear, so the pressure decreases",
+              "correct": false
+            }
+          ],
+          "explain": "The same particles, at the same average speed, now have more space. They travel further between hits on the walls, so the walls are hit less often and the pressure decreases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the particles hit the walls less often, so the pressure decreases"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Explain in terms of particles\" questions give a mark for each linked step: the particles' average speed (changed or not), how often they hit the walls, the force on the walls, then the pressure change. Say which quantity stays constant."
+        }
+      ]
+    },
+    {
+      "id": "kelvin-scale",
+      "heading": "The kelvin scale",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Celsius scale puts $0\\ \\text{°C}$ at the melting point of ice. Much colder temperatures exist, so Celsius temperatures can be negative. The coldest possible temperature is [[absolute-zero|absolute zero]], about $-273\\ \\text{°C}$, where the particles have the least possible kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "The [[kelvin|kelvin]] scale (the absolute scale of temperature) starts at absolute zero, $0\\ \\text{K}$. A change of one kelvin is the same size as a change of one degree Celsius, so the two scales are shifted by 273:"
+        },
+        {
+          "type": "formula",
+          "tex": "T\\ (\\text{in K}) = \\theta\\ (\\text{in °C}) + 273",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "To go back to Celsius, subtract: $\\theta = T - 273$. For example, ice melts at $0\\ \\text{°C} = 273\\ \\text{K}$ and water boils at $100\\ \\text{°C} = 373\\ \\text{K}$. A kelvin temperature is never negative."
+        },
+        {
+          "type": "example",
+          "id": "ex-nitrogen-to-kelvin",
+          "question": "Liquid nitrogen boils at $-196\\ \\text{°C}$. Convert this temperature to kelvin.",
+          "steps": [
+            "Write the equation: $T = \\theta + 273$.",
+            "Substitute, keeping the minus sign: $T = -196 + 273 = 77$.",
+            "Sense check: the answer is positive, and small because liquid nitrogen is very cold."
+          ],
+          "answer": "$T = 77\\ \\text{K}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-196 + 273",
+            "unit": "K"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-oven-to-celsius",
+          "question": "A sensor in a pizza oven reads $658\\ \\text{K}$. What is this temperature in degrees Celsius?",
+          "steps": [
+            "Rearrange $T = \\theta + 273$ for the Celsius temperature: $\\theta = T - 273$.",
+            "Substitute: $\\theta = 658 - 273 = 385$."
+          ],
+          "answer": "$\\theta = 385\\ \\text{°C}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "658 - 273",
+            "unit": "°C"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"°K\" or \"degrees kelvin\". The unit is the kelvin, symbol K, with no degree sign."
+        },
+        {
+          "type": "text",
+          "text": "A temperature change is the same number on both scales. Warming from $20\\ \\text{°C}$ to $35\\ \\text{°C}$ is a rise of $15\\ \\text{°C}$, which is also a rise of $15\\ \\text{K}$. Don't add 273 to a change."
+        },
+        {
+          "type": "check",
+          "id": "check-room-to-kelvin",
+          "prompt": "A classroom is at $22\\ \\text{°C}$. What is this temperature in kelvin?",
+          "hint": "Kelvin numbers are bigger: add 273.",
+          "answer": {
+            "value": 295,
+            "tolerance": 0.5
+          },
+          "explain": "$T = 22 + 273 = 295\\ \\text{K}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "22 + 273",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tea-temperature-fall",
+          "prompt": "A cup of tea cools from $80\\ \\text{°C}$ to $45\\ \\text{°C}$. By how much does its temperature fall, in kelvin?",
+          "hint": "A change of 1 °C is the same as a change of 1 K.",
+          "options": [
+            {
+              "text": "$35\\ \\text{K}$",
+              "correct": true
+            },
+            {
+              "text": "$308\\ \\text{K}$",
+              "correct": false
+            },
+            {
+              "text": "$318\\ \\text{K}$",
+              "correct": false
+            },
+            {
+              "text": "$353\\ \\text{K}$",
+              "correct": false
+            }
+          ],
+          "explain": "The fall is $80 - 45 = 35\\ \\text{°C}$, which is also $35\\ \\text{K}$. Adding 273 gives a temperature, not a change.",
+          "verify": {
+            "kind": "exact",
+            "truth": "80 - 45",
+            "unit": "K"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 5/6 results table, a column headed \"$T$ / K\" needs kelvin values: add 273 to every Celsius reading. In Paper 1/2, any option with a negative kelvin temperature is wrong."
+        }
+      ]
+    },
+    {
+      "id": "boyles-law",
+      "heading": "Boyle's law: pressure and volume",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Squeezing a gas raises its pressure. For a fixed mass of gas kept at a constant temperature, the link is exact: halve the volume and the pressure doubles. Pressure × volume stays the same. This is [[boyle-s-law|Boyle's law]]."
+        },
+        {
+          "type": "formula",
+          "tex": "pV = \\text{constant}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $p$ is the pressure and $V$ is the volume. For a change from a first state to a second, $p_1 V_1 = p_2 V_2$. Use the same units on both sides (kPa and cm³ are fine); you don't need to convert to Pa and m³."
+        },
+        {
+          "type": "example",
+          "id": "ex-syringe-new-pressure",
+          "question": "A syringe holds $45\\ \\text{cm}^3$ of air at a pressure of $100\\ \\text{kPa}$. The outlet is sealed and the plunger is pushed in slowly until the volume is $18\\ \\text{cm}^3$. The temperature stays constant. Calculate the new pressure of the air.",
+          "steps": [
+            "Write the equation: $p_1 V_1 = p_2 V_2$.",
+            "Rearrange for the new pressure: $p_2 = \\frac{p_1 V_1}{V_2}$.",
+            "Substitute: $p_2 = \\frac{100 \\times 45}{18} = 250$.",
+            "Sense check: the volume got smaller, so the pressure should rise. It did."
+          ],
+          "answer": "$p_2 = 250\\ \\text{kPa}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "100*45/18",
+            "unit": "kPa"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rising-bubble-volume",
+          "question": "A diver breathes out a bubble of air with a volume of $1.6\\ \\text{cm}^3$ at a depth where the pressure is $330\\ \\text{kPa}$. The bubble rises to the surface, where the pressure is $101\\ \\text{kPa}$. Assume the temperature of the air does not change. Calculate the volume of the bubble at the surface.",
+          "steps": [
+            "Write the equation and rearrange for the new volume: $p_1 V_1 = p_2 V_2$, so $V_2 = \\frac{p_1 V_1}{p_2}$.",
+            "Substitute: $V_2 = \\frac{330 \\times 1.6}{101} = 5.227…$",
+            "The volume has 2 significant figures, so give 2.",
+            "Sense check: the pressure fell, so the volume must be bigger than $1.6\\ \\text{cm}^3$. It is."
+          ],
+          "answer": "$V_2 \\approx 5.2\\ \\text{cm}^3$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "330*1.6/101",
+            "sf": 2,
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the pressures upside down, so the volume goes the wrong way. Before you finish, check: a higher pressure means a smaller volume."
+        },
+        {
+          "type": "text",
+          "text": "Rearranged, Boyle's law says $p = \\frac{\\text{constant}}{V}$: pressure is inversely proportional to volume. So a graph of $p$ against $V$ is a curve: double $V$ and $p$ halves. A graph of $p$ against $\\frac{1}{V}$ is a straight line through the origin."
+        },
+        {
+          "type": "figure",
+          "id": "2-1-3-boyle-graphs",
+          "alt": "Two graphs for a gas obeying Boyle's law. The left graph has pressure p on the vertical axis and volume V on the horizontal axis. The line curves: steep at small volumes, flattening out at large ones, and never touching either axis. The right graph has pressure p on the vertical axis and 1 over V on the horizontal axis. It is a straight line through the origin.",
+          "caption": "Boyle's law: $p$ against $V$ is a curve; $p$ against $\\frac{1}{V}$ is a straight line through the origin."
+        },
+        {
+          "type": "check",
+          "id": "check-boyle-straight-graph",
+          "prompt": "Boyle's law: which of these graphs is straight and passes through the origin?",
+          "hint": "Pressure is inversely proportional to volume.",
+          "options": [
+            {
+              "text": "pressure against 1/volume",
+              "correct": true
+            },
+            {
+              "text": "pressure against volume",
+              "correct": false
+            },
+            {
+              "text": "volume against pressure",
+              "correct": false
+            }
+          ],
+          "explain": "Since $p = \\frac{\\text{constant}}{V}$, $p$ is directly proportional to $\\frac{1}{V}$, so that graph is straight through the origin. $p$ against $V$, either way round, is a curve.",
+          "verify": {
+            "kind": "choice",
+            "truth": "pressure against 1/volume"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compressed-gas-volume",
+          "prompt": "A sealed sample of gas occupies $600\\ \\text{cm}^3$ at $90\\ \\text{kPa}$. It is compressed at constant temperature until its pressure is $150\\ \\text{kPa}$. What is its new volume, in cm³?",
+          "hint": "Use $p_1 V_1 = p_2 V_2$. The pressure rises, so the volume falls.",
+          "answer": {
+            "value": 360,
+            "tolerance": 0.5
+          },
+          "explain": "$V_2 = \\frac{p_1 V_1}{p_2} = \\frac{90 \\times 600}{150} = 360\\ \\text{cm}^3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "90*600/150",
+            "dp": 0
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6 may give pressure and volume readings from a syringe and a pressure gauge. To test Boyle's law, calculate $pV$ for every row: if the values are equal within experimental accuracy (about 10%), the data support $pV = \\text{constant}$. Seeing $p$ rise as $V$ falls is not enough."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Fixed mass of gas, constant volume: a higher temperature makes the particles move faster on average, so they hit the walls more often and harder, and the pressure increases."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Fixed mass of gas, constant temperature: a smaller volume means the particles, at the same average speed, hit the walls more often, so the pressure increases."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "$T\\ (\\text{in K}) = \\theta\\ (\\text{in °C}) + 273$, and $\\theta = T - 273$. Absolute zero is $0\\ \\text{K}$; kelvin temperatures are never negative. A change of 1 K equals a change of 1 °C."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Boyle's law: when a fixed mass of gas is kept at a constant temperature, $pV = \\text{constant}$, so $p_1 V_1 = p_2 V_2$. A graph of $p$ against $V$ is a curve; $p$ against $\\frac{1}{V}$ is a straight line through the origin."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Subtracting 273 to change °C into K, or adding it to change K into °C. Kelvin numbers are the bigger ones: add 273 to a Celsius temperature.",
+    "Saying gas particles move faster when the gas is squeezed at constant temperature. Their average speed stays the same; they just hit the walls more often.",
+    "Explaining gas pressure with particles colliding \"with each other\". Pressure comes from the particles colliding with the walls of the container.",
+    "Adding 273 to a temperature change. A rise of 15 °C is a rise of 15 K."
+  ],
+  "examTips": [
+    "\"Explain\" a pressure change \"in terms of particles\" in linked steps: the particles' average speed, how often they hit the walls, the force on the walls, then the pressure. Say what stays constant.",
+    "\"Convert\" a temperature: write $T = \\theta + 273$, substitute, and give the unit K (never °K)."
+  ],
+  "readingMinutes": 20
+}

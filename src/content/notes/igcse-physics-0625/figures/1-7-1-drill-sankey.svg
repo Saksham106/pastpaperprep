@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 310" role="img" aria-labelledby="t171sk">
+<title id="t171sk">Sankey diagram for an electric drill. A wide arrow enters from the left, labelled electrical work in, 800 J. Most of it carries straight on to the right as the widest output arrow, labelled work done by the bit, useful, 560 J. A thinner band branches downwards first, labelled heating, wasted, 200 J. A very thin band branches downwards further along, labelled sound, wasted, question mark J. The widths of the arrows are proportional to the energy they carry.</title>
+<text font-family="inherit" font-size="13" x="20" y="48" fill="currentColor" text-anchor="start">electrical work in: 800 J</text>
+<path d="M20 60 H520 V172 H20 Z" fill="var(--t1-ink)" fill-opacity="0.18" stroke="none"/>
+<polygon points="520,52 560,116 520,180" fill="var(--t1-ink)" fill-opacity="0.18"/>
+<path d="M20 60 H520 M520 172 H380" fill="none" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<polyline points="520,60 520,52 560,116 520,180 520,172" fill="none" stroke="var(--t1-ink)" stroke-width="1.2"/>
+<text font-family="inherit" font-size="13" x="440" y="110" fill="currentColor" text-anchor="middle">work done by the bit</text>
+<text font-family="inherit" font-size="12" x="440" y="126" fill="var(--muted)" text-anchor="middle">(useful) 560 J</text>
+<path d="M20 172 H380 A23 23 0 0 1 403 195 V262 H395 V195 A15 15 0 0 0 380 180 H20 Z" fill="var(--t2-ink)" fill-opacity="0.35" stroke="var(--t2-ink)" stroke-width="1"/>
+<polygon points="390,262 408,262 399,280" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="13" x="414" y="240" fill="currentColor" text-anchor="start">sound</text>
+<text font-family="inherit" font-size="12" x="414" y="256" fill="var(--muted)" text-anchor="start">(wasted) ? J</text>
+<path d="M20 180 H220 A55 55 0 0 1 275 235 V262 H235 V235 A15 15 0 0 0 220 220 H20 Z" fill="var(--t4-ink)" fill-opacity="0.3" stroke="var(--t4-ink)" stroke-width="1"/>
+<polygon points="228,262 282,262 255,292" fill="var(--t4-ink)" fill-opacity="0.6"/>
+<text font-family="inherit" font-size="13" x="290" y="250" fill="currentColor" text-anchor="start">heating</text>
+<text font-family="inherit" font-size="12" x="290" y="266" fill="var(--muted)" text-anchor="start">(wasted) 200 J</text>
+<path d="M20 60 V220" stroke="currentColor" stroke-width="1.2"/>
+</svg>

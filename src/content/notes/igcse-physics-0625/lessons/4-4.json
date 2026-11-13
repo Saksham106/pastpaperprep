@@ -1,0 +1,706 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.4",
+  "slug": "electrical-safety",
+  "title": "Electrical safety",
+  "level": "Core",
+  "topic": 4,
+  "summary": "Mains electricity can kill by electric shock and can start fires. Mains circuits use three wires, [[live-wire|live]], [[neutral-wire|neutral]] and [[earth-wire|earth]], with the switch and the [[fuse|fuse]] in the live one. Fuses and [[trip-switch|trip switches]] cut the current when it gets too large, and a casing is either earthed or made of an insulator.",
+  "goals": [
+    {
+      "text": "Name the three wires of a mains circuit and explain why the switch goes in the live wire.",
+      "bullets": [
+        "4.4-2"
+      ]
+    },
+    {
+      "text": "State the hazards of damaged insulation, overheating cables, damp conditions and overloaded sockets or extension leads.",
+      "bullets": [
+        "4.4-1"
+      ]
+    },
+    {
+      "text": "Explain how fuses and trip switches work, and choose a suitable fuse rating or trip switch setting.",
+      "bullets": [
+        "4.4-3"
+      ]
+    },
+    {
+      "text": "Explain why a casing must be earthed or double-insulated, and why a double-insulated appliance still has a fuse.",
+      "bullets": [
+        "4.4-4",
+        "4.4-5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.2.1",
+    "4.2.2",
+    "4.2.4",
+    "4.2.5",
+    "4.3.1",
+    "4.3.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "electrical safety",
+    "live neutral and earth wires",
+    "fuse rating",
+    "circuit breaker",
+    "double insulated appliance",
+    "why the switch is in the live wire"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-current-from-power",
+      "prompt": "A microwave oven has a power of $690\\ \\text{W}$ on a $230\\ \\text{V}$ supply. What is the current in it, in A?",
+      "hint": "Rearrange $P = IV$ to $I = \\frac{P}{V}$.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0.05
+      },
+      "explain": "$I = \\frac{P}{V} = \\frac{690}{230} = 3.0\\ \\text{A}$. Revise it in {{lesson:4.2.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "690/230",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-insulator",
+      "prompt": "Why is the outside of a mains cable made of plastic?",
+      "hint": "Think about whether charge can flow through the material.",
+      "options": [
+        {
+          "text": "plastic is an insulator, so charge cannot flow through it to you",
+          "correct": true
+        },
+        {
+          "text": "plastic is a conductor, so it carries the current safely",
+          "correct": false
+        },
+        {
+          "text": "plastic stops the current from being used up",
+          "correct": false
+        }
+      ],
+      "explain": "Plastic has no free electrons to carry charge, so it is an insulator. It keeps the current inside the metal wires. Revise it in {{lesson:4.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "plastic is an insulator, so charge cannot flow through it to you"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-parallel-total",
+      "prompt": "A lamp and a heater are connected in parallel to the same supply. How does the current from the supply compare with the currents in the two appliances?",
+      "hint": "The supply current splits between the branches.",
+      "options": [
+        {
+          "text": "it is larger than the current in either appliance",
+          "correct": true
+        },
+        {
+          "text": "it is equal to the current in the heater",
+          "correct": false
+        },
+        {
+          "text": "it is smaller than the current in either appliance",
+          "correct": false
+        }
+      ],
+      "explain": "The supply current splits between the two branches, so it is larger than either branch current. Each extra appliance adds to it. Revise it in {{lesson:4.3.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it is larger than the current in either appliance"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "mains-wiring",
+      "heading": "Live, neutral and earth",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A mains circuit has three wires. The [[live-wire|live wire]] (also called the line wire) carries the [[alternating-current|alternating]] p.d. of the supply, about $230\\ \\text{V}$ in many countries. The [[neutral-wire|neutral wire]] completes the circuit and stays close to $0\\ \\text{V}$."
+        },
+        {
+          "type": "text",
+          "text": "The [[earth-wire|earth wire]] is a safety wire. It joins any metal casing of the appliance to the ground. In normal use it carries no current."
+        },
+        {
+          "type": "figure",
+          "id": "4-4-mains-wiring",
+          "alt": "Mains wiring of a heater with a metal case. The live wire runs from the mains through a fuse and then a switch to the heating element inside the metal case. The neutral wire returns from the heating element to the mains. The earth wire runs from the mains to the metal case itself.",
+          "caption": "The fuse and the switch are both in the live wire. The earth wire goes to the metal case."
+        },
+        {
+          "type": "result",
+          "statement": "Connect the switch in the live wire. Then switching off disconnects the appliance from the high p.d. of the supply.",
+          "why": "The live wire is the dangerous one. A switch in the neutral wire stops the current, but leaves the appliance joined to the live wire."
+        },
+        {
+          "type": "example",
+          "id": "ex-switch-in-live",
+          "question": "Explain why the switch for a ceiling light must be connected in the live wire and not in the neutral wire.",
+          "steps": [
+            "Say what switching off does when the switch is in the live wire.",
+            "Then say what would happen with the switch in the neutral wire.",
+            "Finish with the danger to a person."
+          ],
+          "answer": "With the switch in the live wire, switching off disconnects the light from the high p.d. of the live wire. No part of the light is then at a dangerous p.d., so it is safe to change the bulb. If the switch were in the neutral wire, the light would go off but would still be connected to the live wire. Touching the bulb holder could then give an electric shock.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "switch in live disconnects the light from the high p.d.; switch in neutral leaves it connected to live; touching it could give a shock",
+            "requires": [
+              [
+                "disconnects",
+                "cuts off",
+                "isolates"
+              ],
+              [
+                "high p.d.",
+                "dangerous p.d.",
+                "high voltage"
+              ],
+              [
+                "still be connected to the live wire",
+                "still connected to the live wire",
+                "still live"
+              ],
+              [
+                "shock"
+              ]
+            ],
+            "forbids": [
+              "current is used up",
+              "neutral wire is live"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fuse-switch-wire",
+          "prompt": "In which wire of a mains circuit are the fuse and the switch connected?",
+          "hint": "Which wire has to be cut off to make the appliance safe?",
+          "options": [
+            {
+              "text": "both in the live wire",
+              "correct": true
+            },
+            {
+              "text": "both in the neutral wire",
+              "correct": false
+            },
+            {
+              "text": "the fuse in the live wire and the switch in the neutral wire",
+              "correct": false
+            },
+            {
+              "text": "the fuse in the earth wire and the switch in the live wire",
+              "correct": false
+            }
+          ],
+          "explain": "Both go in the live wire. When either one breaks the circuit, the appliance is cut off from the high p.d. The earth wire normally carries no current, so a fuse there would do nothing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "both in the live wire"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-earth-no-current",
+          "prompt": "An appliance with a metal case is working normally. Which wire carries no current?",
+          "hint": "Which wire is only there in case something goes wrong?",
+          "options": [
+            {
+              "text": "the earth wire",
+              "correct": true
+            },
+            {
+              "text": "the neutral wire",
+              "correct": false
+            },
+            {
+              "text": "the live wire",
+              "correct": false
+            }
+          ],
+          "explain": "The current flows in through the live wire and back through the neutral wire. The earth wire carries a current only if a fault makes the case live.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the earth wire"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hazards",
+      "heading": "Hazards of mains electricity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Mains electricity has two main dangers: an electric shock, which can kill, and fire."
+        },
+        {
+          "type": "text",
+          "text": "1. Damaged insulation: the bare live wire can be touched, giving an electric shock. The live and neutral wires may also touch each other, a short circuit, so a very large current flows and the cable can catch fire."
+        },
+        {
+          "type": "text",
+          "text": "2. Overheating cables: a current that is too large for a cable heats it up. The plastic insulation can melt or burn, which can start a fire and leave bare wires exposed."
+        },
+        {
+          "type": "text",
+          "text": "3. Damp conditions: water with dissolved impurities conducts. It can give the current a path from a live part through a person to the ground, causing an electric shock."
+        },
+        {
+          "type": "text",
+          "text": "4. Overloading: plugging many appliances into one socket, an adaptor or an extension lead puts them in [[parallel-circuit|parallel]]. The current in the plug and cable is the sum of all their currents. Too large a total current makes the plug and cable overheat, which can start a fire."
+        },
+        {
+          "type": "example",
+          "id": "ex-overloaded-lead",
+          "question": "A $2.4\\ \\text{kW}$ fan heater, a $1.1\\ \\text{kW}$ iron and a $650\\ \\text{W}$ coffee machine are all plugged into one extension lead on a $230\\ \\text{V}$ supply. The lead is designed for a current of up to $13\\ \\text{A}$. Calculate the total current in the lead.",
+          "steps": [
+            "The appliances are in parallel, so the current in the lead is the sum of their currents. That means you can add their powers first.",
+            "Total power: $P = 2400 + 1100 + 650 = 4150\\ \\text{W}$.",
+            "Rearrange $P = IV$: $I = \\frac{P}{V} = \\frac{4150}{230} = 18.04…\\ \\text{A}$.",
+            "This is well above $13\\ \\text{A}$, so the lead is overloaded. Its cable would overheat and could start a fire."
+          ],
+          "answer": "$I \\approx 18\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(2400 + 1100 + 650)/230",
+            "sf": 2,
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-hair-dryer-damp",
+          "question": "A student dries her hair with a mains hair dryer while standing in a wet bathroom. State the hazard and explain why it is greater in damp conditions.",
+          "steps": [
+            "Name the hazard to the person first.",
+            "Then explain what the water does."
+          ],
+          "answer": "The hazard is an electric shock. Water with impurities in it conducts electricity. Water can give the current a path from a live part of the dryer through her body to the ground. Wet skin also lets a larger current pass through her.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "electric shock; impure water conducts; path from live part through the person to ground; wet skin lets a larger current through",
+            "requires": [
+              [
+                "electric shock",
+                "electrocution"
+              ],
+              [
+                "conducts"
+              ],
+              [
+                "path"
+              ],
+              [
+                "larger current",
+                "bigger current"
+              ]
+            ],
+            "forbids": [
+              "water is an insulator",
+              "the fuse protects her"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing only \"a short circuit\" when asked for the hazard of damaged insulation. Name the danger to the person: an electric shock, or a fire."
+        },
+        {
+          "type": "check",
+          "id": "check-overload-hazard",
+          "prompt": "A family plugs five appliances into one multi-socket adaptor. What is the main hazard?",
+          "hint": "The appliances are in parallel. What happens to the current in the adaptor's plug and cable?",
+          "options": [
+            {
+              "text": "the total current is large, so the plug and cable overheat",
+              "correct": true
+            },
+            {
+              "text": "each appliance gets too much current and breaks",
+              "correct": false
+            },
+            {
+              "text": "the p.d. across each appliance becomes too large",
+              "correct": false
+            },
+            {
+              "text": "the earth wire becomes live",
+              "correct": false
+            }
+          ],
+          "explain": "Each appliance draws its normal current, but the plug and cable carry the sum of them. A large total current heats them and can start a fire.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the total current is large, so the plug and cable overheat"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fuses-and-trip-switches",
+      "heading": "Fuses and trip switches",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[fuse|fuse]] is a short, thin wire in the live wire, often inside the plug. Its rating is the largest current it carries without melting, such as $3\\ \\text{A}$, $5\\ \\text{A}$ or $13\\ \\text{A}$."
+        },
+        {
+          "type": "result",
+          "statement": "If the current rises above the fuse rating, the fuse wire heats up and melts. This breaks the circuit in the live wire, so the current stops before the cable overheats.",
+          "why": "A larger current heats a wire more. The fuse wire is thinner than the cable, so it melts first."
+        },
+        {
+          "type": "text",
+          "text": "A [[trip-switch|trip switch]] (a circuit breaker) does the same job. It is an automatic switch in the live wire that opens when the current goes above its setting. Inside, the current passes through a coil that acts as a magnet, and a large current makes it pull the switch open."
+        },
+        {
+          "type": "text",
+          "text": "A blown fuse must be replaced. A trip switch is simply reset, by pushing its lever back, once the fault has been fixed."
+        },
+        {
+          "type": "text",
+          "text": "Choose a rating just above the normal current of the appliance. Too low, and it cuts the current in normal use. Too high, and a fault current may not melt it, so the cable could overheat."
+        },
+        {
+          "type": "example",
+          "id": "ex-fuse-rating-toaster",
+          "question": "A toaster has a power of $1.25\\ \\text{kW}$ on a $230\\ \\text{V}$ supply. Fuses of $3\\ \\text{A}$, $5\\ \\text{A}$ and $13\\ \\text{A}$ are available. Which fuse should be fitted in its plug?",
+          "steps": [
+            "Find the normal current: $I = \\frac{P}{V} = \\frac{1250}{230} = 5.43…\\ \\text{A}$.",
+            "$3\\ \\text{A}$ and $5\\ \\text{A}$ are below the normal current, so they would melt every time the toaster is used.",
+            "Choose the smallest rating above $5.43\\ \\text{A}$: the $13\\ \\text{A}$ fuse."
+          ],
+          "answer": "$13\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Piecewise((3, 1250/230 < 3), (5, 1250/230 < 5), (13, 1250/230 < 13))",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Choosing the fuse rating nearest to the normal current, such as $5\\ \\text{A}$ for $5.43\\ \\text{A}$. The rating must be above the normal current, so pick the next one up."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-fuse",
+          "question": "Explain how a fuse in the plug of an electric heater protects the cable if a fault makes the current too large.",
+          "steps": [
+            "Say where the fuse is and what the large current does to it.",
+            "Then say what happens to the circuit and to the cable."
+          ],
+          "answer": "The fuse is a thin wire in the live wire. When the current is larger than the fuse rating, the fuse wire heats up and melts. This breaks the circuit, so the current stops. So the cable cannot overheat and start a fire.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "thin wire in the live wire; current above rating heats and melts it; circuit broken so current stops; cable cannot overheat",
+            "requires": [
+              [
+                "live wire"
+              ],
+              [
+                "melts"
+              ],
+              [
+                "breaks the circuit"
+              ],
+              [
+                "current stops"
+              ],
+              [
+                "overheat"
+              ]
+            ],
+            "forbids": [
+              "stops the user getting a shock",
+              "reduces the current"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fuse-mixer",
+          "prompt": "A food mixer has a power of $420\\ \\text{W}$ on a $230\\ \\text{V}$ supply. Which fuse is most suitable?",
+          "hint": "Work out the normal current, then pick the smallest rating above it.",
+          "options": [
+            {
+              "text": "$3\\ \\text{A}$",
+              "correct": true
+            },
+            {
+              "text": "$5\\ \\text{A}$",
+              "correct": false
+            },
+            {
+              "text": "$13\\ \\text{A}$",
+              "correct": false
+            }
+          ],
+          "explain": "$I = \\frac{420}{230} = 1.8\\ \\text{A}$. The smallest rating above this is $3\\ \\text{A}$. A $13\\ \\text{A}$ fuse might not melt in a fault.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Piecewise((3, 420/230 < 3), (5, 420/230 < 5), (13, 420/230 < 13))",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trip-setting",
+          "prompt": "An electric oven takes $6.0\\ \\text{kW}$ from a $230\\ \\text{V}$ supply. Which trip switch setting is most suitable for its circuit?",
+          "hint": "Find the normal current with $I = \\frac{P}{V}$.",
+          "options": [
+            {
+              "text": "$32\\ \\text{A}$",
+              "correct": true
+            },
+            {
+              "text": "$6\\ \\text{A}$",
+              "correct": false
+            },
+            {
+              "text": "$16\\ \\text{A}$",
+              "correct": false
+            },
+            {
+              "text": "$63\\ \\text{A}$",
+              "correct": false
+            }
+          ],
+          "explain": "$I = \\frac{6000}{230} = 26\\ \\text{A}$. A $6\\ \\text{A}$ or $16\\ \\text{A}$ setting would trip in normal use. $32\\ \\text{A}$ is just above, while $63\\ \\text{A}$ is too high to trip quickly in a fault.",
+          "verify": {
+            "kind": "exact",
+            "truth": "Piecewise((6, 6000/230 < 6), (16, 6000/230 < 16), (32, 6000/230 < 32), (63, 6000/230 < 63))",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trip-vs-fuse",
+          "prompt": "What is one advantage of a trip switch over a fuse?",
+          "hint": "Think about what you do after each one has cut the current.",
+          "options": [
+            {
+              "text": "it can be reset instead of replaced",
+              "correct": true
+            },
+            {
+              "text": "it lets the current rise above its setting",
+              "correct": false
+            },
+            {
+              "text": "it goes in the neutral wire, so it is safer",
+              "correct": false
+            },
+            {
+              "text": "it means the appliance needs no insulation",
+              "correct": false
+            }
+          ],
+          "explain": "Once the fault is fixed, a trip switch is reset by pushing its lever back. A fuse that has melted must be replaced.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it can be reset instead of replaced"
+          }
+        }
+      ]
+    },
+    {
+      "id": "casings",
+      "heading": "Earthed and double-insulated casings",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Inside an appliance, a loose live wire could touch a metal casing. The casing would then be live. Anyone touching it would become a path for the current to the ground and get an electric shock."
+        },
+        {
+          "type": "result",
+          "statement": "The outer casing of a mains appliance must be either earthed or made of a non-conducting material (double-insulated), so it cannot stay live.",
+          "why": "An earthed metal casing is joined to the ground by the earth wire. A double-insulated casing cannot conduct at all."
+        },
+        {
+          "type": "text",
+          "text": "The earth wire has a very low [[resistance|resistance]]. If the live wire touches an earthed casing, a large current flows through the casing and the earth wire to the ground. This melts the fuse or trips the trip switch, cutting off the live wire."
+        },
+        {
+          "type": "example",
+          "id": "ex-earth-and-fuse",
+          "question": "A washing machine has a metal case connected to the earth wire. A fault makes the live wire touch the case. Explain how the earth wire and the fuse protect a person who later touches the case.",
+          "steps": [
+            "Start with the path the current takes after the fault.",
+            "Then say what the large current does to the fuse.",
+            "Finish with what this means for the person."
+          ],
+          "answer": "The earth wire has a low resistance. So a large current flows from the live wire through the case and the earth wire to the ground. This current is larger than the fuse rating, so the fuse melts. The fuse is in the live wire, so the case is now disconnected from the live wire. The case is no longer live, so the person does not get an electric shock.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "low-resistance earth path; large current; fuse melts; case disconnected from live; no shock",
+            "requires": [
+              [
+                "low resistance"
+              ],
+              [
+                "large current"
+              ],
+              [
+                "fuse melts"
+              ],
+              [
+                "disconnected"
+              ],
+              [
+                "shock"
+              ]
+            ],
+            "forbids": [
+              "high resistance",
+              "the earth wire melts"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[double-insulation|double-insulated]] appliance, such as a plastic hair dryer, has a casing made of an [[electrical-insulator|insulator]]. Its casing cannot become live, so it needs no earth wire. Its cable has just two wires: live and neutral."
+        },
+        {
+          "type": "result",
+          "statement": "A double-insulated appliance has no earth wire, but it still needs a fuse. The fuse protects the circuit and the cable.",
+          "why": "Double insulation stops the casing becoming live. It does not stop a fault inside, such as a short circuit, from drawing too large a current and overheating the cable."
+        },
+        {
+          "type": "check",
+          "id": "check-double-insulated",
+          "prompt": "A hair straightener is double-insulated. What protection does it need?",
+          "hint": "Which job does the casing already do, and which job is left?",
+          "options": [
+            {
+              "text": "a fuse but no earth wire",
+              "correct": true
+            },
+            {
+              "text": "an earth wire but no fuse",
+              "correct": false
+            },
+            {
+              "text": "both a fuse and an earth wire",
+              "correct": false
+            },
+            {
+              "text": "neither a fuse nor an earth wire",
+              "correct": false
+            }
+          ],
+          "explain": "The non-conducting casing cannot become live, so no earth wire is needed. A fuse is still needed to protect the circuit and cable from too large a current.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a fuse but no earth wire"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-earth-resistance",
+          "prompt": "Why must the earth wire have a very low resistance?",
+          "hint": "What has to happen to the fuse when a live wire touches the case?",
+          "options": [
+            {
+              "text": "so a large current flows in a fault and melts the fuse",
+              "correct": true
+            },
+            {
+              "text": "so it carries the normal current back to the supply",
+              "correct": false
+            },
+            {
+              "text": "so the casing heats up and warns the user",
+              "correct": false
+            },
+            {
+              "text": "so the appliance uses less energy",
+              "correct": false
+            }
+          ],
+          "explain": "A low resistance means a large current in a fault. That current is above the fuse rating, so the fuse melts and cuts off the live wire. In normal use the neutral wire carries the current back, not the earth wire.",
+          "verify": {
+            "kind": "choice",
+            "truth": "so a large current flows in a fault and melts the fuse"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 1/2 often asks which statement is not correct. Read the stem twice, then find the false option, such as an earth wire with a high resistance."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Mains circuit: the live wire carries the high alternating p.d., the neutral wire stays near $0\\ \\text{V}$, and the earth wire joins a metal casing to the ground."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The switch and the fuse go in the live wire, so switching off or a melted fuse disconnects the appliance from the high p.d."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Hazards: damaged insulation (shock, short circuit, fire), overheating cables (fire), damp conditions (shock), overloaded sockets or extension leads (large total current, overheating, fire)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A fuse melts, and a trip switch opens, when the current goes above its rating. A trip switch can be reset. Choose the smallest rating above the appliance's normal current, $I = \\frac{P}{V}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A casing must be earthed or double-insulated. A double-insulated appliance has no earth wire but still has a fuse, which protects the circuit and the cable."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Thinking a fuse protects you from an electric shock. It protects the wiring and the appliance from too large a current; a shock can happen at a current far too small to melt it.",
+    "Putting the switch in the neutral wire. The appliance goes off but stays connected to the live wire, so touching it can still give a shock.",
+    "Thinking a double-insulated appliance needs no fuse. It needs no earth wire, but the fuse still protects the circuit and cable.",
+    "Choosing a fuse rating below the normal current because it is the nearest value. The rating must be just above the normal current."
+  ],
+  "examTips": [
+    "\"State\" the hazard: name the danger itself, an electric shock or a fire. \"A short circuit\" alone does not score.",
+    "\"Explain\" why the switch is in the live wire: say that switching off disconnects the appliance from the high p.d., so it is safe to touch.",
+    "To choose a fuse, write $I = \\frac{P}{V}$ with the numbers, give the current, then pick the smallest rating above it.",
+    "\"Explain\" how earthing works as a chain: low-resistance earth wire, large current, fuse melts, live wire cut off, casing no longer live."
+  ],
+  "readingMinutes": 23
+}

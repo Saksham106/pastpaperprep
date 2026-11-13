@@ -2,25 +2,25 @@
   {
     "id": "refractive-index",
     "term": "refractive index",
-    "definition": "TODO: n = sin i / sin r = ratio of speeds in two regions; always greater than 1 for light entering glass",
+    "definition": "How much a material slows light down: the speed of light in air (or a vacuum) divided by its speed in the material. For light going from air into the material, $n = \\frac{\\sin i}{\\sin r}$. It has no unit, and for glass or water it is greater than 1.",
     "lesson": "3.2.2"
   },
   {
     "id": "critical-angle",
     "term": "critical angle",
-    "definition": "TODO: Angle of incidence in the denser medium at which the refracted ray travels along the boundary; n = 1/sin c (Extended)",
+    "definition": "The angle of incidence, for light going from a material where it is slower into one where it is faster (such as glass into air), at which the angle of refraction is $90^\\circ$. Above it, total internal reflection happens.",
     "lesson": "3.2.2"
   },
   {
     "id": "total-internal-reflection",
     "term": "total internal reflection",
-    "definition": "TODO: All light reflected inside a denser medium when angle of incidence exceeds the critical angle",
+    "definition": "When light heading into a material where it would be faster (such as glass into air) meets the boundary at an angle of incidence greater than the critical angle, all of it reflects back and none refracts out.",
     "lesson": "3.2.2"
   },
   {
     "id": "optical-fibre",
     "term": "optical fibre",
-    "definition": "TODO: Glass fibre carrying light by total internal reflection; used for communications",
+    "definition": "A thin, flexible strand of very clear glass that carries light along it by repeated total internal reflection. Used to send telephone, internet and TV signals, and in endoscopes.",
     "lesson": "3.2.2"
   }
 ]

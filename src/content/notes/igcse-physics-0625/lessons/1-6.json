@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.6",
+  "slug": "momentum",
+  "title": "Momentum",
+  "level": "Extended",
+  "topic": 1,
+  "summary": "[[momentum|Momentum]] is [[mass|mass]] times [[velocity|velocity]]: the heavier and faster something moves, the harder it is to stop. A [[force|force]] acting for a time changes momentum, and the [[resultant-force|resultant force]] is the rate of change of momentum. In a collision or explosion the total momentum stays the same, as long as no outside resultant force acts.",
+  "goals": [
+    {
+      "text": "Define momentum and use $p = mv$, with a sign for direction.",
+      "bullets": [
+        "1.6-1"
+      ]
+    },
+    {
+      "text": "Define [[impulse|impulse]] and use $F\\Delta t = \\Delta(mv)$, including when an object bounces back.",
+      "bullets": [
+        "1.6-2"
+      ]
+    },
+    {
+      "text": "Use $F = \\frac{\\Delta p}{\\Delta t}$, and explain why a longer impact time means a smaller force.",
+      "bullets": [
+        "1.6-4"
+      ]
+    },
+    {
+      "text": "Use [[conservation-of-momentum|conservation of momentum]] to find a velocity after a collision or explosion along a straight line.",
+      "bullets": [
+        "1.6-3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.5.1"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "momentum p = mv",
+    "impulse F t = change in momentum",
+    "conservation of momentum",
+    "force = rate of change of momentum",
+    "collisions and explosions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-velocity-sign",
+      "prompt": "Take right as the positive direction. A dog runs to the left. What sign does its [[velocity|velocity]] have?",
+      "hint": "Velocity has a direction. Which way is negative?",
+      "options": [
+        {
+          "text": "negative",
+          "correct": true
+        },
+        {
+          "text": "positive",
+          "correct": false
+        },
+        {
+          "text": "zero, because velocity has no direction",
+          "correct": false
+        }
+      ],
+      "explain": "Left is opposite to the positive direction, so the velocity is negative. Its [[speed|speed]] is still a positive number. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "negative"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-f-equals-ma",
+      "prompt": "A resultant force acts on a $3.5\\ \\text{kg}$ box and gives it an [[acceleration|acceleration]] of $1.4\\ \\text{m/s}^2$. What is the resultant force, in N? Give 2 significant figures.",
+      "hint": "Use $F = ma$.",
+      "answer": {
+        "value": 4.9,
+        "tolerance": 0.05
+      },
+      "explain": "$F = ma = 3.5 \\times 1.4 = 4.9\\ \\text{N}$. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3.5*1.4",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "momentum",
+      "heading": "Momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A lorry and a bicycle roll towards you at the same speed. The lorry is far harder to stop, because it has more [[mass|mass]]. A golf ball is light, but hard to stop when it flies fast. Momentum combines both ideas."
+        },
+        {
+          "type": "definition",
+          "term": "momentum",
+          "statement": "Momentum is mass multiplied by velocity.",
+          "plain": "How much \"moving stuff\" an object carries in a given direction."
+        },
+        {
+          "type": "formula",
+          "tex": "p = mv",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$p$ is momentum in kg m/s, $m$ is mass in kg and $v$ is [[velocity|velocity]] in m/s. Here $p$ means momentum, not pressure."
+        },
+        {
+          "type": "text",
+          "text": "Momentum is a [[vector|vector]]: it points the same way as the velocity. Choose one direction as positive. Momentum the other way gets a minus sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-puck-momentum",
+          "question": "An ice hockey puck of mass $160\\ \\text{g}$ slides across the ice at $14\\ \\text{m/s}$. Calculate its momentum.",
+          "steps": [
+            "Change the mass to kg: $160\\ \\text{g} = 0.160\\ \\text{kg}$.",
+            "Write the equation: $p = mv$.",
+            "Substitute: $p = 0.160 \\times 14 = 2.24$.",
+            "Round to 2 significant figures, like the speed. The unit is kg m/s."
+          ],
+          "answer": "$p \\approx 2.2\\ \\text{kg m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "160/1000*14",
+            "sf": 2,
+            "unit": "kg m/s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-velocity",
+          "question": "A cyclist and her bike have a total mass of $85\\ \\text{kg}$. Their momentum is $527\\ \\text{kg m/s}$ due north. Calculate their velocity.",
+          "steps": [
+            "Rearrange $p = mv$ for the velocity: $v = \\frac{p}{m}$.",
+            "Substitute: $v = \\frac{527}{85} = 6.2$.",
+            "Velocity needs a direction: the same as the momentum, north."
+          ],
+          "answer": "$v = 6.2\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "527/85",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using a mass in grams. Change it to kg first, or the momentum comes out 1000 times too big."
+        },
+        {
+          "type": "check",
+          "id": "check-runner-momentum",
+          "prompt": "A runner of mass $62\\ \\text{kg}$ runs at $7.4\\ \\text{m/s}$. What is her momentum, in kg m/s? Give 2 significant figures.",
+          "hint": "Multiply mass by velocity.",
+          "answer": {
+            "value": 460,
+            "tolerance": 5
+          },
+          "explain": "$p = mv = 62 \\times 7.4 = 458.8 \\approx 460\\ \\text{kg m/s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "62*7.4",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ball-left-momentum",
+          "prompt": "Take right as positive. A $0.50\\ \\text{kg}$ ball rolls to the left at $8.0\\ \\text{m/s}$. What is its momentum?",
+          "hint": "The ball moves the negative way, so its velocity is negative.",
+          "options": [
+            {
+              "text": "$-4.0\\ \\text{kg m/s}$",
+              "correct": true
+            },
+            {
+              "text": "$+4.0\\ \\text{kg m/s}$",
+              "correct": false
+            },
+            {
+              "text": "$-16\\ \\text{kg m/s}$",
+              "correct": false
+            },
+            {
+              "text": "$-0.063\\ \\text{kg m/s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$p = mv = 0.50 \\times (-8.0) = -4.0\\ \\text{kg m/s}$. The minus sign means it points left. Dividing gives $16$ or $0.063$, which is wrong.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.50*(-8.0)",
+            "unit": "kg m/s",
+            "signed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "impulse-and-force",
+      "heading": "Impulse, force and change in momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To change an object's momentum, a resultant [[force|force]] must act on it for some time. A big force for a short time can give the same change as a small force for a long time."
+        },
+        {
+          "type": "definition",
+          "term": "impulse",
+          "statement": "Impulse is force multiplied by the time the force acts for.",
+          "plain": "How hard you push, times how long you push for."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{impulse} = F\\Delta t = \\Delta(mv)",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta$ means \"change in\". $F$ is the resultant force on the object, $\\Delta t$ is the time it acts, and $\\Delta(mv)$ is the change in momentum: final momentum minus initial momentum, $mv - mu$. Here $u$ is the velocity before and $v$ the velocity after."
+        },
+        {
+          "type": "text",
+          "text": "Impulse is measured in N s. This is the same as kg m/s, so either unit is fine for a change in momentum."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-bounce-impulse",
+          "question": "A ball of mass $0.058\\ \\text{kg}$ hits a wall at $21\\ \\text{m/s}$ and bounces straight back at $15\\ \\text{m/s}$. Calculate the impulse on the ball. Take the direction towards the wall as positive.",
+          "steps": [
+            "Give each velocity its sign: $u = +21\\ \\text{m/s}$ (towards the wall) and $v = -15\\ \\text{m/s}$ (away from it).",
+            "Write the equation: $\\text{impulse} = mv - mu = m(v - u)$.",
+            "Substitute: $\\text{impulse} = 0.058 \\times (-15 - 21) = 0.058 \\times (-36) = -2.088$.",
+            "Round to 2 significant figures. The minus sign means the impulse acts away from the wall, which is what turns the ball round."
+          ],
+          "answer": "$\\text{impulse} \\approx -2.1\\ \\text{N s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "0.058*(-15 - 21)",
+            "sf": 2,
+            "unit": "N s",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Working out $21 - 15$ when the ball bounces back. The direction reverses, so the velocity change is $-15 - 21 = -36\\ \\text{m/s}$, not $6\\ \\text{m/s}$."
+        },
+        {
+          "type": "text",
+          "text": "Divide both sides of $F\\Delta t = \\Delta p$ by $\\Delta t$ and you get [[newton-s-second-law|Newton's second law]] in a new form, with $F$ the [[resultant-force|resultant force]] on the object."
+        },
+        {
+          "type": "definition",
+          "term": "resultant force",
+          "statement": "The resultant force on an object is its change in momentum per unit time.",
+          "plain": "How fast the momentum is changing."
+        },
+        {
+          "type": "formula",
+          "tex": "F = \\frac{\\Delta p}{\\Delta t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "When the mass stays the same, $\\frac{\\Delta p}{\\Delta t} = \\frac{m(v - u)}{\\Delta t} = ma$. So this is the same law as $F = ma$ from {{lesson:1.5.1}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-braking-force",
+          "question": "A car of mass $1100\\ \\text{kg}$ is moving forwards at $16\\ \\text{m/s}$. It brakes and stops in $3.2\\ \\text{s}$. Calculate the average resultant force on the car. Take forwards as positive.",
+          "steps": [
+            "Find the change in momentum: $\\Delta p = mv - mu = 1100 \\times 0 - 1100 \\times 16 = -17\\,600\\ \\text{kg m/s}$.",
+            "Write the equation: $F = \\frac{\\Delta p}{\\Delta t}$.",
+            "Substitute: $F = \\frac{-17\\,600}{3.2} = -5500$.",
+            "The minus sign means the force acts backwards, against the motion."
+          ],
+          "answer": "$F = -5500\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1100*(0 - 16)/3.2",
+            "unit": "N",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $\\Delta p$ and calling it the force. Divide the change in momentum by the time."
+        },
+        {
+          "type": "text",
+          "text": "In a crash, the change in momentum is fixed: the object goes from moving to stopped. Making the stop take longer makes the force smaller. That is how airbags, crumple zones, crash mats and cycle helmets protect you."
+        },
+        {
+          "type": "example",
+          "id": "ex-airbag-explain",
+          "question": "In a crash, a driver's head hits an airbag instead of the steering wheel. Explain, using ideas about momentum, why this reduces the force on the driver's head.",
+          "steps": [
+            "Say what stays the same: the head's change in momentum.",
+            "Say what the airbag changes: the time taken to stop.",
+            "Link them with $F = \\frac{\\Delta p}{\\Delta t}$."
+          ],
+          "answer": "The driver's head has the same change in momentum whatever it hits, because it goes from the same speed to rest. The airbag squashes, so the head takes a longer time to stop. Force is the change in momentum divided by the time, so a longer time means a smaller force on the head.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same change in momentum; longer time to stop; F = change in momentum / time so smaller force",
+            "requires": [
+              [
+                "same change in momentum"
+              ],
+              [
+                "longer time"
+              ],
+              [
+                "divided by the time"
+              ],
+              [
+                "smaller force"
+              ]
+            ],
+            "forbids": [
+              "reduces the change in momentum",
+              "absorbs the momentum",
+              "smaller change in momentum"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Explain\" a safety feature for full marks: the change in momentum is the same, the time is longer, so the force is smaller. Saying only \"it absorbs the impact\" earns nothing."
+        },
+        {
+          "type": "check",
+          "id": "check-golf-ball-force",
+          "prompt": "A golf club hits a $0.046\\ \\text{kg}$ ball at rest. The ball leaves at $70\\ \\text{m/s}$ after $0.00050\\ \\text{s}$ of contact. What is the average force on the ball, in N? Give 2 significant figures.",
+          "hint": "Find the change in momentum first, then divide by the contact time.",
+          "answer": {
+            "value": 6400,
+            "tolerance": 50
+          },
+          "explain": "$\\Delta p = 0.046 \\times 70 - 0 = 3.22\\ \\text{kg m/s}$, so $F = \\frac{3.22}{0.00050} = 6440 \\approx 6400\\ \\text{N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(0.046*70 - 0)/0.00050",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-unit-of-impulse",
+          "prompt": "Which unit is the same as the newton second (N s)?",
+          "hint": "Impulse equals change in momentum.",
+          "options": [
+            {
+              "text": "kilogram metre per second",
+              "correct": true
+            },
+            {
+              "text": "kilogram metre per second squared",
+              "correct": false
+            },
+            {
+              "text": "newton per second",
+              "correct": false
+            },
+            {
+              "text": "joule",
+              "correct": false
+            }
+          ],
+          "explain": "Impulse ($F\\Delta t$, in N s) equals change in momentum ($\\Delta(mv)$, in kg m/s), so the units match. A kilogram metre per second squared is the newton itself.",
+          "verify": {
+            "kind": "choice",
+            "truth": "kilogram metre per second"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-crumple-zone",
+          "prompt": "A car's crumple zone crushes slowly in a crash. Why does this reduce the force on the passengers?",
+          "hint": "Which quantity does the crumple zone change: the change in momentum, or the time?",
+          "options": [
+            {
+              "text": "the same change in momentum happens over a longer time",
+              "correct": true
+            },
+            {
+              "text": "it makes the change in momentum smaller",
+              "correct": false
+            },
+            {
+              "text": "the same change in momentum happens over a shorter time",
+              "correct": false
+            },
+            {
+              "text": "it stops momentum from being transferred",
+              "correct": false
+            }
+          ],
+          "explain": "The car still goes from moving to stopped, so the change in momentum is the same. Crumpling makes the stop take longer, and $F = \\frac{\\Delta p}{\\Delta t}$ is then smaller.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the same change in momentum happens over a longer time"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conservation",
+      "heading": "Conservation of momentum",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When two objects collide, they push on each other with equal and opposite forces for the same time. The momentum one object loses, the other gains. So the total stays the same."
+        },
+        {
+          "type": "result",
+          "statement": "Conservation of momentum: when objects collide or push apart, their total momentum after equals their total momentum before, provided no resultant force from outside acts on them.",
+          "why": "Forces between the objects only move momentum from one to the other; only an outside resultant force can change the total."
+        },
+        {
+          "type": "text",
+          "text": "1. Choose a positive direction and draw a before-and-after sketch."
+        },
+        {
+          "type": "text",
+          "text": "2. Work out the total momentum before. Objects moving the negative way have negative momentum."
+        },
+        {
+          "type": "text",
+          "text": "3. Write the total momentum after. If the objects stick together, they move as one object with the two masses added."
+        },
+        {
+          "type": "text",
+          "text": "4. Set total before equal to total after, and solve. The sign of your answer gives the direction."
+        },
+        {
+          "type": "example",
+          "id": "ex-gliders-stick",
+          "question": "On an air track, a glider of mass $0.24\\ \\text{kg}$ moves at $0.50\\ \\text{m/s}$ towards a stationary glider of mass $0.16\\ \\text{kg}$. They stick together. Calculate their velocity just after the collision.",
+          "steps": [
+            "Take the first glider's direction as positive. The stationary glider has zero momentum.",
+            "Total momentum before: $0.24 \\times 0.50 + 0.16 \\times 0 = 0.12\\ \\text{kg m/s}$.",
+            "After, they move together with mass $0.24 + 0.16 = 0.40\\ \\text{kg}$, so the momentum after is $0.40v$.",
+            "Momentum is conserved: $0.40v = 0.12$, so $v = \\frac{0.12}{0.40} = 0.30$.",
+            "$v$ is positive, so they move on in the first glider's direction."
+          ],
+          "answer": "$v = 0.30\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0.24*0.50 + 0.16*0)/(0.24 + 0.16)",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6 can measure collisions like this: light gates on the air track time each glider, and velocity is the card length divided by that time. The air track is level and removes almost all friction, so the total momentum is very nearly conserved."
+        },
+        {
+          "type": "figure",
+          "id": "1-6-skaters-collide",
+          "alt": "Two ice skaters on a straight line, before and after they meet, with east to the right as the positive direction. Before: skater A, mass 58 kilograms, moves east at 3.5 metres per second. Skater B, mass 72 kilograms, moves west at 2.0 metres per second, towards A. After: the skaters hold on to each other and move together as one object of mass 130 kilograms, with an arrow labelled v equals question mark.",
+          "caption": "Before and after: two skaters meet and hold on."
+        },
+        {
+          "type": "example",
+          "id": "ex-skaters-collide",
+          "question": "The diagram shows two ice skaters moving towards each other. When they meet, they hold on and move together. Calculate their velocity just after they meet. Take east as positive.",
+          "steps": [
+            "Give each velocity its sign: A is $+3.5\\ \\text{m/s}$ and B is $-2.0\\ \\text{m/s}$.",
+            "Total momentum before: $58 \\times 3.5 + 72 \\times (-2.0) = 203 - 144 = 59\\ \\text{kg m/s}$.",
+            "Momentum after: $(58 + 72)v = 130v$.",
+            "Momentum is conserved: $130v = 59$, so $v = \\frac{59}{130} = 0.4538\\ldots$",
+            "Round to 2 significant figures. $v$ is positive, so they move east."
+          ],
+          "answer": "$v \\approx +0.45\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(58*3.5 + 72*(-2.0))/(58 + 72)",
+            "sf": 2,
+            "unit": "m/s",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the two momenta when the objects move in opposite directions. Give one a minus sign, so they partly cancel."
+        },
+        {
+          "type": "mistake",
+          "text": "Using one object's mass after they stick together. The joined objects have both masses added."
+        },
+        {
+          "type": "text",
+          "text": "In an explosion, objects start at rest and push apart. The total momentum before is zero, so after it is still zero. The two pieces have equal momenta in opposite directions, and the lighter one moves faster."
+        },
+        {
+          "type": "check",
+          "id": "check-trolleys-push-apart",
+          "prompt": "Two trolleys sit at rest with a squashed spring between them. The spring is released. The $1.5\\ \\text{kg}$ trolley moves left at $0.40\\ \\text{m/s}$. At what speed, in m/s, does the $0.60\\ \\text{kg}$ trolley move right? Give 2 significant figures.",
+          "hint": "The total momentum is zero before, so the two momenta after must cancel.",
+          "answer": {
+            "value": 1,
+            "tolerance": 0.05
+          },
+          "explain": "Momentum of the $1.5\\ \\text{kg}$ trolley $= 1.5 \\times 0.40 = 0.60\\ \\text{kg m/s}$ to the left. The other has $0.60\\ \\text{kg m/s}$ to the right, so $v = \\frac{0.60}{0.60} = 1.0\\ \\text{m/s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.5*0.40/0.60",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trolleys-opposite",
+          "prompt": "Take right as positive. A $1.5\\ \\text{kg}$ trolley moves right at $2.0\\ \\text{m/s}$. It hits a $1.0\\ \\text{kg}$ trolley moving left at $1.5\\ \\text{m/s}$, and they stick together. What is their velocity just after?",
+          "hint": "One momentum is negative. Then divide by both masses added.",
+          "options": [
+            {
+              "text": "$+0.60\\ \\text{m/s}$",
+              "correct": true
+            },
+            {
+              "text": "$+1.8\\ \\text{m/s}$",
+              "correct": false
+            },
+            {
+              "text": "$+1.0\\ \\text{m/s}$",
+              "correct": false
+            },
+            {
+              "text": "$-0.60\\ \\text{m/s}$",
+              "correct": false
+            }
+          ],
+          "explain": "Before: $1.5 \\times 2.0 + 1.0 \\times (-1.5) = 1.5\\ \\text{kg m/s}$. After: $2.5v = 1.5$, so $v = +0.60\\ \\text{m/s}$, to the right. $1.8$ comes from adding the momenta, and $1.0$ from dividing by one mass only.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(1.5*2.0 + 1.0*(-1.5))/(1.5 + 1.0)",
+            "unit": "m/s",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-when-conserved",
+          "prompt": "When is the total momentum of two colliding objects conserved?",
+          "hint": "What could change the total from outside?",
+          "options": [
+            {
+              "text": "when no resultant force from outside acts on them",
+              "correct": true
+            },
+            {
+              "text": "only when they stick together",
+              "correct": false
+            },
+            {
+              "text": "only when both are moving before the collision",
+              "correct": false
+            },
+            {
+              "text": "only when they have equal masses",
+              "correct": false
+            }
+          ],
+          "explain": "Momentum is conserved in every collision and explosion, whether the objects stick or bounce, as long as no outside resultant force acts.",
+          "verify": {
+            "kind": "choice",
+            "truth": "when no resultant force from outside acts on them"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "p = mv",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Momentum is mass × velocity, in kg m/s. It is a vector: choose a positive direction and give momentum the other way a minus sign."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{impulse} = F\\Delta t = \\Delta(mv)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Impulse is force × the time the force acts for. The impulse of the resultant force equals the change in momentum, final minus initial, and its unit N s is the same as kg m/s."
+        },
+        {
+          "type": "formula",
+          "tex": "F = \\frac{\\Delta p}{\\Delta t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Resultant force = change in momentum ÷ time taken, the rate of change of momentum. For the same change in momentum, a longer time gives a smaller average force: this is how airbags and crumple zones work."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Conservation of momentum: in a collision or explosion, total momentum before = total momentum after, provided no resultant force from outside acts on the objects."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Adding the momenta of objects moving in opposite directions. Choose a positive direction and give the other way a minus sign.",
+    "Using only the final momentum as the change in momentum. The change is final momentum minus initial momentum.",
+    "Treating a bounce as a small change. When an object reverses, the size of the change in velocity is the two speeds added, not subtracted.",
+    "Forgetting to divide by the time. The change in momentum is not the force; $F = \\frac{\\Delta p}{\\Delta t}$.",
+    "Using one object's mass after two objects stick together. Use both masses added."
+  ],
+  "examTips": [
+    "\"Define\" momentum as mass × velocity, and impulse as force × the time it acts for. An equation with its symbols named also earns the mark.",
+    "\"Calculate\": write the equation, substitute the numbers, then give the answer with its unit. For a velocity or force, give its direction too.",
+    "In a conservation question, state your positive direction and write \"momentum before = momentum after\" before you substitute.",
+    "\"Explain\" why a longer impact time helps: the same change in momentum, over a longer time, so a smaller force."
+  ],
+  "readingMinutes": 21
+}

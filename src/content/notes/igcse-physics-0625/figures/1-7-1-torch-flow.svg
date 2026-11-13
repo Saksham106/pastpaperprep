@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 220" role="img" aria-labelledby="t171tf">
+<title id="t171tf">Energy flow diagram for a torch. A box on the left reads chemical store in battery, 60 J. An arrow labelled electrical work leads to a box labelled lamp. From the lamp, one arrow goes up and right to a box reading light, useful, 15 J. A second arrow goes down and right to a box reading heating, wasted, question mark J.</title>
+<rect x="10" y="80" width="150" height="62" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text font-family="inherit" font-size="13" x="85" y="102" fill="currentColor" text-anchor="middle">chemical store</text>
+<text font-family="inherit" font-size="13" x="85" y="118" fill="currentColor" text-anchor="middle">in battery</text>
+<text font-family="inherit" font-size="13" x="85" y="135" fill="var(--t1-ink)" text-anchor="middle">60 J</text>
+<path d="M160 111 L250 111" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<polygon points="259,111 250,115.5 250,106.5" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="208" y="101" fill="currentColor" text-anchor="middle">electrical work</text>
+<rect x="260" y="88" width="90" height="46" rx="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+<text font-family="inherit" font-size="13" x="305" y="116" fill="currentColor" text-anchor="middle">lamp</text>
+<path d="M350 100 L432 54" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+<polygon points="440,49.5 433.9,57.6 429.5,49.7" fill="var(--t2-ink)"/>
+<path d="M350 122 L432 168" fill="none" stroke="var(--t4-ink)" stroke-width="1.8"/>
+<polygon points="440,172.5 429.5,172.3 433.9,164.4" fill="var(--t4-ink)"/>
+<rect x="442" y="18" width="148" height="62" rx="6" fill="none" stroke="var(--t2-ink)" stroke-width="1.5"/>
+<text font-family="inherit" font-size="13" x="516" y="40" fill="currentColor" text-anchor="middle">light</text>
+<text font-family="inherit" font-size="12" x="516" y="56" fill="var(--muted)" text-anchor="middle">(useful)</text>
+<text font-family="inherit" font-size="13" x="516" y="73" fill="var(--t2-ink)" text-anchor="middle">15 J</text>
+<rect x="442" y="142" width="148" height="62" rx="6" fill="none" stroke="var(--t4-ink)" stroke-width="1.5"/>
+<text font-family="inherit" font-size="13" x="516" y="164" fill="currentColor" text-anchor="middle">heating</text>
+<text font-family="inherit" font-size="12" x="516" y="180" fill="var(--muted)" text-anchor="middle">(wasted)</text>
+<text font-family="inherit" font-size="13" x="516" y="197" fill="var(--t4-ink)" text-anchor="middle">? J</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 340" role="img" aria-labelledby="tearthbalance">
+  <title id="tearthbalance">The Sun at the top left sends radiation down to the Earth's surface. A dashed arrow shows some of it reflected back to space by ice, snow and clouds. The surface emits infrared upwards. One arrow passes through the atmosphere and escapes to space. Another arrow is absorbed by greenhouse gases in the atmosphere, and an arrow from the atmosphere points back down to the surface, labelled some absorbed and sent back to the surface.</title>
+  <rect x="0" y="130" width="740" height="60" fill="var(--t3-ink)" fill-opacity="0.08"/>
+  <rect x="0" y="290" width="740" height="40" fill="var(--muted)" fill-opacity="0.3"/>
+  <line x1="0" y1="290" x2="740" y2="290" stroke="currentColor" stroke-width="2"/>
+  <circle cx="55" cy="50" r="28" fill="var(--t2-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="2"/>
+  <g stroke="var(--t2-ink)" stroke-width="2.5" fill="none"><line x1="85" y1="70" x2="215" y2="284"/><polyline points="206.6,278.6 215,284 214.0,274.0"/></g>
+  <g stroke="var(--t2-ink)" stroke-width="2.5" fill="none"><line x1="225" y1="284" x2="285" y2="40" stroke-dasharray="6 4"/><polyline points="287.1,49.8 285,40 278.6,47.7"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="440" y1="284" x2="470" y2="40"/><polyline points="473.2,49.5 470,40 464.6,48.4"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="560" y1="284" x2="570" y2="165"/><polyline points="573.6,174.3 570,165 564.9,173.6"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="600" y1="165" x2="610" y2="284"/><polyline points="604.9,275.4 610,284 613.6,274.7"/></g>
+  <g font-size="13" fill="currentColor" font-family="inherit"><text x="55" y="100" text-anchor="middle">Sun</text><text x="30" y="250">radiation from</text><text x="30" y="266">the Sun</text><text x="295" y="30">some reflected</text><text x="295" y="46">back to space</text><text x="295" y="62">(ice, snow, clouds)</text><text x="480" y="85">infrared emitted by</text><text x="480" y="101">the surface escapes</text><text x="320" y="155" text-anchor="middle">atmosphere with</text><text x="320" y="171" text-anchor="middle">greenhouse gases</text><text x="622" y="225">some absorbed</text><text x="622" y="241">and sent back</text><text x="622" y="257">to the surface</text><text x="370" y="315" text-anchor="middle">Earth's surface</text></g>
+</svg>

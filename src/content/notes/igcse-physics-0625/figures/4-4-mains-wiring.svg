@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 320" role="img" aria-labelledby="t44mw">
+  <title id="t44mw">Mains wiring of a heater with a metal case. The live wire runs from the mains through a fuse and then a switch to the heating element inside the metal case. The neutral wire returns from the heating element to the mains. The earth wire runs from the mains to the metal case itself.</title>
+  <!-- metal case -->
+  <rect x="330" y="40" width="200" height="200" rx="6" fill="none" stroke="currentColor" stroke-width="5"/>
+  <g stroke="currentColor" stroke-width="2.2" fill="none">
+    <!-- live wire: terminal, fuse, switch, element -->
+    <line x1="70" y1="70" x2="140" y2="70"/>
+    <rect x="140" y="61" width="56" height="18"/>
+    <line x1="140" y1="70" x2="196" y2="70"/>
+    <line x1="196" y1="70" x2="240" y2="70"/>
+    <line x1="240" y1="70" x2="282" y2="50"/>
+    <line x1="290" y1="70" x2="410" y2="70"/>
+    <line x1="410" y1="70" x2="410" y2="110"/>
+    <rect x="400" y="110" width="20" height="60"/>
+    <line x1="410" y1="170" x2="410" y2="200"/>
+    <!-- neutral wire back to the mains -->
+    <line x1="410" y1="200" x2="70" y2="200"/>
+    <!-- earth wire to the case -->
+    <line x1="70" y1="280" x2="480" y2="280"/>
+    <line x1="480" y1="280" x2="480" y2="240"/>
+  </g>
+  <circle cx="240" cy="70" r="3.5" fill="currentColor"/>
+  <circle cx="290" cy="70" r="3.5" fill="currentColor"/>
+  <circle cx="480" cy="240" r="5" fill="currentColor"/>
+  <!-- mains terminals -->
+  <g fill="none" stroke="currentColor" stroke-width="2.2">
+    <circle cx="64" cy="70" r="6"/>
+    <circle cx="64" cy="200" r="6"/>
+    <circle cx="64" cy="280" r="6"/>
+  </g>
+  <g font-family="inherit" font-size="14" fill="currentColor" text-anchor="end">
+    <text x="52" y="75">live</text>
+    <text x="52" y="205">neutral</text>
+    <text x="52" y="285">earth</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">
+    <text x="40" y="28">mains</text>
+    <text x="168" y="50">fuse</text>
+    <text x="265" y="96">switch</text>
+    <text x="430" y="30">metal case</text>
+    <text x="400" y="306">earth wire joined to the case</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor" text-anchor="start">
+    <text x="430" y="136">heating</text>
+    <text x="430" y="152">element</text>
+  </g>
+  <text x="200" y="232" font-family="inherit" font-size="12" fill="var(--muted)" text-anchor="middle">fuse and switch are both in the live wire</text>
+</svg>

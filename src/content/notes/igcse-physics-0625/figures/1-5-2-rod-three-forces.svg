@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 220" role="img" aria-labelledby="t152rod">
+<title id="t152rod">A light, level rod balanced on a pivot at its centre. On the left, a 4.5 newton weight acts straight down 0.32 metres from the pivot. On the right, a 3.0 newton weight acts straight down 0.12 metres from the pivot, and an unknown weight W acts straight down 0.40 metres from the pivot. Each distance is measured from the pivot.</title>
+<rect x="50" y="100" width="380" height="6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="240,106 226,140 254,140" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="12" x="240" y="156" fill="currentColor" text-anchor="middle">pivot</text>
+<path d="M112 108 V164" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<polygon points="112,174 107,163 117,163" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="112" y="192" fill="var(--t1-ink)" text-anchor="middle">4.5 N</text>
+<path d="M288 108 V164" stroke="var(--t4-ink)" stroke-width="2.4"/>
+<polygon points="288,174 283,163 293,163" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="13" x="288" y="192" fill="var(--t4-ink)" text-anchor="middle">3.0 N</text>
+<path d="M400 108 V164" stroke="var(--t4-ink)" stroke-width="2.4"/>
+<polygon points="400,174 395,163 405,163" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="13" x="400" y="192" fill="var(--t4-ink)" text-anchor="middle">W</text>
+<path d="M112 34 V98 M240 34 V98 M288 60 V98 M400 34 V98" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+<path d="M120 76 H232" stroke="var(--t2-ink)" stroke-width="1.4"/>
+<polygon points="112,76 121,72 121,80" fill="var(--t2-ink)"/>
+<polygon points="240,76 231,72 231,80" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="176" y="70" fill="var(--t2-ink)" text-anchor="middle">0.32 m</text>
+<path d="M248 76 H280" stroke="var(--t2-ink)" stroke-width="1.4"/>
+<polygon points="240,76 249,72 249,80" fill="var(--t2-ink)"/>
+<polygon points="288,76 279,72 279,80" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="264" y="92" fill="var(--t2-ink)" text-anchor="middle">0.12 m</text>
+<path d="M248 44 H392" stroke="var(--t2-ink)" stroke-width="1.4"/>
+<polygon points="240,44 249,40 249,48" fill="var(--t2-ink)"/>
+<polygon points="400,44 391,40 391,48" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="320" y="38" fill="var(--t2-ink)" text-anchor="middle">0.40 m</text>
+</svg>

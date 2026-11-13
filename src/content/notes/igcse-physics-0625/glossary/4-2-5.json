@@ -2,19 +2,19 @@
   {
     "id": "electrical-power",
     "term": "electrical power",
-    "definition": "TODO: Rate of energy transfer in a circuit; P = IV",
+    "definition": "The rate at which a component transfers energy from the current, in watts: $P = IV$, where $I$ is the current in it and $V$ is the p.d. across it.",
     "lesson": "4.2.5"
   },
   {
     "id": "electrical-energy",
     "term": "electrical energy",
-    "definition": "TODO: Energy transferred by current; E = IVt",
+    "definition": "The energy a current transfers to a component, in joules: $E = IVt$, with the current $I$ in A, the p.d. $V$ across the component in V and the time $t$ in s.",
     "lesson": "4.2.5"
   },
   {
     "id": "kilowatt-hour",
     "term": "kilowatt-hour",
-    "definition": "TODO: Energy unit equal to 1 kW used for 1 h = 3.6 MJ; cost = kW h x price per unit",
+    "definition": "A unit of energy (kW h): the energy transferred by an appliance of power 1 kW in 1 hour, equal to $3.6 \\times 10^{6}$ J; electricity bills charge per kW h.",
     "lesson": "4.2.5"
   }
 ]

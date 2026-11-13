@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "3.2.1",
+  "slug": "reflection-of-light",
+  "title": "Reflection of light",
+  "level": "Core",
+  "topic": 3,
+  "summary": "A mirror sends light back at the same angle it arrived, with both angles measured from the [[normal|normal]]. Learn the angles, the law of [[reflection|reflection]] and the image in a [[plane-mirror|plane mirror]]. Extended adds constructions and calculations.",
+  "goals": [
+    {
+      "text": "Draw the normal where a ray meets a mirror, and mark the angle of incidence and the angle of reflection.",
+      "bullets": [
+        "3.2.1-1"
+      ]
+    },
+    {
+      "text": "State the law of reflection and use it to find angles.",
+      "bullets": [
+        "3.2.1-3"
+      ]
+    },
+    {
+      "text": "Describe how a plane mirror forms an image, and give the image's three features: the same size, equally far from the mirror, virtual.",
+      "bullets": [
+        "3.2.1-2"
+      ]
+    },
+    {
+      "text": "Find an image and a ray's path by construction, and calculate angles and distances for plane mirrors.",
+      "bullets": [
+        "3.2.1-4"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "law of reflection",
+    "angle of incidence and angle of reflection",
+    "image in a plane mirror",
+    "virtual image in a mirror",
+    "mirror ray diagram"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ripple-reflect",
+      "prompt": "Water [[wave|waves]] in a ripple tank reflect off a straight barrier. How do the reflected waves compare with the waves arriving?",
+      "hint": "The waves stay in the same water. Only their direction changes.",
+      "options": [
+        {
+          "text": "same speed, same wavelength, same frequency",
+          "correct": true
+        },
+        {
+          "text": "slower, with the same frequency",
+          "correct": false
+        },
+        {
+          "text": "same speed, with a shorter wavelength",
+          "correct": false
+        },
+        {
+          "text": "same speed, with a lower frequency",
+          "correct": false
+        }
+      ],
+      "explain": "In [[reflection|reflection]] the wave stays in the same material, so its speed, wavelength and frequency don't change. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "same speed, same wavelength, same frequency"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-wavefront-direction",
+      "prompt": "Which way does a wave travel compared with its [[wavefront|wavefronts]]?",
+      "hint": "Picture straight ripples moving across a tank.",
+      "options": [
+        {
+          "text": "at right angles to the wavefronts",
+          "correct": true
+        },
+        {
+          "text": "along the wavefronts",
+          "correct": false
+        },
+        {
+          "text": "at 45 degrees to the wavefronts",
+          "correct": false
+        }
+      ],
+      "explain": "A wave moves at $90^\\circ$ to its [[wavefront|wavefronts]]. A ray of light shows this direction of travel. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "at right angles to the wavefronts"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "law",
+      "heading": "The normal and the law of reflection",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light is a [[wave|wave]]. We draw its path as a ray: a straight line with an arrow showing which way the light travels."
+        },
+        {
+          "type": "text",
+          "text": "A smooth, flat mirror is a [[plane-mirror|plane mirror]]. A ray that hits it bounces off: [[reflection|reflection]]. To describe the angles, first draw the [[normal|normal]] where the ray hits the mirror."
+        },
+        {
+          "type": "definition",
+          "term": "normal",
+          "statement": "A line drawn at $90^\\circ$ to a surface, at the point where a ray meets the surface.",
+          "plain": "The line standing straight up from the mirror where the ray hits."
+        },
+        {
+          "type": "definition",
+          "term": "angle of incidence",
+          "statement": "The angle between the incident ray (the ray arriving at the mirror) and the normal.",
+          "plain": "How far the ray going in is tilted from the normal."
+        },
+        {
+          "type": "definition",
+          "term": "angle of reflection",
+          "statement": "The angle between the reflected ray (the ray leaving the mirror) and the normal.",
+          "plain": "How far the ray coming out is tilted from the normal."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-1-law-of-reflection",
+          "alt": "A horizontal plane mirror with hatching underneath to show its back. A dashed vertical line, labelled normal, stands at 90 degrees to the mirror where the ray hits it. The incident ray comes down from the upper left, with an arrow pointing towards the mirror. The reflected ray goes up to the upper right, with an arrow pointing away from the mirror. The incident ray makes an angle i with the normal. The reflected ray makes an angle r with the normal, the same size as i. A dotted arc between the incident ray and the mirror surface is labelled: angle to the mirror, not i.",
+          "caption": "Both angles are measured from the normal, never from the mirror."
+        },
+        {
+          "type": "result",
+          "statement": "Law of reflection: the angle of reflection always equals the angle of incidence.",
+          "why": "Experiments with a ray box and a mirror give equal angles every time, at every angle you try."
+        },
+        {
+          "type": "formula",
+          "tex": "i = r",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$i$ is the angle of incidence and $r$ is the angle of reflection, both in degrees. The incident ray, the normal and the reflected ray all lie in the same flat plane, with the rays on opposite sides of the normal."
+        },
+        {
+          "type": "example",
+          "id": "ex-law-from-surface",
+          "question": "A ray from a laser pointer hits a plane mirror. The ray makes an angle of $28^\\circ$ with the surface of the mirror. Find the angle of reflection.",
+          "steps": [
+            "The $28^\\circ$ is measured from the mirror, not the normal. The normal is at $90^\\circ$ to the mirror.",
+            "Angle of incidence: $i = 90^\\circ - 28^\\circ = 62^\\circ$",
+            "Law of reflection: $r = i = 62^\\circ$",
+            "Check: the reflected ray also makes $28^\\circ$ with the mirror, on the other side of the normal."
+          ],
+          "answer": "$r = 62^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "90 - 28"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-law-between-rays",
+          "question": "Light bounces off a plane mirror. Measured across the normal, the incident and reflected rays are $96^\\circ$ apart. Find the angle $\\theta$ that the reflected ray makes with the mirror surface.",
+          "steps": [
+            "The normal splits the $96^\\circ$ into the angle of incidence and the angle of reflection. These are equal, so each is half.",
+            "$i = r = \\frac{96^\\circ}{2} = 48^\\circ$",
+            "The mirror and the normal are at $90^\\circ$, so $\\theta = 90^\\circ - 48^\\circ = 42^\\circ$"
+          ],
+          "answer": "$\\theta = 42^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "90 - 96/2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the angle to the mirror as $i$. If a diagram marks the ray's angle with the mirror surface, take it from $90^\\circ$ first."
+        },
+        {
+          "type": "check",
+          "id": "check-law-measured-from",
+          "prompt": "What is the angle of incidence?",
+          "hint": "Every angle in reflection is measured from the same line.",
+          "options": [
+            {
+              "text": "the angle the incident ray makes with the normal",
+              "correct": true
+            },
+            {
+              "text": "the angle the incident ray makes with the mirror",
+              "correct": false
+            },
+            {
+              "text": "the angle the incident ray makes with the reflected ray",
+              "correct": false
+            },
+            {
+              "text": "the angle the reflected ray makes with the normal",
+              "correct": false
+            }
+          ],
+          "explain": "It is the incident ray's angle with the normal. The reflected ray's angle with the normal is the angle of reflection.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the angle the incident ray makes with the normal"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-law-to-surface",
+          "prompt": "A ray hits a plane mirror with an angle of incidence of $41^\\circ$. What angle does the reflected ray make with the mirror surface?",
+          "hint": "Find the angle of reflection first. Then compare the normal with the mirror.",
+          "options": [
+            {
+              "text": "$49^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$41^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$82^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$139^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$r = i = 41^\\circ$ from the normal. The normal and the mirror are at $90^\\circ$, so the reflected ray makes $90^\\circ - 41^\\circ = 49^\\circ$ with the mirror.",
+          "verify": {
+            "kind": "angle",
+            "truth": "90 - 41"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In the lab (Paper 5 or 6), stand a mirror on a line drawn on paper and draw a normal with a protractor. Draw the incident ray at a measured angle to the normal. Shine a ray box along it, or mark it with two optics pins."
+        },
+        {
+          "type": "text",
+          "text": "Mark the reflected ray with two crosses far apart, then join them with a ruler. Measure $r$ from the normal. Repeat for several angles of incidence."
+        },
+        {
+          "type": "check",
+          "id": "check-law-practical",
+          "prompt": "A student measures an angle of incidence of $35^\\circ$ and an angle of reflection of $33^\\circ$. What should the student conclude?",
+          "hint": "How precisely can you draw and measure a ray with a protractor?",
+          "options": [
+            {
+              "text": "the angles are equal within experimental accuracy, so the result supports the law",
+              "correct": true
+            },
+            {
+              "text": "the law of reflection does not work for this mirror",
+              "correct": false
+            },
+            {
+              "text": "the light slowed down when it reflected",
+              "correct": false
+            },
+            {
+              "text": "the angle of reflection is always a little smaller than the angle of incidence",
+              "correct": false
+            }
+          ],
+          "explain": "A $2^\\circ$ difference is about 6% of $35^\\circ$, inside the usual 10% allowed. Wide rays and protractor readings easily cause it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the angles are equal within experimental accuracy, so the result supports the law"
+          }
+        }
+      ]
+    },
+    {
+      "id": "image",
+      "heading": "The image in a plane mirror",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every point on an object sends out rays in all directions. Some hit the mirror and reflect, each one obeying $i = r$. The reflected rays are still spreading apart when they enter your eye."
+        },
+        {
+          "type": "text",
+          "text": "Your brain assumes light travels in straight lines. So it traces the rays back, and they seem to come from one point behind the mirror. That is where you see the image."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-1-mirror-image",
+          "alt": "A vertical plane mirror with hatching on its right to show its back. On the left, an upright object arrow stands a distance d in front of the mirror. Two rays leave the tip of the object, hit the mirror at two nearby points and reflect down to the left into an eye, still spreading apart. Dashed lines continue the two reflected rays backwards through the mirror. They meet at the tip of a dashed upright arrow on the right, as tall as the object and also a distance d behind the mirror, labelled image, virtual. A note says no light goes behind the mirror.",
+          "caption": "The rays only seem to come from the image, so it is virtual."
+        },
+        {
+          "type": "definition",
+          "term": "virtual image",
+          "statement": "An image that rays of light only appear to come from. The rays do not actually pass through it, so it cannot be formed on a screen.",
+          "plain": "You can see it, but no light really gets there."
+        },
+        {
+          "type": "text",
+          "text": "The image in a plane mirror is:"
+        },
+        {
+          "type": "text",
+          "text": "1. the same size as the object;"
+        },
+        {
+          "type": "text",
+          "text": "2. behind the mirror, exactly as far from it as the object is, on a line at $90^\\circ$ to the mirror;"
+        },
+        {
+          "type": "text",
+          "text": "3. a [[virtual-image|virtual image]]: a screen placed there would show nothing."
+        },
+        {
+          "type": "text",
+          "text": "It is also upright, but left and right look swapped: your right hand is your image's left hand."
+        },
+        {
+          "type": "example",
+          "id": "ex-image-describe",
+          "question": "A student sees the image of a candle flame in a flat mirror on a wall. Describe how the mirror forms the image, and give three characteristics of the image.",
+          "steps": [
+            "Say what the rays do at the mirror, what the eye does with them, then give the three characteristics."
+          ],
+          "answer": "Rays of light from the flame spread out and hit the mirror. Each ray reflects with the angle of reflection equal to the angle of incidence. The reflected rays are still spreading out when they enter the eye. Traced back in straight lines, they seem to meet at a point behind the mirror. The image is virtual, because no light actually passes through it. It is the same size as the flame. The flame and its image are equally far from the mirror.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "rays reflect with i = r; reflected rays spread out; appear to come from behind the mirror; virtual; same size; same distance",
+            "requires": [
+              [
+                "reflects",
+                "reflect"
+              ],
+              [
+                "angle of reflection equal to the angle of incidence",
+                "angle of incidence equal to the angle of reflection"
+              ],
+              [
+                "spreading out",
+                "spread out",
+                "diverging"
+              ],
+              [
+                "appear to come from",
+                "seem to come from",
+                "seem to meet"
+              ],
+              "behind the mirror",
+              "virtual",
+              "same size",
+              [
+                "same distance",
+                "equally far"
+              ]
+            ],
+            "forbids": [
+              "real image",
+              "upside down",
+              "inverted",
+              "smaller than"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-image-distance",
+          "prompt": "A cat sits $1.3\\ \\text{m}$ in front of a long plane mirror. How far is the cat from its image?",
+          "hint": "The cat and its image are equally far from the mirror.",
+          "options": [
+            {
+              "text": "$2.6\\ \\text{m}$",
+              "correct": true
+            },
+            {
+              "text": "$1.3\\ \\text{m}$",
+              "correct": false
+            },
+            {
+              "text": "$0.65\\ \\text{m}$",
+              "correct": false
+            }
+          ],
+          "explain": "Cat to mirror is $1.3\\ \\text{m}$, and mirror to image is another $1.3\\ \\text{m}$: $2 \\times 1.3 = 2.6\\ \\text{m}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*1.3",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-image-type",
+          "prompt": "Which describes the image in a plane mirror?",
+          "hint": "Could a screen behind the mirror ever show the image?",
+          "options": [
+            {
+              "text": "virtual, upright, same size as the object",
+              "correct": true
+            },
+            {
+              "text": "real, upright, same size as the object",
+              "correct": false
+            },
+            {
+              "text": "virtual, upside down, same size as the object",
+              "correct": false
+            },
+            {
+              "text": "virtual, upright, smaller than the object",
+              "correct": false
+            }
+          ],
+          "explain": "No light reaches the image, so it is virtual. A plane mirror does not turn it upside down or change its size.",
+          "verify": {
+            "kind": "choice",
+            "truth": "virtual, upright, same size as the object"
+          }
+        }
+      ]
+    },
+    {
+      "id": "constructions",
+      "heading": "Constructions and calculations",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find the image of a point object O by construction:"
+        },
+        {
+          "type": "text",
+          "text": "1. From O, rule a line at $90^\\circ$ to the mirror. Extend the mirror line if you need to."
+        },
+        {
+          "type": "text",
+          "text": "2. Measure how far O is from the mirror. Mark the image I the same distance behind the mirror, on that line."
+        },
+        {
+          "type": "text",
+          "text": "To draw the ray that reaches an eye at E, rule a straight line from I to E. It crosses the mirror at P, where the light reflects. Draw O to P and P to E as solid rays with arrows, and P to I dashed."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-1-construction",
+          "alt": "A vertical mirror with hatching on its right. On the left, a point object O. A dotted line runs from O at 90 degrees to the mirror and continues the same distance behind it to a point I, the image; matching tick marks show the two equal distances. Lower down on the left is a point E, the eye. A dashed line from I meets the mirror at a point P and lines up with a solid ray from P to E, so I, P and E lie on one straight line. A solid ray with an arrow goes from O to P, and another from P to E. A dashed normal at P points left, and the angles i and r between the normal and the two rays are equal.",
+          "caption": "The construction gives $i = r$ at P automatically."
+        },
+        {
+          "type": "text",
+          "text": "The light's whole path O to P to E is as long as the straight line from I to E, because PO and PI are equal. So you can measure or calculate it from the image."
+        },
+        {
+          "type": "example",
+          "id": "ex-con-path-length",
+          "question": "Maya's eye is $1.4\\ \\text{m}$ in front of a large wall mirror. A lamp is $0.7\\ \\text{m}$ in front of the same mirror and $2.8\\ \\text{m}$ from Maya's eye, measured parallel to the wall. Light from the lamp reflects off the mirror into her eye. Calculate the distance $d$ the light travels.",
+          "steps": [
+            "Locate the image: the lamp's image is $0.7\\ \\text{m}$ behind the mirror.",
+            "The light's path has the same length as the straight line from the image to the eye.",
+            "At $90^\\circ$ to the wall, the image and the eye are $1.4 + 0.7 = 2.1\\ \\text{m}$ apart. Parallel to the wall they are $2.8\\ \\text{m}$ apart.",
+            "Use Pythagoras' theorem: $d = \\sqrt{2.1^2 + 2.8^2} = \\sqrt{12.25} = 3.5\\ \\text{m}$",
+            "A scale drawing gives the same answer: draw the image and the eye to scale, measure the line between them, and convert back."
+          ],
+          "answer": "$d = 3.5\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt((1.4 + 0.7)**2 + 2.8**2)",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-con-two-mirrors",
+          "question": "Two plane mirrors, A and B, meet at $90^\\circ$. A ray hits mirror A, making $32^\\circ$ with its surface, then reflects onto mirror B. Find the angle of incidence $i$ at mirror B.",
+          "steps": [
+            "At A, the reflected ray leaves at the same angle to the mirror as the incident ray: $32^\\circ$.",
+            "The reflected ray and the two mirrors make a triangle with a $90^\\circ$ corner. So the ray meets B at $180^\\circ - 90^\\circ - 32^\\circ = 58^\\circ$ to its surface.",
+            "Measure from the normal: $i = 90^\\circ - 58^\\circ = 32^\\circ$",
+            "The ray leaves B at $32^\\circ$ to its normal too. It goes back parallel to the way it came in, in the opposite direction."
+          ],
+          "answer": "$i = 32^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "90 - (180 - 90 - 32)"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-con-walking",
+          "prompt": "You walk straight towards a plane mirror at $1.5\\ \\text{m/s}$. At what speed does the distance between you and your image decrease?",
+          "hint": "The distance between you and your image is twice your distance from the mirror.",
+          "options": [
+            {
+              "text": "$3.0\\ \\text{m/s}$",
+              "correct": true
+            },
+            {
+              "text": "$1.5\\ \\text{m/s}$",
+              "correct": false
+            },
+            {
+              "text": "$0.75\\ \\text{m/s}$",
+              "correct": false
+            }
+          ],
+          "explain": "Each second you get $1.5\\ \\text{m}$ closer to the mirror, and your image gets $1.5\\ \\text{m}$ closer from the other side: $2 \\times 1.5 = 3.0\\ \\text{m/s}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2*1.5",
+            "unit": "m/s"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Normal: a line at $90^\\circ$ to the surface where the ray hits it. The angles of incidence and reflection are measured from the normal, not from the mirror.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Law of reflection: angle of incidence = angle of reflection, $i = r$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Plane mirror image: same size as the object; image-to-mirror distance = object-to-mirror distance; virtual. It is upright, with left and right swapped.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Virtual image: rays only appear to come from it, so it cannot be formed on a screen.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Plane mirror construction: the image is on the line from the object at $90^\\circ$ to the mirror, as far behind as the object is in front. A ray reaches an eye by reflecting where the line from the image to the eye crosses the mirror.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking the ray's angle with the mirror surface as the angle of incidence. Measure from the normal: subtract the angle to the mirror from $90^\\circ$.",
+    "Calling the angle across the normal, from incident ray to reflected ray, the angle of reflection. That angle is $2i$; halve it.",
+    "Giving the object-to-mirror distance when asked how far the image is from the object. Object to image is twice the distance to the mirror.",
+    "Calling a plane-mirror image real or upside down. No light goes behind the mirror, so it is virtual. It is also upright.",
+    "Reading a mirror image of a clock or a word as it appears. Left and right are swapped, so flip it back before you read it."
+  ],
+  "examTips": [
+    "\"State the law of reflection\": write it in full words (angle of incidence = angle of reflection). If you write $i = r$, say what $i$ and $r$ stand for.",
+    "Ray diagrams: use a ruler and a protractor, draw the normal dashed, and put arrows on the rays in the direction the light travels. Anything behind the mirror, including the image, is dashed.",
+    "\"Give the characteristics\" of a plane-mirror image: same size, same distance behind the mirror, virtual."
+  ],
+  "readingMinutes": 19
+}

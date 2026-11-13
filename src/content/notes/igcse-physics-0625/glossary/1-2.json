@@ -2,67 +2,67 @@
   {
     "id": "speed",
     "term": "speed",
-    "definition": "TODO: Distance travelled per unit time, v = s/t; a scalar",
+    "definition": "The distance an object travels per unit time, $v = \\frac{s}{t}$, usually in m/s; a scalar, so it has no direction.",
     "lesson": "1.2"
   },
   {
     "id": "velocity",
     "term": "velocity",
-    "definition": "TODO: Speed in a given direction; a vector",
+    "definition": "Speed in a given direction; a vector, so two objects with the same speed moving in different directions have different velocities.",
     "lesson": "1.2"
   },
   {
     "id": "average-speed",
     "term": "average speed",
-    "definition": "TODO: Total distance travelled divided by total time taken; not the mean of start and end speeds",
+    "definition": "The total distance travelled divided by the total time taken, including any stops; it is not, in general, the mean of the starting and final speeds.",
     "lesson": "1.2"
   },
   {
     "id": "distance",
     "term": "distance",
-    "definition": "TODO: Total length of path travelled; a scalar",
+    "definition": "The total length of the path an object travels, in m; a scalar, so it has no direction.",
     "lesson": "1.2"
   },
   {
     "id": "distance-time-graph",
     "term": "distance-time graph",
-    "definition": "TODO: Gradient gives speed; flat line means at rest; straight sloping line means constant speed",
+    "definition": "A graph of distance travelled (vertical axis) against time (horizontal axis); its gradient is the speed, so a horizontal line means at rest and a straight sloping line means constant speed.",
     "lesson": "1.2"
   },
   {
     "id": "speed-time-graph",
     "term": "speed-time graph",
-    "definition": "TODO: Gradient gives acceleration; area under graph gives distance travelled",
+    "definition": "A graph of speed (vertical axis) against time (horizontal axis); its gradient is the acceleration and the area under it is the distance travelled.",
     "lesson": "1.2"
   },
   {
     "id": "gradient",
     "term": "gradient",
-    "definition": "TODO: Steepness of a line: change in y divided by change in x, using a large triangle on a straight section",
+    "definition": "The steepness of a straight line: the change in the vertical quantity divided by the change in the horizontal quantity, found from two points on the line far apart.",
     "lesson": "1.2"
   },
   {
     "id": "acceleration",
     "term": "acceleration",
-    "definition": "TODO: Change in velocity per unit time, a = Δv/Δt; unit m/s2; a vector",
+    "definition": "The change in velocity per unit time, $a = \\frac{\\Delta v}{\\Delta t}$, in $\\text{m/s}^2$; a vector.",
     "lesson": "1.2"
   },
   {
     "id": "deceleration",
     "term": "deceleration",
-    "definition": "TODO: A negative acceleration: speed decreasing in the direction of motion",
+    "definition": "A negative acceleration, taking the direction of motion as positive: the object's speed decreases.",
     "lesson": "1.2"
   },
   {
     "id": "acceleration-of-free-fall",
     "term": "acceleration of free fall",
-    "definition": "TODO: Approximately constant near Earth's surface, about 9.8 m/s2; same as gravitational field strength g",
+    "definition": "The acceleration $g$ of an object falling with no air resistance; near the Earth's surface it is approximately constant, about $9.8\\ \\text{m/s}^2$, whatever the object's mass.",
     "lesson": "1.2"
   },
   {
     "id": "terminal-velocity",
     "term": "terminal velocity",
-    "definition": "TODO: Constant velocity reached when drag equals the driving force (weight), so the resultant force is zero",
+    "definition": "The constant velocity an object falling through air or a liquid reaches when the forces on it balance, so the resultant force on it is zero; in air, this is when the air resistance equals its weight.",
     "lesson": "1.2"
   }
 ]

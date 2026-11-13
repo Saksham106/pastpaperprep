@@ -1,0 +1,622 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.2.1",
+  "slug": "thermal-expansion-of-solids-liquids-and-gases",
+  "title": "Thermal expansion of solids, liquids and gases",
+  "level": "Core",
+  "topic": 2,
+  "summary": "Heat almost anything and it gets slightly bigger; cool it and it shrinks. This is [[thermal-expansion|thermal expansion]]. For the same [[temperature|temperature]] rise, a [[gas|gas]] at constant pressure expands the most and a [[solid|solid]] the least. It is why bridges have gaps and overhead cables sag, and how a thermometer and a thermostat work.",
+  "goals": [
+    {
+      "text": "Describe what happens to the size, mass and [[density|density]] of a solid, [[liquid|liquid]] or gas when it is heated or cooled.",
+      "bullets": [
+        "2.2.1-1"
+      ]
+    },
+    {
+      "text": "Put solids, liquids and gases in order of how much they expand for the same temperature rise.",
+      "bullets": [
+        "2.2.1-1"
+      ]
+    },
+    {
+      "text": "Describe everyday problems that expansion causes, and uses of expansion such as thermometers and bimetallic strips.",
+      "bullets": [
+        "2.2.1-2"
+      ]
+    },
+    {
+      "text": "Explain, using the forces between particles and their motion, why gases expand most and solids least.",
+      "bullets": [
+        "2.2.1-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "2.1.1",
+    "2.1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "thermal expansion",
+    "why do railway tracks have gaps",
+    "bimetallic strip",
+    "expansion joints on bridges",
+    "why gases expand more than solids",
+    "expansion and contraction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-density-stone",
+      "prompt": "A stone has a mass of $72\\ \\text{g}$ and a volume of $30\\ \\text{cm}^3$. What is its [[density|density]], in g/cm³?",
+      "hint": "Density is mass divided by volume.",
+      "answer": {
+        "value": 2.4,
+        "tolerance": 0.05
+      },
+      "explain": "$\\rho = \\frac{m}{V} = \\frac{72}{30} = 2.4\\ \\text{g/cm}^3$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "72/30",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-furthest-apart",
+      "prompt": "In which state of matter are the particles furthest apart?",
+      "hint": "Which state is easy to squash?",
+      "options": [
+        {
+          "text": "gas",
+          "correct": true
+        },
+        {
+          "text": "liquid",
+          "correct": false
+        },
+        {
+          "text": "solid",
+          "correct": false
+        }
+      ],
+      "explain": "Gas particles are far apart, which is why a gas is easy to compress. Particles in a liquid or a solid are close together. Revise it in {{lesson:2.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "gas"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-warm-metal-particles",
+      "prompt": "A metal block is warmed. What happens to its particles?",
+      "hint": "In a solid the particles stay in fixed positions. How do they still move?",
+      "options": [
+        {
+          "text": "they vibrate faster about their fixed positions",
+          "correct": true
+        },
+        {
+          "text": "they vibrate more slowly about their fixed positions",
+          "correct": false
+        },
+        {
+          "text": "they stop moving",
+          "correct": false
+        },
+        {
+          "text": "they get bigger",
+          "correct": false
+        }
+      ],
+      "explain": "A higher [[temperature|temperature]] means the particles have more kinetic energy on average, so in a solid they vibrate faster. They do not change size. Revise it in {{lesson:2.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they vibrate faster about their fixed positions"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "expand-on-heating",
+      "heading": "Heating makes things expand",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A tight metal lid on a glass jar often comes loose after a minute under the hot tap. The hot metal has grown slightly bigger. Almost every substance expands when it is heated and contracts (gets smaller) when it cools."
+        },
+        {
+          "type": "definition",
+          "term": "thermal expansion",
+          "statement": "The increase in the size of a substance when its temperature rises.",
+          "plain": "Things get a little bigger when they get hotter."
+        },
+        {
+          "type": "text",
+          "text": "Using the [[particle-model|particle model]]: heating gives the particles more kinetic energy. They vibrate or move faster, so on average they sit a little further apart, and the substance takes up more space. The particles themselves do not get any bigger."
+        },
+        {
+          "type": "text",
+          "text": "A [[solid|solid]] gets longer, wider and thicker. A hole in a solid gets bigger too, because all the material around it expands. A [[liquid|liquid]] fills a bigger volume, so its level climbs a narrow tube."
+        },
+        {
+          "type": "text",
+          "text": "A [[gas|gas]] expands when it is heated at constant pressure, for example in a balloon or behind a plunger that can slide freely. If the gas is sealed in a rigid container, it cannot expand, so its pressure rises instead ({{lesson:2.1.3}})."
+        },
+        {
+          "type": "text",
+          "text": "Heating neither adds nor removes particles, so the mass does not change. The same mass now fills a bigger volume, so the [[density|density]], $\\rho = \\frac{m}{V}$, decreases."
+        },
+        {
+          "type": "text",
+          "text": "The amount of expansion depends on the state. For the same temperature rise, a gas at constant pressure expands far more than a liquid does. A liquid expands more than a solid, and a solid expands so little that you rarely see it change size."
+        },
+        {
+          "type": "example",
+          "id": "ex-ball-and-ring",
+          "question": "A brass ball can just pass through a brass ring when both are at room temperature. The ball alone is then heated strongly in a flame. Describe what happens when you try to pass the ball through the ring again, and explain it in terms of particles.",
+          "steps": [
+            "Say what happens to the size of the ball, then what its particles do, then what happens when it cools."
+          ],
+          "answer": "The ball no longer passes through the ring. Heating makes the ball expand, so its volume increases. Its particles vibrate more and move slightly further apart, so they take up more space. The particles themselves stay the same size. When the ball cools down, it contracts and passes through the ring again.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ball expands so no longer fits; particles vibrate more and move further apart; contracts on cooling",
+            "requires": [
+              [
+                "no longer passes",
+                "does not pass"
+              ],
+              "expand",
+              "vibrate more",
+              "further apart",
+              "contracts"
+            ],
+            "forbids": [
+              "particles get bigger",
+              "particles expand",
+              "mass increases"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-soap-film-bottle",
+          "question": "A thin soap film is stretched across the open neck of an empty glass bottle. The bottle is stood in a bowl of hot water, and the film bulges outwards into a dome. Explain why.",
+          "steps": [
+            "Decide which part expands most: the air or the glass. Then say what the air particles do."
+          ],
+          "answer": "The hot water warms the air inside the bottle. The air particles move faster, so they push harder on the film and move it outwards. The film moves easily, so the air expands at constant pressure and takes up a bigger volume. The glass also expands, but a solid expands much less than a gas. So the extra volume of air makes the film bulge.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "air warmed; particles move faster and push film out; air expands at constant pressure; glass expands much less",
+            "requires": [
+              "warms the air",
+              "move faster",
+              "expands",
+              [
+                "much less",
+                "far less"
+              ]
+            ],
+            "forbids": [
+              "hot air rises",
+              "particles get bigger",
+              "glass expands more"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-washer-hole",
+          "prompt": "A steel washer is a flat ring with a hole in the middle. The whole washer is heated evenly. What happens to the diameter of the hole?",
+          "hint": "Picture a photo of the washer enlarged on a screen. Every part grows, including the gap.",
+          "options": [
+            {
+              "text": "it increases",
+              "correct": true
+            },
+            {
+              "text": "it decreases, because the steel expands into the hole",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "Every part of the washer expands outwards, including the ring of steel around the hole, so the hole gets bigger too.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it increases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wax-mass-density",
+          "prompt": "A block of wax is warmed gently. It expands but does not melt. What happens to its mass and its density?",
+          "hint": "Are any particles added or taken away? Then use $\\rho = \\frac{m}{V}$.",
+          "options": [
+            {
+              "text": "mass stays the same, density decreases",
+              "correct": true
+            },
+            {
+              "text": "mass stays the same, density stays the same",
+              "correct": false
+            },
+            {
+              "text": "mass increases, density stays the same",
+              "correct": false
+            },
+            {
+              "text": "mass stays the same, density increases",
+              "correct": false
+            }
+          ],
+          "explain": "The wax has the same particles, so the same mass. That mass now fills a bigger volume, so its density falls.",
+          "verify": {
+            "kind": "choice",
+            "truth": "mass stays the same, density decreases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-most-expansion",
+          "prompt": "Equal volumes of air, water and copper are each warmed by $15\\ \\text{°C}$. The air is kept at constant pressure. Which expands the most?",
+          "hint": "Gas, liquid or solid: which expands most for the same temperature rise?",
+          "options": [
+            {
+              "text": "the air",
+              "correct": true
+            },
+            {
+              "text": "the water",
+              "correct": false
+            },
+            {
+              "text": "the copper",
+              "correct": false
+            },
+            {
+              "text": "they all expand by the same amount",
+              "correct": false
+            }
+          ],
+          "explain": "A gas expands far more than a liquid, and a liquid more than a solid. So the air expands most and the copper least.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the air"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uses-and-problems",
+      "heading": "Expansion in everyday life",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Expansion is small, but a solid that is stopped from expanding pushes with very large forces. Structures must leave room for it:"
+        },
+        {
+          "type": "text",
+          "text": "1. Railway tracks and concrete roads have small gaps between sections, and bridges have expansion joints. On hot days the sections expand into the gaps instead of buckling or cracking."
+        },
+        {
+          "type": "text",
+          "text": "2. Overhead power cables are hung with some slack. In cold weather they contract and pull tighter, so cables hung tight could snap. In hot weather they expand and sag lower."
+        },
+        {
+          "type": "text",
+          "text": "3. Long pipes carrying hot water or steam include loops or bends, which flex as the pipe gets longer."
+        },
+        {
+          "type": "text",
+          "text": "Expansion is also useful. In a liquid-in-glass thermometer, the liquid expands much more than the glass. The tube is very narrow, so a small increase in volume gives a long rise up the tube."
+        },
+        {
+          "type": "text",
+          "text": "A bimetallic strip is two different metals, such as brass and iron, joined along their length. When it is heated, the brass expands more than the iron. The strip can only fit both lengths by bending, with the brass on the outside of the curve."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-1-bimetallic-strip",
+          "alt": "Two drawings of a bimetallic strip, clamped at its left end, with a brass layer on top of an iron layer. Labelled cold, the strip is straight. Labelled heated, the strip curves downwards. The brass layer is on the outside of the curve, labelled expands more, and the iron is on the inside, labelled expands less.",
+          "caption": "Brass expands more than iron, so a heated bimetallic strip bends with the brass on the outside."
+        },
+        {
+          "type": "example",
+          "id": "ex-bridge-joint",
+          "question": "A long steel road bridge has an expansion joint at one end: two sets of metal teeth that slide past each other, leaving a gap that can open and close. Explain why the bridge needs this joint.",
+          "steps": [
+            "Deal with hot days and cold days in turn, then say what would happen with no joint."
+          ],
+          "answer": "On a hot day the steel deck warms up and expands, so the bridge becomes longer. On a cold day the steel contracts, so the bridge becomes shorter. The joint leaves room for these changes in length. Without it, the expanding deck would push hard against the road at its ends, and the bridge could buckle or crack.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "hot day: steel expands, longer; cold day: contracts, shorter; joint allows the change in length; otherwise buckles or cracks",
+            "requires": [
+              "hot day",
+              "expands",
+              "longer",
+              "contracts",
+              [
+                "buckle",
+                "crack"
+              ]
+            ],
+            "forbids": [
+              "contracts on a hot day",
+              "expands on a cold day"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bimetal-thermostat",
+          "question": "The thermostat in an electric heater uses a bimetallic strip of brass and iron. When the strip is cool, it touches a contact and completes the heater's circuit. Brass expands more than iron. Describe how the strip switches the heater off when the room becomes too warm, and on again when it cools.",
+          "steps": [
+            "Say which metal expands more, which way the strip bends, and what that does to the circuit."
+          ],
+          "answer": "As the room warms, the brass expands more than the iron. The two metals are joined, so the strip bends, with the brass on the outside of the curve. The strip bends away from the contact, which breaks the circuit and switches the heater off. When the room cools, the strip contracts and straightens, touches the contact again and switches the heater back on.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "brass expands more than iron; strip bends with brass outside; moves off contact and breaks circuit; cools, straightens, reconnects",
+            "requires": [
+              "brass expands more",
+              "bends",
+              "outside of the curve",
+              "breaks the circuit",
+              "straightens"
+            ],
+            "forbids": [
+              "iron expands more",
+              "brass contracts"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking cables sag most on a cold day. Cold cables contract and pull tighter; hot cables expand and sag lowest."
+        },
+        {
+          "type": "examTip",
+          "text": "For a Paper 1/2 question about gaps or slack, first decide: hot (expands, longer) or cold (contracts, shorter)? Then pick the problem that change would cause."
+        },
+        {
+          "type": "check",
+          "id": "check-cables-lowest",
+          "prompt": "Overhead power cables hang between two pylons. When do they hang lowest?",
+          "hint": "A longer cable between the same two pylons hangs lower.",
+          "options": [
+            {
+              "text": "on a hot summer day",
+              "correct": true
+            },
+            {
+              "text": "on a cold winter night",
+              "correct": false
+            },
+            {
+              "text": "they hang the same in all weather",
+              "correct": false
+            }
+          ],
+          "explain": "On a hot day the metal expands, so the cable gets longer and sags further. On a cold night it contracts and pulls tighter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "on a hot summer day"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-jar-lid",
+          "prompt": "A metal lid is stuck on a glass jar. Holding the lid under hot water often loosens it. Why?",
+          "hint": "Both are warmed. Which one gets bigger by more?",
+          "options": [
+            {
+              "text": "the metal lid expands more than the glass",
+              "correct": true
+            },
+            {
+              "text": "the glass expands more than the metal lid",
+              "correct": false
+            },
+            {
+              "text": "the hot water makes the lid contract",
+              "correct": false
+            },
+            {
+              "text": "the hot water makes the lid lighter",
+              "correct": false
+            }
+          ],
+          "explain": "The metal of the lid expands more than the glass rim, so the lid grows away from the jar and loosens.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the metal lid expands more than the glass"
+          }
+        }
+      ]
+    },
+    {
+      "id": "why-different",
+      "heading": "Why gases expand most and solids least",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Heating makes the particles of every state move faster. The amount of expansion depends on how strongly the particles are held together."
+        },
+        {
+          "type": "text",
+          "text": "1. Solid: strong attractive forces hold the particles close together in fixed positions. They vibrate more, but the forces keep them close, so a solid expands least."
+        },
+        {
+          "type": "text",
+          "text": "2. Liquid: the particles are still close together, but the forces between them are weaker, and they can move around each other. Extra motion pushes them apart more easily, so a liquid expands more than a solid."
+        },
+        {
+          "type": "text",
+          "text": "3. Gas: the particles are far apart and the forces between them are very weak. Nothing holds them together, so as they speed up the gas spreads out much more (at constant pressure)."
+        },
+        {
+          "type": "example",
+          "id": "ex-air-versus-steel",
+          "question": "Warming by $10\\ \\text{°C}$ makes the air in a gas syringe with a free plunger expand by about 3%. The same rise makes a steel rod expand by well under 0.1% of its volume. Explain this difference in terms of particles.",
+          "steps": [
+            "Compare the forces between the particles in each, and say what those forces do when the particles move faster."
+          ],
+          "answer": "In the steel, strong attractive forces hold the particles close together in fixed positions. When it is heated, the particles vibrate more, but the forces keep them close, so the steel expands very little. In the air, the particles are far apart and the forces between them are very weak. As the particles move faster, nothing holds them together, so they spread out much further and the air expands much more.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "steel: strong forces, fixed positions, vibrate more but stay close, expands little; air: far apart, very weak forces, spread out much more",
+            "requires": [
+              "strong attractive forces",
+              "fixed positions",
+              "vibrate more",
+              "far apart",
+              [
+                "very weak",
+                "negligible"
+              ]
+            ],
+            "forbids": [
+              "particles get bigger",
+              "random motion",
+              "steel expands more"
+            ]
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 2 options often give a true fact with the wrong reason. The reason gases expand more is the weak forces between their particles, not just that the particles move randomly."
+        },
+        {
+          "type": "check",
+          "id": "check-liquid-vs-solid-reason",
+          "prompt": "Which statement explains why a liquid expands more than a solid for the same temperature rise?",
+          "hint": "Think about what holds the particles together in each state.",
+          "options": [
+            {
+              "text": "the forces between the particles are weaker in the liquid",
+              "correct": true
+            },
+            {
+              "text": "the particles of a liquid get bigger when heated",
+              "correct": false
+            },
+            {
+              "text": "the particles in a solid do not move",
+              "correct": false
+            },
+            {
+              "text": "a liquid always has more particles than a solid",
+              "correct": false
+            }
+          ],
+          "explain": "Weaker forces let the liquid's particles move further apart as they speed up. A solid's particles do move: they vibrate about fixed positions.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the forces between the particles are weaker in the liquid"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-order-arrangement",
+          "prompt": "In sample X the particles are in a regular, closely packed pattern. In sample Y they are close together but randomly arranged. In sample Z they are far apart. All three are warmed by the same amount, with Z at constant pressure. Which sample expands the least?",
+          "hint": "Which arrangement belongs to a solid, and how tightly are its particles held?",
+          "options": [
+            {
+              "text": "X",
+              "correct": true
+            },
+            {
+              "text": "Y",
+              "correct": false
+            },
+            {
+              "text": "Z",
+              "correct": false
+            }
+          ],
+          "explain": "X is a solid: strong forces hold its particles in place, so it expands least. Y is a liquid and Z, a gas, expands most.",
+          "verify": {
+            "kind": "choice",
+            "truth": "X"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Almost all substances expand when heated and contract when cooled (a gas in a rigid, sealed container cannot expand: its pressure rises instead). The mass stays the same, so as a substance expands its density decreases.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "When a substance expands on heating, its particles move or vibrate faster and spread further apart on average. The particles themselves do not get bigger.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "For the same temperature rise, a gas at constant pressure expands the most, a liquid less, and a solid the least.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Allowing for expansion: gaps in railway tracks and roads, expansion joints in bridges and slack in overhead cables leave room for expansion and contraction. Uses: liquid-in-glass thermometers and bimetallic strips in thermostats.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A heated bimetallic strip bends with the metal that expands more on the outside of the curve.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Solids expand least because strong forces hold their particles in fixed positions. Gases (at constant pressure) expand most because the forces between their particles are very weak.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying the particles get bigger when a substance is heated. They stay the same size; they move faster and spread further apart.",
+    "Thinking the hole in a heated ring or nut gets smaller. All of the metal expands, so the hole gets bigger too.",
+    "Saying the mass increases as a substance expands. No particles are added, so the mass stays the same and the density falls.",
+    "Linking the most ordered particles with the most expansion. Tightly held particles in a solid give the least expansion; widely spaced gas particles give the most."
+  ],
+  "examTips": [
+    "\"Describe\" an application of expansion: say whether the object gets hotter or colder, whether it expands or contracts, and what problem this causes or what job it does.",
+    "When asked about mass and density on heating, give both: the mass stays the same and the density decreases, because the volume increases."
+  ],
+  "readingMinutes": 21
+}

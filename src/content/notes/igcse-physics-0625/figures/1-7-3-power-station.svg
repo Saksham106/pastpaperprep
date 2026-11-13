@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 230" role="img" aria-labelledby="t173ps">
+  <title id="t173ps">Flow chart of a thermal power station: a heat source (a furnace burning fuel, a nuclear reactor, or hot rocks underground) heats water in a boiler, which makes steam; the steam spins a turbine; the turbine turns a generator; the generator gives out electrical power. In a geothermal station the hot rocks themselves turn water into steam. Below, a condenser cools the used steam back into water, which returns to the boiler</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <rect x="10" y="40" width="116" height="80" rx="6" stroke="var(--t1-ink)"/>
+    <rect x="148" y="40" width="116" height="80" rx="6" stroke="var(--t2-ink)"/>
+    <rect x="286" y="40" width="116" height="80" rx="6" stroke="var(--t3-ink)"/>
+    <rect x="424" y="40" width="116" height="80" rx="6" stroke="var(--t4-ink)"/>
+    <rect x="562" y="40" width="108" height="80" rx="6" stroke="var(--t5-ink)"/>
+    <line x1="126" y1="80" x2="146" y2="80"/>
+    <polyline points="139,75 147,80 139,85"/>
+    <line x1="264" y1="80" x2="284" y2="80"/>
+    <polyline points="277,75 285,80 277,85"/>
+    <line x1="402" y1="80" x2="422" y2="80"/>
+    <polyline points="415,75 423,80 415,85"/>
+    <line x1="540" y1="80" x2="560" y2="80"/>
+    <polyline points="553,75 561,80 553,85"/>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.5" fill="none">
+    <polyline points="344,120 344,180 206,180 206,123"/>
+    <polyline points="201,130 206,122 211,130"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="68" y="64" font-weight="600">heat source</text>
+    <text x="68" y="84" font-size="11">furnace, nuclear</text>
+    <text x="68" y="99" font-size="11">reactor or</text>
+    <text x="68" y="114" font-size="11">hot rocks</text>
+    <text x="206" y="64" font-weight="600">boiler</text>
+    <text x="206" y="88" font-size="11">water is heated</text>
+    <text x="206" y="103" font-size="11">and turns to steam</text>
+    <text x="344" y="64" font-weight="600">turbine</text>
+    <text x="344" y="88" font-size="11">steam makes</text>
+    <text x="344" y="103" font-size="11">it spin</text>
+    <text x="482" y="64" font-weight="600">generator</text>
+    <text x="482" y="88" font-size="11">turned by the</text>
+    <text x="482" y="103" font-size="11">turbine</text>
+    <text x="616" y="64" font-weight="600">electrical</text>
+    <text x="616" y="82" font-weight="600">power out</text>
+    <text x="275" y="200" font-size="11" fill="var(--muted)">condenser: used steam cools</text>
+    <text x="275" y="215" font-size="11" fill="var(--muted)">back into water for the boiler</text>
+    <text x="340" y="24" font-size="12" fill="var(--muted)">thermal energy → kinetic energy of the steam and turbine → electrical energy</text>
+  </g>
+</svg>

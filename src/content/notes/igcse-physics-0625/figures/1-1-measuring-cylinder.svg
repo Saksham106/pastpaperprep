@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="t11cyl">
+<title id="t11cyl">Measuring cylinder containing water, with a scale in cubic centimetres from 30 to 50. The numbered marks are 30, 40 and 50, with four small marks between each pair, so each small division is 2 cubic centimetres. The water surface curves up at the walls, forming a meniscus. The bottom of the meniscus lines up with the second small mark above 40. An eye on the right looks along a dashed horizontal line level with the bottom of the meniscus.</title>
+<path d="M120 50 V262 H200 V50" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<rect x="104" y="262" width="112" height="10" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M121 110 Q160 126 199 110 V261 H121 Z" fill="var(--t3-ink)" fill-opacity="0.15" stroke="none"/>
+<path d="M121 110 Q160 126 199 110" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<line x1="120" y1="230" x2="142" y2="230" stroke="currentColor" stroke-width="1.2"/>
+<line x1="120" y1="214" x2="132" y2="214" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="198" x2="132" y2="198" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="182" x2="132" y2="182" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="166" x2="132" y2="166" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="150" x2="142" y2="150" stroke="currentColor" stroke-width="1.2"/>
+<line x1="120" y1="134" x2="132" y2="134" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="118" x2="132" y2="118" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="102" x2="132" y2="102" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="86" x2="132" y2="86" stroke="currentColor" stroke-width="1"/>
+<line x1="120" y1="70" x2="142" y2="70" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="13" x="112" y="234" fill="currentColor" text-anchor="end">30</text>
+<text font-family="inherit" font-size="13" x="112" y="154" fill="currentColor" text-anchor="end">40</text>
+<text font-family="inherit" font-size="13" x="112" y="74" fill="currentColor" text-anchor="end">50</text>
+<text font-family="inherit" font-size="12" x="112" y="40" fill="currentColor" text-anchor="end">cm³</text>
+<path d="M200 118 H318" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<path d="M322 110 Q336 104 348 118 Q336 132 322 126" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<circle cx="330" cy="118" r="3.5" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="335" y="150" fill="var(--muted)" text-anchor="middle">eye level</text>
+<path d="M226 84 L172 116" fill="none" stroke="var(--t3-ink)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="230" y="80" fill="var(--t3-ink)" text-anchor="start">read the bottom of the meniscus</text>
+<text font-family="inherit" font-size="12" x="160" y="215" fill="var(--t3-ink)" text-anchor="middle">water</text>
+</svg>

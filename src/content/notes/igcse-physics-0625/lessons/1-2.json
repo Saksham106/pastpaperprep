@@ -1,0 +1,934 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.2",
+  "slug": "motion",
+  "title": "Motion",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[speed|Speed]] is how far something travels each second, and [[velocity|velocity]] is speed in a given direction. Graphs of [[distance|distance]] or speed against time show how an object moves: the [[gradient|gradient]] of a distance–time graph gives the speed, and the area under a speed–time graph gives the distance travelled. Near the Earth, with air resistance ignored, falling objects speed up at about $9.8\\ \\text{m/s}^2$. Extended adds [[acceleration|acceleration]], [[deceleration|deceleration]] and [[terminal-velocity|terminal velocity]].",
+  "goals": [
+    {
+      "text": "Define speed and velocity, and use $v = \\frac{s}{t}$ and the equation for [[average-speed|average speed]].",
+      "bullets": [
+        "1.2-1",
+        "1.2-2",
+        "1.2-3"
+      ]
+    },
+    {
+      "text": "Sketch, plot and read a [[distance-time-graph|distance–time graph]], tell from it or from data when an object is at rest, at constant speed, speeding up or slowing down, and find a speed from its gradient.",
+      "bullets": [
+        "1.2-4",
+        "1.2-5",
+        "1.2-6"
+      ]
+    },
+    {
+      "text": "Sketch, plot and read a [[speed-time-graph|speed–time graph]], tell how the object moves, and find the distance travelled from the area under it.",
+      "bullets": [
+        "1.2-4",
+        "1.2-5",
+        "1.2-7"
+      ]
+    },
+    {
+      "text": "State the value of the [[acceleration-of-free-fall|acceleration of free fall]] near the Earth's surface.",
+      "bullets": [
+        "1.2-8"
+      ]
+    },
+    {
+      "text": "Use $a = \\frac{\\Delta v}{\\Delta t}$ and the gradient of a speed–time graph to find an [[acceleration|acceleration]], tell constant from changing acceleration, and treat a [[deceleration|deceleration]] as a negative acceleration.",
+      "bullets": [
+        "1.2-9",
+        "1.2-10",
+        "1.2-11",
+        "1.2-12"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how objects fall with and without air or liquid resistance, including [[terminal-velocity|terminal velocity]].",
+      "bullets": [
+        "1.2-13"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "speed distance time equation",
+    "speed and velocity difference",
+    "average speed",
+    "distance time graph gradient",
+    "area under speed time graph",
+    "terminal velocity"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-minutes-to-seconds",
+      "prompt": "How many seconds are there in $3.5$ minutes?",
+      "hint": "One minute is 60 seconds.",
+      "answer": {
+        "value": 210,
+        "tolerance": 0
+      },
+      "explain": "$3.5 \\times 60 = 210\\ \\text{s}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3.5*60",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-km-to-m",
+      "prompt": "How many metres are there in $2.7$ km?",
+      "hint": "One kilometre is 1000 metres.",
+      "answer": {
+        "value": 2700,
+        "tolerance": 0
+      },
+      "explain": "$2.7 \\times 1000 = 2700\\ \\text{m}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "2.7*1000",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-triangle-area",
+      "prompt": "A right-angled triangle has a base of $7.0$ cm and a height of $4.0$ cm. What is its area, in $\\text{cm}^2$?",
+      "hint": "The area of a triangle is half the base times the height.",
+      "answer": {
+        "value": 14,
+        "tolerance": 0
+      },
+      "explain": "$\\frac{1}{2} \\times 7.0 \\times 4.0 = 14\\ \\text{cm}^2$. You'll use this to find distances from speed–time graphs.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "Rational(1, 2)*7.0*4.0",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "speed-velocity",
+      "heading": "Speed, velocity and average speed",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[speed|Speed]] tells you how fast something moves: how far it goes each second. A cyclist moving at $5\\ \\text{m/s}$ covers 5 metres every second."
+        },
+        {
+          "type": "definition",
+          "term": "speed",
+          "statement": "Speed is the distance travelled per unit time.",
+          "plain": "How many metres something covers in each second."
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\frac{s}{t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$v$ is the speed, $s$ is the [[distance|distance]] travelled and $t$ is the time taken. With $s$ in m and $t$ in s, $v$ is in m/s. Rearrange to $s = vt$ or $t = \\frac{s}{v}$ when you need the distance or the time."
+        },
+        {
+          "type": "example",
+          "id": "ex-heron-speed",
+          "question": "A heron flies $1.8$ km along a river in $2.5$ minutes. Calculate its speed in m/s.",
+          "steps": [
+            "Convert to metres and seconds: $s = 1.8 \\times 1000 = 1800\\ \\text{m}$ and $t = 2.5 \\times 60 = 150\\ \\text{s}$.",
+            "Write the equation: $v = \\frac{s}{t}$.",
+            "Substitute: $v = \\frac{1800}{150} = 12$, in m/s."
+          ],
+          "answer": "$v = 12\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1.8*1000/(2.5*60)",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing kilometres by minutes and calling the answer m/s. Convert to metres and seconds first."
+        },
+        {
+          "type": "text",
+          "text": "Speed only says how fast. [[velocity|Velocity]] also says which way."
+        },
+        {
+          "type": "definition",
+          "term": "velocity",
+          "statement": "Velocity is speed in a given direction.",
+          "plain": "How fast, and which way."
+        },
+        {
+          "type": "text",
+          "text": "Speed is a [[scalar|scalar]]: it has size only. Velocity is a [[vector|vector]]: it has size and direction. Two lifts moving at $2\\ \\text{m/s}$, one up and one down, have the same speed but different velocities."
+        },
+        {
+          "type": "check",
+          "id": "check-same-speed",
+          "prompt": "Two cars pass each other on a straight road. Each moves at $15\\ \\text{m/s}$, in opposite directions. Which statement is correct?",
+          "hint": "Velocity includes the direction.",
+          "options": [
+            {
+              "text": "they have the same speed but different velocities",
+              "correct": true
+            },
+            {
+              "text": "they have the same speed and the same velocity",
+              "correct": false
+            },
+            {
+              "text": "they have different speeds but the same velocity",
+              "correct": false
+            },
+            {
+              "text": "they have different speeds and different velocities",
+              "correct": false
+            }
+          ],
+          "explain": "Both cover 15 m each second, so their speeds are equal. They move in opposite directions, so their velocities are different.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they have the same speed but different velocities"
+          }
+        },
+        {
+          "type": "text",
+          "text": "On a real journey the speed keeps changing, and there may be stops. [[average-speed|Average speed]] is the steady speed that would cover the same total distance in the same total time."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{average speed} = \\frac{\\text{total distance travelled}}{\\text{total time taken}}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-bus-average-speed",
+          "question": "A bus travels $4.2$ km in $6.0$ minutes. It waits at a stop for $2.0$ minutes, then travels another $3.0$ km in $4.0$ minutes. Calculate the average speed of the bus for the whole journey, in m/s.",
+          "steps": [
+            "Total distance: $4.2 + 3.0 = 7.2\\ \\text{km} = 7200\\ \\text{m}$.",
+            "Total time, including the stop: $6.0 + 2.0 + 4.0 = 12$ minutes $= 720\\ \\text{s}$.",
+            "$\\text{average speed} = \\frac{7200}{720} = 10$, in m/s.",
+            "Leaving out the stop gives $\\frac{7200}{600} = 12\\ \\text{m/s}$, which is too high."
+          ],
+          "answer": "$\\text{average speed} = 10\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(4.2 + 3.0)*1000/((6.0 + 2.0 + 4.0)*60)",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the speeds of the stages and dividing by the number of stages. Always divide the total distance by the total time, stops included."
+        },
+        {
+          "type": "check",
+          "id": "check-runner-average",
+          "prompt": "A runner completes $800\\ \\text{m}$ in 2 minutes 30 seconds. What is her average speed, in m/s? Give 2 significant figures.",
+          "hint": "Change the time to seconds first.",
+          "answer": {
+            "value": 5.3,
+            "tolerance": 0.05
+          },
+          "explain": "$t = 2 \\times 60 + 30 = 150\\ \\text{s}$, so the average speed is $\\frac{800}{150} = 5.33 \\approx 5.3\\ \\text{m/s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "800/(2*60 + 30)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: measure a distance with a metre rule or tape and the time with a stopwatch. Time over a long distance, so your reaction time matters less."
+        }
+      ]
+    },
+    {
+      "id": "distance-time",
+      "heading": "Distance–time graphs",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[distance-time-graph|distance–time graph]] shows how far an object has travelled (up the side) at each time (along the bottom). Its steepness, the [[gradient|gradient]], is the speed."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-jogger-distance-time",
+          "alt": "Distance-time graph for a jogger. Time in seconds from 0 to 160 is on the horizontal axis, with small squares of 10 seconds. Distance in metres from 0 to 250 is on the vertical axis, with small squares of 10 metres. Section A slopes up in a straight line from 0 metres at 0 seconds to 120 metres at 50 seconds. Section B is horizontal at 120 metres from 50 to 80 seconds. Section C slopes up in a straight line, less steeply than A, from 120 metres at 80 seconds to 240 metres at 140 seconds.",
+          "caption": "A jogger's run, in three stages."
+        },
+        {
+          "type": "text",
+          "text": "Read the graph one section at a time. A is straight and sloping, so the jogger moves at a constant speed. B is horizontal: the distance doesn't change, so she is at rest. C is straight again but less steep than A, so she moves at a lower constant speed."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{speed} = \\text{gradient} = \\frac{\\text{change in distance}}{\\text{change in time}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "For a straight section, read the distance and time at both ends and divide the changes."
+        },
+        {
+          "type": "example",
+          "id": "ex-jogger-speed-a",
+          "question": "Use the graph above. Calculate the jogger's speed in section A.",
+          "steps": [
+            "Section A runs from $(0\\ \\text{s}, 0\\ \\text{m})$ to $(50\\ \\text{s}, 120\\ \\text{m})$.",
+            "$\\text{speed} = \\frac{120 - 0}{50 - 0} = 2.4$, in m/s."
+          ],
+          "answer": "$v = 2.4\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(120 - 0)/(50 - 0)",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-jogger-speed-c",
+          "question": "Use the graph above. Calculate the jogger's speed in section C.",
+          "steps": [
+            "Section C runs from $(80\\ \\text{s}, 120\\ \\text{m})$ to $(140\\ \\text{s}, 240\\ \\text{m})$.",
+            "Change in distance: $240 - 120 = 120\\ \\text{m}$. Change in time: $140 - 80 = 60\\ \\text{s}$.",
+            "$\\text{speed} = \\frac{120}{60} = 2.0$, in m/s. This is less than $2.4\\ \\text{m/s}$, as the shallower line shows."
+          ],
+          "answer": "$v = 2.0\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(240 - 120)/(140 - 80)",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the distance at the end of a section by its time, such as $\\frac{240}{140}$ for section C. That only works for a section that starts at the origin; use the changes."
+        },
+        {
+          "type": "text",
+          "text": "When the speed changes, the line curves. A curve that gets steeper means the object is speeding up (accelerating). A curve that gets less steep means it is slowing down (decelerating). The top row of the figure below shows all four shapes."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-graph-shapes",
+          "alt": "Eight small sketch graphs in two rows and four columns. The columns are labelled at rest, constant speed, accelerating and decelerating. Top row, distance against time: at rest is a horizontal line; constant speed is a straight line sloping up; accelerating is a curve sloping up and getting steeper; decelerating is a curve sloping up and getting less steep. Bottom row, speed against time: at rest is a line along the time axis at zero speed; constant speed is a horizontal line above the time axis; accelerating is a straight line sloping up; decelerating is a straight line sloping down.",
+          "caption": "The four kinds of motion on each type of graph."
+        },
+        {
+          "type": "text",
+          "text": "You can tell the same from a table of data. Equal distances in equal times mean a constant speed. Growing gaps between readings mean speeding up; shrinking gaps mean slowing down."
+        },
+        {
+          "type": "check",
+          "id": "check-cart-table",
+          "prompt": "A trolley's distance from a line is measured every $2.0$ s. The readings are $0$, $1.6$, $3.2$, $4.8$ and $6.4$ m. How is the trolley moving?",
+          "hint": "Work out how far it travels in each 2.0 s interval.",
+          "options": [
+            {
+              "text": "at a constant speed",
+              "correct": true
+            },
+            {
+              "text": "speeding up",
+              "correct": false
+            },
+            {
+              "text": "slowing down",
+              "correct": false
+            },
+            {
+              "text": "it is at rest",
+              "correct": false
+            }
+          ],
+          "explain": "It travels $1.6$ m in every $2.0$ s interval: equal distances in equal times, so the speed is constant ($0.80\\ \\text{m/s}$).",
+          "verify": {
+            "kind": "choice",
+            "truth": "at a constant speed"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-curve-less-steep",
+          "prompt": "Part of a distance–time graph is a curve that slopes upwards and gets less steep. What is the object doing?",
+          "hint": "The gradient is the speed. What is happening to the gradient?",
+          "options": [
+            {
+              "text": "slowing down",
+              "correct": true
+            },
+            {
+              "text": "speeding up",
+              "correct": false
+            },
+            {
+              "text": "moving at a constant speed",
+              "correct": false
+            },
+            {
+              "text": "at rest",
+              "correct": false
+            }
+          ],
+          "explain": "The gradient, which is the speed, gets smaller, so the object is slowing down. It is still moving, because the distance still increases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "slowing down"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Plot\" a graph: label each axis with the quantity and unit (distance / m), choose a scale that fills more than half the grid, and mark each point with a small cross."
+        }
+      ]
+    },
+    {
+      "id": "speed-time",
+      "heading": "Speed–time graphs and distance travelled",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[speed-time-graph|speed–time graph]] has speed up the side. Here a horizontal line means a constant speed. At rest is a line along the time axis, at zero speed. A line sloping up means speeding up; sloping down means slowing down (bottom row of the figure above)."
+        },
+        {
+          "type": "figure",
+          "id": "1-2-tram-speed-time",
+          "alt": "Speed-time graph for a tram between two stops. Time in seconds from 0 to 28 is on the horizontal axis, with small squares of 1 second. Speed in metres per second from 0 to 14 is on the vertical axis, with small squares of 0.5 metres per second. The speed rises in a straight line from 0 at 0 seconds to 12 metres per second at 8 seconds. It stays at 12 metres per second until 20 seconds. Then it falls in a straight line to 0 at 26 seconds.",
+          "caption": "A tram travelling between two stops."
+        },
+        {
+          "type": "text",
+          "text": "The tram speeds up steadily for $8$ s. It moves at a constant $12\\ \\text{m/s}$ from $8$ s to $20$ s. Then it slows down steadily and stops at $26$ s."
+        },
+        {
+          "type": "mistake",
+          "text": "Calling a horizontal section of a speed–time graph \"at rest\". The tram is moving at $12\\ \\text{m/s}$ there; only a line at zero speed means at rest."
+        },
+        {
+          "type": "check",
+          "id": "check-tram-reading",
+          "prompt": "Read from the tram's graph: what is its speed at $23$ s, in m/s?",
+          "hint": "Each small square up the side is $0.5\\ \\text{m/s}$. Go up from 23 s to the line, then across.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0.2
+          },
+          "explain": "At $23$ s the line is halfway down from $12\\ \\text{m/s}$ (at 20 s) to $0$ (at 26 s), so the speed is $6.0\\ \\text{m/s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12*(26 - 23)/(26 - 20)",
+            "dp": 1,
+            "reading": true,
+            "maxTolerance": 0.25
+          }
+        },
+        {
+          "type": "text",
+          "text": "The area under a speed–time graph is the [[distance|distance]] travelled. At constant speed, the area is a rectangle: speed × time. When the speed changes steadily from zero, it is a triangle: $\\frac{1}{2} \\times \\text{base} \\times \\text{height}$. Split any other shape made of straight lines into rectangles and triangles."
+        },
+        {
+          "type": "example",
+          "id": "ex-tram-first-stage",
+          "question": "Use the tram's graph. Calculate the distance it travels in the first $8.0$ s.",
+          "steps": [
+            "From $0$ to $8.0$ s the area under the line is a triangle.",
+            "Base $= 8.0\\ \\text{s}$ and height $= 12\\ \\text{m/s}$.",
+            "$\\text{distance} = \\frac{1}{2} \\times 8.0 \\times 12 = 48$, in m."
+          ],
+          "answer": "$s = 48\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*8.0*12",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-tram-total-distance",
+          "question": "Use the tram's graph. Calculate the total distance between the two stops.",
+          "steps": [
+            "Split the area into a triangle, a rectangle and a triangle.",
+            "First triangle: $48\\ \\text{m}$, from the example above.",
+            "Rectangle, $8$ s to $20$ s: $12 \\times 12 = 144\\ \\text{m}$.",
+            "Last triangle, $20$ s to $26$ s: $\\frac{1}{2} \\times 6 \\times 12 = 36\\ \\text{m}$.",
+            "Total: $48 + 144 + 36 = 228$, in m."
+          ],
+          "answer": "$s = 228\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "Rational(1, 2)*8*12 + (20 - 8)*12 + Rational(1, 2)*(26 - 20)*12",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using speed × time for a stage where the speed rises from zero. $8.0 \\times 12 = 96$ m assumes the tram did $12\\ \\text{m/s}$ the whole time; the area is a triangle, so halve it."
+        },
+        {
+          "type": "check",
+          "id": "check-tram-average",
+          "prompt": "Use your answer above. What is the tram's average speed between the two stops, in m/s? Give 2 significant figures.",
+          "hint": "Divide the total distance by the total time from start to stop.",
+          "answer": {
+            "value": 8.8,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{228}{26} = 8.77 \\approx 8.8\\ \\text{m/s}$. It is less than the top speed of $12\\ \\text{m/s}$, as it should be.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(Rational(1, 2)*8*12 + (20 - 8)*12 + Rational(1, 2)*(26 - 20)*12)/26",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "acceleration",
+      "heading": "Acceleration and deceleration",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "acceleration",
+          "statement": "Acceleration is the change in velocity per unit time.",
+          "plain": "How much the velocity changes in each second."
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\frac{\\Delta v}{\\Delta t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta$ means \"change in\". $\\Delta v$ is the final velocity minus the initial velocity, and $\\Delta t$ is the time taken. With $v$ in m/s and $t$ in s, $a$ is in $\\text{m/s}^2$: metres per second, gained each second."
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-acceleration",
+          "question": "A cyclist speeds up from $2.5\\ \\text{m/s}$ to $7.3\\ \\text{m/s}$ in $4.0$ s along a straight road. Calculate her acceleration.",
+          "steps": [
+            "Change in velocity: $\\Delta v = 7.3 - 2.5 = 4.8\\ \\text{m/s}$.",
+            "Write the equation: $a = \\frac{\\Delta v}{\\Delta t}$.",
+            "Substitute: $a = \\frac{4.8}{4.0} = 1.2$, in $\\text{m/s}^2$."
+          ],
+          "answer": "$a = 1.2\\ \\text{m/s}^2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(7.3 - 2.5)/4.0",
+            "unit": "m/s^2"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The [[gradient|gradient]] of a speed–time graph is the [[acceleration|acceleration]]. A straight sloping line means a constant acceleration. A curve means a changing acceleration: where it is steeper, the acceleration is larger."
+        },
+        {
+          "type": "text",
+          "text": "Take the direction of motion as positive. When an object slows down, the final velocity is less than the initial velocity, so $\\Delta v$ and $a$ are negative. A [[deceleration|deceleration]] is a negative acceleration: $a = -2.0\\ \\text{m/s}^2$ means a deceleration of $2.0\\ \\text{m/s}^2$."
+        },
+        {
+          "type": "example",
+          "id": "ex-tram-deceleration",
+          "question": "Use the tram's speed–time graph. Calculate its acceleration between $20$ s and $26$ s.",
+          "steps": [
+            "The acceleration is the gradient of that section.",
+            "$\\Delta v = 0 - 12 = -12\\ \\text{m/s}$ (final minus initial) and $\\Delta t = 26 - 20 = 6\\ \\text{s}$.",
+            "$a = \\frac{-12}{6} = -2.0$, in $\\text{m/s}^2$.",
+            "The minus sign shows the tram is slowing down: a deceleration of $2.0\\ \\text{m/s}^2$."
+          ],
+          "answer": "$a = -2.0\\ \\text{m/s}^2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(0 - 12)/(26 - 20)",
+            "unit": "m/s^2",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Working out initial minus final velocity, which flips the sign. $\\Delta v$ is always final minus initial."
+        },
+        {
+          "type": "check",
+          "id": "check-lift-acceleration",
+          "prompt": "A lift starts from rest and reaches $2.8\\ \\text{m/s}$ in $3.5$ s. What is its acceleration, in $\\text{m/s}^2$? Give 2 significant figures.",
+          "hint": "From rest means the initial velocity is zero.",
+          "answer": {
+            "value": 0.8,
+            "tolerance": 0.005
+          },
+          "explain": "$a = \\frac{2.8 - 0}{3.5} = 0.80\\ \\text{m/s}^2$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(2.8 - 0)/3.5",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-car-slows",
+          "prompt": "A car moving forwards slows from $20\\ \\text{m/s}$ to $8.0\\ \\text{m/s}$ in $4.0$ s. Taking forwards as positive, what is its acceleration?",
+          "hint": "Final velocity minus initial velocity, then divide by the time.",
+          "options": [
+            {
+              "text": "$-3.0\\ \\text{m/s}^2$",
+              "correct": true
+            },
+            {
+              "text": "$3.0\\ \\text{m/s}^2$",
+              "correct": false
+            },
+            {
+              "text": "$-7.0\\ \\text{m/s}^2$",
+              "correct": false
+            },
+            {
+              "text": "$-5.0\\ \\text{m/s}^2$",
+              "correct": false
+            }
+          ],
+          "explain": "$a = \\frac{8.0 - 20}{4.0} = -3.0\\ \\text{m/s}^2$. The minus sign means the car is decelerating.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(8.0 - 20)/4.0",
+            "unit": "m/s^2",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-speed-table",
+          "prompt": "A ball's speed is measured every second. The readings are $0$, $3.0$, $5.0$, $6.0$ and $6.5\\ \\text{m/s}$. How is it moving?",
+          "hint": "Work out how much the speed goes up in each second.",
+          "options": [
+            {
+              "text": "speeding up, with a decreasing acceleration",
+              "correct": true
+            },
+            {
+              "text": "speeding up, with a constant acceleration",
+              "correct": false
+            },
+            {
+              "text": "slowing down",
+              "correct": false
+            },
+            {
+              "text": "moving at a constant speed",
+              "correct": false
+            }
+          ],
+          "explain": "The speed rises by $3.0$, $2.0$, $1.0$ and then $0.5\\ \\text{m/s}$ each second. It is still speeding up, but the acceleration gets smaller: on a speed–time graph this is a curve that gets less steep.",
+          "verify": {
+            "kind": "choice",
+            "truth": "speeding up, with a decreasing acceleration"
+          }
+        }
+      ]
+    },
+    {
+      "id": "falling",
+      "heading": "Falling objects",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Drop a ball and it speeds up as it falls. Near the Earth's surface, when air resistance is small enough to ignore, every falling object speeds up at the same rate."
+        },
+        {
+          "type": "result",
+          "statement": "Near the Earth's surface, the [[acceleration-of-free-fall|acceleration of free fall]] $g$ is approximately constant, at about $9.8\\ \\text{m/s}^2$.",
+          "why": "So with no air resistance, a falling object's speed goes up by about $9.8\\ \\text{m/s}$ every second, whatever its mass."
+        },
+        {
+          "type": "text",
+          "text": "The exam papers print $g$ on the front. It stays almost the same over a fall from a roof or a cliff, because that height is tiny compared with the size of the Earth."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-balls",
+          "question": "A student drops a large steel ball and a small steel ball together from the same height. Air resistance is small enough to ignore. Explain which ball reaches the floor first.",
+          "steps": [
+            "Say what acceleration each ball has.",
+            "Say whether it depends on mass, then conclude."
+          ],
+          "answer": "Both balls fall with the acceleration of free fall, about $9.8\\ \\text{m/s}^2$. This acceleration is the same whatever the mass of the object. So their speeds increase at the same rate, and they reach the floor at the same time.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "both fall with the acceleration of free fall; it does not depend on mass; so they land at the same time",
+            "requires": [
+              [
+                "acceleration of free fall",
+                "9.8"
+              ],
+              [
+                "whatever the mass",
+                "does not depend on mass",
+                "same for all masses"
+              ],
+              [
+                "same time",
+                "together"
+              ]
+            ],
+            "forbids": [
+              "heavier ball lands first",
+              "large ball lands first",
+              "large ball reaches the floor first"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking heavier objects fall faster. Without air resistance, all objects fall with the same acceleration."
+        },
+        {
+          "type": "check",
+          "id": "check-g-value",
+          "prompt": "Near the Earth's surface, $g$ is about $9.8\\ \\text{m/s}^2$. How does $g$ depend on the mass of a falling object?",
+          "hint": "Think about the two steel balls in the example.",
+          "options": [
+            {
+              "text": "it is the same whatever the mass",
+              "correct": true
+            },
+            {
+              "text": "it is larger for heavier objects",
+              "correct": false
+            },
+            {
+              "text": "it is larger for lighter objects",
+              "correct": false
+            },
+            {
+              "text": "it is zero for very light objects",
+              "correct": false
+            }
+          ],
+          "explain": "$g$ doesn't depend on mass: with no air resistance, a heavy and a light object speed up at the same rate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is the same whatever the mass"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "[[drag|Air resistance]] changes the motion. It acts upwards on a falling object, against the motion, and it grows as the object speeds up. The figure compares a fall with and without it."
+        },
+        {
+          "type": "figure",
+          "level": "Extended",
+          "id": "1-2-falling-speed-time",
+          "alt": "Sketch of speed against time for two objects dropped from rest. Line A, with no air resistance, is a straight line from the origin sloping up steeply. Curve B, with air resistance, starts at the origin with the same slope as A, then gets less and less steep and levels off along a horizontal dashed line labelled terminal velocity.",
+          "caption": "Falling without air resistance (A) and with it (B)."
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Without air resistance (A) the acceleration stays at $9.8\\ \\text{m/s}^2$, so the graph is a straight line. With air resistance (B) the acceleration gets smaller as the speed rises, so the graph curves and levels off. The constant speed it reaches is the [[terminal-velocity|terminal velocity]]."
+        },
+        {
+          "type": "example",
+          "level": "Extended",
+          "id": "ex-skydiver",
+          "question": "A skydiver jumps from a hovering helicopter. Describe and explain how her speed changes before she opens her parachute.",
+          "steps": [
+            "Start with the forces at the moment she jumps.",
+            "Say how the air resistance changes as she speeds up, and what that does to her acceleration.",
+            "Finish with the forces and the motion at the end."
+          ],
+          "answer": "When she jumps, her speed is low, so the air resistance is small and she accelerates at about $9.8\\ \\text{m/s}^2$. As her speed increases, the air resistance increases. The resultant force on her gets smaller, so her acceleration decreases. Eventually the air resistance equals her weight. The resultant force is then zero, so she falls at a constant speed, her terminal velocity.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "air resistance small at first so acceleration about g; air resistance increases with speed; acceleration decreases; air resistance equals weight; resultant force zero; constant speed, terminal velocity",
+            "requires": [
+              [
+                "air resistance increases"
+              ],
+              [
+                "acceleration decreases"
+              ],
+              [
+                "air resistance equals her weight",
+                "equals her weight"
+              ],
+              [
+                "resultant force is then zero",
+                "resultant force is zero"
+              ],
+              [
+                "constant speed"
+              ],
+              [
+                "terminal velocity"
+              ]
+            ],
+            "forbids": [
+              "no forces act",
+              "no forces on her",
+              "stops moving"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Liquid resistance works the same way. A steel ball dropped into a tall tube of thick oil soon reaches a low terminal velocity, because the drag in the oil grows quickly with speed."
+        },
+        {
+          "type": "check",
+          "level": "Extended",
+          "id": "check-terminal-velocity",
+          "prompt": "A skydiver is falling at her terminal velocity. Which statement is correct?",
+          "hint": "Her speed is no longer changing.",
+          "options": [
+            {
+              "text": "the air resistance equals her weight, so she falls at a constant speed",
+              "correct": true
+            },
+            {
+              "text": "no forces act on her, so she falls at a constant speed",
+              "correct": false
+            },
+            {
+              "text": "the air resistance is larger than her weight, so she slows down",
+              "correct": false
+            },
+            {
+              "text": "she is still speeding up",
+              "correct": false
+            }
+          ],
+          "explain": "At terminal velocity the upward air resistance balances her weight. The forces still act, but the resultant force is zero, so her speed stays constant.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the air resistance equals her weight, so she falls at a constant speed"
+          }
+        },
+        {
+          "type": "check",
+          "level": "Extended",
+          "id": "check-free-fall-speed",
+          "prompt": "A pebble is dropped from rest down a well. Air resistance is small enough to ignore. What is its speed after $1.5$ s, in m/s? Use $g = 9.8\\ \\text{m/s}^2$ and give 2 significant figures.",
+          "hint": "Rearrange $a = \\frac{\\Delta v}{\\Delta t}$ to get $\\Delta v = a \\Delta t$.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta v = 9.8 \\times 1.5 = 14.7 \\approx 15\\ \\text{m/s}$. It started from rest, so this is its speed.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "g*1.5",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "v = \\frac{s}{t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Speed is the distance travelled per unit time (a scalar). Velocity is speed in a given direction (a vector)."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{average speed} = \\frac{\\text{total distance travelled}}{\\text{total time taken}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Distance–time graph: the gradient is the speed. Horizontal line: at rest. Straight sloping line: constant speed. Curve getting steeper: speeding up; curve getting less steep: slowing down."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Speed–time graph: horizontal line above the time axis: constant speed; line along the time axis: at rest; sloping up: speeding up; sloping down: slowing down. The area under the graph is the distance travelled."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Near the Earth's surface the acceleration of free fall $g$ is approximately constant, about $9.8\\ \\text{m/s}^2$. With no air resistance, every object falls with this acceleration, whatever its mass."
+        },
+        {
+          "type": "formula",
+          "tex": "a = \\frac{\\Delta v}{\\Delta t}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "The gradient of a speed–time graph is the acceleration: a straight line means constant acceleration, a curve means changing acceleration. Taking the direction of motion as positive, a deceleration is a negative acceleration."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Falling from rest through air or a liquid, an object's acceleration decreases as the resistance grows with speed. When the forces on it balance (in air, when the air resistance equals its weight), the resultant force is zero and it falls at a constant terminal velocity."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing kilometres by minutes and calling it m/s. Convert to metres and seconds first.",
+    "Averaging the speeds of the stages, or leaving out the stops. Average speed is total distance divided by total time.",
+    "Reading a horizontal line on a speed–time graph as \"at rest\". It means constant speed; at rest is a line along the time axis.",
+    "Using speed × time for a stage where the speed rises steadily from zero. That area is a triangle, so use $\\frac{1}{2} \\times \\text{base} \\times \\text{height}$.",
+    "Extended: losing the minus sign of a deceleration. $\\Delta v$ is final velocity minus initial velocity.",
+    "Extended: saying no forces act at terminal velocity. The forces balance, so the resultant force is zero."
+  ],
+  "examTips": [
+    "\"Define\" speed and velocity in words: \"distance travelled per unit time\" and \"speed in a given direction\". An equation alone needs every symbol explained.",
+    "\"Calculate\": write the equation, then the numbers in it, then the answer with its unit. Convert km and minutes to m and s first when the answer must be in m/s.",
+    "\"Determine\" a distance from a speed–time graph: show the shapes you split the area into and the area of each.",
+    "\"Describe\" the motion from a graph: say whether the speed is increasing, decreasing or constant, and quote values, such as \"constant at 12 m/s\". \"The speed is changing\" doesn't say which way."
+  ],
+  "readingMinutes": 30
+}

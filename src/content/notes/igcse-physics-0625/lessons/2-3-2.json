@@ -1,0 +1,546 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.3.2",
+  "slug": "convection",
+  "title": "Convection",
+  "level": "Core",
+  "topic": 2,
+  "summary": "[[convection|Convection]] is how thermal energy spreads through liquids and gases: the warm fluid itself moves and carries the energy. When part of a fluid is heated it expands and its [[density|density]] drops, so it floats up; the colder fluid around it is denser and sinks. You need to explain this with density and describe experiments that show it.",
+  "goals": [
+    {
+      "text": "Know that convection is a key way thermal energy moves through liquids and gases, and that it cannot happen in solids.",
+      "bullets": [
+        "2.3.2-1"
+      ]
+    },
+    {
+      "text": "Explain how a convection current forms, using changes in density.",
+      "bullets": [
+        "2.3.2-2"
+      ]
+    },
+    {
+      "text": "Describe experiments that show convection in water and in air, and say what you would see.",
+      "bullets": [
+        "2.3.2-2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4",
+    "2.2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "convection currents",
+    "why does hot air rise",
+    "convection experiment potassium permanganate",
+    "convection in liquids and gases",
+    "convection density explanation",
+    "smoke convection box chimney"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-density-expands",
+      "prompt": "A block of metal is heated and expands. Its mass does not change. What happens to its density?",
+      "hint": "Density is mass divided by volume. Which of the two has changed?",
+      "options": [
+        {
+          "text": "it decreases",
+          "correct": true
+        },
+        {
+          "text": "it increases",
+          "correct": false
+        },
+        {
+          "text": "it stays the same",
+          "correct": false
+        }
+      ],
+      "explain": "The same mass now fills a bigger volume, so $\\rho = \\frac{m}{V}$ gets smaller. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it decreases"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-liquid-particles",
+      "prompt": "A liquid is warmed and expands. What happens to its particles?",
+      "hint": "The particles themselves do not change. Think about how they move.",
+      "options": [
+        {
+          "text": "they move faster and further apart",
+          "correct": true
+        },
+        {
+          "text": "they get bigger",
+          "correct": false
+        },
+        {
+          "text": "they move closer together",
+          "correct": false
+        },
+        {
+          "text": "they get heavier",
+          "correct": false
+        }
+      ],
+      "explain": "Warming gives the particles more kinetic energy, so they move faster and spread out. Each particle keeps the same size and mass. Revise it in {{lesson:2.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they move faster and further apart"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "how-convection-works",
+      "heading": "How convection works",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Heat a saucepan of soup on a hob. Only the bottom of the pan touches the heat, yet soon all the soup is hot. Liquids are poor [[conduction|conductors]], so conduction alone would take far too long. Instead, the soup itself moves and carries the energy up."
+        },
+        {
+          "type": "definition",
+          "term": "convection",
+          "statement": "The transfer of thermal energy through a liquid or a gas by the fluid itself moving. The warmer part, being less dense, rises; the cooler, denser part sinks.",
+          "plain": "The warm fluid travels and takes its energy with it."
+        },
+        {
+          "type": "text",
+          "text": "Liquids and gases are called fluids because they can flow. Convection is an important way thermal energy moves through them. Both conduct badly, so without convection a pan of water or a room would warm up very slowly."
+        },
+        {
+          "type": "text",
+          "text": "Convection cannot happen in a [[solid|solid]]. Its particles are held in fixed positions, so the solid cannot flow. Energy passes through a solid by conduction instead."
+        },
+        {
+          "type": "text",
+          "text": "Why does the warm fluid move? It comes down to [[density|density]]:"
+        },
+        {
+          "type": "text",
+          "text": "1. The fluid next to the heater warms up. Its particles move faster and further apart, so the fluid expands (this is [[thermal-expansion|thermal expansion]])."
+        },
+        {
+          "type": "text",
+          "text": "2. Its mass stays the same but its volume is bigger, so its density $\\rho = \\frac{m}{V}$ decreases."
+        },
+        {
+          "type": "text",
+          "text": "3. The warm fluid is now less dense than the cooler fluid around it, so it rises. Cooler, denser fluid sinks to take its place."
+        },
+        {
+          "type": "text",
+          "text": "4. That cooler fluid is heated in turn and rises too. The fluid keeps going round in a loop, called a convection current, which carries energy all through it."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-2-dye-in-beaker",
+          "alt": "A beaker of water stands on a gauze. A small flame heats it under the left side only, and a purple crystal sits on the bottom just above the flame. Arrows show the purple water rising above the flame, spreading across the top, sinking down the right side and flowing back along the bottom to the flame. The rising water is labelled warm and less dense. The sinking water is labelled cooler and denser.",
+          "caption": "A convection current in water, made visible by a purple dye."
+        },
+        {
+          "type": "text",
+          "text": "Convection works the other way too. Fluid next to something cold loses energy and contracts. It becomes denser, so it sinks, and warmer fluid moves in to replace it."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"heat rises\". Heat is energy, not a substance. Say that the warmer fluid rises because it is less dense than the fluid around it."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the particles expand. Each particle stays the same size; the particles move further apart, so the fluid takes up more space."
+        },
+        {
+          "type": "example",
+          "id": "ex-kettle-element",
+          "question": "The heating element of an electric kettle is at the bottom. Explain how all the water in the kettle gets hot.",
+          "steps": [
+            "Follow the chain for the water touching the element: warmer, expands, less dense, rises.",
+            "Then say what replaces it, and name the loop."
+          ],
+          "answer": "The water next to the element is heated and expands. Its density decreases, so it is less dense than the cooler water above it. The warm water rises to the top. Cooler, denser water sinks to the bottom to take its place. This water is then heated and rises in turn, so a convection current carries thermal energy through all the water.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "water by element heated, expands; density decreases, less dense; rises; cooler denser water sinks to replace it; convection current spreads energy",
+            "requires": [
+              "expands",
+              [
+                "density decreases",
+                "less dense"
+              ],
+              "rises",
+              [
+                "denser water sinks",
+                "cooler water sinks"
+              ],
+              "convection current"
+            ],
+            "forbids": [
+              "heat rises",
+              "particles expand",
+              "more dense and rises",
+              "cold rises"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-fridge-cooling-unit",
+          "question": "In many fridges the cooling unit is near the top. Explain how the air on the bottom shelf is cooled too.",
+          "steps": [
+            "This time the fluid is being cooled, so run the chain the other way: cooler, contracts, denser, sinks."
+          ],
+          "answer": "Air next to the cooling unit loses thermal energy and contracts. Its density increases, so it is denser than the warmer air below it. The cold, dense air sinks to the bottom of the fridge. Warmer, less dense air rises to the top to take its place, where it is cooled in turn. This convection current keeps the air moving past every shelf, so the bottom shelf is cooled as well.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "air by cooling unit contracts; density increases, denser; sinks; warmer less dense air rises to replace it; convection current circulates past every shelf",
+            "requires": [
+              "contracts",
+              [
+                "density increases",
+                "denser"
+              ],
+              "sinks",
+              [
+                "less dense air rises",
+                "warmer air rises"
+              ],
+              "convection current"
+            ],
+            "forbids": [
+              "cold rises",
+              "heat rises",
+              "cold flows",
+              "less dense and sinks"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When Paper 3/4 says \"explain\" a convection current, the marks are for the density chain: heated, expands, less dense, rises; cooler, denser fluid sinks to replace it. \"Hotter\" alone is not enough: say \"less dense\"."
+        },
+        {
+          "type": "check",
+          "id": "check-no-convection",
+          "prompt": "Through which of these can thermal energy NOT be transferred by convection?",
+          "hint": "Convection needs a material that can flow.",
+          "options": [
+            {
+              "text": "a block of copper",
+              "correct": true
+            },
+            {
+              "text": "olive oil",
+              "correct": false
+            },
+            {
+              "text": "carbon dioxide",
+              "correct": false
+            },
+            {
+              "text": "sea water",
+              "correct": false
+            }
+          ],
+          "explain": "Olive oil and sea water are liquids, and carbon dioxide is a gas, so all three can flow. Copper is a solid. It conducts thermal energy very well, but conduction is not convection.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a block of copper"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-warm-rises",
+          "prompt": "Air above a hot radiator expands. Why does this air then rise?",
+          "hint": "Compare the warm air with the air around it.",
+          "options": [
+            {
+              "text": "its density is now lower than that of the surrounding air",
+              "correct": true
+            },
+            {
+              "text": "its particles have become bigger",
+              "correct": false
+            },
+            {
+              "text": "its particles have lost mass",
+              "correct": false
+            },
+            {
+              "text": "its density is now higher than that of the surrounding air",
+              "correct": false
+            }
+          ],
+          "explain": "The same mass of air fills a bigger volume, so its density falls. Less dense air rises through denser air, just as a cork rises in water. The particles keep their size and mass.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its density is now lower than that of the surrounding air"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compare-sides",
+          "prompt": "In the beaker figure, compare the water sinking down the right side with the water rising above the flame. The sinking water is…",
+          "hint": "Water sinks when it is denser than the water around it. Which water has just been heated?",
+          "options": [
+            {
+              "text": "cooler and denser",
+              "correct": true
+            },
+            {
+              "text": "cooler and less dense",
+              "correct": false
+            },
+            {
+              "text": "warmer and denser",
+              "correct": false
+            },
+            {
+              "text": "warmer and less dense",
+              "correct": false
+            }
+          ],
+          "explain": "The water above the flame has just been heated, so it is warmer and less dense, and it rises. The water on the far side has lost energy, so it is cooler and denser, and it sinks.",
+          "verify": {
+            "kind": "choice",
+            "truth": "cooler and denser"
+          }
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "heading": "Experiments that show convection",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You cannot see warm water or warm air moving. So these experiments add something the moving fluid carries along: a coloured dye in water, or smoke in air."
+        },
+        {
+          "type": "text",
+          "text": "To show it in water, use a large beaker of cold water and one crystal of potassium manganate(VII), a purple dye:"
+        },
+        {
+          "type": "text",
+          "text": "1. Drop the crystal gently down a wide tube so it lands on the bottom, near one side. Then lift the tube out."
+        },
+        {
+          "type": "text",
+          "text": "2. Heat the beaker gently with a small flame under that side only."
+        },
+        {
+          "type": "text",
+          "text": "3. Watch the purple streak. It rises above the flame, spreads across the top, sinks down the far side and drifts back along the bottom, as in the beaker figure."
+        },
+        {
+          "type": "text",
+          "text": "The crystal goes at the bottom, where the water is heated, so the dye starts where the current starts. Heating one side only gives one clear loop."
+        },
+        {
+          "type": "text",
+          "text": "To show it in air, use a convection box. It has a glass front and two chimneys on top, A and B. A lit candle stands under chimney A. Hold some smouldering paper just above chimney B."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-2-convection-box",
+          "alt": "A box with a glass front has two open chimneys on top, A on the left and B on the right. A lit candle stands inside the box under chimney A. Smouldering paper is held just above chimney B. Arrows show the smoke going down chimney B, across the box and up chimney A above the candle. A label says warm, less dense air rises out of A. Another says cool, denser air sinks into B with the smoke.",
+          "caption": "The smoke shows air sinking down B and rising out of A."
+        },
+        {
+          "type": "text",
+          "text": "The smoke goes down chimney B, across the box and out through chimney A. The candle heats the air above it, which expands, becomes less dense and rises out of A. Cooler, denser air from the room sinks down B to replace it, carrying the smoke."
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the crystal in from the top, or heating near the top of the beaker. The dye colours the water as it falls, or the warm water just stays at the top, so no clear current shows. Put the dye at the bottom and heat from below."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-dye-experiment",
+          "question": "Describe an experiment to show a convection current in water. State what you would observe.",
+          "steps": [
+            "Say what you set up, where the dye goes and where you heat.",
+            "Then say what you see: the coloured water moving round in a loop."
+          ],
+          "answer": "Fill a large beaker with cold water. Drop a purple crystal of potassium manganate(VII) down a tube so it lands at the bottom, near one side. Heat the beaker gently with a small flame under the crystal. The purple dye rises above the flame and spreads across the top of the water. It then sinks down the far side and moves back along the bottom, showing the convection current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "crystal of dye at the bottom near one side; heat under the crystal; dye rises, spreads across top, sinks down far side, returns along bottom: convection current",
+            "requires": [
+              [
+                "crystal",
+                "dye"
+              ],
+              "at the bottom",
+              [
+                "under the crystal",
+                "under that side"
+              ],
+              "rises",
+              "sinks",
+              "convection current"
+            ],
+            "forbids": [
+              "on the surface",
+              "heat the top",
+              "heat rises"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-convection-box",
+          "question": "In a convection box, smoke held over chimney B is drawn down into the box and comes out of chimney A, above the candle. Explain why the smoke moves this way.",
+          "steps": [
+            "Start at the candle: what happens to the air it heats?",
+            "Then say what replaces that air, and where it comes in."
+          ],
+          "answer": "The candle heats the air above it. This air expands, so its density falls below that of the room air, and it rises out of chimney A. Cooler, denser air from the room sinks down chimney B to replace it. This air carries the smoke with it, across the box and up chimney A. The smoke follows the convection current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "candle heats air; expands, less dense; rises out of A; cooler denser air sinks down B to replace it, carrying smoke; convection current",
+            "requires": [
+              "expands",
+              [
+                "density falls",
+                "less dense"
+              ],
+              "rises out of chimney A",
+              [
+                "denser air from the room sinks",
+                "denser air sinks"
+              ],
+              "carries the smoke",
+              "convection current"
+            ],
+            "forbids": [
+              "heat rises",
+              "smoke is pulled by the flame",
+              "cold air rises"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Describe an experiment\" earns marks for the set-up (where the dye goes, where you heat) and for the observation. Always say what you would see moving, and where."
+        },
+        {
+          "type": "check",
+          "id": "check-crystal-position",
+          "prompt": "A student wants a clear convection current in a beaker of water heated by a flame under one side. Where should the purple crystal go?",
+          "hint": "The dye should start where the water is first heated.",
+          "options": [
+            {
+              "text": "on the bottom, above the flame",
+              "correct": true
+            },
+            {
+              "text": "dropped in at the top of the water",
+              "correct": false
+            },
+            {
+              "text": "on the bottom, as far from the flame as possible",
+              "correct": false
+            },
+            {
+              "text": "stirred in before heating, so all the water is purple",
+              "correct": false
+            }
+          ],
+          "explain": "Dye above the flame is carried up as soon as the water there is heated, so it traces the whole loop. Dropped in at the top, it colours the water as it sinks, which hides the current. If all the water is purple, you cannot see which water is moving.",
+          "verify": {
+            "kind": "choice",
+            "truth": "on the bottom, above the flame"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-candle-moved",
+          "prompt": "The candle in a convection box is moved from under chimney A to under chimney B. Smoke is now held over chimney A. What does the smoke do?",
+          "hint": "Air rises above the candle. Where must the replacement air come in?",
+          "options": [
+            {
+              "text": "it goes down chimney A and comes out of chimney B",
+              "correct": true
+            },
+            {
+              "text": "it goes down chimney B and comes out of chimney A",
+              "correct": false
+            },
+            {
+              "text": "it rises straight up from chimney A",
+              "correct": false
+            },
+            {
+              "text": "it stays inside the box",
+              "correct": false
+            }
+          ],
+          "explain": "Warm, less dense air now rises out of chimney B, above the candle. Cooler, denser air sinks down chimney A to replace it, so the smoke is carried down A and out of B.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it goes down chimney A and comes out of chimney B"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Convection transfers thermal energy through liquids and gases (fluids) by the movement of the fluid itself. It cannot happen in solids, which cannot flow.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A heated fluid expands, so its density decreases and it rises. Cooler, denser fluid sinks to replace it. This loop is a convection current.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A cooled fluid contracts, so its density increases and it sinks.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To show convection: a purple crystal on the bottom of a beaker of water, heated just under the crystal at one side, or smoke drawn through a convection box with a candle under one chimney.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"heat rises\". Heat is not a substance: say the warmer fluid rises because it is less dense.",
+    "Including solids because they transfer thermal energy. Solids conduct, but convection needs a fluid that can flow.",
+    "Saying the particles get bigger when a fluid expands. They stay the same size and move further apart.",
+    "Naming conduction when the fluid moves. If moving warm fluid carries the energy, it is convection.",
+    "Dropping the dye in from the top or heating near the top, so no clear current forms. Put the dye at the bottom and heat from below."
+  ],
+  "examTips": [
+    "\"Explain\" convection: give the full chain, heated, expands, less dense, rises, cooler and denser fluid sinks to replace it, and name the convection current.",
+    "\"Describe an experiment\": state the set-up (dye at the bottom, heat under it) and what you observe (the coloured water rising, spreading, sinking and returning)."
+  ],
+  "readingMinutes": 18
+}

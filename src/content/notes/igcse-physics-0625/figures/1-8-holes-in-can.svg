@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 330" role="img" aria-labelledby="t18can">
+<title id="t18can">A tall can full of water, with three small holes in its side, one above the other. Water spurts out of each hole. Each jet is drawn falling through the same small height. The jet from the top hole is the slowest and moves the shortest distance sideways. The jet from the bottom hole is the fastest and moves the furthest sideways. An arrow beside the can points down, labelled greater depth, greater pressure.</title>
+<path d="M140 40 V300 H240 V40" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<path d="M141 70 H239 V299 H141 Z" fill="var(--t3-ink)" fill-opacity="0.15" stroke="none"/>
+<path d="M141 70 H239" fill="none" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<text font-family="inherit" font-size="12" x="190" y="58" fill="var(--t3-ink)" text-anchor="middle">water surface</text>
+<circle cx="240" cy="120" r="3" fill="currentColor"/>
+<circle cx="240" cy="180" r="3" fill="currentColor"/>
+<circle cx="240" cy="240" r="3" fill="currentColor"/>
+<path d="M241 120 Q261 120 281 160" fill="none" stroke="var(--t3-ink)" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M241 180 Q270 180 300 220" fill="none" stroke="var(--t3-ink)" stroke-width="2.4" stroke-linecap="round"/>
+<path d="M241 240 Q278 240 315 280" fill="none" stroke="var(--t3-ink)" stroke-width="2.4" stroke-linecap="round"/>
+<text font-family="inherit" font-size="12" x="290" y="152" fill="currentColor" text-anchor="start">slowest</text>
+<text font-family="inherit" font-size="12" x="322" y="285" fill="currentColor" text-anchor="start">fastest</text>
+<path d="M100 80 V280" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M94 270 L100 284 L106 270 Z" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="90" y="170" fill="currentColor" text-anchor="end">greater</text>
+<text font-family="inherit" font-size="12" x="90" y="185" fill="currentColor" text-anchor="end">depth,</text>
+<text font-family="inherit" font-size="12" x="90" y="200" fill="currentColor" text-anchor="end">greater</text>
+<text font-family="inherit" font-size="12" x="90" y="215" fill="currentColor" text-anchor="end">pressure</text>
+<path d="M120 300 H260" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="12" x="190" y="320" fill="currentColor" text-anchor="middle">can</text>
+</svg>

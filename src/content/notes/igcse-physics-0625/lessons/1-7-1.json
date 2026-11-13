@@ -1,0 +1,746 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.7.1",
+  "slug": "energy",
+  "title": "Energy",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[energy|Energy]] is held in seven [[energy-store|energy stores]] and moves between them when a force does work, a current flows, something is heated or a wave travels. Energy is never created or destroyed, so the total stays the same. Extended adds $E_\\text{k} = \\tfrac{1}{2}mv^2$, $\\Delta E_\\text{p} = mg\\Delta h$ and [[sankey-diagram|Sankey diagrams]].",
+  "goals": [
+    {
+      "text": "Name the seven energy stores and give an example of each.",
+      "bullets": [
+        "1.7.1-1"
+      ]
+    },
+    {
+      "text": "Describe how energy moves between stores: by mechanical work, electrical work, heating or waves.",
+      "bullets": [
+        "1.7.1-2"
+      ]
+    },
+    {
+      "text": "State the principle of [[conservation-of-energy|conservation of energy]], and use it to complete simple energy flow diagrams.",
+      "bullets": [
+        "1.7.1-3"
+      ]
+    },
+    {
+      "text": "Calculate [[kinetic-energy|kinetic energy]] with $E_\\text{k} = \\tfrac{1}{2}mv^2$, and find a [[speed|speed]] from it.",
+      "bullets": [
+        "1.7.1-4"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Calculate a change in [[gravitational-potential-energy|gravitational potential energy]] with $\\Delta E_\\text{p} = mg\\Delta h$.",
+      "bullets": [
+        "1.7.1-5"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Follow energy through several stages, and read Sankey diagrams.",
+      "bullets": [
+        "1.7.1-6"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.3",
+    "1.5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "energy stores list",
+    "energy transfers",
+    "conservation of energy",
+    "kinetic energy 1/2 mv^2",
+    "gravitational potential energy mgh",
+    "Sankey diagram"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-weight-of-suitcase",
+      "prompt": "A suitcase has a [[mass|mass]] of $14\\ \\text{kg}$. What is its [[weight|weight]], in N? Use $g = 9.8\\ \\text{N/kg}$ and give 3 significant figures.",
+      "hint": "Weight is mass times [[gravitational-field-strength|gravitational field strength]]: $W = mg$.",
+      "answer": {
+        "value": 137,
+        "tolerance": 0.5
+      },
+      "explain": "$W = mg = 14 \\times 9.8 = 137.2 \\approx 137\\ \\text{N}$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "14*g",
+        "sf": 3
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-which-scalar",
+      "prompt": "Which of these quantities is a [[scalar|scalar]]?",
+      "hint": "A scalar has a size but no direction.",
+      "options": [
+        {
+          "text": "mass",
+          "correct": true
+        },
+        {
+          "text": "velocity",
+          "correct": false
+        },
+        {
+          "text": "force",
+          "correct": false
+        },
+        {
+          "text": "weight",
+          "correct": false
+        }
+      ],
+      "explain": "Mass has only a size. Velocity, force and weight all act in a direction, so they are vectors. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "mass"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-friction-heats",
+      "prompt": "A box slides across a rough floor and slows down. Apart from slowing the box, what does the [[friction|friction]] between the box and the floor do?",
+      "hint": "Rub your hands together quickly. What do you feel?",
+      "options": [
+        {
+          "text": "it heats the box and the floor",
+          "correct": true
+        },
+        {
+          "text": "it pushes the box forwards",
+          "correct": false
+        },
+        {
+          "text": "it makes the box lighter",
+          "correct": false
+        },
+        {
+          "text": "nothing else",
+          "correct": false
+        }
+      ],
+      "explain": "Friction between surfaces that rub together heats them. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it heats the box and the floor"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "stores-and-transfers",
+      "heading": "Energy stores and energy transfers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Energy is needed for anything to happen: a ball to fly, water to warm up, a lamp to light. Energy is a scalar, with a size but no direction. It is measured in joules (J), and $1\\ \\text{kJ} = 1000\\ \\text{J}$."
+        },
+        {
+          "type": "definition",
+          "term": "energy store",
+          "statement": "An energy store is one of the ways energy is held: by an object's motion, its height, its chemicals, its shape, its nuclei, its charges or its particles.",
+          "plain": "Where the energy sits until something moves it."
+        },
+        {
+          "type": "text",
+          "text": "The seven energy stores:\n- **kinetic**: anything moving, such as a rolling ball;\n- **gravitational potential**: anything raised up, such as a book on a high shelf;\n- **chemical**: fuels, food and batteries;\n- **[[elastic|elastic]] (strain)**: anything stretched, squashed or bent, such as a stretched rubber band;\n- **nuclear**: the nuclei of atoms, released in a nuclear reactor or in the Sun;\n- **electrostatic**: electric charges that attract or repel, such as a charged balloon;\n- **internal (thermal)**: the energy of the particles in every object, called its [[internal-energy|internal energy]]; heating an object increases it."
+        },
+        {
+          "type": "mistake",
+          "text": "Calling light, sound or electrical energy a store. They are ways energy is transferred. A battery holds its energy in a chemical store."
+        },
+        {
+          "type": "text",
+          "text": "When something happens, energy moves from one store to another. It is transferred in four ways:\n- **mechanical work**: a force moves an object;\n- **electrical work**: an electric current flows;\n- **heating**: from a hotter object to a cooler one;\n- **waves**: light and other electromagnetic waves, sound and other waves."
+        },
+        {
+          "type": "text",
+          "text": "To describe a transfer, name the store that empties, how the energy is transferred, and every store that fills. You calculate work done in {{lesson:1.7.2}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-desk-fan-transfers",
+          "question": "A battery-powered desk fan is switched on and its blades start to spin. Describe the energy transfers.",
+          "steps": [
+            "Start with the store that empties: the battery.",
+            "Say how the energy reaches the motor, and what the motor does to the blades.",
+            "Finish with the wasted energy and the store it ends up in."
+          ],
+          "answer": "Energy starts in the chemical store of the battery. The current does electrical work, transferring energy to the motor. The motor does mechanical work on the blades, so energy goes into the kinetic store of the blades and the moving air. Some energy is transferred by heating, as the motor warms up, and by sound waves. This wasted energy ends up in the internal (thermal) store of the surroundings.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "chemical store of battery; electrical work; mechanical work on blades; kinetic store of blades and air; heating and sound waste energy to the internal store of the surroundings",
+            "requires": [
+              [
+                "chemical store"
+              ],
+              [
+                "electrical work"
+              ],
+              [
+                "kinetic store"
+              ],
+              [
+                "heating"
+              ],
+              [
+                "internal",
+                "thermal"
+              ]
+            ],
+            "forbids": [
+              "electrical store",
+              "energy is used up"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-catapult-transfers",
+          "question": "A child stretches the rubber of a toy catapult and fires a sponge ball straight up. Describe the energy transfers from when she lets go until the ball reaches its highest point.",
+          "steps": [
+            "Name the store that holds the energy before she lets go.",
+            "Follow the energy into the ball, then as the ball rises and slows.",
+            "Include the energy that air resistance takes."
+          ],
+          "answer": "The stretched rubber has energy in its elastic store. When she lets go, the rubber does mechanical work on the ball, so energy goes into the ball's kinetic store. As the ball rises it slows down, and energy moves from its kinetic store to its gravitational potential store. Air resistance does work on the ball as it moves, so some energy ends up in the internal (thermal) store of the air.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "elastic store; mechanical work on the ball; kinetic store; kinetic to gravitational potential store as it rises; air resistance transfers some to the internal store of the air",
+            "requires": [
+              [
+                "elastic store"
+              ],
+              [
+                "mechanical work"
+              ],
+              [
+                "kinetic store"
+              ],
+              [
+                "gravitational potential store"
+              ],
+              [
+                "internal",
+                "thermal"
+              ]
+            ],
+            "forbids": [
+              "energy is used up",
+              "energy is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-store-not-transfer",
+          "prompt": "Which of these is an energy store, not a way of transferring energy?",
+          "hint": "Three of them only describe energy on the move.",
+          "options": [
+            {
+              "text": "nuclear",
+              "correct": true
+            },
+            {
+              "text": "sound",
+              "correct": false
+            },
+            {
+              "text": "light",
+              "correct": false
+            },
+            {
+              "text": "electrical work",
+              "correct": false
+            }
+          ],
+          "explain": "Nuclear is a store: energy held in the nuclei of atoms. Sound and light are waves, and electrical work is done by a current: all three transfer energy.",
+          "verify": {
+            "kind": "choice",
+            "truth": "nuclear"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-skater-slows",
+          "prompt": "A roller skater stops pushing on a level path and slowly rolls to a stop. Which energy store fills as she slows down?",
+          "hint": "Friction and air resistance act on her. What do they do to the surfaces and the air?",
+          "options": [
+            {
+              "text": "the internal (thermal) store of the wheels, path and air",
+              "correct": true
+            },
+            {
+              "text": "the gravitational potential store of the skater",
+              "correct": false
+            },
+            {
+              "text": "the chemical store of the skater's muscles",
+              "correct": false
+            },
+            {
+              "text": "the elastic store of the wheels",
+              "correct": false
+            }
+          ],
+          "explain": "Her kinetic store empties. Friction and air resistance transfer the energy by heating, so it ends up in the internal (thermal) store of the wheels, the path and the air. The path is level, so her height doesn't change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the internal (thermal) store of the wheels, path and air"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conservation",
+      "heading": "Conservation of energy and flow diagrams",
+      "blocks": [
+        {
+          "type": "result",
+          "statement": "Conservation of energy: energy cannot be created or destroyed. It is only ever moved between stores, so the total amount of energy stays the same.",
+          "why": "Every joule that leaves one store turns up in another, even when it spreads out into the surroundings."
+        },
+        {
+          "type": "text",
+          "text": "Not all the energy goes where we want it. The part that goes into the store we want is useful. The rest is wasted: usually it spreads out into the internal (thermal) store of the surroundings, by heating or sound. Wasted energy is not destroyed; it is just hard to use again."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{energy in} = \\text{useful energy out} + \\text{wasted energy}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "An energy flow diagram shows this with boxes and arrows. It starts from the store that empties and splits into the useful and wasted parts. The energies out always add up to the energy in."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-1-torch-flow",
+          "alt": "Energy flow diagram for a torch. A box on the left reads chemical store in battery, 60 J. An arrow labelled electrical work leads to a box labelled lamp. From the lamp, one arrow goes up and right to a box reading light, useful, 15 J. A second arrow goes down and right to a box reading heating, wasted, question mark J.",
+          "caption": "Where each $60\\ \\text{J}$ from a torch battery goes."
+        },
+        {
+          "type": "example",
+          "id": "ex-torch-wasted",
+          "question": "The flow diagram shows what happens to each $60\\ \\text{J}$ that leaves a torch battery's chemical store. Find the energy transferred by heating.",
+          "steps": [
+            "Energy is conserved, so the energies out add up to $60\\ \\text{J}$.",
+            "Wasted energy $=$ energy in $-$ useful energy out.",
+            "$60 - 15 = 45\\ \\text{J}$."
+          ],
+          "answer": "$\\text{wasted energy} = 45\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "60 - 15",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-slide-friction",
+          "question": "A child slides down a playground slide, starting from rest. Her gravitational potential store falls by $900\\ \\text{J}$. At the bottom, her kinetic store has gained $340\\ \\text{J}$. How much energy has friction transferred to the internal (thermal) store of the child and the slide?",
+          "steps": [
+            "The energy that leaves the gravitational potential store goes into two stores: kinetic and internal.",
+            "So $900 = 340 + \\text{energy to the internal store}$.",
+            "Energy to the internal store $= 900 - 340 = 560\\ \\text{J}$."
+          ],
+          "answer": "$\\text{energy to internal store} = 560\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "900 - 340",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at \"energy is lost\" or \"wasted\". Say where it goes: usually to the internal (thermal) store of the surroundings, by heating or sound."
+        },
+        {
+          "type": "check",
+          "id": "check-toy-car-heating",
+          "prompt": "A battery transfers $250\\ \\text{J}$ to the motor of a toy car. The car's kinetic store gains $70\\ \\text{J}$ and $15\\ \\text{J}$ is transferred as sound. The rest heats the motor. How much energy heats the motor, in J?",
+          "hint": "The energies out must add up to the energy in.",
+          "answer": {
+            "value": 165,
+            "tolerance": 0
+          },
+          "explain": "$250 - 70 - 15 = 165\\ \\text{J}$. Take away both the useful energy and the sound.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "250 - 70 - 15",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bounce-lower",
+          "prompt": "A ball is dropped onto a hard floor. It bounces back up, but not as high as where it started. Why?",
+          "hint": "Energy can't vanish. Where else could it have gone?",
+          "options": [
+            {
+              "text": "some energy went to the internal store of the ball, floor and air, and some was transferred as sound",
+              "correct": true
+            },
+            {
+              "text": "some energy was destroyed when the ball hit the floor",
+              "correct": false
+            },
+            {
+              "text": "the ball's gravitational potential store was used up on the way down",
+              "correct": false
+            },
+            {
+              "text": "the floor took energy from the ball's chemical store",
+              "correct": false
+            }
+          ],
+          "explain": "The total energy stays the same. Some of it was transferred by heating and sound into the internal store of the ball, the floor and the air, so less is left to lift the ball.",
+          "verify": {
+            "kind": "choice",
+            "truth": "some energy went to the internal store of the ball, floor and air, and some was transferred as sound"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"State the principle of conservation of energy\" needs both parts: energy cannot be created or destroyed, and it can only be transferred from one store to another."
+        }
+      ]
+    },
+    {
+      "id": "kinetic-and-potential",
+      "heading": "Calculating kinetic and gravitational potential energy",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\tfrac{1}{2}mv^2",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$E_\\text{k}$ is the kinetic energy in J, $m$ is the mass in kg and $v$ is the speed in m/s. Only the speed is squared. So, for the same mass, doubling the speed makes the kinetic energy four times as big."
+        },
+        {
+          "type": "example",
+          "id": "ex-scooter-kinetic",
+          "question": "An electric scooter and its rider have a total mass of $92\\ \\text{kg}$. They move at $6.5\\ \\text{m/s}$. Calculate their kinetic energy, in kJ.",
+          "steps": [
+            "Write the equation: $E_\\text{k} = \\tfrac{1}{2}mv^2$.",
+            "Square the speed first: $6.5^2 = 42.25$.",
+            "Substitute: $E_\\text{k} = 0.5 \\times 92 \\times 42.25 = 1943.5\\ \\text{J}$.",
+            "Divide by 1000 for kJ. The data have 2 significant figures, so give $1.9\\ \\text{kJ}$."
+          ],
+          "answer": "$E_\\text{k} \\approx 1.9\\ \\text{kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "Rational(1, 2)*92*6.5**2/1000",
+            "sf": 2,
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting to square $v$, or squaring $\\tfrac{1}{2}mv$ as a whole. Work out $v^2$ first, then multiply by $\\tfrac{1}{2}m$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta E_\\text{p} = mg\\Delta h",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta E_\\text{p}$ is the change in gravitational potential energy in J. $m$ is the mass in kg, $g$ is the gravitational field strength ($9.8\\ \\text{N/kg}$ near the Earth's surface) and $\\Delta h$ is the change in vertical height in m. Going up, the store gains energy; coming back down the same height, it loses the same amount."
+        },
+        {
+          "type": "example",
+          "id": "ex-hiker-potential",
+          "question": "A hiker of mass $65\\ \\text{kg}$ walks $2.0\\ \\text{km}$ along a winding path. The path climbs a vertical height of $140\\ \\text{m}$. Calculate the gain in her gravitational potential energy, in kJ.",
+          "steps": [
+            "Use the vertical height, $140\\ \\text{m}$, not the $2.0\\ \\text{km}$ along the path.",
+            "Write the equation: $\\Delta E_\\text{p} = mg\\Delta h$.",
+            "Substitute: $\\Delta E_\\text{p} = 65 \\times 9.8 \\times 140 = 89\\,180\\ \\text{J}$.",
+            "Divide by 1000 for kJ, and round to 2 significant figures: $89\\ \\text{kJ}$."
+          ],
+          "answer": "$\\Delta E_\\text{p} \\approx 89\\ \\text{kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "65*g*140/1000",
+            "sf": 2,
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the distance along a slope, path or track as $\\Delta h$. Only the change in vertical height counts."
+        },
+        {
+          "type": "check",
+          "id": "check-speed-doubles",
+          "prompt": "A cyclist speeds up from $5\\ \\text{m/s}$ to $10\\ \\text{m/s}$. By what factor does her kinetic energy increase?",
+          "hint": "The speed doubles, and the speed is squared.",
+          "options": [
+            {
+              "text": "$4$",
+              "correct": true
+            },
+            {
+              "text": "$2$",
+              "correct": false
+            },
+            {
+              "text": "$8$",
+              "correct": false
+            },
+            {
+              "text": "$\\sqrt{2}$",
+              "correct": false
+            }
+          ],
+          "explain": "$E_\\text{k}$ depends on $v^2$. The speed is $2$ times bigger, so the kinetic energy is $2^2 = 4$ times bigger.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(10/5)**2"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-book-shelf",
+          "prompt": "A $0.75\\ \\text{kg}$ book is lifted from the floor onto a shelf $1.6\\ \\text{m}$ higher. What is the gain in its gravitational potential energy, in J? Give 2 significant figures.",
+          "hint": "Use $\\Delta E_\\text{p} = mg\\Delta h$ with $g = 9.8\\ \\text{N/kg}$.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0.5
+          },
+          "explain": "$\\Delta E_\\text{p} = 0.75 \\times 9.8 \\times 1.6 = 11.76 \\approx 12\\ \\text{J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.75*g*1.6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "multi-stage",
+      "heading": "Energy in several stages and Sankey diagrams",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In many problems energy passes through several stores in turn. Follow it one stage at a time. If nothing is wasted (no friction or air resistance), the energy that leaves one store all goes into the next."
+        },
+        {
+          "type": "example",
+          "id": "ex-diver-speed",
+          "question": "A diver of mass $58\\ \\text{kg}$ steps off a board $7.5\\ \\text{m}$ above the water. Ignore air resistance. Calculate her speed as she reaches the water.",
+          "steps": [
+            "Energy lost from the gravitational potential store: $\\Delta E_\\text{p} = 58 \\times 9.8 \\times 7.5 = 4263\\ \\text{J}$.",
+            "No air resistance, so all of it goes into the kinetic store: $\\tfrac{1}{2} \\times 58 \\times v^2 = 4263$.",
+            "Rearrange: $v^2 = \\frac{2 \\times 4263}{58} = 147$.",
+            "Take the square root: $v = \\sqrt{147} = 12.1\\ \\text{m/s}$, so $12\\ \\text{m/s}$ to 2 significant figures. The mass cancels: with no air resistance, any object dropped from rest through $7.5\\ \\text{m}$ reaches the same speed."
+          ],
+          "answer": "$v \\approx 12\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(2*g*7.5)",
+            "sf": 2,
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $v^2$ when finding a speed. Take the square root at the end."
+        },
+        {
+          "type": "example",
+          "id": "ex-coaster-wasted",
+          "question": "A roller-coaster car of mass $450\\ \\text{kg}$ starts from rest at the top of a drop. The drop has a vertical height of $32\\ \\text{m}$. At the bottom, the car's speed is $23\\ \\text{m/s}$. Calculate the energy wasted during the drop, in kJ.",
+          "steps": [
+            "Energy lost from the gravitational potential store: $\\Delta E_\\text{p} = 450 \\times 9.8 \\times 32 = 141\\,120\\ \\text{J}$.",
+            "Energy gained by the kinetic store: $E_\\text{k} = 0.5 \\times 450 \\times 23^2 = 119\\,025\\ \\text{J}$.",
+            "By conservation of energy, the rest was wasted: $141\\,120 - 119\\,025 = 22\\,095\\ \\text{J}$.",
+            "That is $22\\ \\text{kJ}$ to 2 significant figures. Friction and air resistance transferred it to the internal (thermal) store of the track, the car and the air."
+          ],
+          "answer": "$\\text{wasted energy} \\approx 22\\ \\text{kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(450*g*32 - Rational(1, 2)*450*23**2)/1000",
+            "sf": 2,
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ball-height",
+          "prompt": "A ball is thrown straight up at $12\\ \\text{m/s}$. Ignoring air resistance, how high does it rise, in m? Give 2 significant figures.",
+          "hint": "At the top, all the kinetic energy is in the gravitational potential store: $\\tfrac{1}{2}mv^2 = mg\\Delta h$. The mass cancels.",
+          "answer": {
+            "value": 7.3,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Delta h = \\frac{v^2}{2g} = \\frac{12^2}{2 \\times 9.8} = 7.347 \\approx 7.3\\ \\text{m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12**2/(2*g)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "A Sankey diagram shows energy transfers as arrows. The width of each arrow is proportional to the energy it carries. Useful energy usually goes straight on and wasted energy branches off. The widths out add up to the width in."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-1-drill-sankey",
+          "alt": "Sankey diagram for an electric drill. A wide arrow enters from the left, labelled electrical work in, 800 J. Most of it carries straight on to the right as the widest output arrow, labelled work done by the bit, useful, 560 J. A thinner band branches downwards first, labelled heating, wasted, 200 J. A very thin band branches downwards further along, labelled sound, wasted, question mark J. The widths of the arrows are proportional to the energy they carry.",
+          "caption": "A Sankey diagram for an electric drill."
+        },
+        {
+          "type": "example",
+          "id": "ex-drill-sound",
+          "question": "Use the Sankey diagram for the electric drill. Find the energy transferred as sound.",
+          "steps": [
+            "The energies out add up to the energy in: $800\\ \\text{J}$.",
+            "Sound $= 800 - 560 - 200 = 40\\ \\text{J}$.",
+            "Check the widths: the sound arrow is the thinnest, as it should be for the smallest energy."
+          ],
+          "answer": "$\\text{sound} = 40\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "800 - 560 - 200",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sankey-width",
+          "prompt": "On a Sankey diagram for a lamp, the input arrow is $50\\ \\text{mm}$ wide and stands for $200\\ \\text{J}$. The light arrow is $10\\ \\text{mm}$ wide. How much energy is transferred as light?",
+          "hint": "Width is proportional to energy. What fraction of the input width is the light arrow?",
+          "options": [
+            {
+              "text": "$40\\ \\text{J}$",
+              "correct": true
+            },
+            {
+              "text": "$10\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$160\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$1000\\ \\text{J}$",
+              "correct": false
+            }
+          ],
+          "explain": "The light arrow is $\\frac{10}{50} = \\frac{1}{5}$ of the input width, so it carries $\\frac{1}{5} \\times 200 = 40\\ \\text{J}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "200*10/50",
+            "unit": "J"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "The seven energy stores: internal (thermal), kinetic, gravitational potential, elastic (strain), chemical, nuclear and electrostatic. Light, sound and electrical work transfer energy; they are not stores."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Energy is transferred between stores by mechanical work (forces), electrical work (currents), heating, and waves (electromagnetic, sound and others)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Conservation of energy: energy cannot be created or destroyed, only transferred from one store to another, so the total stays the same. Energy in = useful energy out + wasted energy."
+        },
+        {
+          "type": "formula",
+          "tex": "E_\\text{k} = \\tfrac{1}{2}mv^2",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta E_\\text{p} = mg\\Delta h",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "In $\\Delta E_\\text{p} = mg\\Delta h$, $\\Delta h$ is the change in vertical height, not the distance along a slope, and $g = 9.8\\ \\text{N/kg}$ near the Earth's surface."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "With no friction or air resistance, the energy a falling object loses from its gravitational potential store all goes into its kinetic store. For an object falling from rest: $mg\\Delta h = \\tfrac{1}{2}mv^2$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Sankey diagram: each arrow's width is proportional to the energy it carries. Useful energy usually goes straight on and wasted energy branches off. The energies out add up to the energy in."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"electrical\", \"light\" or \"sound\" as an energy store. These are ways energy is transferred; a battery holds its energy in a chemical store.",
+    "Stopping at \"energy is lost\" or \"wasted\". Name where it goes, such as the internal (thermal) store of the surroundings, by heating or sound.",
+    "Saying energy is used up or destroyed. It is only transferred between stores, and the total stays the same.",
+    "Extended: forgetting to square $v$ in $E_\\text{k} = \\tfrac{1}{2}mv^2$, or forgetting the square root when finding a speed.",
+    "Extended: using the distance along a slope instead of the change in vertical height in $\\Delta E_\\text{p} = mg\\Delta h$."
+  ],
+  "examTips": [
+    "\"Describe\" the energy transfers: name the store that empties, how the energy is transferred, and every store that fills, including the wasted energy.",
+    "Paper 1/2 multiple choice: an option that names electrical, light or sound as a store that increases or decreases is wrong; these are ways of transferring energy.",
+    "\"Calculate\": write the equation, substitute the numbers, then give the answer with its unit (J for energy). Put masses in kg and speeds in m/s first."
+  ],
+  "readingMinutes": 26
+}

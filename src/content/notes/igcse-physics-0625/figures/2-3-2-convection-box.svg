@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360" role="img" aria-labelledby="t232box">
+  <title id="t232box">A box with a glass front has two open chimneys on top, A on the left and B on the right. A lit candle stands inside the box under chimney A. Smouldering paper is held just above chimney B. Arrows show the smoke going down chimney B, across the box and up chimney A above the candle. Warm, less dense air rises out of chimney A; cool, denser air sinks into chimney B and carries the smoke</title>
+  <rect x="151" y="151" width="298" height="148" fill="var(--t3-ink)" fill-opacity="0.08"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <polyline points="200,150 150,150 150,300 450,300 450,150 400,150"/>
+    <line x1="240" y1="150" x2="360" y2="150"/>
+    <line x1="200" y1="150" x2="200" y2="70"/>
+    <line x1="240" y1="150" x2="240" y2="70"/>
+    <line x1="360" y1="150" x2="360" y2="70"/>
+    <line x1="400" y1="150" x2="400" y2="70"/>
+  </g>
+  <rect x="212" y="250" width="16" height="50" fill="var(--muted)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M220,248 C212,240 214,230 220,222 C226,230 228,240 220,248 Z" fill="var(--t1-ink)" fill-opacity="0.6" stroke="currentColor" stroke-width="1"/>
+  <rect x="368" y="34" width="32" height="10" transform="rotate(-20 384 39)" fill="var(--muted)" fill-opacity="0.5" stroke="currentColor" stroke-width="1"/>
+  <g stroke="var(--t3-ink)" stroke-width="2.5" fill="none">
+    <polyline points="380,58 380,200 238,200"/>
+    <polyline points="250,193 238,200 250,207"/>
+    <polyline points="373,188 380,200 387,188"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none">
+    <line x1="220" y1="212" x2="220" y2="48"/>
+    <polyline points="213,60 220,48 227,60"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="210" y="88" text-anchor="middle" font-weight="bold">A</text>
+    <text x="370" y="88" text-anchor="middle" font-weight="bold">B</text>
+    <text x="20" y="100">warm, less dense</text>
+    <text x="20" y="116">air rises out of A</text>
+    <text x="414" y="30">smouldering paper</text>
+    <text x="414" y="110">cool, denser air sinks</text>
+    <text x="414" y="126">into B with the smoke</text>
+    <text x="240" y="285">candle</text>
+    <text x="300" y="330" text-anchor="middle">box with a glass front</text>
+  </g>
+</svg>

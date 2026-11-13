@@ -1,0 +1,581 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.2.5",
+  "slug": "electrical-energy-and-electrical-power",
+  "title": "Electrical energy and electrical power",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A circuit carries [[energy|energy]] from a cell or the mains to its components, which pass it on to the surroundings. [[electrical-power|Electrical power]] $P = IV$ says how fast that happens, and the [[electrical-energy|electrical energy]] transferred is $E = IVt$. Electricity companies charge you per [[kilowatt-hour|kilowatt-hour]]: the energy a 1 kW appliance transfers in 1 hour.",
+  "goals": [
+    {
+      "text": "Describe how a circuit moves energy from a cell or the mains supply to its components, and from them to the surroundings.",
+      "bullets": [
+        "4.2.5-1"
+      ]
+    },
+    {
+      "text": "Calculate electrical power with $P = IV$, and rearrange it to find a current or a p.d.",
+      "bullets": [
+        "4.2.5-2"
+      ]
+    },
+    {
+      "text": "Calculate the energy a component transfers with $E = IVt$, or with $E = Pt$ when you know its [[power|power]].",
+      "bullets": [
+        "4.2.5-3"
+      ]
+    },
+    {
+      "text": "Define the kilowatt-hour and work out what it costs to run an appliance.",
+      "bullets": [
+        "4.2.5-4"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.7.1",
+    "1.7.2",
+    "1.7.4",
+    "4.2.2",
+    "4.2.3",
+    "4.2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "P = IV",
+    "electrical power formula",
+    "energy transferred E = IVt",
+    "kilowatt hour",
+    "cost of electricity calculation",
+    "units of electricity kWh"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-power-meaning",
+      "prompt": "A pump transfers $4500\\ \\text{J}$ of energy in $90\\ \\text{s}$. What is its power, in W?",
+      "hint": "Power is energy transferred divided by the time taken.",
+      "answer": {
+        "value": 50,
+        "tolerance": 0
+      },
+      "explain": "$P = \\frac{\\Delta E}{t} = \\frac{4500}{90} = 50\\ \\text{W}$. Revise it in {{lesson:1.7.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "4500/90",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-current-loop",
+      "prompt": "A lamp is connected to a cell. How does the current going into the lamp compare with the current coming out of it?",
+      "hint": "Is current used up as it goes round a circuit?",
+      "options": [
+        {
+          "text": "they are equal",
+          "correct": true
+        },
+        {
+          "text": "the current coming out is smaller",
+          "correct": false
+        },
+        {
+          "text": "the current coming out is zero",
+          "correct": false
+        }
+      ],
+      "explain": "Current is not used up, so the same current flows in and out. Energy is what the lamp takes. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they are equal"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "energy-path",
+      "heading": "Where the energy goes in a circuit",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A cell or the mains supply is a source of energy for a circuit. When there is a current, the source does electrical work: it transfers energy to the components the current passes through."
+        },
+        {
+          "type": "text",
+          "text": "Each component passes that energy on to the surroundings. A lamp gives out light and heats the air around it. A heater just heats. A motor makes things move, and friction and sound then pass that energy to the surroundings too."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-5-energy-path",
+          "alt": "Energy path through a circuit, as three boxes joined by arrows from left to right. The first box is the source: a cell or the mains supply. An arrow labelled electrical work, by the current, leads to the second box: the components, such as a lamp, heater or motor. A second arrow labelled heating, light and sound leads to the third box: the surroundings, which get warmer.",
+          "caption": "Energy flows from the source, through the components, into the surroundings."
+        },
+        {
+          "type": "text",
+          "text": "By [[conservation-of-energy|conservation of energy]], none of it is destroyed. In the end it spreads out into the internal (thermal) [[energy-store|store]] of the surroundings, which warm up very slightly. Energy stored on the way, such as in a charging phone's battery, ends up there too once it is used."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying a lamp \"uses up the current\". The current out of a lamp equals the current in. What the lamp takes from the circuit is energy, and it passes that energy on."
+        },
+        {
+          "type": "example",
+          "id": "ex-fan-energy-path",
+          "question": "An electric fan is plugged into the mains and switched on. Describe the energy transfers, from the mains supply to the surroundings.",
+          "steps": [
+            "Start at the source and say how the energy reaches the fan.",
+            "Name the useful store the motor fills.",
+            "Name the wasted transfers, then say where all the energy ends up."
+          ],
+          "answer": "The current does electrical work, carrying energy from the mains supply to the fan's motor. The motor turns the blades, so energy goes into the kinetic store of the blades and the moving air. Some energy is wasted by heating the motor and as sound. In the end all the energy spreads out into the surroundings, which warm up slightly.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "electrical work from the mains to the motor; kinetic store of blades and air; wasted heating and sound; all ends in the surroundings",
+            "requires": [
+              [
+                "electrical work"
+              ],
+              [
+                "kinetic store",
+                "kinetic energy"
+              ],
+              [
+                "heating",
+                "thermal"
+              ],
+              [
+                "surroundings"
+              ]
+            ],
+            "forbids": [
+              "current is used up",
+              "energy is used up",
+              "energy is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-torch-energy-ends",
+          "prompt": "A torch is left switched on until its battery is flat. Where has the energy from the battery ended up?",
+          "hint": "Energy can't be destroyed. Where do the light and the heating from the lamp go?",
+          "options": [
+            {
+              "text": "spread out in the surroundings, mostly as internal (thermal) energy",
+              "correct": true
+            },
+            {
+              "text": "used up inside the lamp",
+              "correct": false
+            },
+            {
+              "text": "back in the battery as electrical current",
+              "correct": false
+            },
+            {
+              "text": "destroyed once the battery is flat",
+              "correct": false
+            }
+          ],
+          "explain": "The lamp passes the energy on as light and by heating. The light is absorbed by the walls and objects around it, so all the energy ends up warming the surroundings. None is destroyed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "spread out in the surroundings, mostly as internal (thermal) energy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "power",
+      "heading": "Electrical power: P = IV",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[power|Power]] is how fast energy is transferred. For a component in a circuit, two things set its power. A bigger [[electric-current|current]] means more charge passes through it each second. A bigger [[potential-difference|potential difference]] means each unit of charge transfers more energy in it."
+        },
+        {
+          "type": "formula",
+          "tex": "P = IV",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$P$ is the [[electrical-power|electrical power]] in watts (W), $I$ is the current in the component in amperes (A), and $V$ is the p.d. across it in volts (V). Rearranged: $I = \\frac{P}{V}$ and $V = \\frac{P}{I}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cool-box-power",
+          "question": "A car cool box is connected to a $12\\ \\text{V}$ car battery. The current in it is $4.5\\ \\text{A}$. Calculate the power of the cool box.",
+          "steps": [
+            "Write the equation: $P = IV$.",
+            "Substitute: $P = 4.5 \\times 12$.",
+            "$P = 54\\ \\text{W}$"
+          ],
+          "answer": "$P = 54\\ \\text{W}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.5*12",
+            "unit": "W"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-kettle-current",
+          "question": "A kettle has a power of $2.8\\ \\text{kW}$ when it is connected to the $230\\ \\text{V}$ mains. Calculate the current in the kettle.",
+          "steps": [
+            "Convert the power to watts: $2.8\\ \\text{kW} = 2800\\ \\text{W}$.",
+            "Rearrange $P = IV$ to $I = \\frac{P}{V}$.",
+            "Substitute: $I = \\frac{2800}{230} = 12.17…\\ \\text{A}$",
+            "The power, $2.8\\ \\text{kW}$, has only 2 significant figures, so give $12\\ \\text{A}$."
+          ],
+          "answer": "$I \\approx 12\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2.8*1000/230",
+            "sf": 2,
+            "unit": "A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing when you should multiply. Power is current times p.d., never one divided by the other. If you get a strangely small power, check this first."
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-power",
+          "prompt": "The p.d. across a lamp is $6.0\\ \\text{V}$ and the current in it is $0.50\\ \\text{A}$. What is the power of the lamp?",
+          "hint": "Use $P = IV$: multiply, don't divide or add.",
+          "options": [
+            {
+              "text": "$3.0\\ \\text{W}$",
+              "correct": true
+            },
+            {
+              "text": "$12\\ \\text{W}$",
+              "correct": false
+            },
+            {
+              "text": "$6.5\\ \\text{W}$",
+              "correct": false
+            },
+            {
+              "text": "$0.083\\ \\text{W}$",
+              "correct": false
+            }
+          ],
+          "explain": "$P = IV = 0.50 \\times 6.0 = 3.0\\ \\text{W}$. $12\\ \\text{W}$ is $6.0 \\div 0.50$, $6.5\\ \\text{W}$ adds the two, and $0.083\\ \\text{W}$ is $0.50 \\div 6.0$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.50*6.0",
+            "unit": "W"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-charger-current",
+          "prompt": "A laptop charger takes $65\\ \\text{W}$ from the $230\\ \\text{V}$ mains. What is the current in it, in A, to 2 significant figures?",
+          "hint": "Rearrange $P = IV$ to $I = \\frac{P}{V}$.",
+          "answer": {
+            "value": 0.28,
+            "tolerance": 0.005
+          },
+          "explain": "$I = \\frac{P}{V} = \\frac{65}{230} = 0.2826…$, so $0.28\\ \\text{A}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "65/230",
+            "sf": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: to find the power of a lamp, measure the current with an ammeter in series with it and the p.d. with a voltmeter in parallel with it. Then multiply the two readings: $P = IV$."
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "heading": "Electrical energy: E = IVt",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Power is energy transferred per second. So the energy transferred in a time $t$ is the power multiplied by the time, $E = Pt$. Put $P = IV$ into this and you get the equation for [[electrical-energy|electrical energy]]."
+        },
+        {
+          "type": "formula",
+          "tex": "E = IVt",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$E$ is the energy transferred in joules (J), $I$ is the current in A, $V$ is the p.d. in V and $t$ is the time in seconds (s). Convert minutes and hours to seconds first: $1\\ \\text{min} = 60\\ \\text{s}$ and $1\\ \\text{h} = 3600\\ \\text{s}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-phone-charge-energy",
+          "question": "A phone charges at $5.0\\ \\text{V}$ with a current of $1.8\\ \\text{A}$ for $40$ minutes. Calculate the energy transferred to the phone, in kJ.",
+          "steps": [
+            "Convert the time to seconds: $t = 40 \\times 60 = 2400\\ \\text{s}$.",
+            "Write the equation: $E = IVt$.",
+            "Substitute: $E = 1.8 \\times 5.0 \\times 2400 = 21\\,600\\ \\text{J}$.",
+            "Convert to kJ and round to 2 significant figures, as the data are: $21.6\\ \\text{kJ} \\approx 22\\ \\text{kJ}$."
+          ],
+          "answer": "$E \\approx 22\\ \\text{kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.8*5.0*40*60/1000",
+            "sf": 2,
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rated-lamp-energy",
+          "question": "A lamp is marked \"$230\\ \\text{V}$, $40\\ \\text{W}$\". It works normally for $15$ minutes. Calculate the energy it transfers.",
+          "steps": [
+            "The marking gives the power directly: $P = 40\\ \\text{W}$. You don't need the p.d. to find the energy.",
+            "Convert the time: $t = 15 \\times 60 = 900\\ \\text{s}$.",
+            "Use $E = Pt$: $E = 40 \\times 900 = 36\\,000\\ \\text{J}$, which is $36\\ \\text{kJ}$."
+          ],
+          "answer": "$E = 36\\ \\text{kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "40*15*60/1000",
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying in the p.d. as well when the power is already given. For a lamp marked \"$230\\ \\text{V}$, $40\\ \\text{W}$\", $E = Pt$ uses the $40$ only."
+        },
+        {
+          "type": "check",
+          "id": "check-heater-energy",
+          "prompt": "A small heater is connected to a $9.0\\ \\text{V}$ supply. The current in it is $0.50\\ \\text{A}$. How much energy does it transfer in $3.0$ minutes?",
+          "hint": "Change the minutes to seconds before you use $E = IVt$.",
+          "options": [
+            {
+              "text": "$810\\ \\text{J}$",
+              "correct": true
+            },
+            {
+              "text": "$13.5\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$4.5\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$810\\ \\text{W}$",
+              "correct": false
+            }
+          ],
+          "explain": "$t = 3.0 \\times 60 = 180\\ \\text{s}$, so $E = 0.50 \\times 9.0 \\times 180 = 810\\ \\text{J}$. $13.5\\ \\text{J}$ uses minutes, $4.5\\ \\text{J}$ leaves out the time, and energy is in joules, not watts.",
+          "verify": {
+            "kind": "exact",
+            "truth": "0.50*9.0*3.0*60",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-motor-current",
+          "prompt": "A motor runs from a $24\\ \\text{V}$ supply. It transfers $3600\\ \\text{J}$ in $50\\ \\text{s}$. What is the current in the motor, in A?",
+          "hint": "Rearrange $E = IVt$ to $I = \\frac{E}{Vt}$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0.05
+          },
+          "explain": "$I = \\frac{E}{Vt} = \\frac{3600}{24 \\times 50} = 3.0\\ \\text{A}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3600/(24*50)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "kilowatt-hour",
+      "heading": "The kilowatt-hour and the cost of electricity",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A joule is a tiny amount of energy for a home: a kettle transfers thousands every second. So electricity companies measure energy in a much bigger unit, the kilowatt-hour (kW h)."
+        },
+        {
+          "type": "definition",
+          "term": "kilowatt-hour",
+          "statement": "One [[kilowatt-hour|kilowatt-hour]] ($1\\ \\text{kW h}$) is the energy transferred by an appliance of power $1\\ \\text{kW}$ in a time of $1$ hour.",
+          "plain": "Run a 1 kW heater for one hour and it transfers 1 kW h of energy, often called one \"unit\" on a bill."
+        },
+        {
+          "type": "text",
+          "text": "The kW h is a unit of energy, not power. In joules: $1\\ \\text{kW h} = 1000\\ \\text{W} \\times 3600\\ \\text{s} = 3\\,600\\,000\\ \\text{J}$, which is $3.6\\ \\text{MJ}$."
+        },
+        {
+          "type": "text",
+          "text": "To find a cost, use $E = Pt$ with the power in kW and the time in hours. That gives the energy in kW h. Then multiply by the price of one kW h."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{cost} = \\text{energy in kW h} \\times \\text{price per kW h}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-heater-cost",
+          "question": "A $2.2\\ \\text{kW}$ electric heater is switched on for $3.5$ hours. Electricity costs $\\$0.28$ per kW h. Calculate the cost of using the heater.",
+          "steps": [
+            "Energy in kW h: $E = Pt = 2.2 \\times 3.5 = 7.7\\ \\text{kW h}$.",
+            "Cost: $7.7 \\times 0.28 = 2.156$ dollars.",
+            "Round to the nearest cent: $\\$2.16$."
+          ],
+          "answer": "$\\text{cost} = \\$2.16$",
+          "video": null,
+          "verify": {
+            "kind": "money",
+            "truth": "2.2*3.5*0.28"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-fridge-month-cost",
+          "question": "A fridge has a power of $150\\ \\text{W}$. Its motor runs for a total of $10$ hours each day. Electricity costs $32$ cents per kW h. Calculate the cost of running the fridge for $30$ days, in dollars.",
+          "steps": [
+            "Convert the power to kW: $150\\ \\text{W} = 0.150\\ \\text{kW}$.",
+            "Total time: $10 \\times 30 = 300$ hours.",
+            "Energy: $E = Pt = 0.150 \\times 300 = 45\\ \\text{kW h}$.",
+            "Cost: $45 \\times 32 = 1440$ cents, which is $\\$14.40$."
+          ],
+          "answer": "$\\text{cost} = \\$14.40$",
+          "video": null,
+          "verify": {
+            "kind": "money",
+            "truth": "0.150*10*30*32/100"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the power in W into a kW h calculation. A $150\\ \\text{W}$ fridge is $0.150\\ \\text{kW}$: using $150$ makes the cost 1000 times too big."
+        },
+        {
+          "type": "check",
+          "id": "check-kwh-in-joules",
+          "prompt": "How many joules are there in $1\\ \\text{kW h}$?",
+          "hint": "Change 1 kW to watts and 1 hour to seconds, then multiply.",
+          "options": [
+            {
+              "text": "$3.6 \\times 10^{6}\\ \\text{J}$",
+              "correct": true
+            },
+            {
+              "text": "$3.6 \\times 10^{3}\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$6.0 \\times 10^{4}\\ \\text{J}$",
+              "correct": false
+            },
+            {
+              "text": "$1.0 \\times 10^{3}\\ \\text{J}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1000\\ \\text{W} \\times 3600\\ \\text{s} = 3\\,600\\,000\\ \\text{J} = 3.6 \\times 10^{6}\\ \\text{J}$. $3.6 \\times 10^{3}$ forgets the kilo, and $6.0 \\times 10^{4}$ uses 60 seconds for an hour.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1000*3600",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oven-cost",
+          "prompt": "An oven of power $3.0\\ \\text{kW}$ is used for $40$ minutes. Electricity costs $30$ cents per kW h. What does this cost, in cents?",
+          "hint": "Write 40 minutes as a fraction of an hour first.",
+          "answer": {
+            "value": 60,
+            "tolerance": 0
+          },
+          "explain": "$40\\ \\text{min} = \\frac{40}{60}\\ \\text{h}$, so $E = 3.0 \\times \\frac{40}{60} = 2.0\\ \\text{kW h}$. Cost $= 2.0 \\times 30 = 60$ cents.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.0*(40/60)*30",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A circuit transfers energy from its source (a cell or the mains) to its components, and they transfer it to the surroundings. The current is not used up; the energy ends up spread out in the surroundings."
+        },
+        {
+          "type": "formula",
+          "tex": "P = IV \\quad \\text{(power in W, current in A, p.d. in V)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "E = IVt \\quad \\text{(energy in J, with the time in s)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "When the power is given, the energy transferred is $E = Pt$. With $P$ in W and $t$ in s, $E$ is in J."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "One kilowatt-hour is the energy transferred by a $1\\ \\text{kW}$ appliance in $1$ hour: $1\\ \\text{kW h} = 3.6 \\times 10^{6}\\ \\text{J}$. It is a unit of energy, not power."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Cost of electricity: energy in kW h (power in kW $\\times$ time in hours) $\\times$ price per kW h."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing $V$ by $I$ (or $I$ by $V$) for the power. Power is the product: $P = IV$.",
+    "Leaving the time in minutes or hours in $E = IVt$. Convert to seconds first: $1\\ \\text{min} = 60\\ \\text{s}$ and $1\\ \\text{h} = 3600\\ \\text{s}$.",
+    "Using the voltage marked on an appliance as well as its power. For energy from a power rating, $E = Pt$ is all you need.",
+    "Mixing W and kW in a cost calculation. Use the power in kW and the time in hours to get kW h.",
+    "Forgetting to multiply by every hour or day of use when finding a total cost.",
+    "Giving an energy in W, or a power in J. Energy is in J (or kW h); power is in W."
+  ],
+  "examTips": [
+    "\"Calculate\" the power or the energy: write the equation, then the numbers, then the answer with its unit. The equation and substitution lines can earn marks even if the final value slips.",
+    "Paper 1/2 multiple choice: wrong options often come from a time left in minutes or from dividing instead of multiplying. Check the unit of each option too: energy is in J, power in W.",
+    "\"Define\" the kilowatt-hour in words: the energy transferred by a $1\\ \\text{kW}$ appliance in $1$ hour. Then you can add that it equals $3.6\\ \\text{MJ}$."
+  ],
+  "readingMinutes": 19
+}

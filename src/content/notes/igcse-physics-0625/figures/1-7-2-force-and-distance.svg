@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 250" role="img" aria-labelledby="t172fd">
+<title id="t172fd">Two side views. Left, pushing along the floor: a crate starts at the left, shown dashed, and ends further right, shown solid. A force arrow labelled force F points to the right from the crate. Below the floor, an arrow to the right from the starting position to the final position is labelled distance moved d. Right, lifting at a steady speed: a box starts on the floor, shown dashed, and ends higher up, shown solid. A force arrow labelled lifting force F points straight up from the box. A vertical arrow beside it, from the floor up to the bottom of the raised box, is labelled height gained d. In both views the force and the distance point the same way.</title>
+<text font-family="inherit" font-size="13" x="135" y="22" fill="currentColor" text-anchor="middle">Pushing along the floor</text>
+<path d="M20 190 H250" stroke="currentColor" stroke-width="1.4"/>
+<rect x="30" y="150" width="50" height="40" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<rect x="160" y="150" width="50" height="40" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="185" cy="170" r="3.5" fill="currentColor"/>
+<path d="M185 170 L232 170" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="241,170 232,174.5 232,165.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="200" y="140" fill="var(--t1-ink)" text-anchor="start">force F</text>
+<path d="M55 212 L176 212" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="185,212 176,216 176,208" fill="var(--t2-ink)"/>
+<path d="M55 205 V219" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<text font-family="inherit" font-size="12" x="120" y="235" fill="var(--t2-ink)" text-anchor="middle">distance moved d</text>
+<path d="M270 30 V230" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 5"/>
+<text font-family="inherit" font-size="13" x="405" y="22" fill="currentColor" text-anchor="middle">Lifting at a steady speed</text>
+<path d="M290 190 H520" stroke="currentColor" stroke-width="1.4"/>
+<rect x="360" y="155" width="50" height="35" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<rect x="360" y="75" width="50" height="35" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="385" cy="92.5" r="3.5" fill="currentColor"/>
+<path d="M385 92.5 L385 48" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="385,39 380.5,48 389.5,48" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="395" y="52" fill="var(--t1-ink)" text-anchor="start">lifting force F</text>
+<path d="M445 190 L445 119" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="445,110 440.5,119 449.5,119" fill="var(--t2-ink)"/>
+<path d="M438 190 H452" stroke="var(--t2-ink)" stroke-width="1.2"/>
+<path d="M415 110 H452" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<text font-family="inherit" font-size="12" x="455" y="148" fill="var(--t2-ink)" text-anchor="start">height</text>
+<text font-family="inherit" font-size="12" x="455" y="163" fill="var(--t2-ink)" text-anchor="start">gained d</text>
+</svg>

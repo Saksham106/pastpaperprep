@@ -1,0 +1,838 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "3.4",
+  "slug": "sound",
+  "title": "Sound",
+  "level": "Core",
+  "topic": 3,
+  "summary": "Every sound starts with something vibrating. The vibration travels through a solid, liquid or gas as a [[longitudinal-wave|longitudinal wave]], so sound cannot cross a [[vacuum|vacuum]]. [[frequency|Frequency]] sets the [[pitch|pitch]] and [[amplitude|amplitude]] sets the [[loudness|loudness]]. You'll also measure the [[speed|speed]] of sound and use [[echo|echoes]].",
+  "goals": [
+    {
+      "text": "Describe how a vibrating object makes sound, and why sound is a longitudinal wave that needs a medium to travel through.",
+      "bullets": [
+        "3.4-1",
+        "3.4-2",
+        "3.4-4"
+      ]
+    },
+    {
+      "text": "State the range of frequencies humans can hear, and define [[ultrasound|ultrasound]].",
+      "bullets": [
+        "3.4-3",
+        "3.4-9"
+      ]
+    },
+    {
+      "text": "Describe how changing the amplitude or frequency changes the loudness or pitch of a sound.",
+      "bullets": [
+        "3.4-7"
+      ]
+    },
+    {
+      "text": "Recall the speed of sound in air and describe how to measure it from a [[distance|distance]] and a time.",
+      "bullets": [
+        "3.4-5",
+        "3.4-6"
+      ]
+    },
+    {
+      "text": "Describe an echo as sound reflected from a surface.",
+      "bullets": [
+        "3.4-8"
+      ]
+    },
+    {
+      "text": "Describe [[compression|compressions]] and [[rarefaction|rarefactions]], and compare the speed of sound in solids, liquids and gases.",
+      "bullets": [
+        "3.4-10",
+        "3.4-11"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how ultrasound is used in [[sonar|sonar]], testing materials and scanning soft tissue, and calculate a depth or distance from an echo time.",
+      "bullets": [
+        "3.4-12"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "2.3.3",
+    "3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "speed of sound experiment",
+    "echo calculation",
+    "pitch and frequency",
+    "loudness and amplitude",
+    "uses of ultrasound",
+    "compression and rarefaction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-wave-transfers",
+      "prompt": "A [[wave|wave]] travels across a pond. What does the wave carry from one side to the other?",
+      "hint": "A floating leaf bobs up and down but stays in about the same place.",
+      "options": [
+        {
+          "text": "energy, but not the water",
+          "correct": true
+        },
+        {
+          "text": "the water, but not energy",
+          "correct": false
+        },
+        {
+          "text": "both the water and energy",
+          "correct": false
+        }
+      ],
+      "explain": "A wave transfers energy without transferring matter. The water only moves up and down about the same place. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "energy, but not the water"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-longitudinal",
+      "prompt": "In a longitudinal wave, which way do the particles vibrate?",
+      "hint": "Think of pushing and pulling one end of a long spring.",
+      "options": [
+        {
+          "text": "parallel to the direction the wave travels",
+          "correct": true
+        },
+        {
+          "text": "at right angles to the direction the wave travels",
+          "correct": false
+        },
+        {
+          "text": "they do not vibrate; they travel along with the wave",
+          "correct": false
+        }
+      ],
+      "explain": "In a longitudinal wave the vibration is along the direction of travel. At right angles is a transverse wave. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "parallel to the direction the wave travels"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-average-speed",
+      "prompt": "A cyclist rides $840\\ \\text{m}$ in $112\\ \\text{s}$. What is her [[average-speed|average speed]], in m/s?",
+      "hint": "Average speed is total distance divided by total time.",
+      "answer": {
+        "value": 7.5,
+        "tolerance": 0.05
+      },
+      "explain": "$v = \\frac{s}{t} = \\frac{840}{112} = 7.5\\ \\text{m/s}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "840/112",
+        "dp": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "making-sound",
+      "heading": "How sound is made and how it travels",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pluck a guitar string and it blurs: it is vibrating. Every sound starts with something vibrating, such as a string, a drum skin, a loudspeaker cone or your vocal cords."
+        },
+        {
+          "type": "text",
+          "text": "As a loudspeaker cone moves forwards, it pushes the air particles in front of it closer together. As it moves back, it leaves them more room. Each layer of particles pushes on the next, so the vibration is passed on through the air."
+        },
+        {
+          "type": "text",
+          "text": "The air particles vibrate backwards and forwards, parallel to the direction the sound travels. So sound is a longitudinal wave. The particles stay in about the same place; only the energy moves on."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-sound-in-air",
+          "alt": "A loudspeaker on the left faces to the right into air, drawn as many small dots. The dots are in vertical bands that are alternately bunched close together and spread out, repeating along the page. Two bunched bands are labelled particles close together and two spread-out bands are labelled particles spread out. A double-headed arrow pointing left and right is labelled particles vibrate backwards and forwards. A separate arrow pointing right is labelled direction the sound travels. The vibration arrow and the direction arrow are parallel.",
+          "caption": "Sound in air: the particles vibrate along the direction of travel, making regions where they are bunched and regions where they are spread out."
+        },
+        {
+          "type": "text",
+          "text": "A region where the particles are pushed close together is a compression. The air pressure there is higher than normal. A region where the particles are spread apart is a rarefaction, where the pressure is lower than normal. As the wave passes, each bit of air becomes a compression, then a rarefaction, over and over.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "Sound needs a medium: a solid, a liquid or a gas, whose particles can pass the vibration on. A vacuum has no particles, so sound cannot travel through it. Light needs no medium, which is why you can see the Sun but never hear it."
+        },
+        {
+          "type": "example",
+          "id": "ex-bell-in-jar",
+          "question": "An electric bell rings inside a sealed glass jar. A pump slowly removes the air from the jar. You can still see the hammer striking the bell, but the sound gets fainter and fainter. Explain why.",
+          "steps": [
+            "Say how the sound reaches you, what removing the air changes, and why you can still see the bell."
+          ],
+          "answer": "The bell vibrates and makes the air particles next to it vibrate. The sound is passed on by particles of a medium pushing on their neighbours. As the pump removes air, there are fewer particles to carry the vibrations, so the sound gets fainter. With almost no air left, the jar is close to a vacuum, and sound cannot travel through a vacuum. Light does not need a medium, so you can still see the bell.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "bell vibrates air particles; sound passed on by particles of a medium; fewer particles as air removed so fainter; sound cannot travel through a vacuum; light needs no medium",
+            "requires": [
+              "vibrate",
+              "medium",
+              [
+                "fewer particles",
+                "less air"
+              ],
+              "cannot travel through a vacuum",
+              [
+                "light does not need a medium",
+                "light needs no medium"
+              ]
+            ],
+            "forbids": [
+              "sound travels through a vacuum",
+              "transverse",
+              "the bell stops vibrating"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-particle-motion",
+          "prompt": "A loudspeaker plays music across a room. How do the air particles between the loudspeaker and a listener move?",
+          "hint": "Sound is a longitudinal wave, and a wave does not carry matter along with it.",
+          "options": [
+            {
+              "text": "they vibrate backwards and forwards along the direction the sound travels",
+              "correct": true
+            },
+            {
+              "text": "they vibrate up and down, at right angles to the direction the sound travels",
+              "correct": false
+            },
+            {
+              "text": "they travel from the loudspeaker to the listener",
+              "correct": false
+            },
+            {
+              "text": "they stay completely still while the sound passes",
+              "correct": false
+            }
+          ],
+          "explain": "Sound is longitudinal, so the particles vibrate along the direction of travel. They do not travel to the listener; the energy does.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they vibrate backwards and forwards along the direction the sound travels"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-compression-region",
+          "prompt": "Compared with still air, what is a compression in a sound wave like?",
+          "hint": "Compress means squash.",
+          "options": [
+            {
+              "text": "particles closer together and higher pressure",
+              "correct": true
+            },
+            {
+              "text": "particles closer together and lower pressure",
+              "correct": false
+            },
+            {
+              "text": "particles further apart and higher pressure",
+              "correct": false
+            },
+            {
+              "text": "particles further apart and lower pressure",
+              "correct": false
+            }
+          ],
+          "explain": "In a compression the particles are squashed together, so the pressure is higher. Further apart with lower pressure is a rarefaction.",
+          "verify": {
+            "kind": "choice",
+            "truth": "particles closer together and higher pressure"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "In general, sound travels fastest in solids, more slowly in liquids and slowest in gases. Typical speeds are about $6000\\ \\text{m/s}$ in steel, $1500\\ \\text{m/s}$ in water and $340\\ \\text{m/s}$ in air.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-fastest-medium",
+          "prompt": "A hammer strikes one end of a long metal railing next to a pond. In which order, from fastest to slowest, does sound travel through the railing, the pond water and the air?",
+          "hint": "In general: solid, then liquid, then gas.",
+          "options": [
+            {
+              "text": "railing, water, air",
+              "correct": true
+            },
+            {
+              "text": "air, water, railing",
+              "correct": false
+            },
+            {
+              "text": "water, railing, air",
+              "correct": false
+            },
+            {
+              "text": "all three at the same speed",
+              "correct": false
+            }
+          ],
+          "explain": "The railing is a solid, the water a liquid and the air a gas. So someone with an ear to the railing hears the hammer before someone standing in the air.",
+          "verify": {
+            "kind": "choice",
+            "truth": "railing, water, air"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "pitch-loudness",
+      "heading": "Pitch, loudness and the range you can hear",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A young person with normal hearing can hear frequencies from about $20\\ \\text{Hz}$ to $20\\,000\\ \\text{Hz}$ ($20\\ \\text{kHz}$). The top of the range drops as people get older."
+        },
+        {
+          "type": "definition",
+          "term": "ultrasound",
+          "statement": "Sound whose frequency is above $20\\ \\text{kHz}$, too high for humans to hear.",
+          "plain": "Sound pitched too high for your ears."
+        },
+        {
+          "type": "text",
+          "text": "Ultrasound is still sound: a longitudinal wave that needs a medium. In the same medium it travels at the same speed as sound you can hear. Only its frequency is higher, so its [[wavelength|wavelength]] is shorter."
+        },
+        {
+          "type": "text",
+          "text": "Pitch is how high or low a note sounds. A higher frequency gives a higher pitch. Loudness depends on amplitude: a larger amplitude gives a louder sound, because the wave carries more energy."
+        },
+        {
+          "type": "text",
+          "text": "A microphone connected to an oscilloscope shows a sound as a wave on a screen, drawn against time. The height of the trace shows the amplitude. With the same time setting, the number of complete waves across the screen shows the frequency: more waves means a higher frequency and a shorter [[period|period]]."
+        },
+        {
+          "type": "figure",
+          "id": "3-4-oscilloscope-traces",
+          "alt": "Three oscilloscope traces of sound, each drawn on the same grid of squares with time along the horizontal axis. Left, labelled original sound: three complete waves across the screen, rising 2 squares above the centre line. Middle, labelled louder, same pitch: still three complete waves, but rising 4 squares above the centre line, so a larger amplitude. Right, labelled higher pitch, same loudness: six complete waves across the screen, rising 2 squares above the centre line, so a higher frequency and the same amplitude.",
+          "caption": "Same scales on every screen: taller means louder, more waves means higher pitch."
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-traces",
+          "question": "Two sounds are shown on an oscilloscope with the same settings. Trace X shows 2 complete waves across the screen and rises 3 squares above the centre line. Trace Y shows 5 complete waves and rises only 1.5 squares. Describe how sound Y differs from sound X.",
+          "steps": [
+            "Compare the number of waves for frequency and pitch, then the height for amplitude and loudness. Mention both sounds in each point."
+          ],
+          "answer": "Y shows more complete waves in the same time, so Y has a higher frequency than X. This means Y has a higher pitch. Y's trace is half as tall, so it has a smaller amplitude than X. This means Y is quieter than X.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more waves in same time so higher frequency and higher pitch; half the height so smaller amplitude and quieter",
+            "requires": [
+              "higher frequency",
+              "higher pitch",
+              "smaller amplitude",
+              [
+                "quieter",
+                "less loud"
+              ]
+            ],
+            "forbids": [
+              "lower pitch",
+              "Y is louder",
+              "travels faster"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bat-wavelength",
+          "question": "A bat gives out calls with a frequency of $32\\ \\text{kHz}$. The speed of sound in air is $340\\ \\text{m/s}$. Calculate the wavelength of the calls in mm.",
+          "steps": [
+            "$32\\ \\text{kHz}$ is above $20\\ \\text{kHz}$, so the calls are ultrasound: you cannot hear them. They still travel at the speed of sound in air.",
+            "Convert the frequency: $32\\ \\text{kHz} = 32\\,000\\ \\text{Hz}$.",
+            "Rearrange $v = f\\lambda$ for the wavelength: $\\lambda = \\frac{v}{f}$.",
+            "Substitute: $\\lambda = \\frac{340}{32\\,000} = 0.010\\,625\\ \\text{m} = 10.6\\ \\text{mm}$.",
+            "Give 2 significant figures, as in the data."
+          ],
+          "answer": "$\\lambda \\approx 11\\ \\text{mm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "340/(32*1000)*1000",
+            "sf": 2,
+            "unit": "mm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting $32$ instead of $32\\,000$ into $v = f\\lambda$. Change kHz to Hz first, or the wavelength comes out 1000 times too big."
+        },
+        {
+          "type": "check",
+          "id": "check-whistle-inaudible",
+          "prompt": "A dog whistle gives out sound with a frequency of $23\\ \\text{kHz}$. Why can't the dog's owner hear it?",
+          "hint": "Compare $23\\ \\text{kHz}$ with the human hearing range.",
+          "options": [
+            {
+              "text": "its frequency is above the range of human hearing",
+              "correct": true
+            },
+            {
+              "text": "its frequency is below the range of human hearing",
+              "correct": false
+            },
+            {
+              "text": "its amplitude is too small for anyone to hear",
+              "correct": false
+            },
+            {
+              "text": "it travels too fast for the ear to detect",
+              "correct": false
+            }
+          ],
+          "explain": "Humans hear up to about $20\\ \\text{kHz}$, so $23\\ \\text{kHz}$ is ultrasound. It travels at the normal speed of sound in air.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its frequency is above the range of human hearing"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-louder-same-note",
+          "prompt": "A singer holds the same note but sings it more loudly. What happens to the sound wave?",
+          "hint": "The note stays the same, so the pitch does not change.",
+          "options": [
+            {
+              "text": "its amplitude increases",
+              "correct": true
+            },
+            {
+              "text": "its frequency increases",
+              "correct": false
+            },
+            {
+              "text": "it travels faster through the air",
+              "correct": false
+            },
+            {
+              "text": "its wavelength gets shorter",
+              "correct": false
+            }
+          ],
+          "explain": "Same note means same frequency, and so the same wavelength. The speed of sound in air does not change. Louder means a larger amplitude.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its amplitude increases"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 1/2 question with oscilloscope traces, check the scales are the same. Then count the waves across the screen for pitch and measure the height from the centre line for loudness."
+        }
+      ]
+    },
+    {
+      "id": "speed-of-sound",
+      "heading": "Measuring the speed of sound",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Learn this: sound travels through air at about $330$ to $350\\ \\text{m/s}$. Light travels at $3.0 \\times 10^8\\ \\text{m/s}$, almost a million times faster. That is why you see a lightning flash before you hear the thunder."
+        },
+        {
+          "type": "text",
+          "text": "To measure the speed of sound, time a sound over a measured distance. Then use speed = distance ÷ time, $v = \\frac{s}{t}$, from {{lesson:1.2}}."
+        },
+        {
+          "type": "text",
+          "text": "1. Two people stand a few hundred metres apart in an open space. Measure the distance between them with a trundle wheel or a long tape measure."
+        },
+        {
+          "type": "text",
+          "text": "2. One person makes a loud sound you can also see being made: for example, banging two wooden blocks together above their head."
+        },
+        {
+          "type": "text",
+          "text": "3. The other starts a stopwatch on seeing the blocks meet and stops it on hearing the bang. Light arrives almost instantly, so this is the time the sound took."
+        },
+        {
+          "type": "text",
+          "text": "4. Repeat several times and find the average time. Then divide the distance by the average time."
+        },
+        {
+          "type": "text",
+          "text": "The distance must be large. Then the time is long compared with your reaction time (about $0.2\\ \\text{s}$), so reaction time causes a smaller error."
+        },
+        {
+          "type": "example",
+          "id": "ex-park-speed",
+          "question": "Two students stand $412\\ \\text{m}$ apart across a large park. One bangs two blocks together. The other times from seeing the blocks meet to hearing the bang, three times: $1.24\\ \\text{s}$, $1.21\\ \\text{s}$ and $1.26\\ \\text{s}$. Calculate the speed of sound.",
+          "steps": [
+            "Average time: $t = \\frac{1.24 + 1.21 + 1.26}{3} = \\frac{3.71}{3} = 1.236...\\ \\text{s}$. Keep the full value.",
+            "Write the equation: $v = \\frac{s}{t}$.",
+            "Substitute: $v = \\frac{412}{1.236...} = 333.2\\ \\text{m/s}$.",
+            "Give 3 significant figures, as in the data. The answer is inside $330$–$350\\ \\text{m/s}$, so it is sensible."
+          ],
+          "answer": "$v \\approx 333\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "412/((1.24 + 1.21 + 1.26)/3)",
+            "sf": 3,
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-method",
+          "question": "Describe how two students could measure the speed of sound in air outdoors. They have a starting pistol, a stopwatch and a trundle wheel.",
+          "steps": [
+            "Say how the distance is measured, when the stopwatch starts and stops, how to make the time reliable, and how to work out the speed."
+          ],
+          "answer": "Use the trundle wheel to measure a distance of about $200\\ \\text{m}$ between the two students. One student fires the starting pistol. The other starts the stopwatch on seeing the smoke and stops it on hearing the bang. Repeat this several times and calculate the average time. The speed of sound is the distance divided by the average time.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "measure about 200 m with trundle wheel; start stopwatch on seeing smoke, stop on hearing bang; repeat and average; speed = distance / average time",
+            "requires": [
+              "trundle wheel",
+              [
+                "seeing the smoke",
+                "sees the smoke",
+                "seeing the flash"
+              ],
+              [
+                "hearing the bang",
+                "hears the bang"
+              ],
+              [
+                "repeat",
+                "average"
+              ],
+              [
+                "distance divided by the average time",
+                "distance divided by the time"
+              ]
+            ],
+            "forbids": [
+              "starts the stopwatch on hearing",
+              "time divided by the distance"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Timing over a short distance. Across $20\\ \\text{m}$ the sound takes only about $0.06\\ \\text{s}$, much less than your reaction time, so the result is meaningless."
+        },
+        {
+          "type": "check",
+          "id": "check-storm-distance",
+          "prompt": "You see a lightning flash and hear the thunder $2.6\\ \\text{s}$ later. Take the speed of sound as $340\\ \\text{m/s}$. How far away is the lightning, in m? Give 2 significant figures.",
+          "hint": "The light reaches you almost at once, so $2.6\\ \\text{s}$ is the sound's travel time. Use $s = vt$.",
+          "answer": {
+            "value": 880,
+            "tolerance": 5
+          },
+          "explain": "$s = vt = 340 \\times 2.6 = 884\\ \\text{m}$, which is $880\\ \\text{m}$ to 2 significant figures.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "340*2.6",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "echoes",
+      "heading": "Echoes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An echo is sound that has reflected off a surface, such as a wall or a cliff. Hard, flat surfaces reflect sound best. You hear the echo a moment after the original sound."
+        },
+        {
+          "type": "text",
+          "text": "The sound travels to the surface and back again. So an echo travels twice the distance from you to the surface."
+        },
+        {
+          "type": "text",
+          "text": "This gives a second way to measure the speed of sound. Stand a measured distance from a large wall, make a sharp sound, and time the echo. Then speed = (2 × distance to the wall) ÷ time."
+        },
+        {
+          "type": "example",
+          "id": "ex-cliff-echo-speed",
+          "question": "A student stands $96.5\\ \\text{m}$ from a tall cliff and claps once. The echo arrives $0.588\\ \\text{s}$ later. Calculate the speed of sound.",
+          "steps": [
+            "The sound goes to the cliff and back: distance travelled $= 2 \\times 96.5 = 193\\ \\text{m}$.",
+            "Write the equation: $v = \\frac{s}{t}$.",
+            "Substitute: $v = \\frac{193}{0.588} = 328.2\\ \\text{m/s}$.",
+            "Give 3 significant figures, as in the data."
+          ],
+          "answer": "$v \\approx 328\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2*96.5/0.588",
+            "sf": 3,
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Forgetting that an echo goes there and back. Using only $96.5\\ \\text{m}$ above gives about $164\\ \\text{m/s}$, far too slow for sound in air."
+        },
+        {
+          "type": "check",
+          "id": "check-what-is-echo",
+          "prompt": "What is an echo?",
+          "hint": "Which wave behaviour sends a wave back from a surface?",
+          "options": [
+            {
+              "text": "sound reflected from a surface",
+              "correct": true
+            },
+            {
+              "text": "sound that spreads out after passing through a gap",
+              "correct": false
+            },
+            {
+              "text": "sound that changes speed as it enters a new material",
+              "correct": false
+            },
+            {
+              "text": "sound with a frequency above 20 kHz",
+              "correct": false
+            }
+          ],
+          "explain": "An echo is a [[reflection|reflection]]. Spreading through a gap is [[diffraction|diffraction]], a change of speed is refraction, and above $20\\ \\text{kHz}$ is ultrasound.",
+          "verify": {
+            "kind": "choice",
+            "truth": "sound reflected from a surface"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wall-distance",
+          "prompt": "A hiker shouts towards a rock face and hears the echo $2.2\\ \\text{s}$ later. The speed of sound is $330\\ \\text{m/s}$. How far away is the rock face, in m? Give 2 significant figures.",
+          "hint": "First find the total distance the sound travelled. Then remember it went there and back.",
+          "answer": {
+            "value": 360,
+            "tolerance": 5
+          },
+          "explain": "Total distance $= 330 \\times 2.2 = 726\\ \\text{m}$. Halve it for the distance one way: $363\\ \\text{m}$, which is $360\\ \\text{m}$ to 2 significant figures.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "330*2.2/2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ultrasound-uses",
+      "heading": "Using ultrasound echoes",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Each use of ultrasound sends a short pulse into a material and times the echo from a boundary. Because the wavelength is short, the echoes can show small details."
+        },
+        {
+          "type": "text",
+          "text": "1. Sonar: a ship sends pulses down to the seabed or to a shoal of fish. The echo time gives the depth or distance."
+        },
+        {
+          "type": "text",
+          "text": "2. Non-destructive testing: a probe sends ultrasound into a metal part, such as a rail or an aircraft wing. A crack inside reflects part of the pulse back early, so the flaw is found without cutting the part open."
+        },
+        {
+          "type": "text",
+          "text": "3. Medical scanning of soft tissue: some ultrasound reflects at each boundary between different tissues, such as the edge of an organ or of an unborn baby. A computer builds an image from the echoes. Ultrasound is not ionising, so it is safe for scanning an unborn baby."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{distance} = \\frac{\\text{speed} \\times \\text{echo time}}{2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Divide by 2 because the echo time covers the trip there and back."
+        },
+        {
+          "type": "example",
+          "id": "ex-sonar-depth",
+          "question": "A fishing boat's sonar sends an ultrasound pulse straight down. The echo from the seabed returns $0.865\\ \\text{s}$ later. Ultrasound travels at $1520\\ \\text{m/s}$ in this sea water. Calculate the depth of the water.",
+          "steps": [
+            "Distance there and back: $s = vt = 1520 \\times 0.865 = 1314.8\\ \\text{m}$.",
+            "The pulse went down and back up, so halve it: $d = \\frac{1314.8}{2} = 657.4\\ \\text{m}$.",
+            "Give 3 significant figures, as in the data."
+          ],
+          "answer": "$d \\approx 657\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1520*0.865/2",
+            "sf": 3,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-rail-crack",
+          "question": "An ultrasound probe on top of a steel rail $0.172\\ \\text{m}$ tall receives an echo from the bottom of the rail after $58\\ \\mu\\text{s}$. A second, earlier echo arrives after $23\\ \\mu\\text{s}$. Calculate how far below the top of the rail the crack is, in cm.",
+          "steps": [
+            "The earlier echo comes from a crack inside the rail.",
+            "Find the speed from the bottom echo: $v = \\frac{2 \\times 0.172}{58 \\times 10^{-6}} = 5931\\ \\text{m/s}$.",
+            "Depth of the crack: $d = \\frac{vt}{2} = \\frac{5931 \\times 23 \\times 10^{-6}}{2} = 0.0682\\ \\text{m} = 6.82\\ \\text{cm}$.",
+            "Give 2 significant figures, as in the times."
+          ],
+          "answer": "$d \\approx 6.8\\ \\text{cm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(2*0.172/(58*10**-6))*23*10**-6/2*100",
+            "sf": 2,
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-scan-reflects",
+          "prompt": "During an ultrasound scan of a patient's abdomen, where are the echoes produced?",
+          "hint": "Echoes come from places where the pulse meets a change of material.",
+          "options": [
+            {
+              "text": "at boundaries between different tissues",
+              "correct": true
+            },
+            {
+              "text": "only at the surface of the skin",
+              "correct": false
+            },
+            {
+              "text": "nowhere, because ultrasound passes straight through soft tissue",
+              "correct": false
+            },
+            {
+              "text": "only at bones, as with X-rays",
+              "correct": false
+            }
+          ],
+          "explain": "Part of the pulse reflects at each boundary between tissues, so the echo times show how deep each boundary is.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at boundaries between different tissues"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-submarine-distance",
+          "prompt": "A submarine's sonar picks up an echo from a wreck $0.36\\ \\text{s}$ after sending a pulse. Ultrasound travels at $1490\\ \\text{m/s}$ in the water. How far away is the wreck, in m? Give 2 significant figures.",
+          "hint": "Distance = speed × echo time ÷ 2.",
+          "answer": {
+            "value": 270,
+            "tolerance": 5
+          },
+          "explain": "$d = \\frac{1490 \\times 0.36}{2} = 268.2\\ \\text{m}$, which is $270\\ \\text{m}$ to 2 significant figures.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1490*0.36/2",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Sound is made by vibrating objects. It travels as a longitudinal wave: the particles of the medium vibrate backwards and forwards, parallel to the direction the sound travels.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sound needs a medium (a solid, liquid or gas). It cannot travel through a vacuum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Humans hear about $20\\ \\text{Hz}$ to $20\\,000\\ \\text{Hz}$. Ultrasound is sound with a frequency above $20\\ \\text{kHz}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A higher frequency gives a higher pitch. For the same note, a larger amplitude gives a louder sound.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Sound travels through air at about $330$–$350\\ \\text{m/s}$. To measure the speed, time a sound over a large measured distance, repeat, and divide the distance by the average time.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An echo is sound reflected from a surface. When the source and the listener are in the same place, the echo travels to the surface and back: twice the distance to the surface.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compression: particles closer together, pressure higher than normal. Rarefaction: particles further apart, pressure lower than normal. In general, sound is fastest in solids, slower in liquids and slowest in gases.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Ultrasound echoes are used in sonar, non-destructive testing of materials and medical scanning of soft tissue. Depth or distance $=$ speed $\\times$ echo time $\\div 2$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Forgetting that an echo goes there and back. Halve the total distance the sound travels to get the distance to the surface.",
+    "Linking loudness to frequency. Amplitude sets the loudness; frequency sets the pitch.",
+    "Thinking ultrasound travels faster or slower than audible sound. In the same medium all sound travels at the same speed; ultrasound just has a higher frequency.",
+    "Using a frequency in kHz as if it were in Hz. Multiply by 1000 first, or a wavelength comes out 1000 times too big.",
+    "Describing a speed-of-sound experiment without saying how the distance and the time are measured, or timing only once."
+  ],
+  "examTips": [
+    "\"Describe\" a method for the speed of sound: name what measures the distance, say exactly when the stopwatch starts and stops, repeat and average, then give speed = distance ÷ average time.",
+    "\"State\" the range of human hearing with its units: $20\\ \\text{Hz}$ to $20\\,000\\ \\text{Hz}$. A range with no unit loses the mark.",
+    "\"Calculate\" a distance from an echo: write distance = speed × time, substitute, then halve it, and say why you halved."
+  ],
+  "readingMinutes": 28
+}

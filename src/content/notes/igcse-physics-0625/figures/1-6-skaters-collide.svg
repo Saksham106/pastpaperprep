@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 270" role="img" aria-labelledby="t16skate">
+<title id="t16skate">Two ice skaters on a straight line, before and after they meet. Before: skater A, mass 58 kilograms, moves to the right, east, at 3.5 metres per second. Skater B, mass 72 kilograms, moves to the left, west, at 2.0 metres per second, towards A. After: the skaters hold on to each other and move together as one object of mass 130 kilograms, with an unknown velocity v.</title>
+<text font-family="inherit" font-size="13" x="20" y="24" fill="currentColor" font-weight="bold">before</text>
+<path d="M20 112 H440" stroke="var(--muted)" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="110" y="58" width="56" height="52" rx="10" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="13" x="138" y="82" fill="currentColor" text-anchor="middle">A</text>
+<text font-family="inherit" font-size="12" x="138" y="100" fill="currentColor" text-anchor="middle">58 kg</text>
+<path d="M170 84 L226 84" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="235,84 226,88.5 226,79.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="200" y="72" fill="var(--t1-ink)" text-anchor="middle">3.5 m/s</text>
+<rect x="300" y="58" width="56" height="52" rx="10" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="13" x="328" y="82" fill="currentColor" text-anchor="middle">B</text>
+<text font-family="inherit" font-size="12" x="328" y="100" fill="currentColor" text-anchor="middle">72 kg</text>
+<path d="M296 84 L266 84" fill="none" stroke="var(--t4-ink)" stroke-width="2.2"/>
+<polygon points="257,84 266,79.5 266,88.5" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="12" x="276" y="72" fill="var(--t4-ink)" text-anchor="middle">2.0 m/s</text>
+<text font-family="inherit" font-size="13" x="20" y="158" fill="currentColor" font-weight="bold">after</text>
+<path d="M20 246 H440" stroke="var(--muted)" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="170" y="192" width="112" height="52" rx="10" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="13" x="226" y="216" fill="currentColor" text-anchor="middle">A + B</text>
+<text font-family="inherit" font-size="12" x="226" y="234" fill="currentColor" text-anchor="middle">130 kg</text>
+<path d="M286 218 L336 218" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="345,218 336,222.5 336,213.5" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="314" y="206" fill="var(--t2-ink)" text-anchor="middle">v = ?</text>
+<path d="M360 30 L420 30" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="427,30 420,33.5 420,26.5" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="392" y="20" fill="var(--muted)" text-anchor="middle">positive (east)</text>
+</svg>

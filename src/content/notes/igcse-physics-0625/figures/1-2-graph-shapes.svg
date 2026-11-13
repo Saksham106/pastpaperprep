@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 530 260" role="img" aria-labelledby="t12graphshape">
+<title id="t12graphshape">Eight small sketch graphs in two rows and four columns. The columns are labelled at rest, constant speed, accelerating and decelerating. Top row, distance against time: at rest is a horizontal line; constant speed is a straight line sloping up; accelerating is a curve sloping up and getting steeper; decelerating is a curve sloping up and getting less steep. Bottom row, speed against time: at rest is a line along the time axis at zero speed; constant speed is a horizontal line above the time axis; accelerating is a straight line sloping up; decelerating is a straight line sloping down.</title>
+<text font-family="inherit" font-size="12" x="120.0" y="20" fill="currentColor" text-anchor="middle">at rest</text>
+<text font-family="inherit" font-size="12" x="232.0" y="20" fill="currentColor" text-anchor="middle">constant speed</text>
+<text font-family="inherit" font-size="12" x="344.0" y="20" fill="currentColor" text-anchor="middle">accelerating</text>
+<text font-family="inherit" font-size="12" x="456.0" y="20" fill="currentColor" text-anchor="middle">decelerating</text>
+<text font-family="inherit" font-size="12" x="14" y="77.0" fill="currentColor" text-anchor="start">distance</text>
+<text font-family="inherit" font-size="12" x="14" y="91.0" fill="currentColor" text-anchor="start">–time</text>
+<text font-family="inherit" font-size="12" x="14" y="193.0" fill="currentColor" text-anchor="start">speed</text>
+<text font-family="inherit" font-size="12" x="14" y="207.0" fill="currentColor" text-anchor="start">–time</text>
+<g transform="translate(70 34)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 30 L80 30" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+<g transform="translate(182 34)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 70 L80 12" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+<g transform="translate(294 34)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 70 Q60 68 80 10" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+<g transform="translate(406 34)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 70 Q26 12 80 12" fill="none" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+<g transform="translate(70 150)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 70 L80 70" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+<g transform="translate(182 150)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 30 L80 30" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+<g transform="translate(294 150)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 70 L80 12" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+<g transform="translate(406 150)">
+<path d="M4 70 L90 70" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="96,70 89,73.5 89,66.5" fill="currentColor"/>
+<path d="M8 74 L8 2" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<polygon points="8,-4 11.5,3 4.5,3" fill="currentColor"/>
+<path d="M8 12 L80 70" fill="none" stroke="var(--t3-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="10" x="88" y="84" fill="currentColor" text-anchor="middle">t</text>
+</g>
+</svg>

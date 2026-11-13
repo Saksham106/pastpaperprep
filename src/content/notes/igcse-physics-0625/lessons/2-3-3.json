@@ -1,0 +1,870 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.3.3",
+  "slug": "radiation",
+  "title": "Radiation",
+  "level": "Core",
+  "topic": 2,
+  "summary": "[[thermal-radiation|Thermal radiation]] is infrared radiation. Every object gives it out, and it needs no medium, so it can cross the empty space between the Sun and the Earth. Dull black surfaces absorb and emit it best; shiny white or silvery surfaces reflect it best.",
+  "goals": [
+    {
+      "text": "Know that thermal radiation is infrared, that every object emits it, and that it can travel through a [[vacuum|vacuum]].",
+      "bullets": [
+        "2.3.3-1",
+        "2.3.3-2"
+      ]
+    },
+    {
+      "text": "Describe how the colour and texture of a surface change how well it absorbs, emits and reflects infrared.",
+      "bullets": [
+        "2.3.3-3"
+      ]
+    },
+    {
+      "text": "Describe experiments that compare surfaces as [[emitter|emitters]] and as [[absorber|absorbers]] of infrared.",
+      "bullets": [
+        "2.3.3-7",
+        "2.3.3-8"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how surface [[temperature|temperature]] and surface area change the rate of emission.",
+      "bullets": [
+        "2.3.3-9"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Explain when an object's temperature rises, falls or stays constant, and use this to explain what controls the Earth's temperature.",
+      "bullets": [
+        "2.3.3-4",
+        "2.3.3-5",
+        "2.3.3-6"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.1.2",
+    "2.3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "thermal radiation is infrared",
+    "can radiation travel through a vacuum",
+    "best emitter and absorber of infrared",
+    "dull black vs shiny white surfaces",
+    "Leslie cube experiment",
+    "greenhouse effect and the Earth's temperature"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-hotter-particles",
+      "prompt": "A mug of hot cocoa and a glass of cold milk sit side by side. How do the particles in the cocoa compare with those in the milk?",
+      "hint": "The [[temperature|temperature]] of a substance is linked to how its particles move.",
+      "options": [
+        {
+          "text": "they move faster on average",
+          "correct": true
+        },
+        {
+          "text": "they are larger",
+          "correct": false
+        },
+        {
+          "text": "they move more slowly on average",
+          "correct": false
+        }
+      ],
+      "explain": "A higher temperature means a higher average kinetic energy, so the particles move faster. Their size does not change. Revise it in {{lesson:2.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they move faster on average"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-conduction-needs-particles",
+      "prompt": "Why can thermal energy not be transferred by [[conduction|conduction]] across a completely empty space?",
+      "hint": "Think about what passes the energy along in a conductor.",
+      "options": [
+        {
+          "text": "there are no particles to pass the energy on",
+          "correct": true
+        },
+        {
+          "text": "empty space is too cold",
+          "correct": false
+        },
+        {
+          "text": "conduction only happens in liquids",
+          "correct": false
+        },
+        {
+          "text": "energy cannot exist in empty space",
+          "correct": false
+        }
+      ],
+      "explain": "In conduction, vibrating particles and free electrons pass energy to their neighbours. With no particles, nothing can pass it on. Revise it in {{lesson:2.3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "there are no particles to pass the energy on"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-pick-insulator",
+      "prompt": "Which of these is a good [[thermal-insulator|thermal insulator]]?",
+      "hint": "Insulators are poor at conducting thermal energy. Metals conduct well.",
+      "options": [
+        {
+          "text": "air",
+          "correct": true
+        },
+        {
+          "text": "copper",
+          "correct": false
+        },
+        {
+          "text": "aluminium",
+          "correct": false
+        },
+        {
+          "text": "iron",
+          "correct": false
+        }
+      ],
+      "explain": "Air is a poor conductor, so it is a good insulator. The three metals are good conductors. Revise it in {{lesson:2.3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "air"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "infrared",
+      "heading": "Thermal radiation: infrared that needs no medium",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Stand in sunshine on a cold, still day. The air around you is cold, yet your face feels warm. The energy reaches you as [[thermal-radiation|thermal radiation]]."
+        },
+        {
+          "type": "definition",
+          "term": "thermal radiation",
+          "statement": "Infrared radiation given out by an object because of its temperature. It is an electromagnetic wave, so it can travel through a vacuum.",
+          "plain": "The invisible waves that carry the warmth you feel from a hot object."
+        },
+        {
+          "type": "text",
+          "text": "Infrared is part of the electromagnetic spectrum, just beyond red light. You cannot see it, but your skin feels it as warmth. You meet the whole spectrum in {{lesson:3.3}}."
+        },
+        {
+          "type": "text",
+          "text": "Every object emits infrared, not just hot ones. A radiator, your body and even an ice cube all give it out. Hotter objects give out much more."
+        },
+        {
+          "type": "text",
+          "text": "Conduction and [[convection|convection]] need particles to carry the energy. Radiation does not: it needs no medium. It can cross a [[vacuum|vacuum]], a space with no particles at all."
+        },
+        {
+          "type": "text",
+          "text": "Space between the Sun and the Earth is almost a vacuum. So the Sun's energy reaches us by radiation only. Radiation also travels through air and through many transparent materials, such as glass."
+        },
+        {
+          "type": "mistake",
+          "text": "Naming the process as \"light\" or \"sunlight\". When asked how energy travels from the Sun or a fire, write \"radiation\" or \"infrared radiation\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-spacewalk-glove",
+          "question": "An astronaut on a spacewalk feels the Sun warm her gloves. Explain why this energy can reach her by radiation, but not by conduction or convection.",
+          "steps": [
+            "Say what space contains, then what conduction and convection need.",
+            "Then say why radiation is different."
+          ],
+          "answer": "Space is almost a vacuum, with hardly any particles. Conduction and convection only work when particles pass the energy along, so neither can happen across space. Thermal radiation is infrared, an electromagnetic wave, and it needs no medium. So the energy crosses space from the Sun to her gloves as infrared radiation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "space is a vacuum; conduction and convection need particles; infrared radiation needs no medium; so energy arrives by radiation",
+            "requires": [
+              "vacuum",
+              "particles pass the energy",
+              "no medium",
+              "infrared"
+            ],
+            "forbids": [
+              "sunlight carries the heat",
+              "convection currents in space"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"State\" the method of energy transfer: \"radiation\" or \"infrared radiation\" earns the mark. Adding a wrong method as well, such as convection through space, can lose it."
+        },
+        {
+          "type": "check",
+          "id": "check-who-emits",
+          "prompt": "Which objects emit infrared radiation?",
+          "hint": "Does a cold object give out any infrared at all?",
+          "options": [
+            {
+              "text": "all objects, whatever their temperature",
+              "correct": true
+            },
+            {
+              "text": "only objects hotter than their surroundings",
+              "correct": false
+            },
+            {
+              "text": "only objects hot enough to glow",
+              "correct": false
+            },
+            {
+              "text": "only objects with a black surface",
+              "correct": false
+            }
+          ],
+          "explain": "Every object emits infrared, even an ice cube. Hotter objects emit more, and at the same temperature black surfaces emit faster than white ones, but nothing emits none.",
+          "verify": {
+            "kind": "choice",
+            "truth": "all objects, whatever their temperature"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-bulb-filament",
+          "prompt": "In an old-style light bulb, a very hot filament sits inside a glass bulb with almost all the air removed. How does thermal energy travel from the filament to the glass?",
+          "hint": "With almost no air, which process does not need particles?",
+          "options": [
+            {
+              "text": "by radiation",
+              "correct": true
+            },
+            {
+              "text": "by conduction through the gas",
+              "correct": false
+            },
+            {
+              "text": "by convection currents in the gas",
+              "correct": false
+            },
+            {
+              "text": "it cannot reach the glass",
+              "correct": false
+            }
+          ],
+          "explain": "There are almost no particles between the filament and the glass, so conduction and convection cannot carry the energy. Infrared radiation needs no medium.",
+          "verify": {
+            "kind": "choice",
+            "truth": "by radiation"
+          }
+        }
+      ]
+    },
+    {
+      "id": "surfaces",
+      "heading": "Black or white, dull or shiny",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On a sunny day, a black car gets much hotter inside than an identical white one. The colour of a surface changes what happens to the infrared that falls on it."
+        },
+        {
+          "type": "text",
+          "text": "When infrared reaches an opaque surface, some is absorbed and the rest is reflected. A good [[absorber|absorber]] takes in most of it. A good reflector bounces most of it away."
+        },
+        {
+          "type": "text",
+          "text": "1. Dull (matt) black surfaces are the best absorbers and the worst reflectors."
+        },
+        {
+          "type": "text",
+          "text": "2. Shiny white or silvery surfaces are the best reflectors and the worst absorbers."
+        },
+        {
+          "type": "text",
+          "text": "3. A good absorber is also a good [[emitter|emitter]]. At the same temperature, a dull black surface emits infrared fastest and a shiny silvery or white one slowest."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-3-absorb-reflect",
+          "alt": "Two surfaces with infrared falling on them. On the left, a dull black surface: three infrared arrows hit it and only one short dashed arrow bounces off, labelled absorbs most of the infrared, reflects very little. On the right, a shiny white surface: three infrared arrows hit it and three arrows of the same length bounce off, labelled reflects most of the infrared, absorbs very little.",
+          "caption": "Dull black absorbs most of the infrared; shiny white reflects most of it."
+        },
+        {
+          "type": "text",
+          "text": "Colour and texture both count. Black beats white, and dull beats shiny, at absorbing and at emitting. So a shiny black or a dull white surface comes in between."
+        },
+        {
+          "type": "mistake",
+          "text": "Giving the wrong property. Something warming in sunshine depends on how well it absorbs; something cooling down depends on how well it emits. Name the one the question is about."
+        },
+        {
+          "type": "example",
+          "id": "ex-bottles-in-sun",
+          "question": "Two identical plastic bottles of cold water are left in sunshine. One is painted dull black and the other white. Explain which bottle's water warms up faster.",
+          "steps": [
+            "The bottles are gaining energy, so compare how well each surface absorbs."
+          ],
+          "answer": "The water in the dull black bottle warms up faster. A dull black surface is a good absorber, so it takes in most of the infrared radiation that reaches it. A white surface is a good reflector, and so a poor absorber: it sends most of the radiation back. The black bottle takes in energy at a greater rate, so its temperature rises faster.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "dull black bottle warms faster; black is a good absorber; white is a good reflector and poor absorber; black gains energy at a greater rate",
+            "requires": [
+              "dull black bottle",
+              "good absorber",
+              "good reflector",
+              "poor absorber",
+              "greater rate"
+            ],
+            "forbids": [
+              "attracts heat",
+              "good emitter"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-foil-blanket",
+          "question": "After a marathon, runners are wrapped in thin, shiny silver blankets. Explain how the blanket helps to keep a runner warm.",
+          "steps": [
+            "The runner's body emits infrared. Say what the shiny surface does to it.",
+            "Then say how well the shiny blanket itself emits."
+          ],
+          "answer": "The runner's body emits infrared radiation. The shiny inner surface of the blanket is a good reflector, so it reflects much of this infrared back towards the body. The shiny outer surface is a poor emitter, so the blanket itself loses little energy by radiation. So the runner loses thermal energy more slowly.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "body emits infrared; shiny surface is a good reflector, reflecting it back to the body; shiny surface is a poor emitter; runner loses energy more slowly",
+            "requires": [
+              "emits infrared",
+              "good reflector",
+              "back towards the body",
+              "poor emitter",
+              "more slowly"
+            ],
+            "forbids": [
+              "keeps the cold out",
+              "good absorber"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Explain\" why a surface is black, white or shiny: name the property (good absorber, good reflector, poor emitter), then say what it does to the rate of energy transfer."
+        },
+        {
+          "type": "check",
+          "id": "check-flask-outside",
+          "prompt": "You want a metal flask of hot soup to stay hot for as long as possible. Which outer surface is best?",
+          "hint": "The soup is losing energy. Which surface emits infrared most slowly?",
+          "options": [
+            {
+              "text": "shiny and silvery",
+              "correct": true
+            },
+            {
+              "text": "dull and black",
+              "correct": false
+            },
+            {
+              "text": "shiny and black",
+              "correct": false
+            },
+            {
+              "text": "dull and white",
+              "correct": false
+            }
+          ],
+          "explain": "A shiny, silvery surface is the poorest emitter, so the flask loses energy by radiation most slowly. Dull black is the best emitter, so it is the worst choice.",
+          "verify": {
+            "kind": "choice",
+            "truth": "shiny and silvery"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-mugs",
+          "prompt": "Two identical mugs of tea are at the same temperature. One mug is dull black and the other is shiny white. Which statement is correct?",
+          "hint": "A good absorber is also a good emitter.",
+          "options": [
+            {
+              "text": "the dull black mug emits infrared faster",
+              "correct": true
+            },
+            {
+              "text": "the shiny white mug emits infrared faster",
+              "correct": false
+            },
+            {
+              "text": "both emit infrared at the same rate, as they are at the same temperature",
+              "correct": false
+            },
+            {
+              "text": "neither mug emits infrared until it cools down",
+              "correct": false
+            }
+          ],
+          "explain": "At the same temperature, the surface decides the rate. Dull black is the better emitter, so that mug's tea cools faster.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the dull black mug emits infrared faster"
+          }
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "heading": "Experiments: comparing emitters and absorbers",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To compare surfaces fairly, change only the surface. Keep the temperature, the size and the distance to the detector or heater the same."
+        },
+        {
+          "type": "text",
+          "text": "To compare emitters, use a Leslie cube: a hollow metal cube whose four sides have different surfaces, such as dull black, shiny black, dull white and shiny silver."
+        },
+        {
+          "type": "text",
+          "text": "1. Fill the cube with very hot water, so all four sides are at the same temperature."
+        },
+        {
+          "type": "text",
+          "text": "2. Place an infrared detector a fixed distance from one side and record its reading."
+        },
+        {
+          "type": "text",
+          "text": "3. Turn the cube so each side faces the detector in turn, at the same distance. Take the readings quickly, before the water cools much."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-3-leslie-cube",
+          "alt": "A Leslie cube seen from above: a hollow metal cube full of very hot water, with four different sides: dull black, shiny black, dull white and shiny silver. The dull black side faces an infrared detector, and arrows show infrared travelling from that side to the detector. A marked distance between the side and the detector is labelled same distance for each side. A note says turn the cube so each side faces the detector in turn.",
+          "caption": "Each side of the cube is at the same temperature, so only the surface changes."
+        },
+        {
+          "type": "text",
+          "text": "The dull black side gives the highest reading and the shiny silver side the lowest. So dull black is the best emitter. Without a detector, you can compare how fast hot water cools in two identical cans with different surfaces."
+        },
+        {
+          "type": "text",
+          "text": "To compare absorbers, stick a drawing pin to the back of two metal plates with a small blob of wax. One plate is dull black and the other shiny silver."
+        },
+        {
+          "type": "text",
+          "text": "Stand the plates facing a radiant heater, the same distance away on either side. Switch on and watch the pins. The wax on the dull black plate melts first, so its pin drops first: dull black is the better absorber."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-3-absorber-plates",
+          "alt": "A radiant heater stands in the middle, with arrows of infrared going out to the left and to the right. On the left is a dull black plate and on the right a shiny silver plate, each the same distance from the heater. On the back of each plate, facing away from the heater, a drawing pin is held on by a blob of wax.",
+          "caption": "The pin on the better absorber falls first."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-cans-cooling",
+          "question": "Describe an experiment to show that a dull black surface is a better emitter of infrared radiation than a shiny silver surface. Say what you measure and what you expect.",
+          "steps": [
+            "Say what you set up, keeping everything the same except the surface.",
+            "Then say what you measure, and the result you expect."
+          ],
+          "answer": "Take two identical metal cans, one painted dull black and one shiny silver. Pour the same volume of hot water, at the same starting temperature, into each and put on lids. Stand them side by side, away from draughts. Measure the temperature of each with a thermometer every minute for ten minutes. The water in the dull black can cools faster, which shows that dull black is the better emitter.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "identical cans, dull black and shiny silver; same volume and starting temperature of hot water; thermometer readings every minute; dull black cools faster, so it is the better emitter",
+            "requires": [
+              "same volume",
+              "same starting temperature",
+              "thermometer",
+              [
+                "every minute",
+                "regular intervals"
+              ],
+              "cools faster",
+              "better emitter"
+            ],
+            "forbids": [
+              "better absorber",
+              "shiny silver can cools faster"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-pin-drops",
+          "question": "In the plates experiment, the pin on the dull black plate falls first. Explain this result, and why both plates must be the same distance from the heater.",
+          "steps": [
+            "The plates are gaining energy, so this is about absorbing.",
+            "For the distance, think about what makes the test fair."
+          ],
+          "answer": "The dull black plate is a better absorber of infrared radiation than the shiny silver plate. So it gains energy faster and its temperature rises faster. The wax behind it melts first, so its pin falls first. Both plates must be the same distance from the heater so that infrared reaches each at the same rate. Then only the surface is different, so the test is fair.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "dull black is the better absorber; gains energy and warms faster; its wax melts first; same distance so both receive infrared at the same rate, a fair test",
+            "requires": [
+              "better absorber",
+              "gains energy faster",
+              "melts first",
+              "same rate",
+              "fair"
+            ],
+            "forbids": [
+              "better emitter",
+              "black attracts"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6 \"describe an experiment\" marks go to what you change, what you keep the same, what you measure, and the result you expect."
+        },
+        {
+          "type": "check",
+          "id": "check-leslie-lowest",
+          "prompt": "A Leslie cube full of very hot water has sides that are dull black, shiny black, dull white and shiny silver. Which side gives the lowest reading on an infrared detector at the same distance?",
+          "hint": "Which surface is the poorest emitter?",
+          "options": [
+            {
+              "text": "shiny silver",
+              "correct": true
+            },
+            {
+              "text": "dull black",
+              "correct": false
+            },
+            {
+              "text": "shiny black",
+              "correct": false
+            },
+            {
+              "text": "dull white",
+              "correct": false
+            }
+          ],
+          "explain": "Shiny and light-coloured is the poorest combination for emitting. Dull black gives the highest reading; the other two come in between.",
+          "verify": {
+            "kind": "choice",
+            "truth": "shiny silver"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-same-distance",
+          "prompt": "Why must the detector be the same distance from each side of the Leslie cube?",
+          "hint": "What should be the only thing that changes between readings?",
+          "options": [
+            {
+              "text": "so that only the surface changes between readings",
+              "correct": true
+            },
+            {
+              "text": "so that the water inside stays hot",
+              "correct": false
+            },
+            {
+              "text": "so that every side emits at the same rate",
+              "correct": false
+            }
+          ],
+          "explain": "Moving the detector closer would raise its reading whatever the surface. A fixed distance means any difference comes from the surface alone.",
+          "verify": {
+            "kind": "choice",
+            "truth": "so that only the surface changes between readings"
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy-balance",
+      "heading": "Rate of emission, energy balance and the Earth",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Besides its surface, two things change how fast an object emits radiation:"
+        },
+        {
+          "type": "text",
+          "text": "1. Surface temperature: a hotter surface emits at a greater rate."
+        },
+        {
+          "type": "text",
+          "text": "2. Surface area: a larger surface emits at a greater rate, as more of it is giving out radiation."
+        },
+        {
+          "type": "text",
+          "text": "An object is always gaining energy from its surroundings and losing energy to them. Comparing the two rates tells you what its temperature does:"
+        },
+        {
+          "type": "text",
+          "text": "1. Gaining energy faster than it loses it: the temperature rises."
+        },
+        {
+          "type": "text",
+          "text": "2. Losing energy faster than it gains it: the temperature falls."
+        },
+        {
+          "type": "text",
+          "text": "3. Gaining and losing energy at the same rate: the temperature stays constant."
+        },
+        {
+          "type": "text",
+          "text": "This balance sets itself up. A cool object in sunshine absorbs faster than it emits, so it warms. As it warms, it emits faster. Its temperature stops rising once it loses energy as fast as it gains it."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying an object at a constant temperature has stopped absorbing or emitting. It still does both, at equal rates."
+        },
+        {
+          "type": "example",
+          "id": "ex-metal-sheet-steady",
+          "question": "A metal sheet is left in strong sunshine. Its temperature rises for a while, then stops rising, although the Sun still shines on it. Explain why.",
+          "steps": [
+            "Compare the rate of gaining energy with the rate of losing it, first at the start and then later.",
+            "Use the link between temperature and rate of emission."
+          ],
+          "answer": "At first the sheet absorbs energy from the Sun faster than it transfers energy away, so its temperature rises. As its temperature rises, it emits infrared radiation at a greater rate. Eventually it loses energy at the same rate as it absorbs it. Then its temperature stays constant.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "at first absorbs faster than it loses energy so warms; hotter so emits at a greater rate; rates become equal; temperature constant",
+            "requires": [
+              "absorbs energy",
+              "faster than",
+              "temperature rises",
+              "greater rate",
+              "same rate",
+              "stays constant"
+            ],
+            "forbids": [
+              "stops absorbing",
+              "stops emitting"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "The whole Earth follows the same rule:"
+        },
+        {
+          "type": "text",
+          "text": "1. Radiation from the Sun, mostly visible light and infrared, reaches the Earth. Clouds, ice and snow reflect some of it straight back to space."
+        },
+        {
+          "type": "text",
+          "text": "2. The surface absorbs most of the rest, warms up and emits infrared."
+        },
+        {
+          "type": "text",
+          "text": "3. Greenhouse gases in the atmosphere, such as carbon dioxide, methane and water vapour, absorb some of this infrared and send some back towards the surface. This [[greenhouse-effect|greenhouse effect]] keeps the surface warmer than it would otherwise be."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-3-earth-balance",
+          "alt": "The Sun at the top left sends radiation down to the Earth's surface. A dashed arrow shows some of it reflected back to space by ice, snow and clouds. The surface emits infrared upwards. One arrow passes through the atmosphere and escapes to space. Another arrow is absorbed by greenhouse gases in the atmosphere, and an arrow from the atmosphere points back down to the surface, labelled some absorbed and sent back to the surface.",
+          "caption": "The Earth's temperature is steady when it radiates energy to space as fast as it absorbs energy from the Sun."
+        },
+        {
+          "type": "text",
+          "text": "The Earth's average temperature stays steady when it radiates energy to space at the same rate as it absorbs energy from the Sun. Anything that changes either rate changes the temperature."
+        },
+        {
+          "type": "example",
+          "id": "ex-more-carbon-dioxide",
+          "question": "The amount of carbon dioxide in the atmosphere increases. Explain how this affects the Earth's temperature.",
+          "steps": [
+            "Say what carbon dioxide does to the infrared emitted by the surface.",
+            "Then compare the rates of gaining and losing energy."
+          ],
+          "answer": "Carbon dioxide is a greenhouse gas. It absorbs some of the infrared radiation emitted by the Earth's surface and sends some back towards the surface. With more carbon dioxide, less infrared escapes to space. So the Earth gains energy faster than it loses it, and its temperature rises. It keeps rising until the Earth loses energy as fast as it gains it again, at a higher temperature.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "greenhouse gas absorbs outgoing infrared and returns some to the surface; less infrared escapes; Earth gains energy faster than it loses it; temperature rises to a new balance",
+            "requires": [
+              "greenhouse gas",
+              "absorbs",
+              "less infrared escapes",
+              "faster than it loses",
+              "temperature rises"
+            ],
+            "forbids": [
+              "ozone layer",
+              "hole in the"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-losing-faster",
+          "prompt": "A hot potato on a plate transfers energy away faster than it receives energy. What happens to its temperature?",
+          "hint": "It is losing more energy each second than it gains.",
+          "options": [
+            {
+              "text": "it falls",
+              "correct": true
+            },
+            {
+              "text": "it rises",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "More energy leaves each second than arrives, so its internal energy and temperature fall.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it falls"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-emit-faster",
+          "prompt": "Which change makes a dull black radiator emit thermal radiation at a greater rate?",
+          "hint": "Two things besides the surface change the rate. Which way does each go?",
+          "options": [
+            {
+              "text": "raising its surface temperature",
+              "correct": true
+            },
+            {
+              "text": "making its surface area smaller",
+              "correct": false
+            },
+            {
+              "text": "painting it shiny silver",
+              "correct": false
+            },
+            {
+              "text": "lowering its surface temperature",
+              "correct": false
+            }
+          ],
+          "explain": "A hotter surface emits faster. A smaller area, a shiny silver surface or a lower temperature all reduce the rate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "raising its surface temperature"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ice-melts",
+          "prompt": "Large areas of white sea ice melt, leaving dark ocean water. What is the effect on the Earth?",
+          "hint": "Compare how well white ice and dark water reflect the Sun's radiation.",
+          "options": [
+            {
+              "text": "less radiation is reflected, so the Earth absorbs more and warms",
+              "correct": true
+            },
+            {
+              "text": "more radiation is reflected, so the Earth cools",
+              "correct": false
+            },
+            {
+              "text": "the dark water emits more, so the Earth cools",
+              "correct": false
+            },
+            {
+              "text": "nothing changes, because the Sun's output is the same",
+              "correct": false
+            }
+          ],
+          "explain": "White ice reflects much of the Sun's radiation; dark water absorbs most of it. So the Earth absorbs energy faster than before, and its temperature rises until a new balance is reached.",
+          "verify": {
+            "kind": "choice",
+            "truth": "less radiation is reflected, so the Earth absorbs more and warms"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Thermal radiation is infrared radiation. All objects emit it, whatever their temperature.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Thermal radiation needs no medium, so it can travel through a vacuum. Conduction and convection cannot.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Dull black surfaces are the best absorbers and the worst reflectors of infrared. Shiny white or silvery surfaces are the best reflectors and the worst absorbers.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A good absorber is a good emitter: at the same temperature, a dull black surface emits infrared fastest and a shiny white or silvery one slowest.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compare emitters with a Leslie cube of very hot water and an infrared detector at a fixed distance. Compare absorbers with wax-and-pin plates the same distance from a heater.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "For the same type of surface, the rate of emission is greater at a higher surface temperature (same area) and for a larger surface area (same temperature).",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "An object's temperature is constant when it loses energy at the same rate as it gains energy. It rises if it gains faster, and falls if it loses faster.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "The Earth's temperature is steady when it radiates energy to space as fast as it absorbs energy from the Sun. More greenhouse gases (less infrared escapes) or less ice and snow (less sunlight reflected) make it gain energy faster than it loses it, so it warms until a new balance is reached.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"light\" or \"sunlight\" as the name of the process. Write \"radiation\" or \"infrared radiation\".",
+    "Thinking radiation needs air to travel through. It needs no medium, so it crosses a vacuum.",
+    "Thinking only hot objects emit infrared. Every object does, even an ice cube.",
+    "Giving the absorbing reason when something is cooling. A cooling object depends on how well its surface emits; one warming in sunshine depends on how well it absorbs."
+  ],
+  "examTips": [
+    "\"State\" the method: one word, \"radiation\", is enough. Don't add conduction or convection for energy crossing space.",
+    "\"Explain\" a choice of surface: name the property (good absorber, good reflector, poor emitter) and link it to how fast energy is gained or lost.",
+    "\"Describe an experiment\": say what you change, what you keep the same, what you measure and what you expect to see."
+  ],
+  "readingMinutes": 28
+}

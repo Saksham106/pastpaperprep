@@ -2,19 +2,19 @@
   {
     "id": "mass",
     "term": "mass",
-    "definition": "TODO: Measure of the quantity of matter in an object; scalar, unit kg; does not depend on location",
+    "definition": "A measure of the quantity of matter in an object, in kilograms (kg); it changes only if matter is added or removed, not when the object is moved to another place.",
     "lesson": "1.3"
   },
   {
     "id": "weight",
     "term": "weight",
-    "definition": "TODO: Gravitational force on an object that has mass, in N; a vector; not the same as mass",
+    "definition": "The gravitational force on an object because it has mass, in newtons (N); it acts towards the centre of the Earth (or other body) and is not the same as mass.",
     "lesson": "1.3"
   },
   {
     "id": "gravitational-field-strength",
     "term": "gravitational field strength",
-    "definition": "TODO: Force per unit mass, g = W/m, in N/kg; equals acceleration of free fall",
+    "definition": "The gravitational force per unit mass, $g = \\frac{W}{m}$, in N/kg; it equals the acceleration of free fall, about $9.8\\ \\text{N/kg}$ near the Earth's surface.",
     "lesson": "1.3"
   }
 ]
