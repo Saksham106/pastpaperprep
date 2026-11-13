@@ -1,4 +1,4 @@
-// The IGCSE Physics 0625 course: the shared route wrappers, hidden until published, with three-level items numbered
+// The IGCSE Physics 0625 course: the shared route wrappers, published (hidden again when the flag is off), with three-level items numbered
 // by their syllabus code (1.5.1), practising by bank subtopic in one bank split into Core and Extended routes.
 // Data-derived: it holds with no lessons written (as at the start) and with all 62.
 import { renderToStaticMarkup } from "react-dom/server";
@@ -11,7 +11,7 @@ import { notesLinksForBank } from "@/lib/course-notes/group-lessons";
 import { lessonPractice } from "@/lib/course-notes/practice";
 import { subtopicHref } from "@/lib/course-notes/subtopic-practice";
 import { courseNotesVisible } from "@/lib/course-notes/visibility";
-import { setCourseLessonsForTests } from "@/lib/course-notes/test-visibility";
+import { setCourseLessonsForTests, setCoursePublishedForTests } from "@/lib/course-notes/test-visibility";
 import { lessonFixture } from "@/lib/course-notes/__fixtures__/lesson";
 import { notesPaths } from "@/lib/revision-notes";
 import * as homeRoute from "./igcse-physics-0625/page";
@@ -28,14 +28,31 @@ beforeEach(() => { saved = process.env.NOTES_PREVIEW; delete process.env.NOTES_P
 afterEach(() => { if (saved === undefined) delete process.env.NOTES_PREVIEW; else process.env.NOTES_PREVIEW = saved; });
 
 describe("IGCSE Physics 0625 course", () => {
-  it("ships unpublished, with 58 syllabus sections and 4 practical items, numbered by syllabus code", () => {
-    expect(course.published).toBe(false);
-    expect(courseNotesVisible(course.slug)).toBe(false);
+  it("is published, with 58 syllabus sections and 4 practical items, numbered by syllabus code", async () => {
+    expect(course.published).toBe(true);
+    expect(courseNotesVisible(course.slug)).toBe(true);
     expect(course.items.items).toHaveLength(62);
     expect(course.items.items.map((entry) => entry.item)).toContain("1.5.1");
     expect(course.items.items.filter((entry) => entry.level === "Extended").map((entry) => entry.item)).toEqual(["1.6", "4.5.2"]);
-    expect(notesPaths().some((path) => path.includes(course.slug))).toBe(false);
-    expect(notesLinksForBank("igcse-physics-0625")).toBeUndefined();
+    expect(course.lessons).toHaveLength(62);
+    expect(await lessonRoute.generateStaticParams()).toHaveLength(62);
+    const paths = notesPaths();
+    expect(paths).toContain("/revision-notes/igcse-physics-0625");
+    for (const lesson of course.lessons) expect(paths).toContain(lessonPath(course, lesson));
+    expect(notesLinksForBank("igcse-physics-0625")).toBeDefined();
+  });
+
+  it("when unpublished: no lesson params, nothing in the sitemap, no bank links", async () => {
+    const restore = setCoursePublishedForTests(false, "igcse-physics-0625");
+    try {
+      expect(courseNotesVisible(course.slug)).toBe(false);
+      expect(await lessonRoute.generateStaticParams()).toEqual([]);
+      await expect(lessonRoute.default({ params: Promise.resolve(lessonParams(lessonPath(course, course.lessons[0]))) })).rejects.toThrow();
+      expect(notesPaths().some((path) => path.includes(course.slug))).toBe(false);
+      expect(notesLinksForBank("igcse-physics-0625")).toBeUndefined();
+    } finally {
+      restore();
+    }
   });
 
   it("gives a three-level item a dashed lesson URL that resolves back to it", async () => {

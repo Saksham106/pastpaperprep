@@ -25,6 +25,9 @@ export const IB_PHYSICS_NOTES_HREF = `/revision-notes/${ibPhysicsJson.slug}`;
 /** The IB Maths AI notes, linked from the footer and the IB hub. */
 export const IB_MATHS_AI_NOTES_HREF = `/revision-notes/${ibMathAiJson.slug}`;
 
+/** The IGCSE Physics 0625 notes, linked from the footer and the Cambridge IGCSE hub. */
+export const IGCSE_PHYSICS_NOTES_HREF = `/revision-notes/${igcsePhysics0625Json.slug}`;
+
 /** The notes home: every subject, with notes that are out linked and the rest marked coming soon. */
 export const NOTES_HOME_HREF = "/revision-notes";
 
@@ -48,6 +51,9 @@ export const ibPhysicsNotesVisible = (): boolean => courseNotesVisible(ibPhysics
 
 /** True once the IB Maths AI course is visible (the footer and IB hub link to it). */
 export const ibMathsAiNotesVisible = (): boolean => courseNotesVisible(ibMathAiJson.slug);
+
+/** True once the IGCSE Physics 0625 course is visible (the footer and Cambridge IGCSE hub link to it). */
+export const igcsePhysicsNotesVisible = (): boolean => courseNotesVisible(igcsePhysics0625Json.slug);
 
 /** The header's Notes link: shown once any course is visible. */
 export const notesNavVisible = (): boolean => COURSE_FLAGS.some((course) => isVisibleWhen(course.published));
