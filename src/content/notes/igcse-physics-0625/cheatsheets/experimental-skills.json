@@ -1,0 +1,49 @@
+{
+  "lines": [
+    {
+      "text": "'Find the thickness of one sheet' or 'the period of a pendulum' (too small or too quick for one good reading) → measure many identical ones together, such as a stack or 20 complete oscillations, then divide by the number; the reading or reaction-time error is shared between them ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Choose the apparatus and justify your choice' → an instrument whose range reaches the reading and whose scale divisions are small compared with it, or light gates with an electronic timer for times well under a second; give the reason (smaller divisions, no reaction time), not just 'more accurate' ({{lesson:7.1}}, {{lesson:7.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Identify a hazard and a precaution' → name what could cause harm in this experiment (hot water, falling masses, hot wires), then the precaution that matches it and how it helps, such as a tray of sand under hanging masses; 'be careful' scores nothing ({{lesson:7.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Describe how and explain why a variable is controlled' → name the control variable, the apparatus that sets it the same for every reading (an ammeter and a variable resistor for the current), and why: it also affects the dependent variable, so if it changed you could not tell which caused the change ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Suggest a suitable number and range of values' → at least five values, with units, evenly spaced over the widest range the apparatus allows; for $n$ evenly spaced values the step is (largest − smallest) ÷ $(n - 1)$ ({{lesson:7.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Record the reading' or 'complete the table' → work out one small division (gap between labels ÷ number of divisions), read to the nearest half division when the divisions are wide enough, subtract any zero reading (a negative one adds), and write it under a quantity / unit heading to the instrument's decimal places ({{lesson:7.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Determine the gradient' or 'the intercept' → a triangle covering more than half of the best-fit line, with both corners read from the line, not the table; unit = $y$ unit ÷ $x$ unit; the intercept is the value of $y$ at $x = 0$, so extend the line there if the $x$ scale starts above 0 ({{lesson:7.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Is $y$ directly proportional to $x$?' or 'do the results support the prediction?' → proportional only if the best-fit line is straight and passes through the origin; for two values, find the difference as a percentage of the predicted value (with no prediction, of one of the values): at IGCSE, 10% or less means equal within the limits of experimental accuracy; quote both values ({{lesson:7.2}}, {{lesson:7.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Suggest an improvement' or 'what should she do about this result?' → name the biggest problem and a specific fix: readings scattered both ways (random error) → repeat and calculate a mean; every reading shifted one way (systematic, such as a zero error) → correct the readings or the instrument; a control variable that changed → keep it the same and say how; an anomaly → repeat it, or leave it out of the mean and best-fit line and say so ({{lesson:7.4}})",
+      "tag": "learn",
+      "level": "Core"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "lines": [
+    {
+      "text": "'Test whether a steel bar is a magnet' → bring each end of it near each pole of a known magnet: repulsion proves it is a magnet; attraction proves nothing, because a magnet attracts unmagnetised steel at either pole ({{lesson:4.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Deduce the charge on each object' from which ones attract or repel → start from the object whose charge you know: repulsion means the same sign; attraction between two charged objects means opposite signs, but a charged object also attracts an uncharged one ({{lesson:4.2.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'State the reading' on an analogue ammeter or voltmeter → use the scale for the terminal in use; one small division = the gap between two labelled marks ÷ the number of divisions in it; count on from the labelled mark below the pointer, to the nearest half division, looking straight at the pointer ({{lesson:4.2.2}}, {{lesson:4.2.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the current' in one loop of cells and resistors → add the e.m.f.s of the cells facing the same way (subtract any turned round) and add the resistances, then $I = \\dfrac{V}{R}$ with the total e.m.f. and the total resistance; the current is the same at every point in the loop ({{lesson:4.3.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'How do the meter readings change when it gets darker (or warmer)?' for a sensor in series with a fixed resistor and a fixed supply → chain the links: sensor's resistance, total resistance, current, then $V = IR$ for the fixed resistor; a voltmeter across the sensor changes the opposite way to the fixed resistor's p.d. ({{lesson:4.3.1}}, {{lesson:4.3.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the cost of running an appliance' with the power in W or the time in minutes → change to kW and hours first, multiply them to get the energy in kW h, then multiply by the price per kW h ({{lesson:4.2.5}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the p.d.' when the energy, the current and the time are given → find the charge first with $Q = It$ (current in A, time in s), then $V = \\dfrac{W}{Q}$ ({{lesson:4.2.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Same metal, same length, twice the diameter: find the new resistance' → the area changes by the diameter factor squared ($\\times 4$), and $R \\propto \\dfrac{1}{A}$, so the resistance is a quarter ({{lesson:4.2.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Find the p.d. across one of two resistors in series across a supply' when no current is given → split the supply p.d. in the ratio of the resistances, $\\dfrac{R_1}{R_2} = \\dfrac{V_1}{V_2}$ with $V_1 + V_2$ = the supply p.d.; the larger resistor takes the larger share ({{lesson:4.3.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Which fuse should be fitted?' given the appliance's power and the mains p.d. → find the normal current with $I = \\dfrac{P}{V}$ (power in W), then choose the smallest available rating above it, never the nearest one below ({{lesson:4.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Which way does the meter needle swing now?' after the magnet or its motion is changed → count the reversals from the first test: reversing the pole or the direction of motion swings it the other way, doing both cancels out, and a magnet held still gives no reading ({{lesson:4.5.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Which end of the solenoid is the N pole?' → look at that end: anticlockwise conventional current makes it N, clockwise makes it S; or curl your right-hand fingers round the turns with the conventional current and your thumb points to N ({{lesson:4.5.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the output voltage' or 'the number of turns needed' for a transformer → write $\\dfrac{V_\\text{p}}{V_\\text{s}} = \\dfrac{N_\\text{p}}{N_\\text{s}}$, rearrange for the unknown, then check the direction: fewer turns on the secondary must give a smaller output voltage (step-down) ({{lesson:4.5.6}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Which pole forms at this end of the coil?' as a magnet moves near a coil in a complete circuit → use Lenz's law: the coil opposes the change, so an approaching pole meets a like pole (repelled) and a leaving pole meets an unlike pole (attracted) ({{lesson:4.5.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Determine the direction of the force' on a wire or a beam of charged particles crossing a magnetic field → mark the field from N to S and the conventional current (opposite to the motion of electrons or beta particles), then use Fleming's left-hand rule; the force is at 90° to both, and a current along the field lines feels none ({{lesson:4.5.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Find the frequency' from the e.m.f.–time graph of a simple a.c. generator (one coil, two poles) → count the complete cycles and divide by the time they take; one cycle is one turn of the coil, so this is also the number of turns each second ({{lesson:4.5.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'The transmission voltage is doubled, for the same power: what happens to the power wasted in the cables?' → $I = \\dfrac{P}{V}$ halves the current, then $P = I^2R$ in the same cable gives a quarter of the wasted power ({{lesson:4.5.6}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

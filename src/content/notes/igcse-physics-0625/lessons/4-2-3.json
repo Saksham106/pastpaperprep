@@ -112,7 +112,7 @@
           "correct": false
         }
       ],
-      "explain": "Charge is measured in coulombs (C). The ampere is the unit of current. Revise it in {{lesson:4.2.1}}.",
+      "explain": "Charge is measured in coulombs (C), the unit this lesson uses. The ampere is the unit of current, not charge.",
       "verify": {
         "kind": "choice",
         "truth": "coulomb"
@@ -340,7 +340,7 @@
         },
         {
           "type": "text",
-          "text": "A voltmeter connected across the terminals of a cell or battery measures its e.m.f. So a voltmeter is all you need to measure an e.m.f."
+          "text": "A voltmeter connected across the terminals of a cell or battery, with nothing else connected to it, measures its e.m.f. So a voltmeter is all you need to measure an e.m.f."
         },
         {
           "type": "text",

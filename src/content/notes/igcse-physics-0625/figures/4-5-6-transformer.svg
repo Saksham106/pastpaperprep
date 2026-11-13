@@ -9,8 +9,9 @@
 <line x1="212" y1="210" x2="268" y2="218" stroke="var(--t1-ink)" stroke-width="3"/>
 <polyline points="212,110 120,110 120,142" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
 <polyline points="212,210 120,210 120,178" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
-<circle cx="120" cy="160" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
-<path d="M 109 160 Q 114.5 150 120 160 T 131 160" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="120" cy="147" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="120" cy="173" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="18" x="120" y="166" fill="currentColor" text-anchor="middle">~</text>
 <text font-family="inherit" font-size="13" x="94" y="156" fill="currentColor" text-anchor="end">a.c.</text>
 <text font-family="inherit" font-size="13" x="94" y="172" fill="currentColor" text-anchor="end">supply</text>
 <text font-family="inherit" font-size="13" x="240" y="290" fill="var(--t1-ink)" text-anchor="middle">primary coil</text>

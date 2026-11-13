@@ -193,7 +193,7 @@
         },
         {
           "type": "text",
-          "text": "Recording to the right [[precision|precision]] means giving every figure the instrument can show, no more and no fewer. If a digital reading flickers, wait for it to settle, or record the value it shows most often."
+          "text": "Recording to the right [[precision|precision]] means giving the reading to the smallest step you can read: every digit of a digital display, or the nearest division (or half division) of an analogue scale. No more figures, and no fewer. If a digital reading flickers, wait for it to settle, or record the value it shows most often."
         },
         {
           "type": "example",
@@ -308,7 +308,7 @@
             "Compare the value with what you expect for a small lamp and two cells.",
             "Then look for a slip that gives a number about 100 or 1000 times too big."
           ],
-          "answer": "The current in a small lamp powered by two cells is less than 1 A, so 45 A is far too large. The meter was probably on its milliampere range. So the current was probably 45 mA, which is 0.045 A.",
+          "answer": "The current in a small lamp powered by two cells is usually well under 1 A, so 45 A is far too large. The meter was probably on its milliampere range. So the current was probably 45 mA, which is 0.045 A.",
           "video": null,
           "verify": {
             "kind": "explanation",
@@ -538,7 +538,7 @@
         },
         {
           "type": "text",
-          "text": "4. Calculated values, such as a mean, have 2 or 3 significant figures."
+          "text": "4. A mean keeps the decimal places of its readings. Other calculated values, such as a resistance, usually have 2 or 3 significant figures, no more than the least precise reading."
         },
         {
           "type": "example",
@@ -633,7 +633,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Zero error: true value = reading − zero reading. A negative zero reading is added back."
+          "text": "Zero error: true value = reading − zero reading. If the zero reading is negative, subtracting it adds its size."
         },
         {
           "type": "fact",
@@ -660,12 +660,12 @@
     "Writing \"read it carefully\". Name the technique, such as eye level with the scale or the bottom of the meniscus.",
     "Forgetting the zero error. Look at the instrument before you start, and subtract its zero reading from every reading.",
     "Writing \"repeat the readings\" without \"calculate a mean\".",
-    "Leaving units out of table headings, or dropping a final zero, such as 0.3 instead of 0.30 A."
+    "Leaving units out of table headings, or dropping a final zero, such as 0.3 A instead of 0.30 A from a meter that reads to 0.01 A."
   ],
   "examTips": [
     "\"Measure\": give the value to the precision of the scale, with its unit.",
     "\"Suggest\" a way to make results reliable: say exactly what, such as \"repeat and calculate a mean\" or \"at least five values over a wider range\".",
-    "\"Complete\" a table: add the unit to each heading and keep the same decimal places down each column."
+    "\"Complete\" a table: add the unit to each heading and keep the same decimal places down each column of readings."
   ],
   "readingMinutes": 22
 }

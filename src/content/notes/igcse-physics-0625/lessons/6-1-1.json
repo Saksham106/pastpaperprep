@@ -541,7 +541,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Planets, moons and satellites follow nearly circular orbits, so their motion is close to [[circular-motion|circular motion]]. In one orbit, an object travels once round a circle of radius $r$. That distance is the circumference, $2\\pi r$."
+          "text": "Most planets, moons and satellites follow orbits that are nearly circular, so their motion is close to [[circular-motion|circular motion]]. In one orbit, an object travels once round a circle of radius $r$. That distance is the circumference, $2\\pi r$."
         },
         {
           "type": "text",
@@ -555,7 +555,7 @@
         {
           "type": "definition",
           "term": "orbital speed",
-          "statement": "The average speed of an object in orbit: the distance round the orbit, $2\\pi r$, divided by the orbital period $T$, where $r$ is the mean radius of the orbit.",
+          "statement": "The average speed of an object in orbit: the distance round the orbit, $2\\pi r$, divided by the orbital period $T$, where $r$ is the orbit's average radius.",
           "plain": "How fast something goes round its orbit, on average."
         },
         {
@@ -705,7 +705,7 @@
     "To \"describe\" the motion of the Earth, give each motion with its time: it spins on its axis once in about 24 hours, and it orbits the Sun once in about 365 days. Leaving out the times loses marks.",
     "To \"explain\" the seasons, say that the axis is tilted, which hemisphere leans towards the Sun, and what that does: a higher Sun and longer days. Don't mention distance from the Sun as a cause.",
     "Paper 1/2 often pairs a motion with a time or a cycle. Spin: day and night, 24 hours. Moon's orbit: phases, about a month. Earth's orbit: seasons, about 365 days.",
-    "Extended: to \"calculate\" an orbital speed, write $v = \\frac{2\\pi r}{T}$, substitute with $r$ in m and $T$ in s, then give the answer with its unit, usually to 2 significant figures."
+    "Extended: to \"calculate\" an orbital speed, write $v = \\frac{2\\pi r}{T}$, substitute with $r$ in m and $T$ in s, then give the answer with its unit, to 2 or 3 significant figures, no more than the data justify."
   ],
   "readingMinutes": 25
 }

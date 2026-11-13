@@ -305,7 +305,7 @@
         {
           "type": "example",
           "id": "ex-types-absorbers",
-          "question": "A student holds a detector near a radioactive source and records the count rate with different absorbers between them. No absorber: $312$ counts/minute. Thin paper: $309$ counts/minute. Aluminium $3\\ \\text{mm}$ thick: $31$ counts/minute. With the source removed, the background count rate is $30$ counts/minute. Which types of radiation does the source give out? Explain your answer.",
+          "question": "A student holds a detector about $1\\ \\text{cm}$ from a radioactive source, close enough for any alpha particles to reach it, and records the count rate with different absorbers between them. No absorber: $312$ counts/minute. Thin paper: $309$ counts/minute. Aluminium $3\\ \\text{mm}$ thick: $31$ counts/minute. With the source removed, the background count rate is $30$ counts/minute. Which types of radiation does the source give out? Explain your answer.",
           "steps": [
             "Paper: $312$ falls only to $309$. That small change is just random variation, so paper stops nothing.",
             "Aluminium: the count rate falls to $31$, the same as background ($30$) within random variation. So the aluminium stops everything from the source.",
@@ -399,7 +399,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Alpha and beta particles are charged, so an [[electric-field|electric field]] or a [[magnetic-field|magnetic field]] pushes on them and bends their path. Gamma radiation has no charge, so it goes straight through both."
+          "text": "Alpha and beta particles are charged, so an [[electric-field|electric field]] or a [[magnetic-field|magnetic field]] across their path pushes on them and bends it. Gamma radiation has no charge, so it goes straight through both."
         },
         {
           "type": "text",
@@ -407,7 +407,7 @@
         },
         {
           "type": "text",
-          "text": "In a magnetic field, the force is at right angles to the motion, so alpha and beta follow curved paths in opposite directions. The [[left-hand-rule|left-hand rule]] from {{lesson:4.5.4}} gives the direction. The current points the way an alpha particle moves, but opposite to the way a beta particle moves, because beta is negative."
+          "text": "In a magnetic field at right angles to their motion, the force is at right angles to the motion too, so alpha and beta follow curved paths in opposite directions. The [[left-hand-rule|left-hand rule]] from {{lesson:4.5.4}} gives the direction. The current points the way an alpha particle moves, but opposite to the way a beta particle moves, because beta is negative."
         },
         {
           "type": "text",
@@ -654,14 +654,14 @@
         },
         {
           "type": "fact",
-          "text": "Moving the same way through the same electric or magnetic field, alpha and beta bend in opposite directions and beta bends more (tiny mass). Gamma is not deflected.",
+          "text": "Moving the same way across the same electric or magnetic field, alpha and beta bend in opposite directions and beta bends more (tiny mass). Gamma is not deflected.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"
         },
         {
           "type": "fact",
-          "text": "Alpha is the most ionising because it has the largest charge and more kinetic energy than beta. Gamma has no charge, so it ionises least.",
+          "text": "Alpha is the most ionising because it has the largest charge and, typically, more kinetic energy than beta. Gamma has no charge, so it ionises least.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"
@@ -678,8 +678,8 @@
   ],
   "examTips": [
     "\"State\" the nature of each emission precisely: helium nucleus, fast electron, electromagnetic wave. Give each charge with its sign: $+2$, $-1$, $0$.",
-    "In absorber questions, compare each count rate with the background count rate. A small drop is just random variation.",
+    "In absorber questions, compare each count rate with the background count rate. A drop no bigger than the random variation between repeat readings does not show that anything was stopped.",
     "Extended: when you draw paths in a field, start the bend where the particles enter the field, curve $\\alpha$ and $\\beta$ opposite ways, and make $\\beta$ curve more. Draw $\\gamma$ as a straight line."
   ],
-  "readingMinutes": 22
+  "readingMinutes": 23
 }

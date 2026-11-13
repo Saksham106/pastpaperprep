@@ -12,6 +12,9 @@
     <line x1="290" y1="70" x2="410" y2="70"/>
     <line x1="410" y1="70" x2="410" y2="110"/>
     <rect x="400" y="110" width="20" height="60"/>
+    <line x1="400" y1="125" x2="420" y2="125"/>
+    <line x1="400" y1="140" x2="420" y2="140"/>
+    <line x1="400" y1="155" x2="420" y2="155"/>
     <line x1="410" y1="170" x2="410" y2="200"/>
     <!-- neutral wire back to the mains -->
     <line x1="410" y1="200" x2="70" y2="200"/>
@@ -19,9 +22,7 @@
     <line x1="70" y1="280" x2="480" y2="280"/>
     <line x1="480" y1="280" x2="480" y2="240"/>
   </g>
-  <circle cx="240" cy="70" r="3.5" fill="currentColor"/>
-  <circle cx="290" cy="70" r="3.5" fill="currentColor"/>
-  <circle cx="480" cy="240" r="5" fill="currentColor"/>
+    <circle cx="480" cy="240" r="5" fill="currentColor"/>
   <!-- mains terminals -->
   <g fill="none" stroke="currentColor" stroke-width="2.2">
     <circle cx="64" cy="70" r="6"/>

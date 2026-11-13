@@ -338,7 +338,7 @@
         },
         {
           "type": "text",
-          "text": "A potential divider becomes a sensor circuit when one resistor is a [[thermistor|thermistor]] or a [[light-dependent-resistor|light-dependent resistor]]. When the sensor's resistance changes, its share of the supply p.d. changes too. Remember that a thermistor's resistance falls as it gets warmer."
+          "text": "A potential divider becomes a sensor circuit when one resistor is a [[thermistor|thermistor]] or a [[light-dependent-resistor|light-dependent resistor]]. When the sensor's resistance changes, its share of the supply p.d. changes too. Remember that an NTC thermistor's resistance falls as it gets warmer."
         },
         {
           "type": "example",
@@ -593,7 +593,7 @@
   "mistakes": [
     "Deciding a voltmeter reading before checking which component it is across. Find the voltmeter first. Across the fixed resistor, use $V = IR$; across the sensor, it reads the supply p.d. minus the fixed resistor's p.d.",
     "Stopping at \"the LDR's resistance increases\". Go on to say what happens to the current and to the p.d. the question asks about.",
-    "Getting a sensor backwards. A thermistor's resistance falls as it gets warmer, and an LDR's resistance falls as the light gets brighter.",
+    "Getting a sensor backwards. An NTC thermistor's resistance falls as it gets warmer, and an LDR's resistance falls as the light gets brighter.",
     "Extended: turning the ratio upside down. In a potential divider the larger resistor always has the larger p.d.",
     "Extended: using a variable resistor in series to take a lamp's p.d. down to zero. It can't; a variable potential divider can."
   ],

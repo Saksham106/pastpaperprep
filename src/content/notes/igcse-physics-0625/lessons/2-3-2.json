@@ -108,7 +108,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Heat a saucepan of soup on a hob. Only the bottom of the pan touches the heat, yet soon all the soup is hot. Liquids are poor [[conduction|conductors]], so conduction alone would take far too long. Instead, the soup itself moves and carries the energy up."
+          "text": "Heat a saucepan of soup on a hob. Only the bottom of the pan touches the heat, yet soon all the soup is hot. Most liquids are poor [[conduction|conductors]], so conduction alone would take far too long. Instead, the soup itself moves and carries the energy up."
         },
         {
           "type": "definition",
@@ -118,7 +118,7 @@
         },
         {
           "type": "text",
-          "text": "Liquids and gases are called fluids because they can flow. Convection is an important way thermal energy moves through them. Both conduct badly, so without convection a pan of water or a room would warm up very slowly."
+          "text": "Liquids and gases are called fluids because they can flow. Convection is an important way thermal energy moves through them. Gases and most liquids conduct badly, so without convection a pan of water or a room would warm up very slowly."
         },
         {
           "type": "text",
@@ -512,13 +512,13 @@
         },
         {
           "type": "fact",
-          "text": "A heated fluid expands, so its density decreases and it rises. Cooler, denser fluid sinks to replace it. This loop is a convection current.",
+          "text": "Fluid that is heated expands, so its density decreases and it rises through the cooler, denser fluid around it, which sinks to replace it. This loop is a convection current.",
           "tag": "learn",
           "cheatSheet": true
         },
         {
           "type": "fact",
-          "text": "A cooled fluid contracts, so its density increases and it sinks.",
+          "text": "Fluid that is cooled contracts, so its density increases and it sinks through the warmer, less dense fluid around it.",
           "tag": "learn",
           "cheatSheet": true
         },

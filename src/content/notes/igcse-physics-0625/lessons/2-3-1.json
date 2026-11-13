@@ -141,7 +141,7 @@
         },
         {
           "type": "text",
-          "text": "Wood, plastic, rubber, glass, wool and polystyrene are thermal insulators. Liquids such as water conduct badly too, and air is one of the best insulators of all. Many insulators, such as wool, feathers and foam, work by trapping air."
+          "text": "Wood, plastic, rubber, wool and polystyrene are thermal insulators, and glass is a poor conductor too. Liquids such as water conduct badly too, and air is one of the best insulators of all. Many insulators, such as wool, feathers and foam, work by trapping air."
         },
         {
           "type": "text",
@@ -450,7 +450,7 @@
         },
         {
           "type": "text",
-          "text": "Lattice vibrations are the only way a non-metal solid, such as glass or wood, conducts. Passing energy from neighbour to neighbour like this is slow."
+          "text": "Lattice vibrations are the only way a solid with no free electrons, such as glass or wood, conducts. Passing energy from neighbour to neighbour like this is slow."
         },
         {
           "type": "text",
@@ -608,7 +608,7 @@
         },
         {
           "type": "fact",
-          "text": "Metals are good thermal conductors (copper better than steel). Wood, plastic, wool, water and air are thermal insulators.",
+          "text": "Metals are good thermal conductors (copper better than steel). Wood, plastic, wool and air are thermal insulators; water and most other liquids are poor conductors too.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -652,5 +652,5 @@
     "\"Describe an experiment\": say what you set up, what you keep the same, what you measure and how the result shows the better conductor.",
     "\"Explain\" conduction in a metal (Extended): name both ways, lattice vibrations passed to neighbouring ions and free electrons that move through the metal and collide with ions."
   ],
-  "readingMinutes": 22
+  "readingMinutes": 23
 }

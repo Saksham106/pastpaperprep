@@ -1,0 +1,44 @@
+{
+  "lines": [
+    {
+      "text": "'Explain why it is summer in one hemisphere and winter in the other' → use the tilt: the Earth's tilted axis points the same way in space all through its 365-day orbit, so the hemisphere leaning towards the Sun has a higher Sun (light on a smaller area) and longer days; distance from the Sun is not the cause ({{lesson:6.1.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the orbital speed' or 'find the orbital period' → $v = \\dfrac{2\\pi r}{T}$ or $T = \\dfrac{2\\pi r}{v}$, with $r$ the average radius of the orbit measured from the centre of the body being orbited (add the planet's radius to a height above its surface), $r$ in m and $T$ in s for $v$ in m/s ({{lesson:6.1.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'How long does light or a radio signal take to travel between two objects in space?' → $t = \\dfrac{s}{v}$ with $v = 3.0 \\times 10^8\\ \\text{m/s}$ and $s$ in m, then convert to minutes if asked; for a star $N$ light-years away, its light takes $N$ years ({{lesson:6.1.2}}, {{lesson:6.2.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Use the accretion model to explain why the inner planets are rocky and the outer planets gaseous' → make separate points: a rotating cloud of gas and dust containing many elements; gravity pulls it in and it flattens into an accretion disc; material clumps together into planets; near the Sun it was hot, so only rock and metal stayed solid; far out it was cold, so large cores formed and their gravity pulled in gas ({{lesson:6.1.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Explain why a comet moves fastest when it is closest to the Sun' → conservation of energy: with no friction in space, its kinetic energy + gravitational potential energy stays constant; moving towards the Sun its gravitational potential energy falls, so its kinetic energy and speed rise, and both are greatest at the closest point ({{lesson:6.1.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'What does the light from distant galaxies tell us about the Universe?' → compare it with light from the same elements on Earth: every line has a longer observed wavelength (redshift), so the galaxies are moving away; redshift in every direction means the Universe is expanding, which supports the Big Bang theory ({{lesson:6.2.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the Hubble constant' or 'find how fast a galaxy recedes, or how far away it is' → $H_0 = \\dfrac{v}{d}$, rearranged, with $v$ in m/s (from the redshift) and $d$ in m (from the brightness of a supernova in the galaxy), so $H_0$ is in /s; from a graph of $v$ against $d$, $H_0$ is the gradient, keeping the powers of ten on both axes ({{lesson:6.2.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Estimate the age of the Universe' → $\\dfrac{1}{H_0} = \\dfrac{d}{v}$ gives the time in s; divide by about $3.15 \\times 10^7\\ \\text{s}$ per year; it is only an estimate, because it assumes the galaxies have always moved apart at today's speeds ({{lesson:6.2.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

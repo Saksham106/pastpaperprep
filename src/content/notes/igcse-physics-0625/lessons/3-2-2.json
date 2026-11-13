@@ -177,7 +177,7 @@
         },
         {
           "type": "text",
-          "text": "Through a rectangular block, the ray bends one way going in and back the same amount coming out. It leaves parallel to the ray that went in, shifted sideways."
+          "text": "Through a rectangular block with air on both sides, a ray that comes out of the opposite face bends one way going in and back the same amount coming out. It leaves parallel to the ray that went in, shifted sideways."
         },
         {
           "type": "text",
@@ -306,7 +306,7 @@
         },
         {
           "type": "text",
-          "text": "Rectangular block: the ray bends going in and coming out, and leaves parallel to its first direction."
+          "text": "Rectangular block: the ray bends going in and coming out. If it leaves through the opposite face, it comes out parallel to its first direction."
         },
         {
           "type": "text",
@@ -779,7 +779,7 @@
         },
         {
           "type": "formula",
-          "tex": "n = \\frac{1}{\\sin c}",
+          "tex": "n = \\frac{1}{\\sin c} \\quad \\text{(}c\\text{: critical angle, material to air)}",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"

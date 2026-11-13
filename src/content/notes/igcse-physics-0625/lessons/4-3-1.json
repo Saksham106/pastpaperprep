@@ -138,7 +138,7 @@
         {
           "type": "figure",
           "id": "4-3-1-symbols-supplies-outputs",
-          "alt": "Twelve circuit symbols. Cell: a long thin line and a short thick line. Battery: two cells joined. d.c. power supply: two small open circles marked plus and minus. a.c. power supply: two small open circles with a wavy line between them. Generator: a circle with G. Open switch: a hinged line lifted away from its contact. Lamp: a circle with a cross. Motor: a circle with M. Electric bell: a dome on a flat base. Ammeter: a circle with A. Voltmeter: a circle with V. Junction of wires: a dot where three wires meet.",
+          "alt": "Twelve circuit symbols. Cell: a long thin line and a short thick line. Battery: two cells joined. d.c. power supply: two small open circles marked plus and minus. a.c. power supply: two small open circles with a wavy line between them. Generator: a square with G. Open switch: a hinged line lifted away from its contact. Lamp: a circle with a cross. Motor: a circle with M. Electric bell: a dome on a flat base. Ammeter: a circle with A. Voltmeter: a circle with V. Junction of wires: a dot where three wires meet.",
           "caption": "Supplies, a switch, output devices and meters. A cell's long thin plate is its positive terminal."
         },
         {
@@ -148,7 +148,7 @@
         {
           "type": "figure",
           "id": "4-3-1-symbols-resistors-coils",
-          "alt": "Ten circuit symbols. Fixed resistor: an empty rectangle. Variable resistor: a rectangle with a straight diagonal arrow through it. Potential divider: a rectangle with an arrow pointing onto its side from a third wire. Thermistor: a rectangle crossed by a diagonal line with a short flat foot at its lower end. Light-dependent resistor: a rectangle with two arrows pointing in towards it. Heater: a rectangle divided into sections. Fuse: a rectangle with the wire running through it along its length. Magnetising coil: a row of loops. Transformer: two coils side by side with two parallel lines, the core, between them. Relay: a coil and a switch, with a dashed line showing that the coil works the switch.",
+          "alt": "Ten circuit symbols. Fixed resistor: an empty rectangle. Variable resistor: a rectangle with a straight diagonal arrow through it. Potential divider: a rectangle with an arrow pointing onto its side from a third wire. Thermistor: a rectangle crossed by a diagonal line with a short flat foot at its lower end. Light-dependent resistor: a rectangle with two arrows pointing in towards it. Heater: a rectangle divided into sections. Fuse: a rectangle with the wire running through it along its length. Magnetising coil: a row of loops. Transformer: two coils side by side with two parallel lines, the core, between them. Relay coil: a small rectangle with the wire passing through it.",
           "caption": "Many of these symbols are rectangles, so look at what is drawn on or through each one."
         },
         {
@@ -349,7 +349,7 @@
         {
           "type": "figure",
           "id": "4-3-1-relay-circuit",
-          "alt": "Two separate circuits joined by a relay. Left: a cell, a switch S and the relay coil, wound on an iron core, form a small-current circuit. Right: a battery, a motor and the relay's switch contacts form a large-current circuit. A dashed arrow from the coil to the contacts shows that the coil closes the contacts when it is magnetised.",
+          "alt": "Two separate circuits joined by a relay. Left: a cell, a switch S and the relay coil form a small-current circuit. Right: a battery, a motor and the relay's switch contacts form a large-current circuit. A dashed arrow from the coil to the contacts shows that the coil closes the contacts when it is magnetised.",
           "caption": "A relay lets a small current switch on a large one."
         },
         {
@@ -660,7 +660,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Potential divider: connected across a supply, it shares the supply p.d.; with a sliding contact it gives any p.d. from zero to the full supply p.d. Transformer: changes the size of an alternating p.d., and works only with a.c."
+          "text": "Potential divider: connected across a supply, it shares the supply p.d.; with a sliding contact, and the output taken between one end and the slider, it gives any p.d. from zero to the full supply p.d. Transformer: changes the size of an alternating p.d., and works only with a.c."
         },
         {
           "type": "fact",

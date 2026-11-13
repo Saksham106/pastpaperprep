@@ -6,7 +6,7 @@
   "title": "The transformer",
   "level": "Core",
   "topic": 4,
-  "summary": "A [[transformer|transformer]] is two coils of wire on a soft-iron core. It changes the size of an alternating voltage: more turns on the output coil give a bigger voltage, fewer turns a smaller one. The grid uses transformers to send electricity along cables at a very high voltage, so the current is small and less energy is wasted heating the cables.",
+  "summary": "A [[transformer|transformer]] is two coils of wire on a soft-iron core. It changes the size of an alternating voltage: more turns on the output coil than on the input coil give a bigger voltage, fewer turns a smaller one. The grid uses transformers to send electricity along cables at a very high voltage, so the current is small and less energy is wasted heating the cables.",
   "goals": [
     {
       "text": "Describe how a transformer is built, and use the words primary, secondary, step-up and step-down.",
@@ -146,7 +146,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A [[transformer|transformer]] changes an alternating voltage into a bigger or a smaller one. Mains electricity is $230\\ \\text{V}$, for example, but a doorbell might need only $8\\ \\text{V}$."
+          "text": "A [[transformer|transformer]] changes an alternating voltage into a bigger or a smaller one. Mains electricity is about $230\\ \\text{V}$ in many countries, for example, but a doorbell might need only $8\\ \\text{V}$."
         },
         {
           "type": "text",
@@ -172,7 +172,7 @@
         },
         {
           "type": "text",
-          "text": "A transformer works only with [[alternating-current|alternating current]]. The changing current in the primary makes a changing [[magnetic-field|magnetic field]], and only a changing field induces a voltage in the secondary ({{lesson:4.5.1}}). A steady d.c. makes a steady field, so there is no output."
+          "text": "A transformer works only with [[alternating-current|alternating current]]. The changing current in the primary makes a changing [[magnetic-field|magnetic field]], and only a changing field induces a voltage in the secondary ({{lesson:4.5.1}}). A steady d.c. makes a steady field, so there is no output, apart from a brief flick at the moment the d.c. is switched on or off."
         },
         {
           "type": "text",
@@ -486,7 +486,7 @@
         },
         {
           "type": "text",
-          "text": "So when a transformer steps the voltage up, it steps the current down by the same factor.",
+          "text": "So when a 100% efficient transformer steps the voltage up, it steps the current down by the same factor.",
           "level": "Extended"
         },
         {
@@ -511,6 +511,7 @@
         {
           "type": "check",
           "id": "check-step-up-current",
+          "level": "Extended",
           "prompt": "A 100% efficient transformer has 8 times as many turns on its secondary coil as on its primary coil. How does the secondary current compare with the primary current?",
           "hint": "The voltage goes up 8 times. The power stays the same.",
           "options": [
@@ -752,6 +753,7 @@
         {
           "type": "check",
           "id": "check-double-voltage",
+          "level": "Extended",
           "prompt": "A fixed power is sent along a cable. The voltage is doubled. What happens to the power wasted in the cable?",
           "hint": "Doubling the voltage halves the current. Then use $P = I^2R$.",
           "options": [

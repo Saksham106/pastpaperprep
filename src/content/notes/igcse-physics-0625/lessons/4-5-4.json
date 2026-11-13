@@ -326,7 +326,7 @@
         },
         {
           "type": "text",
-          "text": "First finger: the field, from N to S. Second finger: the current, as [[conventional-current|conventional current]], from + to −. Thumb: the force, which is the way the wire moves."
+          "text": "First finger: the field, from N to S. Second finger: the current, as [[conventional-current|conventional current]], from + to −. Thumb: the force, which is the way the wire is pushed."
         },
         {
           "type": "text",
@@ -396,7 +396,7 @@
         },
         {
           "type": "mistake",
-          "text": "Using your right hand. The right-hand rule gives the induced current in a moving wire ({{lesson:4.5.1}}); for the force on a current, use your left hand."
+          "text": "Using your right hand. Fleming's right-hand rule gives the induced current in a moving wire ({{lesson:4.5.1}}); for the force on a current, use your left hand."
         },
         {
           "type": "check",
@@ -653,14 +653,14 @@
   "mistakes": [
     "Reversing both the current and the field and expecting the force to reverse. The two reversals cancel, so the force keeps its original direction.",
     "Thinking that reversing the current or the field changes the size of the force. It changes only the direction; a bigger current or a stronger magnet makes it bigger.",
-    "Drawing or using the field from S to N. Field lines run from the N pole to the S pole.",
-    "Taking the direction electrons or beta particles move as the current. Conventional current flows the opposite way, so the force comes out reversed.",
-    "Using the right hand. The left-hand rule gives the force on a current; the right-hand rule is for induced current."
+    "Drawing or using the field between two poles from S to N. Outside a magnet, field lines run from the N pole to the S pole.",
+    "Extended: taking the direction electrons or beta particles move as the current. Conventional current flows the opposite way, so the force comes out reversed.",
+    "Extended: using the right hand. The left-hand rule gives the force on a current; Fleming's right-hand rule is for induced current."
   ],
   "examTips": [
     "\"Describe\" the experiment in three parts: the apparatus (a conductor between the poles of a magnet, in a complete circuit with a d.c. supply), what you see (it moves when the current flows), and each reversal with its result.",
     "When you \"state\" how to reverse the force, name one change: \"reverse the current\" or \"swap the poles of the magnet\". Saying \"change the current\" or doing both at once earns no mark.",
-    "For direction questions, write down the field (N to S) and the conventional current first, then use your left hand. Check that your answer is at right angles to both."
+    "Extended: for direction questions, write down the field (N to S) and the conventional current first, then use your left hand. Check that your answer is at right angles to both."
   ],
   "readingMinutes": 24
 }

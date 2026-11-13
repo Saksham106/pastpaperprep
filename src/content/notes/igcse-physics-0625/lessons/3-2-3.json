@@ -92,7 +92,7 @@
           "correct": false
         }
       ],
-      "explain": "Light is slower in glass than in air, so it changes direction at the boundary: [[refraction|refraction]]. Revise it in {{lesson:3.1}}.",
+      "explain": "Light is slower in glass than in air, so it changes direction at the boundary: [[refraction|refraction]]. Revise it in {{lesson:3.2.2}}.",
       "verify": {
         "kind": "choice",
         "truth": "the light changes speed at the boundary"
@@ -266,7 +266,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "A converging lens brings the rays from one point of an object together again at one point of the image. So two rays from the object's tip find the image's tip. Three are easy to draw:"
+          "text": "When the object is further from a converging lens than F, the lens brings the rays from one point of the object together again at one point of the image. So two rays from the object's tip find the image's tip. Three are easy to draw:"
         },
         {
           "type": "text",
@@ -686,12 +686,12 @@
     "Treating the lens-to-image distance as the focal length. They are equal only for a very distant object.",
     "Calling an image on a screen virtual or upright. Rays really meet there, so it is real and, from one converging lens, inverted.",
     "Drawing a real image arrow pointing up or floating off the axis. For an upright object on the axis, it points down from the axis.",
-    "Saying \"diminished\" for an object between F and 2F. Only an object beyond 2F gives a diminished image."
+    "Saying \"diminished\" for an object between F and 2F. With a converging lens, only an object beyond 2F gives a diminished real image."
   ],
   "examTips": [
     "Ray diagrams: use a ruler, add arrows in the direction of the light, and continue each ray until it meets the other. Draw virtual rays and images dashed.",
     "Describe an image with all three words (size, which way up, real or virtual); leaving one out can lose a mark.",
     "Practical (Paper 5 or 6): estimate $f$ by focusing a distant object onto a screen and measuring from the centre of the lens to the screen."
   ],
-  "readingMinutes": 24
+  "readingMinutes": 25
 }

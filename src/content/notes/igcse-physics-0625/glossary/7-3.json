@@ -2,13 +2,13 @@
   {
     "id": "precision",
     "term": "precision",
-    "definition": "How close repeated measured values of a quantity are to each other; recording a reading to the right precision means giving every figure the instrument can show.",
+    "definition": "How close repeated measured values of a quantity are to each other; recording a reading to the right precision means giving it to the smallest step you can read on the instrument, no more and no fewer figures.",
     "lesson": "7.3"
   },
   {
     "id": "zero-error",
     "term": "zero error",
-    "definition": "The reading an instrument gives when the true value is zero; subtract it from every reading (adding it back if it is below zero) to get the true values.",
+    "definition": "The reading an instrument gives when the true value is zero; subtract it from every reading to get the true values (subtracting a negative zero error adds its size).",
     "lesson": "7.3"
   },
   {

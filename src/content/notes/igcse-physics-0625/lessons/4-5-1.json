@@ -34,7 +34,7 @@
       "level": "Extended"
     },
     {
-      "text": "Use the right-hand rule to link the directions of motion, field and induced current, and find the force on the induced current.",
+      "text": "Use Fleming's right-hand rule to link the directions of motion, field and induced current, and find the force on the induced current.",
       "bullets": [
         "4.5.1-5"
       ],
@@ -325,7 +325,7 @@
         },
         {
           "type": "text",
-          "text": "Reversing the movement, or turning the magnet round, changes the direction of the e.m.f. but not its size."
+          "text": "Reversing the movement at the same speed, or turning the magnet round, changes the direction of the e.m.f. but not its size."
         },
         {
           "type": "example",
@@ -632,7 +632,7 @@
         },
         {
           "type": "fact",
-          "text": "With everything else kept the same, the induced e.m.f. is bigger for faster movement, a stronger magnet or more turns on the coil. Reversing the movement or the magnet reverses the e.m.f. but does not change its size.",
+          "text": "With everything else kept the same, the induced e.m.f. is bigger for faster movement, a stronger magnet or more turns on the coil. Reversing the movement (at the same speed) or the magnet reverses the e.m.f. but does not change its size.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -655,7 +655,7 @@
   ],
   "mistakes": [
     "Thinking a magnet held still inside a coil induces an e.m.f. Only a change does: movement across the field, or a field that is growing or shrinking.",
-    "Connecting the wire to a power supply to \"induce\" an e.m.f. A supply drives a current and gives a force on the wire; induction needs the wire to cut field lines.",
+    "Connecting the wire to a power supply to \"induce\" an e.m.f. A supply drives a current and gives a force on the wire; induction needs the wire to cut field lines, or the field through a coil to change.",
     "Moving the wire along the field lines, or along its own length. It cuts no field lines, so no e.m.f. is induced: move it across the field.",
     "Forgetting that two reversals cancel. Using the other pole and moving the other way gives the same direction of deflection as before."
   ],

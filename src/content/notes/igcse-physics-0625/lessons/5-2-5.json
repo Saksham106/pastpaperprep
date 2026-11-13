@@ -6,7 +6,7 @@
   "title": "Safety precautions",
   "level": "Core",
   "topic": 5,
-  "summary": "[[ionising-radiation|Ionising radiation]] damages the cells it passes through. It can kill them, or change their DNA so that they grow wrongly and become cancer. Learn how radioactive sources are stored, moved and used so that as little radiation as possible reaches anyone. Extended explains every precaution with three ideas: less time, more distance and shielding.",
+  "summary": "[[ionising-radiation|Ionising radiation]] damages the cells it passes through. It can kill them, or change their DNA so that they grow wrongly and become cancer. Learn how radioactive sources are stored, moved and used so that as little radiation as possible reaches anyone. Extended explains the precautions with three ideas: less time, more distance and shielding.",
   "goals": [
     {
       "text": "State how ionising radiation harms living cells: it can kill them, cause mutations and cause cancer.",
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "text": "Explain each safety precaution by whether it cuts the time you are exposed, puts more distance between you and the source, or places a shield in the way.",
+      "text": "Explain [[safety-precautions|safety precautions]] by whether it cuts the time you are exposed, puts more distance between you and the source, or places a shield in the way.",
       "bullets": [
         "5.2.5-3"
       ],
@@ -254,7 +254,7 @@
         },
         {
           "type": "text",
-          "text": "Radioactive waste from power stations and hospitals must be stored too. It is sealed inside thick steel or concrete containers so it cannot leak, often deep underground. Waste with a long [[half-life|half-life]] stays dangerous for thousands of years."
+          "text": "Radioactive waste from power stations and hospitals must be stored too. It is sealed inside thick steel or concrete containers so it cannot leak, often deep underground. Waste with a long [[half-life|half-life]] can stay dangerous for thousands of years."
         },
         {
           "type": "example",
@@ -364,7 +364,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Every precaution works in one of three ways. Each one cuts the dose: the amount of radiation your body absorbs."
+          "text": "Precautions against radiation from a source outside your body work in three ways. Each one cuts the dose: the amount of radiation your body absorbs."
         },
         {
           "type": "text",
@@ -499,7 +499,7 @@
         },
         {
           "type": "fact",
-          "text": "Every precaution cuts the dose in one of three ways: less exposure time, more distance from the source, or a shield that absorbs the radiation.",
+          "text": "Against a source outside the body, precautions cut the dose in three ways: less exposure time, more distance from the source, or a shield that absorbs the radiation.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"

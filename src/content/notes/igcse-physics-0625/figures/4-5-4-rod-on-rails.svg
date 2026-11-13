@@ -11,12 +11,12 @@
 <line x1="110" y1="205" x2="580" y2="205" stroke="currentColor" stroke-width="4"/>
 <text font-family="inherit" font-size="12" x="580" y="82" fill="currentColor" text-anchor="end">metal rail</text>
 <text font-family="inherit" font-size="12" x="580" y="224" fill="currentColor" text-anchor="end">metal rail</text>
-<line x1="110" y1="95" x2="110" y2="140" stroke="currentColor" stroke-width="2"/>
-<line x1="92" y1="140" x2="128" y2="140" stroke="currentColor" stroke-width="2"/>
-<line x1="101" y1="152" x2="119" y2="152" stroke="currentColor" stroke-width="5"/>
-<line x1="110" y1="152" x2="110" y2="205" stroke="currentColor" stroke-width="2"/>
-<text font-family="inherit" font-size="14" x="136" y="138" fill="currentColor">+</text>
-<text font-family="inherit" font-size="14" x="136" y="160" fill="currentColor">−</text>
+<line x1="110" y1="95" x2="110" y2="132" stroke="currentColor" stroke-width="2"/>
+<circle cx="110" cy="137" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="110" cy="163" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="110" y1="168" x2="110" y2="205" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="14" x="122" y="142" fill="currentColor">+</text>
+<text font-family="inherit" font-size="14" x="122" y="168" fill="currentColor">−</text>
 <text font-family="inherit" font-size="12" x="84" y="144" fill="currentColor" text-anchor="end">d.c.</text>
 <text font-family="inherit" font-size="12" x="84" y="160" fill="currentColor" text-anchor="end">supply</text>
 <line x1="330" y1="82" x2="330" y2="218" stroke="var(--t2-ink)" stroke-width="6"/>

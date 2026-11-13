@@ -152,7 +152,7 @@
         },
         {
           "type": "text",
-          "text": "A uniform object is made of the same material all through. If its shape is symmetrical, its centre of gravity is at its centre: halfway along a uniform ruler, and where the diagonals cross on a uniform rectangular sheet."
+          "text": "A uniform object is made of the same material all through. Its centre of gravity lies on every line of symmetry. So when the shape has two or more lines of symmetry, it is at the centre, where they cross: halfway along a uniform ruler, and where the diagonals cross on a uniform rectangular sheet."
         },
         {
           "type": "text",
@@ -231,7 +231,7 @@
           "type": "check",
           "id": "check-cog-plywood",
           "prompt": "Where is the centre of gravity of a uniform rectangular sheet of plywood?",
-          "hint": "Uniform and symmetrical: the centre of gravity is at the centre. How do you find the centre of a rectangle?",
+          "hint": "For a uniform sheet, the centre of gravity lies on every line of symmetry. Where do a rectangle's lines of symmetry cross?",
           "options": [
             {
               "text": "where its two diagonals cross",
@@ -250,7 +250,7 @@
               "correct": false
             }
           ],
-          "explain": "For a uniform symmetrical shape the centre of gravity is at the centre, which for a rectangle is where the diagonals cross.",
+          "explain": "For a uniform sheet the centre of gravity lies on each line of symmetry. A rectangle's two lines of symmetry cross at its centre, which is where the diagonals cross.",
           "verify": {
             "kind": "choice",
             "truth": "where its two diagonals cross"
@@ -492,7 +492,10 @@
                 "centre of gravity is lower",
                 "lower centre of gravity"
               ],
-              ["tilt the tripod further", "tilt further"],
+              [
+                "tilt the tripod further",
+                "tilt further"
+              ],
               "outside the base",
               "more stable"
             ],
@@ -568,7 +571,7 @@
       "blocks": [
         {
           "type": "fact",
-          "text": "The centre of gravity is the point through which all the weight of an object can be taken to act. For a uniform, symmetrical object it is at the centre.",
+          "text": "The centre of gravity is the point through which all the weight of an object can be taken to act. For a uniform object it lies on every line of symmetry, so for a uniform ruler, rectangular sheet or ring it is at the centre.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -580,7 +583,7 @@
         },
         {
           "type": "fact",
-          "text": "A tilted object falls back onto its base if the vertical line down from its centre of gravity passes inside the base. It topples if the line passes outside the base.",
+          "text": "A tilted object, when released, falls back onto its base if the vertical line down from its centre of gravity passes inside the base. It topples if the line passes outside the base.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -604,5 +607,5 @@
     "\"Explain\" why one object is more stable than another: give a reason for each mark, such as a lower centre of gravity or a wider base, so it must tilt further before the line of its weight leaves the base.",
     "\"Describe\" the plumb-line experiment in order: hang the card freely, hang the plumb line from the same pin, mark the vertical line, repeat from another hole, then say the centre of gravity is where the lines meet."
   ],
-  "readingMinutes": 20
+  "readingMinutes": 21
 }

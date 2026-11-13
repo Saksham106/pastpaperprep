@@ -179,7 +179,7 @@
         },
         {
           "type": "text",
-          "text": "This is why metals are good [[electrical-conductor|electrical conductors]]: they have charges that are free to move. Insulators such as plastic have almost no free electrons."
+          "text": "This is why metals are good [[electrical-conductor|electrical conductors]]: they have charges that are free to move. Insulators such as plastic have no free electrons, so charge cannot flow through them."
         },
         {
           "type": "example",
@@ -478,7 +478,7 @@
             "So the current never reverses, even though its size changes.",
             "Only a change of direction makes a current a.c."
           ],
-          "answer": "It is d.c. The current changes in size, but it never drops to zero or below. So it always flows in the same direction. A current is a.c. only if its direction keeps reversing.",
+          "answer": "It is d.c. The current changes in size, but it never goes below zero. So it always flows in the same direction. A current is a.c. only if its direction keeps reversing.",
           "video": null,
           "verify": {
             "kind": "explanation",

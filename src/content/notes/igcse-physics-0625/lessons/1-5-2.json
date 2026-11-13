@@ -6,7 +6,7 @@
   "title": "Turning effect of forces",
   "level": "Core",
   "topic": 1,
-  "summary": "A [[force|force]] can turn an object about a pivot. Its turning effect, the [[moment|moment]], is the force times its perpendicular distance from the pivot. A beam balances when the clockwise and anticlockwise moments are equal, and an object is in [[equilibrium|equilibrium]] only when both the forces and the moments balance.",
+  "summary": "A [[force|force]] can turn an object about a pivot. Its turning effect, the [[moment|moment]], is the force times its perpendicular distance from the pivot. A beam balances when the clockwise and anticlockwise moments about the pivot are equal, and an object is in [[equilibrium|equilibrium]] only when both the forces and the moments balance.",
   "goals": [
     {
       "text": "Describe a moment as the turning effect of a force, with everyday examples.",
@@ -209,7 +209,7 @@
         },
         {
           "type": "text",
-          "text": "With one force on each side of the pivot, this becomes $F_1 \\times d_1 = F_2 \\times d_2$. A smaller force can balance a bigger one if it acts further from the pivot."
+          "text": "With one force on each side of the pivot, on a beam that is light or pivoted at its centre, this becomes $F_1 \\times d_1 = F_2 \\times d_2$. A smaller force can balance a bigger one if it acts further from the pivot."
         },
         {
           "type": "figure",
@@ -347,7 +347,7 @@
         },
         {
           "type": "text",
-          "text": "If a beam is not pivoted at its centre, its own weight has a moment too. For a uniform beam, that weight acts at the middle of the beam."
+          "text": "A uniform beam's own weight acts at the middle of the beam. If the beam is not pivoted there, its weight has a moment too."
         },
         {
           "type": "check",
@@ -456,7 +456,7 @@
     "Mixing cm and m. Use one unit for every distance; a moment with distances in cm is in N cm.",
     "Saying a beam is in equilibrium because the forces balance. The moments must balance too.",
     "Confusing moment with work done. Both multiply a force by a distance, but a moment uses the perpendicular distance from a pivot.",
-    "Extended: leaving out a beam's own weight when the pivot is not at its centre, or adding a moment for it when the pivot is at its centre."
+    "Extended: leaving out a uniform beam's own weight when the pivot is not at its centre, or adding a moment for it when the pivot is at its centre."
   ],
   "examTips": [
     "\"State the principle of moments\": give the condition (an object in equilibrium) and both sides: total clockwise moment equals total anticlockwise moment about the same point.",

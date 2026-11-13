@@ -181,7 +181,7 @@
         },
         {
           "type": "text",
-          "text": "Reversing the current, or swapping the poles of the magnet, makes the coil turn the other way. It does not make the turning effect bigger."
+          "text": "Reversing the current, or swapping the poles of the magnet, makes the coil turn the other way; doing both at once cancels out. Neither change makes the turning effect bigger."
         },
         {
           "type": "example",
@@ -521,7 +521,7 @@
         },
         {
           "type": "fact",
-          "text": "The turning effect on the coil is increased by more turns on the coil, a bigger current or a stronger magnetic field. Reversing the current or the field reverses the direction of turning, not its size.",
+          "text": "The turning effect on the coil is increased by more turns on the coil, a bigger current or a stronger magnetic field. Reversing either the current or the field reverses the direction of turning, not its size; reversing both leaves the direction unchanged.",
           "tag": "learn",
           "cheatSheet": true
         },
@@ -546,13 +546,13 @@
     "Picking a pair of changes where one increases and the other decreases. The result is uncertain; only changes that are all increases must increase the turning effect.",
     "Thinking the forces vanish when the coil lies across the field. They still act, but along a line through the axle, so they have no moment.",
     "Listing \"reverse the current\" as a way to increase the turning effect. Reversing changes only the direction of turning.",
-    "Saying the commutator makes the motor faster. Its job is to reverse the coil's current at each half turn, which keeps the rotation in one direction.",
-    "Giving a direction of turning without stating the field and current directions that give it.",
-    "Mixing up the parts: a d.c. motor has a split-ring commutator, and an a.c. generator has slip rings."
+    "Extended: saying the commutator makes the motor faster. Its job is to reverse the coil's current at each half turn, which keeps the rotation in one direction.",
+    "Extended: giving a direction of turning without stating the field and current directions that give it.",
+    "Extended: mixing up the parts: a d.c. motor has a split-ring commutator, and an a.c. generator has slip rings."
   ],
   "examTips": [
     "When you \"state\" how to increase the turning effect, give the direction of each change: \"more turns\", \"a bigger current\", \"a stronger magnetic field\". \"Change the current\" earns no mark.",
-    "To \"describe\" how a motor works, write one point per sentence: opposite forces on the two sides, a turning effect, the commutator reversing the current every half turn, the coil turning one way, and the brushes keeping contact.",
+    "Extended: to \"describe\" how a motor works, write one point per sentence: opposite forces on the two sides, a turning effect, the commutator reversing the current every half turn, the coil turning one way, and the brushes keeping contact.",
     "In a Paper 1/2 multiple-choice question that pairs two changes, check each change on its own. Pick the option where every change increases the turning effect."
   ],
   "readingMinutes": 21

@@ -149,7 +149,7 @@
         },
         {
           "type": "text",
-          "text": "Mechanical work: you push a wheelbarrow, and energy goes from the chemical store in your muscles to the wheelbarrow's kinetic store. An apple falls from a tree: its weight does work, moving energy from its [[gravitational-potential-energy|gravitational potential]] store to its kinetic store."
+          "text": "Mechanical work: you push a wheelbarrow and it speeds up, so energy goes from the chemical store in your muscles to the wheelbarrow's kinetic store. An apple falls from a tree: its weight does work, moving energy from its [[gravitational-potential-energy|gravitational potential]] store to its kinetic store."
         },
         {
           "type": "text",
@@ -284,7 +284,7 @@
         },
         {
           "type": "text",
-          "text": "So $1\\ \\text{J}$ is the work done when a force of $1\\ \\text{N}$ moves an object $1\\ \\text{m}$ in the direction of the force. That is why a joule is also called a newton metre (N m)."
+          "text": "So $1\\ \\text{J}$ is the work done when a force of $1\\ \\text{N}$ moves an object $1\\ \\text{m}$ in the direction of the force. That is why $1\\ \\text{J} = 1\\ \\text{N m}$. A moment ({{lesson:1.5.2}}) is also in N m, but it is not an energy, so never give a moment in J."
         },
         {
           "type": "text",
@@ -333,7 +333,7 @@
         },
         {
           "type": "mistake",
-          "text": "Using a distance that isn't along the force. A lifting force does work only while the object rises: carrying it along a level floor at a steady height does no work against gravity."
+          "text": "Using a distance that isn't along the force. A lifting force does no work while the object moves sideways at a steady height, such as when it is carried along a level floor."
         },
         {
           "type": "mistake",
@@ -518,7 +518,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Lifting at a steady speed: the lifting force equals the weight, so the work done is weight × height gained."
+          "text": "Lifting at a steady speed: the lifting force equals the weight, so the work done by the lifting force is weight × height gained."
         },
         {
           "type": "fact",
@@ -541,5 +541,5 @@
     "\"Describe\" an energy transfer: name the store the energy leaves, the store it goes to, and how it moves (mechanical work, electrical work, heating or waves).",
     "Paper 1/2 multiple choice: energy transferred by a force is $Fd$. $\\frac{Fd}{t}$ is energy per second (power), and force × time is not an energy."
   ],
-  "readingMinutes": 18
+  "readingMinutes": 19
 }

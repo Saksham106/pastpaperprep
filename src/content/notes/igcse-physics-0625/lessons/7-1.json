@@ -231,7 +231,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Choose the instrument whose smallest scale division suits what you are measuring. The smaller the quantity, the more a fine scale matters."
+          "text": "Choose an instrument whose range reaches the largest value you will measure, with scale divisions small compared with the reading. The smaller the quantity, the more a fine scale matters."
         },
         {
           "type": "text",
@@ -594,7 +594,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Justify a choice with a reason: smaller scale divisions, no reaction time (light gates), or a larger quantity to measure."
+          "text": "Justify a choice with a reason: smaller scale divisions on a range that still reaches the reading, no reaction time (light gates), or a larger quantity to measure."
         },
         {
           "type": "fact",
@@ -613,7 +613,7 @@
   ],
   "mistakes": [
     "Writing \"read it carefully\" or \"be careful\". Name the actual technique or precaution.",
-    "Reading the top of the meniscus, which gives too big a volume. Read the bottom, with your eye level with it.",
+    "Reading the top of a water meniscus, which gives too big a volume. Read the bottom, with your eye level with it.",
     "Giving a precaution that doesn't match the hazard, like goggles for masses on a spring. Name the hazard first.",
     "Saying \"more accurate\" with no reason. Say why: smaller divisions, no reaction time, or more oscillations timed."
   ],
@@ -623,5 +623,5 @@
     "\"Justify\" a choice of apparatus: give the reason it is better, not just its name.",
     "Two versions of one idea, like \"ruler vertical\" and \"ruler straight\", earn one mark. Give two different techniques."
   ],
-  "readingMinutes": 21
+  "readingMinutes": 22
 }

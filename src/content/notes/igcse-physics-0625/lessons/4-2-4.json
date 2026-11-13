@@ -27,7 +27,7 @@
       ]
     },
     {
-      "text": "Calculate a wire's new resistance when its length or cross-sectional area changes, using $R \\propto L$ and $R \\propto \\frac{1}{A}$.",
+      "text": "Calculate a wire's new resistance when its length or cross-sectional area changes, using $R \\propto l$ and $R \\propto \\frac{1}{A}$.",
       "bullets": [
         "4.2.4-5"
       ],
@@ -470,12 +470,12 @@
         {
           "type": "text",
           "level": "Extended",
-          "text": "Extended students use the exact rules. For wires of the same metal at the same temperature, resistance is directly proportional to length $L$ when the area is the same. It is inversely proportional to cross-sectional area $A$ when the length is the same."
+          "text": "Extended students use the exact rules. For wires of the same metal at the same temperature, resistance is directly proportional to length $l$ when the area is the same. It is inversely proportional to cross-sectional area $A$ when the length is the same."
         },
         {
           "type": "formula",
           "level": "Extended",
-          "tex": "R \\propto L \\qquad R \\propto \\frac{1}{A}",
+          "tex": "R \\propto l \\qquad R \\propto \\frac{1}{A}",
           "tag": "learn"
         },
         {
@@ -489,7 +489,7 @@
           "level": "Extended",
           "question": "A $2.5\\ \\text{m}$ length of constantan wire has a resistance of $9.0\\ \\Omega$. Calculate the resistance of $0.80\\ \\text{m}$ of the same wire.",
           "steps": [
-            "Same metal and same area, so $R \\propto L$.",
+            "Same metal and same area, so $R \\propto l$.",
             "The length is multiplied by $\\frac{0.80}{2.5}$, so the resistance is too.",
             "$R = 9.0 \\times \\frac{0.80}{2.5} = 2.88\\ \\Omega$, which is $2.9\\ \\Omega$ to 2 significant figures."
           ],
@@ -601,7 +601,7 @@
         },
         {
           "type": "text",
-          "text": "With $I$ up the side, a steeper line means a smaller resistance. On a curve, find the resistance at a point from that point's values: $R = \\frac{V}{I}$. Don't use the gradient of the curve."
+          "text": "With $I$ up the side, a steeper straight line through the origin means a smaller resistance. On a curve, find the resistance at a point from that point's values: $R = \\frac{V}{I}$. Don't use the gradient of the curve."
         },
         {
           "type": "example",
@@ -717,7 +717,7 @@
         },
         {
           "type": "formula",
-          "tex": "R \\propto L \\ \\text{(same area)} \\qquad R \\propto \\frac{1}{A} \\ \\text{(same length)}",
+          "tex": "R \\propto l \\ \\text{(same area)} \\qquad R \\propto \\frac{1}{A} \\ \\text{(same length)}",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"
@@ -737,7 +737,7 @@
     "Leaving a current in mA. Change it to A before using $R = \\frac{V}{I}$, or the resistance comes out 1000 times too small.",
     "Using the battery's p.d. for one component in a circuit with others. Use the p.d. across that component.",
     "Connecting the voltmeter in series with the resistor. It goes in parallel, across the resistor only.",
-    "Thinking a thinner wire has less resistance. Thinner means less room for the charge, so more resistance.",
+    "Thinking a thinner wire has less resistance. For the same metal and length, thinner means less room for the charge, so more resistance.",
     "Extended: halving the resistance when a wire's diameter doubles. The area is 4 times bigger, so the resistance is a quarter."
   ],
   "examTips": [

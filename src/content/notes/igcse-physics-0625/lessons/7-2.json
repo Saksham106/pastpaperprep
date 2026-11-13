@@ -328,7 +328,7 @@
         },
         {
           "type": "text",
-          "text": "Then choose apparatus. Pick an instrument whose scale divisions are small compared with the reading, and justify it with a reason. A technique can help too, such as timing 10 swings and dividing by 10. {{lesson:7.1}} covers the common choices."
+          "text": "Then choose apparatus. Pick an instrument whose range reaches the largest reading and whose scale divisions are small compared with the reading, and justify it with a reason. A technique can help too, such as timing 10 oscillations of a pendulum and dividing by 10. {{lesson:7.1}} covers the common choices."
         },
         {
           "type": "example",
@@ -597,7 +597,7 @@
         },
         {
           "type": "text",
-          "text": "Afterwards, compare the results with the prediction. A predicted and a measured value agree within the limits of experimental [[accuracy|accuracy]] if they differ by 10% or less of the predicted value ({{lesson:7.4}})."
+          "text": "Afterwards, compare the results with the prediction. At IGCSE, a predicted and a measured value agree within the limits of experimental [[accuracy|accuracy]] if they differ by 10% or less of the predicted value ({{lesson:7.4}})."
         },
         {
           "type": "example",
@@ -696,7 +696,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Justify apparatus or a technique with a reason, such as scale divisions small compared with the reading, or timing 10 swings to get a larger time to measure."
+          "text": "Justify apparatus or a technique with a reason, such as a range that reaches the reading with scale divisions small compared with it, or timing 10 oscillations to get a larger time to measure."
         },
         {
           "type": "fact",
@@ -714,7 +714,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "A reasoned prediction gives the expected change and the physics reason. Results support it if the measured and predicted values differ by 10% or less of the predicted value."
+          "text": "A reasoned prediction gives the expected change and the physics reason. At IGCSE, a numerical prediction is supported if the measured value differs from it by 10% or less of the predicted value."
         }
       ]
     }
@@ -730,5 +730,5 @@
     "\"Describe how\" to control a variable: name the apparatus and what stays the same. \"Explain why\": it would also change the dependent variable.",
     "In a planning question, answer every point in the list you are given, in order."
   ],
-  "readingMinutes": 23
+  "readingMinutes": 24
 }

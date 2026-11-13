@@ -267,7 +267,7 @@
         },
         {
           "type": "text",
-          "text": "A gradient's unit is the $y$ unit ÷ the $x$ unit. The intercept, where the line crosses the $y$-axis, has the $y$ unit."
+          "text": "A gradient's unit is the $y$ unit ÷ the $x$ unit. The intercept is the value of $y$ where the line meets $x = 0$, and it has the $y$ unit. If the $x$ scale doesn't start at 0, don't read it where the line crosses the drawn axis."
         },
         {
           "type": "example",
@@ -276,15 +276,20 @@
           "steps": [
             "Take two points on the line, far apart: $(0.40\\ \\text{s}, 0.59\\ \\text{m/s})$ and $(3.40\\ \\text{s}, 1.64\\ \\text{m/s})$.",
             "$\\text{gradient} = \\frac{1.64 - 0.59}{3.40 - 0.40} = \\frac{1.05}{3.00} = 0.35$, in (m/s) ÷ s, which is $\\text{m/s}^2$.",
-            "The gradient of a speed–time graph is the acceleration."
+            "It tells you the trolley gains about 0.35 m/s of speed every second."
           ],
-          "answer": "$a = 0.35\\ \\text{m/s}^2$",
+          "answer": "$\\text{gradient} = 0.35\\ \\text{m/s}^2$",
           "video": null,
           "verify": {
             "kind": "exact",
             "truth": "(1.64 - 0.59)/(3.40 - 0.40)",
             "unit": "m/s^2"
           }
+        },
+        {
+          "type": "text",
+          "text": "The gradient of a speed–time graph is the acceleration, so this trolley's acceleration is $a = 0.35\\ \\text{m/s}^2$ ({{lesson:1.2}}).",
+          "level": "Extended"
         },
         {
           "type": "example",
@@ -403,7 +408,7 @@
         },
         {
           "type": "text",
-          "text": "Real readings never agree exactly. At IGCSE, two results agree within the limits of experimental [[accuracy|accuracy]] if they differ by 10% or less."
+          "text": "Real readings rarely agree exactly. At IGCSE, two results agree within the limits of experimental [[accuracy|accuracy]] if they differ by 10% or less."
         },
         {
           "type": "text",
@@ -412,12 +417,12 @@
         {
           "type": "example",
           "id": "ex-pendulum-mass",
-          "question": "A student predicts that a pendulum's swing time doesn't depend on the mass of the bob. She measures $1.42\\ \\text{s}$ with a light bob and $1.47\\ \\text{s}$ with a heavy one. Comment on whether her results support the prediction.",
+          "question": "A student predicts that a pendulum's period doesn't depend on the mass of the bob. She measures a period of $1.42\\ \\text{s}$ with a light bob and $1.47\\ \\text{s}$ with a heavy one. Comment on whether her results support the prediction.",
           "steps": [
             "Difference: $1.47 - 1.42 = 0.05\\ \\text{s}$, and $\\frac{0.05}{1.47} \\times 100 \\approx 3\\%$.",
             "Compare with 10%, then state the conclusion with both values."
           ],
-          "answer": "Yes, the results support the prediction. The times $1.42\\ \\text{s}$ and $1.47\\ \\text{s}$ differ by about 3%, which is less than 10%. So they agree within the limits of experimental accuracy, even though the mass changed.",
+          "answer": "Yes, the results support the prediction. The periods $1.42\\ \\text{s}$ and $1.47\\ \\text{s}$ differ by about 3%, which is less than 10%. So they agree within the limits of experimental accuracy, even though the mass changed.",
           "video": null,
           "verify": {
             "kind": "explanation",
@@ -673,15 +678,15 @@
         },
         {
           "type": "text",
-          "text": "Common ones: repeat and calculate a mean; more readings over a wider range; time many swings and divide; light gates instead of a stopwatch; smaller scale divisions."
+          "text": "Common ones: repeat and calculate a mean; more readings over a wider range; time many oscillations and divide; light gates instead of a stopwatch; smaller scale divisions."
         },
         {
           "type": "example",
           "id": "ex-twenty-swings",
-          "question": "A student times 20 complete swings of a pendulum and gets $31.4\\ \\text{s}$. Calculate the time for one swing, and explain why timing 20 swings is better than timing one.",
+          "question": "A student times 20 complete oscillations of a pendulum and gets $31.4\\ \\text{s}$. Calculate the period, and explain why timing 20 oscillations is better than timing one.",
           "steps": [
-            "One swing: $\\frac{31.4}{20} = 1.57\\ \\text{s}$.",
-            "Reaction time adds perhaps $0.2\\ \\text{s}$ to a hand-timed reading. Over 20 swings, that is only about $0.01\\ \\text{s}$ per swing."
+            "One oscillation: $\\frac{31.4}{20} = 1.57\\ \\text{s}$.",
+            "Reaction time adds perhaps $0.2\\ \\text{s}$ to a hand-timed reading. Over 20 oscillations, that is only about $0.01\\ \\text{s}$ per oscillation."
           ],
           "answer": "$T = 1.57\\ \\text{s}$",
           "video": null,
@@ -806,7 +811,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Two results agree within experimental accuracy if their difference is 10% or less of one of them (the predicted value, if there is one)."
+          "text": "At IGCSE, two results agree within experimental accuracy if their difference is 10% or less of one of them (the predicted value, if there is one)."
         },
         {
           "type": "fact",

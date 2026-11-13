@@ -1,0 +1,59 @@
+{
+  "lines": [
+    {
+      "text": "'Explain, in terms of particles, why the pressure of a sealed gas changes' → first say what is kept constant, then chain: average speed of the particles (changed or not) → how often and how hard they hit the walls → force on the walls → pressure. Heated at constant volume: faster, so more often and harder; squeezed at constant temperature: same average speed, more often; more gas in the same space: more hits each second ({{lesson:2.1.2}}, {{lesson:2.1.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the new pressure (or volume)' of a gas → check it is a fixed mass at constant temperature, then $p_1V_1 = p_2V_2$ with the same units on both sides (kPa and cm³ are fine); sense check that the larger pressure goes with the smaller volume ({{lesson:2.1.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Do these pressure and volume readings support Boyle's law?' → work out $pV$ for every row; they support it if all the values are equal within experimental accuracy (about 10%). Seeing $p$ rise as $V$ falls is not enough ({{lesson:2.1.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Explain why a bridge has a joint, a track has gaps or a cable hangs slack' (or why a hot tap loosens a lid) → decide hot (expands, longer) or cold (contracts, shorter), then name the problem that change would cause or the job it does. A hole in a heated solid gets bigger too ({{lesson:2.2.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the energy supplied while it melts (or boils)' from a heater and a heating curve → the flat section is the change of state: read its length in time, change minutes to seconds, then $\\Delta E = Pt$, assuming all the heater's energy goes into the substance ({{lesson:2.2.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Find the specific heat capacity from a graph of temperature against time' (heater of power $P$) → gradient $= \\dfrac{\\Delta\\theta}{t}$ from the straight part, then $c = \\dfrac{P}{m \\times \\text{gradient}}$ with $m$ in kg; valid while the heater supplies energy at a steady rate, little escapes and there is no change of state ({{lesson:2.2.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'By which process is the energy transferred?' → test all three in turn: across a vacuum or through space, only radiation; through a solid such as a pan base or a spoon, conduction (a solid cannot flow, so no convection); warm liquid or gas moving and carrying the energy, convection; someone warmed in front of a fire, mainly radiation ({{lesson:2.3.1}}, {{lesson:2.3.2}}, {{lesson:2.3.3}}, {{lesson:2.3.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Explain how the whole kettle, pan or room warms up' (or how a fridge or air-conditioner cools it) → convection chain: heated fluid expands → density falls → it rises through the cooler, denser fluid, which sinks to replace it → a loop, the convection current. For a cooler, run it backwards: cooled, contracts, denser, sinks. Say 'less dense', never 'heat rises' ({{lesson:2.3.2}}, {{lesson:2.3.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Which surface should it have?' → decide whether the object should gain energy by radiation (in sunshine: dull black, the best absorber) or lose as little as possible (a hot flask or a survival blanket: shiny silver or white, the poorest emitter and best reflector); at the same temperature, dull black emits fastest ({{lesson:2.3.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Plan a fair test of conductors or insulators' → change only the material. Rods: same size, same wax at the same distance, same hot water; the shortest time for the bead to fall is the best conductor. Insulated cups: same volume and starting temperature of water, same thickness and same time; the smallest temperature drop is the best insulator ({{lesson:2.3.1}}, {{lesson:2.3.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Explain why its temperature rises, then stops rising' (a sheet in sunshine, or the Earth with more greenhouse gas) → compare the rate it gains energy with the rate it loses it: gains faster, temperature rises; equal, temperature steady; a hotter surface emits faster, so the rates move towards balance. This holds while the object is not changing state ({{lesson:2.3.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

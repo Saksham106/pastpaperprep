@@ -148,7 +148,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "You can't predict when one [[unstable-nucleus|unstable nucleus]] will decay. But even a tiny sample holds billions of them. With so many, the same fraction always decays in the same time, so the whole sample behaves predictably."
+          "text": "You can't predict when one [[unstable-nucleus|unstable nucleus]] will decay. But even a tiny sample holds billions of them. With so many, very nearly the same fraction decays in each equal time, so the whole sample behaves predictably."
         },
         {
           "type": "text",
@@ -496,7 +496,7 @@
         },
         {
           "type": "text",
-          "text": "Treating cancer: beams of gamma rays from a source outside the body are aimed at the tumour from several directions. The tumour gets a large dose that kills its cells, while healthy tissue gets less. This source has a long half-life, so it keeps working for years."
+          "text": "Treating cancer: in one method, beams of gamma rays from a source outside the body are aimed at the tumour from several directions. The tumour gets a large dose that kills its cells, while healthy tissue gets less. This source has a long half-life, so it keeps working for years."
         },
         {
           "type": "example",
@@ -560,7 +560,7 @@
               "correct": false
             }
           ],
-          "explain": "Gamma passes out of the body to the camera. A few hours is long enough for the scan but short enough that the activity in the body soon falls.",
+          "explain": "Gamma passes out of the body to the camera. A few hours is long enough for the scan but short enough that little of the isotope is left in the body soon after.",
           "verify": {
             "kind": "choice",
             "truth": "a gamma emitter with a half-life of a few hours"
@@ -659,7 +659,7 @@
         },
         {
           "type": "fact",
-          "text": "Isotope choice: smoke alarm, alpha with a long half-life; food, equipment and cancer treatment, gamma with a long half-life; paper thickness, beta with a long half-life; tracer, gamma with a half-life of a few hours.",
+          "text": "Isotope choice: smoke alarm, alpha with a long half-life; food, equipment and cancer treatment by gamma beams from outside the body, gamma with a long half-life; paper thickness, beta with a long half-life; medical tracer for diagnosis, gamma with a half-life of a few hours.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"

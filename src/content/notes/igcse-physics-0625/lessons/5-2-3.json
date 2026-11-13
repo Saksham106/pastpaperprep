@@ -391,7 +391,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "An element can have several [[isotope|isotopes]]. Some are stable and some are radioactive. A nucleus is unstable for one or both of two reasons."
+          "text": "An element can have several [[isotope|isotopes]]. Some are stable and some are radioactive. You need to know two reasons why a nucleus can be unstable. It may have one or both."
         },
         {
           "type": "text",
@@ -532,7 +532,7 @@
         },
         {
           "type": "text",
-          "text": "A beta particle is $^{\\,0}_{-1}\\beta$. Its top number is 0 because an electron is not a nucleon, and its mass is tiny. Its bottom number, $-1$, is its charge. Gamma radiation is $\\gamma$, or $^{0}_{0}\\gamma$: no nucleons and no charge."
+          "text": "A beta particle is $^{\\,0}_{-1}\\beta$. Its top number is 0 because an electron is not a nucleon, and its mass is tiny. Its bottom number, $-1$, is its charge. You may also see it written $^{\\,0}_{-1}\\text{e}$. Gamma radiation is $\\gamma$, or $^{0}_{0}\\gamma$: no nucleons and no charge."
         },
         {
           "type": "result",
@@ -684,14 +684,14 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Alpha and beta decay change the proton number, so the nucleus becomes a different element. Gamma emission changes neither number: the element stays the same."
+          "text": "Alpha and beta decay change the proton number, so the nucleus becomes a different element. Gamma emission leaves both the proton number and the nucleon number unchanged: the element stays the same."
         },
         {
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended",
-          "text": "A nucleus is unstable if it has too many neutrons for its number of protons, is too heavy, or both. Decay makes it more stable; beta decay reduces the excess of neutrons."
+          "text": "A nucleus can be unstable because it has too many neutrons for its number of protons, because it is too heavy, or both. Decay makes it more stable; beta decay reduces the excess of neutrons."
         },
         {
           "type": "formula",

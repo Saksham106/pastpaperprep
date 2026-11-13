@@ -261,7 +261,8 @@
             "truth": "100000*9.5*10**15",
             "sf": 2,
             "unit": "m"
-          }
+          },
+          "level": "Extended"
         }
       ]
     },
@@ -627,12 +628,12 @@
         },
         {
           "type": "text",
-          "text": "When $v$ is plotted against $d$ for many galaxies, the points lie close to a straight line through the origin. The speed is proportional to the distance. The ratio $\\frac{v}{d}$ is the [[hubble-constant|Hubble constant]], $H_0$."
+          "text": "When $v$ is plotted against $d$ for many distant galaxies, the points lie close to a straight line through the origin. The speed is proportional to the distance. The ratio $\\frac{v}{d}$ is the [[hubble-constant|Hubble constant]], $H_0$."
         },
         {
           "type": "definition",
           "term": "Hubble constant",
-          "statement": "The speed at which a galaxy recedes from the Earth divided by its distance from the Earth.",
+          "statement": "The speed at which a distant galaxy recedes from the Earth divided by its distance from the Earth.",
           "plain": "How much faster a galaxy recedes for each metre further away it is."
         },
         {
@@ -770,7 +771,7 @@
         },
         {
           "type": "text",
-          "text": "Because $\\frac{d}{v}$ is the same for every galaxy, they all give the same time. So every galaxy was in the same place at the same moment. This is evidence that everything in the Universe, all its matter, started at one single point."
+          "text": "Because $\\frac{d}{v}$ is about the same for every distant galaxy, they all give the same time. So every galaxy was in the same place at the same moment. This is evidence that everything in the Universe, all its matter, started at one single point."
         },
         {
           "type": "text",
@@ -829,7 +830,7 @@
         {
           "type": "check",
           "id": "check-single-point",
-          "prompt": "Why does $\\frac{d}{v}$ being the same for every galaxy suggest that all matter was once at a single point?",
+          "prompt": "Why does $\\frac{d}{v}$ being about the same for every distant galaxy suggest that all matter was once at a single point?",
           "hint": "What does $\\frac{d}{v}$ tell you about each galaxy's journey?",
           "options": [
             {
@@ -909,7 +910,7 @@
         },
         {
           "type": "fact",
-          "text": "$\\frac{1}{H_0} = \\frac{d}{v}$ estimates the age of the Universe, about 14 billion years. It is the same for every galaxy, which is evidence that all matter was once at a single point.",
+          "text": "$\\frac{1}{H_0} = \\frac{d}{v}$ estimates the age of the Universe, about 14 billion years, assuming the galaxies have always moved apart at today's speeds. It is about the same for every distant galaxy, which is evidence that all matter was once at a single point.",
           "tag": "learn",
           "cheatSheet": true,
           "level": "Extended"
@@ -927,7 +928,7 @@
   ],
   "examTips": [
     "To \"describe\" redshift, give both parts: an increase in the observed wavelength, and of light from galaxies (or stars) moving away from us.",
-    "Paper 1/2 questions often ask which region of the spectrum radiation could be shifted into. Redshift always moves it towards longer wavelengths: towards infrared, microwaves and radio waves.",
+    "Paper 1/2 questions often ask which region of the spectrum radiation could be shifted into. Redshift always moves it towards longer wavelengths, the radio-wave end: for example ultraviolet into visible light, or visible light into infrared.",
     "Extended: to \"explain\" the CMBR, make separate points: it was produced shortly after the Universe formed; the Universe has expanded; its wavelength increased into the microwave region.",
     "Extended: in $H_0 = \\frac{v}{d}$ calculations, put $v$ in m/s and $d$ in m, so $H_0$ is in /s. When reading $H_0$ from a graph, use the powers of ten on both axes."
   ],
