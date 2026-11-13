@@ -2,37 +2,37 @@
   {
     "id": "resistance",
     "term": "resistance",
-    "definition": "TODO: Opposition to current; R = V/I; unit ohm",
+    "definition": "How much a component opposes the current in it: the p.d. across it divided by the current, $R = \\frac{V}{I}$, measured in ohms ($\\Omega$).",
     "lesson": "4.2.4"
   },
   {
     "id": "resistor",
     "term": "resistor",
-    "definition": "TODO: Component with a fixed resistance; obeys Ohm's law if temperature is constant",
+    "definition": "A component made to have a fixed resistance; at constant temperature the current in it is directly proportional to the p.d. across it.",
     "lesson": "4.2.4"
   },
   {
     "id": "ohm-s-law",
     "term": "Ohm's law",
-    "definition": "TODO: Current through a conductor is directly proportional to p.d. at constant temperature",
+    "definition": "The current in a metal conductor is directly proportional to the p.d. across it, as long as its temperature stays the same.",
     "lesson": "4.2.4"
   },
   {
     "id": "filament-lamp",
     "term": "filament lamp",
-    "definition": "TODO: Resistance increases as filament heats; I–V curve flattens",
+    "definition": "A lamp with a thin metal wire (the filament) that glows when hot; its resistance increases as it gets hotter, so its current–voltage graph gets less steep.",
     "lesson": "4.2.4"
   },
   {
     "id": "diode",
     "term": "diode",
-    "definition": "TODO: Conducts in one direction only; very high resistance in reverse",
+    "definition": "A component that lets current flow in one direction only: it has a low resistance in the forward direction and a very high resistance in reverse.",
     "lesson": "4.2.4"
   },
   {
     "id": "resistivity-effects-of-wire",
     "term": "resistivity effects of wire",
-    "definition": "TODO: Resistance of a wire is directly proportional to length and inversely proportional to cross-sectional area",
+    "definition": "For wires of the same metal at the same temperature, a longer wire (same thickness) has more resistance and a thicker wire (same length) less: $R$ is directly proportional to length (same area) and inversely proportional to cross-sectional area (same length).",
     "lesson": "4.2.4"
   }
 ]

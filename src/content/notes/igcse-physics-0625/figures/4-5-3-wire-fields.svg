@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-labelledby="t453wire">
+<title id="t453wire">Two views looking straight down the length of a long straight wire. Left: the wire is a small circle with a cross in it, meaning the current flows into the page. Three circles are drawn round it, centred on the wire, with arrows going clockwise. Right: the wire is a small circle with a dot in it, meaning the current flows out of the page. Three circles are drawn round it, with arrows going anticlockwise. In both views the gaps between the circles get bigger further from the wire.</title>
+<circle cx="160" cy="150" r="30" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="166.0,120.0 155.0,125.0 155.0,115.0" fill="var(--t1-ink)"/>
+<polygon points="154.0,180.0 165.0,175.0 165.0,185.0" fill="var(--t1-ink)"/>
+<circle cx="160" cy="150" r="64" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="166.0,86.0 155.0,91.0 155.0,81.0" fill="var(--t1-ink)"/>
+<polygon points="154.0,214.0 165.0,209.0 165.0,219.0" fill="var(--t1-ink)"/>
+<circle cx="160" cy="150" r="110" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="166.0,40.0 155.0,45.0 155.0,35.0" fill="var(--t1-ink)"/>
+<polygon points="154.0,260.0 165.0,255.0 165.0,265.0" fill="var(--t1-ink)"/>
+<circle cx="160" cy="150" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="153" y1="143" x2="167" y2="157" stroke="currentColor" stroke-width="2"/>
+<line x1="153" y1="157" x2="167" y2="143" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="13" x="160" y="290" fill="currentColor" text-anchor="middle">current into the page</text>
+<text font-family="inherit" font-size="12" x="160" y="310" fill="var(--muted)" text-anchor="middle">field lines go clockwise</text>
+<circle cx="480" cy="150" r="30" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="474.0,120.0 485.0,115.0 485.0,125.0" fill="var(--t1-ink)"/>
+<polygon points="486.0,180.0 475.0,185.0 475.0,175.0" fill="var(--t1-ink)"/>
+<circle cx="480" cy="150" r="64" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="474.0,86.0 485.0,81.0 485.0,91.0" fill="var(--t1-ink)"/>
+<polygon points="486.0,214.0 475.0,219.0 475.0,209.0" fill="var(--t1-ink)"/>
+<circle cx="480" cy="150" r="110" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="474.0,40.0 485.0,35.0 485.0,45.0" fill="var(--t1-ink)"/>
+<polygon points="486.0,260.0 475.0,265.0 475.0,255.0" fill="var(--t1-ink)"/>
+<circle cx="480" cy="150" r="11" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="480" cy="150" r="3.5" fill="currentColor"/>
+<text font-family="inherit" font-size="13" x="480" y="290" fill="currentColor" text-anchor="middle">current out of the page</text>
+<text font-family="inherit" font-size="12" x="480" y="310" fill="var(--muted)" text-anchor="middle">field lines go anticlockwise</text>
+</svg>

@@ -1,0 +1,721 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "6.2.2",
+  "slug": "stars",
+  "title": "Stars",
+  "level": "Core",
+  "topic": 6,
+  "summary": "A [[galaxy|galaxy]] is made up of many billions of [[star|stars]], and the Sun is one star in our galaxy, the [[milky-way|Milky Way]]. Other stars are so far away that we measure their [[distance|distances]] in [[light-year|light-years]]. Extended adds the light-year in metres and the life cycle of a star.",
+  "goals": [
+    {
+      "text": "State what a galaxy is, and that the Sun is a star in the Milky Way.",
+      "bullets": [
+        "6.2.2-1"
+      ]
+    },
+    {
+      "text": "State that the other stars in the Milky Way are much further from the Earth than the Sun is.",
+      "bullets": [
+        "6.2.2-1"
+      ]
+    },
+    {
+      "text": "Explain what a light-year is, and use light-years to compare distances.",
+      "bullets": [
+        "6.2.2-1"
+      ]
+    },
+    {
+      "text": "Recall that one light-year is $9.5 \\times 10^{15}\\ \\text{m}$, and convert between light-years and metres.",
+      "bullets": [
+        "6.2.2-2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe the life cycle of a star, from a cloud of gas and dust to a [[white-dwarf|white dwarf]], a [[neutron-star|neutron star]] or a [[black-hole|black hole]].",
+      "bullets": [
+        "6.2.2-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "2.3.3",
+    "6.1.2",
+    "6.2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "what is a galaxy",
+    "what is the Milky Way",
+    "what is a light-year",
+    "light-year in metres",
+    "life cycle of a star",
+    "red giant white dwarf",
+    "supernova neutron star black hole"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-centre-solar-system",
+      "prompt": "What is at the centre of the [[solar-system|Solar System]], with the planets orbiting it?",
+      "hint": "It is the only star in the Solar System.",
+      "options": [
+        {
+          "text": "the Sun",
+          "correct": true
+        },
+        {
+          "text": "the Earth",
+          "correct": false
+        },
+        {
+          "text": "Jupiter",
+          "correct": false
+        },
+        {
+          "text": "the Moon",
+          "correct": false
+        }
+      ],
+      "explain": "The planets orbit the Sun, the one star in the Solar System. Revise it in {{lesson:6.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the Sun"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-light-distance",
+      "prompt": "Light travels at $3.0 \\times 10^{8}\\ \\text{m/s}$. How far does it travel in 10 s?",
+      "hint": "Distance = speed × time.",
+      "options": [
+        {
+          "text": "$3.0 \\times 10^{9}\\ \\text{m}$",
+          "correct": true
+        },
+        {
+          "text": "$3.0 \\times 10^{7}\\ \\text{m}$",
+          "correct": false
+        },
+        {
+          "text": "$3.0 \\times 10^{8}\\ \\text{m}$",
+          "correct": false
+        },
+        {
+          "text": "$3.3 \\times 10^{-8}\\ \\text{m}$",
+          "correct": false
+        }
+      ],
+      "explain": "$3.0 \\times 10^{8} \\times 10 = 3.0 \\times 10^{9}\\ \\text{m}$. Dividing instead of multiplying gives $3.0 \\times 10^{7}\\ \\text{m}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "standard-form",
+        "truth": "3.0*10**8*10",
+        "sf": 2,
+        "unit": "m"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-stable-balance",
+      "prompt": "What stops a [[stable-star|stable star]] from collapsing under its own gravity?",
+      "hint": "Something must push outwards as hard as gravity pulls inwards.",
+      "options": [
+        {
+          "text": "an outward force caused by the very high temperature in its core",
+          "correct": true
+        },
+        {
+          "text": "there are no forces acting on it",
+          "correct": false
+        },
+        {
+          "text": "gravity pulls outwards at its surface",
+          "correct": false
+        },
+        {
+          "text": "the light it gives out pulls it apart",
+          "correct": false
+        }
+      ],
+      "explain": "In a stable star the inward pull of gravity is balanced by an outward force caused by the very high temperature at the centre. Revise it in {{lesson:6.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "an outward force caused by the very high temperature in its core"
+      },
+      "level": "Extended"
+    }
+  ],
+  "sections": [
+    {
+      "id": "galaxies",
+      "heading": "Stars, galaxies and the Milky Way",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every star you see at night is a sun, like ours, but very far away. Stars are not scattered evenly through space. They are gathered into enormous groups called galaxies."
+        },
+        {
+          "type": "definition",
+          "term": "galaxy",
+          "statement": "A huge group of many billions of stars, held together by gravity.",
+          "plain": "A gigantic family of stars."
+        },
+        {
+          "type": "text",
+          "text": "The Sun is one star in a galaxy called the [[milky-way|Milky Way]]. The Earth and the rest of the Solar System are inside it too, along with every star you can see without a telescope. The Solar System is only a tiny part of the galaxy, and the Universe holds billions of galaxies like ours."
+        },
+        {
+          "type": "text",
+          "text": "The Sun is about 150 million km from the Earth. The other stars in the Milky Way are much, much further away: the nearest one is roughly 270 000 times as far as the Sun. That is why the Sun looks so much bigger and brighter than any other star."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up a galaxy with a star, a [[nebula|nebula]] or the Solar System. A star is one ball of hot gas, a nebula is a vast cloud of dust and gas, and the Solar System is one star with its planets. A galaxy is many billions of stars."
+        },
+        {
+          "type": "example",
+          "id": "ex-milky-way-claim",
+          "question": "A student writes: \"The Milky Way is another name for the Solar System. Its other stars are about as far from the Earth as the Sun is.\" Explain the two mistakes.",
+          "steps": [
+            "Say what the Milky Way really is, and where the Sun fits in it.",
+            "Compare the distance of the other stars with the distance of the Sun."
+          ],
+          "answer": "The Milky Way is a galaxy made up of many billions of stars, not the Solar System. The Sun is just one of those stars, and the Solar System is a tiny part of the galaxy. The other stars in the Milky Way are much further from the Earth than the Sun is.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the Milky Way is a galaxy of billions of stars, with the Sun as one of them; other stars are much further away than the Sun",
+            "requires": [
+              "galaxy",
+              "billions of stars",
+              [
+                "Sun is just one",
+                "Sun is one"
+              ],
+              "much further"
+            ],
+            "forbids": [
+              "the Milky Way is the Solar System",
+              "about as far"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-what-galaxy",
+          "prompt": "Which description of a galaxy is correct?",
+          "hint": "Think about how many stars, and what holds them together.",
+          "options": [
+            {
+              "text": "many billions of stars held together by gravity",
+              "correct": true
+            },
+            {
+              "text": "a cloud of gas and dust where new stars form",
+              "correct": false
+            },
+            {
+              "text": "one star with planets orbiting it",
+              "correct": false
+            },
+            {
+              "text": "every star in the Universe",
+              "correct": false
+            }
+          ],
+          "explain": "A galaxy is many billions of stars. A cloud of gas and dust is a nebula, one star with its planets is a system like the Solar System, and the Universe holds billions of separate galaxies.",
+          "verify": {
+            "kind": "choice",
+            "truth": "many billions of stars held together by gravity"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-largest",
+          "prompt": "Which of these is the largest?",
+          "hint": "Which one contains all the others?",
+          "options": [
+            {
+              "text": "the Milky Way",
+              "correct": true
+            },
+            {
+              "text": "the Solar System",
+              "correct": false
+            },
+            {
+              "text": "the Sun",
+              "correct": false
+            },
+            {
+              "text": "the Earth's orbit",
+              "correct": false
+            }
+          ],
+          "explain": "The Milky Way contains the Solar System, which contains the Sun and the Earth's orbit.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the Milky Way"
+          }
+        }
+      ]
+    },
+    {
+      "id": "light-years",
+      "heading": "Measuring distances in light-years",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Distances to stars are so huge that kilometres give enormous, awkward numbers. Astronomers use a much bigger unit, the [[light-year|light-year]]."
+        },
+        {
+          "type": "definition",
+          "term": "light-year",
+          "statement": "The distance that light travels through the [[vacuum|vacuum]] of space in one year.",
+          "plain": "How far light goes in a year. It is a distance, not a time."
+        },
+        {
+          "type": "text",
+          "text": "Light from a star 50 light-years away takes 50 years to reach us, so we see the star as it was 50 years ago. Light from the Sun takes only about 8 minutes. The nearest other star is just over 4 light-years away, and the Milky Way measures roughly 100 000 light-years from edge to edge."
+        },
+        {
+          "type": "mistake",
+          "text": "Treating a light-year as a length of time because its name contains \"year\". It measures distance, just like the kilometre."
+        },
+        {
+          "type": "example",
+          "id": "ex-vega-journey",
+          "question": "The star Vega is 25 light-years from the Earth. A future spacecraft could travel at one-twentieth of the speed of light. How long would it take to reach Vega?",
+          "steps": [
+            "Light travels 1 light-year in 1 year, so light from Vega takes 25 years to reach us.",
+            "The spacecraft is 20 times slower than light, so it takes 20 times as long: $25 \\times 20 = 500$ years."
+          ],
+          "answer": "$t = 500\\ \\text{years}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "25/Rational(1, 20)",
+            "unit": "years"
+          }
+        },
+        {
+          "type": "text",
+          "text": "One light-year is about $9.5 \\times 10^{15}\\ \\text{m}$. Learn this value. To change light-years into metres, multiply by $9.5 \\times 10^{15}$; to change metres into light-years, divide by it.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-show-light-year",
+          "question": "Light travels at $3.0 \\times 10^{8}\\ \\text{m/s}$. Take one year as 365 days. Show that one light-year is about $9.5 \\times 10^{15}\\ \\text{m}$.",
+          "steps": [
+            "Change one year into seconds: $t = 365 \\times 24 \\times 3600 = 3.15 \\times 10^{7}\\ \\text{s}$.",
+            "Distance = speed × time: $d = 3.0 \\times 10^{8} \\times 365 \\times 24 \\times 3600$.",
+            "$d = 9.46 \\times 10^{15}\\ \\text{m}$. A \"show that\" answer gives one more significant figure than the value stated."
+          ],
+          "answer": "$d \\approx 9.46 \\times 10^{15}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.0*10**8*365*24*3600",
+            "sf": 3,
+            "unit": "m"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-sirius-metres",
+          "question": "The star Sirius is 8.6 light-years from the Earth. Calculate this distance in metres.",
+          "steps": [
+            "Multiply by the number of metres in one light-year: $d = 8.6 \\times 9.5 \\times 10^{15}$.",
+            "$d = 8.17 \\times 10^{16}\\ \\text{m}$, which is $8.2 \\times 10^{16}\\ \\text{m}$ to 2 significant figures."
+          ],
+          "answer": "$d \\approx 8.2 \\times 10^{16}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "8.6*9.5*10**15",
+            "sf": 2,
+            "unit": "m"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-light-year-measures",
+          "prompt": "What does a light-year measure?",
+          "hint": "Light covers a certain ... in a year.",
+          "options": [
+            {
+              "text": "a distance",
+              "correct": true
+            },
+            {
+              "text": "a time",
+              "correct": false
+            },
+            {
+              "text": "a speed",
+              "correct": false
+            },
+            {
+              "text": "the brightness of a star",
+              "correct": false
+            }
+          ],
+          "explain": "Light covers one light-year of distance every year, so a light-year is a unit of distance, like the kilometre.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a distance"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-light-travel-time",
+          "prompt": "Light from star A takes longer to reach the Earth than light from star B. Which statement is correct?",
+          "hint": "Light always travels at the same speed through space.",
+          "options": [
+            {
+              "text": "star A is further from the Earth than star B",
+              "correct": true
+            },
+            {
+              "text": "star A is older than star B",
+              "correct": false
+            },
+            {
+              "text": "star A is closer to the Earth than star B",
+              "correct": false
+            },
+            {
+              "text": "light from star A travels more slowly",
+              "correct": false
+            }
+          ],
+          "explain": "Light crosses space at the same speed from every star, so a longer journey time means a greater distance. That is why a light-year, the distance light covers in a year, works as a unit of distance.",
+          "verify": {
+            "kind": "choice",
+            "truth": "star A is further from the Earth than star B"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-galaxy-light-years",
+          "prompt": "A galaxy lies $1.9 \\times 10^{22}\\ \\text{m}$ away from us. Convert this to light-years.",
+          "hint": "Metres to light-years: divide by $9.5 \\times 10^{15}$.",
+          "options": [
+            {
+              "text": "$2.0 \\times 10^{6}\\ \\text{light-years}$",
+              "correct": true
+            },
+            {
+              "text": "$1.8 \\times 10^{38}\\ \\text{light-years}$",
+              "correct": false
+            },
+            {
+              "text": "$5.0 \\times 10^{-7}\\ \\text{light-years}$",
+              "correct": false
+            },
+            {
+              "text": "$2.0 \\times 10^{9}\\ \\text{light-years}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1.9 \\times 10^{22}}{9.5 \\times 10^{15}} = 2.0 \\times 10^{6}$ light-years. Multiplying gives $1.8 \\times 10^{38}$, dividing the wrong way round gives $5.0 \\times 10^{-7}$, and using $9.5 \\times 10^{12}$ (the value in km) gives $2.0 \\times 10^{9}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1.9*10**22/(9.5*10**15)",
+            "sf": 2,
+            "unit": "light-years"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-light-year-km",
+          "prompt": "One light-year is $9.5 \\times 10^{15}\\ \\text{m}$. What is it in kilometres?",
+          "hint": "There are 1000 m in 1 km.",
+          "options": [
+            {
+              "text": "$9.5 \\times 10^{12}\\ \\text{km}$",
+              "correct": true
+            },
+            {
+              "text": "$9.5 \\times 10^{15}\\ \\text{km}$",
+              "correct": false
+            },
+            {
+              "text": "$9.5 \\times 10^{18}\\ \\text{km}$",
+              "correct": false
+            },
+            {
+              "text": "$3.0 \\times 10^{5}\\ \\text{km}$",
+              "correct": false
+            }
+          ],
+          "explain": "Divide by 1000: $\\frac{9.5 \\times 10^{15}}{1000} = 9.5 \\times 10^{12}\\ \\text{km}$. Multiplying by 1000 gives $9.5 \\times 10^{18}$, and $3.0 \\times 10^{5}$ is the speed of light in km/s, not a distance.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "9.5*10**15/1000",
+            "sf": 2,
+            "unit": "km"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "life-cycle",
+      "heading": "The life cycle of a star",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Stars form, shine for millions or billions of years, and then die. Every star begins in the same way. How it ends depends on its mass."
+        },
+        {
+          "type": "text",
+          "text": "**Birth.** A star forms from an interstellar cloud of gas and dust that contains hydrogen. The cloud's own gravitational attraction pulls it inwards, so it collapses. As it collapses it gets hotter. This collapsing, heating cloud is a [[protostar|protostar]]."
+        },
+        {
+          "type": "text",
+          "text": "**Stable star.** When the centre is hot enough, hydrogen nuclei start to fuse into helium. The protostar has become a [[stable-star|stable star]] once the inward pull of gravity is balanced by an outward push caused by the very high temperature at its centre. The Sun is at this stage now."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-2-life-cycle",
+          "alt": "A flow chart of the life cycle of a star. At the top, an interstellar cloud of gas and dust containing hydrogen. An arrow leads down to protostar, then another arrow down to stable star. From stable star the chart splits into two paths. The left path, labelled less massive (most stars), goes to red giant, then to planetary nebula with a white dwarf at its centre. The right path, labelled much more massive, goes to red supergiant, then to supernova, then to nebula with a neutron star or black hole at its centre. A dashed arrow runs from this last box back up to the cloud at the top, labelled the nebula may form new stars and planets.",
+          "caption": "Every star starts at the top. Its mass decides which path it takes after the stable stage."
+        },
+        {
+          "type": "text",
+          "text": "**Running out of fuel.** All stars eventually run out of hydrogen, the fuel for their nuclear reaction. Once the hydrogen in its core has mostly been turned into helium, the star expands."
+        },
+        {
+          "type": "text",
+          "text": "**Most stars,** including the Sun, are less massive. They expand into a [[red-giant|red giant]]. Later the red giant's outer layers drift away to make a [[planetary-nebula|planetary nebula]], and a small, hot [[white-dwarf|white dwarf]] is left in the middle. Despite its name, a planetary nebula has nothing to do with planets."
+        },
+        {
+          "type": "text",
+          "text": "**Much more massive stars** expand into a [[red-supergiant|red supergiant]]. This explodes as a [[supernova|supernova]], throwing out a [[nebula|nebula]] that contains hydrogen and new, heavier elements. A [[neutron-star|neutron star]] or a [[black-hole|black hole]] is left at its centre. The nebula may later form new stars with planets orbiting them: the heavier elements in the Earth were made in earlier stars."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the Sun will end as a supernova. The Sun is not massive enough: it will become a red giant, then a planetary nebula with a white dwarf at its centre."
+        },
+        {
+          "type": "example",
+          "id": "ex-cloud-to-stable",
+          "question": "Describe how an interstellar cloud of gas and dust becomes a stable star.",
+          "steps": [
+            "Say what pulls the cloud together and what happens to its temperature.",
+            "Name the stage, then give the balance of forces that makes the star stable, with both directions."
+          ],
+          "answer": "The cloud contains hydrogen. Its own gravitational attraction pulls it inwards, so the cloud collapses to form a protostar. As it collapses, its temperature increases. When the centre is hot enough, hydrogen nuclei start to fuse. The star becomes stable when the inward force of gravity is balanced by an outward force caused by the very high temperature at its centre.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "gravity makes the cloud collapse into a protostar, which heats up; it becomes stable when inward gravity balances the outward force due to the high central temperature",
+            "requires": [
+              "hydrogen",
+              "collapses",
+              "protostar",
+              [
+                "temperature increases",
+                "temperature rises",
+                "gets hotter"
+              ],
+              [
+                "force of gravity",
+                "gravitational"
+              ],
+              "balanced",
+              "outward force"
+            ],
+            "forbids": [
+              "no forces",
+              "burning"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-massive-star-end",
+          "question": "A star much more massive than the Sun has turned most of the hydrogen in its centre into helium. Describe what happens to the star next, and what it leaves behind.",
+          "steps": [
+            "Follow the massive-star path: what it expands into, then how it ends.",
+            "Say what the explosion forms and what is left at the centre."
+          ],
+          "answer": "The star expands to form a red supergiant. The red supergiant explodes as a supernova. The explosion throws out a nebula of hydrogen together with heavier elements newly made in the star. A neutron star or a black hole is left at its centre. The nebula may later form new stars with orbiting planets.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "red supergiant, then a supernova forming a nebula of hydrogen and heavier elements, leaving a neutron star or black hole",
+            "requires": [
+              "red supergiant",
+              "supernova",
+              "heavier elements",
+              [
+                "neutron star or a black hole",
+                "neutron star or black hole"
+              ]
+            ],
+            "forbids": [
+              "white dwarf",
+              "planetary nebula"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sun-order",
+          "prompt": "Which order of stages is correct for a star like the Sun?",
+          "hint": "The star must form and become stable before it can run out of hydrogen.",
+          "options": [
+            {
+              "text": "cloud of gas and dust, protostar, stable star, red giant, white dwarf",
+              "correct": true
+            },
+            {
+              "text": "cloud of gas and dust, stable star, protostar, red giant, white dwarf",
+              "correct": false
+            },
+            {
+              "text": "cloud of gas and dust, protostar, stable star, supernova, white dwarf",
+              "correct": false
+            },
+            {
+              "text": "protostar, cloud of gas and dust, red giant, stable star, white dwarf",
+              "correct": false
+            }
+          ],
+          "explain": "The cloud collapses into a protostar, which becomes a stable star. The Sun is not massive enough for a supernova: it will become a red giant and end as a white dwarf.",
+          "verify": {
+            "kind": "choice",
+            "truth": "cloud of gas and dust, protostar, stable star, red giant, white dwarf"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-protostar-hotter",
+          "prompt": "Why does a protostar get hotter?",
+          "hint": "What makes the cloud shrink in the first place?",
+          "options": [
+            {
+              "text": "it is collapsing because of its own gravitational attraction",
+              "correct": true
+            },
+            {
+              "text": "hydrogen in it is burning in oxygen",
+              "correct": false
+            },
+            {
+              "text": "it absorbs light from nearby stars",
+              "correct": false
+            },
+            {
+              "text": "it is expanding into a red giant",
+              "correct": false
+            }
+          ],
+          "explain": "Gravity pulls the cloud inwards. As it collapses, its temperature rises. Nothing is burning.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is collapsing because of its own gravitational attraction"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-supernova-nebula",
+          "prompt": "What does the nebula formed by a supernova contain?",
+          "hint": "The star has spent its life making new elements.",
+          "options": [
+            {
+              "text": "hydrogen and new, heavier elements",
+              "correct": true
+            },
+            {
+              "text": "only helium",
+              "correct": false
+            },
+            {
+              "text": "only hydrogen, as at the star's birth",
+              "correct": false
+            },
+            {
+              "text": "a white dwarf at its centre",
+              "correct": false
+            }
+          ],
+          "explain": "A supernova's nebula holds hydrogen and new, heavier elements, and may form new stars and planets. A white dwarf sits at the centre of a planetary nebula, not a supernova's nebula.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hydrogen and new, heavier elements"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A galaxy contains many billions of stars. Our Sun is one star in the galaxy called the Milky Way.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The other stars in the Milky Way are much further from the Earth than the Sun is.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A light-year is a distance, not a time: the distance light travels through the vacuum of space in one year.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "One light-year $= 9.5 \\times 10^{15}\\ \\text{m}$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Every star: cloud of gas and dust (with hydrogen) → protostar (collapsing under gravity and heating up) → stable star (inward gravity balanced by an outward force caused by the very high temperature at its centre). When most of the hydrogen in its centre has become helium: most stars → red giant → planetary nebula with a white dwarf; much more massive stars → red supergiant → supernova → nebula with a neutron star or black hole.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Confusing a galaxy with a star, a nebula or the Solar System. A galaxy is many billions of stars; the Sun is one of them.",
+    "Thinking a light-year is a time. It is a distance: how far light gets through space in a year.",
+    "Thinking the other stars are about as far away as the Sun. They are much further away, which is why they look so faint.",
+    "Extended: leaving a distance in metres when the question asks for kilometres, or writing $9.5 \\times 10^{15}$ km. One light-year is $9.5 \\times 10^{15}$ m, which is $9.5 \\times 10^{12}$ km.",
+    "Extended: saying a stable star has no forces on it. Two forces act, inward gravity and an outward force caused by the very high central temperature, and they are balanced.",
+    "Extended: mixing up the two endings. A white dwarf comes from a red giant; a neutron star or black hole comes from a supernova."
+  ],
+  "examTips": [
+    "\"State\" questions on galaxies want a short fact, such as \"the Milky Way is a galaxy\" or \"a galaxy is many billions of stars\". In a Paper 1/2 multiple-choice question, watch for options that describe a nebula, a single star or the Solar System instead.",
+    "If an answer uses light-years, check that it is a distance, never a time.",
+    "Extended: to \"describe\" how a stable star forms, name the protostar, say gravity makes it collapse and heat up, and give both forces of the balance with their directions: inward gravity and the outward force caused by the very high temperature.",
+    "Extended: to convert, multiply light-years by $9.5 \\times 10^{15}$ to get metres; divide metres by it to get light-years. Check the size of your answer: stars are many trillions of kilometres away."
+  ],
+  "readingMinutes": 22
+}

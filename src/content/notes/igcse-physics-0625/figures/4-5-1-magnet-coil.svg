@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" role="img" aria-labelledby="t451magcoil">
+<title id="t451magcoil">A bar magnet on the left, with its S pole at the left end and its N pole at the right end, facing a coil of wire on the right. A double-headed arrow above the magnet is labelled move the magnet in and out. The two ends of the coil are joined by wires to a sensitive centre-zero meter below the coil, making a complete circuit. The meter's needle rests at zero in the middle of its scale and can swing either way. A note says the needle moves only while the magnet moves, one way for in and the other way for out.</title>
+<rect x="70" y="92" width="170" height="40" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="155" y1="92" x2="155" y2="132" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="16" x="112" y="118" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<text font-family="inherit" font-size="16" x="198" y="118" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="12" x="155" y="155" fill="currentColor" text-anchor="middle">bar magnet</text>
+<line x1="110" y1="60" x2="230" y2="60" stroke="var(--t1-ink)" stroke-width="2"/>
+<polygon points="238,60 228,55 228,65" fill="var(--t1-ink)"/>
+<polygon points="102,60 112,55 112,65" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="170" y="45" fill="var(--t1-ink)" text-anchor="middle">move the magnet in and out</text>
+<g fill="none" stroke="var(--t2-ink)" stroke-width="2">
+<ellipse cx="320" cy="112" rx="9" ry="42"/>
+<ellipse cx="342" cy="112" rx="9" ry="42"/>
+<ellipse cx="364" cy="112" rx="9" ry="42"/>
+<ellipse cx="386" cy="112" rx="9" ry="42"/>
+<ellipse cx="408" cy="112" rx="9" ry="42"/>
+<ellipse cx="430" cy="112" rx="9" ry="42"/>
+<ellipse cx="452" cy="112" rx="9" ry="42"/>
+</g>
+<text font-family="inherit" font-size="12" x="386" y="56" fill="var(--t2-ink)" text-anchor="middle">coil of wire</text>
+<polyline points="320,154 320,230 362,230" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polyline points="452,154 452,230 410,230" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="386" cy="230" r="24" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M 370 236 A 18 18 0 0 1 402 236" fill="none" stroke="currentColor" stroke-width="1"/>
+<line x1="386" y1="242" x2="386" y2="226" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="10" x="386" y="220" fill="currentColor" text-anchor="middle">0</text>
+<text font-family="inherit" font-size="12" x="480" y="226" fill="currentColor">sensitive</text>
+<text font-family="inherit" font-size="12" x="480" y="242" fill="currentColor">centre-zero meter</text>
+<text font-family="inherit" font-size="12" x="320" y="272" fill="var(--muted)" text-anchor="middle">The needle moves only while the magnet moves: one way for in, the other way for out.</text>
+</svg>

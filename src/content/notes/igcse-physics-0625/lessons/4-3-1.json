@@ -1,0 +1,688 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.3.1",
+  "slug": "circuit-diagrams-and-circuit-components",
+  "title": "Circuit diagrams and circuit components",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A circuit diagram shows each part of a circuit as a standard symbol, joined by straight lines for the wires. You need to recognise and draw every symbol, and know what each part does: supply energy, switch or control the current, sense temperature or light, give out light, heat, movement or sound, or protect the circuit.",
+  "goals": [
+    {
+      "text": "Recognise and draw the standard symbols for each Core component, and read a circuit diagram.",
+      "bullets": [
+        "4.3.1-1"
+      ]
+    },
+    {
+      "text": "Describe what each Core component does in a circuit, including how a [[thermistor|thermistor]] and a [[light-dependent-resistor|light-dependent resistor]] respond to temperature and light.",
+      "bullets": [
+        "4.3.1-1"
+      ]
+    },
+    {
+      "text": "Draw and read the symbols for a [[diode|diode]] and a [[light-emitting-diode|light-emitting diode]], and predict whether current passes through them.",
+      "bullets": [
+        "4.3.1-2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.2.2",
+    "4.2.3",
+    "4.2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "circuit symbols",
+    "how to draw a circuit diagram",
+    "thermistor and LDR symbols",
+    "what does a relay do",
+    "fuse symbol",
+    "diode and LED in a circuit"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ammeter-series",
+      "prompt": "How is an [[ammeter|ammeter]] connected to measure the current in a lamp?",
+      "hint": "The current you want to measure must pass through the meter.",
+      "options": [
+        {
+          "text": "in series with the lamp",
+          "correct": true
+        },
+        {
+          "text": "in parallel with the lamp",
+          "correct": false
+        },
+        {
+          "text": "across the cell",
+          "correct": false
+        }
+      ],
+      "explain": "An ammeter goes in series, in the same loop as the lamp, so the lamp's current passes through it. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in series with the lamp"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-voltmeter-measures",
+      "prompt": "What does a [[voltmeter|voltmeter]] connected across a lamp measure?",
+      "hint": "Think about what volts are a unit of.",
+      "options": [
+        {
+          "text": "the potential difference across the lamp",
+          "correct": true
+        },
+        {
+          "text": "the current in the lamp",
+          "correct": false
+        },
+        {
+          "text": "the resistance of the lamp",
+          "correct": false
+        }
+      ],
+      "explain": "A voltmeter measures the p.d. between the two points it is connected to. Revise it in {{lesson:4.2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the potential difference across the lamp"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-resistance-current",
+      "prompt": "The [[resistance|resistance]] of a circuit increases, but the supply p.d. stays the same. What happens to the current?",
+      "hint": "Use $I = \\frac{V}{R}$.",
+      "options": [
+        {
+          "text": "it decreases",
+          "correct": true
+        },
+        {
+          "text": "it increases",
+          "correct": false
+        },
+        {
+          "text": "it stays the same",
+          "correct": false
+        }
+      ],
+      "explain": "With $V$ fixed, a larger $R$ gives a smaller $I = \\frac{V}{R}$. Revise it in {{lesson:4.2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it decreases"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "symbols",
+      "heading": "Circuit symbols and diagrams",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A circuit diagram is a map of a circuit. Each component is drawn as a standard symbol, and the wires are straight lines. Anyone who knows the symbols can build the circuit from the diagram."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-1-symbols-supplies-outputs",
+          "alt": "Twelve circuit symbols. Cell: a long thin line and a short thick line. Battery: two cells joined. d.c. power supply: two small open circles marked plus and minus. a.c. power supply: two small open circles with a wavy line between them. Generator: a circle with G. Open switch: a hinged line lifted away from its contact. Lamp: a circle with a cross. Motor: a circle with M. Electric bell: a dome on a flat base. Ammeter: a circle with A. Voltmeter: a circle with V. Junction of wires: a dot where three wires meet.",
+          "caption": "Supplies, a switch, output devices and meters. A cell's long thin plate is its positive terminal."
+        },
+        {
+          "type": "text",
+          "text": "Five symbols are circles: the lamp has a cross, and the motor, generator, [[ammeter|ammeter]] and [[voltmeter|voltmeter]] have the letters M, G, A and V. A battery is two or more cells joined in a row."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-1-symbols-resistors-coils",
+          "alt": "Ten circuit symbols. Fixed resistor: an empty rectangle. Variable resistor: a rectangle with a straight diagonal arrow through it. Potential divider: a rectangle with an arrow pointing onto its side from a third wire. Thermistor: a rectangle crossed by a diagonal line with a short flat foot at its lower end. Light-dependent resistor: a rectangle with two arrows pointing in towards it. Heater: a rectangle divided into sections. Fuse: a rectangle with the wire running through it along its length. Magnetising coil: a row of loops. Transformer: two coils side by side with two parallel lines, the core, between them. Relay: a coil and a switch, with a dashed line showing that the coil works the switch.",
+          "caption": "Many of these symbols are rectangles, so look at what is drawn on or through each one."
+        },
+        {
+          "type": "text",
+          "text": "The rectangles differ only in what is added. An empty one is a fixed [[resistor|resistor]]. A straight arrow through it makes a [[variable-resistor|variable resistor]], and an arrow onto its side makes a [[potential-divider|potential divider]]."
+        },
+        {
+          "type": "text",
+          "text": "A diagonal line with a flat foot is a [[thermistor|thermistor]]. Two arrows pointing in make a [[light-dependent-resistor|light-dependent resistor]] (LDR). Sections inside make a heater, and a line along its whole length makes a [[fuse|fuse]]."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the variable resistor and the thermistor. The variable resistor has a straight arrow with an arrowhead; the thermistor's line has no arrowhead and a short flat foot."
+        },
+        {
+          "type": "text",
+          "text": "To draw a circuit diagram, use a ruler and the standard symbols. Join the wires with no gaps, and put a dot at every junction where wires meet. Parts in one loop, one after another, are in series. Parts on separate branches between the same two points are in parallel."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-1-fan-circuit",
+          "alt": "A battery, a switch labelled P, a variable resistor labelled R and a motor labelled Q are joined in a single loop. A voltmeter is connected across the motor, with one lead on each side of it.",
+          "caption": "The circuit for a model fan."
+        },
+        {
+          "type": "example",
+          "id": "ex-name-fan-components",
+          "question": "The diagram shows the circuit for a model fan. Name components P, Q and R. Name the meter and state how it is connected to Q.",
+          "steps": [
+            "P is a hinged line lifted away from its contact: a switch, drawn open.",
+            "Q is a circle with M: a motor.",
+            "R is a rectangle with a straight arrow through it: a variable resistor.",
+            "The meter is a circle with V. Its two leads join the wire on each side of Q, so it is connected across Q."
+          ],
+          "answer": "P is a switch. Q is a motor. R is a variable resistor. The meter is a voltmeter, connected in parallel with the motor.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "P switch, Q motor, R variable resistor; voltmeter in parallel with the motor",
+            "requires": [
+              [
+                "switch"
+              ],
+              [
+                "motor"
+              ],
+              [
+                "variable resistor"
+              ],
+              [
+                "voltmeter"
+              ],
+              [
+                "in parallel",
+                "across"
+              ]
+            ],
+            "forbids": [
+              "thermistor",
+              "in series with the motor"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-draw-window-heater",
+          "question": "A car's rear window heater runs from a battery. A fuse, a switch and the heater are joined in series. A lamp, in parallel with the heater, shows when the heater is on. Draw the circuit diagram.",
+          "steps": [
+            "Draw the battery as two cells in a row.",
+            "In the same loop, draw the fuse (rectangle with a line along its length) and the switch, one after the other.",
+            "Draw the heater (rectangle with sections) on the main wire after the switch.",
+            "Draw the lamp on a second branch joined across the heater, with a dot at each junction. The lamp then has the same p.d. as the heater, so it is lit whenever the heater is on.",
+            "Check: straight wires, no gaps, standard symbols only."
+          ],
+          "answer": "The battery, the fuse and the switch are in series. The heater and the lamp are on two parallel branches that meet at a junction at each end, as in the diagram below.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "battery, fuse and switch in series; heater and lamp in parallel between two junctions",
+            "requires": [
+              [
+                "series"
+              ],
+              [
+                "parallel"
+              ],
+              [
+                "junction"
+              ],
+              [
+                "fuse"
+              ]
+            ]
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-3-1-heater-circuit",
+          "alt": "A battery, a fuse and a switch are joined in series. After the switch the wire splits at a junction into two parallel branches, one with a heater and one with a lamp. The branches join again at a second junction and the wire returns to the battery.",
+          "caption": "One correct answer. The switch turns the heater and the lamp on and off together."
+        },
+        {
+          "type": "check",
+          "id": "check-ldr-symbol",
+          "prompt": "Which component is drawn as a rectangle with two arrows pointing in towards it?",
+          "hint": "The arrows stand for something arriving at the component.",
+          "options": [
+            {
+              "text": "light-dependent resistor",
+              "correct": true
+            },
+            {
+              "text": "variable resistor",
+              "correct": false
+            },
+            {
+              "text": "thermistor",
+              "correct": false
+            },
+            {
+              "text": "potential divider",
+              "correct": false
+            }
+          ],
+          "explain": "The two arrows show light falling on it, so it is a light-dependent resistor. A variable resistor has one straight arrow through it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "light-dependent resistor"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-empty-rectangle",
+          "prompt": "A student means to draw a fuse but draws an empty rectangle. Which component has the student drawn instead?",
+          "hint": "What is missing from inside the rectangle?",
+          "options": [
+            {
+              "text": "a fixed resistor",
+              "correct": true
+            },
+            {
+              "text": "a heater",
+              "correct": false
+            },
+            {
+              "text": "a thermistor",
+              "correct": false
+            },
+            {
+              "text": "a lamp",
+              "correct": false
+            }
+          ],
+          "explain": "An empty rectangle is a fixed resistor. A fuse needs a line running through the rectangle along its length.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a fixed resistor"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Draw\" a circuit diagram: use the standard symbols, join every wire with no gaps and mark junctions with dots. A lamp drawn as an empty circle is not the lamp symbol."
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "heading": "What each component does",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Sources give the charge energy and push it round the circuit. A cell, a battery and a d.c. power supply give [[direct-current|direct current]]. An a.c. power supply, such as the mains, gives [[alternating-current|alternating current]]. A generator turns kinetic energy into electrical energy."
+        },
+        {
+          "type": "text",
+          "text": "A switch closes the circuit (current flows) or opens it (no current). A fixed resistor has a set resistance that limits the current. A [[variable-resistor|variable resistor]] lets you change the [[resistance|resistance]]. More resistance means a smaller [[electric-current|current]] for the same supply p.d., so a lamp in series gets dimmer or a motor slows."
+        },
+        {
+          "type": "text",
+          "text": "A [[potential-divider|potential divider]] shares the supply's [[potential-difference|potential difference]] between two parts. With a sliding contact, it can give out any p.d. from zero up to the full supply p.d. You use it in {{lesson:4.3.3}}."
+        },
+        {
+          "type": "text",
+          "text": "Two components are sensors. A [[thermistor|thermistor]] (the NTC type in this course) has a resistance that falls as its temperature rises. A [[light-dependent-resistor|light-dependent resistor]] has a resistance that falls as the light on it gets brighter."
+        },
+        {
+          "type": "text",
+          "text": "Output devices transfer energy from the circuit. A [[filament-lamp|lamp]] gives out light, a heater heats its surroundings, a motor turns and an electric bell rings. A magnetising coil becomes a magnet while a current flows in it. Meters measure: an ammeter in series measures the current, and a voltmeter connected across a component measures the p.d. across it."
+        },
+        {
+          "type": "text",
+          "text": "A [[fuse|fuse]] contains a thin wire that melts if the current rises above the fuse's rating. That breaks the circuit and stops the current before the wires overheat. A transformer changes the size of an alternating p.d., such as mains p.d. down to a few volts for a charger. It works only with a.c. ({{lesson:4.5.6}})."
+        },
+        {
+          "type": "text",
+          "text": "A [[relay|relay]] is a switch worked by a magnetising coil. A small current in the coil closes a switch in a second circuit, which can carry a large current."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-1-relay-circuit",
+          "alt": "Two separate circuits joined by a relay. Left: a cell, a switch S and the relay coil, wound on an iron core, form a small-current circuit. Right: a battery, a motor and the relay's switch contacts form a large-current circuit. A dashed arrow from the coil to the contacts shows that the coil closes the contacts when it is magnetised.",
+          "caption": "A relay lets a small current switch on a large one."
+        },
+        {
+          "type": "example",
+          "id": "ex-relay-motor",
+          "question": "In the circuit shown, the motor needs a very large current. Explain how closing switch S makes the motor turn.",
+          "steps": [
+            "Start in the small-current circuit: what does closing S do?",
+            "Then say what the coil does when there is a current in it.",
+            "Then say what happens to the large-current circuit.",
+            "Switch S only ever carries a small current, so it can be small and safe to handle."
+          ],
+          "answer": "Closing switch S lets a small current flow in the relay coil. The coil becomes magnetised, like an electromagnet. It pulls the relay contacts together, so the contacts close. This completes the large-current circuit, so a large current flows in the motor and it turns.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "small current in coil; coil magnetised; contacts close; large-current circuit completed; motor turns",
+            "requires": [
+              [
+                "small current"
+              ],
+              [
+                "magnetised",
+                "electromagnet"
+              ],
+              [
+                "contacts close",
+                "contacts together"
+              ],
+              [
+                "completes",
+                "complete"
+              ],
+              [
+                "large current"
+              ]
+            ],
+            "forbids": [
+              "current flows from the coil into the motor"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-thermistor-lamp",
+          "question": "A thermistor, a lamp and a battery are connected in series. The thermistor is warmed with a hairdryer. Describe and explain what happens to the lamp.",
+          "steps": [
+            "Describe the change first: brighter or dimmer?",
+            "Then explain it as a chain: temperature, resistance, current, brightness."
+          ],
+          "answer": "The lamp gets brighter. As the thermistor warms up, its resistance decreases. This lowers the resistance of the whole loop. The battery's p.d. is the same, so the current increases, and the larger current makes the lamp brighter.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "lamp brighter; thermistor resistance decreases; current increases",
+            "requires": [
+              [
+                "brighter"
+              ],
+              [
+                "resistance decreases",
+                "resistance falls"
+              ],
+              [
+                "current increases"
+              ]
+            ],
+            "forbids": [
+              "resistance increases",
+              "current decreases"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ldr-dark",
+          "prompt": "An LDR, a lamp and a cell are in series. The room goes dark. What happens to the current in the lamp?",
+          "hint": "In the dark, is the LDR's resistance high or low?",
+          "options": [
+            {
+              "text": "it decreases",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "An LDR's resistance rises when the light gets dimmer. More resistance for the same cell means a smaller current, so the lamp dims.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fuse-job",
+          "prompt": "The current in a circuit rises above the rating of its fuse. What does the fuse do?",
+          "hint": "A fuse is a thin wire that heats up when current passes.",
+          "options": [
+            {
+              "text": "it melts and breaks the circuit",
+              "correct": true
+            },
+            {
+              "text": "its resistance rises a little to reduce the current",
+              "correct": false
+            },
+            {
+              "text": "it stores the extra charge",
+              "correct": false
+            },
+            {
+              "text": "it lets the extra current pass and stays cool",
+              "correct": false
+            }
+          ],
+          "explain": "The thin wire gets so hot that it melts. The circuit is broken, so the current stops before the wires overheat.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it melts and breaks the circuit"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-variable-resistor-motor",
+          "prompt": "The resistance of a variable resistor in series with a motor is increased. The supply p.d. stays the same. What happens to the motor?",
+          "hint": "Think about what happens to the current first.",
+          "options": [
+            {
+              "text": "it turns more slowly",
+              "correct": true
+            },
+            {
+              "text": "it turns faster",
+              "correct": false
+            },
+            {
+              "text": "its speed does not change",
+              "correct": false
+            }
+          ],
+          "explain": "More resistance in the loop means a smaller current, so the motor turns more slowly.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it turns more slowly"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Explain\" a sensor circuit as a chain of links: the temperature or light changes, so the resistance changes, so the current changes, so the output changes. Give every link."
+        }
+      ]
+    },
+    {
+      "id": "diodes",
+      "heading": "Diodes and LEDs",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[diode|diode]] lets current pass in one direction only. Its symbol is a triangle pointing at a bar. Current can pass when the triangle points along the [[conventional-current|conventional current]], from the positive terminal round the circuit to the negative."
+        },
+        {
+          "type": "text",
+          "text": "Connected that way (the forward direction), the diode has a low resistance and current flows. Turned round (reverse), its resistance is very high and almost no current flows, so it acts like an open switch."
+        },
+        {
+          "type": "text",
+          "text": "A [[light-emitting-diode|light-emitting diode]] (LED) is a diode that gives out light when current passes through it in the forward direction. In reverse, almost no current flows and it stays dark. A resistor is usually placed in series with an LED to keep the current small."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-1-diode-led",
+          "alt": "Top: the diode symbol, a triangle pointing at a short bar, and the LED symbol, the same with two small arrows pointing away from it. Bottom: two circuits, A and B, each a cell, an LED and a resistor in series. The long plate of each cell, the positive terminal, is on the left. Conventional current leaves the positive terminal, goes left along the top wire, down the left side and right along the bottom wire through the LED and then the resistor. In A the LED triangle points right, along the current. In B the LED is turned round and points left, against the current.",
+          "caption": "Follow the conventional current from the + terminal to each LED."
+        },
+        {
+          "type": "example",
+          "id": "ex-which-led-lights",
+          "question": "Look at circuits A and B in the diagram. Which LED lights? Explain your answer.",
+          "steps": [
+            "Find the positive terminal: the long thin plate of the cell.",
+            "Follow the conventional current from it: left along the top wire, down, then right along the bottom wire to the LED.",
+            "Compare the direction of each LED's triangle with the direction of the current."
+          ],
+          "answer": "The LED in circuit A lights. In both circuits, conventional current would leave the positive terminal and reach the LED from the left. In A the triangle points in the direction of the current, so the LED is in the forward direction and current flows. In B the LED points against the current, so it is in reverse and almost no current flows.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "A lights: forward direction; B is in reverse, almost no current",
+            "requires": [
+              [
+                "circuit A",
+                "LED in A"
+              ],
+              [
+                "forward"
+              ],
+              [
+                "reverse"
+              ],
+              [
+                "direction of the current",
+                "along the current"
+              ]
+            ],
+            "forbids": [
+              "LED in circuit B lights"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diode-turned",
+          "prompt": "A cell, a diode and a lamp are in series, and the lamp is lit. The diode is turned round. What happens to the lamp?",
+          "hint": "In which direction does a diode let current through?",
+          "options": [
+            {
+              "text": "it goes out",
+              "correct": true
+            },
+            {
+              "text": "it stays lit at the same brightness",
+              "correct": false
+            },
+            {
+              "text": "it gets brighter",
+              "correct": false
+            },
+            {
+              "text": "it stays lit but dimmer",
+              "correct": false
+            }
+          ],
+          "explain": "Turned round, the diode is in reverse. Its resistance is very high, so almost no current flows and the lamp goes out.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it goes out"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-led-symbol",
+          "prompt": "How is the LED symbol different from the diode symbol?",
+          "hint": "An LED gives out light.",
+          "options": [
+            {
+              "text": "it has two arrows pointing away from it",
+              "correct": true
+            },
+            {
+              "text": "it has two arrows pointing in towards it",
+              "correct": false
+            },
+            {
+              "text": "it is drawn inside a rectangle",
+              "correct": false
+            }
+          ],
+          "explain": "The arrows show light leaving the LED, so they point away. Arrows pointing in belong to the LDR, which receives light.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it has two arrows pointing away from it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Circuit diagrams use the standard symbols, with wires drawn as straight lines and a dot at each junction."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Rectangle symbols: fixed resistor (empty), variable resistor (straight arrow through it), potential divider (arrow onto its side), thermistor (diagonal line with a flat foot), LDR (two arrows pointing in), heater (sections inside), fuse (line along its length)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "NTC thermistor: its resistance falls as its temperature rises. LDR: its resistance falls as the light on it gets brighter."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "With the supply p.d. unchanged, more resistance in a series circuit means a smaller current."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Fuse: its thin wire melts when the current rises above its rating, breaking the circuit. Relay: a small current in its coil closes a switch in a second circuit that carries a large current."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Potential divider: connected across a supply, it shares the supply p.d.; with a sliding contact it gives any p.d. from zero to the full supply p.d. Transformer: changes the size of an alternating p.d., and works only with a.c."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Diode: current passes only when its triangle points along the conventional current; in reverse almost no current flows. LED: a diode that gives out light when current passes in the forward direction.",
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Mixing up the variable resistor and the thermistor. The variable resistor has a straight arrow through it; the thermistor's line has a flat foot and no arrowhead.",
+    "Calling a fuse a resistor. A fuse has a line running through the rectangle along its length; a fixed resistor is an empty rectangle.",
+    "Saying an NTC thermistor's resistance rises as it warms up. It falls, so the current in series with it rises.",
+    "Connecting a voltmeter across two components when you want the p.d. across one. Join its leads to the two ends of that one component only.",
+    "Extended: drawing an LED with its arrows pointing in. That is the LDR; an LED gives out light, so its arrows point away."
+  ],
+  "examTips": [
+    "\"Name\" or \"Identify\" a component: give its full name, such as \"light-dependent resistor\" or \"variable resistor\", not just \"resistor\".",
+    "Paper 1/2 \"which circuit contains…\" questions: check every symbol in each circuit. One missing or wrong component rules that circuit out.",
+    "\"Draw\" a circuit diagram (Paper 3/4 or Paper 6): standard symbols, straight wires with no gaps, and a dot at each junction."
+  ],
+  "readingMinutes": 21
+}

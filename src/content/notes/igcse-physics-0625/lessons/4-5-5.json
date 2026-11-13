@@ -1,0 +1,559 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.5.5",
+  "slug": "the-d-c-motor",
+  "title": "The d.c. motor",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A coil carrying a current in a [[magnetic-field|magnetic field]] has forces in opposite directions on its two sides, so it can turn. More turns, a bigger current or a stronger field give a bigger turning effect. A [[d-c-motor|d.c. motor]] uses this; Extended students also learn how its commutator and brushes keep it turning one way.",
+  "goals": [
+    {
+      "text": "Explain why a coil carrying a current in a magnetic field turns, and in which position it does not.",
+      "bullets": [
+        "4.5.5-1"
+      ]
+    },
+    {
+      "text": "Name the three changes that make the turning effect on the coil bigger.",
+      "bullets": [
+        "4.5.5-1"
+      ]
+    },
+    {
+      "text": "Describe how a d.c. motor works, including what the [[split-ring-commutator|split-ring commutator]] and the brushes do.",
+      "bullets": [
+        "4.5.5-2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.5.2",
+    "4.1",
+    "4.2.2",
+    "4.5.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "electric motor",
+    "how a motor works",
+    "turning effect on a coil",
+    "split-ring commutator",
+    "carbon brushes",
+    "make a motor turn faster"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-force-through-pivot",
+      "prompt": "A force acts on a door along a line that passes straight through its hinge. What is the [[moment|moment]] of this force about the hinge?",
+      "hint": "A moment is the force times the perpendicular distance from the pivot to the line of the force.",
+      "options": [
+        {
+          "text": "zero, so the force cannot turn the door",
+          "correct": true
+        },
+        {
+          "text": "the biggest it can be, because the force acts at the hinge",
+          "correct": false
+        },
+        {
+          "text": "the same as for a push at the handle",
+          "correct": false
+        }
+      ],
+      "explain": "The perpendicular distance from the hinge to the force's line is zero, so the moment is zero. Revise it in {{lesson:1.5.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "zero, so the force cannot turn the door"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-reverse-current",
+      "prompt": "A wire between the poles of a [[magnet|magnet]] is pushed to the left when it carries a current. The current is reversed and nothing else changes. Which way is the force now?",
+      "hint": "One reversal flips the force.",
+      "options": [
+        {
+          "text": "to the right",
+          "correct": true
+        },
+        {
+          "text": "to the left",
+          "correct": false
+        },
+        {
+          "text": "there is no force",
+          "correct": false
+        }
+      ],
+      "explain": "Reversing the current reverses the force, so it now acts to the right. Revise it in {{lesson:4.5.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "to the right"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-dc-direction",
+      "prompt": "Which describes the current from a d.c. supply, such as a battery?",
+      "hint": "The d stands for direct.",
+      "options": [
+        {
+          "text": "it flows in one direction only",
+          "correct": true
+        },
+        {
+          "text": "it reverses direction many times a second",
+          "correct": false
+        },
+        {
+          "text": "it flows only while a magnet is nearby",
+          "correct": false
+        }
+      ],
+      "explain": "[[direct-current|Direct current]] flows one way round the circuit: conventional current goes from the positive terminal, round the circuit, to the negative terminal. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it flows in one direction only"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "turning-effect",
+      "heading": "Why a coil turns",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:4.5.4}} a single wire carrying a current across a field felt a push: the [[motor-effect|motor effect]]. Now bend the wire into a flat loop, a coil, and mount it on an axle between the poles of a [[magnet|magnet]]."
+        },
+        {
+          "type": "text",
+          "text": "The current goes along one side of the coil and comes back along the other. So the two sides carry current in opposite directions. The forces on them are opposite too: one side is pushed up and the other is pushed down."
+        },
+        {
+          "type": "text",
+          "text": "These two forces both have a [[moment|moment]] about the axle, in the same sense. So together they give a turning effect, and the coil rotates."
+        },
+        {
+          "type": "text",
+          "text": "Diagrams often show the coil end-on, looking along the axle. A cross (×) means current into the page; a dot (•) means current out of the page."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-5-coil-end-on",
+          "alt": "A coil seen end-on, looking along its axle, in two positions. In both, an N pole is on the left and an S pole on the right, with field lines running from N to S. Left panel: the coil lies along the field lines. Its left side carries current into the page and is pushed down; its right side carries current out of the page and is pushed up, so the coil turns. Right panel: the coil has turned a quarter turn and now stands at right angles to the field lines. Its top side is pushed up and its bottom side is pushed down, along the line through the axle, so there is no turning effect.",
+          "caption": "The forces on the two sides are always there. Whether they turn the coil depends on its position."
+        },
+        {
+          "type": "text",
+          "text": "The turning effect is biggest when the plane of the coil lies along the field lines. After a quarter turn the coil lies across the field lines. The forces still act, but along a line through the axle, so their moment is zero."
+        },
+        {
+          "type": "text",
+          "text": "So a coil on its own turns until it lies across the field, swings past a little, and settles there. A real motor has an extra part that keeps it turning the same way past this position."
+        },
+        {
+          "type": "text",
+          "text": "A [[d-c-motor|d.c. motor]] is built around this coil. Its turning effect spins the axle, which can drive a fan, a pump or the wheels of a toy car."
+        },
+        {
+          "type": "text",
+          "text": "Three changes make the turning effect bigger:"
+        },
+        {
+          "type": "text",
+          "text": "1. More turns of wire on the coil. Each turn feels its own pair of forces, so the forces add up."
+        },
+        {
+          "type": "text",
+          "text": "2. A bigger current in the coil. The force on each side is bigger."
+        },
+        {
+          "type": "text",
+          "text": "3. A stronger [[magnetic-field|magnetic field]], from stronger magnets or from poles moved closer to the coil. Again the force on each side is bigger."
+        },
+        {
+          "type": "text",
+          "text": "Reversing the current, or swapping the poles of the magnet, makes the coil turn the other way. It does not make the turning effect bigger."
+        },
+        {
+          "type": "example",
+          "id": "ex-model-motor-improve",
+          "question": "Kofi builds a model motor from a coil of 20 turns of wire, two small magnets and a cell. The coil turns, but only weakly. Suggest three changes Kofi could make to increase the turning effect on the coil.",
+          "steps": [
+            "Three things set the turning effect: how many turns the coil has, the size of the current and how strong the field is.",
+            "Give one change for each, and say which way to change it."
+          ],
+          "answer": "He could wind more turns of wire on the coil. He could increase the current in the coil, for example by adding a second cell in series. He could use stronger magnets, or move them closer to the coil, to make the magnetic field stronger.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more turns; bigger current; stronger magnetic field",
+            "requires": [
+              "more turns",
+              "increase the current",
+              [
+                "stronger magnets",
+                "magnetic field stronger"
+              ]
+            ],
+            "forbids": [
+              "fewer turns",
+              "reverse the current"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-coil-settles",
+          "question": "A flat coil on an axle lies between the poles of a magnet, with its plane along the field lines. A steady current is switched on. Explain why the coil starts to turn, and why it comes to rest once its plane is at right angles to the field lines.",
+          "steps": [
+            "Compare the currents in the two sides, then the forces.",
+            "Ask whether the forces have a moment about the axle in each position."
+          ],
+          "answer": "The current flows in opposite directions along the two sides of the coil. So the forces on the two sides act in opposite directions, one up and one down. Both forces have a moment about the axle in the same sense, so the coil turns. When the plane of the coil is at right angles to the field lines, the forces act along a line through the axle. Then they have no moment, so there is no turning effect and the coil settles in that position.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "opposite currents in the two sides give opposite forces, a turning effect about the axle; across the field the forces pass through the axle, so no turning effect",
+            "requires": [
+              "opposite directions",
+              "moment about the axle",
+              "through the axle",
+              [
+                "no turning effect",
+                "no moment"
+              ]
+            ],
+            "forbids": [
+              "no force",
+              "forces disappear"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Choosing a pair of changes where one goes up and the other goes down, such as more turns with a smaller current. You can't tell what happens. Only changes that all increase must increase the turning effect."
+        },
+        {
+          "type": "check",
+          "id": "check-not-bigger",
+          "prompt": "A motor in a cordless drill needs a bigger turning effect. Which change would not increase the turning effect on its coil?",
+          "hint": "Which change only alters the direction of the forces?",
+          "options": [
+            {
+              "text": "turning the battery round",
+              "correct": true
+            },
+            {
+              "text": "using more turns of wire on the coil",
+              "correct": false
+            },
+            {
+              "text": "using stronger magnets",
+              "correct": false
+            },
+            {
+              "text": "using a battery that gives a bigger current",
+              "correct": false
+            }
+          ],
+          "explain": "Turning the battery round reverses the current, so the coil turns the other way with the same turning effect. The other three each make the forces on the coil bigger.",
+          "verify": {
+            "kind": "choice",
+            "truth": "turning the battery round"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-zero-position",
+          "prompt": "A coil carries a steady current between the poles of a magnet. In which position is the turning effect on it zero?",
+          "hint": "When do the forces on the two sides act through the axle?",
+          "options": [
+            {
+              "text": "when the plane of the coil is at right angles to the field lines",
+              "correct": true
+            },
+            {
+              "text": "when the plane of the coil lies along the field lines",
+              "correct": false
+            },
+            {
+              "text": "in every position, because the two forces cancel",
+              "correct": false
+            }
+          ],
+          "explain": "Across the field, the forces act along a line through the axle, so they have no moment. Along the field the turning effect is biggest. The forces are equal and opposite, but they act on opposite sides of the axle, so their moments add.",
+          "verify": {
+            "kind": "choice",
+            "truth": "when the plane of the coil is at right angles to the field lines"
+          }
+        }
+      ]
+    },
+    {
+      "id": "commutator",
+      "heading": "How a d.c. motor keeps turning",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A coil on its own stops once it lies across the field. To keep it turning one way, the coil's current must change direction once every half turn, just as it passes that position. A [[split-ring-commutator|split-ring commutator]] does this."
+        },
+        {
+          "type": "definition",
+          "term": "split-ring commutator",
+          "statement": "A metal ring cut into two halves, insulated from each other, fixed to the axle of a motor. Each end of the coil is joined to one half, and the halves swap brushes every half turn.",
+          "plain": "A turning switch that flips the coil's current twice in each turn."
+        },
+        {
+          "type": "text",
+          "text": "Two brushes, usually blocks of carbon, are fixed in place and press on the ring. Wires join them to the d.c. supply. The ring turns with the coil while the brushes stay still."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-5-motor",
+          "alt": "A simple d.c. motor, drawn in perspective. A flat rectangular coil lies level between the N pole of a magnet on the left and the S pole on the right, with field lines running from N to S. An axle runs through the middle of the coil from front to back. On the front of the axle is a split-ring commutator: a metal ring cut into two halves, with one end of the coil joined to each half. Two fixed carbon brushes press on either side of the ring, and wires join them to a d.c. supply, with the positive terminal on the left brush. Arrows show the current going into the page along the left side of the coil and out of the page along the right side. The force on the left side points down and the force on the right side points up.",
+          "caption": "The commutator turns with the coil; the brushes stay still."
+        },
+        {
+          "type": "text",
+          "text": "1. Current enters through one brush, goes round the coil and leaves through the other brush. The opposite forces on the two sides turn the coil."
+        },
+        {
+          "type": "text",
+          "text": "2. As the coil reaches the position across the field, the gaps in the ring pass the brushes. The turning effect is zero for an instant, but the moving coil carries on past."
+        },
+        {
+          "type": "text",
+          "text": "3. Each brush now touches the other half of the ring, so the current in the coil reverses."
+        },
+        {
+          "type": "text",
+          "text": "4. So whichever side is next to the N pole always carries current the same way. The force on it is always the same way, and the coil keeps turning in one direction."
+        },
+        {
+          "type": "text",
+          "text": "The brushes slide on the turning ring. They keep the coil connected to the supply without the wires twisting up."
+        },
+        {
+          "type": "text",
+          "text": "An [[a-c-generator|a.c. generator]] uses two [[slip-rings|slip rings]] instead, which never swap connections. A d.c. motor fitted with slip rings would only rock to and fro."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-motor",
+          "question": "Amira's model motor has a coil on an axle between two magnets, a split-ring commutator and two carbon brushes joined to a battery. Describe how the motor works, including what the commutator and the brushes do.",
+          "steps": [
+            "Start with why the coil turns: the currents and forces in its two sides.",
+            "Then say when and why the current must reverse, and which part reverses it.",
+            "Finish with the brushes."
+          ],
+          "answer": "The current flows in opposite directions in the two sides of the coil. So the forces on the two sides act in opposite directions, and they give a turning effect about the axle. The split-ring commutator reverses the coil's current every half turn, as the coil passes the position at right angles to the field. So the turning effect always acts in the same direction, and the coil keeps turning one way. The brushes press on the turning commutator and keep the coil connected to the battery without the wires twisting.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "opposite currents give opposite forces and a turning effect; commutator flips the coil's current each half turn, keeping the turning effect one way; brushes keep contact with the turning commutator",
+            "requires": [
+              "opposite directions",
+              "turning effect",
+              [
+                "reverses the coil's current",
+                "reverses the current"
+              ],
+              "every half turn",
+              "same direction",
+              [
+                "keeps turning one way",
+                "keeps turning in one direction"
+              ],
+              "brushes",
+              [
+                "without the wires twisting",
+                "keep the coil connected"
+              ]
+            ],
+            "forbids": [
+              "reverses the magnetic field",
+              "turn faster",
+              "speeds up"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-motor-direction",
+          "question": "In the motor diagram above, determine which way the coil turns, as seen from the commutator end. Explain how you use the [[left-hand-rule|left-hand rule]].",
+          "steps": [
+            "Field: from N to S, so to the right.",
+            "Left side: current into the page. Left hand: first finger to the right, second finger into the page. The thumb points down.",
+            "Right side: current out of the page, so the force is the other way: up.",
+            "Left side down and right side up: picture a clock face to see the sense of rotation."
+          ],
+          "answer": "The field runs from N to S, to the right. The current in the left side flows into the page, so the [[left-hand-rule|left-hand rule]] gives a downward force on that side. The current in the right side flows out of the page, so the force on it is upward. With the left side pushed down and the right side pushed up, the coil turns anticlockwise as seen from the commutator end.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "B to the right; left side I into the page, force down; right side I out of the page, force up; anticlockwise from the commutator end",
+            "requires": [
+              "N to S",
+              "into the page",
+              "downward force",
+              "out of the page",
+              "upward",
+              "anticlockwise"
+            ],
+            "forbids": [
+              "turns clockwise",
+              "S to N"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "For a direction question, state the field direction and the current direction first, then the force. An answer of just \"clockwise\" can lose the explanation mark."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the commutator makes the motor faster or gives it more force. Its job is to keep the turning effect in one direction, so the coil keeps turning the same way."
+        },
+        {
+          "type": "check",
+          "id": "check-commutator-job",
+          "prompt": "What does the split-ring commutator do in a d.c. motor?",
+          "hint": "What has to happen every half turn for the coil to keep going the same way?",
+          "options": [
+            {
+              "text": "it reverses the coil's current every half turn",
+              "correct": true
+            },
+            {
+              "text": "it reverses the magnetic field every half turn",
+              "correct": false
+            },
+            {
+              "text": "it makes the coil turn faster",
+              "correct": false
+            },
+            {
+              "text": "it keeps the current in the coil flowing the same way all the time",
+              "correct": false
+            }
+          ],
+          "explain": "The commutator swaps the connections every half turn, so the current in the coil reverses. The field comes from fixed magnets and never changes. The speed depends on the turns, the current, the field and the load.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it reverses the coil's current every half turn"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-slip-rings-motor",
+          "prompt": "A student builds a d.c. motor but fits two slip rings instead of a split-ring commutator. The coil starts with its plane along the field. What happens when the current is switched on?",
+          "hint": "Slip rings never swap the connections, so the current in the coil never reverses.",
+          "options": [
+            {
+              "text": "it turns about a quarter turn, rocks to and fro, then stops across the field",
+              "correct": true
+            },
+            {
+              "text": "it keeps turning the same way, but more slowly",
+              "correct": false
+            },
+            {
+              "text": "it keeps turning, but the opposite way",
+              "correct": false
+            },
+            {
+              "text": "it does not move at all",
+              "correct": false
+            }
+          ],
+          "explain": "With no reversal, the forces turn the coil towards the position across the field. Once past it, they pull the coil back, so it rocks and then settles there.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it turns about a quarter turn, rocks to and fro, then stops across the field"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-swap-supply",
+          "prompt": "The connections to the supply of a working d.c. motor are swapped. What happens to the coil?",
+          "hint": "The commutator still reverses the current every half turn, but every current is now the other way.",
+          "options": [
+            {
+              "text": "it turns the opposite way",
+              "correct": true
+            },
+            {
+              "text": "it turns the same way",
+              "correct": false
+            },
+            {
+              "text": "it rocks to and fro and stops",
+              "correct": false
+            }
+          ],
+          "explain": "Swapping the supply reverses the current in each side at every position, so every force reverses. The motor still runs, but the other way.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it turns the opposite way"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A coil carrying a current in a magnetic field has forces in opposite directions on its two sides, which can turn it. The turning effect is biggest when the plane of the coil lies along the field lines, and zero when it is at right angles to them.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The turning effect on the coil is increased by more turns on the coil, a bigger current or a stronger magnetic field. Reversing the current or the field reverses the direction of turning, not its size.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In a d.c. motor the split-ring commutator reverses the coil's current every half turn, as the coil passes the position at right angles to the field. So the turning effect always acts the same way and the coil keeps turning in one direction.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "The brushes are fixed contacts that press on the turning commutator. They connect the coil to the supply without the wires twisting.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Picking a pair of changes where one increases and the other decreases. The result is uncertain; only changes that are all increases must increase the turning effect.",
+    "Thinking the forces vanish when the coil lies across the field. They still act, but along a line through the axle, so they have no moment.",
+    "Listing \"reverse the current\" as a way to increase the turning effect. Reversing changes only the direction of turning.",
+    "Saying the commutator makes the motor faster. Its job is to reverse the coil's current at each half turn, which keeps the rotation in one direction.",
+    "Giving a direction of turning without stating the field and current directions that give it.",
+    "Mixing up the parts: a d.c. motor has a split-ring commutator, and an a.c. generator has slip rings."
+  ],
+  "examTips": [
+    "When you \"state\" how to increase the turning effect, give the direction of each change: \"more turns\", \"a bigger current\", \"a stronger magnetic field\". \"Change the current\" earns no mark.",
+    "To \"describe\" how a motor works, write one point per sentence: opposite forces on the two sides, a turning effect, the commutator reversing the current every half turn, the coil turning one way, and the brushes keeping contact.",
+    "In a Paper 1/2 multiple-choice question that pairs two changes, check each change on its own. Pick the option where every change increases the turning effect."
+  ],
+  "readingMinutes": 21
+}

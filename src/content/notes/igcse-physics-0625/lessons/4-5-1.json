@@ -1,0 +1,667 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.5.1",
+  "slug": "electromagnetic-induction",
+  "title": "Electromagnetic induction",
+  "level": "Core",
+  "topic": 4,
+  "summary": "Move a wire across a [[magnetic-field|magnetic field]], or change the field through a coil, and an [[electromotive-force|e.m.f.]] appears in it. This is [[electromagnetic-induction|electromagnetic induction]], and it is how a power-station [[generator|generator]] works. Faster movement, a stronger [[magnet|magnet]] and more turns on the coil all give a bigger e.m.f.",
+  "goals": [
+    {
+      "text": "Say when an e.m.f. is induced: a conductor cutting across field lines, or a changing magnetic field through a coil.",
+      "bullets": [
+        "4.5.1-1"
+      ]
+    },
+    {
+      "text": "Describe an experiment that shows electromagnetic induction, and what the meter shows.",
+      "bullets": [
+        "4.5.1-2"
+      ]
+    },
+    {
+      "text": "State the factors that make an induced e.m.f. bigger.",
+      "bullets": [
+        "4.5.1-3"
+      ]
+    },
+    {
+      "text": "Use [[lenz-s-law|Lenz's law]]: the induced e.m.f. opposes the change that causes it.",
+      "bullets": [
+        "4.5.1-4"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Use the right-hand rule to link the directions of motion, field and induced current, and find the force on the induced current.",
+      "bullets": [
+        "4.5.1-5"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.3",
+    "4.1",
+    "4.2.2",
+    "4.2.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "induced emf",
+    "magnet moving into a coil",
+    "factors affecting induced emf",
+    "Lenz's law",
+    "Fleming's right-hand rule",
+    "generating electricity with a magnet"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-field-line-direction",
+      "prompt": "Outside a bar magnet, which way do the magnetic field lines point?",
+      "hint": "The direction of a field is the way an N pole would be pushed.",
+      "options": [
+        {
+          "text": "from the N pole to the S pole",
+          "correct": true
+        },
+        {
+          "text": "from the S pole to the N pole",
+          "correct": false
+        },
+        {
+          "text": "from the middle of the magnet out to both poles",
+          "correct": false
+        }
+      ],
+      "explain": "Outside a magnet, field lines leave the N pole and enter the S pole. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "from the N pole to the S pole"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-alternating-current",
+      "prompt": "Which statement describes an [[alternating-current|alternating current]]?",
+      "hint": "Think of the mains supply.",
+      "options": [
+        {
+          "text": "a current that keeps reversing its direction",
+          "correct": true
+        },
+        {
+          "text": "a current that always flows the same way",
+          "correct": false
+        },
+        {
+          "text": "a current that keeps getting bigger",
+          "correct": false
+        }
+      ],
+      "explain": "An alternating current (a.c.) keeps changing direction; a direct current (d.c.) flows one way only. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a current that keeps reversing its direction"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "inducing",
+      "heading": "Inducing an e.m.f.",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[magnet|magnet]] sitting still beside a wire does nothing to it. But move the wire across the magnet's [[magnetic-field|magnetic field]], and an [[electromotive-force|e.m.f.]] appears between the ends of the wire."
+        },
+        {
+          "type": "definition",
+          "term": "electromagnetic induction",
+          "statement": "The production of an e.m.f. in a conductor when it cuts across magnetic field lines, or when the magnetic field passing through it changes.",
+          "plain": "Change the magnetism around a wire, and you get a voltage in it."
+        },
+        {
+          "type": "text",
+          "text": "There are two ways to cause [[electromagnetic-induction|electromagnetic induction]]:"
+        },
+        {
+          "type": "text",
+          "text": "1. Move a conductor so that it cuts across [[magnetic-field-line|field lines]]. Only relative movement counts: moving the magnet past a still wire works just as well."
+        },
+        {
+          "type": "text",
+          "text": "2. Change the magnetic field that passes through a coil, even with nothing moving. Switching an electromagnet on or off next to a coil does this."
+        },
+        {
+          "type": "text",
+          "text": "No cutting of field lines and no change in the field means no e.m.f. A wire that moves along the field lines, parallel to them, cuts none, so nothing is induced."
+        },
+        {
+          "type": "text",
+          "text": "The e.m.f. is induced even if the ends of the wire are not joined. If the conductor is part of a complete circuit, the e.m.f. drives an induced current round it."
+        },
+        {
+          "type": "text",
+          "text": "To show induction, use a bar magnet, a coil of wire and a sensitive centre-zero meter. Its needle rests in the middle of the scale and can swing either way."
+        },
+        {
+          "type": "text",
+          "text": "1. Connect the ends of the coil to the meter, so the coil is part of a complete circuit."
+        },
+        {
+          "type": "text",
+          "text": "2. Push the N pole of the magnet into the coil. The needle flicks one way while the magnet moves."
+        },
+        {
+          "type": "text",
+          "text": "3. Hold the magnet still inside the coil. The needle goes back to zero."
+        },
+        {
+          "type": "text",
+          "text": "4. Pull the magnet out. The needle flicks the other way. Moving the coil instead of the magnet gives the same results."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-1-magnet-coil",
+          "alt": "A bar magnet on the left, with its S pole at the left end and its N pole at the right end, facing a coil of wire on the right. A double-headed arrow above the magnet is labelled move the magnet in and out. The two ends of the coil are joined by wires to a sensitive centre-zero meter below the coil, making a complete circuit. The meter's needle rests at zero in the middle of its scale and can swing either way. A note says the needle moves only while the magnet moves, one way for in and the other way for out.",
+          "caption": "Demonstrating electromagnetic induction with a magnet, a coil and a centre-zero meter."
+        },
+        {
+          "type": "text",
+          "text": "Reverse either the movement or the magnet, and the needle swings the opposite way. Reverse both, and the two changes cancel: the needle swings the original way."
+        },
+        {
+          "type": "text",
+          "text": "Move the magnet in and out again and again, and you get an [[alternating-current|alternating current]]. A power-station [[generator|generator]] uses the same idea, with a magnet or coil that keeps turning."
+        },
+        {
+          "type": "hlNote",
+          "text": "Extended students learn how an a.c. generator works, with a rotating coil or magnet.",
+          "lesson": "4.5.2"
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-u-magnet",
+          "question": "Amira has a U-shaped magnet, a length of copper wire and a sensitive centre-zero ammeter. Describe how she could use them to show electromagnetic induction, and what she would see.",
+          "steps": [
+            "First make a complete circuit, so an induced current can flow.",
+            "Then say how the wire must move, and what the ammeter shows when it moves and when it stops."
+          ],
+          "answer": "Connect the ends of the wire to the ammeter to make a complete circuit. Hold part of the wire in the gap between the poles of the magnet. Move the wire quickly down through the gap, across the field lines. The needle deflects while the wire moves. Moving the wire back up makes the needle deflect the opposite way. When the wire is held still, the reading is zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "complete circuit; wire between the poles; move it across the field lines; deflection only while moving; opposite way when moved back; zero when still",
+            "requires": [
+              "complete circuit",
+              "between the poles",
+              "across the field lines",
+              "deflects while the wire moves",
+              "opposite way",
+              [
+                "held still",
+                "stops moving"
+              ]
+            ],
+            "forbids": [
+              "connect a battery",
+              "reading stays while the wire is held still"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-no-emf",
+          "prompt": "A coil is connected to a sensitive meter. Which of these does NOT induce an e.m.f. in the coil?",
+          "hint": "An e.m.f. needs a change in the field through the coil.",
+          "options": [
+            {
+              "text": "holding a magnet still inside the coil",
+              "correct": true
+            },
+            {
+              "text": "pushing a magnet into the coil",
+              "correct": false
+            },
+            {
+              "text": "moving the coil towards a magnet that is held still",
+              "correct": false
+            },
+            {
+              "text": "pulling a magnet out of the coil",
+              "correct": false
+            }
+          ],
+          "explain": "A still magnet inside a still coil gives a field that is not changing, so no e.m.f. is induced. The other three all change the field through the coil.",
+          "verify": {
+            "kind": "choice",
+            "truth": "holding a magnet still inside the coil"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-two-coils-switch",
+          "question": "Two coils are wound on the same iron ring. Coil P is connected to a battery and a switch. Coil Q is connected to a sensitive centre-zero meter. Describe and explain what the meter shows when the switch is closed, while it stays closed, and when it is opened again.",
+          "steps": [
+            "Nothing moves here, so look for when the magnetic field through Q changes.",
+            "The field changes only while the current in P is growing or dying away."
+          ],
+          "answer": "When the switch is closed, the current in P grows, so its magnetic field grows. This changing field passes through Q and induces an e.m.f., so the needle flicks one way and then returns to zero. While the switch stays closed, the field is not changing, so there is no reading. When the switch is opened, the field dies away, and the needle flicks the opposite way.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "closing: field grows, changing field through Q induces e.m.f., flick one way; closed: steady field, no reading; opening: field collapses, flick the opposite way",
+            "requires": [
+              "field grows",
+              "changing field",
+              "flicks one way",
+              [
+                "not changing",
+                "steady"
+              ],
+              "no reading",
+              "opposite way"
+            ],
+            "forbids": [
+              "steady reading while the switch stays closed",
+              "stays at maximum"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-reversals",
+          "prompt": "Pushing the N pole of a magnet into a coil makes a meter needle swing to the right. Next, the S pole of the magnet is pulled out of the same end of the coil. Which way does the needle swing?",
+          "hint": "Count the changes from the first test. Each one reverses the swing.",
+          "options": [
+            {
+              "text": "to the right",
+              "correct": true
+            },
+            {
+              "text": "to the left",
+              "correct": false
+            },
+            {
+              "text": "it does not move",
+              "correct": false
+            }
+          ],
+          "explain": "Using the S pole reverses the swing, and pulling out instead of pushing in reverses it again. Two reversals cancel, so the needle swings to the right.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the right"
+          }
+        }
+      ]
+    },
+    {
+      "id": "size",
+      "heading": "How big is the induced e.m.f.?",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The induced e.m.f. is bigger when field lines are cut faster, or when the field through a coil changes faster. So, with everything else kept the same, three changes make it bigger:"
+        },
+        {
+          "type": "text",
+          "text": "1. Move the magnet or the wire faster."
+        },
+        {
+          "type": "text",
+          "text": "2. Use a stronger magnet."
+        },
+        {
+          "type": "text",
+          "text": "3. Use a coil with more turns of wire. An e.m.f. is induced in each turn, and the turns add up."
+        },
+        {
+          "type": "text",
+          "text": "Reversing the movement, or turning the magnet round, changes the direction of the e.m.f. but not its size."
+        },
+        {
+          "type": "example",
+          "id": "ex-drop-magnet-turns",
+          "question": "A student investigates how the number of turns on a coil affects the induced e.m.f. She lets a bar magnet fall through each coil and records the largest reading on a sensitive voltmeter. (a) Name the independent and dependent variables. (b) State two variables she must keep the same. (c) Explain why letting the magnet fall from the same height is better than pushing it through by hand.",
+          "steps": [
+            "The independent variable is the one she changes; the dependent variable is the one she measures.",
+            "Any other factor that affects the size of the e.m.f. must be controlled."
+          ],
+          "answer": "(a) The independent variable is the number of turns on the coil. The dependent variable is the largest voltmeter reading. (b) She must use the same magnet each time and let it fall from the same height. (c) Speed affects the size of the induced e.m.f. Pushing by hand gives a different speed each time. A magnet falling from the same height passes through the coil at the same speed every time, so only the number of turns changes the reading.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "independent: number of turns; dependent: largest voltmeter reading; control: same magnet, same height; speed affects e.m.f., hand speed varies, falling from same height gives same speed",
+            "requires": [
+              "independent variable is the number of turns",
+              "dependent variable is the largest voltmeter reading",
+              "same magnet",
+              "same height",
+              "different speed each time",
+              "same speed"
+            ],
+            "forbids": [
+              "independent variable is the voltmeter reading",
+              "dependent variable is the number of turns"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When you \"state\" ways to increase the e.m.f., give separate changes, each with a direction word: \"use a stronger magnet\", not \"change the magnet\"."
+        },
+        {
+          "type": "check",
+          "id": "check-not-bigger",
+          "prompt": "Pushing a magnet into a coil induces a small e.m.f. Which change would NOT make the e.m.f. bigger?",
+          "hint": "Which change only affects the direction of the e.m.f.?",
+          "options": [
+            {
+              "text": "pushing the S pole in instead of the N pole, at the same speed",
+              "correct": true
+            },
+            {
+              "text": "pushing the magnet in faster",
+              "correct": false
+            },
+            {
+              "text": "using a coil with more turns",
+              "correct": false
+            },
+            {
+              "text": "using a stronger magnet",
+              "correct": false
+            }
+          ],
+          "explain": "Using the other pole reverses the e.m.f. but leaves its size the same. Faster movement, more turns and a stronger magnet all make it bigger.",
+          "verify": {
+            "kind": "choice",
+            "truth": "pushing the S pole in instead of the N pole, at the same speed"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lenz",
+      "heading": "Lenz's law: the direction of the e.m.f.",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Which way does an induced current flow? [[lenz-s-law|Lenz's law]] answers this: the induced e.m.f. always acts in the direction that opposes the change causing it."
+        },
+        {
+          "type": "text",
+          "text": "Push the N pole of a magnet towards a coil in a complete circuit. The induced current turns the coil into an electromagnet. The end facing the magnet becomes an N pole, which repels the approaching N pole."
+        },
+        {
+          "type": "text",
+          "text": "Pull the magnet away, and the current reverses. That end of the coil becomes an S pole, which attracts the N pole and tries to hold it back."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-1-lenz-coil",
+          "alt": "Two diagrams, one above the other. Each shows a bar magnet on the left, with its N pole facing the left end of a coil on the right; a wire below the coil joins its two ends, making a complete circuit. Top: an arrow shows the magnet moving towards the coil. The left end of the coil, nearest the magnet, is labelled N and its right end S. A note says the near end becomes an N pole and repels the approaching N pole. Bottom: an arrow shows the magnet moving away from the coil. Now the left end of the coil is labelled S and its right end N. A note says the near end becomes an S pole and attracts the leaving N pole. Both notes say the coil opposes the change.",
+          "caption": "The coil always opposes the movement of the magnet."
+        },
+        {
+          "type": "text",
+          "text": "So you must do work to move the magnet in or out. That work becomes the electrical energy of the induced current."
+        },
+        {
+          "type": "example",
+          "id": "ex-s-pole-leaving",
+          "question": "The S pole of a bar magnet is pulled away from one end of a coil that is connected to a lamp. State the pole induced at that end of the coil, and explain your answer using Lenz's law.",
+          "steps": [
+            "Name the change: the S pole is moving away.",
+            "Opposing that change means trying to hold the S pole back, so the coil must attract it."
+          ],
+          "answer": "That end of the coil becomes an N pole. The change is the S pole moving away from the coil. By Lenz's law, the induced current opposes this change, so the coil must attract the leaving S pole. Unlike poles attract, so the near end is an N pole.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "N pole; the change is the S pole moving away; induced current opposes the change, so the coil attracts the S pole; unlike poles attract",
+            "requires": [
+              "becomes an N pole",
+              "moving away",
+              "opposes",
+              "attract the leaving S pole",
+              "unlike poles attract"
+            ],
+            "forbids": [
+              "becomes an S pole",
+              "repels the leaving"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-s-pole-approach",
+          "prompt": "The S pole of a magnet is pushed towards one end of a coil in a complete circuit. What happens at that end of the coil?",
+          "hint": "The coil opposes the approach of the magnet.",
+          "options": [
+            {
+              "text": "an S pole forms, which repels the magnet",
+              "correct": true
+            },
+            {
+              "text": "an N pole forms, which attracts the magnet",
+              "correct": false
+            },
+            {
+              "text": "no pole forms, because copper is not a magnetic material",
+              "correct": false
+            }
+          ],
+          "explain": "To oppose the approach, the coil must repel the S pole, so that end becomes an S pole. The induced current makes the coil an electromagnet, so copper being non-magnetic does not matter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an S pole forms, which repels the magnet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "right-hand-rule",
+      "heading": "Directions of motion, field and induced current",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For a straight wire moving through a field, Fleming's right-hand rule gives the direction of the induced current. Hold the thumb and first two fingers of your right hand at right angles to each other."
+        },
+        {
+          "type": "text",
+          "text": "Thumb: the motion of the wire. First finger: the field, from N to S. Second finger: the induced current, as conventional current."
+        },
+        {
+          "type": "text",
+          "text": "The rule is used when the wire, its motion and the field are all at right angles to each other, as in exam diagrams. A cross (×) on a wire drawn end-on means current into the page; a dot (•) means current out of the page."
+        },
+        {
+          "type": "text",
+          "text": "The induced current is in a magnetic field, so it feels a force. Lenz's law tells you its direction: it always acts against the motion. The [[left-hand-rule|left-hand rule]] gives the same direction."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-1-wire-in-field",
+          "alt": "An N pole at the top and an S pole at the bottom, with magnetic field lines running straight down between them, from N to S. A straight wire passes through the gap at right angles to the page, drawn end-on as a small circle with a cross in it, meaning the induced current flows into the page. A thick arrow pointing right from the wire is labelled motion. A thick arrow pointing left from the wire is labelled force on the induced current, opposing the motion. Notes on the right say: field from N to S, down the page; wire moved to the right; induced current into the page; force on the wire to the left.",
+          "caption": "Thumb right (motion), first finger down (field): the second finger points into the page (current)."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-moved-up",
+          "question": "The N pole of a magnet is on the right and its S pole is on the left, so the field between them points to the left. A wire at right angles to the page is moved up through the field. Find the direction of the induced current, and the direction of the force on the wire due to this current.",
+          "steps": [
+            "Field: from N to S, so to the left. Motion: up the page.",
+            "Right hand: thumb up, first finger to the left. The second finger points out of the page, towards you.",
+            "The force on the induced current opposes the motion, so it acts down the page."
+          ],
+          "answer": "The induced current flows out of the page, towards the viewer. The force on the wire due to this current is downwards, opposing the upward motion.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "v up, B left: current out of the page; force down, opposing the motion",
+            "requires": [
+              "out of the page",
+              "downwards",
+              "opposing"
+            ],
+            "forbids": [
+              "into the page",
+              "force on the wire due to this current is upwards"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-electron-flow-motion",
+          "question": "A straight wire lies across the page from left to right, in a magnetic field that points into the page. When the wire is moved, electrons flow along it from left to right. In which direction is the wire moving?",
+          "steps": [
+            "The rule uses conventional current. Electrons flow left to right, so the conventional current flows right to left.",
+            "Right hand: point the first finger into the page (field) and the second finger to the left (current). The thumb then points up the page."
+          ],
+          "answer": "The conventional current is from right to left. By Fleming's right-hand rule, the wire is moving up the page.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "conventional current right to left; field into page; thumb (motion) up the page",
+            "requires": [
+              "right to left",
+              "up the page"
+            ],
+            "forbids": [
+              "down the page",
+              "left to right is the conventional current"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the electron flow as the current in the right-hand rule. The rule uses conventional current, which flows the opposite way to the electrons."
+        },
+        {
+          "type": "check",
+          "id": "check-rhr-field-into-page",
+          "prompt": "A wire lies up and down the page, in a magnetic field that points into the page. The wire is moved to the right. Which way is the induced current in the wire?",
+          "hint": "Thumb to the right, first finger into the page. Where does the second finger point?",
+          "options": [
+            {
+              "text": "up the page",
+              "correct": true
+            },
+            {
+              "text": "down the page",
+              "correct": false
+            },
+            {
+              "text": "into the page",
+              "correct": false
+            },
+            {
+              "text": "to the right",
+              "correct": false
+            }
+          ],
+          "explain": "With the thumb to the right and the first finger into the page, the second finger points up the page. The current must be along the wire, so it cannot be into the page or to the right.",
+          "verify": {
+            "kind": "choice",
+            "truth": "up the page"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-force-opposes",
+          "prompt": "A wire is pushed to the left through a magnetic field, and a current is induced in it. Which way does the force from the induced current act on the wire?",
+          "hint": "By Lenz's law, the effect must work against the push.",
+          "options": [
+            {
+              "text": "to the right",
+              "correct": true
+            },
+            {
+              "text": "to the left",
+              "correct": false
+            },
+            {
+              "text": "along the field lines",
+              "correct": false
+            },
+            {
+              "text": "there is no force on the wire",
+              "correct": false
+            }
+          ],
+          "explain": "The force on the induced current opposes the motion, so it acts to the right, against the push.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the right"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "An e.m.f. is induced in a conductor when it cuts across magnetic field lines, or when the magnetic field through it changes. No relative movement and no change in the field means no e.m.f.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An induced e.m.f. drives an induced current only if the conductor is part of a complete circuit.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Demonstration: move a magnet in and out of a coil joined to a sensitive centre-zero meter. The needle deflects only while the magnet moves, opposite ways for in and out.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With everything else kept the same, the induced e.m.f. is bigger for faster movement, a stronger magnet or more turns on the coil. Reversing the movement or the magnet reverses the e.m.f. but does not change its size.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Lenz's law: an induced e.m.f. acts in the direction that opposes the change causing it. A coil in a complete circuit repels an approaching pole and attracts a leaving one.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Fleming's right-hand rule, for a wire, motion and field all at right angles: thumb = motion, first finger = field (N to S), second finger = induced conventional current. The force on the induced current opposes the motion.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Thinking a magnet held still inside a coil induces an e.m.f. Only a change does: movement across the field, or a field that is growing or shrinking.",
+    "Connecting the wire to a power supply to \"induce\" an e.m.f. A supply drives a current and gives a force on the wire; induction needs the wire to cut field lines.",
+    "Moving the wire along the field lines, or along its own length. It cuts no field lines, so no e.m.f. is induced: move it across the field.",
+    "Forgetting that two reversals cancel. Using the other pole and moving the other way gives the same direction of deflection as before."
+  ],
+  "examTips": [
+    "\"Describe\" the induction experiment in three parts: the apparatus (magnet, coil, sensitive meter in a complete circuit), what you do (move the magnet in and out), and what you see (a reading only while it moves, opposite ways for in and out).",
+    "\"Explain\" why a lamp or meter responds: link relative movement or a changing field, to an induced e.m.f., to a current in a complete circuit."
+  ],
+  "readingMinutes": 24
+}

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-labelledby="t622lifecycle">
+  <title id="t622lifecycle">A flow chart of the life cycle of a star. At the top, an interstellar cloud of gas and dust containing hydrogen. An arrow leads down to protostar, then another arrow down to stable star. From stable star the chart splits into two paths. The left path, labelled less massive (most stars), goes to red giant, then to planetary nebula with a white dwarf at its centre. The right path, labelled much more massive, goes to red supergiant, then to supernova, then to nebula with a neutron star or black hole at its centre. A dashed arrow runs from this last box back up to the cloud at the top, labelled the nebula may form new stars and planets.</title>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="200" y="20" width="240" height="36" rx="6"/>
+    <rect x="200" y="85" width="240" height="36" rx="6"/>
+    <rect x="200" y="150" width="240" height="36" rx="6"/>
+    <rect x="45" y="240" width="250" height="36" rx="6"/>
+    <rect x="345" y="240" width="250" height="36" rx="6"/>
+    <rect x="345" y="305" width="250" height="36" rx="6"/>
+  </g>
+  <g fill="none" stroke="var(--t2-ink)" stroke-width="2.5">
+    <rect x="45" y="305" width="250" height="36" rx="6"/>
+    <rect x="345" y="370" width="250" height="36" rx="6"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="320" y1="56" x2="320" y2="78"/>
+    <line x1="320" y1="121" x2="320" y2="143"/>
+    <line x1="300" y1="186" x2="178" y2="236"/>
+    <line x1="340" y1="186" x2="462" y2="236"/>
+    <line x1="170" y1="276" x2="170" y2="298"/>
+    <line x1="470" y1="276" x2="470" y2="298"/>
+    <line x1="470" y1="341" x2="470" y2="363"/>
+  </g>
+  <g fill="currentColor">
+    <polygon points="315,77 325,77 320,85"/>
+    <polygon points="315,142 325,142 320,150"/>
+    <polygon points="176.6,232.4 180.0,240.7 170,240"/>
+    <polygon points="460.0,240.7 463.4,232.4 470,240"/>
+    <polygon points="165,297 175,297 170,305"/>
+    <polygon points="465,297 475,297 470,305"/>
+    <polygon points="465,362 475,362 470,370"/>
+  </g>
+  <polyline points="595,388 622,388 622,38 449,38" fill="none" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <polygon points="449,33 449,43 440,38" fill="var(--t2-ink)"/>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="320" y="43">cloud of gas and dust (hydrogen)</text>
+    <text x="320" y="108">protostar</text>
+    <text x="320" y="173">stable star</text>
+    <text x="170" y="263">red giant</text>
+    <text x="470" y="263">red supergiant</text>
+    <text x="170" y="328">planetary nebula + white dwarf</text>
+    <text x="470" y="328">supernova</text>
+    <text x="470" y="393">nebula + neutron star or black hole</text>
+  </g>
+  <g font-size="12" fill="currentColor" font-family="inherit">
+    <text x="225" y="206" text-anchor="end">less massive (most stars)</text>
+    <text x="415" y="206" text-anchor="start">much more massive</text>
+  </g>
+  <g font-size="12" fill="var(--t2-ink)" font-family="inherit" text-anchor="middle">
+    <text x="530" y="62">nebula may form new</text>
+    <text x="530" y="77">stars and planets</text>
+  </g>
+</svg>

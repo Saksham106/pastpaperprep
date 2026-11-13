@@ -2,49 +2,49 @@
   {
     "id": "proton",
     "term": "proton",
-    "definition": "TODO: Positive particle (+1) in nucleus, relative mass 1",
+    "definition": "A particle in the nucleus with a relative charge of $+1$ and a relative mass of 1.",
     "lesson": "5.1.2"
   },
   {
     "id": "neutron",
     "term": "neutron",
-    "definition": "TODO: Neutral particle (0) in nucleus, relative mass 1",
+    "definition": "A particle in the nucleus with no charge (relative charge $0$) and a relative mass of 1.",
     "lesson": "5.1.2"
   },
   {
     "id": "nucleon",
     "term": "nucleon",
-    "definition": "TODO: A proton or neutron",
+    "definition": "Any particle in the nucleus: a proton or a neutron.",
     "lesson": "5.1.2"
   },
   {
     "id": "proton-number",
     "term": "proton number",
-    "definition": "TODO: Z; number of protons; atomic number; sets the element",
+    "definition": "The number of protons in a nucleus, symbol $Z$, also called the atomic number; every atom of an element has the same proton number.",
     "lesson": "5.1.2"
   },
   {
     "id": "nucleon-number",
     "term": "nucleon number",
-    "definition": "TODO: A; protons plus neutrons; mass number",
+    "definition": "The total number of protons and neutrons in a nucleus, symbol $A$, also called the mass number.",
     "lesson": "5.1.2"
   },
   {
     "id": "nuclide",
     "term": "nuclide",
-    "definition": "TODO: A particular nucleus described by A and Z, written as nuclide notation",
+    "definition": "A particular kind of nucleus, with a set number of protons and of neutrons, written in nuclide notation as $^{A}_{Z}\\text{X}$.",
     "lesson": "5.1.2"
   },
   {
     "id": "isotope",
     "term": "isotope",
-    "definition": "TODO: Atoms of the same element with the same Z but different A (different neutrons)",
+    "definition": "One of two or more forms of an element whose atoms have the same proton number but different numbers of neutrons.",
     "lesson": "5.1.2"
   },
   {
     "id": "nuclear-fission",
     "term": "nuclear fission",
-    "definition": "TODO: Splitting of a heavy nucleus into two lighter ones releasing energy and neutrons",
+    "definition": "The splitting of a large nucleus, such as uranium-235, into two smaller nuclei, which releases energy and usually two or three neutrons.",
     "lesson": "5.1.2"
   }
 ]

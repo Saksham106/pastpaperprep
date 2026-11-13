@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-labelledby="t451lenz">
+<title id="t451lenz">Two diagrams, one above the other. Each shows a bar magnet on the left, with its N pole facing the left end of a coil on the right; a wire below the coil joins its two ends, making a complete circuit. Top: an arrow shows the magnet moving towards the coil. The left end of the coil, nearest the magnet, is labelled N and its right end S. A note says the near end becomes an N pole and repels the approaching N pole. Bottom: an arrow shows the magnet moving away from the coil. Now the left end of the coil is labelled S and its right end N. A note says the near end becomes an S pole and attracts the leaving N pole. Both notes say the coil opposes the change.</title>
+<text font-family="inherit" font-size="13" x="20" y="24" fill="currentColor" font-weight="bold">Magnet moves in</text>
+<rect x="40" y="58" width="140" height="36" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="110" y1="58" x2="110" y2="94" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="15" x="75" y="82" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<text font-family="inherit" font-size="15" x="145" y="82" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<line x1="70" y1="114" x2="150" y2="114" stroke="var(--t1-ink)" stroke-width="2"/>
+<polygon points="160,114 150,109 150,119" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="110" y="132" fill="var(--t1-ink)" text-anchor="middle">moving towards the coil</text>
+<g fill="none" stroke="var(--t2-ink)" stroke-width="2">
+<ellipse cx="250" cy="76" rx="7" ry="32"/>
+<ellipse cx="268" cy="76" rx="7" ry="32"/>
+<ellipse cx="286" cy="76" rx="7" ry="32"/>
+<ellipse cx="304" cy="76" rx="7" ry="32"/>
+<ellipse cx="322" cy="76" rx="7" ry="32"/>
+<ellipse cx="340" cy="76" rx="7" ry="32"/>
+</g>
+<polyline points="250,108 250,136 340,136 340,108" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="16" x="226" y="82" fill="var(--t3-ink)" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="16" x="366" y="82" fill="var(--t3-ink)" text-anchor="middle" font-weight="bold">S</text>
+<text font-family="inherit" font-size="12" x="395" y="62" fill="currentColor">Near end becomes an N pole.</text>
+<text font-family="inherit" font-size="12" x="395" y="80" fill="currentColor">It repels the approaching N pole:</text>
+<text font-family="inherit" font-size="12" x="395" y="98" fill="currentColor">the coil opposes the change.</text>
+<line x1="20" y1="150" x2="620" y2="150" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+<text font-family="inherit" font-size="13" x="20" y="176" fill="currentColor" font-weight="bold">Magnet moves out</text>
+<rect x="40" y="208" width="140" height="36" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="110" y1="208" x2="110" y2="244" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="15" x="75" y="232" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<text font-family="inherit" font-size="15" x="145" y="232" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<line x1="70" y1="264" x2="150" y2="264" stroke="var(--t1-ink)" stroke-width="2"/>
+<polygon points="60,264 70,259 70,269" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="110" y="284" fill="var(--t1-ink)" text-anchor="middle">moving away from the coil</text>
+<g fill="none" stroke="var(--t2-ink)" stroke-width="2">
+<ellipse cx="250" cy="226" rx="7" ry="32"/>
+<ellipse cx="268" cy="226" rx="7" ry="32"/>
+<ellipse cx="286" cy="226" rx="7" ry="32"/>
+<ellipse cx="304" cy="226" rx="7" ry="32"/>
+<ellipse cx="322" cy="226" rx="7" ry="32"/>
+<ellipse cx="340" cy="226" rx="7" ry="32"/>
+</g>
+<polyline points="250,258 250,286 340,286 340,258" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="16" x="226" y="232" fill="var(--t3-ink)" text-anchor="middle" font-weight="bold">S</text>
+<text font-family="inherit" font-size="16" x="366" y="232" fill="var(--t3-ink)" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="12" x="395" y="212" fill="currentColor">Near end becomes an S pole.</text>
+<text font-family="inherit" font-size="12" x="395" y="230" fill="currentColor">It attracts the leaving N pole:</text>
+<text font-family="inherit" font-size="12" x="395" y="248" fill="currentColor">the coil opposes the change.</text>
+</svg>

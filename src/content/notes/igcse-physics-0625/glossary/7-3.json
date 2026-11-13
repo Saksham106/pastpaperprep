@@ -2,25 +2,25 @@
   {
     "id": "precision",
     "term": "precision",
-    "definition": "TODO: How close repeated measurements are to each other",
+    "definition": "How close repeated measured values of a quantity are to each other; recording a reading to the right precision means giving every figure the instrument can show.",
     "lesson": "7.3"
   },
   {
     "id": "zero-error",
     "term": "zero error",
-    "definition": "TODO: Reading when it should be zero; subtract",
+    "definition": "The reading an instrument gives when the true value is zero; subtract it from every reading (adding it back if it is below zero) to get the true values.",
     "lesson": "7.3"
   },
   {
     "id": "repeatability",
     "term": "repeatability",
-    "definition": "TODO: Same result when repeated; take repeats",
+    "definition": "A measurement is repeatable if you get the same or a very similar value when you measure it again in the same way and in the same conditions, during one experiment.",
     "lesson": "7.3"
   },
   {
     "id": "reproducibility",
     "term": "reproducibility",
-    "definition": "TODO: Same result by others or methods",
+    "definition": "A measurement is reproducible if a similar value is found by another method, in other conditions, or in a separate experiment.",
     "lesson": "7.3"
   }
 ]

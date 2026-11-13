@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 290" role="img" aria-labelledby="t512isotopes">
+  <title id="t512isotopes">The nuclei of the three isotopes of hydrogen, not to scale. Hydrogen-1 has 1 proton and no neutrons, nuclide notation H with 1 at the top and 1 at the bottom. Hydrogen-2 has 1 proton and 1 neutron, notation H with 2 at the top and 1 at the bottom. Hydrogen-3 has 1 proton and 2 neutrons, notation H with 3 at the top and 1 at the bottom. The proton number is 1 in all three; only the nucleon number changes.</title>
+  <g stroke="currentColor" stroke-width="1" fill="var(--muted)" fill-opacity="0.35">
+    <circle cx="309" cy="80" r="10"/>
+    <circle cx="481" cy="88" r="10"/><circle cx="499" cy="88" r="10"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="var(--t1-ink)" fill-opacity="0.6">
+    <circle cx="110" cy="80" r="10"/>
+    <circle cx="291" cy="80" r="10"/>
+    <circle cx="490" cy="72" r="10"/>
+  </g>
+  <g font-size="13" font-weight="bold" fill="currentColor" text-anchor="middle" font-family="inherit">
+    <text x="110" y="85">+</text><text x="291" y="85">+</text><text x="490" y="77">+</text>
+  </g>
+  <g font-size="15" fill="currentColor" text-anchor="middle" font-family="inherit">
+    <text x="110" y="136">hydrogen-1</text>
+    <text x="300" y="136">hydrogen-2</text>
+    <text x="490" y="136">hydrogen-3</text>
+    <text x="110" y="214">1 proton</text>
+    <text x="110" y="232">0 neutrons</text>
+    <text x="300" y="214">1 proton</text>
+    <text x="300" y="232">1 neutron</text>
+    <text x="490" y="214">1 proton</text>
+    <text x="490" y="232">2 neutrons</text>
+  </g>
+  <g fill="currentColor" font-family="inherit">
+    <text x="112" y="186" font-size="24">H</text>
+    <text x="108" y="168" font-size="14" text-anchor="end">1</text>
+    <text x="108" y="192" font-size="14" text-anchor="end">1</text>
+    <text x="302" y="186" font-size="24">H</text>
+    <text x="298" y="168" font-size="14" text-anchor="end">2</text>
+    <text x="298" y="192" font-size="14" text-anchor="end">1</text>
+    <text x="492" y="186" font-size="24">H</text>
+    <text x="488" y="168" font-size="14" text-anchor="end">3</text>
+    <text x="488" y="192" font-size="14" text-anchor="end">1</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1">
+    <circle cx="70" cy="272" r="8" fill="var(--t1-ink)" fill-opacity="0.6"/>
+    <circle cx="190" cy="272" r="8" fill="var(--muted)" fill-opacity="0.35"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="70" y="276" text-anchor="middle" font-weight="bold" font-size="12">+</text>
+    <text x="84" y="277">proton</text>
+    <text x="204" y="277">neutron</text>
+    <text x="500" y="277" fill="var(--muted)">not to scale</text>
+  </g>
+</svg>

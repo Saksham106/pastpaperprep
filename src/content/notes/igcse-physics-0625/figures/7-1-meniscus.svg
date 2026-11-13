@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 260" role="img" aria-labelledby="t71m">
+<title id="t71m">Close-up of the side of a measuring cylinder holding water. The scale is marked every 1 cubic centimetre from 40 to 50, with numbers at 40, 45 and 50. The water surface curves down in the middle, forming a meniscus whose lowest point lines up with the 46 mark. An eye on the right is level with the bottom of the meniscus, and a dashed horizontal sight line runs from the eye to the 46 mark.</title>
+<path d="M140 100 Q180 120 220 100 L220 250 L140 250 Z" fill="var(--t1-ink)" fill-opacity="0.15" stroke="none"/>
+<path d="M140 100 Q180 120 220 100" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<g stroke="currentColor" stroke-width="2" fill="none">
+<line x1="140" y1="15" x2="140" y2="250"/>
+<line x1="220" y1="15" x2="220" y2="250"/>
+</g>
+<g stroke="currentColor" stroke-width="1.2">
+<line x1="140" y1="230" x2="166" y2="230"/>
+<line x1="140" y1="210" x2="154" y2="210"/>
+<line x1="140" y1="190" x2="154" y2="190"/>
+<line x1="140" y1="170" x2="154" y2="170"/>
+<line x1="140" y1="150" x2="154" y2="150"/>
+<line x1="140" y1="130" x2="166" y2="130"/>
+<line x1="140" y1="110" x2="154" y2="110"/>
+<line x1="140" y1="90" x2="154" y2="90"/>
+<line x1="140" y1="70" x2="154" y2="70"/>
+<line x1="140" y1="50" x2="154" y2="50"/>
+<line x1="140" y1="30" x2="166" y2="30"/>
+</g>
+<g fill="currentColor" font-size="13" font-family="sans-serif" text-anchor="end">
+<text x="132" y="234">40</text>
+<text x="132" y="134">45</text>
+<text x="132" y="34">50</text>
+<text x="132" y="14">cm³</text>
+</g>
+<line x1="156" y1="110" x2="318" y2="110" stroke="var(--t2-ink)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<g fill="none" stroke="currentColor" stroke-width="1.8">
+<path d="M322 110 Q338 98 354 110 Q338 122 322 110 Z"/>
+</g>
+<circle cx="333" cy="110" r="4.5" fill="currentColor"/>
+<g fill="currentColor" font-size="12" font-family="sans-serif">
+<text x="236" y="138">read the bottom</text>
+<text x="236" y="153">of the meniscus:</text>
+<text x="236" y="168">46 cm³</text>
+<text x="300" y="88">eye level</text>
+</g>
+</svg>

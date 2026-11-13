@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 390" role="img" aria-labelledby="t611phases">
+  <title id="t611phases">Sunlight arrives from the left. The Earth sits in the middle of a dashed circle, the Moon's orbit, labelled one orbit takes about a month. An arrow on the circle shows the Moon moving anticlockwise. The Moon is drawn at four points of its orbit, and in every position its left half, the half facing the Sun, is lit. Next to each Moon a small disc shows how it looks from the northern hemisphere of the Earth. On the left, between the Earth and the Sun: new moon, a dark disc, because its lit half faces away from us. At the bottom: half moon, first quarter, with the right half of the disc lit. On the right, on the far side of the Earth from the Sun: full moon, a fully lit disc. At the top: half moon, last quarter, with the left half of the disc lit. Seen from above the North Pole, not to scale.</title>
+  <g stroke="var(--t3-ink)" stroke-width="2" fill="none">
+    <line x1="20" y1="120" x2="120" y2="120"/>
+    <polyline points="110,114 120,120 110,126"/>
+    <line x1="20" y1="190" x2="120" y2="190"/>
+    <polyline points="110,184 120,190 110,196"/>
+    <line x1="20" y1="260" x2="120" y2="260"/>
+    <polyline points="110,254 120,260 110,266"/>
+  </g>
+  <circle cx="380" cy="190" r="110" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 5" stroke-opacity="0.7"/>
+  <polyline points="299.6,258.1 302.2,267.8 292.5,265.2" fill="none" stroke="currentColor" stroke-width="2"/>
+  <path d="M380 164 A26 26 0 0 0 380 216 Z" fill="var(--t3-ink)" fill-opacity="0.25"/>
+  <path d="M380 164 A26 26 0 0 1 380 216 Z" fill="currentColor" fill-opacity="0.28"/>
+  <circle cx="380" cy="190" r="26" fill="none" stroke="currentColor" stroke-width="2"/>
+  <g fill="var(--t3-ink)" fill-opacity="0.35">
+    <path d="M270 174 A16 16 0 0 0 270 206 Z"/>
+    <path d="M380 284 A16 16 0 0 0 380 316 Z"/>
+    <path d="M490 174 A16 16 0 0 0 490 206 Z"/>
+    <path d="M380 64 A16 16 0 0 0 380 96 Z"/>
+  </g>
+  <g fill="currentColor" fill-opacity="0.45">
+    <path d="M270 174 A16 16 0 0 1 270 206 Z"/>
+    <path d="M380 284 A16 16 0 0 1 380 316 Z"/>
+    <path d="M490 174 A16 16 0 0 1 490 206 Z"/>
+    <path d="M380 64 A16 16 0 0 1 380 96 Z"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <circle cx="270" cy="190" r="16"/>
+    <circle cx="380" cy="300" r="16"/>
+    <circle cx="490" cy="190" r="16"/>
+    <circle cx="380" cy="80" r="16"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5">
+    <circle cx="205" cy="190" r="12" fill="currentColor" fill-opacity="0.45"/>
+    <path d="M440 293 A12 12 0 0 1 440 317 Z" fill="var(--t3-ink)" fill-opacity="0.35"/>
+    <path d="M440 293 A12 12 0 0 0 440 317 Z" fill="currentColor" fill-opacity="0.45"/>
+    <circle cx="560" cy="190" r="12" fill="var(--t3-ink)" fill-opacity="0.35"/>
+    <path d="M440 63 A12 12 0 0 0 440 87 Z" fill="var(--t3-ink)" fill-opacity="0.35"/>
+    <path d="M440 63 A12 12 0 0 1 440 87 Z" fill="currentColor" fill-opacity="0.45"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="70" y="100" font-weight="bold">sunlight</text>
+    <text x="380" y="234">Earth</text>
+    <text x="380" y="146" font-size="12">Moon's orbit: about a month</text>
+    <text x="205" y="222">new moon</text>
+    <text x="560" y="222">full moon</text>
+    <text x="460" y="304" text-anchor="start">half moon</text>
+    <text x="460" y="320" text-anchor="start">(first quarter)</text>
+    <text x="460" y="74" text-anchor="start">half moon</text>
+    <text x="460" y="90" text-anchor="start">(last quarter)</text>
+    <text x="340" y="370" fill-opacity="0.75">small discs: how the Moon looks from the northern hemisphere</text>
+    <text x="340" y="386" fill-opacity="0.75">seen from above the North Pole (not to scale)</text>
+  </g>
+</svg>

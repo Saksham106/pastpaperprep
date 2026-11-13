@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 310" role="img" aria-labelledby="t431e">
+  <title id="t431e">Two separate circuits joined by a relay. Left: a cell, a switch S and the relay coil, wound on an iron core, form a small-current circuit. Right: a battery, a motor and the relay's switch contacts form a large-current circuit. A dashed arrow from the coil to the contacts shows that the coil closes the contacts when it is magnetised.</title>
+  <line x1="40" y1="70" x2="100" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="100" y1="52" x2="100" y2="88" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="110" y1="61" x2="110" y2="79" stroke="currentColor" stroke-width="6"/>
+  <line x1="110" y1="70" x2="170" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="170" y1="70" x2="170" y2="100" stroke="currentColor" stroke-width="2.2"/>
+  <circle cx="170" cy="100" r="2.5" stroke="currentColor" stroke-width="2.2" fill="currentColor"/>
+  <line x1="170" y1="100" x2="186" y2="130" stroke="currentColor" stroke-width="2.2"/>
+  <circle cx="170" cy="138" r="2.5" stroke="currentColor" stroke-width="2.2" fill="currentColor"/>
+  <line x1="170" y1="138" x2="170" y2="170" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="170" y1="170" x2="215" y2="170" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="215" y1="170" x2="215" y2="190" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M 215 190 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12 a 6 6 0 0 1 0 12" stroke="currentColor" stroke-width="2.2" fill="none"/>
+  <line x1="215" y1="238" x2="215" y2="260" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="215" y1="260" x2="40" y2="260" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="40" y1="260" x2="40" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="300" y1="70" x2="385" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="385" y1="70" x2="385" y2="70" stroke="currentColor" stroke-width="2.2"/><line x1="419" y1="70" x2="419" y2="70" stroke="currentColor" stroke-width="2.2"/><line x1="385" y1="52" x2="385" y2="88" stroke="currentColor" stroke-width="2.2"/><line x1="395" y1="61" x2="395" y2="79" stroke="currentColor" stroke-width="6"/><line x1="395" y1="70" x2="409" y2="70" stroke="currentColor" stroke-width="2.2"/><line x1="409" y1="52" x2="409" y2="88" stroke="currentColor" stroke-width="2.2"/><line x1="419" y1="61" x2="419" y2="79" stroke="currentColor" stroke-width="6"/>
+  <line x1="419" y1="70" x2="500" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="500" y1="70" x2="500" y2="150" stroke="currentColor" stroke-width="2.2"/>
+  <circle cx="500" cy="166" r="16" stroke="currentColor" stroke-width="2.2" fill="none"/>
+  <text x="500" y="171" font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle">M</text>
+  <line x1="500" y1="182" x2="500" y2="260" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="500" y1="260" x2="300" y2="260" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="300" y1="260" x2="300" y2="232" stroke="currentColor" stroke-width="2.2"/>
+  <circle cx="300" cy="232" r="2.5" stroke="currentColor" stroke-width="2.2" fill="currentColor"/>
+  <line x1="300" y1="232" x2="284" y2="200" stroke="currentColor" stroke-width="2.2"/>
+  <circle cx="300" cy="192" r="2.5" stroke="currentColor" stroke-width="2.2" fill="currentColor"/>
+  <line x1="300" y1="192" x2="300" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="232" y1="190" x2="232" y2="238" stroke="currentColor" stroke-width="3"/>
+  <path d="M 240 214 H 288" stroke="currentColor" stroke-width="1.6" fill="none" stroke-dasharray="5 4"/>
+  <polygon points="290.0,214.0 282.0,210.0 282.0,218.0" fill="currentColor"/>
+  <text x="185" y="52" font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">switch S</text>
+  <text x="70" y="295" font-family="inherit" font-size="13" fill="currentColor" text-anchor="start">small-current circuit</text>
+  <text x="330" y="295" font-family="inherit" font-size="13" fill="currentColor" text-anchor="start">large-current circuit</text>
+  <text x="258" y="170" font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">relay</text>
+  <text x="212" y="282" font-family="inherit" font-size="12" fill="var(--muted)" text-anchor="middle">coil</text>
+  <text x="340" y="212" font-family="inherit" font-size="12" fill="var(--muted)" text-anchor="start">contacts</text>
+</svg>

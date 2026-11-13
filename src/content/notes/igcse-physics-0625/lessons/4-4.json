@@ -190,31 +190,31 @@
         },
         {
           "type": "check",
-          "id": "check-fuse-switch-wire",
-          "prompt": "In which wire of a mains circuit are the fuse and the switch connected?",
-          "hint": "Which wire has to be cut off to make the appliance safe?",
+          "id": "check-switch-in-neutral",
+          "prompt": "An electrician wires a toaster's switch into the neutral wire by mistake. The switch is turned off. Which statement is true?",
+          "hint": "An open switch stops the current. Which wire is the heating element still joined to?",
           "options": [
             {
-              "text": "both in the live wire",
+              "text": "the toaster is off, but its heating element is still connected to the live wire",
               "correct": true
             },
             {
-              "text": "both in the neutral wire",
+              "text": "the toaster is off and its heating element is safe to touch",
               "correct": false
             },
             {
-              "text": "the fuse in the live wire and the switch in the neutral wire",
+              "text": "the toaster stays on",
               "correct": false
             },
             {
-              "text": "the fuse in the earth wire and the switch in the live wire",
+              "text": "the fuse melts",
               "correct": false
             }
           ],
-          "explain": "Both go in the live wire. When either one breaks the circuit, the appliance is cut off from the high p.d. The earth wire normally carries no current, so a fuse there would do nothing.",
+          "explain": "The open switch breaks the circuit, so there is no current and the toaster is off. But the element is still joined to the live wire, so it is at a high p.d. Touching it, for example with a knife, could give an electric shock. The fuse melts only if the current is too large.",
           "verify": {
             "kind": "choice",
-            "truth": "both in the live wire"
+            "truth": "the toaster is off, but its heating element is still connected to the live wire"
           }
         },
         {
@@ -324,7 +324,7 @@
         },
         {
           "type": "mistake",
-          "text": "Writing only \"a short circuit\" when asked for the hazard of damaged insulation. Name the danger to the person: an electric shock, or a fire."
+          "text": "Writing only \"a short circuit\" or \"a fire\" when asked for the hazard of damaged insulation. Name the danger to a person: an electric shock (electrocution)."
         },
         {
           "type": "check",
@@ -582,7 +582,7 @@
         },
         {
           "type": "text",
-          "text": "A [[double-insulation|double-insulated]] appliance, such as a plastic hair dryer, has a casing made of an [[electrical-insulator|insulator]]. Its casing cannot become live, so it needs no earth wire. Its cable has just two wires: live and neutral."
+          "text": "A [[double-insulation|double-insulated]] appliance, such as a plastic hair dryer, has insulated wires inside a casing made of an [[electrical-insulator|insulator]]: two layers of insulation. Its casing cannot become live, so it needs no earth wire. Its cable has just two wires: live and neutral."
         },
         {
           "type": "result",
@@ -673,7 +673,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "Hazards: damaged insulation (shock, short circuit, fire), overheating cables (fire), damp conditions (shock), overloaded sockets or extension leads (large total current, overheating, fire)."
+          "text": "Hazards: damaged insulation (electric shock; also fire from a short circuit), overheating cables (fire), damp conditions (shock), overloaded sockets or extension leads (large total current, overheating, fire)."
         },
         {
           "type": "fact",
@@ -691,16 +691,16 @@
     }
   ],
   "mistakes": [
-    "Thinking a fuse protects you from an electric shock. It protects the wiring and the appliance from too large a current; a shock can happen at a current far too small to melt it.",
+    "Thinking a fuse on its own protects you from an electric shock. It protects the wiring and the appliance from too large a current; a shock can happen at a current far too small to melt it.",
     "Putting the switch in the neutral wire. The appliance goes off but stays connected to the live wire, so touching it can still give a shock.",
     "Thinking a double-insulated appliance needs no fuse. It needs no earth wire, but the fuse still protects the circuit and cable.",
     "Choosing a fuse rating below the normal current because it is the nearest value. The rating must be just above the normal current."
   ],
   "examTips": [
-    "\"State\" the hazard: name the danger itself, an electric shock or a fire. \"A short circuit\" alone does not score.",
+    "\"State\" the hazard: name the danger itself. For damaged insulation or damp conditions, write an electric shock; for overheating cables or overloading, write a fire. \"A short circuit\" alone does not score.",
     "\"Explain\" why the switch is in the live wire: say that switching off disconnects the appliance from the high p.d., so it is safe to touch.",
     "To choose a fuse, write $I = \\frac{P}{V}$ with the numbers, give the current, then pick the smallest rating above it.",
     "\"Explain\" how earthing works as a chain: low-resistance earth wire, large current, fuse melts, live wire cut off, casing no longer live."
   ],
-  "readingMinutes": 23
+  "readingMinutes": 24
 }

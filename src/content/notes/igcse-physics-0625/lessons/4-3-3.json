@@ -1,0 +1,606 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.3.3",
+  "slug": "action-and-use-of-circuit-components",
+  "title": "Action and use of circuit components",
+  "level": "Core",
+  "topic": 4,
+  "summary": "When the same current passes through two conductors, the one with more [[resistance|resistance]] has the larger [[potential-difference|p.d.]] across it, because $V = IR$. That is why the components of a [[series-circuit|series circuit]] share the supply p.d. according to their resistances, and why a sensor such as an LDR changes the meter readings in its circuit. Extended students also use the ratio rule for a [[potential-divider|potential divider]] and learn how a slider gives any p.d. from zero up to the supply.",
+  "goals": [
+    {
+      "text": "Use $V = IR$ to explain why, for a constant current, a conductor with more resistance has a larger p.d. across it.",
+      "bullets": [
+        "4.3.3-1"
+      ]
+    },
+    {
+      "text": "Use $\\frac{R_1}{R_2} = \\frac{V_1}{V_2}$ to find how two [[resistor|resistors]] in series share the supply p.d., including in sensor circuits.",
+      "bullets": [
+        "4.3.3-3"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how moving the slider of a [[variable-potential-divider|variable potential divider]] changes its output p.d.",
+      "bullets": [
+        "4.3.3-2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.2.3",
+    "4.2.4",
+    "4.3.1",
+    "4.3.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "potential divider",
+    "potentiometer",
+    "voltage divider",
+    "R1/R2 = V1/V2",
+    "thermistor and LDR sensor circuits",
+    "how does a potentiometer work"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-resistance-calc",
+      "prompt": "The p.d. across a resistor is $6.0\\ \\text{V}$ and the current in it is $0.40\\ \\text{A}$. What is its resistance, in $\\Omega$?",
+      "hint": "Use $R = \\frac{V}{I}$.",
+      "answer": {
+        "value": 15,
+        "tolerance": 0.5
+      },
+      "explain": "$R = \\frac{V}{I} = \\frac{6.0}{0.40} = 15\\ \\Omega$. Revise it in {{lesson:4.2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "6.0/0.40",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-series-current",
+      "prompt": "A resistor and a lamp are connected in series with a battery. How does the current in the resistor compare with the current in the lamp?",
+      "hint": "In a series circuit, how many paths can the charge take?",
+      "options": [
+        {
+          "text": "it is the same",
+          "correct": true
+        },
+        {
+          "text": "it is larger",
+          "correct": false
+        },
+        {
+          "text": "it is smaller",
+          "correct": false
+        },
+        {
+          "text": "it depends on which has more resistance",
+          "correct": false
+        }
+      ],
+      "explain": "A series circuit is one loop, so the current is the same at every point. Revise it in {{lesson:4.3.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it is the same"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ldr-dark",
+      "prompt": "The light falling on a [[light-dependent-resistor|light-dependent resistor]] (LDR) gets dimmer. What happens to its resistance?",
+      "hint": "An LDR conducts best in bright light.",
+      "options": [
+        {
+          "text": "it increases",
+          "correct": true
+        },
+        {
+          "text": "it decreases",
+          "correct": false
+        },
+        {
+          "text": "it stays the same",
+          "correct": false
+        }
+      ],
+      "explain": "An LDR's resistance is low in bright light and high in the dark. Revise it in {{lesson:4.3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it increases"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "pd-and-resistance",
+      "heading": "More resistance, more p.d.",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Rearrange $R = \\frac{V}{I}$ from {{lesson:4.2.4}} and you get $V = IR$. The [[potential-difference|p.d.]] across a conductor equals the current in it times its [[resistance|resistance]]."
+        },
+        {
+          "type": "formula",
+          "tex": "V = IR",
+          "tag": "learn"
+        },
+        {
+          "type": "result",
+          "statement": "If the current stays the same, the p.d. across a conductor is larger when its resistance is larger.",
+          "why": "In $V = IR$ the current $I$ is fixed, so $V$ is proportional to $R$. Double the resistance and the p.d. doubles."
+        },
+        {
+          "type": "text",
+          "text": "You meet this most in a [[series-circuit|series circuit]]. The same current passes through every component, so the component with the bigger resistance has the bigger p.d. across it."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-3-two-resistors",
+          "alt": "Two resistors, R1 and R2, connected in series with a battery in a single loop. Voltmeter V1 is connected across R1 and voltmeter V2 is connected across R2.",
+          "caption": "The same current passes through $R_1$ and $R_2$. The voltmeter across the larger resistance reads more."
+        },
+        {
+          "type": "example",
+          "id": "ex-pd-larger-resistor",
+          "question": "A $22\\ \\Omega$ resistor and a $47\\ \\Omega$ resistor are connected in series. The current in the circuit is $0.20\\ \\text{A}$. Calculate the p.d. across the $47\\ \\Omega$ resistor, and compare it with the p.d. across the $22\\ \\Omega$ resistor.",
+          "steps": [
+            "The resistors are in series, so each one carries $0.20\\ \\text{A}$.",
+            "Use $V = IR$ for the $47\\ \\Omega$ resistor: $V = 0.20 \\times 47 = 9.4\\ \\text{V}$.",
+            "Do the same for the $22\\ \\Omega$ resistor: $V = 0.20 \\times 22 = 4.4\\ \\text{V}$.",
+            "Same current, so the larger resistance has the larger p.d.: $9.4\\ \\text{V}$ is more than $4.4\\ \\text{V}$."
+          ],
+          "answer": "$V = 9.4\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.20*47",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The same idea explains sensor circuits. Below, an LDR is in series with a fixed resistor, and the voltmeter is across the fixed resistor."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-3-ldr-circuit",
+          "alt": "A cell, an ammeter, a light-dependent resistor and a fixed resistor connected in series in a single loop. A voltmeter is connected across the fixed resistor only.",
+          "caption": "The voltmeter measures the p.d. across the fixed resistor, not the LDR."
+        },
+        {
+          "type": "example",
+          "id": "ex-ldr-darker",
+          "question": "The circuit in the figure is in a room. The room gets darker. State and explain what happens to the ammeter reading and to the voltmeter reading.",
+          "steps": [
+            "Start with the part that changes: an LDR's resistance increases as the light gets dimmer.",
+            "Then the whole loop: more total resistance with the same cell means less current.",
+            "Then the voltmeter. It is across the fixed resistor, so use $V = IR$ with that resistor's $R$, which stays the same."
+          ],
+          "answer": "The resistance of the LDR increases in the dark, so the total resistance of the circuit increases. The cell's p.d. is the same, so the current decreases and the ammeter reading decreases. The resistance of the fixed resistor does not change, and the current in it is smaller. So by $V = IR$ the p.d. across it is smaller, and the voltmeter reading decreases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "LDR resistance up; total resistance up; current down; fixed resistor R unchanged, so V = IR falls",
+            "requires": [
+              [
+                "resistance of the LDR increases"
+              ],
+              [
+                "total resistance"
+              ],
+              [
+                "ammeter reading decreases"
+              ],
+              [
+                "does not change",
+                "stays the same"
+              ],
+              [
+                "voltmeter reading decreases"
+              ]
+            ],
+            "forbids": [
+              "current is used up",
+              "ammeter reading increases",
+              "voltmeter reading increases"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Deciding whether a voltmeter reading rises or falls before checking which component it is across. Find the voltmeter first. If it is across the fixed resistor, use $V = IR$ for that resistor. If it is across the sensor, the sensor has the rest of the supply p.d., so its reading changes the opposite way."
+        },
+        {
+          "type": "check",
+          "id": "check-three-times",
+          "prompt": "Resistors X and Y are in series. X has three times the resistance of Y. How does the p.d. across X compare with the p.d. across Y?",
+          "hint": "The current is the same in both, so use $V = IR$.",
+          "options": [
+            {
+              "text": "it is three times as large",
+              "correct": true
+            },
+            {
+              "text": "it is the same",
+              "correct": false
+            },
+            {
+              "text": "it is one third as large",
+              "correct": false
+            },
+            {
+              "text": "it is nine times as large",
+              "correct": false
+            }
+          ],
+          "explain": "Same current, so $V$ is proportional to $R$. Three times the resistance gives three times the p.d.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is three times as large"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pd-resistor-lamp",
+          "prompt": "A $56\\ \\Omega$ resistor is in series with a lamp. The current in the circuit is $0.25\\ \\text{A}$. What is the p.d. across the resistor, in V?",
+          "hint": "Use $V = IR$ with the resistor's own resistance.",
+          "answer": {
+            "value": 14,
+            "tolerance": 0.5
+          },
+          "explain": "$V = IR = 0.25 \\times 56 = 14\\ \\text{V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.25*56",
+            "sf": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: to show that p.d. rises with resistance at constant current, connect resistors of different values in turn. Adjust a [[variable-resistor|variable resistor]] so the ammeter reading is the same each time, then record the reading of a voltmeter across the resistor."
+        }
+      ]
+    },
+    {
+      "id": "potential-divider",
+      "heading": "Sharing the supply p.d.: the potential divider",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two resistors in series across a supply form a [[potential-divider|potential divider]]. They share the supply p.d.: $V_1 + V_2$ equals the supply p.d."
+        },
+        {
+          "type": "text",
+          "text": "The current $I$ is the same in both, so $V_1 = IR_1$ and $V_2 = IR_2$. Divide one by the other and $I$ cancels."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{R_1}{R_2} = \\frac{V_1}{V_2}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So the p.d.s are in the same ratio as the resistances. The larger resistor always takes the larger share of the supply p.d."
+        },
+        {
+          "type": "example",
+          "id": "ex-divider-share",
+          "question": "Resistors of $1.5\\ \\text{k}\\Omega$ and $3.0\\ \\text{k}\\Omega$ are connected in series across a $9.0\\ \\text{V}$ battery. Calculate the p.d. across the $3.0\\ \\text{k}\\Omega$ resistor.",
+          "steps": [
+            "Use the ratio: $\\frac{V_1}{V_2} = \\frac{R_1}{R_2} = \\frac{1.5}{3.0} = \\frac{1}{2}$. So $V_2$ is twice $V_1$.",
+            "The two p.d.s add up to the supply: $V_1 + V_2 = 9.0\\ \\text{V}$. That is 3 equal parts, so one part is $3.0\\ \\text{V}$.",
+            "$V_1 = 3.0\\ \\text{V}$ and $V_2 = 2 \\times 3.0 = 6.0\\ \\text{V}$.",
+            "Check: $3.0 + 6.0 = 9.0\\ \\text{V}$, and the larger resistor has the larger p.d."
+          ],
+          "answer": "$V_2 = 6.0\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "9.0*3.0/(1.5 + 3.0)",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-divider-find-r",
+          "question": "In a potential divider, the p.d. across a $330\\ \\Omega$ resistor is $1.8\\ \\text{V}$ and the p.d. across the other resistor is $4.2\\ \\text{V}$. Calculate the resistance of the other resistor.",
+          "steps": [
+            "Write the equation: $\\frac{R_1}{R_2} = \\frac{V_1}{V_2}$, with $R_1 = 330\\ \\Omega$, $V_1 = 1.8\\ \\text{V}$ and $V_2 = 4.2\\ \\text{V}$.",
+            "Substitute: $\\frac{330}{R_2} = \\frac{1.8}{4.2}$.",
+            "Rearrange: $R_2 = \\frac{330 \\times 4.2}{1.8} = 770\\ \\Omega$.",
+            "Check: $R_2$ has the larger p.d., so it should be the larger resistor. It is."
+          ],
+          "answer": "$R_2 = 770\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "330*4.2/1.8",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Turning the ratio upside down, so the smaller resistor gets the larger p.d. Check your answer: the larger resistance always has the larger share."
+        },
+        {
+          "type": "text",
+          "text": "A potential divider becomes a sensor circuit when one resistor is a [[thermistor|thermistor]] or a [[light-dependent-resistor|light-dependent resistor]]. When the sensor's resistance changes, its share of the supply p.d. changes too. Remember that a thermistor's resistance falls as it gets warmer."
+        },
+        {
+          "type": "example",
+          "id": "ex-frost-alarm",
+          "question": "A thermistor and a fixed resistor form a potential divider across a battery. An alarm switches on when the p.d. across the thermistor rises above a set value. Explain why the alarm switches on when the temperature falls.",
+          "steps": [
+            "Start with the sensor: a thermistor's resistance increases as it gets colder.",
+            "Compare it with the fixed resistor, whose resistance does not change.",
+            "A larger fraction of the total resistance means a larger share of the supply p.d.",
+            "Finish with what the question asks about: the p.d. across the thermistor and the alarm."
+          ],
+          "answer": "When the temperature falls, the resistance of the thermistor increases. The resistance of the fixed resistor stays the same. So the thermistor takes a larger share of the supply p.d. The p.d. across the thermistor rises above the set value, so the alarm switches on.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "thermistor resistance rises when cold; fixed resistor unchanged; thermistor takes larger share of supply p.d.; its p.d. passes the set value",
+            "requires": [
+              [
+                "resistance of the thermistor increases"
+              ],
+              [
+                "stays the same",
+                "does not change"
+              ],
+              [
+                "larger share",
+                "bigger share"
+              ],
+              [
+                "across the thermistor rises",
+                "across the thermistor increases"
+              ]
+            ],
+            "forbids": [
+              "resistance of the thermistor decreases",
+              "smaller share"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-divider-small-share",
+          "prompt": "Resistors of $10\\ \\text{k}\\Omega$ and $20\\ \\text{k}\\Omega$ are connected in series across a $4.5\\ \\text{V}$ battery. What is the p.d. across the $10\\ \\text{k}\\Omega$ resistor?",
+          "hint": "The resistances are in the ratio 1 : 2, so split the supply p.d. into 3 equal parts.",
+          "options": [
+            {
+              "text": "$1.5\\ \\text{V}$",
+              "correct": true
+            },
+            {
+              "text": "$3.0\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$2.25\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$4.5\\ \\text{V}$",
+              "correct": false
+            }
+          ],
+          "explain": "One part is $\\frac{4.5}{3} = 1.5\\ \\text{V}$. The smaller resistor takes one part, $1.5\\ \\text{V}$, and the larger takes two parts, $3.0\\ \\text{V}$. Halving the supply ignores the ratio.",
+          "verify": {
+            "kind": "exact",
+            "truth": "4.5*10/(10 + 20)",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-thermistor-output",
+          "prompt": "A thermistor and a fixed resistor form a potential divider. The output p.d. is measured across the fixed resistor. The thermistor gets warmer. What happens to the output p.d.?",
+          "hint": "First decide what happens to the thermistor's resistance, and so to its share of the supply p.d.",
+          "options": [
+            {
+              "text": "it increases",
+              "correct": true
+            },
+            {
+              "text": "it decreases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "The warmer thermistor has less resistance, so it takes a smaller share of the supply p.d. The fixed resistor takes the rest, so its p.d. increases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it increases"
+          }
+        }
+      ]
+    },
+    {
+      "id": "variable-divider",
+      "heading": "The variable potential divider",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[variable-potential-divider|variable potential divider]], or potentiometer, is one resistance track connected across the supply. A sliding contact, the slider, can touch the track anywhere along it."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-3-variable-divider",
+          "alt": "A battery connected across the two ends, A and B, of a long resistance track. A slider presses on the track partway along. A lamp is connected between end A and the slider.",
+          "caption": "Moving the slider from A to B raises the p.d. across the lamp from zero to the full battery p.d."
+        },
+        {
+          "type": "text",
+          "text": "The slider splits the track into two parts in series: from A to the slider, and from the slider to B. These act as the two resistors of a potential divider. The output is the p.d. between end A and the slider."
+        },
+        {
+          "type": "text",
+          "text": "Moving the slider towards B makes the part from A longer, so its resistance increases. That part takes a larger share of the supply p.d., so the output p.d. rises."
+        },
+        {
+          "type": "result",
+          "statement": "With the output taken between end A and the slider, the output p.d. is zero when the slider is at A and equals the full supply p.d. when the slider is at B. Between the ends it can be set to any value in that range.",
+          "why": "At A, both output connections are at the same point. At B, the output is across the whole track, which is connected straight across the supply."
+        },
+        {
+          "type": "text",
+          "text": "Compare this with a [[variable-resistor|variable resistor]] in series with a lamp. That can dim the lamp, but it can't bring the lamp's p.d. down to zero."
+        },
+        {
+          "type": "example",
+          "id": "ex-slider-lamp",
+          "question": "In the circuit in the figure, the slider is moved slowly from end A to end B. Describe what happens to the lamp, and explain it using p.d.",
+          "steps": [
+            "Start at end A and say what the lamp's p.d. is there.",
+            "Then say what happens to the resistance of the part of the track from A as the slider moves, and so to its share of the p.d.",
+            "Finish at end B."
+          ],
+          "answer": "With the slider at A, the p.d. across the lamp is zero, so the lamp is off. As the slider moves towards B, the part of the track between A and the slider gets longer, so its resistance increases. This part takes a larger share of the battery's p.d., so the p.d. across the lamp increases and the lamp gets brighter. With the slider at B, the lamp has the full p.d. of the battery and is at its brightest.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "zero p.d. at A; A-part resistance increases; larger share; lamp brighter; full battery p.d. at B",
+            "requires": [
+              [
+                "is zero"
+              ],
+              [
+                "resistance increases"
+              ],
+              [
+                "larger share",
+                "bigger share"
+              ],
+              [
+                "gets brighter",
+                "becomes brighter"
+              ],
+              [
+                "full p.d."
+              ]
+            ],
+            "forbids": [
+              "gets dimmer",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-full-range",
+          "prompt": "Which arrangement lets the p.d. across a lamp be set to any value from zero up to the full supply p.d.?",
+          "hint": "Which one can make the lamp's two connections the same point?",
+          "options": [
+            {
+              "text": "the lamp between one end of a potentiometer track and its slider",
+              "correct": true
+            },
+            {
+              "text": "the lamp in series with a variable resistor",
+              "correct": false
+            },
+            {
+              "text": "the lamp in series with a fixed resistor",
+              "correct": false
+            },
+            {
+              "text": "the lamp in parallel with a variable resistor across the supply",
+              "correct": false
+            }
+          ],
+          "explain": "With the slider at that end the lamp's p.d. is zero, and at the other end it is the full supply p.d. A series variable resistor can't reach zero, and a lamp in parallel across the supply always has the full p.d.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the lamp between one end of a potentiometer track and its slider"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-track-reading",
+          "prompt": "A potentiometer track $60\\ \\text{cm}$ long has the same resistance along every centimetre. It is connected across a $4.5\\ \\text{V}$ battery. A voltmeter is connected between end A and the slider, which is $40\\ \\text{cm}$ from A. Assume the voltmeter takes no current. What does it read, in V?",
+          "hint": "Resistance is proportional to length, so the two parts of the track are in the ratio $40 : 20$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0.05
+          },
+          "explain": "The part from A has two thirds of the track's resistance, so it takes two thirds of the p.d.: $\\frac{40}{60} \\times 4.5 = 3.0\\ \\text{V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.5*40/60",
+            "sf": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "To \"describe\" how a variable potential divider works, say where the output is taken, how moving the slider changes the share of the supply p.d., and the range, from zero up to the full supply p.d."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "For a constant current, the p.d. across a conductor is larger when its resistance is larger ($V = IR$). In series, the component with the larger resistance has the larger p.d."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Sensor in series with a fixed resistor across a fixed supply p.d.: if the sensor's resistance rises, the current falls, so the p.d. across the fixed resistor falls and the p.d. across the sensor rises."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{R_1}{R_2} = \\frac{V_1}{V_2} \\quad \\text{(two resistors in series as a potential divider)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Variable potential divider, output taken between one end of the track and the slider: moving the slider sets the output p.d. anywhere from zero up to the full supply p.d."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Deciding a voltmeter reading before checking which component it is across. Find the voltmeter first. Across the fixed resistor, use $V = IR$; across the sensor, it reads the supply p.d. minus the fixed resistor's p.d.",
+    "Stopping at \"the LDR's resistance increases\". Go on to say what happens to the current and to the p.d. the question asks about.",
+    "Getting a sensor backwards. A thermistor's resistance falls as it gets warmer, and an LDR's resistance falls as the light gets brighter.",
+    "Extended: turning the ratio upside down. In a potential divider the larger resistor always has the larger p.d.",
+    "Extended: using a variable resistor in series to take a lamp's p.d. down to zero. It can't; a variable potential divider can."
+  ],
+  "examTips": [
+    "\"Explain\" a change in a meter reading: write the chain in order. First the resistance change, then the current, then $V = IR$ for the fixed resistor. If the meter is across the sensor, finish with: the sensor has the rest of the supply p.d.",
+    "Paper 1/2 multiple choice on sensor circuits: mark which component the voltmeter is across before you look at the options.",
+    "\"Calculate\" with $\\frac{R_1}{R_2} = \\frac{V_1}{V_2}$ (Extended): write the equation, substitute, then give the answer with its unit. Check that the larger resistor has the larger p.d."
+  ],
+  "readingMinutes": 21
+}

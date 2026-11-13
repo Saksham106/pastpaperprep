@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" role="img" aria-labelledby="t454beam">
+<title id="t454beam">A beam of electrons in a vacuum travels from the left to the right, into a region where the magnetic field points out of the page, shown by dots. Before the region the beam is straight. Inside the region the beam curves upwards, towards the top of the page. A dashed straight line continuing to the right shows the path the beam would take with no field. A short arrow at the point where the beam enters the field points up the page and is labelled force on the electrons.</title>
+<rect x="200" y="30" width="300" height="225" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="6 4"/>
+<g fill="var(--muted)">
+<circle cx="230" cy="60" r="3"/><circle cx="290" cy="60" r="3"/><circle cx="350" cy="60" r="3"/><circle cx="410" cy="60" r="3"/><circle cx="470" cy="60" r="3"/>
+<circle cx="230" cy="120" r="3"/><circle cx="290" cy="120" r="3"/><circle cx="350" cy="120" r="3"/><circle cx="470" cy="120" r="3"/>
+<circle cx="230" cy="230" r="3"/><circle cx="290" cy="230" r="3"/><circle cx="350" cy="230" r="3"/><circle cx="410" cy="230" r="3"/><circle cx="470" cy="230" r="3"/>
+</g>
+<line x1="200" y1="190" x2="500" y2="190" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 5"/>
+<text font-family="inherit" font-size="12" x="508" y="194" fill="var(--muted)">path with no field</text>
+<path d="M40 190 L200 190 Q340 190 430 70" fill="none" stroke="var(--t2-ink)" stroke-width="3"/>
+<polygon points="128,190 112,183 112,197" fill="var(--t2-ink)"/>
+<polygon points="436,62 432.4,76.8 422.8,69.6" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="40" y="178" fill="var(--t2-ink)">electron beam</text>
+<line x1="214" y1="182" x2="214" y2="150" stroke="var(--t3-ink)" stroke-width="2.5"/>
+<polygon points="214,138 208,152 220,152" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="192" y="146" fill="var(--t3-ink)" text-anchor="end">force on the</text>
+<text font-family="inherit" font-size="12" x="192" y="162" fill="var(--t3-ink)" text-anchor="end">electrons</text>
+<text font-family="inherit" font-size="12" x="350" y="276" fill="currentColor" text-anchor="middle">• = magnetic field out of the page</text>
+</svg>

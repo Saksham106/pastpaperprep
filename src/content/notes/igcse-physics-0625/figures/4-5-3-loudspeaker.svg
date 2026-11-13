@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 330" role="img" aria-labelledby="t453ls">
+<title id="t453ls">A loudspeaker cut in half, facing right. On the left is a permanent magnet: a central rod with an N pole at its front end, surrounded by an outer ring with S poles, joined at the back. A coil of wire sits in the narrow gap between the central N pole and the outer S ring, where the magnet's field is. The coil is fixed to the narrow end of a paper cone that opens out to the right. A double-headed arrow shows the cone moving left and right, and curved lines in front of the cone show sound waves spreading out to the right.</title>
+<rect x="40" y="60" width="20" height="210" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect x="60" y="140" width="120" height="50" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect x="60" y="60" width="100" height="45" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect x="60" y="225" width="100" height="45" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="16" x="150" y="171" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="16" x="140" y="89" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<text font-family="inherit" font-size="16" x="140" y="254" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<rect x="138" y="114" width="62" height="16" fill="none" stroke="var(--t1-ink)" stroke-width="1.4"/>
+<circle cx="146" cy="122" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<circle cx="158" cy="122" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<circle cx="170" cy="122" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<circle cx="182" cy="122" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<rect x="138" y="200" width="62" height="16" fill="none" stroke="var(--t1-ink)" stroke-width="1.4"/>
+<circle cx="146" cy="208" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<circle cx="158" cy="208" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<circle cx="170" cy="208" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<circle cx="182" cy="208" r="4.5" fill="none" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<line x1="200" y1="114" x2="340" y2="40" stroke="currentColor" stroke-width="2.4"/>
+<line x1="200" y1="216" x2="340" y2="290" stroke="currentColor" stroke-width="2.4"/>
+<path d="M 200 114 Q 222 165 200 216" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="375" y1="165" x2="435" y2="165" stroke="currentColor" stroke-width="1.8"/>
+<polygon points="435.0,165.0 424.0,170.0 424.0,160.0" fill="currentColor"/>
+<polygon points="375.0,165.0 386.0,160.0 386.0,170.0" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="405" y="150" fill="currentColor" text-anchor="middle">cone vibrates</text>
+<path d="M 470 115 Q 492 165 470 215" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+<path d="M 498 115 Q 520 165 498 215" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+<path d="M 526 115 Q 548 165 526 215" fill="none" stroke="var(--t3-ink)" stroke-width="1.8"/>
+<text font-family="inherit" font-size="12" x="525" y="240" fill="var(--muted)" text-anchor="middle">sound</text>
+<text font-family="inherit" font-size="12" x="100" y="40" fill="currentColor" text-anchor="middle">permanent magnet</text>
+<text font-family="inherit" font-size="12" x="240" y="160" fill="currentColor" text-anchor="start">coil</text>
+<line x1="238" y1="156" x2="200" y2="126" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="300" y="120" fill="currentColor" text-anchor="start">cone</text>
+<text font-family="inherit" font-size="12" x="300" y="318" fill="var(--muted)" text-anchor="middle">An alternating current in the coil makes the coil and cone move in and out.</text>
+</svg>

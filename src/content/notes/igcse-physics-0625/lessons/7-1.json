@@ -1,0 +1,627 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "7.1",
+  "slug": "apparatus-techniques-and-safety",
+  "title": "Apparatus, techniques and safety",
+  "level": "Core",
+  "topic": 7,
+  "summary": "The practical papers test whether you can name apparatus, use it properly, pick the best tool for a job and work safely. Many marks come from small techniques, such as reading a scale at eye level, that keep readings close to the true value.",
+  "goals": [
+    {
+      "text": "Name and draw common apparatus, and follow a method step by step, saying why each technique is used.",
+      "bullets": [
+        "7.1-1",
+        "7.1-2"
+      ]
+    },
+    {
+      "text": "Choose the best instrument or method for a measurement, and give the reason for your choice.",
+      "bullets": [
+        "7.1-3"
+      ]
+    },
+    {
+      "text": "Spot the hazards in an experiment and match each one to a precaution.",
+      "bullets": [
+        "7.1-4"
+      ]
+    },
+    {
+      "text": "Describe and explain the techniques that improve the [[accuracy|accuracy]] of readings.",
+      "bullets": [
+        "7.1-5"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.4"
+  ],
+  "papers": [
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "parallax error",
+    "reading a meniscus",
+    "lab safety precautions",
+    "choosing a measuring instrument",
+    "timing a pendulum",
+    "names of physics apparatus"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-irregular-volume",
+      "prompt": "How do you find the volume of a small stone with an irregular shape?",
+      "hint": "Think about what happens to the water level when the stone goes in.",
+      "options": [
+        {
+          "text": "lower it into water in a measuring cylinder and find the rise in level",
+          "correct": true
+        },
+        {
+          "text": "weigh it on a balance",
+          "correct": false
+        },
+        {
+          "text": "measure its length with a ruler and cube it",
+          "correct": false
+        },
+        {
+          "text": "find the volume of water left after taking it out",
+          "correct": false
+        }
+      ],
+      "explain": "The stone pushes aside its own volume of water, so the rise in level is its volume. This is the [[displacement-method|displacement method]]. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "lower it into water in a measuring cylinder and find the rise in level"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-density-block",
+      "prompt": "A metal block has a mass of $81\\ \\text{g}$ and a volume of $30\\ \\text{cm}^3$. What is its density, in g/cm³?",
+      "hint": "Density = mass ÷ volume.",
+      "answer": {
+        "value": 2.7,
+        "tolerance": 0.05
+      },
+      "explain": "$\\rho = \\frac{m}{V} = \\frac{81}{30} = 2.7\\ \\text{g/cm}^3$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "81/30",
+        "dp": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "using-apparatus",
+      "heading": "Naming, drawing and using apparatus",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Paper 5 puts real apparatus in front of you. Paper 6 shows it in diagrams. Either way, you must name each piece, know what it does and follow a method one step at a time."
+        },
+        {
+          "type": "figure",
+          "id": "7-1-pendulum-setup",
+          "alt": "Side view of a pendulum set up on a bench. A clamp stand stands on the left. A boss fixes a horizontal clamp to the top of its rod, and the end of the clamp grips the top of a string. A small round bob hangs at the bottom of the string. A double-headed arrow labelled l runs from the point where the clamp holds the string down to the centre of the bob. Directly below the bob, a thin upright marker labelled P stands on the bench.",
+          "caption": "A pendulum. The length $l$ runs to the centre of the bob. P marks the centre of the swing."
+        },
+        {
+          "type": "text",
+          "text": "Names that come up often: clamp stand, boss and clamp, metre rule, measuring cylinder, top-pan balance, newton meter, thermometer, stopwatch, ammeter, voltmeter, ray box and optics pins."
+        },
+        {
+          "type": "text",
+          "text": "To draw apparatus, use simple side-view outlines. Label each part with a line that touches it. Show a length with a double-headed arrow between the exact points you measure."
+        },
+        {
+          "type": "check",
+          "id": "check-pendulum-arrow",
+          "prompt": "You draw a pendulum and add an arrow for its length. Where should the lower end of the arrow be?",
+          "hint": "Look at the figure above.",
+          "options": [
+            {
+              "text": "at the centre of the bob",
+              "correct": true
+            },
+            {
+              "text": "at the bottom of the bob",
+              "correct": false
+            },
+            {
+              "text": "at the top of the bob",
+              "correct": false
+            },
+            {
+              "text": "at the bench",
+              "correct": false
+            }
+          ],
+          "explain": "A pendulum's length runs from the point where the string is held to the centre of the bob.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at the centre of the bob"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Some techniques appear again and again. When one thing is too small or too quick to measure well, measure many and divide: many sheets of paper, or many oscillations of a pendulum."
+        },
+        {
+          "type": "text",
+          "text": "To find the volume of an irregular solid, use the [[displacement-method|displacement method]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-card-stack",
+          "question": "A student wants the thickness of one playing card, which is too thin to measure with a ruler. She stacks 60 identical cards and the pile is $1.9\\ \\text{cm}$ tall. Calculate the thickness of one card in mm, to 2 significant figures.",
+          "steps": [
+            "Convert to mm: $1.9\\ \\text{cm} = 19\\ \\text{mm}$.",
+            "Divide by the number of cards: $d = \\frac{19}{60} = 0.316…\\ \\text{mm}$.",
+            "Why it works: the ruler reads to $1\\ \\text{mm}$. That is small next to $19\\ \\text{mm}$, but bigger than one card."
+          ],
+          "answer": "$d \\approx 0.32\\ \\text{mm}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1.9*10/60",
+            "sf": 2,
+            "unit": "mm"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-twenty-oscillations",
+          "prompt": "A student times 20 complete oscillations of a pendulum and gets $27.8\\ \\text{s}$. What is the time for one oscillation, in s?",
+          "hint": "Divide the total time by the number of oscillations.",
+          "answer": {
+            "value": 1.39,
+            "tolerance": 0.005
+          },
+          "explain": "$\\frac{27.8}{20} = 1.39\\ \\text{s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "27.8/20",
+            "dp": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "Instructions in Paper 5 often include a step whose reason you may be asked for. Each step is there for safety or for a better reading."
+        },
+        {
+          "type": "example",
+          "id": "ex-switch-off",
+          "question": "A student measures the current in a coil of thin copper wire at several values of p.d. The instructions say to open the switch after each reading. Explain why.",
+          "steps": [
+            "Ask what a current does to a thin wire, and how that would affect the next reading."
+          ],
+          "answer": "Opening the switch stops the current, so the wire does not heat up. A hotter wire has a higher resistance, which would change the later readings. It also stops the cell running down.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "stops the current so the wire does not heat up; heating would change its resistance and the readings",
+            "requires": [
+              [
+                "stops the current"
+              ],
+              [
+                "heat up",
+                "heating"
+              ],
+              [
+                "resistance"
+              ]
+            ],
+            "forbids": [
+              "uses up the current"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing-apparatus",
+      "heading": "Choosing the best apparatus or method",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Choose the instrument whose smallest scale division suits what you are measuring. The smaller the quantity, the more a fine scale matters."
+        },
+        {
+          "type": "text",
+          "text": "A measuring cylinder beats a beaker: beaker marks are rough guides. A narrow cylinder usually has finer divisions than a wide one, because the same volume makes a bigger change in level."
+        },
+        {
+          "type": "text",
+          "text": "For short times, light gates connected to an electronic timer beat a hand-held stopwatch. They start and stop automatically, so your reaction time doesn't matter."
+        },
+        {
+          "type": "text",
+          "text": "To justify a choice, give the reason: smaller divisions, no reaction time, or a larger quantity to measure. \"It is more accurate\" alone rarely scores."
+        },
+        {
+          "type": "example",
+          "id": "ex-cylinder-or-beaker",
+          "question": "A student needs about $40\\ \\text{cm}^3$ of water. She can use a $250\\ \\text{cm}^3$ beaker marked every $50\\ \\text{cm}^3$, or a $50\\ \\text{cm}^3$ measuring cylinder marked every $1\\ \\text{cm}^3$. Choose one and justify your choice.",
+          "steps": [
+            "Compare the scale divisions, then say what that does to the reading."
+          ],
+          "answer": "Use the measuring cylinder. Its scale has much smaller divisions: every $1\\ \\text{cm}^3$, against every $50\\ \\text{cm}^3$ on the beaker. So the volume can be measured much closer to the true value.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "measuring cylinder; much smaller scale divisions (1 cm3 vs 50 cm3); reading closer to the true value",
+            "requires": [
+              [
+                "measuring cylinder"
+              ],
+              [
+                "smaller divisions"
+              ],
+              [
+                "closer to the true value"
+              ]
+            ],
+            "forbids": [
+              "use the beaker"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-falling-ball-timer",
+          "question": "A student drops a ball from rest and times its $45\\ \\text{cm}$ fall with a hand-held stopwatch. The fall takes about $0.3\\ \\text{s}$. Suggest a better way to time it, and justify your choice.",
+          "steps": [
+            "Compare the time being measured with a person's reaction time, about $0.2\\ \\text{s}$."
+          ],
+          "answer": "Use light gates connected to an electronic timer. A person's reaction time is about $0.2\\ \\text{s}$, almost as long as the fall itself, so hand timing could be badly wrong. Light gates start and stop the timer automatically as the ball passes, so reaction time plays no part.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "light gates with an electronic timer; reaction time (about 0.2 s) is almost as long as the fall; gates start and stop automatically",
+            "requires": [
+              [
+                "light gates"
+              ],
+              [
+                "reaction time"
+              ],
+              [
+                "almost as long"
+              ],
+              [
+                "automatically"
+              ]
+            ],
+            "forbids": [
+              "be more careful",
+              "press the stopwatch faster"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"it is more accurate\" with no reason. Say what makes it better, such as smaller divisions or no reaction time."
+        },
+        {
+          "type": "check",
+          "id": "check-wire-diameter",
+          "prompt": "A student needs the diameter of a wire about $0.5\\ \\text{mm}$ thick. She has only a $30\\ \\text{cm}$ ruler marked in mm. Which method is best?",
+          "hint": "One strand is smaller than one division on the ruler.",
+          "options": [
+            {
+              "text": "wind 20 turns side by side round a pencil, measure their total width and divide by 20",
+              "correct": true
+            },
+            {
+              "text": "lay one strand across the ruler and read its width",
+              "correct": false
+            },
+            {
+              "text": "measure the length of the wire and divide by 20",
+              "correct": false
+            },
+            {
+              "text": "use a thicker wire, which is easier to measure",
+              "correct": false
+            }
+          ],
+          "explain": "Twenty turns make a width of about $10\\ \\text{mm}$, which the ruler can measure well. Dividing gives one diameter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "wind 20 turns side by side round a pencil, measure their total width and divide by 20"
+          }
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "heading": "Hazards and safety precautions",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A hazard is something that could cause harm. A precaution is what you do to reduce that risk. A good answer links the two: what could happen, and how your precaution stops it."
+        },
+        {
+          "type": "text",
+          "text": "Hot water can scald. Stand up while you work, keep the container on the bench, and let apparatus cool before you move it."
+        },
+        {
+          "type": "text",
+          "text": "Heavy masses on a spring or a newton meter can fall onto feet. Put a soft mat or a tray of sand underneath and keep your feet clear."
+        },
+        {
+          "type": "text",
+          "text": "Wires, resistors and ray box lamps get hot when a current flows. Switch off between readings and don't touch them until they have cooled. Keep water away from mains equipment."
+        },
+        {
+          "type": "example",
+          "id": "ex-heating-water-safety",
+          "question": "A student heats water in a beaker on a tripod over a Bunsen burner and records its temperature. Identify one hazard, and describe and explain one precaution.",
+          "steps": [
+            "Name what could cause harm here, then a precaution that matches it and how it helps."
+          ],
+          "answer": "The hot water, beaker or tripod could scald or burn the student. The student should stand up while heating, so they can step back quickly if the beaker tips over, and hot water cannot pour onto their lap. They should also let the apparatus cool before moving it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "hazard: scalds or burns from hot water or apparatus; precaution: stand up so they can step back quickly from a spill; let it cool before moving",
+            "requires": [
+              [
+                "scald",
+                "burn"
+              ],
+              [
+                "stand up"
+              ],
+              [
+                "step back quickly"
+              ],
+              [
+                "let the apparatus cool"
+              ]
+            ],
+            "forbids": [
+              "be careful"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"be careful\" or \"wear goggles\" for every experiment. Name the hazard in this experiment, then the precaution that matches it."
+        },
+        {
+          "type": "check",
+          "id": "check-spring-masses-safety",
+          "prompt": "A student hangs masses of up to $1\\ \\text{kg}$ on a spring. Which precaution best deals with the main hazard?",
+          "hint": "What could go wrong with a heavy mass hanging above the floor?",
+          "options": [
+            {
+              "text": "put a tray of sand under the masses and keep feet clear",
+              "correct": true
+            },
+            {
+              "text": "read the ruler at eye level",
+              "correct": false
+            },
+            {
+              "text": "wear heat-proof gloves",
+              "correct": false
+            },
+            {
+              "text": "switch off between readings",
+              "correct": false
+            }
+          ],
+          "explain": "The masses could slip off and land on someone's foot. Reading at eye level improves accuracy but isn't a safety precaution.",
+          "verify": {
+            "kind": "choice",
+            "truth": "put a tray of sand under the masses and keep feet clear"
+          }
+        }
+      ]
+    },
+    {
+      "id": "accurate-readings",
+      "heading": "Techniques for accurate readings",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "accuracy",
+          "statement": "A measurement or result is accurate if it is close to the true value of the quantity.",
+          "plain": "How near your reading is to the right answer."
+        },
+        {
+          "type": "text",
+          "text": "Accuracy is not the same as [[precision|precision]]. Precise readings are close to each other, but they can all be wrong by the same amount."
+        },
+        {
+          "type": "text",
+          "text": "Looking at a scale from an angle shifts the reading: a parallax error. Put your eye level with the reading, looking at right angles to the scale."
+        },
+        {
+          "type": "figure",
+          "id": "7-1-meniscus",
+          "alt": "Close-up of the side of a measuring cylinder holding water. The scale is marked every 1 cubic centimetre from 40 to 50, with numbers at 40, 45 and 50. The water surface curves down in the middle, forming a meniscus whose lowest point lines up with the 46 mark. An eye on the right is level with the bottom of the meniscus, and a dashed horizontal sight line runs from the eye to the 46 mark.",
+          "caption": "Read a measuring cylinder at the bottom of the meniscus, with your eye level with it."
+        },
+        {
+          "type": "text",
+          "text": "Measuring cylinder: stand it on a level bench and read the bottom of the meniscus, the curved water surface."
+        },
+        {
+          "type": "check",
+          "id": "check-stone-volume",
+          "prompt": "The cylinder in the figure reads $46\\ \\text{cm}^3$. A stone is lowered in and the bottom of the meniscus rises to $53\\ \\text{cm}^3$. What is the volume of the stone, in cm³?",
+          "hint": "The rise in level is the stone's volume.",
+          "answer": {
+            "value": 7,
+            "tolerance": 0
+          },
+          "explain": "$53 - 46 = 7\\ \\text{cm}^3$. Both readings must be taken the same way, at the bottom of the meniscus.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "53 - 46",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Ruler: hold it close to the object and in line with the length. For an upright length, check the ruler is vertical with a set square. Use the zero mark, or subtract the starting reading."
+        },
+        {
+          "type": "text",
+          "text": "Balance: zero (tare) it first, then place the object at the centre of the pan. Thermometer: stir the water, keep the bulb fully in it without touching the beaker, and wait until the reading stops changing."
+        },
+        {
+          "type": "text",
+          "text": "Timing oscillations: start and stop the stopwatch as the bob passes a fixed marker at the centre of the swing, such as P in the pendulum figure."
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-length",
+          "question": "Describe two techniques that help a student measure the length $l$ of the pendulum in the figure accurately.",
+          "steps": [
+            "Think about where the ruler goes and where your eye goes."
+          ],
+          "answer": "Hold the metre rule vertical and close to the string, so the scale lines up with the length. Read each end with your eye level with it, at right angles to the scale, to avoid parallax error.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ruler vertical and close to the string; eye level with each end to avoid parallax error",
+            "requires": [
+              [
+                "close to the string"
+              ],
+              [
+                "eye level"
+              ],
+              [
+                "parallax"
+              ]
+            ],
+            "forbids": [
+              "read it carefully"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-centre-marker",
+          "question": "Explain why a student starts and stops the stopwatch as the bob passes a marker at the centre of its swing, not at the end of the swing.",
+          "steps": [
+            "Compare how the bob moves at the centre and at the end of its swing."
+          ],
+          "answer": "The bob moves fastest at the centre, so the moment it passes the marker is easy to judge. At the end of the swing it slows down and stops for an instant, so it is hard to judge exactly when it turns. The marker also gives the same fixed point to start and stop at every time.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "fastest at the centre so passing the marker is easy to judge; slow at the end so the turning moment is hard to judge; same fixed point each time",
+            "requires": [
+              [
+                "fastest"
+              ],
+              [
+                "hard to judge"
+              ],
+              [
+                "same fixed point"
+              ]
+            ],
+            "forbids": [
+              "slowest at the centre"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"read it carefully\". Name the technique: eye level with the scale, the bottom of the meniscus, or tare the balance."
+        },
+        {
+          "type": "check",
+          "id": "check-thermometer-technique",
+          "prompt": "A student measures the temperature of warm water in a beaker. Which technique gives the most accurate reading?",
+          "hint": "The thermometer must reach the temperature of the water itself.",
+          "options": [
+            {
+              "text": "stir the water and wait until the reading stops changing",
+              "correct": true
+            },
+            {
+              "text": "lift the thermometer out of the water to read it",
+              "correct": false
+            },
+            {
+              "text": "rest the bulb on the bottom of the beaker",
+              "correct": false
+            },
+            {
+              "text": "read it as soon as the bulb goes in",
+              "correct": false
+            }
+          ],
+          "explain": "Stirring evens out the temperature, and waiting lets the thermometer reach it. Out of the water it cools; on the beaker it reads the glass.",
+          "verify": {
+            "kind": "choice",
+            "truth": "stir the water and wait until the reading stops changing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Diagrams: simple side views, label lines that touch each part, and a double-headed arrow between the exact points measured."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Too small or too quick to measure well? Measure many identical ones (sheets, turns, oscillations) and divide by the number."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Justify a choice with a reason: smaller scale divisions, no reaction time (light gates), or a larger quantity to measure."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Safety: name the hazard in this experiment, then the precaution that reduces it, such as standing up near hot water or a sand tray under masses."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Accurate readings: eye level at right angles to the scale, bottom of a water meniscus, tare the balance, stir and wait for a thermometer, time from a marker at the centre of a swing."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"read it carefully\" or \"be careful\". Name the actual technique or precaution.",
+    "Reading the top of the meniscus, which gives too big a volume. Read the bottom, with your eye level with it.",
+    "Giving a precaution that doesn't match the hazard, like goggles for masses on a spring. Name the hazard first.",
+    "Saying \"more accurate\" with no reason. Say why: smaller divisions, no reaction time, or more oscillations timed."
+  ],
+  "examTips": [
+    "\"Describe\" a technique: say exactly what you do, such as \"eye level with the bottom of the meniscus\".",
+    "\"Explain\" a step in a method: say what the step prevents or improves, such as heating of the wire.",
+    "\"Justify\" a choice of apparatus: give the reason it is better, not just its name.",
+    "Two versions of one idea, like \"ruler vertical\" and \"ruler straight\", earn one mark. Give two different techniques."
+  ],
+  "readingMinutes": 21
+}

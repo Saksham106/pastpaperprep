@@ -1,0 +1,925 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "6.1.2",
+  "slug": "the-solar-system",
+  "title": "The Solar System",
+  "level": "Core",
+  "topic": 6,
+  "summary": "The [[solar-system|Solar System]] is one star, the Sun, with eight planets, minor planets, moons and comets travelling round it. Gravity built it from a spinning cloud of gas and dust, and the Sun's gravity keeps everything in orbit. Extended adds [[elliptical-orbit|elliptical orbits]] and reading planetary data.",
+  "goals": [
+    {
+      "text": "Name what the Solar System contains, and list the eight planets in order from the Sun.",
+      "bullets": [
+        "6.1.2-1"
+      ]
+    },
+    {
+      "text": "Use the [[accretion|accretion]] model to explain why the inner planets are small and rocky and the outer planets are large and gaseous.",
+      "bullets": [
+        "6.1.2-2"
+      ]
+    },
+    {
+      "text": "Describe what a planet's gravitational field depends on, and explain why the planets orbit the Sun.",
+      "bullets": [
+        "6.1.2-3",
+        "6.1.2-5",
+        "6.1.2-6"
+      ]
+    },
+    {
+      "text": "Calculate how long light takes to travel between objects in the Solar System.",
+      "bullets": [
+        "6.1.2-4"
+      ]
+    },
+    {
+      "text": "Describe elliptical orbits, and use [[conservation-of-energy|conservation of energy]] to explain why an orbiting object is fastest when closest to the Sun.",
+      "bullets": [
+        "6.1.2-7",
+        "6.1.2-10"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Analyse planetary data, and describe how the Sun's field strength and the [[orbital-speed|orbital speeds]] of the planets change with [[distance|distance]] from the Sun.",
+      "bullets": [
+        "6.1.2-8",
+        "6.1.2-9"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3",
+    "1.4",
+    "1.5.1",
+    "1.7.1",
+    "6.1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "order of the planets",
+    "inner and outer planets",
+    "accretion disc",
+    "how long does light take from the Sun",
+    "comet orbit speed",
+    "planetary data table"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-weight-on-moon",
+      "prompt": "On the Moon, the [[gravitational-field-strength|gravitational field strength]] is $1.6\\ \\text{N/kg}$. What is the [[weight|weight]] of a $45\\ \\text{kg}$ astronaut there, in N?",
+      "hint": "Weight is [[mass|mass]] times gravitational field strength: $W = mg$.",
+      "answer": {
+        "value": 72,
+        "tolerance": 0.5
+      },
+      "explain": "$W = mg = 45 \\times 1.6 = 72\\ \\text{N}$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45*1.6",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-time-from-speed",
+      "prompt": "A sound travels $990\\ \\text{m}$ through air at $330\\ \\text{m/s}$. How long does it take, in seconds?",
+      "hint": "Rearrange $v = \\frac{s}{t}$ to make $t$ the subject.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0.05
+      },
+      "explain": "$t = \\frac{s}{v} = \\frac{990}{330} = 3.0\\ \\text{s}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "990/330",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-falling-energy",
+      "level": "Extended",
+      "prompt": "A stone falls from a cliff. Air resistance is small enough to ignore. What happens to its energy as it falls?",
+      "hint": "It gets lower and it speeds up.",
+      "options": [
+        {
+          "text": "it loses gravitational potential energy and gains the same amount of kinetic energy",
+          "correct": true
+        },
+        {
+          "text": "its kinetic energy and its gravitational potential energy both increase",
+          "correct": false
+        },
+        {
+          "text": "its gravitational potential energy increases and its kinetic energy decreases",
+          "correct": false
+        },
+        {
+          "text": "its total energy decreases as it speeds up",
+          "correct": false
+        }
+      ],
+      "explain": "As the stone drops, energy moves from the gravitational potential store to the kinetic store. The total stays the same. Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it loses gravitational potential energy and gains the same amount of kinetic energy"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "whats-in-it",
+      "heading": "What is in the Solar System",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[solar-system|Solar System]] is the Sun and everything that travels round it. It has only one star: the Sun."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-2-solar-system",
+          "alt": "The Solar System drawn in a row, not to scale. The Sun is a large part-circle on the left. Moving outwards come Mercury, Venus, Earth and Mars, four small planets bracketed as rocky and small. Next is the asteroid belt, a band of tiny dots between Mars and Jupiter. Then come Jupiter, Saturn with its rings, Uranus and Neptune, four large planets bracketed as gaseous and large. Beyond Neptune is a tiny dot labelled Pluto, dwarf planet.",
+          "caption": "The planets in order from the Sun. Sizes and distances are not to scale."
+        },
+        {
+          "type": "text",
+          "text": "Eight planets orbit the Sun. In order outwards they are Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune. A sentence can help you remember: My Very Easy Method Just Speeds Up Naming."
+        },
+        {
+          "type": "text",
+          "text": "Minor planets also orbit the Sun. They include dwarf planets, such as Pluto, and asteroids: lumps of rock and metal. Most asteroids are in the asteroid belt, between the orbits of Mars and Jupiter."
+        },
+        {
+          "type": "text",
+          "text": "Moons orbit planets, rather than orbiting the Sun on their own. A moon is a natural satellite: a natural object that orbits a planet. Earth has one moon; Jupiter and Saturn each have dozens."
+        },
+        {
+          "type": "text",
+          "text": "Comets are small bodies of ice and dust that orbit the Sun. Many spend most of their time far out, beyond the planets. Near the Sun, some of the ice turns to gas and forms a glowing tail."
+        },
+        {
+          "type": "example",
+          "id": "ex-classify-bodies",
+          "question": "Ceres orbits the Sun inside the asteroid belt and is massive enough to be round. Titan travels round Saturn. State what type of object each of these is: Ceres, Titan, Neptune and the Sun.",
+          "steps": [
+            "Ask what each object orbits. Moons orbit planets; planets and minor planets orbit the Sun.",
+            "Ceres orbits the Sun but is far smaller than a planet, and it is round, so it is a dwarf planet.",
+            "Titan orbits a planet, so it is a moon. Neptune is one of the eight planets, and the Sun is the only star."
+          ],
+          "answer": "Ceres is a dwarf planet. Titan is a moon of Saturn. Neptune is a planet. The Sun is a star.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Ceres: dwarf planet; Titan: moon; Neptune: planet; Sun: star",
+            "requires": [
+              "Ceres is a dwarf planet",
+              [
+                "Titan is a moon",
+                "Titan is a natural satellite"
+              ],
+              "Neptune is a planet",
+              "The Sun is a star"
+            ],
+            "forbids": [
+              "Titan is a planet",
+              "Ceres is a moon",
+              "Sun is a planet"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fifth-planet",
+          "prompt": "Which planet is fifth in order from the Sun?",
+          "hint": "Count outwards: the four small inner planets come first.",
+          "options": [
+            {
+              "text": "Jupiter",
+              "correct": true
+            },
+            {
+              "text": "Mars",
+              "correct": false
+            },
+            {
+              "text": "Saturn",
+              "correct": false
+            },
+            {
+              "text": "Uranus",
+              "correct": false
+            }
+          ],
+          "explain": "Mercury, Venus, Earth and Mars are the first four. Jupiter, the first large planet, is fifth.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Jupiter"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-asteroid-belt",
+          "prompt": "Where is the asteroid belt?",
+          "hint": "It separates the small inner planets from the large outer ones.",
+          "options": [
+            {
+              "text": "between the orbits of Mars and Jupiter",
+              "correct": true
+            },
+            {
+              "text": "beyond the orbit of Neptune",
+              "correct": false
+            },
+            {
+              "text": "between the orbits of Earth and Mars",
+              "correct": false
+            },
+            {
+              "text": "between the orbits of Jupiter and Saturn",
+              "correct": false
+            }
+          ],
+          "explain": "The asteroid belt lies between Mars and Jupiter. The icy region beyond Neptune, where Pluto is, is a different belt.",
+          "verify": {
+            "kind": "choice",
+            "truth": "between the orbits of Mars and Jupiter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "how-it-formed",
+      "heading": "Rocky and gas planets: how the Solar System formed",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Compared with each other, the inner four planets are small and made of rock and metal. The outer four are huge and made mostly of gas. The [[accretion|accretion]] model explains why."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-2-accretion",
+          "alt": "Three stages of the accretion model, left to right. Stage 1: a loose cloud of gas and dust, with arrows pointing inwards labelled gravity. Stage 2: the cloud has flattened into a spinning disc seen at an angle, with a curved arrow showing rotation and a bright centre. Stage 3: the Sun at the centre with circular orbits around it; small rocky planets on the inner orbits and large gaseous planets on the outer orbits.",
+          "caption": "The accretion model in three stages."
+        },
+        {
+          "type": "text",
+          "text": "1. The Solar System began as a huge cloud of gas and dust in space. It was mostly hydrogen and helium, but it held many other elements too, such as carbon, oxygen, silicon and iron."
+        },
+        {
+          "type": "text",
+          "text": "2. Gravity pulled the cloud together. The cloud was slowly rotating, so as it shrank it spun faster and flattened into a disc: an accretion disc."
+        },
+        {
+          "type": "text",
+          "text": "3. Most of the material fell to the centre and became the Sun. In the disc, dust and gas clumped together under gravity, and the clumps grew into planets."
+        },
+        {
+          "type": "text",
+          "text": "Close to the young Sun it was very hot. Only rock and metal could stay solid there, and there wasn't much of them, so the inner planets stayed small. The light gases were driven further out."
+        },
+        {
+          "type": "text",
+          "text": "Far from the Sun it was cold, so ice could form as well, and big solid cores grew. Their strong gravity pulled in huge amounts of hydrogen and helium. That made the outer planets large and gaseous."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-accretion",
+          "question": "Use the accretion model to explain why the planets nearest the Sun are rocky, while the planets furthest away are gaseous.",
+          "steps": [
+            "Start with the cloud and the force that collapsed it.",
+            "Say how the disc formed and how planets grew in it.",
+            "Then link temperature to which materials stayed solid at each distance."
+          ],
+          "answer": "The Solar System formed from a cloud of gas and dust containing many elements. Gravity pulled the cloud together. The cloud was rotating, so it formed an accretion disc with the Sun at its centre. Material in the disc clumped together under gravity to form planets. Near the Sun it was hot, so only rock and metal stayed solid and the light gases were driven outwards. Far from the Sun it was cold, so large cores formed and their gravity pulled in large amounts of gas.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "cloud of gas and dust; gravity pulls it together; rotation forms accretion disc; clumping into planets; hot near Sun so only rock stays solid; cold far out so cores gather gas",
+            "requires": [
+              "cloud of gas and dust",
+              "Gravity pulled the cloud together",
+              [
+                "was rotating",
+                "was spinning"
+              ],
+              "accretion disc",
+              [
+                "Near the Sun it was hot",
+                "close to the Sun it was hot"
+              ],
+              [
+                "Far from the Sun it was cold",
+                "far from the Sun it was cold"
+              ]
+            ],
+            "forbids": [
+              "heat pulled",
+              "pressure pulled",
+              "magnetism pulled"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cloud-force",
+          "prompt": "In the accretion model, what pulled the cloud of gas and dust together?",
+          "hint": "It is the same force that keeps the planets in orbit today.",
+          "options": [
+            {
+              "text": "gravity",
+              "correct": true
+            },
+            {
+              "text": "heat from the cloud",
+              "correct": false
+            },
+            {
+              "text": "air pressure",
+              "correct": false
+            },
+            {
+              "text": "magnetism",
+              "correct": false
+            }
+          ],
+          "explain": "Gravity attracts every piece of matter to every other piece, so it pulled the cloud inwards. Heat and pressure push outwards, if anything.",
+          "verify": {
+            "kind": "choice",
+            "truth": "gravity"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-disc",
+          "prompt": "Why did the shrinking cloud become a flat disc?",
+          "hint": "Think of pizza dough spun in the air.",
+          "options": [
+            {
+              "text": "the cloud was rotating, and it spun faster as it shrank",
+              "correct": true
+            },
+            {
+              "text": "the Sun's light pushed the cloud flat",
+              "correct": false
+            },
+            {
+              "text": "the gas cooled and froze into a flat sheet",
+              "correct": false
+            },
+            {
+              "text": "the planets formed first and then pulled the cloud flat",
+              "correct": false
+            }
+          ],
+          "explain": "The cloud was already rotating. As gravity pulled it inwards it spun faster and flattened into an accretion disc.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the cloud was rotating, and it spun faster as it shrank"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gravity-and-orbits",
+      "heading": "Gravity and orbits",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every planet has a gravitational field around it. The field strength at the surface is the weight of each kilogram there, in N/kg."
+        },
+        {
+          "type": "text",
+          "text": "The field at a planet's surface depends on the planet's [[mass|mass]]. For planets of similar size, more mass means a stronger field. Jupiter has far more mass than Earth, and an object weighs about two and a half times as much there."
+        },
+        {
+          "type": "text",
+          "text": "Beyond the syllabus: size matters too, because a wide planet's surface is far from its centre. That is why Uranus, with about 15 times Earth's mass, has a slightly weaker surface field than Earth."
+        },
+        {
+          "type": "text",
+          "text": "The field gets weaker as you move further from the planet. A spacecraft leaving Earth feels a smaller pull the further out it goes. The pull never quite reaches zero."
+        },
+        {
+          "type": "text",
+          "text": "The Sun holds about 99.8% of all the mass in the Solar System. So its gravitational pull is by far the strongest, and the planets orbit the Sun rather than anything else."
+        },
+        {
+          "type": "text",
+          "text": "Without a force, a planet would travel in a straight line ({{lesson:1.5.1}}). The gravitational attraction of the Sun pulls the planet towards the Sun all the time. That pull keeps bending its path into an orbit."
+        },
+        {
+          "type": "example",
+          "id": "ex-why-jupiter-orbits",
+          "question": "Jupiter has more mass than all the other planets put together. Explain why Jupiter orbits the Sun, and state the force that keeps it in its orbit.",
+          "steps": [
+            "Compare Jupiter's mass with the Sun's, not with the other planets'.",
+            "Name the force and the object that exerts it."
+          ],
+          "answer": "The Sun has nearly all the mass of the Solar System, far more than Jupiter. So the Sun's gravitational pull is much stronger than any other, and Jupiter orbits the Sun. The force that keeps Jupiter in orbit is the gravitational attraction of the Sun.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Sun has nearly all the mass; its gravity dominates; gravitational attraction of the Sun keeps Jupiter in orbit",
+            "requires": [
+              [
+                "nearly all the mass",
+                "most of the mass"
+              ],
+              "far more than Jupiter",
+              "gravitational attraction of the Sun"
+            ],
+            "forbids": [
+              "magnetic",
+              "no force",
+              "Jupiter's own gravity keeps"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-surface-field",
+          "prompt": "Two planets are the same size. What decides which has the stronger gravitational field at its surface?",
+          "hint": "Gravity comes from matter.",
+          "options": [
+            {
+              "text": "the mass of the planet",
+              "correct": true
+            },
+            {
+              "text": "the planet's distance from the Sun",
+              "correct": false
+            },
+            {
+              "text": "the planet's surface temperature",
+              "correct": false
+            },
+            {
+              "text": "how fast the planet spins",
+              "correct": false
+            }
+          ],
+          "explain": "For planets of the same size, the one with more mass has the stronger surface field.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the mass of the planet"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-field-with-distance",
+          "prompt": "A space probe flies directly away from Mars. What happens to the strength of Mars's gravitational field at the probe?",
+          "hint": "Is the pull stronger near the planet or far from it?",
+          "options": [
+            {
+              "text": "it decreases",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "it drops to zero once the probe leaves the atmosphere",
+              "correct": false
+            }
+          ],
+          "explain": "The further the probe is from Mars, the weaker the field. The field does not stop at the edge of the atmosphere.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases"
+          }
+        }
+      ]
+    },
+    {
+      "id": "light-travel-time",
+      "heading": "How long light takes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light travels at $3.0 \\times 10^8\\ \\text{m/s}$ in space. Radio waves travel at the same speed. Even so, Solar System [[distance|distances]] are so large that light takes seconds, minutes or hours to cross them."
+        },
+        {
+          "type": "text",
+          "text": "Use the speed equation from {{lesson:1.2}}, $v = \\frac{s}{t}$, with $v = 3.0 \\times 10^8\\ \\text{m/s}$. Rearranged for the time:"
+        },
+        {
+          "type": "formula",
+          "tex": "t = \\frac{s}{v}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-mars-signal",
+          "question": "A probe orbiting Mars sends a radio message to Earth. Mars is $2.25 \\times 10^{11}\\ \\text{m}$ from Earth at the time. Calculate how long the message takes to arrive.",
+          "steps": [
+            "Radio waves travel at the speed of light: $v = 3.0 \\times 10^8\\ \\text{m/s}$.",
+            "Write the equation: $t = \\frac{s}{v}$.",
+            "Substitute: $t = \\frac{2.25 \\times 10^{11}}{3.0 \\times 10^8}$.",
+            "$t = 750\\ \\text{s}$. That is $750 \\div 60 = 12.5$ minutes."
+          ],
+          "answer": "$t = 750\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2.25*10**11/(3.0*10**8)",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-jupiter-distance",
+          "question": "Sunlight takes 43 minutes to reach Jupiter. Calculate the distance from the Sun to Jupiter.",
+          "steps": [
+            "Change the time to seconds: $t = 43 \\times 60 = 2580\\ \\text{s}$.",
+            "Rearrange $v = \\frac{s}{t}$: $s = vt$.",
+            "Substitute: $s = 3.0 \\times 10^8 \\times 2580 = 7.74 \\times 10^{11}\\ \\text{m}$.",
+            "Round to 2 significant figures, like the data."
+          ],
+          "answer": "$s \\approx 7.7 \\times 10^{11}\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "3.0*10**8*43*60",
+            "sf": 2,
+            "unit": "m"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dropping the powers of ten, so $2.25 \\div 3.0$ gives $0.75\\ \\text{s}$. Type each number into your calculator in full, with its $\\times 10^{n}$ part."
+        },
+        {
+          "type": "check",
+          "id": "check-neptune-light",
+          "prompt": "Neptune is about $4.5 \\times 10^{12}\\ \\text{m}$ from the Sun. How many seconds does sunlight take to reach Neptune? Give 2 significant figures.",
+          "hint": "Divide the distance by the speed of light.",
+          "answer": {
+            "value": 15000,
+            "tolerance": 500
+          },
+          "explain": "$t = \\frac{4.5 \\times 10^{12}}{3.0 \\times 10^8} = 1.5 \\times 10^4\\ \\text{s}$, about 4 hours.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "4.5*10**12/(3.0*10**8)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-spacecraft-signal",
+          "prompt": "A spacecraft is $6.0 \\times 10^{9}\\ \\text{m}$ from Earth. How long does a radio signal from Earth take to reach it?",
+          "hint": "Time is distance divided by speed.",
+          "options": [
+            {
+              "text": "$20\\ \\text{s}$",
+              "correct": true
+            },
+            {
+              "text": "$1.8 \\times 10^{18}\\ \\text{s}$",
+              "correct": false
+            },
+            {
+              "text": "$0.050\\ \\text{s}$",
+              "correct": false
+            },
+            {
+              "text": "$200\\ \\text{s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$t = \\frac{6.0 \\times 10^{9}}{3.0 \\times 10^{8}} = 20\\ \\text{s}$. Multiplying gives $1.8 \\times 10^{18}$, and dividing the wrong way round gives $0.050$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "6.0*10**9/(3.0*10**8)",
+            "unit": "s"
+          }
+        }
+      ]
+    },
+    {
+      "id": "elliptical-orbits",
+      "heading": "Elliptical orbits",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Planets, minor planets and comets all move in [[elliptical-orbit|elliptical orbits]]: ovals, not perfect circles. The Sun is inside the ellipse but not at its centre. It sits off to one side, along the long axis."
+        },
+        {
+          "type": "text",
+          "text": "Most planets' orbits are only slightly oval, so they are almost circles with the Sun almost at the centre. A comet's orbit is long and thin, so the Sun is near one end."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-2-elliptical-orbit",
+          "alt": "A long oval orbit of a comet. The Sun is inside the oval but well to the left of its centre, close to the left end. The centre of the ellipse is marked with a small cross and labelled. Arrows on the orbit show the comet going round anticlockwise. The point of the orbit nearest the Sun, at the left end, is labelled closest to the Sun, fastest. The point at the far right end is labelled furthest from the Sun, slowest.",
+          "caption": "A comet's orbit. The Sun is well away from the centre of the ellipse."
+        },
+        {
+          "type": "text",
+          "text": "An object in an elliptical orbit speeds up as it comes towards the Sun and slows down as it moves away. Conservation of energy explains this."
+        },
+        {
+          "type": "text",
+          "text": "Nothing in space slows the object by friction or air resistance, so its total energy stays constant. Its total energy is its [[kinetic-energy|kinetic energy]] plus its [[gravitational-potential-energy|gravitational potential energy]]. Moving towards the Sun is like falling: gravitational potential energy goes down, so kinetic energy goes up."
+        },
+        {
+          "type": "example",
+          "id": "ex-comet-speed",
+          "question": "A comet's orbit takes it close to the Sun and then far out beyond Neptune. Explain, using the conservation of energy, why the comet moves fastest when it is closest to the Sun.",
+          "steps": [
+            "Name the two energy stores and say that their total does not change.",
+            "Say which store falls as the comet approaches the Sun, and which rises.",
+            "Link the rise in kinetic energy to speed."
+          ],
+          "answer": "No energy is lost to friction or air resistance in space, so the comet's total energy stays constant. Its total energy is kinetic energy plus gravitational potential energy. As the comet moves towards the Sun, its gravitational potential energy decreases. So its kinetic energy increases and it speeds up. Its gravitational potential energy is least when it is closest to the Sun, so its kinetic energy and speed are greatest there.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "total energy constant; KE + GPE; moving towards Sun GPE decreases so KE increases; fastest closest to Sun",
+            "requires": [
+              [
+                "total energy stays constant",
+                "total energy is constant"
+              ],
+              "gravitational potential energy decreases",
+              "kinetic energy increases",
+              "closest to the Sun"
+            ],
+            "forbids": [
+              "kinetic energy decreases as it moves towards",
+              "energy is used up",
+              "Sun is at the centre"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sun-position",
+          "prompt": "Where is the Sun in a comet's long, thin elliptical orbit?",
+          "hint": "Look again at the diagram: is the Sun at the cross?",
+          "options": [
+            {
+              "text": "inside the ellipse, off-centre, near one end",
+              "correct": true
+            },
+            {
+              "text": "exactly at the centre of the ellipse",
+              "correct": false
+            },
+            {
+              "text": "on the orbit itself",
+              "correct": false
+            },
+            {
+              "text": "outside the ellipse",
+              "correct": false
+            }
+          ],
+          "explain": "The Sun is inside the orbit but off-centre. Only for a nearly circular orbit is it close to the centre.",
+          "verify": {
+            "kind": "choice",
+            "truth": "inside the ellipse, off-centre, near one end"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-slowest-point",
+          "prompt": "At which point in its elliptical orbit does a comet move most slowly?",
+          "hint": "Where is its gravitational potential energy greatest?",
+          "options": [
+            {
+              "text": "at the point furthest from the Sun",
+              "correct": true
+            },
+            {
+              "text": "at the point closest to the Sun",
+              "correct": false
+            },
+            {
+              "text": "where it passes the centre of the ellipse",
+              "correct": false
+            },
+            {
+              "text": "nowhere: its speed is the same all the way round",
+              "correct": false
+            }
+          ],
+          "explain": "Furthest from the Sun, its gravitational potential energy is greatest. Its total energy is constant, so its kinetic energy and speed are least there.",
+          "verify": {
+            "kind": "choice",
+            "truth": "at the point furthest from the Sun"
+          }
+        }
+      ]
+    },
+    {
+      "id": "planet-data",
+      "heading": "Reading planetary data",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Paper 4 often gives a table of planetary data and asks you to find patterns. Here is real data for the eight planets."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-2-planet-data",
+          "alt": "Table of data for the eight planets, in order from the Sun. Columns: distance from the Sun in millions of kilometres, orbital period in Earth years, orbital speed in kilometres per second, density in kilograms per cubic metre, mean surface temperature in degrees Celsius, and gravitational field strength at the surface in newtons per kilogram. Mercury: 58, 0.24, 47, 5400, 170, 3.7. Venus: 108, 0.62, 35, 5200, 460, 8.9. Earth: 150, 1.00, 30, 5500, 15, 9.8. Mars: 228, 1.88, 24, 3900, minus 65, 3.7. Jupiter: 778, 11.9, 13, 1300, minus 110, 25. Saturn: 1430, 29.5, 9.7, 690, minus 140, 10. Uranus: 2870, 84, 6.8, 1300, minus 195, 8.9. Neptune: 4500, 165, 5.4, 1600, minus 200, 11. A line separates the four inner planets from the four outer planets.",
+          "caption": "Planetary data, rounded. For the gas planets the temperature is at the cloud tops."
+        },
+        {
+          "type": "text",
+          "text": "Further from the Sun, the Sun's gravitational field is weaker. So the planets further out move more slowly in their orbits. They also have further to go, so their [[orbital-period|orbital period]] is much longer."
+        },
+        {
+          "type": "text",
+          "text": "[[density|Density]] matches the accretion model. The inner planets are 3900 to $5500\\ \\text{kg/m}^3$: rock and metal. The outer planets are below $1700\\ \\text{kg/m}^3$, because they are mostly gas."
+        },
+        {
+          "type": "text",
+          "text": "Surface temperature mostly falls with distance from the Sun. Venus breaks the pattern: its thick atmosphere traps heat. The surface field strength doesn't follow distance from the Sun at all; it depends on each planet's mass (and, beyond the syllabus, its size)."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-orbit-trends",
+          "question": "Use the table. Describe how the orbital period and the orbital speed of a planet change as its distance from the Sun increases. Explain the change in orbital speed.",
+          "steps": [
+            "Read down the distance column: it increases from Mercury to Neptune.",
+            "Read the period and speed columns alongside it, then give the reason for the speed pattern."
+          ],
+          "answer": "As the distance from the Sun increases, the orbital period increases. The orbital speed decreases as the distance increases. This is because the Sun's gravitational field gets weaker further from the Sun.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "period increases; speed decreases; Sun's gravitational field strength decreases with distance",
+            "requires": [
+              "orbital period increases",
+              "orbital speed decreases",
+              [
+                "gravitational field gets weaker",
+                "gravitational field is weaker",
+                "gravitational field strength decreases"
+              ]
+            ],
+            "forbids": [
+              "orbital speed increases",
+              "orbital period decreases"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mars-orbital-speed",
+          "question": "Use the table. Treat the orbit of Mars as a circle. Calculate the average [[orbital-speed|orbital speed]] of Mars in m/s, and compare it with the table.",
+          "steps": [
+            "Radius in metres: $r = 228 \\times 10^{6}\\ \\text{km} = 2.28 \\times 10^{11}\\ \\text{m}$.",
+            "Period in seconds: $T = 1.88 \\times 365 \\times 24 \\times 60 \\times 60 = 5.93 \\times 10^{7}\\ \\text{s}$.",
+            "Use $v = \\frac{2\\pi r}{T}$ from {{lesson:6.1.1}}: $v = \\frac{2\\pi \\times 2.28 \\times 10^{11}}{5.93 \\times 10^{7}}$.",
+            "$v = 2.4 \\times 10^{4}\\ \\text{m/s}$, which is $24\\ \\text{km/s}$: the same as the table."
+          ],
+          "answer": "$v \\approx 2.4 \\times 10^{4}\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2*pi*228*10**9/(1.88*365*24*60*60)",
+            "sf": 2,
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lander-weight",
+          "prompt": "A $140\\ \\text{kg}$ lander rests on Neptune. Use the table to find its weight there, in N, to 2 significant figures.",
+          "hint": "Use $W = mg$ with the field strength at Neptune's surface.",
+          "answer": {
+            "value": 1500,
+            "tolerance": 50
+          },
+          "explain": "$W = mg = 140 \\times 11 = 1540 \\approx 1500\\ \\text{N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "140*11",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fifty-year-orbit",
+          "prompt": "A newly found minor planet has an orbital period of 50 Earth years. Use the table: between which two planets' orbits does it most likely lie?",
+          "hint": "Find where 50 years fits in the orbital period column.",
+          "options": [
+            {
+              "text": "Saturn and Uranus",
+              "correct": true
+            },
+            {
+              "text": "Jupiter and Saturn",
+              "correct": false
+            },
+            {
+              "text": "Uranus and Neptune",
+              "correct": false
+            },
+            {
+              "text": "Mars and Jupiter",
+              "correct": false
+            }
+          ],
+          "explain": "Saturn takes 29.5 years and Uranus 84 years. Period increases with distance, so a 50-year orbit lies between them.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Saturn and Uranus"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The Solar System: one star (the Sun), eight planets, minor planets (dwarf planets such as Pluto, and asteroids), moons that orbit the planets, and comets.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Planets in order: Mercury, Venus, Earth, Mars, (asteroid belt), Jupiter, Saturn, Uranus, Neptune. The inner four are small and rocky; the outer four are large and gaseous.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Accretion model: gravity pulled a rotating cloud of gas and dust into an accretion disc. The Sun formed at the centre and the planets clumped together in the disc. It was hot near the Sun (only rock and metal stayed solid) and cold far out (cores that gathered gas).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A planet's surface field strength depends on its mass (for similar-sized planets, more mass gives a stronger field). The field weakens with distance from the planet.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The Sun has about 99.8% of the Solar System's mass, so the planets orbit it. The Sun's gravitational attraction keeps them in orbit.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Light travel time: $t = \\frac{s}{v}$ with $v = 3.0 \\times 10^8\\ \\text{m/s}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Orbits are elliptical, with the Sun off-centre unless the orbit is nearly circular. Total energy is constant, so an object is fastest closest to the Sun, where its gravitational potential energy is least.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Further from the Sun: the Sun's field is weaker, orbital speed is lower and the orbital period is longer.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Getting the order of the planets muddled, such as swapping Venus and Mars. Learn the order with a sentence: My Very Easy Method Just Speeds Up Naming.",
+    "Placing the asteroid belt beyond Neptune. It lies between Mars and Jupiter; the icy belt beyond Neptune is a different region.",
+    "Calling asteroids or comets moons. Moons orbit planets; asteroids and comets orbit the Sun.",
+    "Saying heat or pressure pulled the cloud of gas and dust together. Gravity did.",
+    "Dropping the powers of ten in a light-time calculation, or giving seconds when the question asks for minutes. Check the unit asked for.",
+    "Extended: putting the Sun at the centre of an elliptical orbit, or making the object fastest when it is furthest away. The Sun is off-centre, and the object is fastest closest to the Sun."
+  ],
+  "examTips": [
+    "\"State\" the force that keeps a planet or comet in orbit: \"the gravitational attraction of the Sun\". Saying whose gravity makes the answer complete.",
+    "\"Calculate\" a light travel time in three lines: $t = \\frac{s}{v}$, the numbers with $3.0 \\times 10^8\\ \\text{m/s}$, then the answer with its unit.",
+    "Paper 3/4 may ask you to describe the accretion model. Make separate points: a cloud of gas and dust with many elements, gravity pulling it together, rotation forming an accretion disc, and material clumping into planets.",
+    "Extended: to \"explain\" how a comet's or planet's speed changes around its elliptical orbit with conservation of energy, say the total energy is constant, then say which store goes down and which goes up."
+  ],
+  "readingMinutes": 29
+}

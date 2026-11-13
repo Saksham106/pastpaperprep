@@ -1,0 +1,793 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.2.1",
+  "slug": "electric-charge",
+  "title": "Electric charge",
+  "level": "Core",
+  "topic": 4,
+  "summary": "Objects can carry positive or negative [[electric-charge|electric charge]]: like charges repel and unlike charges attract. Rubbing two materials together moves [[electron|electrons]] from one to the other, which is how a plastic rod or a balloon gets charged. Metals let charge move through them because they have [[free-electron|free electrons]]; plastics, rubber and glass don't.",
+  "goals": [
+    {
+      "text": "State that there are two kinds of charge, and say which pairs of charges repel and which attract.",
+      "bullets": [
+        "4.2.1-1",
+        "4.2.1-2"
+      ]
+    },
+    {
+      "text": "Explain charging by rubbing as a transfer of electrons, and describe experiments that make charge and detect it.",
+      "bullets": [
+        "4.2.1-3",
+        "4.2.1-4"
+      ]
+    },
+    {
+      "text": "Describe a test that sorts materials into conductors and insulators, and explain the difference using electrons, with examples of each.",
+      "bullets": [
+        "4.2.1-5",
+        "4.2.1-6"
+      ]
+    },
+    {
+      "text": "State the unit of charge, and describe an [[electric-field|electric field]] and its direction.",
+      "bullets": [
+        "4.2.1-7",
+        "4.2.1-8",
+        "4.2.1-9"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Draw the field pattern around a point charge, around a charged sphere and between two oppositely charged plates.",
+      "bullets": [
+        "4.2.1-10"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.5.1",
+    "2.1.2",
+    "2.3.1",
+    "4.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "static electricity",
+    "charging by friction",
+    "like charges repel unlike charges attract",
+    "conductors and insulators electrons",
+    "electric field lines",
+    "gold-leaf electroscope"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-like-poles",
+      "prompt": "Two bar [[magnet|magnets]] are held with their north poles facing each other. What happens?",
+      "hint": "Think about like poles and unlike poles.",
+      "options": [
+        {
+          "text": "they repel",
+          "correct": true
+        },
+        {
+          "text": "they attract",
+          "correct": false
+        },
+        {
+          "text": "nothing, because the poles are the same",
+          "correct": false
+        }
+      ],
+      "explain": "Like poles repel and unlike poles attract. Charges follow a similar rule, but charge and magnetism are different things. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they repel"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-friction-direction",
+      "prompt": "You slide a book across a table. Which way does [[friction|friction]] act on the book?",
+      "hint": "Friction acts against sliding.",
+      "options": [
+        {
+          "text": "opposite to the book's motion",
+          "correct": true
+        },
+        {
+          "text": "in the same direction as the book's motion",
+          "correct": false
+        },
+        {
+          "text": "straight down into the table",
+          "correct": false
+        }
+      ],
+      "explain": "Friction is a [[force|force]] that acts between two surfaces sliding over each other, and it opposes the motion. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "opposite to the book's motion"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-atom-structure",
+      "prompt": "Which description of an [[atom|atom]] is correct?",
+      "hint": "Where is most of the mass, and what is around it?",
+      "options": [
+        {
+          "text": "a tiny central nucleus with electrons around it",
+          "correct": true
+        },
+        {
+          "text": "electrons in the centre with a nucleus around them",
+          "correct": false
+        },
+        {
+          "text": "a solid ball with nothing inside it",
+          "correct": false
+        }
+      ],
+      "explain": "An atom has a tiny nucleus at its centre, with electrons around it. Revise it in {{lesson:2.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a tiny central nucleus with electrons around it"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "charges",
+      "heading": "Positive and negative charge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Electric charge comes in two kinds: positive (+) and negative (−). Most objects are neutral. They hold equal amounts of both kinds, so the charges cancel out."
+        },
+        {
+          "type": "result",
+          "statement": "Like charges repel: positive repels positive, and negative repels negative. Unlike charges attract: positive and negative pull towards each other.",
+          "why": "Experiments always show this pattern. The push or pull is a force, and it acts without the objects touching."
+        },
+        {
+          "type": "mistake",
+          "text": "Using magnet words. Charges are positive or negative, not north or south. Don't mention poles or magnetism in an answer about charge."
+        },
+        {
+          "type": "text",
+          "text": "Where does charge come from? Every atom has a tiny nucleus at its centre, which is positive. Around the nucleus are [[electron|electrons]], which are negative. A neutral atom has equal amounts of positive and negative charge."
+        },
+        {
+          "type": "text",
+          "text": "In a solid, the nuclei are held in place and cannot move from one object to another. Some electrons can. So a solid becomes charged by gaining or losing electrons."
+        },
+        {
+          "type": "text",
+          "text": "An object that gains electrons has more negative charge than positive, so it is negatively charged. An object that loses electrons is left with more positive charge than negative, so it is positively charged."
+        },
+        {
+          "type": "text",
+          "text": "Rubbing two different materials together charges them both. Friction between the surfaces moves electrons from one material to the other. Rub a polythene rod with a dry woollen cloth: electrons move from the cloth onto the rod. The rod becomes negative and the cloth becomes positive, by the same amount."
+        },
+        {
+          "type": "result",
+          "statement": "When a solid is charged by rubbing, only negative charge (electrons) moves from one object to the other. Positive charge does not move.",
+          "why": "The positive charge is in the nuclei, which are fixed in the solid. Electrons near the surface can be rubbed off."
+        },
+        {
+          "type": "example",
+          "id": "ex-acetate-strip",
+          "question": "An acetate strip is rubbed with a dry cloth. The strip becomes positively charged. Explain how this happens, and state the charge on the cloth.",
+          "steps": [
+            "Name the particles that move: only electrons can transfer between solids.",
+            "Decide the direction: the strip ends up positive, so it must have lost electrons.",
+            "Say where those electrons went, and what that does to the cloth."
+          ],
+          "answer": "Friction between the strip and the cloth moves electrons from one to the other. Only electrons move; the positive charges stay in the nuclei. The strip loses electrons to the cloth, so it is left positively charged. The cloth gains these electrons, so the cloth is negatively charged.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "friction transfers electrons only; strip loses electrons to cloth so is positive; cloth gains electrons so is negative",
+            "requires": [
+              "electrons",
+              [
+                "loses electrons",
+                "lost electrons"
+              ],
+              [
+                "gains these electrons",
+                "gains electrons",
+                "gained electrons"
+              ],
+              [
+                "cloth is negatively charged",
+                "cloth is negative"
+              ]
+            ],
+            "forbids": [
+              "positive charges move",
+              "protons move",
+              "gains protons",
+              "loses protons",
+              "cloth is positively charged"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-three-beads",
+          "question": "Three small charged beads, X, Y and Z, hang on insulating threads. X repels Y. Y attracts Z. Z is negatively charged. Deduce the charge on X and on Y.",
+          "steps": [
+            "Start from the bead whose charge you know: Z is negative.",
+            "Y attracts Z. Two charged objects attract only when their charges are unlike, so Y is positive.",
+            "X repels Y. Repulsion means like charges, so X has the same charge as Y."
+          ],
+          "answer": "Y is positive, because it attracts the negative bead Z and unlike charges attract. X is positive, because it repels Y and like charges repel.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Y positive (attracts negative Z); X positive (repels positive Y)",
+            "requires": [
+              "Y is positive",
+              "X is positive",
+              "unlike charges attract",
+              "like charges repel"
+            ],
+            "forbids": [
+              "Y is negative",
+              "X is negative"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying protons or positive charges move when an object becomes positive. It lost electrons; its positive charge was there all along."
+        },
+        {
+          "type": "check",
+          "id": "check-comb-charge",
+          "prompt": "A plastic comb is pulled through dry hair and becomes negatively charged. What has happened?",
+          "hint": "Which particles can move between solids, and does the comb gain or lose them?",
+          "options": [
+            {
+              "text": "electrons moved from the hair to the comb",
+              "correct": true
+            },
+            {
+              "text": "electrons moved from the comb to the hair",
+              "correct": false
+            },
+            {
+              "text": "protons moved from the comb to the hair",
+              "correct": false
+            },
+            {
+              "text": "protons moved from the hair to the comb",
+              "correct": false
+            }
+          ],
+          "explain": "Only electrons move. The comb is negative, so it gained electrons, and they came from the hair. Electrons leaving the comb would make it positive.",
+          "verify": {
+            "kind": "choice",
+            "truth": "electrons moved from the hair to the comb"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-two-balloons",
+          "prompt": "Two balloons are rubbed on the same jumper in the same way. They are then hung side by side on threads. What happens?",
+          "hint": "Rubbed the same way on the same material, do they gain or lose electrons in the same way?",
+          "options": [
+            {
+              "text": "they push apart, because they have the same kind of charge",
+              "correct": true
+            },
+            {
+              "text": "they pull together, because they have opposite charges",
+              "correct": false
+            },
+            {
+              "text": "nothing, because charges only push or pull when they touch",
+              "correct": false
+            }
+          ],
+          "explain": "Both balloons gain (or lose) electrons in the same way, so they have the same kind of charge. Like charges repel, even without touching.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they push apart, because they have the same kind of charge"
+          }
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "heading": "Experiments that make and detect charge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Papers 3/4 and 5/6 can ask you to describe these experiments. Use plastic rods such as polythene or acetate. On plastic, the charge stays where you rubbed it."
+        },
+        {
+          "type": "text",
+          "text": "1. Make charge: rub a polythene rod firmly with a dry woollen cloth for a few seconds."
+        },
+        {
+          "type": "text",
+          "text": "2. Detect it: hold the rod just above some tiny pieces of paper. The pieces jump up to the rubbed rod. An unrubbed rod does nothing, so the rubbing made the difference."
+        },
+        {
+          "type": "text",
+          "text": "3. Test like and unlike charges: hang a rubbed polythene rod in a paper stirrup on a thread, so it can turn freely. Bring a second rubbed polythene rod near one end: the hanging rod turns away. Bring a rubbed acetate rod near instead: the hanging rod turns towards it, because rubbed acetate is positive."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-1-suspended-rod",
+          "alt": "A rubbed polythene rod hangs level from a thread, held in a paper stirrup, so it can turn freely. Its right-hand end carries negative charges. A second rubbed polythene rod, also negatively charged, is held level just to the right of that end. A curved arrow shows the end of the hanging rod turning away from the second rod. A note says both rods are negative, and like charges repel.",
+          "caption": "Two rubbed polythene rods have the same charge, so they repel."
+        },
+        {
+          "type": "text",
+          "text": "A gold-leaf electroscope also detects charge. It has a metal cap on a metal rod, with a thin gold leaf hanging against the bottom of the rod. Touch the cap with a charged rod and charge spreads over the cap, rod and leaf. The leaf and the metal rod now have like charges, so the leaf is pushed out and rises."
+        },
+        {
+          "type": "examTip",
+          "text": "Attraction alone doesn't prove an object is charged: a charged rod also attracts small uncharged things, like the paper. Repulsion is the sure test. Two objects repel only if both are charged with the same sign."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-balloon",
+          "question": "Describe a simple experiment to show that rubbing a balloon gives it an electric charge.",
+          "steps": [
+            "Start with a control: show the unrubbed balloon has no effect.",
+            "Say what you rub it with, and how.",
+            "Say what you do next and what you see, then the conclusion."
+          ],
+          "answer": "Hold an unrubbed balloon just above some tiny pieces of paper: nothing happens. Rub the balloon firmly with a dry woollen cloth for a few seconds. Hold it above the paper again. The pieces of paper jump up and stick to the balloon. So the rubbed balloon is now charged.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "control with unrubbed balloon; rub with dry cloth; small pieces of paper are attracted; so the balloon is charged",
+            "requires": [
+              [
+                "unrubbed",
+                "before rubbing"
+              ],
+              [
+                "rub",
+                "rubbed"
+              ],
+              [
+                "pieces of paper",
+                "bits of paper"
+              ],
+              [
+                "jump up",
+                "attracted",
+                "stick"
+              ],
+              "charged"
+            ],
+            "forbids": [
+              "magnetised",
+              "magnet"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sure-test",
+          "prompt": "A small ball hangs on a nylon thread. Which observation proves that the ball is charged?",
+          "hint": "A charged rod pulls on uncharged objects too.",
+          "options": [
+            {
+              "text": "it is repelled by a charged rod",
+              "correct": true
+            },
+            {
+              "text": "it is attracted by a charged rod",
+              "correct": false
+            },
+            {
+              "text": "it hangs straight down when nothing is near it",
+              "correct": false
+            }
+          ],
+          "explain": "Repulsion needs like charges, so the ball must be charged. A charged rod can attract an uncharged ball, so attraction proves nothing about the ball.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is repelled by a charged rod"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electroscope-leaf",
+          "prompt": "A charged rod touches the cap of a gold-leaf electroscope, and the leaf rises. Why does the leaf rise?",
+          "hint": "Charge spreads over all the metal parts. What kind of charge do the leaf and the rod beside it get?",
+          "options": [
+            {
+              "text": "the leaf and the metal rod get the same kind of charge, so they repel",
+              "correct": true
+            },
+            {
+              "text": "the leaf and the metal rod get opposite charges, so they repel",
+              "correct": false
+            },
+            {
+              "text": "the leaf becomes magnetised and is pushed out",
+              "correct": false
+            }
+          ],
+          "explain": "Charge from the rod spreads over the cap, rod and leaf, so the leaf and the metal rod have like charges. Like charges repel, so the leaf is pushed out. Opposite charges would attract, and magnetism plays no part.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the leaf and the metal rod get the same kind of charge, so they repel"
+          }
+        }
+      ]
+    },
+    {
+      "id": "conductors-insulators",
+      "heading": "Conductors and insulators",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[electrical-conductor|electrical conductor]] is a material that lets charge flow through it easily. An [[electrical-insulator|electrical insulator]] is a material that does not let charge flow through it."
+        },
+        {
+          "type": "text",
+          "text": "To test a material, set up a circuit with a cell, a lamp and two crocodile clips with a gap between them. First touch the clips together: the lamp should light, which shows the circuit works. Then clip the sample across the gap."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-1-conductor-test",
+          "alt": "Circuit for testing whether a material conducts. A cell, a lamp and two crocodile clips are joined in a single loop of wire. On the bottom wire there is a gap between the clips, and a sample of the material being tested is clipped across the gap. A note says that if the lamp lights, the sample is a conductor, and if the lamp stays off, it is an insulator.",
+          "caption": "If the lamp lights, charge flows through the sample: it is a conductor."
+        },
+        {
+          "type": "text",
+          "text": "If the lamp lights, the sample is a conductor. If it stays off, the sample is an insulator. An ammeter in series with the lamp is more sensitive: it shows a current too small to light the lamp."
+        },
+        {
+          "type": "text",
+          "text": "Why the difference? In a metal, some electrons are not held by any one atom. These [[free-electron|free electrons]] can drift through the whole metal, carrying charge with them."
+        },
+        {
+          "type": "text",
+          "text": "In an insulator, every electron is held tightly in its own atom. There are no free electrons, so charge cannot move through the material."
+        },
+        {
+          "type": "text",
+          "text": "Good conductors: metals such as copper, aluminium and steel, and graphite (a form of carbon). Insulators: plastics such as PVC and polythene, rubber, glass, dry wood and dry air."
+        },
+        {
+          "type": "text",
+          "text": "This is also why rubbing charges a plastic rod but not a metal rod you hold in your hand. On the plastic, the extra electrons stay put. On the metal, charge flows away through the metal and through you."
+        },
+        {
+          "type": "example",
+          "id": "ex-charger-lead",
+          "question": "A phone charger lead has thin copper strands inside a rubber coating. Explain, in terms of electrons, why copper conducts electricity and rubber does not.",
+          "steps": [
+            "For copper, name the particles that carry the charge and say why they can move.",
+            "For rubber, say what is different about its electrons.",
+            "Finish each part with the conclusion: conductor or insulator."
+          ],
+          "answer": "In copper, a metal, some electrons are not held by any one atom: they are free electrons. These free electrons can move through the copper, so charge flows through it easily. So copper is a good conductor. In rubber, every electron is held tightly in its atom. Rubber has no free electrons, so charge cannot flow through it, and it is an insulator.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "copper has free electrons that move and carry charge (conductor); rubber's electrons held tightly, no free electrons (insulator)",
+            "requires": [
+              "free electrons",
+              [
+                "move through",
+                "can move"
+              ],
+              [
+                "held tightly",
+                "tightly held"
+              ],
+              "no free electrons",
+              "conductor",
+              "insulator"
+            ],
+            "forbids": [
+              "free protons",
+              "protons move",
+              "atoms move"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-lights",
+          "prompt": "A student puts four objects, one at a time, across the gap in the test circuit. Which one makes the lamp light?",
+          "hint": "Which one has free electrons?",
+          "options": [
+            {
+              "text": "a steel paper clip",
+              "correct": true
+            },
+            {
+              "text": "a plastic drinking straw",
+              "correct": false
+            },
+            {
+              "text": "a dry wooden lolly stick",
+              "correct": false
+            },
+            {
+              "text": "a rubber band",
+              "correct": false
+            }
+          ],
+          "explain": "Steel is a metal, so it has free electrons and conducts. Plastic, dry wood and rubber are insulators, so the lamp stays off.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a steel paper clip"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-metal-conducts",
+          "prompt": "Why is aluminium a good electrical conductor?",
+          "hint": "What can move through a metal?",
+          "options": [
+            {
+              "text": "it has electrons that are free to move through it",
+              "correct": true
+            },
+            {
+              "text": "it has protons that are free to move through it",
+              "correct": false
+            },
+            {
+              "text": "all its electrons are held tightly in their atoms",
+              "correct": false
+            },
+            {
+              "text": "its whole atoms flow along it",
+              "correct": false
+            }
+          ],
+          "explain": "A metal has free electrons that can drift through it and carry charge. Protons stay in the nuclei, and the atoms stay in place.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it has electrons that are free to move through it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "electric-fields",
+      "heading": "Electric fields",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Charge is measured in [[coulomb|coulombs]], symbol C. You will use this unit in {{lesson:4.2.2}}, where current is the charge passing a point each second."
+        },
+        {
+          "type": "definition",
+          "term": "electric field",
+          "statement": "An [[electric-field|electric field]] is a region where a charge experiences a force.",
+          "plain": "The space around a charged object, where other charges are pushed or pulled."
+        },
+        {
+          "type": "examTip",
+          "text": "When you complete or give the definition, name both the charge and the force. \"The region around a charge\" alone scores nothing."
+        },
+        {
+          "type": "result",
+          "statement": "The direction of an electric field at any point is the way a positive charge placed there would be pushed.",
+          "why": "We need one agreed direction, and a positive charge is the one chosen. A negative charge is pushed the opposite way, against the field."
+        },
+        {
+          "type": "text",
+          "text": "Field lines show a field. Each line carries an arrow for the field's direction, and the lines never cross. A positive charge is pushed away from positive charges and pulled towards negative ones, so the arrows point away from positive charges and towards negative charges."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-1-field-patterns",
+          "alt": "Three electric field patterns. First, a small positive point charge with eight straight field lines spreading out from it in all directions, every arrow pointing outwards. Second, a metal sphere with negative charge on its surface, with eight straight field lines pointing at its centre and ending on its surface at right angles, every arrow pointing inwards. Third, two vertical parallel plates, the left one positive and the right one negative, with five straight, parallel, evenly spaced lines running between them at right angles to the plates, every arrow pointing from the positive plate to the negative plate.",
+          "caption": "The three patterns you need, with their directions."
+        },
+        {
+          "type": "text",
+          "text": "Point charge: straight lines spreading out in all directions, like the spokes of a wheel. The arrows point outwards for a positive charge and inwards for a negative charge."
+        },
+        {
+          "type": "text",
+          "text": "Charged metal sphere: outside the sphere, the same spoke pattern as a point charge. The lines start or end on the surface and meet it at right angles."
+        },
+        {
+          "type": "text",
+          "text": "Two parallel plates with opposite charges: straight, parallel, evenly spaced lines from the positive plate to the negative plate, at right angles to both. Near the edges of the plates the lines curve, but this is not examined."
+        },
+        {
+          "type": "example",
+          "id": "ex-draw-plates",
+          "question": "Two parallel metal plates face each other. The left plate is positive and the right plate is negative. Describe how you would draw the electric field between them.",
+          "steps": [
+            "Shape: the field between parallel plates is the same everywhere in the middle.",
+            "Spacing and angle: show that with even spacing, meeting the plates square on.",
+            "Direction: arrows go the way a positive charge would be pushed."
+          ],
+          "answer": "Draw straight lines from one plate to the other, parallel to each other and evenly spaced. Each line meets the plates at right angles. Put an arrow on each line pointing from the positive plate to the negative plate, so from left to right.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "straight, parallel, evenly spaced lines at right angles to the plates, arrows from positive plate to negative plate (left to right)",
+            "requires": [
+              "straight",
+              "parallel",
+              [
+                "evenly spaced",
+                "equally spaced"
+              ],
+              [
+                "right angles",
+                "perpendicular"
+              ],
+              [
+                "from the positive plate to the negative plate",
+                "positive to negative"
+              ]
+            ],
+            "forbids": [
+              "from the negative plate to the positive plate",
+              "right to left",
+              "curved lines"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-dust-force",
+          "question": "A negatively charged speck of dust is between two horizontal metal plates. The top plate is positive and the bottom plate is negative. State which way the electric field points between the plates, and which way the electric force on the speck acts.",
+          "steps": [
+            "The field points from the positive plate to the negative plate.",
+            "The speck is negative, so the force on it is opposite to the field."
+          ],
+          "answer": "The field points downwards, from the positive top plate to the negative bottom plate. The speck is negative, so the force on it is opposite to the field: upwards.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "field downwards (positive to negative plate); force on negative speck upwards, opposite to field",
+            "requires": [
+              "downwards",
+              "upwards",
+              "opposite"
+            ],
+            "forbids": [
+              "force on it is downwards",
+              "field points upwards"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing field arrows from negative to positive. They always point the way a positive charge would be pushed: away from positive and towards negative."
+        },
+        {
+          "type": "check",
+          "id": "check-negative-point",
+          "prompt": "Which describes the electric field lines around an isolated negative point charge?",
+          "hint": "Which way would a positive charge placed nearby be pushed?",
+          "options": [
+            {
+              "text": "straight lines pointing inwards, towards the charge",
+              "correct": true
+            },
+            {
+              "text": "straight lines pointing outwards, away from the charge",
+              "correct": false
+            },
+            {
+              "text": "circles around the charge",
+              "correct": false
+            }
+          ],
+          "explain": "A positive charge would be pulled towards the negative charge, so the radial lines point inwards. Outwards is the pattern for a positive charge.",
+          "verify": {
+            "kind": "choice",
+            "truth": "straight lines pointing inwards, towards the charge"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electron-force",
+          "prompt": "An electron is in an electric field that points to the left. Which way is the electric force on the electron?",
+          "hint": "The field direction is the force on a positive charge. An electron is negative.",
+          "options": [
+            {
+              "text": "to the right",
+              "correct": true
+            },
+            {
+              "text": "to the left",
+              "correct": false
+            },
+            {
+              "text": "upwards, at right angles to the field",
+              "correct": false
+            }
+          ],
+          "explain": "A positive charge would be pushed to the left. The electron is negative, so it is pushed the opposite way: to the right.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the right"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "There are two kinds of charge, positive and negative. Like charges repel; unlike charges attract."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Charging a solid by rubbing moves only electrons. Gain electrons: negative. Lose electrons: positive."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Repulsion proves an object is charged. Attraction doesn't, because a charged object also attracts small uncharged objects."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Conductors (metals, graphite) have free electrons that carry charge through them. Insulators (plastic, rubber, glass, dry wood) have none, so charge cannot flow through them."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Charge is measured in coulombs (C). An electric field is a region where a charge experiences a force. Its direction at a point is the way a positive charge there would be pushed."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Field patterns: straight radial lines around a point charge or outside a charged sphere (outwards for +, inwards for −). Between oppositely charged parallel plates: straight, parallel, evenly spaced lines from + to −."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying protons or positive charges move during rubbing. Only electrons transfer; a positive object has lost electrons.",
+    "Getting the rule backwards. Between two charged objects, attraction means unlike charges and repulsion means like charges.",
+    "Writing about poles or magnetism in an answer about charge. Charges are positive or negative, and the force between them is electric.",
+    "Saying a metal conducts because its protons or atoms move. Only the free electrons move.",
+    "Extended: drawing field arrows from negative to positive. They point away from + and towards −."
+  ],
+  "examTips": [
+    "\"Explain\" how a rod becomes charged: name electrons, say which way they move, and give the charge on both the rod and the cloth.",
+    "\"Describe\" an experiment: say what you rub with what, what you bring near what, and what you see, such as \"the hanging rod turns away\".",
+    "Extended: \"draw\" field lines with a ruler, an arrow on every line, and lines that touch the charge or the plates. Between plates, keep them parallel and evenly spaced."
+  ],
+  "readingMinutes": 26
+}

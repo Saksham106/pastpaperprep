@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 310" role="img" aria-labelledby="t612ell">
+<title id="t612ell">A long oval orbit of a comet. The Sun is inside the oval but well to the left of its centre, close to the left end. The centre of the ellipse is marked with a small cross and labelled. Arrows on the orbit show the comet going round anticlockwise. The point of the orbit nearest the Sun, at the left end, is labelled closest to the Sun, fastest. The point at the far right end is labelled furthest from the Sun, slowest.</title>
+<ellipse cx="290" cy="150" rx="210" ry="100" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<polygon points="282,50 294,44 294,56" fill="currentColor"/>
+<polygon points="298,250 286,244 286,256" fill="currentColor"/>
+<circle cx="105" cy="150" r="13" fill="var(--t3-ink)" fill-opacity="0.6" stroke="var(--t3-ink)" stroke-width="1.5"/>
+<text font-family="inherit" font-size="13" x="126" y="136" fill="currentColor" font-weight="bold">Sun</text>
+<g stroke="var(--muted)" stroke-width="1.5">
+<line x1="284" y1="144" x2="296" y2="156"/><line x1="284" y1="156" x2="296" y2="144"/>
+</g>
+<text font-family="inherit" font-size="12" x="290" y="176" fill="var(--muted)" text-anchor="middle">centre of the ellipse</text>
+<circle cx="80" cy="150" r="5" fill="var(--t1-ink)"/>
+<circle cx="500" cy="150" r="5" fill="var(--t4-ink)"/>
+<line x1="80" y1="157" x2="80" y2="270" stroke="var(--t1-ink)" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="500" y1="157" x2="500" y2="270" stroke="var(--t4-ink)" stroke-width="1" stroke-dasharray="4 3"/>
+<g font-family="inherit" font-size="12" font-weight="bold">
+<text x="20" y="286" fill="var(--t1-ink)">closest to the Sun:</text>
+<text x="20" y="302" fill="var(--t1-ink)">fastest</text>
+<text x="540" y="286" fill="var(--t4-ink)" text-anchor="end">furthest from the Sun:</text>
+<text x="540" y="302" fill="var(--t4-ink)" text-anchor="end">slowest</text>
+</g>
+</svg>

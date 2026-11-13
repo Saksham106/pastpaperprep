@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 580 270" role="img" aria-labelledby="t524gauge">
+  <title id="t524gauge">A sheet of paper moves from left to right after passing between two rollers. Further along, a beta source sits just below the sheet and a detector sits just above it, directly over the source. Radiation from the source passes up through the sheet to the detector. A cable joins the detector to a counter and control unit, and an arrow from the control unit goes back to the rollers, which it moves closer together or further apart.</title>
+  <rect x="30" y="128" width="510" height="10" fill="var(--t2-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.2"/>
+  <path d="M470 160 L530 160" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <polygon points="540,160 530,155 530,165" fill="currentColor"/>
+  <circle cx="110" cy="106" r="22" fill="var(--muted)" fill-opacity="0.2" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="110" cy="160" r="22" fill="var(--muted)" fill-opacity="0.2" stroke="currentColor" stroke-width="1.5"/>
+  <circle cx="110" cy="106" r="3" fill="currentColor"/>
+  <circle cx="110" cy="160" r="3" fill="currentColor"/>
+  <rect x="315" y="180" width="40" height="24" fill="var(--t1-ink)" fill-opacity="0.3" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="318" y="58" width="34" height="56" rx="5" fill="var(--t3-ink)" fill-opacity="0.2" stroke="currentColor" stroke-width="1.5"/>
+  <g stroke="var(--t1-ink)" stroke-width="1.5" fill="none" stroke-dasharray="4 4">
+    <line x1="327" y1="178" x2="327" y2="118"/>
+    <line x1="335" y1="178" x2="335" y2="118"/>
+    <line x1="343" y1="178" x2="343" y2="118"/>
+  </g>
+  <path d="M352 80 C 390 80, 400 45, 430 45" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <rect x="430" y="20" width="130" height="50" rx="6" fill="var(--muted)" fill-opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
+  <path d="M430 60 C 300 60, 180 30, 128 82" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <polygon points="122,90 124,77 133,84" fill="currentColor"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="440" y="41">counter and</text>
+    <text x="440" y="58">control unit</text>
+    <text x="70" y="208">rollers</text>
+    <text x="290" y="225">beta source</text>
+    <text x="362" y="108">detector</text>
+    <text x="445" y="122">paper sheet</text>
+    <text x="440" y="185">direction of motion</text>
+    <text x="150" y="38" font-size="12">adjusts the gap between the rollers</text>
+  </g>
+</svg>

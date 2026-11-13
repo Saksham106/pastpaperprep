@@ -1,0 +1,849 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.5.6",
+  "slug": "the-transformer",
+  "title": "The transformer",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A [[transformer|transformer]] is two coils of wire on a soft-iron core. It changes the size of an alternating voltage: more turns on the output coil give a bigger voltage, fewer turns a smaller one. The grid uses transformers to send electricity along cables at a very high voltage, so the current is small and less energy is wasted heating the cables.",
+  "goals": [
+    {
+      "text": "Describe how a transformer is built, and use the words primary, secondary, step-up and step-down.",
+      "bullets": [
+        "4.5.6-1",
+        "4.5.6-2"
+      ]
+    },
+    {
+      "text": "Use $\\frac{V_\\text{p}}{V_\\text{s}} = \\frac{N_\\text{p}}{N_\\text{s}}$ to find a voltage or a number of turns.",
+      "bullets": [
+        "4.5.6-3"
+      ]
+    },
+    {
+      "text": "Describe how transformers are used to send electricity at high voltage, and state the advantages.",
+      "bullets": [
+        "4.5.6-4",
+        "4.5.6-5"
+      ]
+    },
+    {
+      "text": "Explain how a transformer works, using [[electromagnetic-induction|electromagnetic induction]].",
+      "bullets": [
+        "4.5.6-6"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Use $I_\\text{p}V_\\text{p} = I_\\text{s}V_\\text{s}$ for a 100% efficient transformer.",
+      "bullets": [
+        "4.5.6-7"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Use $P = I^2R$ to explain why cables waste less [[power|power]] when the voltage is higher.",
+      "bullets": [
+        "4.5.6-8"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.2.2",
+    "4.2.4",
+    "4.2.5",
+    "4.5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "transformer equation",
+    "turns ratio",
+    "step-up and step-down transformers",
+    "why electricity is transmitted at high voltage",
+    "national grid transformers",
+    "IpVp = IsVs"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-changing-field",
+      "prompt": "A coil of wire is connected to a sensitive meter. Which of these induces an e.m.f. in the coil?",
+      "hint": "Think about what has to happen to the [[magnetic-field|magnetic field]] through the coil.",
+      "options": [
+        {
+          "text": "changing the magnetic field through the coil",
+          "correct": true
+        },
+        {
+          "text": "holding a strong magnet still inside the coil",
+          "correct": false
+        },
+        {
+          "text": "connecting a battery to the meter",
+          "correct": false
+        }
+      ],
+      "explain": "An e.m.f. is induced only while the magnetic field through the coil changes. A still [[magnet|magnet]] gives no change, so no e.m.f. Revise it in {{lesson:4.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "changing the magnetic field through the coil"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-what-is-ac",
+      "prompt": "What is an [[alternating-current|alternating current]] (a.c.)?",
+      "hint": "Compare a.c. with the current from a battery.",
+      "options": [
+        {
+          "text": "a current that keeps reversing its direction",
+          "correct": true
+        },
+        {
+          "text": "a current that always flows the same way",
+          "correct": false
+        },
+        {
+          "text": "a current that keeps getting bigger",
+          "correct": false
+        }
+      ],
+      "explain": "An alternating current keeps changing direction, back and forth. A battery gives direct current, which flows one way only. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a current that keeps reversing its direction"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-power-current",
+      "prompt": "An appliance has a power of $1150\\ \\text{W}$ on a $230\\ \\text{V}$ supply. What is the current in it, in A?",
+      "hint": "Rearrange $P = IV$ to $I = \\frac{P}{V}$.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0.05
+      },
+      "explain": "$I = \\frac{P}{V} = \\frac{1150}{230} = 5.0\\ \\text{A}$. Revise it in {{lesson:4.2.5}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1150/230",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "construction",
+      "heading": "Inside a transformer",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[transformer|transformer]] changes an alternating voltage into a bigger or a smaller one. Mains electricity is $230\\ \\text{V}$, for example, but a doorbell might need only $8\\ \\text{V}$."
+        },
+        {
+          "type": "text",
+          "text": "It has two coils of insulated copper wire wound on a closed loop of soft iron, the core. The two coils are not joined to each other by any wire."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-6-transformer",
+          "alt": "A simple transformer. A square ring of soft iron forms the core. On the left side of the ring is the primary coil, with 5 turns of insulated copper wire, connected to an a.c. supply. On the right side of the ring is the secondary coil, with 10 turns, connected to a lamp. The two coils are not joined by any wire.",
+          "caption": "The secondary has more turns than the primary, so this transformer steps the voltage up."
+        },
+        {
+          "type": "text",
+          "text": "The [[primary-coil|primary coil]] is connected to the a.c. supply: it is the input. The [[secondary-coil|secondary coil]] gives the output, to a lamp or any other device."
+        },
+        {
+          "type": "text",
+          "text": "Each material has a job. Copper is a good conductor, so the coils waste little energy. The insulation stops the current jumping between turns. Soft iron is easily magnetised and demagnetised (a [[temporary-magnet|temporary magnet]]), so it carries the magnetic field from one coil to the other."
+        },
+        {
+          "type": "text",
+          "text": "A [[step-up-transformer|step-up transformer]] has more turns on the secondary coil than on the primary, so the output voltage is bigger than the input. A [[step-down-transformer|step-down transformer]] has fewer turns on the secondary, so the output voltage is smaller."
+        },
+        {
+          "type": "text",
+          "text": "A transformer works only with [[alternating-current|alternating current]]. The changing current in the primary makes a changing [[magnetic-field|magnetic field]], and only a changing field induces a voltage in the secondary ({{lesson:4.5.1}}). A steady d.c. makes a steady field, so there is no output."
+        },
+        {
+          "type": "text",
+          "text": "Transformers have a high [[efficiency|efficiency]], but they still warm up: the current heats the coils and the changing field heats the core. This wasted energy goes to the thermal store of the surroundings."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-construction",
+          "question": "Describe the construction of a simple step-down transformer.",
+          "steps": [
+            "Name the parts: two coils and a core.",
+            "Say what each is made of.",
+            "Say which coil is the input and which is the output.",
+            "Finish with the turns: in a step-down transformer the output coil has fewer."
+          ],
+          "answer": "It has two coils of insulated copper wire. The coils are wound on a soft-iron core, which links them. The primary coil is connected to the a.c. input and the secondary coil gives the output. There are fewer turns on the secondary coil than on the primary.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "two insulated copper coils; soft-iron core; primary input, secondary output; primary has more turns",
+            "requires": [
+              [
+                "two coils"
+              ],
+              [
+                "copper"
+              ],
+              [
+                "soft-iron core",
+                "soft iron core",
+                "iron core"
+              ],
+              [
+                "fewer turns on the secondary"
+              ]
+            ],
+            "forbids": [
+              "copper core",
+              "more turns on the secondary"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-step-type",
+          "prompt": "The primary coil of a transformer has 2000 turns and the secondary has 150 turns. What type of transformer is it?",
+          "hint": "Compare the turns on the output coil with the turns on the input coil.",
+          "options": [
+            {
+              "text": "step-down",
+              "correct": true
+            },
+            {
+              "text": "step-up",
+              "correct": false
+            },
+            {
+              "text": "neither: the numbers of turns make no difference",
+              "correct": false
+            }
+          ],
+          "explain": "The secondary (output) coil has fewer turns than the primary, so the output voltage is smaller. That is a step-down transformer.",
+          "verify": {
+            "kind": "choice",
+            "truth": "step-down"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-dc-input",
+          "prompt": "The primary coil of a transformer is connected to a battery, so a steady current flows in it. What does a voltmeter across the secondary coil read while the current stays steady?",
+          "hint": "Is the magnetic field in the core changing?",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "the same as the battery voltage",
+              "correct": false
+            },
+            {
+              "text": "an alternating voltage",
+              "correct": false
+            },
+            {
+              "text": "a voltage bigger than the battery's, if it is step-up",
+              "correct": false
+            }
+          ],
+          "explain": "A steady current makes a steady magnetic field. Only a changing field induces a voltage, so the secondary has no output. Transformers need a.c.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        }
+      ]
+    },
+    {
+      "id": "how-it-works",
+      "heading": "How a transformer works",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A transformer uses [[electromagnetic-induction|electromagnetic induction]], step by step:"
+        },
+        {
+          "type": "text",
+          "text": "1. The alternating current in the primary coil makes a magnetic field, as in an [[electromagnet|electromagnet]]. The current keeps changing size and direction, so the field does too."
+        },
+        {
+          "type": "text",
+          "text": "2. The soft-iron core is magnetised by this field ([[induced-magnetism|induced magnetism]]). It links the field to the secondary coil, so the changing field passes through the secondary too."
+        },
+        {
+          "type": "text",
+          "text": "3. A changing magnetic field through a coil induces an e.m.f. in it. The field keeps reversing, so the induced e.m.f. across the secondary is alternating."
+        },
+        {
+          "type": "text",
+          "text": "4. If the secondary is part of a complete circuit, this e.m.f. drives an alternating current round it. An e.m.f. is induced in every turn and the turns add up, so more turns give a bigger output."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-principle",
+          "question": "Explain how an alternating current in the primary coil of a transformer produces an alternating e.m.f. across the secondary coil.",
+          "steps": [
+            "Start with the primary coil and the field it makes.",
+            "Say what the core does.",
+            "Use induction to link the field to the secondary.",
+            "Explain why the output alternates."
+          ],
+          "answer": "The a.c. in the primary coil sets up a magnetic field that keeps changing. The soft-iron core links this field to the secondary coil. The changing field through the secondary induces an e.m.f. across it. The field reverses each time the primary current reverses, so the induced e.m.f. alternates too.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a.c. in primary gives changing field; core links field to secondary; changing field induces e.m.f. in secondary; field reverses so e.m.f. alternates",
+            "requires": [
+              [
+                "changing magnetic field",
+                "changing field"
+              ],
+              [
+                "core"
+              ],
+              [
+                "induces",
+                "induced"
+              ],
+              [
+                "secondary"
+              ],
+              [
+                "reverses",
+                "alternates"
+              ]
+            ],
+            "forbids": [
+              "current flows through the core",
+              "current passes through the core",
+              "steady magnetic field"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying that current passes along the core from one coil to the other. No current crosses between the coils: the core carries a changing magnetic field."
+        },
+        {
+          "type": "check",
+          "id": "check-core-link",
+          "prompt": "In a transformer, what links the primary coil to the secondary coil?",
+          "hint": "The two coils are not joined by any wire.",
+          "options": [
+            {
+              "text": "a changing magnetic field in the soft-iron core",
+              "correct": true
+            },
+            {
+              "text": "a current that flows through the iron core",
+              "correct": false
+            },
+            {
+              "text": "a steady magnetic field in the core",
+              "correct": false
+            },
+            {
+              "text": "electrons that jump across from the primary coil",
+              "correct": false
+            }
+          ],
+          "explain": "The core carries the changing magnetic field made by the primary. That changing field induces the e.m.f. in the secondary. No current flows through the core.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a changing magnetic field in the soft-iron core"
+          }
+        }
+      ]
+    },
+    {
+      "id": "turns-ratio",
+      "heading": "Voltages and turns",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The voltages across the two coils are in the same ratio as their numbers of turns. Here $V_\\text{p}$ and $V_\\text{s}$ are the [[potential-difference|potential differences]] across the primary and secondary coils, and $N_\\text{p}$ and $N_\\text{s}$ are their numbers of turns."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{V_\\text{p}}{V_\\text{s}} = \\frac{N_\\text{p}}{N_\\text{s}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "To find the output voltage, rearrange to $V_\\text{s} = V_\\text{p} \\times \\frac{N_\\text{s}}{N_\\text{p}}$. Then check the answer makes sense: a step-down transformer must give a smaller voltage."
+        },
+        {
+          "type": "example",
+          "id": "ex-charger-output",
+          "question": "In a battery charger, the transformer's primary coil of 4600 turns is connected to the $230\\ \\text{V}$ mains. Its secondary coil has 100 turns. Calculate the output voltage.",
+          "steps": [
+            "Write the equation: $\\frac{V_\\text{p}}{V_\\text{s}} = \\frac{N_\\text{p}}{N_\\text{s}}$.",
+            "Rearrange: $V_\\text{s} = V_\\text{p} \\times \\frac{N_\\text{s}}{N_\\text{p}}$.",
+            "Substitute: $V_\\text{s} = 230 \\times \\frac{100}{4600} = 5.0\\ \\text{V}$.",
+            "Check: the secondary has fewer turns, so the voltage should go down. It does."
+          ],
+          "answer": "$V_\\text{s} = 5.0\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "230*100/4600",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-turns-needed",
+          "question": "A transformer must change a $12\\ \\text{V}$ a.c. supply into $330\\ \\text{V}$. Its primary coil has 160 turns. Calculate the number of turns needed on the secondary coil, and state the type of transformer.",
+          "steps": [
+            "Rearrange the equation for $N_\\text{s}$: $N_\\text{s} = N_\\text{p} \\times \\frac{V_\\text{s}}{V_\\text{p}}$.",
+            "Substitute: $N_\\text{s} = 160 \\times \\frac{330}{12} = 4400$.",
+            "State the type: the voltage goes up, so it is a step-up transformer. The secondary has more turns, as it should."
+          ],
+          "answer": "$N_\\text{s} = 4400$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "160*330/12"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Turning the ratio upside down. Before you answer, check: in a step-down transformer the primary has more turns, and in a step-up transformer the secondary has more."
+        },
+        {
+          "type": "check",
+          "id": "check-output-voltage",
+          "prompt": "The input voltage to a transformer is $120\\ \\text{V}$. Its primary has 1500 turns and its secondary 375 turns. What is the output voltage, in V?",
+          "hint": "Use $V_\\text{s} = V_\\text{p} \\times \\frac{N_\\text{s}}{N_\\text{p}}$.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0.5
+          },
+          "explain": "$V_\\text{s} = 120 \\times \\frac{375}{1500} = 30\\ \\text{V}$. The secondary has a quarter of the turns, so it has a quarter of the voltage.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "120*375/1500",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-primary-turns",
+          "prompt": "A transformer changes $230\\ \\text{V}$ to $46\\ \\text{V}$. Its secondary coil has 90 turns. How many turns are on its primary coil?",
+          "hint": "It is step-down, so the primary needs more turns than the secondary.",
+          "options": [
+            {
+              "text": "$450$",
+              "correct": true
+            },
+            {
+              "text": "$18$",
+              "correct": false
+            },
+            {
+              "text": "$5$",
+              "correct": false
+            },
+            {
+              "text": "$90$",
+              "correct": false
+            }
+          ],
+          "explain": "$N_\\text{p} = N_\\text{s} \\times \\frac{V_\\text{p}}{V_\\text{s}} = 90 \\times \\frac{230}{46} = 450$. The answer 18 uses the ratio upside down, giving fewer turns on the primary.",
+          "verify": {
+            "kind": "exact",
+            "truth": "90*230/46"
+          }
+        },
+        {
+          "type": "text",
+          "text": "If a transformer is 100% efficient, no energy is wasted, so the [[electrical-power|electrical power]] into the primary equals the power out of the secondary. Electrical power is current × p.d., $P = IV$.",
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "I_\\text{p}V_\\text{p} = I_\\text{s}V_\\text{s}",
+          "tag": "learn",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "So when a transformer steps the voltage up, it steps the current down by the same factor.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-primary-current",
+          "question": "A 100% efficient transformer steps $230\\ \\text{V}$ mains down to $11.5\\ \\text{V}$ for a set of garden lights. The current in the secondary coil is $4.0\\ \\text{A}$. Calculate the current in the primary coil.",
+          "steps": [
+            "Write the equation: $I_\\text{p}V_\\text{p} = I_\\text{s}V_\\text{s}$.",
+            "Rearrange: $I_\\text{p} = \\frac{I_\\text{s}V_\\text{s}}{V_\\text{p}}$.",
+            "Substitute: $I_\\text{p} = \\frac{4.0 \\times 11.5}{230} = 0.20\\ \\text{A}$.",
+            "Check: the voltage is stepped down, so the primary current should be smaller than the secondary current. It is."
+          ],
+          "answer": "$I_\\text{p} = 0.20\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.0*11.5/230",
+            "unit": "A"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-step-up-current",
+          "prompt": "A 100% efficient transformer has 8 times as many turns on its secondary coil as on its primary coil. How does the secondary current compare with the primary current?",
+          "hint": "The voltage goes up 8 times. The power stays the same.",
+          "options": [
+            {
+              "text": "it is one-eighth of the primary current",
+              "correct": true
+            },
+            {
+              "text": "it is 8 times the primary current",
+              "correct": false
+            },
+            {
+              "text": "it is the same as the primary current",
+              "correct": false
+            },
+            {
+              "text": "it is one sixty-fourth of the primary current",
+              "correct": false
+            }
+          ],
+          "explain": "The secondary voltage is 8 times the primary voltage. For the same power, $I_\\text{p}V_\\text{p} = I_\\text{s}V_\\text{s}$, so the secondary current is one-eighth of the primary current.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is one-eighth of the primary current"
+          }
+        }
+      ]
+    },
+    {
+      "id": "transmission",
+      "heading": "Sending electricity at high voltage",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Power stations are often far from the towns they supply. The long cables have [[resistance|resistance]], so the current heats them and wastes energy."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-6-transmission",
+          "alt": "How electricity reaches homes, as five boxes in a row joined by arrows from left to right. First, the power station generator. Second, a step-up transformer, which raises the voltage. Third, long cables on pylons, at a very high voltage with a small current. Fourth, step-down transformers, which lower the voltage in stages. Fifth, homes, which receive mains voltage.",
+          "caption": "Step up at the power station, step down near the users."
+        },
+        {
+          "type": "text",
+          "text": "1. At the power station, a step-up transformer raises the voltage to a very high value, often hundreds of thousands of volts."
+        },
+        {
+          "type": "text",
+          "text": "2. Cables on pylons, or under the ground, carry the electricity across the country."
+        },
+        {
+          "type": "text",
+          "text": "3. Near towns, step-down transformers lower the voltage in stages, down to the mains voltage used in homes."
+        },
+        {
+          "type": "result",
+          "statement": "For the same power, raising the voltage lowers the current in the cables.",
+          "why": "Power = current × p.d. ($P = IV$). If $V$ goes up and $P$ stays the same, $I$ must go down."
+        },
+        {
+          "type": "text",
+          "text": "A smaller current heats the cables less. This gives the advantages of high-voltage transmission: less energy is wasted as heat in the cables, so more of it reaches the users. Thinner, lighter and cheaper cables can also carry the smaller current."
+        },
+        {
+          "type": "example",
+          "id": "ex-cable-current",
+          "question": "A power station sends $60\\ \\text{MW}$ of electrical power along its cables at $400\\ \\text{kV}$. Calculate the current in the cables.",
+          "steps": [
+            "Convert to watts and volts: $60\\ \\text{MW} = 60 \\times 10^6\\ \\text{W}$ and $400\\ \\text{kV} = 400 \\times 10^3\\ \\text{V}$.",
+            "Rearrange $P = IV$: $I = \\frac{P}{V}$.",
+            "Substitute: $I = \\frac{60 \\times 10^6}{400 \\times 10^3} = 150\\ \\text{A}$.",
+            "Compare: sending the same power at $25\\ \\text{kV}$ would need $I = \\frac{60 \\times 10^6}{25 \\times 10^3} = 2400\\ \\text{A}$, 16 times as much."
+          ],
+          "answer": "$I = 150\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "60*10**6/(400*10**3)",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-state-advantages",
+          "question": "State two advantages of transmitting electricity at a high voltage.",
+          "steps": [
+            "\"State\" needs short answers, no long explanation.",
+            "Give two separate points, each linked to the smaller current."
+          ],
+          "answer": "Less energy is wasted as heat in the cables, because the current in them is smaller. Thinner, cheaper cables can be used to carry the smaller current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "less energy wasted heating cables (smaller current); thinner or cheaper cables",
+            "requires": [
+              [
+                "less energy",
+                "less power"
+              ],
+              [
+                "smaller current",
+                "current is smaller",
+                "lower current"
+              ],
+              [
+                "thinner",
+                "cheaper"
+              ]
+            ],
+            "forbids": [
+              "faster",
+              "safer"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying high voltage is used because it is \"faster\" or \"safer\". High voltage is more dangerous, which is why the cables are high on pylons. The advantage is that less energy is wasted."
+        },
+        {
+          "type": "check",
+          "id": "check-why-high-voltage",
+          "prompt": "Why is electricity sent across the country at a very high voltage?",
+          "hint": "Think about the current in the cables for the same power.",
+          "options": [
+            {
+              "text": "so the current is smaller and less energy is wasted heating the cables",
+              "correct": true
+            },
+            {
+              "text": "so the electricity travels faster along the cables",
+              "correct": false
+            },
+            {
+              "text": "so the cables are safer to touch",
+              "correct": false
+            },
+            {
+              "text": "so the current in the cables is larger",
+              "correct": false
+            }
+          ],
+          "explain": "Sending the same power at a higher voltage needs a smaller current. A smaller current heats the cables less, so less energy is wasted.",
+          "verify": {
+            "kind": "choice",
+            "truth": "so the current is smaller and less energy is wasted heating the cables"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cable-current",
+          "prompt": "A power line carries $18\\ \\text{MW}$ at $275\\ \\text{kV}$. What is the current in the line, in A? Give your answer to 2 significant figures.",
+          "hint": "Convert to W and V first, then use $I = \\frac{P}{V}$.",
+          "answer": {
+            "value": 65,
+            "tolerance": 0.5
+          },
+          "explain": "$I = \\frac{18 \\times 10^6}{275 \\times 10^3} = 65.45…$, so $I \\approx 65\\ \\text{A}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "18*10**6/(275*10**3)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "text",
+          "text": "The power wasted as heat in a cable depends on the current in it and its resistance $R$:",
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "P = I^2R",
+          "tag": "learn",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "The current is squared. In the same cable, halve the current and the power wasted falls to a quarter. So stepping up the voltage, which cuts the current, makes a big difference.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-cable-loss",
+          "question": "The cables in the example above have a total resistance of $2.5\\ \\Omega$. The station sends $60\\ \\text{MW}$ at $400\\ \\text{kV}$, so the current is $150\\ \\text{A}$. Calculate the power wasted in the cables.",
+          "steps": [
+            "Write the equation: $P = I^2R$.",
+            "Substitute: $P = 150^2 \\times 2.5 = 56\\,250\\ \\text{W}$.",
+            "Round to 2 significant figures: about $56\\ \\text{kW}$, less than 0.1% of the power sent."
+          ],
+          "answer": "$P \\approx 56\\ \\text{kW}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(60*10**6/(400*10**3))**2*2.5/1000",
+            "sf": 2,
+            "unit": "kW"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-i2r",
+          "question": "Use $P = I^2R$ to explain why less power is wasted in transmission cables when the voltage is higher.",
+          "steps": [
+            "Link voltage to current first, for the same power.",
+            "Then use $P = I^2R$ with the cables' resistance fixed."
+          ],
+          "answer": "For the same power, $P = IV$, so a higher voltage means a smaller current in the cables. The power wasted heating the cables is $P = I^2R$. The resistance of the cables is the same, so a smaller current means less power is wasted. Because the current is squared, halving the current cuts the wasted power to a quarter.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same power so higher V gives smaller I; wasted power P = I^2 R with R fixed; smaller I so less power wasted",
+            "requires": [
+              [
+                "same power"
+              ],
+              [
+                "smaller current",
+                "lower current"
+              ],
+              [
+                "I^2R",
+                "I^2 R"
+              ],
+              [
+                "resistance"
+              ],
+              [
+                "less power"
+              ]
+            ],
+            "forbids": [
+              "larger current",
+              "resistance is smaller"
+            ]
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-double-voltage",
+          "prompt": "A fixed power is sent along a cable. The voltage is doubled. What happens to the power wasted in the cable?",
+          "hint": "Doubling the voltage halves the current. Then use $P = I^2R$.",
+          "options": [
+            {
+              "text": "it falls to a quarter",
+              "correct": true
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            }
+          ],
+          "explain": "The current halves. The wasted power is $I^2R$, so it falls to $\\left(\\frac{1}{2}\\right)^2 = \\frac{1}{4}$ of what it was. \"It halves\" forgets to square the current.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it falls to a quarter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A transformer is two coils of insulated copper wire on a soft-iron core. It works only with a.c., because only a changing magnetic field induces a voltage in the secondary."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Step-up: more turns on the secondary than the primary, so the output voltage is bigger. Step-down: fewer turns on the secondary, so the output voltage is smaller."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{V_\\text{p}}{V_\\text{s}} = \\frac{N_\\text{p}}{N_\\text{s}}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Transmission: a step-up transformer at the power station, step-down transformers near the users. For the same power, raising the voltage lowers the current, so less energy is wasted heating the cables and thinner, cheaper cables can be used."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "How it works: a.c. in the primary makes a changing magnetic field; the soft-iron core links it to the secondary; the changing field induces an alternating e.m.f. across the secondary."
+        },
+        {
+          "type": "formula",
+          "tex": "I_\\text{p}V_\\text{p} = I_\\text{s}V_\\text{s} \\quad \\text{(100\\% efficient transformer)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "P = I^2R \\quad \\text{(power wasted in a cable)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Turning the turns ratio upside down. In a step-down transformer the primary has more turns than the secondary; check your answer against this.",
+    "Extended: thinking a step-up transformer increases the current as well as the voltage. Energy is not created, so when the voltage goes up the current goes down.",
+    "Saying high-voltage transmission is \"faster\" or \"safer\". The advantage is a smaller current, so less energy is wasted heating the cables.",
+    "Forgetting to convert MW to W or kV to V before using $P = IV$. The current comes out a thousand or a million times wrong.",
+    "Extended: forgetting to square the current in $P = I^2R$. In the same cable, halving the current cuts the wasted power to a quarter, not a half."
+  ],
+  "examTips": [
+    "\"Describe the construction\": name two coils of insulated copper wire, a soft-iron core, and which coil has more turns. Each point can earn a mark.",
+    "\"Calculate\" with the turns equation: write it, substitute, then give the answer with its unit. Check that step-down gives a smaller voltage.",
+    "\"State\" the advantages of sending electricity at high voltage as two separate points, such as less energy wasted heating the cables and thinner, cheaper cables.",
+    "\"Explain\" how a transformer works (Extended): link every step: a.c. in the primary, changing magnetic field, core links it to the secondary, e.m.f. induced in the secondary."
+  ],
+  "readingMinutes": 27
+}

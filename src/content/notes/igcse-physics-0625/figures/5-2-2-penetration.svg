@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" role="img" aria-labelledby="t522pen">
+  <title id="t522pen">A radioactive source on the left sends alpha, beta and gamma radiation to the right. A sheet of paper stops the alpha particles. A few millimetres of aluminium stops the beta particles. Gamma radiation passes through the paper and the aluminium; several centimetres of lead reduce it, but some still gets through.</title>
+  <rect x="20" y="50" width="50" height="180" fill="var(--muted)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="200" y="40" width="4" height="200" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="340" y="40" width="12" height="200" fill="var(--t3-ink)" fill-opacity="0.3" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="490" y="40" width="40" height="200" fill="var(--muted)" fill-opacity="0.45" stroke="currentColor" stroke-width="1.5"/>
+  <g stroke="currentColor" stroke-width="2.5" fill="none">
+    <line x1="72" y1="90" x2="197" y2="90"/>
+    <polyline points="187,84 197,90 187,96"/>
+    <line x1="72" y1="150" x2="337" y2="150"/>
+    <polyline points="327,144 337,150 327,156"/>
+    <line x1="72" y1="210" x2="490" y2="210"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <line x1="530" y1="210" x2="660" y2="210" stroke-dasharray="6 4"/>
+    <polyline points="652,205 660,210 652,215"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="90" y="82">alpha (α)</text>
+    <text x="90" y="142">beta (β)</text>
+    <text x="90" y="202">gamma (γ)</text>
+    <text x="22" y="252">source</text>
+    <text x="180" y="30">paper</text>
+    <text x="290" y="30">aluminium, a few mm</text>
+    <text x="470" y="262">lead, several cm</text>
+    <text x="540" y="200">weaker, not stopped</text>
+  </g>
+</svg>

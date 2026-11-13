@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-labelledby="t512fission">
+  <title id="t512fission">Nuclear fission, not to scale. On the left, a slow neutron moves towards a large uranium-235 nucleus and is absorbed. A thick arrow leads to the right-hand side, where the nucleus has split into two smaller nuclei moving apart, and three neutrons fly out in different directions. Energy is released.</title>
+  <circle cx="40" cy="150" r="9" stroke="currentColor" stroke-width="1" fill="var(--muted)" fill-opacity="0.35"/>
+  <circle cx="190" cy="150" r="48" stroke="currentColor" stroke-width="1.5" fill="var(--t1-ink)" fill-opacity="0.25"/>
+  <g stroke="var(--t2-ink)" stroke-width="1" fill="var(--t2-ink)" fill-opacity="0.3">
+    <circle cx="432" cy="88" r="30"/>
+    <circle cx="440" cy="214" r="32"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="var(--muted)" fill-opacity="0.35">
+    <circle cx="560" cy="64" r="9"/>
+    <circle cx="590" cy="150" r="9"/>
+    <circle cx="560" cy="240" r="9"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="54" y1="150" x2="130" y2="150"/>
+    <polyline points="120,144 130,150 120,156"/>
+    <line x1="420" y1="62" x2="440" y2="40" stroke="var(--muted)"/>
+    <line x1="450" y1="244" x2="466" y2="266" stroke="var(--muted)"/>
+    <polyline points="430,44 440,40 437,51" stroke="var(--muted)"/>
+    <polyline points="456,261 466,266 464,255" stroke="var(--muted)"/>
+    <line x1="480" y1="120" x2="544" y2="72"/>
+    <polyline points="532,74 544,72 539,83"/>
+    <line x1="490" y1="150" x2="574" y2="150"/>
+    <polyline points="564,144 574,150 564,156"/>
+    <line x1="484" y1="182" x2="544" y2="230"/>
+    <polyline points="539,219 544,230 532,228"/>
+  </g>
+  <path d="M262,140 H322 V128 L350,150 L322,172 V160 H262 Z" fill="var(--muted)" fill-opacity="0.5" stroke="none"/>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="20" y="128">slow neutron</text>
+    <text x="190" y="222" text-anchor="middle">uranium-235</text>
+    <text x="190" y="240" text-anchor="middle">nucleus</text>
+    <text x="306" y="200" text-anchor="middle">splits</text>
+    <text x="306" y="112" text-anchor="middle">energy released</text>
+    <text x="352" y="30">smaller nucleus</text>
+    <text x="360" y="284">smaller nucleus</text>
+    <text x="600" y="128" text-anchor="end">neutrons</text>
+    <text x="620" y="290" text-anchor="end" fill="var(--muted)">not to scale</text>
+  </g>
+</svg>

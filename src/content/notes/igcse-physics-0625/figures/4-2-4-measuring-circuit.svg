@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" role="img" aria-labelledby="t424mc">
+  <title id="t424mc">Circuit for measuring resistance: a battery, a variable resistor, an ammeter and the resistor being tested are joined in a single loop. A voltmeter is connected in parallel across the resistor being tested.</title>
+  <g stroke="currentColor" stroke-width="2.2" fill="none">
+    <!-- top wire: battery then variable resistor -->
+    <line x1="60" y1="60" x2="200" y2="60"/>
+    <line x1="210" y1="60" x2="225" y2="60"/>
+    <line x1="235" y1="60" x2="340" y2="60"/>
+    <rect x="340" y="50" width="60" height="20"/>
+    <line x1="400" y1="60" x2="460" y2="60"/>
+    <!-- right side -->
+    <line x1="460" y1="60" x2="460" y2="220"/>
+    <!-- bottom wire with the resistor under test -->
+    <line x1="460" y1="220" x2="290" y2="220"/>
+    <rect x="230" y="210" width="60" height="20"/>
+    <line x1="230" y1="220" x2="60" y2="220"/>
+    <!-- left side with the ammeter -->
+    <line x1="60" y1="220" x2="60" y2="155"/>
+    <circle cx="60" cy="140" r="15"/>
+    <line x1="60" y1="125" x2="60" y2="60"/>
+    <!-- voltmeter across the resistor -->
+    <line x1="200" y1="220" x2="200" y2="280"/>
+    <line x1="200" y1="280" x2="245" y2="280"/>
+    <circle cx="260" cy="280" r="15"/>
+    <line x1="275" y1="280" x2="320" y2="280"/>
+    <line x1="320" y1="280" x2="320" y2="220"/>
+  </g>
+  <!-- variable resistor arrow -->
+  <line x1="328" y1="86" x2="406" y2="36" stroke="currentColor" stroke-width="2"/>
+  <polygon points="412,32 400.9,33.2 406.3,41.6" fill="currentColor"/>
+  <!-- cells: long thin plate is positive, short thick plate negative -->
+  <line x1="200" y1="40" x2="200" y2="80" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="210" y1="50" x2="210" y2="70" stroke="currentColor" stroke-width="6"/>
+  <line x1="225" y1="40" x2="225" y2="80" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="235" y1="50" x2="235" y2="70" stroke="currentColor" stroke-width="6"/>
+  <circle cx="200" cy="220" r="4" fill="currentColor"/>
+  <circle cx="320" cy="220" r="4" fill="currentColor"/>
+  <g font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle">
+    <text x="60" y="145">A</text>
+    <text x="260" y="285">V</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor">
+    <text x="218" y="28" text-anchor="middle">battery</text>
+    <text x="370" y="104" text-anchor="middle">variable resistor</text>
+    <text x="96" y="145" text-anchor="start">ammeter</text>
+    <text x="260" y="200" text-anchor="middle">resistor being tested</text>
+    <text x="340" y="285" text-anchor="start">voltmeter</text>
+  </g>
+  <text x="260" y="312" font-family="inherit" font-size="12" fill="var(--muted)" text-anchor="middle">ammeter in the loop, voltmeter across the resistor</text>
+</svg>

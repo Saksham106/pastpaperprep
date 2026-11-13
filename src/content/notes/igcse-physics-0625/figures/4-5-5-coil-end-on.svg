@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" role="img" aria-labelledby="t455endon">
+<title id="t455endon">A coil seen end-on, looking along its axle, in two positions. In both, an N pole is on the left and an S pole on the right, with field lines running from N to S. Left panel: the coil lies along the field lines. Its left side carries current into the page and is pushed down; its right side carries current out of the page and is pushed up, so the coil turns. Right panel: the coil has turned a quarter turn and now stands at right angles to the field lines. Its top side is pushed up and its bottom side is pushed down, along the line through the axle, so there is no turning effect.</title>
+<rect x="15" y="60" width="40" height="140" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect x="245" y="60" width="40" height="140" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="18" x="35" y="136" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="18" x="265" y="136" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="58" y1="80" x2="236" y2="80" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="243,80 236,83.5 236,76.5" fill="var(--muted)"/>
+<line x1="58" y1="180" x2="236" y2="180" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="243,180 236,183.5 236,176.5" fill="var(--muted)"/>
+<line x1="111" y1="130" x2="189" y2="130" stroke="var(--t2-ink)" stroke-width="1.6" stroke-dasharray="3 3"/>
+<circle cx="150" cy="130" r="4" fill="currentColor"/>
+<text font-family="inherit" font-size="11" x="150" y="150" fill="currentColor" text-anchor="middle">axle</text>
+<circle cx="100" cy="130" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<line x1="93" y1="123" x2="107" y2="137" stroke="var(--t2-ink)" stroke-width="2"/>
+<line x1="107" y1="123" x2="93" y2="137" stroke="var(--t2-ink)" stroke-width="2"/>
+<circle cx="200" cy="130" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<circle cx="200" cy="130" r="3" fill="var(--t2-ink)"/>
+<line x1="100" y1="144" x2="100" y2="186" stroke="var(--t1-ink)" stroke-width="3"/>
+<polygon points="100,196 94,184 106,184" fill="var(--t1-ink)"/>
+<line x1="200" y1="116" x2="200" y2="74" stroke="var(--t1-ink)" stroke-width="3"/>
+<polygon points="200,64 194,76 206,76" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="112" y="196" fill="var(--t1-ink)" text-anchor="start">force</text>
+<text font-family="inherit" font-size="11" x="188" y="70" fill="var(--t1-ink)" text-anchor="end">force</text>
+<text font-family="inherit" font-size="12" x="150" y="232" fill="currentColor" text-anchor="middle">coil along the field:</text>
+<text font-family="inherit" font-size="12" x="150" y="249" fill="currentColor" text-anchor="middle">biggest turning effect</text>
+<rect x="315" y="60" width="40" height="140" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect x="545" y="60" width="40" height="140" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="18" x="335" y="136" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="18" x="565" y="136" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="358" y1="130" x2="536" y2="130" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="543,130 536,133.5 536,126.5" fill="var(--muted)"/>
+<line x1="450" y1="91" x2="450" y2="169" stroke="var(--t2-ink)" stroke-width="1.6" stroke-dasharray="3 3"/>
+<circle cx="450" cy="130" r="4" fill="currentColor"/>
+<circle cx="450" cy="80" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<circle cx="450" cy="80" r="3" fill="var(--t2-ink)"/>
+<circle cx="450" cy="180" r="11" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<line x1="443" y1="173" x2="457" y2="187" stroke="var(--t2-ink)" stroke-width="2"/>
+<line x1="457" y1="173" x2="443" y2="187" stroke="var(--t2-ink)" stroke-width="2"/>
+<line x1="450" y1="66" x2="450" y2="34" stroke="var(--t1-ink)" stroke-width="3"/>
+<polygon points="450,24 444,36 456,36" fill="var(--t1-ink)"/>
+<line x1="450" y1="194" x2="450" y2="216" stroke="var(--t1-ink)" stroke-width="3"/>
+<polygon points="450,226 444,214 456,214" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="11" x="462" y="36" fill="var(--t1-ink)" text-anchor="start">force</text>
+<text font-family="inherit" font-size="11" x="462" y="222" fill="var(--t1-ink)" text-anchor="start">force</text>
+<text font-family="inherit" font-size="12" x="450" y="249" fill="currentColor" text-anchor="middle">coil across the field:</text>
+<text font-family="inherit" font-size="12" x="450" y="266" fill="currentColor" text-anchor="middle">no turning effect</text>
+<text font-family="inherit" font-size="11" x="300" y="292" fill="var(--muted)" text-anchor="middle">cross = current into the page; dot = current out of the page</text>
+</svg>

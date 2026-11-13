@@ -1,0 +1,740 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "5.2.3",
+  "slug": "radioactive-decay",
+  "title": "Radioactive decay",
+  "level": "Core",
+  "topic": 5,
+  "summary": "An [[unstable-nucleus|unstable nucleus]] can change by itself and give out radiation: this is [[radioactive-decay|radioactive decay]]. Nobody can predict when one [[nucleus|nucleus]] will decay. Alpha and [[beta-decay|beta decay]] turn the nucleus into a different element; gamma emission doesn't. Extended adds why nuclei decay and how to write [[decay-equation|decay equations]].",
+  "goals": [
+    {
+      "text": "Describe [[radioactive-decay|radioactive decay]]: an unstable nucleus changes by itself, at random, and gives out alpha, beta or [[gamma-radiation|gamma radiation]].",
+      "bullets": [
+        "5.2.3-1"
+      ]
+    },
+    {
+      "text": "State which decays turn a nucleus into a different element, and why.",
+      "bullets": [
+        "5.2.3-2"
+      ]
+    },
+    {
+      "text": "Explain why some [[isotope|isotopes]] are radioactive: too many [[neutron|neutrons]], too heavy, or both.",
+      "bullets": [
+        "5.2.3-3"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe what alpha, beta and gamma emission do to a nucleus, including the change of a neutron into a [[proton|proton]] and an [[electron|electron]].",
+      "bullets": [
+        "5.2.3-4"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Write and balance [[decay-equation|decay equations]] in [[nuclide|nuclide]] notation.",
+      "bullets": [
+        "5.2.3-5"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.2.1",
+    "5.1.1",
+    "5.1.2",
+    "5.2.1",
+    "5.2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "what is radioactive decay",
+    "spontaneous and random decay",
+    "which decay changes the element",
+    "why are some nuclei unstable",
+    "neutron changes into a proton and an electron",
+    "alpha and beta decay equations"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-alpha-made-of",
+      "prompt": "What is an [[alpha-particle|alpha particle]] made of?",
+      "hint": "It is the same as the nucleus of a helium atom.",
+      "options": [
+        {
+          "text": "2 protons and 2 neutrons",
+          "correct": true
+        },
+        {
+          "text": "2 protons and 2 electrons",
+          "correct": false
+        },
+        {
+          "text": "one fast-moving electron",
+          "correct": false
+        },
+        {
+          "text": "4 protons",
+          "correct": false
+        }
+      ],
+      "explain": "An alpha particle is 2 protons and 2 neutrons: a helium nucleus. Revise it in {{lesson:5.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "2 protons and 2 neutrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-element-number",
+      "prompt": "Which number tells you which element a nucleus belongs to?",
+      "hint": "Every nucleus of one element has the same number of one kind of particle.",
+      "options": [
+        {
+          "text": "the proton number",
+          "correct": true
+        },
+        {
+          "text": "the nucleon number",
+          "correct": false
+        },
+        {
+          "text": "the number of neutrons",
+          "correct": false
+        }
+      ],
+      "explain": "The [[proton-number|proton number]] $Z$ decides the element. Isotopes of one element have different [[nucleon-number|nucleon numbers]]. Revise it in {{lesson:5.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the proton number"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-potassium-neutrons",
+      "prompt": "How many neutrons are in a nucleus of $^{40}_{19}\\text{K}$?",
+      "hint": "Neutrons $= A - Z$.",
+      "answer": {
+        "value": 21,
+        "tolerance": 0
+      },
+      "explain": "$40 - 19 = 21$ neutrons. Revise it in {{lesson:5.1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "40 - 19",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "what-is-decay",
+      "heading": "What radioactive decay is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most nuclei around us are stable: they stay the same for ever. An [[unstable-nucleus|unstable nucleus]] is different. Sooner or later it changes by itself."
+        },
+        {
+          "type": "definition",
+          "term": "radioactive decay",
+          "statement": "In [[radioactive-decay|radioactive decay]], an unstable nucleus changes and gives out an [[alpha-particle|alpha particle]] or a [[beta-particle|beta particle]], and/or [[gamma-radiation|gamma radiation]].",
+          "plain": "An unstable nucleus changes and shoots out radiation."
+        },
+        {
+          "type": "text",
+          "text": "Gamma radiation often comes out together with an alpha or beta particle. It can also come out on its own."
+        },
+        {
+          "type": "text",
+          "text": "Decay is spontaneous. Nothing outside the [[nucleus|nucleus]] causes it, so heating, cooling, squeezing or a chemical reaction makes no difference."
+        },
+        {
+          "type": "text",
+          "text": "Decay is also random. You cannot predict when one particular nucleus will decay, or which nucleus in a sample will decay next. Every nucleus of the same isotope has the same chance of decaying in the next second."
+        },
+        {
+          "type": "text",
+          "text": "A sample holds billions of nuclei, so you can still predict roughly how many decay each second. But the count rate still jumps up and down a little, because each decay is random."
+        },
+        {
+          "type": "example",
+          "id": "ex-spontaneous-random",
+          "question": "The nuclei in a radioactive sample decay spontaneously and randomly. Explain what each of these two words means.",
+          "steps": [
+            "Give one sentence on what causes the decay, then one on what can and cannot be predicted."
+          ],
+          "answer": "Spontaneous means the decay happens by itself: nothing outside the nucleus causes it, and changing the temperature does not affect it. Random means you cannot predict when a particular nucleus will decay. You also cannot predict which nucleus will decay next.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "spontaneous: by itself, no outside cause; random: cannot predict when a nucleus decays or which is next",
+            "requires": [
+              [
+                "by itself",
+                "nothing outside"
+              ],
+              [
+                "cannot predict when",
+                "can't predict when"
+              ],
+              "which nucleus"
+            ],
+            "forbids": [
+              "heating makes it decay faster",
+              "oldest nuclei decay first"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking a nucleus that has lasted a long time is \"due\" to decay. Its chance of decaying stays the same, so any nucleus could be next."
+        },
+        {
+          "type": "check",
+          "id": "check-where-decay-happens",
+          "prompt": "Where does the change happen in radioactive decay?",
+          "hint": "Where does the radiation come from?",
+          "options": [
+            {
+              "text": "in the nucleus of the atom",
+              "correct": true
+            },
+            {
+              "text": "in the electrons around the nucleus",
+              "correct": false
+            },
+            {
+              "text": "between two atoms that collide",
+              "correct": false
+            },
+            {
+              "text": "in the air around the source",
+              "correct": false
+            }
+          ],
+          "explain": "The change happens inside an unstable nucleus. The electrons around it are not involved, and no collision is needed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in the nucleus of the atom"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-one-nucleus",
+          "prompt": "Which statement about one unstable nucleus in a sample is correct?",
+          "hint": "Think about the word random.",
+          "options": [
+            {
+              "text": "no one can predict the moment it will decay",
+              "correct": true
+            },
+            {
+              "text": "it will decay after the nuclei next to it have decayed",
+              "correct": false
+            },
+            {
+              "text": "warming the sample makes it decay sooner",
+              "correct": false
+            },
+            {
+              "text": "it decays sooner if the sample is crushed into powder",
+              "correct": false
+            }
+          ],
+          "explain": "Decay is random, so the moment cannot be predicted. It is also spontaneous, so warming or crushing the sample changes nothing.",
+          "verify": {
+            "kind": "choice",
+            "truth": "no one can predict the moment it will decay"
+          }
+        }
+      ]
+    },
+    {
+      "id": "new-element",
+      "heading": "Alpha and beta decay make a new element",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The [[proton-number|proton number]] decides the element. Every nucleus with 6 protons is carbon, and every nucleus with 7 is nitrogen. So if a decay changes the number of protons, the nucleus becomes a different element."
+        },
+        {
+          "type": "text",
+          "text": "[[alpha-decay|Alpha decay]]: the nucleus gives out an [[alpha-particle|alpha particle]], which is 2 protons and 2 neutrons. The nucleus is left with 2 fewer protons, so it is now a different element."
+        },
+        {
+          "type": "text",
+          "text": "[[beta-decay|Beta decay]]: the nucleus gives out a [[beta-particle|beta particle]], a fast [[electron|electron]] made in the nucleus. The nucleus is left with one more proton than before, so it is a different element too."
+        },
+        {
+          "type": "text",
+          "text": "Gamma emission: [[gamma-radiation|gamma radiation]] carries away only energy. The numbers of protons and neutrons stay the same, so the element does not change."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-3-what-changes",
+          "alt": "Three rows, one for each kind of decay. Each row shows an unstable nucleus X on the left, an arrow, the nucleus left afterwards, and the radiation given out. Alpha decay: X becomes Y and an alpha particle leaves; 2 protons and 2 neutrons leave, so it is a different element. Beta decay: X becomes Y and a beta particle leaves; the nucleus has one more proton, so it is a different element. Gamma emission: X stays X and gamma radiation leaves; only energy leaves, so it is the same element.",
+          "caption": "Only $\\alpha$ and $\\beta$ decay change the proton number, so only they make a new element."
+        },
+        {
+          "type": "example",
+          "id": "ex-bismuth-beta",
+          "question": "An unstable nucleus of bismuth gives out a beta particle. A student says the nucleus is still bismuth afterwards. Explain why the student is wrong.",
+          "steps": [
+            "Say what beta decay does to the number of protons, then link the proton number to the element."
+          ],
+          "answer": "In beta decay the nucleus ends up with one more proton. The proton number decides the element. So the nucleus is now a different element, not bismuth.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "beta decay: one more proton; proton number decides the element; so a different element",
+            "requires": [
+              "one more proton",
+              [
+                "proton number decides the element",
+                "number of protons decides the element"
+              ],
+              "different element"
+            ],
+            "forbids": [
+              "still bismuth",
+              "same element",
+              "one fewer proton"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Expecting gamma emission to change the element, since it also leaves the nucleus. Gamma carries away only energy, so the number of protons stays the same."
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking beta decay keeps the element because the nucleus hardly loses any mass. The number of protons goes up by one, and that is what changes the element."
+        },
+        {
+          "type": "check",
+          "id": "check-same-element",
+          "prompt": "A nucleus decays and is still the same element afterwards. What did it give out?",
+          "hint": "Which radiation leaves the number of protons alone?",
+          "options": [
+            {
+              "text": "gamma radiation only",
+              "correct": true
+            },
+            {
+              "text": "an alpha particle",
+              "correct": false
+            },
+            {
+              "text": "a beta particle",
+              "correct": false
+            },
+            {
+              "text": "an alpha particle and gamma radiation",
+              "correct": false
+            }
+          ],
+          "explain": "Only gamma emission leaves the proton number unchanged. Any alpha or beta particle would change the element.",
+          "verify": {
+            "kind": "choice",
+            "truth": "gamma radiation only"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plutonium-protons",
+          "prompt": "A nucleus with 94 protons gives out an alpha particle. How many protons does the new nucleus have?",
+          "hint": "How many protons does an alpha particle carry away?",
+          "options": [
+            {
+              "text": "$92$",
+              "correct": true
+            },
+            {
+              "text": "$90$",
+              "correct": false
+            },
+            {
+              "text": "$95$",
+              "correct": false
+            },
+            {
+              "text": "$96$",
+              "correct": false
+            }
+          ],
+          "explain": "The alpha particle takes 2 protons, so $94 - 2 = 92$. The 4 is the number of [[nucleon|nucleons]] it takes, not protons.",
+          "verify": {
+            "kind": "exact",
+            "truth": "94 - 2"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 1/2 often asks which decays give a different element. Choose alpha and beta together, and leave out gamma."
+        }
+      ]
+    },
+    {
+      "id": "why-decay",
+      "heading": "Why nuclei decay and what each decay does",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An element can have several [[isotope|isotopes]]. Some are stable and some are radioactive. A nucleus is unstable for one or both of two reasons."
+        },
+        {
+          "type": "text",
+          "text": "1. It has too many neutrons for its number of protons: an excess of [[neutron|neutrons]]. 2. It is too heavy: it has too many nucleons in total. Very heavy nuclei such as uranium and radium are unstable."
+        },
+        {
+          "type": "text",
+          "text": "Decay makes the nucleus more stable. Each type of decay does this in its own way."
+        },
+        {
+          "type": "text",
+          "text": "Beta decay deals with an excess of neutrons. Inside the nucleus, one neutron turns into a [[proton|proton]] and an electron. The new proton remains part of the nucleus. The electron is given out at high speed as the beta particle."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{neutron} \\to \\text{proton} + \\text{electron}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "So the nucleus has one neutron fewer and one proton more. The [[nucleon-number|nucleon number]] stays the same, and the excess of neutrons is smaller."
+        },
+        {
+          "type": "text",
+          "text": "Alpha decay helps a nucleus that is too heavy. It loses 2 protons and 2 neutrons, 4 [[nucleon|nucleons]] in all, so it becomes smaller and lighter."
+        },
+        {
+          "type": "text",
+          "text": "Gamma emission: after a decay, the new nucleus often has energy to spare. It gives this out as gamma radiation. Its protons and neutrons do not change, but it is more stable afterwards."
+        },
+        {
+          "type": "example",
+          "id": "ex-strontium-beta",
+          "question": "A nucleus of strontium-90 has 38 protons and 52 neutrons. It has too many neutrons, and it decays by beta emission. Describe the change in the nucleus, and explain why the new nucleus is more stable.",
+          "steps": [
+            "Say which particle changes, and what it changes into.",
+            "Say what happens to each product.",
+            "Count the new numbers of protons and neutrons, then link them to stability."
+          ],
+          "answer": "In beta decay, one neutron changes into a proton and an electron. The electron is given out as the beta particle, and the proton stays in the nucleus. The new nucleus has 39 protons and 51 neutrons, so it is a different element. It has fewer excess neutrons, so it is more stable.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a neutron changes into a proton and an electron; electron emitted; 39 protons and 51 neutrons; fewer excess neutrons, so more stable",
+            "requires": [
+              "neutron changes into a proton and an electron",
+              [
+                "electron is given out",
+                "electron is emitted"
+              ],
+              "39 protons",
+              "51 neutrons",
+              "fewer excess neutrons",
+              "more stable"
+            ],
+            "forbids": [
+              "proton changes into a neutron",
+              "outer shell"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that a proton turns into a neutron in beta decay. It is a neutron that becomes a proton and an electron, so the proton number goes up."
+        },
+        {
+          "type": "check",
+          "id": "check-beta-change",
+          "prompt": "Which change happens inside a nucleus during beta decay?",
+          "hint": "The nucleus ends up with more protons, and the particle given out is negative.",
+          "options": [
+            {
+              "text": "a neutron becomes a proton and an electron",
+              "correct": true
+            },
+            {
+              "text": "a proton becomes a neutron and an electron",
+              "correct": false
+            },
+            {
+              "text": "a neutron and an electron join to make a proton",
+              "correct": false
+            },
+            {
+              "text": "an electron from an outer shell leaves the atom",
+              "correct": false
+            }
+          ],
+          "explain": "A neutron becomes a proton and an electron, and the electron leaves as the beta particle. Beta particles come from the nucleus, not the electron shells.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a neutron becomes a proton and an electron"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-gamma-numbers",
+          "prompt": "A nucleus gives out gamma radiation only. What happens to its nucleon number and proton number?",
+          "hint": "Gamma radiation has no mass and no charge.",
+          "options": [
+            {
+              "text": "neither of them changes",
+              "correct": true
+            },
+            {
+              "text": "both of them fall",
+              "correct": false
+            },
+            {
+              "text": "the nucleon number falls by 4",
+              "correct": false
+            },
+            {
+              "text": "the proton number rises by 1",
+              "correct": false
+            }
+          ],
+          "explain": "Gamma radiation carries away only energy. The nucleus keeps all its protons and neutrons, so both numbers stay the same.",
+          "verify": {
+            "kind": "choice",
+            "truth": "neither of them changes"
+          }
+        }
+      ]
+    },
+    {
+      "id": "decay-equations",
+      "heading": "Decay equations",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[decay-equation|decay equation]] shows a decay in [[nuclide|nuclide]] notation. The unstable nucleus goes on the left. The new nucleus and the radiation go on the right."
+        },
+        {
+          "type": "text",
+          "text": "Each radiation has its own symbol, with a top and a bottom number. An alpha particle is $^{4}_{2}\\alpha$, the same as a helium nucleus, $^{4}_{2}\\text{He}$."
+        },
+        {
+          "type": "text",
+          "text": "A beta particle is $^{\\,0}_{-1}\\beta$. Its top number is 0 because an electron is not a nucleon, and its mass is tiny. Its bottom number, $-1$, is its charge. Gamma radiation is $\\gamma$, or $^{0}_{0}\\gamma$: no nucleons and no charge."
+        },
+        {
+          "type": "result",
+          "statement": "In a decay equation, the top numbers add up to the same total on each side. So do the bottom numbers.",
+          "why": "Nucleons are not made or destroyed in a decay, and the total charge stays the same."
+        },
+        {
+          "type": "text",
+          "text": "So each decay follows a pattern. Here X is the unstable nucleus and Y is the new one."
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{A}_{Z}\\text{X} \\to {}^{A-4}_{Z-2}\\text{Y} + {}^{4}_{2}\\alpha",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{A}_{Z}\\text{X} \\to {}^{A}_{Z+1}\\text{Y} + {}^{\\,0}_{-1}\\beta",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{A}_{Z}\\text{X} \\to {}^{A}_{Z}\\text{X} + \\gamma",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-americium-alpha",
+          "question": "Americium-241, $^{241}_{95}\\text{Am}$, decays by alpha emission into neptunium (Np). Write the decay equation, and find the nucleon number $A$ and proton number $Z$ of the neptunium nucleus.",
+          "steps": [
+            "Write it out with the unknowns: $^{241}_{95}\\text{Am} \\to {}^{A}_{Z}\\text{Np} + {}^{4}_{2}\\alpha$.",
+            "Top numbers: $241 = A + 4$, so $A = 241 - 4 = 237$.",
+            "Bottom numbers: $95 = Z + 2$, so $Z = 95 - 2 = 93$.",
+            "The equation is $^{241}_{95}\\text{Am} \\to {}^{237}_{93}\\text{Np} + {}^{4}_{2}\\alpha$. Check: $237 + 4 = 241$ and $93 + 2 = 95$."
+          ],
+          "answer": "$A = 237,\\; Z = 93$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 241 - 4, 'Z': 95 - 2}"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-iodine-beta",
+          "question": "Iodine-131, $^{131}_{53}\\text{I}$, decays by beta emission into xenon (Xe). Gamma radiation is given out as well. Write the decay equation, and find $A$ and $Z$ for the xenon nucleus.",
+          "steps": [
+            "Write it out with the unknowns: $^{131}_{53}\\text{I} \\to {}^{A}_{Z}\\text{Xe} + {}^{\\,0}_{-1}\\beta + \\gamma$.",
+            "Top numbers: $131 = A + 0 + 0$, so $A = 131$.",
+            "Bottom numbers: $53 = Z + (-1) + 0$, so $Z = 53 + 1 = 54$.",
+            "The equation is $^{131}_{53}\\text{I} \\to {}^{131}_{54}\\text{Xe} + {}^{\\,0}_{-1}\\beta + \\gamma$. The gamma radiation changes neither total."
+          ],
+          "answer": "$A = 131,\\; Z = 54$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 131 - 0 - 0, 'Z': 53 - (-1) - 0}"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Subtracting the alpha particle's numbers from the new nucleus. Work on the side with the gap: the left side equals the new nucleus plus the alpha particle."
+        },
+        {
+          "type": "mistake",
+          "text": "Lowering the proton number in beta decay. The beta particle's bottom number is $-1$, so the new nucleus needs a proton number one higher to balance."
+        },
+        {
+          "type": "check",
+          "id": "check-bismuth-alpha",
+          "prompt": "Find $A$ and $Z$: $^{211}_{83}\\text{Bi} \\to {}^{A}_{Z}\\text{Tl} + {}^{4}_{2}\\alpha$.",
+          "hint": "Balance the top numbers, then the bottom numbers.",
+          "options": [
+            {
+              "text": "$A = 207,\\; Z = 81$",
+              "correct": true
+            },
+            {
+              "text": "$A = 215,\\; Z = 85$",
+              "correct": false
+            },
+            {
+              "text": "$A = 207,\\; Z = 85$",
+              "correct": false
+            },
+            {
+              "text": "$A = 211,\\; Z = 84$",
+              "correct": false
+            }
+          ],
+          "explain": "Top: $211 = A + 4$, so $A = 207$. Bottom: $83 = Z + 2$, so $Z = 81$.",
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 211 - 4, 'Z': 83 - 2}"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-phosphorus-x",
+          "prompt": "In the decay $^{32}_{15}\\text{P} \\to {}^{32}_{16}\\text{S} + \\text{X}$, what is X?",
+          "hint": "Work out the top and bottom numbers X needs, then match them to a particle.",
+          "options": [
+            {
+              "text": "a beta particle",
+              "correct": true
+            },
+            {
+              "text": "an alpha particle",
+              "correct": false
+            },
+            {
+              "text": "a neutron",
+              "correct": false
+            },
+            {
+              "text": "gamma radiation",
+              "correct": false
+            }
+          ],
+          "explain": "X needs top number $32 - 32 = 0$ and bottom number $15 - 16 = -1$. That is $^{\\,0}_{-1}\\beta$, a beta particle.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a beta particle"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 2/4: when you \"complete\" a decay equation, write every particle with both numbers, such as $^{4}_{2}\\alpha$ and $^{\\,0}_{-1}\\beta$. Then check the top and bottom totals separately."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Radioactive decay: an unstable nucleus changes and gives out an alpha or beta particle and/or gamma radiation."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Decay is spontaneous (nothing outside the nucleus causes it) and random (you cannot predict when a nucleus will decay, or which one is next)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Alpha and beta decay change the proton number, so the nucleus becomes a different element. Gamma emission changes neither number: the element stays the same."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "A nucleus is unstable if it has too many neutrons for its number of protons, is too heavy, or both. Decay makes it more stable; beta decay reduces the excess of neutrons."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{neutron} \\to \\text{proton} + \\text{electron}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{A}_{Z}\\text{X} \\to {}^{A-4}_{Z-2}\\text{Y} + {}^{4}_{2}\\alpha",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "{}^{A}_{Z}\\text{X} \\to {}^{A}_{Z+1}\\text{Y} + {}^{\\,0}_{-1}\\beta",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Gamma: $^{A}_{Z}\\text{X} \\to {}^{A}_{Z}\\text{X} + \\gamma$. In every decay equation the top numbers balance and the bottom numbers balance."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Expecting gamma emission to change the element, since it also leaves the nucleus. Only alpha and beta decay change the proton number.",
+    "Thinking beta decay keeps the proton number because the nucleon number doesn't change. The proton number goes up by 1.",
+    "Thinking you can predict which nucleus decays next, or speed decay up by heating. Decay is random and spontaneous.",
+    "Extended: writing that a proton becomes a neutron in beta decay. A neutron becomes a proton and an electron.",
+    "Extended: subtracting the alpha particle's numbers from the new nucleus. The left side equals the new nucleus plus the alpha particle."
+  ],
+  "examTips": [
+    "\"State\" what radioactive decay is in one sentence: an unstable nucleus changes and gives out alpha, beta or gamma radiation.",
+    "\"Explain\" spontaneous and random by saying what each word means, not just by using the words.",
+    "Extended: when you \"describe\" beta decay, write the change in full: a neutron becomes a proton and an electron, and the electron is given out."
+  ],
+  "readingMinutes": 20
+}

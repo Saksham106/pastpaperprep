@@ -1,0 +1,685 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "5.2.2",
+  "slug": "three-types-of-nuclear-emission",
+  "title": "The three types of nuclear emission",
+  "level": "Core",
+  "topic": 5,
+  "summary": "An unstable [[nucleus|nucleus]] gives out radiation by itself, in a random direction. The radiation is an [[alpha-particle|alpha particle]], a [[beta-particle|beta particle]] or [[gamma-radiation|gamma radiation]]. Learn what each one is, how strongly it ionises and what stops it. Extended adds how fields bend them and why alpha ionises most.",
+  "goals": [
+    {
+      "text": "Explain that a nucleus gives out radiation spontaneously, with no outside cause, and in a random direction.",
+      "bullets": [
+        "5.2.2-1"
+      ]
+    },
+    {
+      "text": "State what alpha particles, beta particles and gamma radiation are, and the charge on each.",
+      "bullets": [
+        "5.2.2-2"
+      ]
+    },
+    {
+      "text": "Compare how strongly the three emissions ionise and how far they penetrate, and identify them from what stops them.",
+      "bullets": [
+        "5.2.2-2"
+      ]
+    },
+    {
+      "text": "Describe how alpha particles, beta particles and gamma radiation are deflected in electric and [[magnetic-field|magnetic fields]].",
+      "bullets": [
+        "5.2.2-3"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Explain why alpha is the most ionising and gamma the least, using [[kinetic-energy|kinetic energy]] and charge.",
+      "bullets": [
+        "5.2.2-4"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.1",
+    "3.3",
+    "4.1",
+    "4.2.1",
+    "5.1.1",
+    "5.1.2",
+    "5.2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "alpha beta and gamma radiation",
+    "types of radioactive emission",
+    "ionising and penetrating power",
+    "what stops alpha beta gamma",
+    "deflection of radiation in fields",
+    "spontaneous and random emission"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-nucleus-contents",
+      "prompt": "Which particles make up the nucleus of an atom?",
+      "hint": "The electrons are outside the nucleus.",
+      "options": [
+        {
+          "text": "protons and neutrons",
+          "correct": true
+        },
+        {
+          "text": "protons and electrons",
+          "correct": false
+        },
+        {
+          "text": "neutrons and electrons",
+          "correct": false
+        },
+        {
+          "text": "electrons only",
+          "correct": false
+        }
+      ],
+      "explain": "The nucleus holds the [[proton|protons]] and neutrons; the electrons orbit outside it. Revise it in {{lesson:5.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "protons and neutrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ion-meaning",
+      "prompt": "What is an ion?",
+      "hint": "Think about what happens to the electrons of an atom.",
+      "options": [
+        {
+          "text": "an atom that has lost or gained electrons",
+          "correct": true
+        },
+        {
+          "text": "an atom that has lost or gained protons",
+          "correct": false
+        },
+        {
+          "text": "an atom with no electrons left",
+          "correct": false
+        },
+        {
+          "text": "a nucleus that has split in two",
+          "correct": false
+        }
+      ],
+      "explain": "Losing or gaining electrons leaves the atom with an overall charge. Revise it in {{lesson:5.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "an atom that has lost or gained electrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-opposite-charges",
+      "prompt": "A small positive charge is placed near a negatively charged plate. What happens to the charge?",
+      "hint": "Do opposite charges attract or repel?",
+      "options": [
+        {
+          "text": "it is attracted towards the plate",
+          "correct": true
+        },
+        {
+          "text": "it is repelled away from the plate",
+          "correct": false
+        },
+        {
+          "text": "no force acts on it",
+          "correct": false
+        }
+      ],
+      "explain": "Opposite charges attract; like charges repel. Revise it in {{lesson:4.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it is attracted towards the plate"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "emission",
+      "heading": "Spontaneous and random emission",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some nuclei are unstable. An unstable [[nucleus|nucleus]] can give out radiation to become more stable. This is [[radioactivity|radioactivity]]. The radiation comes from the nucleus, not from the electrons around it."
+        },
+        {
+          "type": "text",
+          "text": "The emission is spontaneous: it happens by itself, with no outside cause. Heating, cooling, squeezing or a chemical reaction does not change it, and nothing can switch it on or off."
+        },
+        {
+          "type": "text",
+          "text": "It is also random in direction: each emission is equally likely to go any way. So a small source sends radiation out in all directions, and a detector on one side catches only part of it."
+        },
+        {
+          "type": "example",
+          "id": "ex-emission-freezer",
+          "question": "A student suggests storing a radioactive source in a freezer so that it gives out less radiation. Explain why this would not work.",
+          "steps": [
+            "Use the word that says nothing outside the nucleus controls the emission, then say what that means for the freezer."
+          ],
+          "answer": "Radioactive emission is spontaneous. It happens with no outside cause, so it does not depend on temperature. Cooling the source in a freezer does not change how much radiation it gives out.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "emission is spontaneous; no outside cause; not affected by temperature, so cooling makes no difference",
+            "requires": [
+              "spontaneous",
+              [
+                "no outside cause",
+                "by itself"
+              ],
+              [
+                "does not depend on temperature",
+                "not affected by temperature"
+              ]
+            ],
+            "forbids": [
+              "gives out less radiation when cold",
+              "slows down the emission"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Describe\" the emission with both ideas: spontaneous (no outside cause) and random in direction (equally likely to go any way)."
+        },
+        {
+          "type": "check",
+          "id": "check-emission-direction",
+          "prompt": "A detector is held $10\\ \\text{cm}$ to the left of a small radioactive source, and then $10\\ \\text{cm}$ to the right. Nothing else changes. How do the average count rates compare?",
+          "hint": "Is radiation more likely to go one way than another?",
+          "options": [
+            {
+              "text": "they are about the same",
+              "correct": true
+            },
+            {
+              "text": "the count rate is zero on one side",
+              "correct": false
+            },
+            {
+              "text": "the count rate is always higher on the right",
+              "correct": false
+            }
+          ],
+          "explain": "Emission is random in direction, so on average the same amount of radiation goes each way. Individual readings still vary a little.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they are about the same"
+          }
+        }
+      ]
+    },
+    {
+      "id": "three-types",
+      "heading": "Alpha, beta and gamma",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Nuclei give out three types of radiation. Two are particles; one is a [[wave|wave]]."
+        },
+        {
+          "type": "text",
+          "text": "An [[alpha-particle|alpha particle]] ($\\alpha$) is 2 protons and 2 neutrons joined together: a helium nucleus. Its charge is $+2$, and it is heavy for a particle."
+        },
+        {
+          "type": "text",
+          "text": "A [[beta-particle|beta particle]] ($\\beta$) is a fast-moving [[electron|electron]] given out by the nucleus. Its charge is $-1$, and its mass is tiny. It is created in the nucleus when the nucleus decays; it is not one of the electrons orbiting the atom."
+        },
+        {
+          "type": "text",
+          "text": "[[gamma-radiation|Gamma radiation]] ($\\gamma$) is an [[electromagnetic-wave|electromagnetic wave]] given out by the nucleus: the [[gamma-rays|gamma rays]] of the electromagnetic spectrum. It has no charge and no mass."
+        },
+        {
+          "type": "text",
+          "text": "Radiation passing through matter can knock electrons out of atoms, turning them into [[ion|ions]]. That is what makes it [[ionising-radiation|ionising radiation]]. Each ion it makes uses up some of its [[energy|energy]]."
+        },
+        {
+          "type": "text",
+          "text": "[[penetrating-power|Penetrating power]] is how far radiation gets through a material before it is absorbed."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-2-penetration",
+          "alt": "A radioactive source on the left sends alpha, beta and gamma radiation to the right. A sheet of paper stops the alpha particles. A few millimetres of aluminium stops the beta particles. Gamma radiation passes through the paper and the aluminium. Several centimetres of lead make it weaker, but some still gets through.",
+          "caption": "Paper stops $\\alpha$, a few mm of aluminium stops $\\beta$, and thick lead only reduces $\\gamma$."
+        },
+        {
+          "type": "text",
+          "text": "Alpha: the most strongly ionising, and the least penetrating. A sheet of paper or a few centimetres of air stops it."
+        },
+        {
+          "type": "text",
+          "text": "Beta: less ionising than alpha, and more penetrating. It passes through paper, but a few millimetres of aluminium stops it."
+        },
+        {
+          "type": "text",
+          "text": "Gamma: the least ionising, and the most penetrating. It passes through aluminium. Several centimetres of lead or thick concrete reduce it, but never stop all of it."
+        },
+        {
+          "type": "text",
+          "text": "Notice the pattern: the more strongly a radiation ionises, the faster it uses up its energy, so the less far it gets."
+        },
+        {
+          "type": "example",
+          "id": "ex-types-beta",
+          "question": "State what a beta particle is and its charge. Compare its ionising effect and its penetrating power with those of an alpha particle.",
+          "steps": [
+            "Give the nature and the charge with its sign, then one comparison for each property."
+          ],
+          "answer": "A beta particle is a fast-moving electron given out by a nucleus. Its charge is $-1$. It is less ionising than an alpha particle. It is more penetrating than an alpha particle: it passes through paper, but a few millimetres of aluminium stops it.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "fast electron from the nucleus; charge -1; less ionising than alpha; more penetrating than alpha",
+            "requires": [
+              "electron",
+              "-1",
+              "less ionising than an alpha",
+              "more penetrating than an alpha"
+            ],
+            "forbids": [
+              "proton",
+              "helium nucleus",
+              "more ionising than an alpha",
+              "electromagnetic"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-types-absorbers",
+          "question": "A student holds a detector near a radioactive source and records the count rate with different absorbers between them. No absorber: $312$ counts/minute. Thin paper: $309$ counts/minute. Aluminium $3\\ \\text{mm}$ thick: $31$ counts/minute. With the source removed, the background count rate is $30$ counts/minute. Which types of radiation does the source give out? Explain your answer.",
+          "steps": [
+            "Paper: $312$ falls only to $309$. That small change is just random variation, so paper stops nothing.",
+            "Aluminium: the count rate falls to $31$, the same as background ($30$) within random variation. So the aluminium stops everything from the source.",
+            "Decide which radiation each result rules in or out."
+          ],
+          "answer": "The source gives out beta particles only. There is no alpha, because the paper does not reduce the count rate. Beta is present, because the aluminium stops the radiation that passed through the paper. There is no gamma, because the count rate behind the aluminium falls to background.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "beta only: paper has no effect (no alpha); aluminium reduces it to background (beta present, no gamma)",
+            "requires": [
+              "beta particles only",
+              "no alpha",
+              "no gamma",
+              "background"
+            ],
+            "forbids": [
+              "alpha and beta",
+              "beta and gamma"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Expecting gamma to ionise most because it gets furthest. The order is reversed: alpha ionises most and penetrates least."
+        },
+        {
+          "type": "check",
+          "id": "check-types-gamma",
+          "prompt": "Which statement about gamma radiation is correct?",
+          "hint": "Two of the three emissions are particles. Which one isn't?",
+          "options": [
+            {
+              "text": "it is an electromagnetic wave with no charge",
+              "correct": true
+            },
+            {
+              "text": "it is a stream of fast-moving electrons",
+              "correct": false
+            },
+            {
+              "text": "it is the most ionising of the three emissions",
+              "correct": false
+            },
+            {
+              "text": "a few millimetres of aluminium stops it",
+              "correct": false
+            }
+          ],
+          "explain": "Gamma is an electromagnetic wave with no charge. Fast electrons are beta, and gamma is the least ionising and needs thick lead to reduce it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is an electromagnetic wave with no charge"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-types-card",
+          "prompt": "A thin piece of card between a source and a detector makes the count rate fall to the background count rate. Which radiation does the source give out?",
+          "hint": "Which emission cannot get through something as thin as paper?",
+          "options": [
+            {
+              "text": "alpha only",
+              "correct": true
+            },
+            {
+              "text": "beta only",
+              "correct": false
+            },
+            {
+              "text": "gamma only",
+              "correct": false
+            },
+            {
+              "text": "alpha and gamma",
+              "correct": false
+            }
+          ],
+          "explain": "Only alpha is stopped by card. Beta or gamma would get through, so the count rate would stay above background.",
+          "verify": {
+            "kind": "choice",
+            "truth": "alpha only"
+          }
+        }
+      ]
+    },
+    {
+      "id": "deflection",
+      "heading": "Deflection in electric and magnetic fields",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Alpha and beta particles are charged, so an [[electric-field|electric field]] or a [[magnetic-field|magnetic field]] pushes on them and bends their path. Gamma radiation has no charge, so it goes straight through both."
+        },
+        {
+          "type": "text",
+          "text": "Between two oppositely charged plates, positive alpha particles bend towards the negative plate. Negative beta particles bend towards the positive plate."
+        },
+        {
+          "type": "text",
+          "text": "In a magnetic field, the force is at right angles to the motion, so alpha and beta follow curved paths in opposite directions. The [[left-hand-rule|left-hand rule]] from {{lesson:4.5.4}} gives the direction. The current points the way an alpha particle moves, but opposite to the way a beta particle moves, because beta is negative."
+        },
+        {
+          "type": "text",
+          "text": "Beta particles bend much more sharply than alpha particles in both fields. A beta particle's mass is tiny, so the force changes its direction easily. An alpha particle is about 7000 times heavier, so it bends only a little."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-2-deflection",
+          "alt": "Two diagrams in a vacuum. Left: a beam of alpha, beta and gamma radiation enters the space between two horizontal metal plates, positive on top and negative underneath. Gamma goes straight on. Alpha bends gently down towards the negative plate. Beta bends sharply up towards the positive plate. Right: the same beam enters a magnetic field directed into the page. Gamma goes straight on. Alpha curves gently upwards. Beta curves sharply downwards.",
+          "caption": "$\\alpha$ and $\\beta$ bend opposite ways and $\\beta$ bends more. $\\gamma$ is never deflected."
+        },
+        {
+          "type": "example",
+          "id": "ex-deflect-plates",
+          "question": "In a vacuum, a narrow beam containing alpha particles, beta particles and gamma radiation passes between two horizontal metal plates. The lower plate is positive and the upper plate is negative. Describe the path of each type of radiation between the plates.",
+          "steps": [
+            "Opposite charges attract. Match each charge to the plate that attracts it.",
+            "Then compare how sharply the two particles bend, and deal with the uncharged one."
+          ],
+          "answer": "The alpha particles are positive, so they bend upwards towards the negative plate. The beta particles are negative, so they bend downwards towards the positive plate. The beta particles bend more sharply than the alpha particles because their mass is much smaller. The gamma radiation has no charge, so it goes straight on, undeflected.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "alpha up towards negative plate; beta down towards positive plate, more sharply (smaller mass); gamma undeflected",
+            "requires": [
+              "upwards towards the negative plate",
+              "downwards towards the positive plate",
+              "more sharply",
+              [
+                "mass is much smaller",
+                "smaller mass"
+              ],
+              [
+                "undeflected",
+                "straight on"
+              ]
+            ],
+            "forbids": [
+              "alpha particles bend downwards",
+              "beta particles bend upwards",
+              "gamma radiation bends"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-deflect-magnet",
+          "question": "A beam of beta particles moves from left to right across the page, in a vacuum. It enters a magnetic field directed out of the page. Which way does the beam curve as it enters the field?",
+          "steps": [
+            "Beta particles are negative, so the current is opposite to their motion: from right to left.",
+            "Left-hand rule: first finger along the field (out of the page), second finger along the current (to the left).",
+            "Your thumb then points to the top of the page: that is the force."
+          ],
+          "answer": "The beam curves towards the top of the page. The current is from right to left, because beta particles are negative, and the left-hand rule then gives a force towards the top of the page.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "current right to left (negative particles); left-hand rule gives force towards the top of the page",
+            "requires": [
+              "towards the top of the page",
+              "right to left",
+              "negative",
+              "left-hand rule"
+            ],
+            "forbids": [
+              "towards the bottom of the page",
+              "into the page"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying beta particles are not deflected. Only gamma, which has no charge, goes straight through a field."
+        },
+        {
+          "type": "check",
+          "id": "check-deflect-two-parts",
+          "prompt": "In a vacuum, a beam passes between two charged plates and splits into exactly two parts. One part goes straight on; the other bends towards the positive plate. Which types of radiation are in the beam?",
+          "hint": "Which emission is attracted to a positive plate, and which is not deflected at all?",
+          "options": [
+            {
+              "text": "beta and gamma",
+              "correct": true
+            },
+            {
+              "text": "alpha and gamma",
+              "correct": false
+            },
+            {
+              "text": "alpha and beta",
+              "correct": false
+            },
+            {
+              "text": "beta only",
+              "correct": false
+            }
+          ],
+          "explain": "Negative beta particles bend towards the positive plate, and uncharged gamma goes straight on. Alpha would bend towards the negative plate.",
+          "verify": {
+            "kind": "choice",
+            "truth": "beta and gamma"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-deflect-swap",
+          "prompt": "In a magnetic field, a beam of alpha particles curves gently upwards. A beam of beta particles enters the same field moving in the same direction. What does it do?",
+          "hint": "Think about the sign of the charge, and about the mass.",
+          "options": [
+            {
+              "text": "it curves downwards, more sharply",
+              "correct": true
+            },
+            {
+              "text": "it curves upwards, more sharply",
+              "correct": false
+            },
+            {
+              "text": "it curves downwards, more gently",
+              "correct": false
+            },
+            {
+              "text": "it goes straight on",
+              "correct": false
+            }
+          ],
+          "explain": "Beta has the opposite charge, so it curves the other way. Its mass is tiny, so it curves more sharply than alpha.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it curves downwards, more sharply"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ionising-explained",
+      "heading": "Why alpha ionises most",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To ionise an atom, radiation must remove an electron from it. Two things make radiation good at this: its [[electric-charge|electric charge]] and its kinetic energy."
+        },
+        {
+          "type": "text",
+          "text": "Charge: a charged particle passing an atom pulls or pushes on its electrons. Alpha has the largest charge ($+2$), so it ionises the most atoms along its path. Beta ($-1$) does so less strongly. Gamma has no charge, so it ionises only weakly."
+        },
+        {
+          "type": "text",
+          "text": "Kinetic energy: each ion made uses up some energy. A typical alpha particle has more [[kinetic-energy|kinetic energy]] than a typical beta particle. Beta is much faster, but kinetic energy also depends on mass ($E_\\text{k} = \\frac{1}{2}mv^2$), and alpha's mass is far larger. So an alpha particle has the energy to make a great many ions."
+        },
+        {
+          "type": "text",
+          "text": "An alpha particle makes ions so close together that it gives up all its energy within a few centimetres of air. That is why the most ionising radiation is the least penetrating."
+        },
+        {
+          "type": "example",
+          "id": "ex-ionise-alpha-beta",
+          "question": "Explain, in terms of kinetic energy and electric charge, why alpha particles are more ionising than beta particles.",
+          "steps": [
+            "Make one point about charge and one about kinetic energy, each a comparison with beta."
+          ],
+          "answer": "An alpha particle has a charge of $+2$, twice the size of a beta particle's charge, so it pulls electrons out of atoms more strongly. An alpha particle also has more kinetic energy than a beta particle, so it has enough energy to make more ions.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "alpha has a larger charge (+2 vs -1) and more kinetic energy than beta",
+            "requires": [
+              "+2",
+              [
+                "twice the size",
+                "larger charge"
+              ],
+              "more kinetic energy than a beta"
+            ],
+            "forbids": [
+              "less kinetic energy than a beta",
+              "smaller charge"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Deciding beta has more kinetic energy because it moves faster. Kinetic energy depends on mass too, and alpha is thousands of times heavier."
+        },
+        {
+          "type": "check",
+          "id": "check-ionise-reasons",
+          "prompt": "Which pair of properties explains why alpha particles are more ionising than beta particles?",
+          "hint": "Ionising means pulling electrons off atoms, and each ion costs energy.",
+          "options": [
+            {
+              "text": "alpha has more charge and more kinetic energy",
+              "correct": true
+            },
+            {
+              "text": "alpha has more charge but less kinetic energy",
+              "correct": false
+            },
+            {
+              "text": "alpha has a higher speed and less mass",
+              "correct": false
+            },
+            {
+              "text": "alpha has no charge and more kinetic energy",
+              "correct": false
+            }
+          ],
+          "explain": "Alpha's charge of $+2$ pulls hard on electrons, and its larger kinetic energy lets it make many ions. Alpha is the slower and heavier particle.",
+          "verify": {
+            "kind": "choice",
+            "truth": "alpha has more charge and more kinetic energy"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Emission from a nucleus is spontaneous (no outside cause, so temperature and chemical changes don't affect it) and random in direction.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Alpha: a helium nucleus (2 protons, 2 neutrons), charge $+2$. Beta: a fast electron from the nucleus, charge $-1$. Gamma: an electromagnetic wave, no charge.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ionising: alpha most, then beta, gamma least. Penetrating: gamma most, then beta, alpha least.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Stopped by: alpha, paper or a few cm of air; beta, a few mm of aluminium. Gamma is only reduced, by several cm of lead.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Moving the same way through the same electric or magnetic field, alpha and beta bend in opposite directions and beta bends more (tiny mass). Gamma is not deflected.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Alpha is the most ionising because it has the largest charge and more kinetic energy than beta. Gamma has no charge, so it ionises least.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving the alpha charge as $-2$, or calling a beta particle a proton or a nucleus. Alpha is $+2$ (two protons); beta is an electron, $-1$.",
+    "Thinking the most penetrating radiation is the most ionising. Gamma penetrates most but ionises least.",
+    "Saying a source gives out gamma just because some radiation passes through paper. Beta does that too; only radiation that gets through a few mm of aluminium is gamma.",
+    "Extended: bending alpha towards the positive plate. Alpha is positive, so it is attracted to the negative plate.",
+    "Extended: making the alpha curve tighter than the beta curve. Beta's tiny mass makes it bend more."
+  ],
+  "examTips": [
+    "\"State\" the nature of each emission precisely: helium nucleus, fast electron, electromagnetic wave. Give each charge with its sign: $+2$, $-1$, $0$.",
+    "In absorber questions, compare each count rate with the background count rate. A small drop is just random variation.",
+    "Extended: when you draw paths in a field, start the bend where the particles enter the field, curve $\\alpha$ and $\\beta$ opposite ways, and make $\\beta$ curve more. Draw $\\gamma$ as a straight line."
+  ],
+  "readingMinutes": 22
+}

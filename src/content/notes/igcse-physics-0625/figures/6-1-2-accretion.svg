@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 256" role="img" aria-labelledby="t612acc">
+<title id="t612acc">Three stages of the accretion model, left to right. Stage 1: a loose cloud of gas and dust, with arrows pointing inwards labelled gravity. Stage 2: the cloud has flattened into a spinning disc seen at an angle, with a curved arrow showing rotation and a bright centre. Stage 3: the Sun at the centre with circular orbits around it; small rocky planets on the inner orbits and large gaseous planets on the outer orbits.</title>
+<g fill="var(--muted)">
+<circle cx="70" cy="90" r="2"/><circle cx="95" cy="70" r="2"/><circle cx="125" cy="80" r="2"/><circle cx="150" cy="100" r="2"/>
+<circle cx="60" cy="125" r="2"/><circle cx="90" cy="110" r="2"/><circle cx="120" cy="120" r="2"/><circle cx="160" cy="135" r="2"/>
+<circle cx="75" cy="155" r="2"/><circle cx="105" cy="145" r="2"/><circle cx="135" cy="160" r="2"/><circle cx="110" cy="95" r="2"/>
+<circle cx="140" cy="62" r="2"/><circle cx="55" cy="100" r="2"/><circle cx="95" cy="170" r="2"/><circle cx="150" cy="165" r="2"/>
+</g>
+<g stroke="var(--t1-ink)" stroke-width="1.8" fill="var(--t1-ink)">
+<line x1="30" y1="115" x2="48" y2="115"/><polygon points="54,115 46,111 46,119"/>
+<line x1="190" y1="115" x2="172" y2="115"/><polygon points="166,115 174,111 174,119"/>
+<line x1="108" y1="35" x2="108" y2="50"/><polygon points="108,56 104,48 112,48"/>
+<line x1="108" y1="198" x2="108" y2="183"/><polygon points="108,177 104,185 112,185"/>
+</g>
+<text font-family="inherit" font-size="12" x="30" y="105" fill="var(--t1-ink)">gravity</text>
+<g stroke="currentColor" stroke-width="1.5" fill="none">
+<line x1="205" y1="115" x2="245" y2="115"/><polyline points="238,109 246,115 238,121"/>
+<line x1="460" y1="115" x2="500" y2="115"/><polyline points="493,109 501,115 493,121"/>
+</g>
+<ellipse cx="355" cy="115" rx="90" ry="26" fill="var(--muted)" fill-opacity="0.2" stroke="currentColor" stroke-width="1.4"/>
+<ellipse cx="355" cy="115" rx="50" ry="14" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+<circle cx="355" cy="115" r="9" fill="var(--t3-ink)" fill-opacity="0.6"/>
+<path d="M300 72 A70 22 0 0 1 410 72" fill="none" stroke="var(--t2-ink)" stroke-width="1.8"/>
+<polygon points="414,76 404,74 410,66" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="355" y="58" fill="var(--t2-ink)" text-anchor="middle">spinning</text>
+<g fill="none" stroke="var(--muted)" stroke-width="1">
+<circle cx="610" cy="115" r="30"/><circle cx="610" cy="115" r="48"/><circle cx="610" cy="115" r="72"/><circle cx="610" cy="115" r="96"/>
+</g>
+<circle cx="610" cy="115" r="12" fill="var(--t3-ink)" fill-opacity="0.6"/>
+<g fill="none" stroke="currentColor" stroke-width="1.4">
+<circle cx="640" cy="115" r="3"/><circle cx="610" cy="67" r="3.5"/>
+<circle cx="560" cy="65" r="10"/><circle cx="706" cy="115" r="9"/>
+</g>
+<g font-family="inherit" font-size="12" fill="currentColor" text-anchor="middle">
+<text x="108" y="222">1  cloud of gas and dust</text>
+<text x="355" y="222">2  it spins and flattens</text>
+<text x="355" y="238">into an accretion disc</text>
+<text x="610" y="232">3  Sun at the centre, planets</text>
+<text x="610" y="248">clump together in the disc</text>
+</g>
+</svg>
