@@ -1,0 +1,530 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "5.2.5",
+  "slug": "safety-precautions",
+  "title": "Safety precautions",
+  "level": "Core",
+  "topic": 5,
+  "summary": "[[ionising-radiation|Ionising radiation]] damages the cells it passes through. It can kill them, or change their DNA so that they grow wrongly and become cancer. Learn how radioactive sources are stored, moved and used so that as little radiation as possible reaches anyone. Extended explains the precautions with three ideas: less time, more distance and shielding.",
+  "goals": [
+    {
+      "text": "State how ionising radiation harms living cells: it can kill them, cause mutations and cause cancer.",
+      "bullets": [
+        "5.2.5-1"
+      ]
+    },
+    {
+      "text": "Describe how a radioactive source is stored, carried and used safely, and how radioactive waste is kept.",
+      "bullets": [
+        "5.2.5-2"
+      ]
+    },
+    {
+      "text": "Explain [[safety-precautions|safety precautions]] by whether it cuts the time you are exposed, puts more distance between you and the source, or places a shield in the way.",
+      "bullets": [
+        "5.2.5-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "3.3",
+    "5.2.1",
+    "5.2.2",
+    "5.2.3",
+    "5.2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "radiation safety",
+    "dangers of radiation to the body",
+    "how to store radioactive sources",
+    "time distance and shielding",
+    "effects of radiation on cells",
+    "lead-lined box and tongs"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ionising-meaning",
+      "prompt": "What does ionising radiation do to the atoms it passes?",
+      "hint": "An ion is an atom that has lost or gained electrons.",
+      "options": [
+        {
+          "text": "it knocks electrons out of them",
+          "correct": true
+        },
+        {
+          "text": "it adds protons to their nuclei",
+          "correct": false
+        },
+        {
+          "text": "it splits their nuclei in two",
+          "correct": false
+        }
+      ],
+      "explain": "Ionising radiation knocks electrons out of atoms, leaving them as charged ions. Revise it in {{lesson:5.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it knocks electrons out of them"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-through-aluminium",
+      "prompt": "Which radiation can pass through a few millimetres of aluminium?",
+      "hint": "Which of the three is the most penetrating?",
+      "options": [
+        {
+          "text": "gamma radiation",
+          "correct": true
+        },
+        {
+          "text": "beta particles",
+          "correct": false
+        },
+        {
+          "text": "alpha particles",
+          "correct": false
+        }
+      ],
+      "explain": "Paper stops alpha and a few millimetres of aluminium stops beta. Gamma gets through: only thick lead or concrete reduces it much. Revise it in {{lesson:5.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "gamma radiation"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-half-life-meaning",
+      "prompt": "A radioactive isotope has a [[half-life|half-life]] of 6 hours. Which statement is correct?",
+      "hint": "Half-life is about how many unstable nuclei are left.",
+      "options": [
+        {
+          "text": "after 6 hours, half of its unstable nuclei have decayed",
+          "correct": true
+        },
+        {
+          "text": "after 12 hours, it gives out no radiation at all",
+          "correct": false
+        },
+        {
+          "text": "cooling it makes its half-life longer",
+          "correct": false
+        }
+      ],
+      "explain": "In one half-life, half of the unstable nuclei decay. After 12 hours a quarter are still left, and temperature has no effect on decay. Revise it in {{lesson:5.2.4}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "after 6 hours, half of its unstable nuclei have decayed"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "harm",
+      "heading": "How radiation harms living things",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Your body is made of cells. Each cell holds DNA: the instructions that tell it how to work and when to divide."
+        },
+        {
+          "type": "text",
+          "text": "As [[ionising-radiation|ionising radiation]] passes through a cell, it knocks electrons out of atoms. This can break molecules in the cell, including its DNA. The damage leads to three effects."
+        },
+        {
+          "type": "text",
+          "text": "Cell death: a badly damaged cell stops working and dies. A large dose kills so many cells that a person becomes seriously ill."
+        },
+        {
+          "type": "text",
+          "text": "Mutation: the cell survives, but its DNA has been changed. The cell may then work wrongly, and every cell it divides into carries the same change."
+        },
+        {
+          "type": "text",
+          "text": "Cancer: some mutations stop a cell controlling when it divides. It divides again and again, out of control. This can show up years after the radiation was absorbed."
+        },
+        {
+          "type": "text",
+          "text": "The more radiation the body absorbs, the greater the risk of each effect. Every precaution in this lesson aims to cut how much reaches you."
+        },
+        {
+          "type": "text",
+          "text": "Doctors use cell death on purpose. In radiotherapy, radiation aimed at a tumour kills the cancer cells. The effect is the same; only the target is different."
+        },
+        {
+          "type": "example",
+          "id": "ex-harm-three-effects",
+          "question": "A worker in a factory accidentally absorbs some [[gamma-radiation|gamma radiation]]. State three effects the radiation can have on the cells of the worker's body.",
+          "steps": [
+            "The radiation ionises atoms in the cells, which can damage their DNA.",
+            "Give one effect per sentence: a cell can die; its DNA can change; a changed cell can divide out of control."
+          ],
+          "answer": "It can kill cells. It can cause mutations, which are changes to the DNA of a cell. It can cause cancer, where mutated cells divide out of control.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "cell death; mutation (change to DNA); cancer (cells divide out of control)",
+            "requires": [
+              [
+                "kill cells",
+                "cell death"
+              ],
+              [
+                "mutation",
+                "mutations"
+              ],
+              "cancer"
+            ],
+            "forbids": [
+              "electric shock",
+              "broken bones"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Picking an electric shock or broken bones because they sound harmful. Radiation does its harm by ionising atoms inside cells, so the effects are cell death, mutation and cancer."
+        },
+        {
+          "type": "check",
+          "id": "check-harm-name-effect",
+          "prompt": "Radiation changes the DNA in a skin cell. Years later, cells from it are dividing again and again without control. What is this effect called?",
+          "hint": "Uncontrolled division is the most serious of the three effects.",
+          "options": [
+            {
+              "text": "cancer",
+              "correct": true
+            },
+            {
+              "text": "cell death",
+              "correct": false
+            },
+            {
+              "text": "radioactive decay",
+              "correct": false
+            },
+            {
+              "text": "background radiation",
+              "correct": false
+            }
+          ],
+          "explain": "The change to the DNA is a mutation. When a mutated cell divides out of control, that is cancer. The cells here are alive, so this is not cell death.",
+          "verify": {
+            "kind": "choice",
+            "truth": "cancer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "handling",
+      "heading": "Storing, moving and using sources",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A radioactive source can't be switched off. Its nuclei decay by themselves, so it gives out radiation all the time, even in a cupboard. [[safety-precautions|Safety precautions]] control where that radiation goes and who is near it."
+        },
+        {
+          "type": "text",
+          "text": "Storing: keep each source in a lead-lined box. The lead absorbs most of the radiation. Lock the box in a metal cabinet with a radiation hazard sign, and record when each source goes out and comes back."
+        },
+        {
+          "type": "text",
+          "text": "Moving: pick a source up with long-handled tongs, never with your fingers. Carry it in its lead-lined box. When it is out, hold it at arm's length, pointing away from you and everyone else."
+        },
+        {
+          "type": "text",
+          "text": "Using: take a source out only for as long as the experiment needs, then put it straight back. Keep other people well away from it."
+        },
+        {
+          "type": "text",
+          "text": "Never eat or drink near radioactive materials, and wash your hands afterwards. That stops any material getting inside your body, where it would keep irradiating you from the inside."
+        },
+        {
+          "type": "text",
+          "text": "People who work with radiation every day also wear protective clothing and gloves. They carry a badge that records how much radiation they have received, so their exposure can be checked."
+        },
+        {
+          "type": "text",
+          "text": "Radioactive waste from power stations and hospitals must be stored too. It is sealed inside thick steel or concrete containers so it cannot leak, often deep underground. Waste with a long [[half-life|half-life]] can stay dangerous for thousands of years."
+        },
+        {
+          "type": "example",
+          "id": "ex-handling-class-demo",
+          "question": "A teacher shows a class how a gamma source makes a detector click. Describe how she should take out, use and put away the source safely.",
+          "steps": [
+            "Go through it in order: taking it out, using it, putting it back.",
+            "For each stage, name the action and the equipment, not just \"be careful\"."
+          ],
+          "answer": "She should lift the source out of its lead-lined box with long-handled tongs, not her fingers. She should hold it at arm's length, pointing away from herself and the class, and keep the students well back. She should use it for as short a time as possible. Then she should put it straight back in the lead-lined box and lock it away.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "tongs from the lead-lined box; arm's length, pointing away, students back; shortest time; back in the box and locked away",
+            "requires": [
+              "tongs",
+              "lead-lined box",
+              [
+                "arm's length",
+                "pointing away"
+              ],
+              [
+                "short a time",
+                "shortest time"
+              ],
+              "lock"
+            ],
+            "forbids": [
+              "with her hands",
+              "switch it off",
+              "switch the source off"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Describe\" safe handling with an action and the equipment: \"lift it with long-handled tongs\", \"store it in a lead-lined box\". \"Be careful with it\" earns nothing."
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking a source can be made safe by switching it off or cooling it down. Decay is spontaneous, so a source must be kept shielded all the time."
+        },
+        {
+          "type": "check",
+          "id": "check-handling-carry",
+          "prompt": "A technician needs to move a beta source from a cabinet to a bench. Which method is safest?",
+          "hint": "Think about keeping the source away from her body.",
+          "options": [
+            {
+              "text": "lift it with long-handled tongs, pointing away from her",
+              "correct": true
+            },
+            {
+              "text": "pick it up quickly with her fingers",
+              "correct": false
+            },
+            {
+              "text": "hold it against her body so she can't drop it",
+              "correct": false
+            },
+            {
+              "text": "wrap it in paper and carry it in her pocket",
+              "correct": false
+            }
+          ],
+          "explain": "Tongs keep the source away from her hands, and pointing it away sends the radiation elsewhere. Paper doesn't stop [[beta-particle|beta particles]], and fingers or a pocket put the source right against her skin.",
+          "verify": {
+            "kind": "choice",
+            "truth": "lift it with long-handled tongs, pointing away from her"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-handling-after-use",
+          "prompt": "Why must a source go back into its lead-lined box as soon as an experiment ends?",
+          "hint": "What does a source do when nobody is using it?",
+          "options": [
+            {
+              "text": "it keeps giving out radiation all the time",
+              "correct": true
+            },
+            {
+              "text": "it becomes more radioactive after it has been used",
+              "correct": false
+            },
+            {
+              "text": "it only gives out radiation while it is warm",
+              "correct": false
+            },
+            {
+              "text": "the lead makes its half-life shorter",
+              "correct": false
+            }
+          ],
+          "explain": "Decay is spontaneous, so the source never stops emitting. Nothing about using it, warming it or storing it in lead changes its half-life; the lead just absorbs the radiation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it keeps giving out radiation all the time"
+          }
+        }
+      ]
+    },
+    {
+      "id": "time-distance-shielding",
+      "heading": "Time, distance and shielding",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Precautions against radiation from a source outside your body work in three ways. Each one cuts the dose: the amount of radiation your body absorbs."
+        },
+        {
+          "type": "text",
+          "text": "Less time. Over an experiment that is short compared with its half-life, a source gives out radiation at a steady rate. So the dose is proportional to the time you spend near it: halve the time and you halve the dose."
+        },
+        {
+          "type": "text",
+          "text": "More distance. Radiation spreads out in all directions from a source, so less of it reaches you the further away you are. Air also absorbs [[alpha-particle|alpha particles]] within a few centimetres, and beta particles over a longer distance."
+        },
+        {
+          "type": "text",
+          "text": "Shielding. A material between the source and you absorbs radiation, so less gets through. Match it to the radiation: paper or clothing stops alpha, and a few millimetres of aluminium stops beta. Gamma needs thick lead or concrete, and even that only reduces it."
+        },
+        {
+          "type": "text",
+          "text": "The same three ideas protect against every kind of ionising radiation, not just radioactive sources. X-rays are an example: while an X-ray machine runs, the operator stands behind a lead screen, away from the patient, and takes each image quickly."
+        },
+        {
+          "type": "example",
+          "id": "ex-tsd-technician",
+          "question": "A hospital technician prepares a gamma-emitting substance for a patient. She works behind a thick lead-glass screen, handles the container with tongs and finishes in under two minutes. Explain how each of these precautions protects her.",
+          "steps": [
+            "Match each precaution to one of the three ideas: the screen is shielding, the tongs give distance, finishing quickly cuts time.",
+            "For each, say why less radiation is absorbed by her body."
+          ],
+          "answer": "The lead-glass screen is shielding: it absorbs some of the gamma radiation, so less reaches her body. The tongs increase the distance between the source and her hands, and radiation spreads out, so less reaches them. Finishing quickly reduces her exposure time, so she absorbs a smaller dose.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "screen absorbs gamma (shielding); tongs increase distance, radiation spreads out; short time means smaller dose",
+            "requires": [
+              "absorbs",
+              "distance",
+              "spreads out",
+              [
+                "exposure time",
+                "less time"
+              ],
+              "smaller dose"
+            ],
+            "forbids": [
+              "reflects",
+              "stops all"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"reduce the distance\" as a precaution. The precaution is to increase the distance between the source and the body."
+        },
+        {
+          "type": "check",
+          "id": "check-tsd-dose-graph",
+          "prompt": "A worker stands at a fixed distance from a source with a long half-life. Which describes a graph of the dose she receives against the time she stays there?",
+          "hint": "Twice the time means twice the dose.",
+          "options": [
+            {
+              "text": "a straight line through the origin",
+              "correct": true
+            },
+            {
+              "text": "a curve that levels off",
+              "correct": false
+            },
+            {
+              "text": "a horizontal line",
+              "correct": false
+            },
+            {
+              "text": "a straight line sloping downwards",
+              "correct": false
+            }
+          ],
+          "explain": "The source emits at a steady rate, so the dose is proportional to the time. Proportional means a straight line through the origin.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a straight line through the origin"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tsd-dentist",
+          "prompt": "While an X-ray image is taken, a dentist stands in the next room, behind a wall that contains lead. Which precautions is she using?",
+          "hint": "The next room is further away. What does the lead do?",
+          "options": [
+            {
+              "text": "increasing distance and shielding",
+              "correct": true
+            },
+            {
+              "text": "reducing time and shielding",
+              "correct": false
+            },
+            {
+              "text": "reducing time and increasing distance",
+              "correct": false
+            },
+            {
+              "text": "shielding only",
+              "correct": false
+            }
+          ],
+          "explain": "The next room puts distance between her and the X-ray tube, and the lead in the wall absorbs radiation. Leaving the room doesn't shorten how long the X-ray runs.",
+          "verify": {
+            "kind": "choice",
+            "truth": "increasing distance and shielding"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Ionising radiation damages cells by ionising their atoms. It can kill cells, cause mutations (changes to DNA) and cause cancer.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A radioactive source can't be switched off. Store it in a lead-lined box, locked in a cabinet with a hazard sign.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Move a source with long-handled tongs, at arm's length and pointing away from people. Use it for as short a time as possible, then put it straight back.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Against a source outside the body, precautions cut the dose in three ways: less exposure time, more distance from the source, or a shield that absorbs the radiation.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Shield by type: paper stops alpha and a few mm of aluminium stops beta. Thick lead or concrete only reduces gamma.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Choosing an electric shock or broken bones as an effect of radiation. Radiation ionises atoms inside cells: it kills cells, causes mutations and causes cancer.",
+    "Thinking a source can be switched off or made safe by cooling it. Decay is spontaneous, so a source must be kept shielded all the time.",
+    "Picking a source up with your fingers \"just for a second\". Always use long-handled tongs, so the source stays away from your skin.",
+    "Extended: writing \"reduce the distance\" as a precaution. Increase the distance between the source and the body.",
+    "Saying lead reflects or repels radiation. It absorbs radiation, and it only reduces gamma."
+  ],
+  "examTips": [
+    "\"State\" the effects as three separate points: cell death, mutation, cancer. Vague answers such as \"it makes you ill\" don't score.",
+    "Paper 1/2 \"which is not a precaution\" questions: rule out each sensible option first. Anything that claims to switch a source off or change its half-life is wrong.",
+    "Extended: to \"explain\" a precaution, name the idea (time, distance or shielding), then link it to the result: less radiation is absorbed by the body."
+  ],
+  "readingMinutes": 17
+}

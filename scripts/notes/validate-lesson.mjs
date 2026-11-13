@@ -54,12 +54,12 @@ const UNSAFE_SVG = /<script|\son\w+\s*=|javascript:|<foreignObject/i;
 const fix = parsed.rest.includes("--fix");
 const arg = parsed.rest.find((entry) => entry !== "--fix");
 const items = readJson(course.itemsFile);
-const item = arg?.replace("-", ".");
+const item = arg?.replaceAll("-", ".");
 if (!item || !items.items.some((entry) => entry.item === item)) {
   console.error(`Usage: node scripts/notes/validate-lesson.mjs [--course <slug>] <item>  (unknown item ${arg ?? "(none)"} in ${parsed.slug})`);
   process.exit(2);
 }
-const dashed = item.replace(".", "-");
+const dashed = item.replaceAll(".", "-");
 const results = [];
 const record = (name, errors, note) => results.push({ name, errors, note });
 const exempt = new Set(course.config.gate.exempt ?? []);

@@ -1,0 +1,750 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.2.4",
+  "slug": "resistance",
+  "title": "Resistance",
+  "level": "Core",
+  "topic": 4,
+  "summary": "[[resistance|Resistance]] tells you how hard it is to push a current through a component: $R = \\frac{V}{I}$, measured in ohms ($\\Omega$). You find it with an [[ammeter|ammeter]] and a [[voltmeter|voltmeter]], and a metal wire has more resistance when it is longer or thinner.",
+  "goals": [
+    {
+      "text": "Recall $R = \\frac{V}{I}$ and use it to find a resistance, a current or a p.d.",
+      "bullets": [
+        "4.2.4-1"
+      ]
+    },
+    {
+      "text": "Describe how to measure a resistance with an ammeter and a voltmeter, and work out the result from the readings.",
+      "bullets": [
+        "4.2.4-2"
+      ]
+    },
+    {
+      "text": "State how the resistance of a metal wire depends on its length and its thickness.",
+      "bullets": [
+        "4.2.4-3"
+      ]
+    },
+    {
+      "text": "Calculate a wire's new resistance when its length or cross-sectional area changes, using $R \\propto l$ and $R \\propto \\frac{1}{A}$.",
+      "bullets": [
+        "4.2.4-5"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Sketch the current–voltage graph of a [[resistor|resistor]], a [[filament-lamp|filament lamp]] and a [[diode|diode]], and explain each shape.",
+      "bullets": [
+        "4.2.4-4"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "4.2.1",
+    "4.2.2",
+    "4.2.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "R = V/I",
+    "Ohm's law",
+    "how to measure resistance with an ammeter and voltmeter",
+    "resistance of a wire length and thickness",
+    "I-V graph of a filament lamp and diode"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ammeter-series",
+      "prompt": "How is an [[ammeter|ammeter]] connected to measure the current in a resistor?",
+      "hint": "The current you want to measure has to flow through the meter.",
+      "options": [
+        {
+          "text": "in series with the resistor",
+          "correct": true
+        },
+        {
+          "text": "in parallel with the resistor",
+          "correct": false
+        },
+        {
+          "text": "across the terminals of the battery",
+          "correct": false
+        }
+      ],
+      "explain": "An ammeter goes in the same loop as the resistor, so the resistor's current passes through it. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in series with the resistor"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-voltmeter-parallel",
+      "prompt": "How is a [[voltmeter|voltmeter]] connected to measure the [[potential-difference|potential difference]] across a resistor?",
+      "hint": "A p.d. is measured between the two ends of a component.",
+      "options": [
+        {
+          "text": "in parallel with the resistor",
+          "correct": true
+        },
+        {
+          "text": "in series with the resistor",
+          "correct": false
+        },
+        {
+          "text": "in series with the ammeter",
+          "correct": false
+        }
+      ],
+      "explain": "A voltmeter connects across the resistor, one lead on each end. Revise it in {{lesson:4.2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in parallel with the resistor"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-milliamps",
+      "prompt": "An ammeter reads $250\\ \\text{mA}$. What is this current in amperes?",
+      "hint": "$1\\ \\text{mA} = 0.001\\ \\text{A}$.",
+      "answer": {
+        "value": 0.25,
+        "tolerance": 0.005
+      },
+      "explain": "Divide by 1000: $250 \\div 1000 = 0.25\\ \\text{A}$. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "250/1000",
+        "dp": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "resistance-equation",
+      "heading": "Resistance and $R = \\frac{V}{I}$",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Connect the same battery to two different components and you may get very different currents. A component that lets only a small current through for a given p.d. has a large [[resistance|resistance]]."
+        },
+        {
+          "type": "definition",
+          "term": "resistance",
+          "statement": "The resistance of a component is the p.d. across it divided by the current in it. It is measured in ohms ($\\Omega$).",
+          "plain": "How many volts it takes to push each ampere through."
+        },
+        {
+          "type": "formula",
+          "tex": "R = \\frac{V}{I}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $R$ is the resistance in $\\Omega$, $V$ is the p.d. across the component in V, and $I$ is the current in it in A. Rearranged, $I = \\frac{V}{R}$ and $V = IR$."
+        },
+        {
+          "type": "text",
+          "text": "A [[resistor|resistor]] is a component made to have a fixed resistance. If its temperature stays the same, doubling the p.d. across it doubles the current. This is [[ohm-s-law|Ohm's law]]: the current is directly proportional to the p.d."
+        },
+        {
+          "type": "example",
+          "id": "ex-resistance-from-meters",
+          "question": "The p.d. across a resistor is $4.5\\ \\text{V}$ and the current in it is $0.30\\ \\text{A}$. Calculate its resistance.",
+          "steps": [
+            "Write the equation: $R = \\frac{V}{I}$.",
+            "Substitute: $R = \\frac{4.5}{0.30}$.",
+            "$R = 15\\ \\Omega$"
+          ],
+          "answer": "$R = 15\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.5/0.30",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-current-from-resistance",
+          "question": "A $47\\ \\Omega$ resistor is connected across a $6.0\\ \\text{V}$ supply. Calculate the current in the resistor.",
+          "steps": [
+            "Rearrange $R = \\frac{V}{I}$ to get $I = \\frac{V}{R}$.",
+            "Substitute: $I = \\frac{6.0}{47} = 0.1276…\\ \\text{A}$.",
+            "The data have 2 significant figures, so give $0.13\\ \\text{A}$."
+          ],
+          "answer": "$I \\approx 0.13\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "6.0/47",
+            "sf": 2,
+            "unit": "A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing $R = \\frac{I}{V}$ or $R = V \\times I$. Resistance is volts divided by amps, so the p.d. goes on top."
+        },
+        {
+          "type": "check",
+          "id": "check-resistance-milliamps",
+          "prompt": "The p.d. across a component is $2.0\\ \\text{V}$ and the current in it is $40\\ \\text{mA}$. What is its resistance?",
+          "hint": "Change $40\\ \\text{mA}$ into amperes first.",
+          "options": [
+            {
+              "text": "$50\\ \\Omega$",
+              "correct": true
+            },
+            {
+              "text": "$0.050\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$0.020\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$80\\ \\Omega$",
+              "correct": false
+            }
+          ],
+          "explain": "$40\\ \\text{mA} = 0.040\\ \\text{A}$, so $R = \\frac{2.0}{0.040} = 50\\ \\Omega$. $0.050\\ \\Omega$ forgets to convert the mA, and $0.020\\ \\Omega$ is $\\frac{I}{V}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "2.0/(40/1000)",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pd-from-current",
+          "prompt": "The current in an $18\\ \\Omega$ resistor is $0.25\\ \\text{A}$. What is the p.d. across it, in V?",
+          "hint": "Rearrange to $V = IR$.",
+          "answer": {
+            "value": 4.5,
+            "tolerance": 0.05
+          },
+          "explain": "$V = IR = 0.25 \\times 18 = 4.5\\ \\text{V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.25*18",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring-resistance",
+      "heading": "Measuring resistance with meters",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't read a resistance straight off a meter in this experiment. Instead you measure the current and the p.d., then calculate $R = \\frac{V}{I}$."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-4-measuring-circuit",
+          "alt": "Circuit for measuring resistance. A battery, a variable resistor, an ammeter and the resistor being tested are joined in one loop. A voltmeter is connected across the resistor being tested, with one lead on each side of it.",
+          "caption": "The [[variable-resistor|variable resistor]] lets you change the current to get several readings."
+        },
+        {
+          "type": "text",
+          "text": "1. Connect the resistor in series with the battery, an [[ammeter|ammeter]] and a variable resistor. Connect a [[voltmeter|voltmeter]] in parallel across the resistor only."
+        },
+        {
+          "type": "text",
+          "text": "2. Record the current $I$ from the ammeter and the p.d. $V$ from the voltmeter. Adjust the variable resistor and record at least four more pairs of readings."
+        },
+        {
+          "type": "text",
+          "text": "3. Calculate $R = \\frac{V}{I}$ for each pair and take the mean. Or plot $V$ against $I$: if the points lie on a straight line through the origin, its [[gradient|gradient]] is the resistance."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-experiment",
+          "question": "Describe how you would find the resistance of a resistor using an ammeter and a voltmeter.",
+          "steps": [
+            "Say where each meter goes.",
+            "Say what you read and how you change it.",
+            "Finish with the calculation."
+          ],
+          "answer": "Connect the resistor in series with a battery, a variable resistor and an ammeter. Connect a voltmeter in parallel across the resistor. Read the current from the ammeter and the p.d. from the voltmeter. Adjust the variable resistor to get several pairs of readings. Calculate $R = \\frac{V}{I}$ for each pair and take the mean.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ammeter in series; voltmeter in parallel across the resistor; read I and V; repeat for several values; R = V/I and mean",
+            "requires": [
+              [
+                "ammeter"
+              ],
+              [
+                "in series"
+              ],
+              [
+                "voltmeter"
+              ],
+              [
+                "in parallel",
+                "across the resistor"
+              ],
+              [
+                "several pairs",
+                "repeat",
+                "several readings"
+              ],
+              [
+                "mean",
+                "average"
+              ]
+            ],
+            "forbids": [
+              "voltmeter in series",
+              "ammeter in parallel"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-resistance",
+          "question": "A student's readings for a resistor are $1.5\\ \\text{V}$ with $0.32\\ \\text{A}$, $3.0\\ \\text{V}$ with $0.61\\ \\text{A}$, and $4.5\\ \\text{V}$ with $0.95\\ \\text{A}$. Calculate the mean resistance.",
+          "steps": [
+            "Use $R = \\frac{V}{I}$ for each pair: $\\frac{1.5}{0.32} = 4.69\\ \\Omega$, $\\frac{3.0}{0.61} = 4.92\\ \\Omega$, $\\frac{4.5}{0.95} = 4.74\\ \\Omega$.",
+            "Mean: $\\frac{4.69 + 4.92 + 4.74}{3} = 4.78\\ \\Omega$.",
+            "The readings have 2 significant figures, so give $4.8\\ \\Omega$."
+          ],
+          "answer": "$R \\approx 4.8\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(1.5/0.32 + 3.0/0.61 + 4.5/0.95)/3",
+            "sf": 2,
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the battery's p.d. by the current when there are other components in the loop. Use the voltmeter reading across the resistor itself."
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: switch off between readings and keep the current small. A wire that heats up changes its resistance."
+        },
+        {
+          "type": "check",
+          "id": "check-why-variable-resistor",
+          "prompt": "Why is a variable resistor included in the circuit for measuring resistance?",
+          "hint": "What do you need more than one of?",
+          "options": [
+            {
+              "text": "to change the current so you get several pairs of readings",
+              "correct": true
+            },
+            {
+              "text": "to measure the p.d. across the resistor",
+              "correct": false
+            },
+            {
+              "text": "to stop the current being used up",
+              "correct": false
+            },
+            {
+              "text": "to keep the current exactly the same",
+              "correct": false
+            }
+          ],
+          "explain": "Changing the variable resistor changes the current. Several pairs of readings let you take a mean or plot a graph.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to change the current so you get several pairs of readings"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-resistance-from-readings",
+          "prompt": "In this experiment the voltmeter reads $2.6\\ \\text{V}$ and the ammeter reads $0.20\\ \\text{A}$. What is the resistance, in $\\Omega$?",
+          "hint": "Use $R = \\frac{V}{I}$.",
+          "answer": {
+            "value": 13,
+            "tolerance": 0.5
+          },
+          "explain": "$R = \\frac{2.6}{0.20} = 13\\ \\Omega$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.6/0.20",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "wires",
+      "heading": "Length and thickness of a wire",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Metals are good [[electrical-conductor|conductors]], but a metal wire still has some resistance. Compare wires of the same metal at the same temperature."
+        },
+        {
+          "type": "result",
+          "statement": "For wires of the same metal at the same temperature, a longer wire has more resistance if the thickness is the same. A thicker wire has less resistance if the length is the same.",
+          "why": "In a longer wire the charge has to pass through more metal. A thicker wire has a larger cross-sectional area, so there is more room for the charge to flow, like a wider pipe."
+        },
+        {
+          "type": "text",
+          "text": "These are the [[resistivity-effects-of-wire|effects of length and area on a wire's resistance]]. The cross-sectional area is the area of the end you would see if you cut straight across the wire."
+        },
+        {
+          "type": "example",
+          "id": "ex-longer-thinner",
+          "question": "A metal wire in a circuit is replaced by a longer, thinner wire made of the same metal. The battery stays the same. State what happens to the resistance and to the current.",
+          "steps": [
+            "Think about the length and the thickness separately.",
+            "Then use $I = \\frac{V}{R}$ for the current."
+          ],
+          "answer": "The resistance increases. A longer wire has more resistance, and a thinner wire also has more resistance. The current decreases, because the p.d. is the same and the resistance is larger.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "resistance increases; longer means more resistance; thinner means more resistance; current decreases",
+            "requires": [
+              [
+                "resistance increases"
+              ],
+              [
+                "longer"
+              ],
+              [
+                "thinner"
+              ],
+              [
+                "current decreases"
+              ]
+            ],
+            "forbids": [
+              "resistance decreases",
+              "current increases"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-greatest-resistance",
+          "prompt": "Four wires are made of the same metal. Which one has the greatest resistance?",
+          "hint": "Length adds resistance; thickness takes it away.",
+          "options": [
+            {
+              "text": "long and thin",
+              "correct": true
+            },
+            {
+              "text": "long and thick",
+              "correct": false
+            },
+            {
+              "text": "short and thin",
+              "correct": false
+            },
+            {
+              "text": "short and thick",
+              "correct": false
+            }
+          ],
+          "explain": "More length means more resistance, and less thickness means more resistance. So the long, thin wire has the most.",
+          "verify": {
+            "kind": "choice",
+            "truth": "long and thin"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Extended students use the exact rules. For wires of the same metal at the same temperature, resistance is directly proportional to length $l$ when the area is the same. It is inversely proportional to cross-sectional area $A$ when the length is the same."
+        },
+        {
+          "type": "formula",
+          "level": "Extended",
+          "tex": "R \\propto l \\qquad R \\propto \\frac{1}{A}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "So doubling the length doubles $R$, and doubling the area halves $R$. A round wire's area depends on its diameter squared, so doubling the diameter makes the area 4 times bigger and $R$ a quarter."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-length",
+          "level": "Extended",
+          "question": "A $2.5\\ \\text{m}$ length of constantan wire has a resistance of $9.0\\ \\Omega$. Calculate the resistance of $0.80\\ \\text{m}$ of the same wire.",
+          "steps": [
+            "Same metal and same area, so $R \\propto l$.",
+            "The length is multiplied by $\\frac{0.80}{2.5}$, so the resistance is too.",
+            "$R = 9.0 \\times \\frac{0.80}{2.5} = 2.88\\ \\Omega$, which is $2.9\\ \\Omega$ to 2 significant figures."
+          ],
+          "answer": "$R \\approx 2.9\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "9.0*0.80/2.5",
+            "sf": 2,
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-area",
+          "level": "Extended",
+          "question": "Two copper wires have the same length. Wire P has a cross-sectional area of $0.50\\ \\text{mm}^2$ and a resistance of $0.68\\ \\Omega$. Wire Q has a cross-sectional area of $0.20\\ \\text{mm}^2$. Calculate the resistance of wire Q.",
+          "steps": [
+            "Same metal and same length, so $R \\propto \\frac{1}{A}$: a smaller area gives a larger resistance.",
+            "The area is divided by $\\frac{0.50}{0.20} = 2.5$, so the resistance is multiplied by $2.5$.",
+            "$R = 0.68 \\times 2.5 = 1.7\\ \\Omega$"
+          ],
+          "answer": "$R = 1.7\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.68*0.50/0.20",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-double-diameter",
+          "level": "Extended",
+          "prompt": "A metal wire has a resistance of $12\\ \\Omega$. A wire of the same metal and the same length has twice the diameter. What is its resistance, in $\\Omega$?",
+          "hint": "Doubling the diameter multiplies the area by $2^2 = 4$.",
+          "answer": {
+            "value": 3,
+            "tolerance": 0.05
+          },
+          "explain": "The area is 4 times bigger, so $R = \\frac{12}{4} = 3.0\\ \\Omega$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12/2**2",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-length-and-area",
+          "level": "Extended",
+          "prompt": "A wire is replaced by one of the same metal with twice the length and twice the cross-sectional area. What happens to the resistance?",
+          "hint": "Deal with each change in turn.",
+          "options": [
+            {
+              "text": "it stays the same",
+              "correct": true
+            },
+            {
+              "text": "it doubles",
+              "correct": false
+            },
+            {
+              "text": "it becomes 4 times bigger",
+              "correct": false
+            },
+            {
+              "text": "it halves",
+              "correct": false
+            }
+          ],
+          "explain": "Twice the length doubles $R$. Twice the area halves it. Together, $R$ is unchanged.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it stays the same"
+          }
+        }
+      ]
+    },
+    {
+      "id": "iv-graphs",
+      "heading": "Current–voltage graphs",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A current–voltage graph shows how the current $I$ in a component changes as the p.d. $V$ across it changes. Negative values mean the component is connected the other way round."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-4-iv-graphs",
+          "alt": "Three current against voltage graphs, with current on the vertical axis and voltage on the horizontal axis. Resistor at constant temperature: a straight line through the origin. Filament lamp: a curve through the origin, the same shape for negative values, that gets less steep as the voltage gets bigger. Diode: zero current for all negative voltages and small positive ones, then a very steep rise.",
+          "caption": "Each graph passes through the origin: no p.d., no current."
+        },
+        {
+          "type": "result",
+          "statement": "Resistor at constant temperature: a straight line through the origin. The current is directly proportional to the p.d., so the resistance is constant.",
+          "why": "$\\frac{V}{I}$ is the same at every point on a straight line through the origin."
+        },
+        {
+          "type": "result",
+          "statement": "[[filament-lamp|Filament lamp]]: a curve through the origin that gets less steep as the p.d. increases, in either direction. Its resistance increases.",
+          "why": "A bigger current makes the thin metal filament hotter, and a hotter metal has more resistance. So each extra volt adds less current than the last."
+        },
+        {
+          "type": "result",
+          "statement": "[[diode|Diode]]: almost no current in the reverse direction. In the forward direction the current is small until the p.d. passes a small value, then rises steeply.",
+          "why": "A diode has a very high resistance in the reverse direction and a low resistance in the forward direction, so it lets current flow one way only."
+        },
+        {
+          "type": "text",
+          "text": "With $I$ up the side, a steeper straight line through the origin means a smaller resistance. On a curve, find the resistance at a point from that point's values: $R = \\frac{V}{I}$. Don't use the gradient of the curve."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-lamp-graph",
+          "question": "Explain why the current–voltage graph for a filament lamp is a curve, not a straight line.",
+          "steps": [
+            "Start with what a bigger current does to the filament.",
+            "Link the temperature to the resistance.",
+            "Finish with the effect on the graph."
+          ],
+          "answer": "As the p.d. increases, the current increases. The filament gets hotter. So the filament's resistance increases. So the current increases less for each extra volt, and the graph gets less steep.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "current increases; filament gets hotter; resistance increases; graph gets less steep",
+            "requires": [
+              [
+                "hotter",
+                "temperature increases"
+              ],
+              [
+                "resistance increases"
+              ],
+              [
+                "less steep",
+                "gradient decreases"
+              ]
+            ],
+            "forbids": [
+              "resistance decreases",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Sketch\" an I–V graph: label the axes $I$ and $V$, pass through the origin and show the shape. For a lamp, draw both directions; for a diode, keep the reverse part flat on the axis."
+        },
+        {
+          "type": "check",
+          "id": "check-diode-reverse",
+          "prompt": "A diode is connected the wrong way round (in reverse) to a battery. What is the current?",
+          "hint": "Which way does a diode let current through?",
+          "options": [
+            {
+              "text": "almost zero",
+              "correct": true
+            },
+            {
+              "text": "the same as in the forward direction",
+              "correct": false
+            },
+            {
+              "text": "larger than in the forward direction",
+              "correct": false
+            },
+            {
+              "text": "proportional to the p.d.",
+              "correct": false
+            }
+          ],
+          "explain": "In reverse a diode has a very high resistance, so the current is almost zero.",
+          "verify": {
+            "kind": "choice",
+            "truth": "almost zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-lamp-resistance",
+          "prompt": "A point on a filament lamp's I–V graph shows a p.d. of $6.0\\ \\text{V}$ and a current of $0.40\\ \\text{A}$. What is the lamp's resistance at this point, in $\\Omega$?",
+          "hint": "Use the values at the point: $R = \\frac{V}{I}$.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0.5
+          },
+          "explain": "$R = \\frac{6.0}{0.40} = 15\\ \\Omega$. At a lower p.d. the filament is cooler, so its resistance would be less.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "6.0/0.40",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "R = \\frac{V}{I} \\quad \\text{(resistance in } \\Omega \\text{)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A resistor at constant temperature has a constant resistance: the current in it is directly proportional to the p.d. (Ohm's law)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To measure resistance: ammeter in series, voltmeter in parallel across the resistor, a variable resistor to get several readings; calculate $R = \\frac{V}{I}$ for each and take the mean."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Wires of the same metal at the same temperature: longer means more resistance (same thickness); thicker means less resistance (same length)."
+        },
+        {
+          "type": "formula",
+          "tex": "R \\propto l \\ \\text{(same area)} \\qquad R \\propto \\frac{1}{A} \\ \\text{(same length)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "I–V graphs ($I$ on the vertical axis): resistor at constant temperature, straight line through the origin; filament lamp, curve getting less steep as the filament heats and its resistance rises; diode, almost no current in reverse, current rises steeply in the forward direction."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calculating $\\frac{I}{V}$ or $V \\times I$. Resistance is $R = \\frac{V}{I}$: p.d. divided by current.",
+    "Leaving a current in mA. Change it to A before using $R = \\frac{V}{I}$, or the resistance comes out 1000 times too small.",
+    "Using the battery's p.d. for one component in a circuit with others. Use the p.d. across that component.",
+    "Connecting the voltmeter in series with the resistor. It goes in parallel, across the resistor only.",
+    "Thinking a thinner wire has less resistance. For the same metal and length, thinner means less room for the charge, so more resistance.",
+    "Extended: halving the resistance when a wire's diameter doubles. The area is 4 times bigger, so the resistance is a quarter."
+  ],
+  "examTips": [
+    "\"Calculate\" a resistance: write $R = \\frac{V}{I}$, then the numbers, then the answer with the unit $\\Omega$.",
+    "\"Describe\" the experiment: say where each meter goes, what you vary, what you read and how you calculate $R$. Each of these can earn a mark.",
+    "\"State\" how length or thickness affects resistance: give the direction (more or less resistance), not just \"it changes\".",
+    "Extended: a Paper 2/4 question may give a wire's diameter, not its area. Square the change in diameter to get the change in area."
+  ],
+  "readingMinutes": 23
+}

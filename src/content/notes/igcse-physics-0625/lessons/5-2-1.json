@@ -1,0 +1,574 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "5.2.1",
+  "slug": "detection-of-radioactivity",
+  "title": "Detection of radioactivity",
+  "level": "Core",
+  "topic": 5,
+  "summary": "[[background-radiation|Background radiation]] is weak [[ionising-radiation|ionising radiation]] that is around you all the time, mostly from radon gas, rocks and buildings, food and drink, and cosmic rays. You measure ionising radiation with a detector connected to a counter, and give the [[count-rate|count rate]] in counts/s or counts/minute. Extended adds the [[corrected-count-rate|corrected count rate]]: the reading minus the background.",
+  "goals": [
+    {
+      "text": "State what background radiation is.",
+      "bullets": [
+        "5.2.1-1"
+      ]
+    },
+    {
+      "text": "Name the four sources that give most of the background radiation, and tell them apart from things that are not sources.",
+      "bullets": [
+        "5.2.1-2"
+      ]
+    },
+    {
+      "text": "Describe how a detector connected to a counter measures ionising radiation.",
+      "bullets": [
+        "5.2.1-3"
+      ]
+    },
+    {
+      "text": "Calculate a count rate in counts/s or counts/minute, and convert between the two.",
+      "bullets": [
+        "5.2.1-4"
+      ]
+    },
+    {
+      "text": "Use a measured background count rate to work out the corrected count rate of a source.",
+      "bullets": [
+        "5.2.1-5"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "5.1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "background radiation sources",
+    "what is background radiation",
+    "Geiger counter count rate",
+    "counts per second and counts per minute",
+    "corrected count rate",
+    "subtract background count"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-atom-centre",
+      "prompt": "What is at the centre of an atom?",
+      "hint": "It is tiny, positively charged and holds almost all the mass.",
+      "options": [
+        {
+          "text": "a nucleus made of protons and neutrons",
+          "correct": true
+        },
+        {
+          "text": "a cloud of electrons",
+          "correct": false
+        },
+        {
+          "text": "a single neutron",
+          "correct": false
+        },
+        {
+          "text": "empty space",
+          "correct": false
+        }
+      ],
+      "explain": "The [[nucleus|nucleus]], made of protons and neutrons, sits at the centre. The electrons move around it. Revise it in {{lesson:5.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a nucleus made of protons and neutrons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ion-made",
+      "prompt": "A neutral atom loses one electron. What does it become?",
+      "hint": "Electrons are negative. What is left when one is removed?",
+      "options": [
+        {
+          "text": "a positive ion",
+          "correct": true
+        },
+        {
+          "text": "a negative ion",
+          "correct": false
+        },
+        {
+          "text": "a neutral atom of a different element",
+          "correct": false
+        }
+      ],
+      "explain": "Removing a negative electron leaves more positive charge than negative, so the atom becomes a positive ion. Revise it in {{lesson:5.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a positive ion"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "background",
+      "heading": "Background radiation and where it comes from",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some nuclei are unstable. An unstable [[nucleus|nucleus]] gives out radiation by itself to become more stable. This is [[radioactivity|radioactivity]]."
+        },
+        {
+          "type": "text",
+          "text": "This radiation can knock electrons out of the atoms it passes, turning them into ions. That makes it [[ionising-radiation|ionising radiation]]. It can damage living cells."
+        },
+        {
+          "type": "definition",
+          "term": "background radiation",
+          "statement": "[[background-radiation|Background radiation]] is the ionising radiation that is present all around us all the time, from natural and man-made sources.",
+          "plain": "The weak radiation a detector picks up even when no radioactive source is nearby."
+        },
+        {
+          "type": "text",
+          "text": "Most background radiation is natural. Four sources make the biggest contribution:"
+        },
+        {
+          "type": "text",
+          "text": "1. Radon gas in the air. Radon is a radioactive gas that seeps out of the ground from rocks such as granite. It is usually the largest single source."
+        },
+        {
+          "type": "text",
+          "text": "2. Rocks and buildings. Rocks, soil, bricks and concrete contain small amounts of radioactive elements."
+        },
+        {
+          "type": "text",
+          "text": "3. Food and drink. They contain tiny amounts of radioactive isotopes, so radiation also comes from inside your own body."
+        },
+        {
+          "type": "text",
+          "text": "4. Cosmic rays. These are high-energy particles from space, from the Sun and from deeper in space. The atmosphere absorbs much of them, so you receive more at high altitude, for example in an aircraft."
+        },
+        {
+          "type": "text",
+          "text": "A small part comes from human activity: medical X-rays and treatments, waste from nuclear power stations and old nuclear weapons tests."
+        },
+        {
+          "type": "text",
+          "text": "Mobile phones, radio and TV transmitters, microwave ovens and visible light are not sources of background radiation. Their radiation is not ionising."
+        },
+        {
+          "type": "example",
+          "id": "ex-background-define",
+          "question": "A student switches on a radiation detector in a room with no radioactive source in it. The counter still records counts. State what causes these counts and name two natural sources of it.",
+          "steps": [
+            "Name the radiation that is always present, then pick two from the four main natural sources."
+          ],
+          "answer": "The counts are caused by background radiation. Background radiation is ionising radiation that is present around us all the time. One natural source is radon gas in the air. Another natural source is cosmic rays from space.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "background radiation: ionising radiation always present; sources e.g. radon gas and cosmic rays",
+            "requires": [
+              "background radiation",
+              [
+                "all the time",
+                "always present"
+              ],
+              [
+                "radon",
+                "cosmic rays",
+                "rocks",
+                "food"
+              ]
+            ],
+            "forbids": [
+              "mobile phone",
+              "microwave",
+              "faulty"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Naming mobile phones, Wi-Fi or radio masts as sources of background radiation. They give out radio waves and microwaves, which are not ionising."
+        },
+        {
+          "type": "check",
+          "id": "check-background-not-source",
+          "prompt": "Which of these does not add to background radiation?",
+          "hint": "Background radiation is ionising. Which one gives out only radio waves?",
+          "options": [
+            {
+              "text": "a radio transmitter",
+              "correct": true
+            },
+            {
+              "text": "granite rocks",
+              "correct": false
+            },
+            {
+              "text": "bananas and other food",
+              "correct": false
+            },
+            {
+              "text": "cosmic rays",
+              "correct": false
+            }
+          ],
+          "explain": "A radio transmitter gives out radio waves, which are not ionising. Granite gives out radon and other radiation, food contains radioactive isotopes and cosmic rays come from space.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a radio transmitter"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-background-natural",
+          "prompt": "Which list contains only natural sources of background radiation?",
+          "hint": "Cross out anything made or used by people.",
+          "options": [
+            {
+              "text": "radon gas, cosmic rays, food and drink",
+              "correct": true
+            },
+            {
+              "text": "radon gas, medical X-rays, cosmic rays",
+              "correct": false
+            },
+            {
+              "text": "rocks, nuclear power station waste, food and drink",
+              "correct": false
+            },
+            {
+              "text": "cosmic rays, rocks, mobile phones",
+              "correct": false
+            }
+          ],
+          "explain": "Radon, cosmic rays and food and drink are all natural. Medical X-rays and nuclear waste come from human activity, and mobile phones are not a source at all.",
+          "verify": {
+            "kind": "choice",
+            "truth": "radon gas, cosmic rays, food and drink"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring",
+      "heading": "Detector, counter and count rate",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To measure ionising radiation, you connect a detector to a counter. The detector is often a Geiger–Müller tube. Each time it detects ionising radiation, it sends a small electrical pulse to the counter."
+        },
+        {
+          "type": "text",
+          "text": "The counter adds up the pulses. Each pulse is one count."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-1-detector-counter",
+          "alt": "A radioactive source sits on the bench at the left. A short distance to its right is a detector: a Geiger–Müller tube, a long thin cylinder with a thin window at the end that faces the source. A cable joins the other end of the tube to a counter, a box on the right with a digital display showing the number of counts so far.",
+          "caption": "The detector sends a pulse for each detection; the counter adds them up."
+        },
+        {
+          "type": "text",
+          "text": "To measure background radiation alone, you use just the detector and the counter, with every radioactive source taken away."
+        },
+        {
+          "type": "text",
+          "text": "The number of counts depends on how long you count. So you compare readings using the [[count-rate|count rate]]: the number of counts in each second or each minute."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{count rate} = \\frac{\\text{number of counts}}{\\text{time taken}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Count rate is measured in counts/s or counts/minute. There are 60 seconds in a minute, so a count rate in counts/minute is 60 times the same rate in counts/s."
+        },
+        {
+          "type": "example",
+          "id": "ex-count-rate-seconds",
+          "question": "A counter connected to a detector records $1440$ counts in $4.0$ minutes. Calculate the count rate in counts/s.",
+          "steps": [
+            "Change the time to seconds: $4.0 \\times 60 = 240\\ \\text{s}$.",
+            "$\\text{count rate} = \\frac{\\text{number of counts}}{\\text{time taken}} = \\frac{1440}{240}$",
+            "Check: in counts/minute it is $\\frac{1440}{4.0} = 360\\ \\text{counts/minute}$, and $360 \\div 60 = 6.0$. The two agree."
+          ],
+          "answer": "$6.0\\ \\text{counts/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1440/(4.0*60)",
+            "unit": "counts/s"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Radioactive emission is random. Even with nothing changed, the counter records a slightly different number of counts in each minute."
+        },
+        {
+          "type": "text",
+          "text": "So one short reading is not reliable. Count for a long time, or repeat the reading and take the average."
+        },
+        {
+          "type": "example",
+          "id": "ex-count-rate-average",
+          "question": "With no source nearby, a student records the counts in three separate $2.0$-minute intervals: $41$, $52$ and $48$. Calculate the average background count rate in counts/minute.",
+          "steps": [
+            "Add the counts: $41 + 52 + 48 = 141$ counts.",
+            "Add the times: $3 \\times 2.0 = 6.0$ minutes.",
+            "$\\text{count rate} = \\frac{141}{6.0}$"
+          ],
+          "answer": "$23.5\\ \\text{counts/minute}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(41 + 52 + 48)/(3*2.0)",
+            "unit": "counts/minute"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the time by the counts. That gives minutes per count, the wrong way up. Count rate is counts divided by time."
+        },
+        {
+          "type": "check",
+          "id": "check-count-rate-convert",
+          "prompt": "A counter records $1950$ counts in $5.0$ minutes. What is the count rate in counts/s?",
+          "hint": "Find the counts in one minute first, then share them over 60 seconds.",
+          "options": [
+            {
+              "text": "$6.5\\ \\text{counts/s}$",
+              "correct": true
+            },
+            {
+              "text": "$390\\ \\text{counts/s}$",
+              "correct": false
+            },
+            {
+              "text": "$32.5\\ \\text{counts/s}$",
+              "correct": false
+            },
+            {
+              "text": "$0.15\\ \\text{counts/s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1950 \\div 5.0 = 390\\ \\text{counts/minute}$, and $390 \\div 60 = 6.5\\ \\text{counts/s}$. $390$ is the rate per minute, and $0.15$ is time divided by counts.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1950/(5.0*60)",
+            "unit": "counts/s"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-rate-random",
+          "prompt": "A detector is left on a bench with no source nearby. In four one-minute intervals the counter records $19$, $27$, $22$ and $25$ counts. Why do the readings differ?",
+          "hint": "Think about how radioactive emission happens.",
+          "options": [
+            {
+              "text": "background radiation is emitted at random",
+              "correct": true
+            },
+            {
+              "text": "the detector is faulty",
+              "correct": false
+            },
+            {
+              "text": "the room is getting warmer",
+              "correct": false
+            },
+            {
+              "text": "the counter is not reset properly",
+              "correct": false
+            }
+          ],
+          "explain": "Emission from nuclei is random, so the number of counts in each minute varies with no pattern. Temperature has no effect on it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "background radiation is emitted at random"
+          }
+        }
+      ]
+    },
+    {
+      "id": "corrected",
+      "heading": "Corrected count rate",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "When a detector is near a source, it counts radiation from the source and from the background together. The reading is too high for the source alone."
+        },
+        {
+          "type": "text",
+          "text": "To find the source's own count rate, take the source away and record the background count rate on its own. Then take that away from the reading you got with the source in place. The result is the [[corrected-count-rate|corrected count rate]]."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{corrected count rate} = \\text{measured count rate} - \\text{background count rate}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Both rates must be in the same unit before you subtract. You need the corrected count rate whenever you study the source itself, for example to find a half-life in {{lesson:5.2.4}}."
+        },
+        {
+          "type": "example",
+          "id": "ex-corrected-simple",
+          "question": "A detector held near a source gives $486$ counts/minute. With the source removed, it gives $34$ counts/minute. Calculate the corrected count rate.",
+          "steps": [
+            "The $34$ counts/minute is the background, so subtract it.",
+            "$\\text{corrected count rate} = 486 - 34$"
+          ],
+          "answer": "$452\\ \\text{counts/minute}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "486 - 34",
+            "unit": "counts/minute"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-corrected-averaged",
+          "question": "A student measures the background three times, for $5.0$ minutes each time, and records $121$, $133$ and $116$ counts. She then places a source near the detector and records $1586$ counts in $2.0$ minutes. Calculate the corrected count rate of the source in counts/minute.",
+          "steps": [
+            "Background: $121 + 133 + 116 = 370$ counts in $15$ minutes, so $\\frac{370}{15} = 24.67$ counts/minute. Keep this value unrounded.",
+            "Reading with the source: $\\frac{1586}{2.0} = 793$ counts/minute.",
+            "Both rates are now per minute. $\\text{corrected count rate} = 793 - 24.67 = 768.3$"
+          ],
+          "answer": "$\\approx 768\\ \\text{counts/minute}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "1586/2.0 - (121 + 133 + 116)/15",
+            "sf": 3,
+            "unit": "counts/minute"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding the background count rate to the reading. The background is already inside the reading, so subtract it."
+        },
+        {
+          "type": "check",
+          "id": "check-corrected-units",
+          "prompt": "A counter near a source records $1260$ counts in $5.0$ minutes. The background count rate is $0.40\\ \\text{counts/s}$. What is the corrected count rate?",
+          "hint": "Put both rates in counts/minute before you subtract.",
+          "options": [
+            {
+              "text": "$228\\ \\text{counts/minute}$",
+              "correct": true
+            },
+            {
+              "text": "$252\\ \\text{counts/minute}$",
+              "correct": false
+            },
+            {
+              "text": "$276\\ \\text{counts/minute}$",
+              "correct": false
+            },
+            {
+              "text": "$1236\\ \\text{counts/minute}$",
+              "correct": false
+            }
+          ],
+          "explain": "Reading: $1260 \\div 5.0 = 252\\ \\text{counts/minute}$. Background: $0.40 \\times 60 = 24\\ \\text{counts/minute}$. Corrected: $252 - 24 = 228\\ \\text{counts/minute}$. $276$ adds the background, and $1236$ subtracts it from the total counts.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1260/5.0 - 0.40*60",
+            "unit": "counts/minute"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-corrected-method",
+          "prompt": "A student wants the count rate due to a source alone. What should she do?",
+          "hint": "Background radiation is everywhere, so it is in every reading.",
+          "options": [
+            {
+              "text": "measure the background with the source removed and subtract it",
+              "correct": true
+            },
+            {
+              "text": "measure the background with the source removed and add it",
+              "correct": false
+            },
+            {
+              "text": "take the reading in an empty room so there is no background",
+              "correct": false
+            },
+            {
+              "text": "repeat the reading and average it to remove the background",
+              "correct": false
+            }
+          ],
+          "explain": "Background is present everywhere, even in an empty room, and in every repeat. Averaging reduces random variation but leaves the background in, so it must be measured and subtracted.",
+          "verify": {
+            "kind": "choice",
+            "truth": "measure the background with the source removed and subtract it"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Background radiation is the ionising radiation present around us all the time.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Most background radiation comes from four sources: radon gas, which is in the air; rocks and buildings; what we eat and drink; and cosmic rays.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Ionising radiation is measured with a detector (such as a Geiger–Müller tube) connected to a counter.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Count rate = number of counts ÷ time taken, in counts/s or counts/minute. Multiply a rate in counts/s by 60 to get counts/minute. Readings vary at random, so count for longer or average repeats.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Corrected count rate = measured count rate − background count rate, with both in the same unit.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Naming mobile phones, microwaves or radio masts as sources of background radiation. Their radiation is not ionising.",
+    "Writing the unit of count rate the wrong way up, as minutes/count. Count rate is counts divided by time.",
+    "Converting counts/minute to counts/s by multiplying by 60. A rate per second is smaller, so divide by 60.",
+    "Thinking a background reading that changes from minute to minute means the detector is faulty. Radioactive emission is random.",
+    "Extended: adding the background count rate instead of subtracting it, or subtracting a rate in counts/s from one in counts/minute."
+  ],
+  "examTips": [
+    "\"State\" what background radiation is with both ideas: it is ionising radiation, and it is present all the time.",
+    "Paper 1/2 multiple choice on sources: cross out any option containing a non-ionising source (phones, microwaves, radio) or, if the question asks for natural sources, anything made by people.",
+    "\"Calculate\" a count rate: write counts ÷ time with your numbers in, and give the unit, counts/s or counts/minute, that matches the time you used.",
+    "Extended: in a corrected count rate question, check whether the background is given as a count or a rate, and per second or per minute, before you subtract."
+  ],
+  "readingMinutes": 17
+}

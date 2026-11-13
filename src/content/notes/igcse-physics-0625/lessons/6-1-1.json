@@ -1,0 +1,711 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "6.1.1",
+  "slug": "the-earth",
+  "title": "The Earth",
+  "level": "Core",
+  "topic": 6,
+  "summary": "Three motions set the rhythm of life on Earth. The Earth spins once a day, which gives day and night; it orbits the Sun once a year, and its tilted axis gives the seasons; the Moon circles the Earth about once a month, which gives its phases. Extended adds the [[orbital-speed|orbital speed]], $v = \\frac{2\\pi r}{T}$.",
+  "goals": [
+    {
+      "text": "Explain day and night, and why the Sun seems to cross the sky from east to west, using the Earth's spin on its tilted axis.",
+      "bullets": [
+        "6.1.1-1"
+      ]
+    },
+    {
+      "text": "Explain why the seasons repeat every year, using the Earth's orbit and the tilt of its axis.",
+      "bullets": [
+        "6.1.1-1",
+        "6.1.1-2"
+      ]
+    },
+    {
+      "text": "Explain why the Moon's phases repeat about once a month.",
+      "bullets": [
+        "6.1.1-3"
+      ]
+    },
+    {
+      "text": "Define average orbital speed and use $v = \\frac{2\\pi r}{T}$ to find a [[speed|speed]] or an [[orbital-period|orbital period]].",
+      "bullets": [
+        "6.1.1-4"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.2",
+    "1.5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "why do we have day and night",
+    "what causes the seasons",
+    "phases of the Moon",
+    "how long does the Earth take to orbit the Sun",
+    "orbital speed equation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-period-meaning",
+      "prompt": "What is the [[period|period]] of a swinging pendulum?",
+      "hint": "Think of time, not number.",
+      "options": [
+        {
+          "text": "the time for one complete swing, there and back",
+          "correct": true
+        },
+        {
+          "text": "the number of swings in one second",
+          "correct": false
+        },
+        {
+          "text": "the distance the bob moves in one swing",
+          "correct": false
+        }
+      ],
+      "explain": "A period is the time for one complete cycle. The Earth's day, the Moon's month and the Earth's year are all periods. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the time for one complete swing, there and back"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-cyclist-speed",
+      "prompt": "A cyclist rides $1500\\ \\text{m}$ in $300\\ \\text{s}$. What is her [[average-speed|average speed]], in m/s?",
+      "hint": "Speed is distance divided by time.",
+      "answer": {
+        "value": 5,
+        "tolerance": 0
+      },
+      "explain": "$v = \\frac{s}{t} = \\frac{1500}{300} = 5\\ \\text{m/s}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1500/300",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-circle-force",
+      "prompt": "An object moves in a circle at a constant speed. Which way does the resultant force on it act?",
+      "hint": "Something has to keep pulling it off a straight-line path.",
+      "options": [
+        {
+          "text": "towards the centre of the circle",
+          "correct": true
+        },
+        {
+          "text": "away from the centre of the circle",
+          "correct": false
+        },
+        {
+          "text": "forwards, along the direction of motion",
+          "correct": false
+        },
+        {
+          "text": "there is no resultant force, because the speed is constant",
+          "correct": false
+        }
+      ],
+      "explain": "Motion in a circle needs a resultant force towards the centre, even at a constant speed, because the direction keeps changing. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "towards the centre of the circle"
+      },
+      "level": "Extended"
+    }
+  ],
+  "sections": [
+    {
+      "id": "day-and-night",
+      "heading": "Day and night",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Earth is a planet. It spins on its axis, an imaginary line through the North and South Poles. One full turn takes about 24 hours: one day."
+        },
+        {
+          "type": "text",
+          "text": "The axis is tilted. It leans about $23.5°$ away from the line at right angles to the Earth's path round the Sun. The tilt matters for the seasons."
+        },
+        {
+          "type": "text",
+          "text": "At any moment, sunlight falls on the half of the Earth that faces the Sun. That half has day. The other half is in darkness, so it has night."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-1-day-night",
+          "alt": "The Earth seen from above the North Pole, with sunlight arriving from the left. The left half, facing the Sun, is lit and labelled day; the right half is dark and labelled night. A curved arrow shows the Earth spinning anticlockwise, once in about 24 hours. Points on the surface are labelled midday on the left, sunrise at the top, midnight on the right and sunset at the bottom.",
+          "caption": "As the Earth spins, each place is carried into the lit half (sunrise), across it (midday) and out again (sunset)."
+        },
+        {
+          "type": "text",
+          "text": "As the Earth turns, your town is carried into the sunlit half, across it and back into the dark. Each turn brings you back to the start, so day and night repeat every 24 hours."
+        },
+        {
+          "type": "text",
+          "text": "The Earth spins from west to east. So to someone on the ground, the Sun seems to rise in the east, climb highest around midday and set in the west. The Sun isn't really moving round us: we are turning."
+        },
+        {
+          "type": "example",
+          "id": "ex-day-night-explain",
+          "question": "A student in Kenya watches the Sun come up, cross the sky and go down. Explain why she has day and night, and why the Sun appears to move from east to west.",
+          "steps": [
+            "Name the motion and give its time.",
+            "Say which half of the Earth has day, and what the spin does to her town.",
+            "Give the direction of spin, then the Sun's apparent path."
+          ],
+          "answer": "The Earth spins on its axis once in about 24 hours. The half of the Earth facing the Sun has day, and the other half has night. As the Earth spins, her town is carried into the sunlit half and then out of it, so day and night repeat every 24 hours. The Earth spins from west to east, so the Sun appears to rise in the east and set in the west.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Earth spins on its axis once in about 24 hours; the half facing the Sun has day; spinning carries the town in and out of sunlight; spins west to east, so the Sun appears to rise in the east and set in the west",
+            "requires": [
+              [
+                "spins on its axis",
+                "rotates on its axis"
+              ],
+              "24 hours",
+              "half of the Earth facing the Sun",
+              "west to east",
+              "rise in the east",
+              "set in the west"
+            ],
+            "forbids": [
+              "the Sun orbits the Earth",
+              "the Sun moves round the Earth",
+              "orbits the Sun once a day"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-day-night-cause",
+          "prompt": "What causes day and night on Earth?",
+          "hint": "Which motion takes about 24 hours?",
+          "options": [
+            {
+              "text": "the Earth spinning on its axis",
+              "correct": true
+            },
+            {
+              "text": "the Earth orbiting the Sun",
+              "correct": false
+            },
+            {
+              "text": "the Sun orbiting the Earth",
+              "correct": false
+            },
+            {
+              "text": "the Moon blocking the Sun's light",
+              "correct": false
+            }
+          ],
+          "explain": "One spin takes about 24 hours, the length of a day. The Earth's orbit of the Sun takes a year, and the Sun does not orbit the Earth.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the Earth spinning on its axis"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-shadow-shortest",
+          "prompt": "On a sunny day, a student marks the tip of a stick's shadow every hour from morning to evening. When is the shadow shortest?",
+          "hint": "A high Sun casts a short shadow.",
+          "options": [
+            {
+              "text": "around midday, when the Sun is highest in the sky",
+              "correct": true
+            },
+            {
+              "text": "soon after sunrise, when the Sun is low in the east",
+              "correct": false
+            },
+            {
+              "text": "just before sunset, when the Sun is low in the west",
+              "correct": false
+            },
+            {
+              "text": "it stays the same length all day",
+              "correct": false
+            }
+          ],
+          "explain": "The Sun climbs from the east to its highest point around midday, then sinks to the west. The higher the Sun, the shorter the shadow.",
+          "verify": {
+            "kind": "choice",
+            "truth": "around midday, when the Sun is highest in the sky"
+          }
+        }
+      ]
+    },
+    {
+      "id": "seasons",
+      "heading": "The year and the seasons",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Earth also travels round the Sun, in a nearly circular orbit. One orbit takes about 365 days: one year. This is the Earth's [[orbital-period|orbital period]]."
+        },
+        {
+          "type": "definition",
+          "term": "orbital period",
+          "statement": "The time an object takes to go once round its orbit.",
+          "plain": "How long one lap of an orbit takes."
+        },
+        {
+          "type": "text",
+          "text": "More exactly, a year is about $365\\tfrac{1}{4}$ days, which is why there is a leap day every four years."
+        },
+        {
+          "type": "text",
+          "text": "As the Earth orbits, its tilted axis keeps pointing the same way in space. So for part of the year the northern hemisphere leans towards the Sun. Six months later, on the far side of the orbit, it leans away."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-1-seasons",
+          "alt": "The Sun in the middle of a dashed oval, the Earth's orbit, which takes about 365 days. The Earth is shown at two opposite points of the orbit, with its axis leaning the same way in both. On the left, in June, the north end of the axis leans towards the Sun: summer in the north, winter in the south. On the right, in December, the north end leans away from the Sun: winter in the north, summer in the south.",
+          "caption": "The axis doesn't swing round as the Earth orbits. So each hemisphere leans towards the Sun for half the year and away for the other half."
+        },
+        {
+          "type": "text",
+          "text": "The hemisphere tilted towards the Sun has summer, for two reasons. The Sun climbs higher in the sky, so its light strikes the ground more directly and is concentrated on a smaller area. And the days are longer than the nights, so the ground is heated for longer."
+        },
+        {
+          "type": "text",
+          "text": "The hemisphere tilted away has winter: a low Sun, weak spread-out sunlight and short days. After one orbit the Earth is back where it started, so the seasons repeat every year."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying summer comes when the Earth is closer to the Sun. The distance changes very little, and the Earth is in fact nearest the Sun in early January, during the northern winter. The tilt causes the seasons."
+        },
+        {
+          "type": "example",
+          "id": "ex-canada-summer",
+          "question": "Canada is in the northern hemisphere. Explain why Canada is warmer in June than in December.",
+          "steps": [
+            "Start with the tilt, and say that it points the same way all year.",
+            "Say which way the northern hemisphere leans in June.",
+            "Give the two effects: a higher Sun and longer days.",
+            "Contrast with December."
+          ],
+          "answer": "The Earth's axis is tilted, and it points the same way in space all through the orbit. In June the northern hemisphere is tilted towards the Sun. The Sun is higher in the sky, so its light falls on a smaller area and heats the ground more. The days are longer than the nights, so the ground is heated for longer. In December the north leans away from the Sun, which gives a lower Sun and shorter days.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "tilted axis points the same way; in June the north is tilted towards the Sun; Sun higher, light on a smaller area; longer days; in December tilted away",
+            "requires": [
+              "axis is tilted",
+              "tilted towards the Sun",
+              "higher in the sky",
+              "smaller area",
+              [
+                "days are longer",
+                "longer days"
+              ],
+              "leans away from the Sun"
+            ],
+            "forbids": [
+              "closer to the Sun",
+              "nearer to the Sun",
+              "further from the Sun"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-opposite-seasons",
+          "question": "In December it is summer in Australia but winter in Japan. Explain why the two countries have opposite seasons at the same time.",
+          "steps": [
+            "Say which hemisphere each country is in.",
+            "Say which hemisphere leans towards the Sun in December, and what that gives each country.",
+            "Rule out distance: both countries are on the same planet, the same distance from the Sun."
+          ],
+          "answer": "Japan is in the northern hemisphere and Australia is in the southern hemisphere. In December the southern hemisphere is tilted towards the Sun, so Australia has summer. At the same time the north leans away from the Sun, giving Japan winter. Both countries are the same distance from the Sun, so the tilt, not distance, causes the difference.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "Japan north, Australia south; in December the south tilts towards the Sun (summer) and the north away (winter); same distance, so tilt is the cause",
+            "requires": [
+              "southern hemisphere is tilted towards the Sun",
+              "north leans away from the Sun",
+              "same distance"
+            ],
+            "forbids": [
+              "Australia is closer to the Sun",
+              "Japan is further from the Sun"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-season-cause",
+          "prompt": "What causes the Earth's seasons?",
+          "hint": "The seasons repeat once a year. Which feature of the Earth stays the same as it orbits?",
+          "options": [
+            {
+              "text": "the tilt of the Earth's axis as the Earth orbits the Sun",
+              "correct": true
+            },
+            {
+              "text": "the Earth moving closer to the Sun in summer",
+              "correct": false
+            },
+            {
+              "text": "the Earth spinning on its axis",
+              "correct": false
+            },
+            {
+              "text": "the Moon orbiting the Earth",
+              "correct": false
+            }
+          ],
+          "explain": "The tilted axis means each hemisphere leans towards the Sun for part of each orbit. The spin gives day and night, and the Moon's orbit gives its phases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the tilt of the Earth's axis as the Earth orbits the Sun"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-midday-shadow",
+          "prompt": "In London, a lamp post's shadow at midday is much longer in December than in June. Why?",
+          "hint": "How high does the Sun get in winter?",
+          "options": [
+            {
+              "text": "the Sun is lower in the sky in December",
+              "correct": true
+            },
+            {
+              "text": "the Earth is further from the Sun in December",
+              "correct": false
+            },
+            {
+              "text": "the Earth spins more slowly in December",
+              "correct": false
+            },
+            {
+              "text": "the days are longer in December",
+              "correct": false
+            }
+          ],
+          "explain": "In December the north leans away from the Sun, which makes the midday Sun lower and shadows longer. The Earth is actually slightly nearer the Sun then.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the Sun is lower in the sky in December"
+          }
+        }
+      ]
+    },
+    {
+      "id": "moon-phases",
+      "heading": "The Moon and its phases",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Moon takes about a month to go once round the Earth. Anything from about 27 to 30 days, or about four weeks, is a fair answer."
+        },
+        {
+          "type": "text",
+          "text": "The Moon gives out no light of its own: you see it because it reflects sunlight. Like the Earth, it always has a lit half facing the Sun."
+        },
+        {
+          "type": "figure",
+          "id": "6-1-1-moon-phases",
+          "alt": "Sunlight arrives from the left. The Earth is in the middle of a dashed circle, the Moon's orbit, which takes about a month. The Moon is drawn at four points, and in each its left half, facing the Sun, is lit. Small discs show how it looks from the northern hemisphere. Between the Earth and the Sun: new moon, a dark disc. At the bottom: half moon, first quarter, right half lit. On the far side of the Earth from the Sun: full moon, a fully lit disc. At the top: half moon, last quarter, left half lit.",
+          "caption": "The lit half always faces the Sun. What changes is how much of it faces us."
+        },
+        {
+          "type": "text",
+          "text": "As the Moon travels round its orbit, the part of its lit half that faces the Earth changes. These changing shapes are the Moon's phases."
+        },
+        {
+          "type": "text",
+          "text": "At new moon, the Moon is between the Earth and the Sun. Its lit half faces away, so you see almost nothing. Over the next two weeks you see more each night: a thin crescent, a half moon, then more than half."
+        },
+        {
+          "type": "text",
+          "text": "At full moon, the Moon is on the far side of the Earth from the Sun, and you see the whole lit half. Over the next two weeks the shapes shrink back to new moon. Each orbit brings the Moon round again, so the cycle of phases repeats about once a month."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the phases are caused by the Earth's shadow falling on the Moon. The shadow only reaches the Moon in an eclipse. Phases come from seeing different amounts of the Moon's sunlit half."
+        },
+        {
+          "type": "example",
+          "id": "ex-phases-explain",
+          "question": "Over four weeks, a student sketches the Moon each clear night. Its shape changes from a thin crescent to a full disc and back. Explain these changes, and why the pattern repeats about once a month.",
+          "steps": [
+            "Say why we can see the Moon at all, and which half is lit.",
+            "Name the motion that changes our view, with its time.",
+            "Link the position to what we see, from new moon to full moon.",
+            "Say why the pattern repeats."
+          ],
+          "answer": "The Moon reflects sunlight, so we see only the half of the Moon that faces the Sun. The Moon goes round the Earth about once a month, so its position compared with the Sun and the Earth keeps changing. From the Earth we see a different fraction of the lit half each night, from none at new moon to all of it at full moon. Each orbit brings the Moon back to the same place, so the phases repeat about once a month.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the Moon reflects sunlight; half facing the Sun is lit; orbits the Earth about once a month; we see a changing fraction of the lit half, none at new moon, all at full moon; repeats each orbit",
+            "requires": [
+              "reflects sunlight",
+              "half of the Moon that faces the Sun",
+              [
+                "orbits the Earth",
+                "goes round the Earth"
+              ],
+              "about once a month",
+              "new moon",
+              "full moon"
+            ],
+            "forbids": [
+              "Earth's shadow",
+              "the Moon makes its own light",
+              "orbits the Sun once a month"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-full-moon-position",
+          "prompt": "Where is the Moon in its orbit when we see a full moon?",
+          "hint": "To see the whole lit half, it must face you.",
+          "options": [
+            {
+              "text": "on the far side of the Earth from the Sun",
+              "correct": true
+            },
+            {
+              "text": "between the Earth and the Sun",
+              "correct": false
+            },
+            {
+              "text": "fully inside the Earth's shadow",
+              "correct": false
+            },
+            {
+              "text": "a quarter of the way round from new moon",
+              "correct": false
+            }
+          ],
+          "explain": "With the Earth between the Moon and the Sun, the Moon's lit half faces us. Between the Earth and the Sun gives new moon, and a quarter of the way round gives a half moon.",
+          "verify": {
+            "kind": "choice",
+            "truth": "on the far side of the Earth from the Sun"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-order-periods",
+          "prompt": "Which list puts these times in order, shortest first?",
+          "hint": "One is about a day, one about a month and one about a year.",
+          "options": [
+            {
+              "text": "Earth spins once; Moon orbits Earth once; Earth orbits Sun once",
+              "correct": true
+            },
+            {
+              "text": "Earth spins once; Earth orbits Sun once; Moon orbits Earth once",
+              "correct": false
+            },
+            {
+              "text": "Moon orbits Earth once; Earth spins once; Earth orbits Sun once",
+              "correct": false
+            },
+            {
+              "text": "Earth orbits Sun once; Moon orbits Earth once; Earth spins once",
+              "correct": false
+            }
+          ],
+          "explain": "A spin takes about 24 hours, the Moon's orbit about a month and the Earth's orbit about 365 days. Swapping the month and the year is a common slip.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Earth spins once; Moon orbits Earth once; Earth orbits Sun once"
+          }
+        }
+      ]
+    },
+    {
+      "id": "orbital-speed",
+      "heading": "Average orbital speed",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most planets, moons and satellites follow orbits that are nearly circular, so their motion is close to [[circular-motion|circular motion]]. In one orbit, an object travels once round a circle of radius $r$. That distance is the circumference, $2\\pi r$."
+        },
+        {
+          "type": "text",
+          "text": "It covers that distance in one orbital period, $T$. [[average-speed|Average speed]] is distance divided by time, so the average [[orbital-speed|orbital speed]] is:"
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\frac{2\\pi r}{T}",
+          "tag": "learn"
+        },
+        {
+          "type": "definition",
+          "term": "orbital speed",
+          "statement": "The average speed of an object in orbit: the distance round the orbit, $2\\pi r$, divided by the orbital period $T$, where $r$ is the orbit's average radius.",
+          "plain": "How fast something goes round its orbit, on average."
+        },
+        {
+          "type": "text",
+          "text": "Orbits are not perfect circles, so $r$ is the average radius. It is measured from the centre of the body being orbited, not from its surface. For $v$ in m/s, put $r$ in metres and $T$ in seconds."
+        },
+        {
+          "type": "example",
+          "id": "ex-mars-speed",
+          "question": "Mars has a mean orbital radius of $2.28 \\times 10^{11}\\ \\text{m}$ and takes 687 days to go once round the Sun. Calculate its average orbital speed.",
+          "steps": [
+            "Change $T$ to seconds: $T = 687 \\times 24 \\times 3600 = 5.94 \\times 10^{7}\\ \\text{s}$.",
+            "Write the equation: $v = \\frac{2\\pi r}{T}$.",
+            "Substitute: $v = \\frac{2\\pi \\times 2.28 \\times 10^{11}}{687 \\times 24 \\times 3600}$.",
+            "$v = 24\\,100\\ \\text{m/s}$, which is $2.4 \\times 10^{4}\\ \\text{m/s}$ to 2 significant figures."
+          ],
+          "answer": "$v \\approx 2.4 \\times 10^{4}\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2*pi*2.28*10**11/(687*24*3600)",
+            "sf": 2,
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-station-speed",
+          "question": "A space station orbits $420\\ \\text{km}$ above the Earth's surface. The radius of the Earth is $6400\\ \\text{km}$. The station takes 93 minutes for one orbit. Calculate its average orbital speed in m/s.",
+          "steps": [
+            "The orbit's radius is measured from the Earth's centre: $r = 6400 + 420 = 6820\\ \\text{km} = 6.82 \\times 10^{6}\\ \\text{m}$.",
+            "Change $T$ to seconds: $T = 93 \\times 60 = 5580\\ \\text{s}$.",
+            "Substitute into $v = \\frac{2\\pi r}{T}$: $v = \\frac{2\\pi \\times 6.82 \\times 10^{6}}{5580}$.",
+            "$v = 7680\\ \\text{m/s}$, which is $7.7 \\times 10^{3}\\ \\text{m/s}$ to 2 significant figures.",
+            "Using $r = 420\\ \\text{km}$ would give about $470\\ \\text{m/s}$, far too slow: always add the planet's radius to the height."
+          ],
+          "answer": "$v \\approx 7.7 \\times 10^{3}\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2*pi*(6400 + 420)*1000/(93*60)",
+            "sf": 2,
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using $r$ instead of $2\\pi r$ as the distance, or leaving $T$ in hours or days. One orbit is a full circumference, and $T$ must be in seconds for an answer in m/s."
+        },
+        {
+          "type": "check",
+          "id": "check-titan-speed",
+          "prompt": "Titan, a moon of Saturn, orbits at an average radius of $1.22 \\times 10^{9}\\ \\text{m}$ with an orbital period of 16 days. What is its average orbital speed, in m/s, to 2 significant figures?",
+          "hint": "Change 16 days into seconds first.",
+          "answer": {
+            "value": 5500,
+            "tolerance": 50
+          },
+          "explain": "$T = 16 \\times 24 \\times 3600 = 1\\,382\\,400\\ \\text{s}$, so $v = \\frac{2\\pi \\times 1.22 \\times 10^{9}}{1\\,382\\,400} = 5500\\ \\text{m/s}$ to 2 significant figures.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2*pi*1.22*10**9/(16*24*3600)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-satellite-period",
+          "prompt": "A navigation satellite moves at an average speed of $3.87\\ \\text{km/s}$ in an orbit of average radius $2.66 \\times 10^{7}\\ \\text{m}$. What is its orbital period?",
+          "hint": "Rearrange to $T = \\frac{2\\pi r}{v}$, with $v$ in m/s.",
+          "options": [
+            {
+              "text": "$T \\approx 4.3 \\times 10^{4}\\ \\text{s}$",
+              "correct": true
+            },
+            {
+              "text": "$T \\approx 4.3 \\times 10^{7}\\ \\text{s}$",
+              "correct": false
+            },
+            {
+              "text": "$T \\approx 6.9 \\times 10^{3}\\ \\text{s}$",
+              "correct": false
+            },
+            {
+              "text": "$T \\approx 2.2 \\times 10^{4}\\ \\text{s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$T = \\frac{2\\pi \\times 2.66 \\times 10^{7}}{3870} = 4.3 \\times 10^{4}\\ \\text{s}$, about 12 hours. Leaving $v$ in km/s gives $4.3 \\times 10^{7}\\ \\text{s}$, dropping the $2\\pi$ gives $6.9 \\times 10^{3}\\ \\text{s}$, and using $\\pi r$ instead of $2\\pi r$ gives $2.2 \\times 10^{4}\\ \\text{s}$.",
+          "verify": {
+            "kind": "standard-form",
+            "truth": "2*pi*2.66*10**7/(3.87*1000)",
+            "sf": 2,
+            "unit": "s"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The Earth spins on its tilted axis once in about 24 hours. This gives day and night, and makes the Sun appear to rise in the east and set in the west.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The Earth orbits the Sun once in about 365 days. Because its tilted axis points the same way all year, the hemisphere tilted towards the Sun has summer; the seasons are not caused by the Earth's distance from the Sun.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The Moon takes about a month to orbit the Earth. As it moves, we see different amounts of its sunlit half, so its phases repeat about once a month.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "formula",
+          "tex": "v = \\frac{2\\pi r}{T}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "In $v = \\frac{2\\pi r}{T}$, $r$ is the average radius of the orbit, measured from the centre of the body being orbited, and $T$ is the orbital period.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Swapping the times: the Earth spins once in about 24 hours, the Moon orbits the Earth in about a month and the Earth orbits the Sun in about 365 days.",
+    "Saying the seasons happen because the Earth is closer to the Sun in summer. The tilt of the axis causes them.",
+    "Saying the Moon's phases come from the Earth's shadow. They come from seeing different amounts of the Moon's sunlit half as it orbits.",
+    "Leaving out the times, or their units, when asked to describe the Earth's motion. Give each motion with its value: 24 hours, 365 days.",
+    "Extended: using the height above the surface as $r$. Add the planet's radius, because $r$ is measured from its centre.",
+    "Extended: leaving $T$ in hours or days, or using $r$ instead of $2\\pi r$ as the distance travelled in one orbit."
+  ],
+  "examTips": [
+    "To \"describe\" the motion of the Earth, give each motion with its time: it spins on its axis once in about 24 hours, and it orbits the Sun once in about 365 days. Leaving out the times loses marks.",
+    "To \"explain\" the seasons, say that the axis is tilted, which hemisphere leans towards the Sun, and what that does: a higher Sun and longer days. Don't mention distance from the Sun as a cause.",
+    "Paper 1/2 often pairs a motion with a time or a cycle. Spin: day and night, 24 hours. Moon's orbit: phases, about a month. Earth's orbit: seasons, about 365 days.",
+    "Extended: to \"calculate\" an orbital speed, write $v = \\frac{2\\pi r}{T}$, substitute with $r$ in m and $T$ in s, then give the answer with its unit, to 2 or 3 significant figures, no more than the data justify."
+  ],
+  "readingMinutes": 25
+}

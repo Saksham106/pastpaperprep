@@ -1,0 +1,1022 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.5.1",
+  "slug": "effects-of-forces",
+  "title": "Effects of forces",
+  "level": "Core",
+  "topic": 1,
+  "summary": "A [[force|force]] can stretch, squash or bend an object, and it can change how the object moves. When the forces on an object balance, it stays at rest or keeps moving steadily in a straight line; a [[resultant-force|resultant force]] changes its speed or direction. Extended adds the [[spring-constant|spring constant]], $F = ma$ and motion in a circle.",
+  "goals": [
+    {
+      "text": "Describe how forces change an object's size and shape, and how to measure the extension of a spring.",
+      "bullets": [
+        "1.5.1-1",
+        "1.5.1-2"
+      ]
+    },
+    {
+      "text": "Plot, sketch and read a [[load-extension-graph|load–extension graph]], and tell from it when the extension is proportional to the load.",
+      "bullets": [
+        "1.5.1-2"
+      ]
+    },
+    {
+      "text": "Find the resultant of several forces that act along one straight line, with its direction.",
+      "bullets": [
+        "1.5.1-3"
+      ]
+    },
+    {
+      "text": "Use [[newton-s-first-law|Newton's first law]], and say how a resultant force can change an object's speed or direction.",
+      "bullets": [
+        "1.5.1-4",
+        "1.5.1-5"
+      ]
+    },
+    {
+      "text": "Describe [[friction|friction]] between surfaces, and [[drag|drag]] on objects moving through liquids and gases.",
+      "bullets": [
+        "1.5.1-6",
+        "1.5.1-7",
+        "1.5.1-8"
+      ]
+    },
+    {
+      "text": "Use $k = \\frac{F}{x}$, and find the [[limit-of-proportionality|limit of proportionality]] on a load–extension graph.",
+      "bullets": [
+        "1.5.1-9",
+        "1.5.1-10"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Use $F = ma$, with the [[acceleration|acceleration]] in the direction of the resultant force.",
+      "bullets": [
+        "1.5.1-11"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how the force needed for [[circular-motion|circular motion]] depends on speed, radius and [[mass|mass]].",
+      "bullets": [
+        "1.5.1-12"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "load extension graph",
+    "spring constant k = F/x",
+    "resultant force",
+    "newton's first law",
+    "F = ma",
+    "friction and air resistance"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-weight-of-flour",
+      "prompt": "A bag of flour has a mass of $0.35\\ \\text{kg}$. What is its [[weight|weight]], in N? Use $g = 9.8\\ \\text{N/kg}$ and give 2 significant figures.",
+      "hint": "Weight is mass times gravitational field strength: $W = mg$.",
+      "answer": {
+        "value": 3.4,
+        "tolerance": 0.05
+      },
+      "explain": "$W = mg = 0.35 \\times 9.8 = 3.43 \\approx 3.4\\ \\text{N}$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "0.35*g",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-velocity-meaning",
+      "prompt": "What is the difference between speed and [[velocity|velocity]]?",
+      "hint": "One of them needs a direction to describe it fully.",
+      "options": [
+        {
+          "text": "velocity is speed in a given direction",
+          "correct": true
+        },
+        {
+          "text": "velocity is always larger than speed",
+          "correct": false
+        },
+        {
+          "text": "speed is measured in m/s but velocity is not",
+          "correct": false
+        },
+        {
+          "text": "they mean exactly the same thing",
+          "correct": false
+        }
+      ],
+      "explain": "Velocity is speed in a given direction. Two cars at $20\\ \\text{m/s}$ going opposite ways have the same speed but different velocities. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "velocity is speed in a given direction"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-flat-speed-time",
+      "prompt": "On a speed–time graph, what does a horizontal straight line show?",
+      "hint": "Speed is read on the vertical axis. Does it change along a flat line?",
+      "options": [
+        {
+          "text": "constant speed",
+          "correct": true
+        },
+        {
+          "text": "the object is at rest",
+          "correct": false
+        },
+        {
+          "text": "constant acceleration",
+          "correct": false
+        },
+        {
+          "text": "the object is slowing down",
+          "correct": false
+        }
+      ],
+      "explain": "The speed stays the same as time passes, so the object moves at constant speed. A line along the time axis, at zero speed, would mean at rest. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "constant speed"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "stretching-a-spring",
+      "heading": "Forces change shape: stretching a spring",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A force is a push or a pull, measured in newtons (N). Forces can change the size and shape of an object: squeeze a sponge, stretch a rubber band or bend a ruler. They can also change how an object moves."
+        },
+        {
+          "type": "definition",
+          "term": "elastic",
+          "statement": "An object is [[elastic|elastic]] if it goes back to its original size and shape when the force on it is removed.",
+          "plain": "It springs back to how it was."
+        },
+        {
+          "type": "text",
+          "text": "Hang a weight on a spring and it stretches. The weight is the load, in N. The increase in length is the extension, often written $x$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{extension} = \\text{stretched length} - \\text{original length}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "1-5-1-spring-setup",
+          "alt": "Apparatus for stretching a spring. A clamp stand holds a spring hanging from its arm. Slotted masses on a hanger hang from the bottom of the spring as the load. A pointer on the bottom of the spring points at a metre rule clamped upright beside it. A dashed line shows the eye level with the pointer.",
+          "caption": "Measuring the extension of a spring."
+        },
+        {
+          "type": "text",
+          "text": "Clamp a metre rule upright beside the spring, with a pointer on its end. Read the length with no load, then after adding each $100\\ \\text{g}$ slotted mass ($0.98\\ \\text{N}$, about $1\\ \\text{N}$). Keep your eye level with the pointer: looking from above or below gives a parallax error."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-spring-method",
+          "question": "Describe how a student can take the measurements needed to plot a load–extension graph for a spring. Name the apparatus she uses.",
+          "steps": [
+            "Set up the apparatus first, then say what is measured before any load goes on.",
+            "Then say how each load is added, how each length is read and how the extension is found.",
+            "Finish with how many readings and how they are recorded."
+          ],
+          "answer": "Hang the spring from a clamp stand, fix a pointer to its bottom end and clamp a metre rule upright beside it. Measure the original length of the spring with no load. Hang a $100\\ \\text{g}$ slotted mass on the spring and measure the new length, with your eye level with the pointer. Work out the extension as the new length minus the original length. Repeat with at least five different loads and record each load and extension in a table.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "clamp stand and metre rule; measure original length; add known loads; read new length at eye level; extension = new length minus original length; repeat and tabulate",
+            "requires": [
+              [
+                "clamp stand"
+              ],
+              [
+                "metre rule",
+                "ruler"
+              ],
+              [
+                "original length",
+                "unstretched length"
+              ],
+              [
+                "eye level"
+              ],
+              [
+                "new length minus the original length",
+                "new length minus original length"
+              ],
+              [
+                "repeat"
+              ],
+              [
+                "table"
+              ]
+            ],
+            "forbids": [
+              "stopwatch",
+              "extension is the new length"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the spring's length instead of its extension, in the table or on the graph. Subtract the original length first."
+        },
+        {
+          "type": "check",
+          "id": "check-spring-extension",
+          "prompt": "A spring is $12.5\\ \\text{cm}$ long with no load and $15.8\\ \\text{cm}$ long with a load hanging from it. What is the extension, in cm?",
+          "hint": "Extension is how much longer the spring got.",
+          "answer": {
+            "value": 3.3,
+            "tolerance": 0.05
+          },
+          "explain": "$x = 15.8 - 12.5 = 3.3\\ \\text{cm}$. The new length, $15.8\\ \\text{cm}$, is not the extension.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "15.8 - 12.5",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "A [[load-extension-graph|load–extension graph]] can have load up the side or along the bottom, so read the axis labels first. Label each axis with the quantity and unit, such as load / N. Plot small crosses and draw one line of best fit; don't join the dots."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-1-load-extension",
+          "alt": "Load-extension graph for a spring. Load in newtons from 0 to 6.0 is on the vertical axis, with small squares of 0.2 newtons. Extension in centimetres from 0 to 14 is on the horizontal axis, with small squares of 0.5 centimetres. Crosses at extensions of 2.5, 5.0, 7.5, 10.0 and 12.5 centimetres have loads of 1.0, 2.0, 3.0, 4.0 and 5.0 newtons. A straight best-fit line passes through all of them and through the origin.",
+          "caption": "Results for one spring: a straight line through the origin."
+        },
+        {
+          "type": "text",
+          "text": "For a spring that isn't stretched too far, the points lie on a straight line through the origin. The extension is directly proportional to the load: double the load and the extension doubles."
+        },
+        {
+          "type": "example",
+          "id": "ex-pencil-case-weight",
+          "question": "Use the graph above. With no load, the spring is $8.0\\ \\text{cm}$ long. A pencil case hangs from it, and the spring is now $14.5\\ \\text{cm}$ long. Find the weight of the pencil case.",
+          "steps": [
+            "Find the extension first: $14.5 - 8.0 = 6.5\\ \\text{cm}$.",
+            "Go up from $6.5\\ \\text{cm}$ on the extension axis to the line, then across to the load axis.",
+            "The load there is $2.6\\ \\text{N}$. Check: the line passes through $2.0\\ \\text{N}$ at $5.0\\ \\text{cm}$, so each centimetre takes $0.40\\ \\text{N}$, and $6.5 \\times 0.40 = 2.6$.",
+            "The load is the weight of the pencil case."
+          ],
+          "answer": "$W = 2.6\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.40*(14.5 - 8.0)",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling any straight line proportional. It must also pass through $(0, 0)$."
+        },
+        {
+          "type": "check",
+          "id": "check-proportional-load",
+          "prompt": "The extension of a spring is proportional to the load. A load of $2.4\\ \\text{N}$ gives an extension of $3.2\\ \\text{cm}$. What load, in N, gives an extension of $4.8\\ \\text{cm}$?",
+          "hint": "How many times bigger is $4.8\\ \\text{cm}$ than $3.2\\ \\text{cm}$?",
+          "answer": {
+            "value": 3.6,
+            "tolerance": 0.05
+          },
+          "explain": "$4.8 \\div 3.2 = 1.5$, so the load is $1.5$ times bigger: $2.4 \\times 1.5 = 3.6\\ \\text{N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.4*4.8/3.2",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-graph-shape",
+          "prompt": "Which load–extension graph shows that the extension is directly proportional to the load?",
+          "hint": "Proportional needs two things. Zero load must give zero extension.",
+          "options": [
+            {
+              "text": "a straight line through the origin",
+              "correct": true
+            },
+            {
+              "text": "a straight line that cuts the load axis above the origin",
+              "correct": false
+            },
+            {
+              "text": "a curve that starts at the origin",
+              "correct": false
+            },
+            {
+              "text": "a horizontal straight line",
+              "correct": false
+            }
+          ],
+          "explain": "Directly proportional means a straight line through the origin. A line that misses the origin, or a curve, is not proportional.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a straight line through the origin"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: put the unit in each column heading (load / N, extension / cm), not after every number. Record lengths from a metre rule to the nearest millimetre, such as $14.5\\ \\text{cm}$."
+        }
+      ]
+    },
+    {
+      "id": "spring-constant",
+      "heading": "Spring constant and the limit of proportionality",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "spring constant",
+          "statement": "The spring constant $k$ is the force per unit extension of a spring.",
+          "plain": "How many newtons it takes to stretch the spring by one metre (or one centimetre)."
+        },
+        {
+          "type": "formula",
+          "tex": "k = \\frac{F}{x}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$F$ is the load in N and $x$ is the extension: $k$ is in N/m with $x$ in m, or N/cm with $x$ in cm. A stiffer spring has a larger $k$. With load up the side, the [[gradient|gradient]] of the straight part is $k$; with extension up the side, it is $\\frac{1}{k}$."
+        },
+        {
+          "type": "definition",
+          "term": "limit of proportionality",
+          "statement": "The limit of proportionality is the point on a load–extension graph beyond which the extension is no longer directly proportional to the load.",
+          "plain": "Where the straight line stops."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-1-limit-of-proportionality",
+          "alt": "Sketch of a load-extension graph for a spring, with load on the vertical axis and extension on the horizontal axis. From the origin it is a straight line, labelled extension proportional to load. At a marked point labelled limit of proportionality the straight line ends. Beyond it the graph curves and becomes less steep, labelled not proportional.",
+          "caption": "To identify the limit of proportionality, find where the straight line ends."
+        },
+        {
+          "type": "text",
+          "text": "Past this point the graph curves, so use $k = \\frac{F}{x}$ only on the straight part."
+        },
+        {
+          "type": "example",
+          "id": "ex-spring-constant",
+          "question": "A load of $6.3\\ \\text{N}$ stretches a spring by $0.18\\ \\text{m}$. The spring is still below its limit of proportionality. Calculate the spring constant.",
+          "steps": [
+            "Write the equation: $k = \\frac{F}{x}$.",
+            "Substitute: $k = \\frac{6.3}{0.18}$.",
+            "$k = 35$. The extension is in metres, so the unit is N/m."
+          ],
+          "answer": "$k = 35\\ \\text{N/m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "6.3/0.18",
+            "unit": "N/m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-extension-from-k",
+          "question": "A spring has a spring constant of $0.75\\ \\text{N/cm}$. Its limit of proportionality is at a load of $4.5\\ \\text{N}$. A load of $2.7\\ \\text{N}$ is hung on it. Calculate the extension.",
+          "steps": [
+            "Check the load is below the limit: $2.7\\ \\text{N}$ is less than $4.5\\ \\text{N}$, so $k = \\frac{F}{x}$ applies.",
+            "Rearrange for the extension: $x = \\frac{F}{k}$.",
+            "$x = \\frac{2.7}{0.75} = 3.6$. $k$ is in N/cm, so $x$ is in cm.",
+            "For a $6.0\\ \\text{N}$ load you could not use $k$: that load is past the limit of proportionality."
+          ],
+          "answer": "$x = 3.6\\ \\text{cm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2.7/0.75",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing units, such as a $k$ in N/cm with an extension in m. Make them match first: $0.75\\ \\text{N/cm} = 75\\ \\text{N/m}$."
+        },
+        {
+          "type": "check",
+          "id": "check-k-in-newtons-per-metre",
+          "prompt": "A load of $0.80\\ \\text{N}$ stretches a spring by $2.5\\ \\text{cm}$, below its limit of proportionality. What is the spring constant, in N/m?",
+          "hint": "Change the extension to metres before you divide.",
+          "answer": {
+            "value": 32,
+            "tolerance": 0.5
+          },
+          "explain": "$x = 2.5\\ \\text{cm} = 0.025\\ \\text{m}$, so $k = \\frac{0.80}{0.025} = 32\\ \\text{N/m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.80/(2.5/100)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-past-the-limit",
+          "prompt": "A load–extension graph for a spring has load on the vertical axis. What does the graph do beyond the limit of proportionality?",
+          "hint": "Past the limit, each extra newton stretches the spring more than before.",
+          "options": [
+            {
+              "text": "it curves and becomes less steep",
+              "correct": true
+            },
+            {
+              "text": "it carries on as the same straight line",
+              "correct": false
+            },
+            {
+              "text": "it curves and becomes steeper",
+              "correct": false
+            },
+            {
+              "text": "it drops straight back to zero",
+              "correct": false
+            }
+          ],
+          "explain": "Beyond the limit, the extension grows faster than the load. With load up the side, the line bends over and becomes less steep.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it curves and becomes less steep"
+          }
+        }
+      ]
+    },
+    {
+      "id": "resultant-force",
+      "heading": "Resultant force and Newton's first law",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The resultant force is the single force that has the same effect as all the forces on an object together. For forces along one straight line, choose one direction as positive and give forces the other way a minus sign. Then add them: the resultant points the way of the larger total."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-1-barge-forces",
+          "alt": "Side view of a canal barge moving to the right. Three horizontal forces act on it: the engine force of 850 newtons to the right, the water drag of 520 newtons to the left, and the wind pushing on the cabin with 140 newtons to the right.",
+          "caption": "The horizontal forces on a barge."
+        },
+        {
+          "type": "example",
+          "id": "ex-barge-resultant",
+          "question": "The diagram shows the horizontal forces on a canal barge. Find the resultant horizontal force on the barge. Take forwards, to the right, as positive.",
+          "steps": [
+            "Forwards: $850 + 140 = 990\\ \\text{N}$.",
+            "Backwards: $520\\ \\text{N}$.",
+            "Resultant $= 990 - 520 = +470\\ \\text{N}$.",
+            "It is positive, so it acts forwards. The barge is moving forwards, so it speeds up."
+          ],
+          "answer": "$F = +470\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "850 + 140 - 520",
+            "unit": "N",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding every force, whatever its direction. Forces in opposite directions partly cancel, so subtract them."
+        },
+        {
+          "type": "check",
+          "id": "check-resultant-opposite",
+          "prompt": "A $12\\ \\text{N}$ force pulls a box to the right and a $5\\ \\text{N}$ force pulls it to the left. What is the size of the resultant force?",
+          "hint": "The forces point opposite ways.",
+          "options": [
+            {
+              "text": "$7\\ \\text{N}$",
+              "correct": true
+            },
+            {
+              "text": "$17\\ \\text{N}$",
+              "correct": false
+            },
+            {
+              "text": "$2.4\\ \\text{N}$",
+              "correct": false
+            },
+            {
+              "text": "$60\\ \\text{N}$",
+              "correct": false
+            }
+          ],
+          "explain": "Opposite directions, so subtract: $12 - 5 = 7\\ \\text{N}$, to the right. Adding gives $17\\ \\text{N}$, which is wrong.",
+          "verify": {
+            "kind": "exact",
+            "truth": "12 - 5",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "If the forces balance, the resultant force is zero. That doesn't mean the object is still."
+        },
+        {
+          "type": "result",
+          "statement": "Newton's first law: an object stays at rest, or keeps moving at a constant speed in a straight line, unless a resultant force acts on it.",
+          "why": "A puck on smooth ice slides a long way at almost the same speed, because almost no resultant force acts on it."
+        },
+        {
+          "type": "text",
+          "text": "A resultant force changes the velocity (speed in a given direction). In the direction of motion, the object speeds up; against it, it slows down; at right angles to it, it changes direction."
+        },
+        {
+          "type": "example",
+          "id": "ex-cyclist-explain",
+          "question": "A cyclist rides along a straight, level road at a steady $6\\ \\text{m/s}$. Her friend says there can't be any forces on the bike, because its speed isn't changing. Explain why the friend is wrong.",
+          "steps": [
+            "Name the forces that do act along the road.",
+            "Say how they compare, what that makes the resultant, and what Newton's first law then predicts."
+          ],
+          "answer": "Forces do act on the bike: a forward driving force from the pedals, and friction and air resistance backwards. These forces are balanced, so the resultant force is zero. With zero resultant force, the bike keeps moving at a constant speed in a straight line.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "driving force and friction/air resistance act; they are balanced; resultant force is zero; so constant speed in a straight line",
+            "requires": [
+              [
+                "driving force"
+              ],
+              [
+                "air resistance",
+                "friction"
+              ],
+              [
+                "balanced"
+              ],
+              [
+                "resultant force is zero",
+                "zero resultant force"
+              ],
+              [
+                "constant speed"
+              ]
+            ],
+            "forbids": [
+              "no forces act",
+              "there are no forces"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying \"zero resultant force, so the object is at rest\". Zero resultant force means no change in velocity: at rest, or moving at a constant speed in a straight line."
+        },
+        {
+          "type": "check",
+          "id": "check-train-constant-speed",
+          "prompt": "A train moves along a straight, level track at a constant $25\\ \\text{m/s}$. What is the resultant force on the train?",
+          "hint": "Is its speed or direction changing?",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "in the direction the train is moving",
+              "correct": false
+            },
+            {
+              "text": "opposite to the direction the train is moving",
+              "correct": false
+            },
+            {
+              "text": "equal to the train's weight",
+              "correct": false
+            }
+          ],
+          "explain": "The train's speed and direction are both constant, so its velocity doesn't change. By Newton's first law the resultant force is zero: the driving force balances the resistive forces.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-car-on-bend",
+          "prompt": "A car goes round a bend at a constant speed. Is there a resultant force on it?",
+          "hint": "Velocity has a direction. Is the direction changing?",
+          "options": [
+            {
+              "text": "yes, because its direction of motion is changing",
+              "correct": true
+            },
+            {
+              "text": "no, because its speed is not changing",
+              "correct": false
+            },
+            {
+              "text": "no, because a moving car needs no resultant force",
+              "correct": false
+            },
+            {
+              "text": "yes, because it is speeding up",
+              "correct": false
+            }
+          ],
+          "explain": "The speed is constant but the direction changes, so the velocity changes. A change in velocity needs a resultant force.",
+          "verify": {
+            "kind": "choice",
+            "truth": "yes, because its direction of motion is changing"
+          }
+        }
+      ]
+    },
+    {
+      "id": "friction-and-drag",
+      "heading": "Friction and drag",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Friction is a force between two surfaces that touch. It can stop them sliding over each other, or slow down sliding that has started. Surfaces that rub together heat up: rub your hands, or feel a bike's brakes. Friction is often useful too: it lets shoes and tyres grip."
+        },
+        {
+          "type": "text",
+          "text": "Friction on an object moving through a liquid or a gas is called drag: air resistance in air, water resistance in water. Drag acts against the motion and gets bigger as the object moves faster."
+        },
+        {
+          "type": "example",
+          "id": "ex-brakes-explain",
+          "question": "When a car brakes hard, its brake discs get hot. Explain why.",
+          "steps": [
+            "Name the force and where it acts.",
+            "Give its two effects: on the motion, and on the temperature."
+          ],
+          "answer": "When the driver brakes, the brake pads press against the spinning discs and rub on them. Friction between the pads and the discs acts against the motion, so the car slows down. Friction between rubbing surfaces also causes heating, so the discs get hot.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "pads rub on discs; friction acts against the motion; friction causes heating",
+            "requires": [
+              "friction",
+              [
+                "rub"
+              ],
+              [
+                "against the motion",
+                "opposes the motion"
+              ],
+              [
+                "heating",
+                "heats"
+              ]
+            ],
+            "forbids": [
+              "friction creates heat energy from nothing"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking drag only happens in air. Drag acts on anything moving through a liquid or a gas, and it always acts against the motion."
+        },
+        {
+          "type": "check",
+          "id": "check-fish-drag",
+          "prompt": "A fish swims to the left through water. Which way does the drag from the water act on the fish?",
+          "hint": "Drag always opposes the motion.",
+          "options": [
+            {
+              "text": "to the right",
+              "correct": true
+            },
+            {
+              "text": "to the left",
+              "correct": false
+            },
+            {
+              "text": "straight upwards",
+              "correct": false
+            },
+            {
+              "text": "there is no drag in water",
+              "correct": false
+            }
+          ],
+          "explain": "The fish moves left, so drag acts to the right, against the motion. Drag acts in liquids as well as gases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the right"
+          }
+        }
+      ]
+    },
+    {
+      "id": "force-mass-acceleration",
+      "heading": "Force, mass and acceleration",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[newton-s-second-law|Newton's second law]] says how quickly a resultant force changes an object's velocity."
+        },
+        {
+          "type": "formula",
+          "tex": "F = ma",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$F$ is the resultant force in N (not just one of the forces), $m$ is the mass in kg and $a$ is the acceleration in $\\text{m/s}^2$. The acceleration is always in the direction of the resultant force. A resultant force against the motion makes the object slow down: a [[deceleration|deceleration]]."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-acceleration",
+          "question": "A car of mass $1200\\ \\text{kg}$ has a driving force of $3100\\ \\text{N}$. The resistive forces on it total $700\\ \\text{N}$. Calculate its acceleration.",
+          "steps": [
+            "Find the resultant force first: $3100 - 700 = 2400\\ \\text{N}$ forwards.",
+            "Rearrange $F = ma$: $a = \\frac{F}{m}$.",
+            "$a = \\frac{2400}{1200} = 2.0\\ \\text{m/s}^2$, forwards, the same direction as the resultant force."
+          ],
+          "answer": "$a = 2.0\\ \\text{m/s}^2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(3100 - 700)/1200",
+            "unit": "m/s^2"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bike-braking",
+          "question": "A cyclist and her bike have a total mass of $85\\ \\text{kg}$ and move east at $8.0\\ \\text{m/s}$. She brakes, and the resultant force on her is $255\\ \\text{N}$ to the west. Calculate her acceleration. Take east as positive.",
+          "steps": [
+            "East is positive, so the resultant force is $F = -255\\ \\text{N}$.",
+            "$a = \\frac{F}{m} = \\frac{-255}{85}$.",
+            "$a = -3.0\\ \\text{m/s}^2$.",
+            "The acceleration points west, the same way as the force and against her motion, so she slows down."
+          ],
+          "answer": "$a = -3.0\\ \\text{m/s}^2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "-255/85",
+            "unit": "m/s^2",
+            "signed": true
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting one force, such as the driving force, into $F = ma$. Work out the resultant force first."
+        },
+        {
+          "type": "check",
+          "id": "check-trolley-mass",
+          "prompt": "A resultant force of $54\\ \\text{N}$ gives a trolley an acceleration of $1.5\\ \\text{m/s}^2$. What is the mass of the trolley, in kg?",
+          "hint": "Rearrange $F = ma$ for $m$.",
+          "answer": {
+            "value": 36,
+            "tolerance": 0
+          },
+          "explain": "$m = \\frac{F}{a} = \\frac{54}{1.5} = 36\\ \\text{kg}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "54/1.5",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-thrown-ball",
+          "prompt": "A ball is thrown straight up. While it rises, the only force on it is its weight (ignore air resistance). Which way does it accelerate?",
+          "hint": "The acceleration points the same way as the resultant force.",
+          "options": [
+            {
+              "text": "downwards",
+              "correct": true
+            },
+            {
+              "text": "upwards",
+              "correct": false
+            },
+            {
+              "text": "it does not accelerate",
+              "correct": false
+            },
+            {
+              "text": "sideways",
+              "correct": false
+            }
+          ],
+          "explain": "The only force is the weight, downwards, so the acceleration is downwards. The ball moves up but slows down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "downwards"
+          }
+        }
+      ]
+    },
+    {
+      "id": "circular-motion",
+      "heading": "Motion in a circle",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In [[circular-motion|circular motion]] at a constant speed, the direction keeps changing, so the velocity changes and a resultant force must act. It acts towards the centre, at right angles (perpendicular) to the motion, and changes the direction, not the speed. Tension in a string, friction on a bend or gravity on a satellite can provide it."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-1-circle-force",
+          "alt": "Top view of a ball on a string moving clockwise in a horizontal circle at constant speed. At the top of the circle the velocity arrow points right, along the tangent. The force arrow points down the string towards the centre, at right angles to the velocity. A dashed line along the tangent is labelled path if the string breaks.",
+          "caption": "The force is towards the centre, at right angles to the velocity."
+        },
+        {
+          "type": "text",
+          "text": "If the force stops and no other force acts, the object moves off in a straight line along the tangent (Newton's first law)."
+        },
+        {
+          "type": "text",
+          "text": "How big must the force be? Same mass and radius: a higher speed needs a larger force. Same speed and radius: a larger mass needs a larger force. Same mass and speed: a larger force gives a smaller radius. You only describe these rules in words: no equation for this force is needed."
+        },
+        {
+          "type": "example",
+          "id": "ex-roundabout-explain",
+          "question": "A car drives round a roundabout at a steady speed. Friction between the tyres and the road keeps it on its circular path. The driver goes round the same circle again, at a higher speed. Explain why a larger friction force is needed, and suggest what happens if the road is icy and friction can't get that large.",
+          "steps": [
+            "Say which force acts towards the centre.",
+            "Use the rule for the same mass and radius.",
+            "Then use the rule linking force and radius at a fixed speed."
+          ],
+          "answer": "Friction is the force towards the centre that keeps the car moving in a circle. For the same mass and the same radius, a higher speed needs a larger force. So the friction must be larger. On ice the friction can't get that large, so the car can't follow the same circle: it moves onto a wider path, with a larger radius.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "friction is the force towards the centre; same mass and radius, higher speed needs larger force; on ice the force is too small, so the radius increases",
+            "requires": [
+              [
+                "towards the centre"
+              ],
+              [
+                "same radius"
+              ],
+              [
+                "higher speed"
+              ],
+              [
+                "larger force"
+              ],
+              [
+                "larger radius",
+                "wider path"
+              ]
+            ],
+            "forbids": [
+              "outward force",
+              "centrifugal"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Drawing the force on a circling object pointing outwards. The resultant force points towards the centre; nothing pushes the object outwards."
+        },
+        {
+          "type": "check",
+          "id": "check-tighter-circle",
+          "prompt": "A stone on a string moves in a horizontal circle at a constant speed. The tension is increased, but the speed and mass stay the same. What happens to the radius of the circle?",
+          "hint": "A bigger pull towards the centre bends the path more sharply.",
+          "options": [
+            {
+              "text": "it decreases",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same",
+              "correct": false
+            },
+            {
+              "text": "the stone flies off in a straight line",
+              "correct": false
+            }
+          ],
+          "explain": "Same mass and speed with a larger force towards the centre gives a tighter circle, so the radius decreases.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it decreases"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A force can change an object's size and shape, its speed and its direction of motion. Forces are measured in newtons (N)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Extension = stretched length − original length. A load–extension graph that is a straight line through the origin shows the extension is directly proportional to the load."
+        },
+        {
+          "type": "formula",
+          "tex": "k = \\frac{F}{x}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Spring constant $k$: force per unit extension, in N/m or N/cm. It holds only up to the limit of proportionality, where the straight part of the load–extension graph ends."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Resultant of forces along one line: add the forces that point the same way, subtract those that point the opposite way, and give the size and direction."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Newton's first law: with zero resultant force, an object stays at rest or moves at a constant speed in a straight line. A resultant force changes its speed, its direction, or both."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Friction acts between surfaces that touch: it can oppose motion, and it heats surfaces that rub. Drag is friction in a liquid or gas (air resistance in air): it opposes the motion and grows with speed."
+        },
+        {
+          "type": "formula",
+          "tex": "F = ma",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "In $F = ma$, $F$ is the resultant force, and the acceleration is in the same direction as the resultant force."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Circular motion at constant speed needs a resultant force towards the centre, perpendicular to the motion. The force must be larger for a higher speed (same mass and radius) or a larger mass (same speed and radius). A larger force gives a smaller radius (same mass and speed)."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the spring's length instead of its extension. Extension is the stretched length minus the original length.",
+    "Calling a straight line that misses the origin proportional. Proportional means a straight line through $(0, 0)$.",
+    "Adding forces that act in opposite directions. Subtract them, and give the resultant's direction.",
+    "Thinking zero resultant force means the object is at rest. It may be moving at a constant speed in a straight line.",
+    "Extended: using a spring constant in N/cm with an extension in m. Convert so the units match.",
+    "Extended: drawing the force on an object moving in a circle pointing outwards. It points towards the centre."
+  ],
+  "examTips": [
+    "\"State\" Newton's first law with both outcomes, at rest or constant speed in a straight line, and the condition: unless a resultant force acts.",
+    "\"Calculate\": write the equation, then the numbers in it, then the answer with its unit. For a force, add its direction.",
+    "\"Describe\" an experiment (Paper 5/6) in order: what you set up, what you measure first, what you change, and how you work out the result.",
+    "\"Sketch\" a load–extension graph: label both axes with units, and draw a straight line from the origin for the proportional part."
+  ],
+  "readingMinutes": 33
+}

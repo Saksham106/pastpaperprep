@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 356" role="img" aria-labelledby="t452emfgraph">
+<title id="t452emfgraph">Graph of e.m.f. against time for one turn of a generator coil: a smooth wave that starts at zero, rises to a peak after a quarter turn, falls to zero after half a turn, reaches a trough of the same size below the axis after three quarters of a turn, and is back to zero after one turn. Below the graph, five small views from above show the coil at each of these moments, turning clockwise between an N pole on the left and an S pole on the right. At the start, half turn and full turn the coil lies at right angles to the field, and arrows show its two sides moving along the field lines: the e.m.f. is zero. At a quarter turn and three quarters of a turn the coil lies along the field, and arrows show its two sides moving straight across the field lines: the e.m.f. is a peak and then a trough. The two sides are coloured differently, showing that they have swapped places between the peak and the trough.</title>
+<line x1="90" y1="40" x2="90" y2="222" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="90.0,34.0 94.0,42.0 86.0,42.0" fill="currentColor"/>
+<line x1="90" y1="130" x2="600" y2="130" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="608.0,130.0 600.0,134.0 600.0,126.0" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="84" y="28" fill="currentColor" text-anchor="end">e.m.f.</text>
+<text font-family="inherit" font-size="12" x="600" y="152" fill="currentColor" text-anchor="end">time</text>
+<text font-family="inherit" font-size="11" x="82" y="134" fill="currentColor" text-anchor="end">0</text>
+<polyline points="90.0,130.0 95.0,125.4 100.0,120.9 105.0,116.3 110.0,111.9 115.0,107.5 120.0,103.2 125.0,99.0 130.0,95.0 135.0,91.1 140.0,87.4 145.0,83.8 150.0,80.5 155.0,77.4 160.0,74.5 165.0,71.8 170.0,69.4 175.0,67.2 180.0,65.3 185.0,63.7 190.0,62.4 195.0,61.3 200.0,60.6 205.0,60.1 210.0,60.0 215.0,60.1 220.0,60.6 225.0,61.3 230.0,62.4 235.0,63.7 240.0,65.3 245.0,67.2 250.0,69.4 255.0,71.8 260.0,74.5 265.0,77.4 270.0,80.5 275.0,83.8 280.0,87.4 285.0,91.1 290.0,95.0 295.0,99.0 300.0,103.2 305.0,107.5 310.0,111.9 315.0,116.3 320.0,120.9 325.0,125.4 330.0,130.0 335.0,134.6 340.0,139.1 345.0,143.7 350.0,148.1 355.0,152.5 360.0,156.8 365.0,161.0 370.0,165.0 375.0,168.9 380.0,172.6 385.0,176.2 390.0,179.5 395.0,182.6 400.0,185.5 405.0,188.2 410.0,190.6 415.0,192.8 420.0,194.7 425.0,196.3 430.0,197.6 435.0,198.7 440.0,199.4 445.0,199.9 450.0,200.0 455.0,199.9 460.0,199.4 465.0,198.7 470.0,197.6 475.0,196.3 480.0,194.7 485.0,192.8 490.0,190.6 495.0,188.2 500.0,185.5 505.0,182.6 510.0,179.5 515.0,176.2 520.0,172.6 525.0,168.9 530.0,165.0 535.0,161.0 540.0,156.8 545.0,152.5 550.0,148.1 555.0,143.7 560.0,139.1 565.0,134.6 570.0,130.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<circle cx="90.0" cy="130.0" r="4" fill="var(--t2-ink)"/>
+<line x1="90.0" y1="136.0" x2="90.0" y2="240" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<text font-family="inherit" font-size="11" x="90.0" y="256" fill="var(--muted)" text-anchor="middle">start</text>
+<text font-family="inherit" font-size="12" x="40.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="12" x="140.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="90.0" y1="278.0" x2="90.0" y2="322.0" stroke="currentColor" stroke-width="2"/>
+<circle cx="90.0" cy="300" r="2" fill="currentColor"/>
+<circle cx="90.0" cy="278.0" r="4.5" fill="var(--t1-ink)"/>
+<line x1="96.0" y1="278.0" x2="106.0" y2="278.0" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<polygon points="110.0,278.0 104.0,281.0 104.0,275.0" fill="var(--t1-ink)"/>
+<circle cx="90.0" cy="322.0" r="4.5" fill="var(--t3-ink)"/>
+<line x1="84.0" y1="322.0" x2="74.0" y2="322.0" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<polygon points="70.0,322.0 76.0,319.0 76.0,325.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="90.0" y="344" fill="var(--t2-ink)" text-anchor="middle">e.m.f. zero</text>
+<circle cx="210.0" cy="60.0" r="4" fill="var(--t2-ink)"/>
+<line x1="210.0" y1="136.0" x2="210.0" y2="240" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<text font-family="inherit" font-size="11" x="210.0" y="256" fill="var(--muted)" text-anchor="middle">¼ turn</text>
+<text font-family="inherit" font-size="12" x="160.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="12" x="260.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="232.0" y1="300.0" x2="188.0" y2="300.0" stroke="currentColor" stroke-width="2"/>
+<circle cx="210.0" cy="300" r="2" fill="currentColor"/>
+<circle cx="232.0" cy="300.0" r="4.5" fill="var(--t1-ink)"/>
+<line x1="232.0" y1="306.0" x2="232.0" y2="316.0" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<polygon points="232.0,320.0 229.0,314.0 235.0,314.0" fill="var(--t1-ink)"/>
+<circle cx="188.0" cy="300.0" r="4.5" fill="var(--t3-ink)"/>
+<line x1="188.0" y1="294.0" x2="188.0" y2="284.0" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<polygon points="188.0,280.0 191.0,286.0 185.0,286.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="210.0" y="344" fill="var(--t2-ink)" text-anchor="middle">e.m.f. peak</text>
+<circle cx="330.0" cy="130.0" r="4" fill="var(--t2-ink)"/>
+<line x1="330.0" y1="136.0" x2="330.0" y2="240" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<text font-family="inherit" font-size="11" x="330.0" y="256" fill="var(--muted)" text-anchor="middle">½ turn</text>
+<text font-family="inherit" font-size="12" x="280.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="12" x="380.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="330.0" y1="322.0" x2="330.0" y2="278.0" stroke="currentColor" stroke-width="2"/>
+<circle cx="330.0" cy="300" r="2" fill="currentColor"/>
+<circle cx="330.0" cy="322.0" r="4.5" fill="var(--t1-ink)"/>
+<line x1="324.0" y1="322.0" x2="314.0" y2="322.0" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<polygon points="310.0,322.0 316.0,319.0 316.0,325.0" fill="var(--t1-ink)"/>
+<circle cx="330.0" cy="278.0" r="4.5" fill="var(--t3-ink)"/>
+<line x1="336.0" y1="278.0" x2="346.0" y2="278.0" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<polygon points="350.0,278.0 344.0,281.0 344.0,275.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="330.0" y="344" fill="var(--t2-ink)" text-anchor="middle">e.m.f. zero</text>
+<circle cx="450.0" cy="200.0" r="4" fill="var(--t2-ink)"/>
+<line x1="450.0" y1="206.0" x2="450.0" y2="240" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<text font-family="inherit" font-size="11" x="450.0" y="256" fill="var(--muted)" text-anchor="middle">¾ turn</text>
+<text font-family="inherit" font-size="12" x="400.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="12" x="500.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="428.0" y1="300.0" x2="472.0" y2="300.0" stroke="currentColor" stroke-width="2"/>
+<circle cx="450.0" cy="300" r="2" fill="currentColor"/>
+<circle cx="428.0" cy="300.0" r="4.5" fill="var(--t1-ink)"/>
+<line x1="428.0" y1="294.0" x2="428.0" y2="284.0" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<polygon points="428.0,280.0 431.0,286.0 425.0,286.0" fill="var(--t1-ink)"/>
+<circle cx="472.0" cy="300.0" r="4.5" fill="var(--t3-ink)"/>
+<line x1="472.0" y1="306.0" x2="472.0" y2="316.0" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<polygon points="472.0,320.0 469.0,314.0 475.0,314.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="450.0" y="344" fill="var(--t2-ink)" text-anchor="middle">e.m.f. trough</text>
+<circle cx="570.0" cy="130.0" r="4" fill="var(--t2-ink)"/>
+<line x1="570.0" y1="136.0" x2="570.0" y2="240" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<text font-family="inherit" font-size="11" x="570.0" y="256" fill="var(--muted)" text-anchor="middle">1 turn</text>
+<text font-family="inherit" font-size="12" x="520.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="12" x="620.0" y="305" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="570.0" y1="278.0" x2="570.0" y2="322.0" stroke="currentColor" stroke-width="2"/>
+<circle cx="570.0" cy="300" r="2" fill="currentColor"/>
+<circle cx="570.0" cy="278.0" r="4.5" fill="var(--t1-ink)"/>
+<line x1="576.0" y1="278.0" x2="586.0" y2="278.0" stroke="var(--t1-ink)" stroke-width="1.6"/>
+<polygon points="590.0,278.0 584.0,281.0 584.0,275.0" fill="var(--t1-ink)"/>
+<circle cx="570.0" cy="322.0" r="4.5" fill="var(--t3-ink)"/>
+<line x1="564.0" y1="322.0" x2="554.0" y2="322.0" stroke="var(--t3-ink)" stroke-width="1.6"/>
+<polygon points="550.0,322.0 556.0,319.0 556.0,325.0" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="11" x="570.0" y="344" fill="var(--t2-ink)" text-anchor="middle">e.m.f. zero</text>
+</svg>

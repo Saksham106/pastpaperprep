@@ -1,0 +1,676 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.5.3",
+  "slug": "magnetic-effect-of-a-current",
+  "title": "Magnetic effect of a current",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A current in a wire makes a [[magnetic-field|magnetic field]] around it: circles round a straight wire, and a pattern like a bar [[magnet|magnet]]'s round a [[solenoid|solenoid]]. Your right hand gives the field's direction. [[relay|Relays]] and loudspeakers both work by this magnetic effect of a current.",
+  "goals": [
+    {
+      "text": "Describe and draw the pattern and direction of the field of a straight wire and of a solenoid, using the right-hand grip rule.",
+      "bullets": [
+        "4.5.3-1"
+      ]
+    },
+    {
+      "text": "Describe how to plot these fields, including their direction, with plotting compasses and iron filings.",
+      "bullets": [
+        "4.5.3-2"
+      ]
+    },
+    {
+      "text": "Explain how a relay and a loudspeaker use the magnetic effect of a current, and give examples of where each is used.",
+      "bullets": [
+        "4.5.3-3"
+      ]
+    },
+    {
+      "text": "Say where the field of a wire or a solenoid is strong or weak, and how it changes when the current is made bigger, smaller or reversed.",
+      "bullets": [
+        "4.5.3-4",
+        "4.5.3-5"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.1",
+    "4.2.1",
+    "4.2.2",
+    "4.3.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "right hand grip rule",
+    "magnetic field around a wire",
+    "solenoid field pattern",
+    "how a relay works",
+    "how a loudspeaker works",
+    "electromagnetism"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-field-direction",
+      "prompt": "The direction of a magnetic field at a point is the direction of the force on which of these, placed at that point?",
+      "hint": "Field lines point away from the N pole of a magnet.",
+      "options": [
+        {
+          "text": "an N pole",
+          "correct": true
+        },
+        {
+          "text": "an S pole",
+          "correct": false
+        },
+        {
+          "text": "an unmagnetised piece of iron",
+          "correct": false
+        }
+      ],
+      "explain": "By agreement, the field's direction is the way an N pole would be pushed. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "an N pole"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-conventional-current",
+      "prompt": "In a circuit, which way does conventional current flow outside the cell?",
+      "hint": "Conventional current was defined before anyone knew about [[electron|electrons]].",
+      "options": [
+        {
+          "text": "from the positive terminal round to the negative terminal",
+          "correct": true
+        },
+        {
+          "text": "from the negative terminal round to the positive terminal",
+          "correct": false
+        },
+        {
+          "text": "the same way as the electrons",
+          "correct": false
+        }
+      ],
+      "explain": "Conventional current flows from + to − round the circuit. Electrons flow the other way. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "from the positive terminal round to the negative terminal"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-soft-iron-core",
+      "prompt": "Why is soft iron, not steel, used for the core of an [[electromagnet|electromagnet]]?",
+      "hint": "What should happen when the current is switched off?",
+      "options": [
+        {
+          "text": "it loses its magnetism when the current stops",
+          "correct": true
+        },
+        {
+          "text": "it keeps its magnetism when the current stops",
+          "correct": false
+        },
+        {
+          "text": "it is not a magnetic material",
+          "correct": false
+        }
+      ],
+      "explain": "Soft iron is a [[temporary-magnet|temporary magnet]], so the electromagnet switches off with the current. Steel would stay magnetised. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it loses its magnetism when the current stops"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "fields",
+      "heading": "The field of a wire and of a solenoid",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Any [[electric-current|electric current]] makes a [[magnetic-field|magnetic field]] around it. This is the magnetic effect of a current. Switch the current off and the field disappears."
+        },
+        {
+          "type": "text",
+          "text": "Around a long straight wire, the [[magnetic-field-line|field lines]] are circles centred on the wire. Each circle lies in a plane at right angles to the wire, like rings threaded on it."
+        },
+        {
+          "type": "result",
+          "statement": "Right-hand grip rule: grip the wire with your right hand, with your thumb pointing along the conventional current. Your fingers curl the way the field lines go.",
+          "why": "It is a memory aid that matches what plotting compasses show around a real wire."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-3-wire-fields",
+          "alt": "Two views looking straight down the length of a long straight wire. Left: the wire is a small circle with a cross in it, meaning the current flows into the page. Three circles are drawn round it, centred on the wire, with arrows going clockwise. Right: the wire is a small circle with a dot in it, meaning the current flows out of the page. Three circles are drawn round it, with arrows going anticlockwise. In both views the gaps between the circles get bigger further from the wire.",
+          "caption": "Looking along the wire. A cross means the current flows into the page; a dot means it flows out towards you."
+        },
+        {
+          "type": "mistake",
+          "text": "Using your left hand, or pointing your thumb along the [[electron|electron]] flow. Use your right hand, with your thumb along the conventional current, from + to −."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-on-desk",
+          "question": "A long straight wire lies along a desk. The current in it flows directly away from you. Describe the shape of the field lines and which way they go, as you look along the wire.",
+          "steps": [
+            "Pattern: the field lines are circles round the wire, centred on it.",
+            "Direction: point your right thumb away from you, along the current. Your fingers curl clockwise as you look along the wire."
+          ],
+          "answer": "The field lines are circles centred on the wire, each at right angles to it. Looking along the wire, with the current flowing away from you, the field goes clockwise.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "circles centred on the wire; clockwise when looking along the current",
+            "requires": [
+              "circles",
+              "centred on the wire",
+              "clockwise"
+            ],
+            "forbids": [
+              "anticlockwise",
+              "parallel to the wire"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wire-out-of-page",
+          "prompt": "A wire carries a current straight out of the page, towards you. Which way do its field lines go round it, as you look at the page?",
+          "hint": "Point your right thumb out of the page, towards you.",
+          "options": [
+            {
+              "text": "anticlockwise",
+              "correct": true
+            },
+            {
+              "text": "clockwise",
+              "correct": false
+            },
+            {
+              "text": "straight out from the wire, like spokes",
+              "correct": false
+            }
+          ],
+          "explain": "With your right thumb pointing at you, your fingers curl anticlockwise. The field lines are circles round the wire, not spokes.",
+          "verify": {
+            "kind": "choice",
+            "truth": "anticlockwise"
+          }
+        },
+        {
+          "type": "definition",
+          "term": "solenoid",
+          "statement": "A long coil of wire with many turns. When it carries a current, its magnetic field is like that of a bar magnet.",
+          "plain": "A coil of wire that acts as a magnet while a current flows in it."
+        },
+        {
+          "type": "text",
+          "text": "Inside a [[solenoid|solenoid]], away from its ends, the field lines are straight, parallel and evenly spaced. Outside, the pattern is like a bar magnet's: one end acts as an N pole and the other as an S pole."
+        },
+        {
+          "type": "text",
+          "text": "To find the N end, curl the fingers of your right hand round the coil the way the current flows in the turns. Your thumb points to the N end. Or look at one end: if the current goes anticlockwise, that end is N; if clockwise, it is S."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-3-solenoid-field",
+          "alt": "A solenoid cut along its length and seen from the side, lying left to right. Its turns of wire show as two rows of small circles: the top row has dots, meaning current out of the page, and the bottom row has crosses, meaning current into the page. Inside the solenoid, five straight, parallel, evenly spaced field lines run from left to right, with arrows pointing right. The middle line carries straight on out of both ends. The other lines leave the right-hand end, curve round above or below the solenoid and come back into the left-hand end, with arrows pointing left on the outside. The right-hand end is labelled N and the left-hand end S, above the ends. No lines cross, and the pattern outside is like that of a bar magnet.",
+          "caption": "The field of a solenoid. Each field line is a complete loop: through the inside from S to N, then round the outside from N back to S."
+        },
+        {
+          "type": "example",
+          "id": "ex-solenoid-ends",
+          "question": "A solenoid lies along a bench, from left to right. Looking at its right-hand end, you see the current flow anticlockwise round the turns. (a) Which end is the N pole? (b) A plotting compass sits just outside the solenoid, beside its middle. Which way does the N end of the needle point?",
+          "steps": [
+            "(a) Seen from an end, anticlockwise current means that end is an N pole.",
+            "Check with the grip rule: fingers round the turns the way the current flows, and your thumb points right, to the N end.",
+            "(b) Outside, the field goes from the N end round to the S end. Beside the middle, that is from right to left."
+          ],
+          "answer": "(a) The right-hand end is the N pole. (b) The N end of the needle points to the left, towards the S end of the solenoid.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "right-hand end is N; outside beside the middle the field points left, from N to S",
+            "requires": [
+              "right-hand end is the N pole",
+              "points to the left"
+            ],
+            "forbids": [
+              "left-hand end is the N pole",
+              "points to the right"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-inside-solenoid",
+          "prompt": "Which describes the field lines inside a current-carrying solenoid, away from its ends?",
+          "hint": "Follow one loop in the figure through the inside of the coil.",
+          "options": [
+            {
+              "text": "straight and parallel, running from the S end to the N end",
+              "correct": true
+            },
+            {
+              "text": "straight and parallel, running from the N end to the S end",
+              "correct": false
+            },
+            {
+              "text": "there are no field lines inside the solenoid",
+              "correct": false
+            }
+          ],
+          "explain": "Each line is a closed loop. It leaves the N end, goes round the outside into the S end, and returns through the inside from S to N.",
+          "verify": {
+            "kind": "choice",
+            "truth": "straight and parallel, running from the S end to the N end"
+          }
+        }
+      ]
+    },
+    {
+      "id": "experiment",
+      "heading": "Plotting the field in the lab",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You find the pattern and direction with plotting compasses, as you did for a bar magnet in {{lesson:4.1}}. The N end of each needle points along the field where it sits."
+        },
+        {
+          "type": "text",
+          "text": "For a straight wire, pass the wire vertically through a hole in a horizontal card. Connect it to a d.c. supply that can give a large current, a few amps, with a switch in the circuit."
+        },
+        {
+          "type": "text",
+          "text": "1. Switch on. Put a plotting compass on the card near the wire and mark a dot at the N end of its needle."
+        },
+        {
+          "type": "text",
+          "text": "2. Move the compass so the S end of its needle is over the dot, and mark the N end again. Carry on round the wire, then join the dots and add arrows the way the needles point."
+        },
+        {
+          "type": "text",
+          "text": "3. Repeat further from the wire. You get circles centred on the wire. Reverse the current and every needle turns round: the field direction has reversed."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-3-wire-experiment",
+          "alt": "A long straight wire stands vertically and passes through a hole in the middle of a horizontal sheet of card. An arrow on the wire shows the current flowing upwards. The wire is part of a circuit with a battery on the right. On the card, two dashed circles are drawn round the wire, seen at an angle, with arrows going anticlockwise as seen from above. Two plotting compasses sit on the outer circle, one on each side of the wire. Each needle lies along the circle, not pointing at the wire, and its N end, shown by an arrowhead, points the same way round as the arrows.",
+          "caption": "Plotting compasses on a card round a vertical wire. The needles lie along circles; they never point at the wire. The arrowhead on each needle is its N end."
+        },
+        {
+          "type": "text",
+          "text": "Iron filings sprinkled on the card, then tapped gently, show the circular pattern quickly. They show no direction, so you still need a compass for the arrows."
+        },
+        {
+          "type": "text",
+          "text": "For a solenoid, push the coil through slots in a card so the card runs along its axis. Plot lines with a compass from one end, round the outside to the other end, and through the inside."
+        },
+        {
+          "type": "examTip",
+          "text": "Practical details earn marks: switch off between readings, as a large current heats the wire. Keep the compasses close to the wire, where its field is much stronger than the Earth's."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-solenoid-experiment",
+          "question": "Describe how to use a plotting compass to map the field lines of a solenoid, with arrows.",
+          "steps": [
+            "Give the steps in order: set up, mark, move, repeat, join, arrow.",
+            "Say where you start new lines, so the whole pattern appears."
+          ],
+          "answer": "Thread the solenoid through a horizontal card so the card runs along its axis, and switch on the current. Place a plotting compass on the card near one end and mark a dot at the N end of its needle. Move the compass so the S end of its needle is over the dot, mark a new dot, and repeat. Join the dots with a smooth line, and add an arrow the way the N end of the needle points. Plot more lines, inside and outside the solenoid, starting from different points.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "card along axis; compass; dot at N end of needle; move and repeat; join dots; arrow from needle direction; lines inside and outside",
+            "requires": [
+              "plotting compass",
+              "N end of its needle",
+              "dot",
+              "repeat",
+              "Join the dots",
+              "arrow",
+              "inside and outside"
+            ],
+            "forbids": [
+              "iron filings show the direction"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reverse-current",
+          "prompt": "In the straight-wire experiment, the connections to the supply are swapped so the current reverses. What happens to the plotting compasses?",
+          "hint": "The grip rule: which way does your thumb point now?",
+          "options": [
+            {
+              "text": "every needle turns to point the opposite way",
+              "correct": true
+            },
+            {
+              "text": "the needles stay as they were",
+              "correct": false
+            },
+            {
+              "text": "the needles turn to point at the wire",
+              "correct": false
+            }
+          ],
+          "explain": "Reversing the current reverses the field, so each needle swings round to point the other way along its circle.",
+          "verify": {
+            "kind": "choice",
+            "truth": "every needle turns to point the opposite way"
+          }
+        }
+      ]
+    },
+    {
+      "id": "uses",
+      "heading": "Relays and loudspeakers",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[electromagnet|electromagnet]] is a coil, often with a soft-iron core, that is magnetic only while a current flows. A relay and a loudspeaker each contain one."
+        },
+        {
+          "type": "text",
+          "text": "A [[relay|relay]] is a switch worked by an electromagnet, so a small current can switch a large one on and off. You met its circuit symbol in {{lesson:4.3.1}}."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-3-relay",
+          "alt": "A relay. On the left, a vertical soft-iron core has a coil of wire wound round it, and two leads from the coil go down to the small-current circuit. Just above the top of the core is a horizontal soft-iron armature, a bar that can tip about a pivot at its left end. A spring above the armature holds it up, away from the core. At the right-hand end of the armature is a contact, with a second, fixed contact a short gap below it. Leads from the two contacts go down to the large-current circuit. When the coil is magnetised, it pulls the armature down and the contacts touch.",
+          "caption": "Inside a relay. A current in the coil pulls the armature down and closes the contacts."
+        },
+        {
+          "type": "text",
+          "text": "1. A small current flows in the coil, and the soft-iron core becomes a magnet."
+        },
+        {
+          "type": "text",
+          "text": "2. The core attracts the soft-iron armature, which tips about its pivot and pushes the contacts together."
+        },
+        {
+          "type": "text",
+          "text": "3. The closed contacts complete the second circuit, so a large current flows in it."
+        },
+        {
+          "type": "text",
+          "text": "4. When the coil current stops, the core loses its magnetism at once: it is a [[temporary-magnet|temporary magnet]]. The spring pulls the armature back and the contacts open."
+        },
+        {
+          "type": "text",
+          "text": "Relays in use: a car's starter motor, which needs a very large current, and street lights or mains heaters switched by a low-voltage sensor circuit."
+        },
+        {
+          "type": "example",
+          "id": "ex-relay-starter",
+          "question": "A car's ignition switch is in a circuit with a relay coil. The relay's contacts are in the starter-motor circuit, which carries a very large current. Explain how turning the ignition switch makes the starter motor turn, and why a relay is used.",
+          "steps": [
+            "Start in the small-current circuit, then follow the chain: coil, armature, contacts, motor.",
+            "Then say what the relay protects."
+          ],
+          "answer": "Turning the switch lets a small current flow in the relay coil. The coil and its soft-iron core become an electromagnet. The electromagnet attracts the soft-iron armature, which closes the contacts. This completes the starter-motor circuit, so a large current flows and the motor turns. With a relay, only a small current passes through the ignition switch and its wires, so they can be thin and safe to handle.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "small current in coil; electromagnet; attracts armature; contacts close; large current in motor circuit; switch carries only small current",
+            "requires": [
+              "small current",
+              "electromagnet",
+              "attracts",
+              "armature",
+              "closes the contacts",
+              "large current"
+            ],
+            "forbids": [
+              "permanently magnetised",
+              "repels the armature"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-relay-off",
+          "prompt": "The current in a relay's coil is switched off. What happens next?",
+          "hint": "Is the core a temporary or a permanent magnet?",
+          "options": [
+            {
+              "text": "the core loses its magnetism and the spring opens the contacts",
+              "correct": true
+            },
+            {
+              "text": "the core stays magnetised, so the contacts stay closed",
+              "correct": false
+            },
+            {
+              "text": "the core repels the armature, which pushes the contacts closed",
+              "correct": false
+            }
+          ],
+          "explain": "Soft iron loses its magnetism as soon as the current stops. Nothing holds the armature down, so the spring pulls it back and the contacts open.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the core loses its magnetism and the spring opens the contacts"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A loudspeaker turns an electrical signal into sound. A coil fixed to a paper cone sits in the field of a strong permanent [[magnet|magnet]]."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-3-loudspeaker",
+          "alt": "A loudspeaker cut in half, facing right. On the left is a permanent magnet: a central rod with an N pole at its front end, surrounded by an outer ring with S poles, joined at the back. A coil of wire sits in the narrow gap between the central N pole and the outer S ring, where the magnet's field is. The coil is fixed to the narrow end of a paper cone that opens out to the right. A double-headed arrow shows the cone moving left and right, and curved lines in front of the cone show sound waves spreading out to the right.",
+          "caption": "A loudspeaker cut in half. The coil sits in the magnet's field and is fixed to the cone."
+        },
+        {
+          "type": "text",
+          "text": "An alternating current in the coil makes a magnetic field that keeps reversing. This field and the magnet's field push the coil one way, then the other. So the coil and cone move in and out, at the same frequency as the current."
+        },
+        {
+          "type": "text",
+          "text": "The vibrating cone pushes on the air and sends out sound waves. Loudspeakers are in headphones, earphones, phones, radios and televisions."
+        },
+        {
+          "type": "example",
+          "id": "ex-loudspeaker",
+          "question": "Explain how a loudspeaker produces sound when an alternating current flows in its coil.",
+          "steps": [
+            "Follow the chain: current, magnetic field, force, vibration, sound.",
+            "The key word is alternating: the current keeps reversing, so the force does too."
+          ],
+          "answer": "The alternating current in the coil produces a magnetic field that keeps changing direction. The coil's field and the permanent magnet's field interact, which puts a force on the coil. Each time the current reverses, the force reverses. So the coil and the cone vibrate in and out, at the frequency of the current. The cone makes the air vibrate, which sends out sound waves.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "a.c. in coil gives a changing field; interacts with permanent magnet's field; force on coil reverses with current; coil and cone vibrate; air vibrates, sound",
+            "requires": [
+              "magnetic field",
+              "permanent magnet",
+              "force",
+              "reverses",
+              "vibrate",
+              "sound"
+            ],
+            "forbids": [
+              "the current travels through the air"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-loudspeaker-frequency",
+          "prompt": "The frequency of the alternating current in a loudspeaker's coil is increased. What happens to the sound?",
+          "hint": "The cone vibrates at the same frequency as the current.",
+          "options": [
+            {
+              "text": "its pitch gets higher",
+              "correct": true
+            },
+            {
+              "text": "its pitch gets lower",
+              "correct": false
+            },
+            {
+              "text": "it travels faster through the air",
+              "correct": false
+            }
+          ],
+          "explain": "The cone vibrates more times each second, and a higher frequency means a higher pitch. The speed of sound in air does not change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its pitch gets higher"
+          }
+        }
+      ]
+    },
+    {
+      "id": "strength",
+      "heading": "Field strength and changing the current",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The closer the field lines, the stronger the field. Around a straight wire, the field is strongest close to the wire and gets weaker further away, so the circles are drawn further apart as they go out."
+        },
+        {
+          "type": "text",
+          "text": "Inside a solenoid, the field is strong and nearly the same everywhere: the lines are parallel and evenly spaced. It weakens near the ends, where the lines spread out, and it is much weaker outside."
+        },
+        {
+          "type": "text",
+          "text": "Increase the current and the field is stronger everywhere, with the same pattern, so draw the lines closer together. A smaller current gives a weaker field. Reversing the current reverses the field's direction but changes neither its pattern nor its strength."
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking the field inside a solenoid is weakest in its middle. The lines there are evenly spaced, so the field is strong and nearly constant; it weakens only near the ends."
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-halved-reversed",
+          "question": "A field-line diagram is drawn for a long straight wire carrying a current into the page. The current is then halved and reversed. Describe how the magnetic field changes, and how the diagram should be redrawn.",
+          "steps": [
+            "Treat the strength (the size of the current) and the direction (the way it flows) separately.",
+            "Halving the current weakens the field everywhere. Reversing it reverses the direction."
+          ],
+          "answer": "The field is still circles centred on the wire, strongest near the wire. It is weaker at every point, so the circles are drawn further apart. Its direction reverses: it was clockwise and is now anticlockwise, because the current now flows out of the page.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same circular pattern; weaker everywhere so lines further apart; direction reversed from clockwise to anticlockwise",
+            "requires": [
+              "circles centred on the wire",
+              "weaker",
+              "further apart",
+              "anticlockwise"
+            ],
+            "forbids": [
+              "stronger at every point",
+              "closer together",
+              "same direction"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-solenoid-strongest",
+          "prompt": "Where is the magnetic field of a long current-carrying solenoid strongest?",
+          "hint": "Where are the field lines closest together?",
+          "options": [
+            {
+              "text": "inside the solenoid, away from its ends",
+              "correct": true
+            },
+            {
+              "text": "just outside the solenoid, beside its middle",
+              "correct": false
+            },
+            {
+              "text": "a long way beyond its ends",
+              "correct": false
+            }
+          ],
+          "explain": "Inside, the lines are packed close and evenly spaced. Outside they spread out, so the field there is much weaker.",
+          "verify": {
+            "kind": "choice",
+            "truth": "inside the solenoid, away from its ends"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "A current makes a magnetic field. Around a long straight wire, the field lines are circles centred on the wire, at right angles to it.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Right-hand grip rule: thumb along the conventional current, fingers curl the way the field goes. Reverse the current and the field reverses.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A solenoid's field is like a bar magnet's, with straight, parallel lines inside it, away from the ends. Seen from one end, anticlockwise conventional current makes that end N; clockwise makes it S.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Plot the field with plotting compasses, which show pattern and direction. Iron filings show the pattern only.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Relay: a small current magnetises the coil's soft-iron core, which attracts an armature and closes contacts in a large-current circuit.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Loudspeaker: an alternating current in the coil makes a reversing field that interacts with a permanent magnet's field, so the coil and cone vibrate and make sound.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The field is strongest close to a wire, and strong and nearly uniform inside a solenoid. A bigger current gives a stronger field; a reversed current reverses it.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the left hand, or the direction of electron flow, for the grip rule. Use your right hand, with your thumb along the conventional current.",
+    "Drawing solenoid field lines that cross, or that stop at the ends. Each line is a complete loop, through the inside from S to N and round the outside from N to S.",
+    "Saying iron filings show the field's direction. They show only the pattern; a plotting compass shows the direction.",
+    "Saying a relay's soft-iron core stays magnetised. It is a temporary magnet: it loses its magnetism when the coil current stops, and the spring opens the contacts."
+  ],
+  "examTips": [
+    "\"Draw\" the field of a solenoid: smooth lines that never cross, parallel inside, complete loops outside, the same above and below, with an arrow on every line.",
+    "\"Describe\" an experiment: name the apparatus, give the steps in order, and say how you find the direction (the N end of a compass needle).",
+    "\"Explain\" how a relay or loudspeaker works as a chain: current, magnetic field, force or attraction, movement. Each linked step is usually a mark."
+  ],
+  "readingMinutes": 25
+}

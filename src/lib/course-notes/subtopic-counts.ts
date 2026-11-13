@@ -1,6 +1,7 @@
-// Counts for `bank-subtopics` courses (IB Chemistry). Counting needs the raw banks, so it runs only in
+// Counts for `bank-subtopics` courses (IB Chemistry, IB Physics, IB Maths AI, IGCSE Physics 0625). Counting needs the raw banks, so it runs only in
 // scripts/generate-notes-practice.mts and the test that checks the generated file; pages read that file
 // (subtopic-practice.ts).
+import { matchesCourseRoute } from "@/lib/course-route";
 import { parseExplorerState } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
 import type { UnifiedQuestion } from "@/lib/questions";
@@ -15,7 +16,9 @@ export function idsShown(questions: readonly UnifiedQuestion[], href: string): s
   const label = url.searchParams.get("subtopic");
   // A label the explorer drops (over its length limit) would open the whole bank: count nothing rather than that.
   if (!label || !state.filters.subtopics?.includes(label)) return [];
-  return filterQuestions([...questions], { ...state.filters, mainTopicOnly: !state.partialTopics, sort: "paper" }).map((question) => question.id);
+  // A route link (IGCSE Core / Extended) keeps the questions the explorer keeps for that route, as the bank page does.
+  const routed = questions.filter((question) => matchesCourseRoute(question.syllabusRoute, state.courseRoute));
+  return filterQuestions(routed, { ...state.filters, mainTopicOnly: !state.partialTopics, sort: "paper" }).map((question) => question.id);
 }
 
 /** Every distinct label in item order. */
@@ -23,17 +26,18 @@ export const practiceLabels = (items: ItemsFile): string[] => [...new Set(items.
 
 /** Builds the course's practice file from each level's bank questions. */
 export function buildSubtopicPractice(
-  course: Pick<CourseConfig, "slug" | "levels" | "banks">,
+  course: Pick<CourseConfig, "slug" | "levels" | "banks"> & { practice?: CourseConfig["practice"] },
   items: ItemsFile,
   questions: Record<string, readonly UnifiedQuestion[]>,
   freeTier: (bank: string) => boolean,
 ): SubtopicPracticeFile {
   const { labels, base } = course.levels;
   const levelLabels = [labels.base, labels.extension];
-  const banks = Object.fromEntries(levelLabels.map((level) => [level, { slug: course.banks[level], freeTier: freeTier(course.banks[level]) }]));
+  const routes = course.practice?.kind === "bank-subtopics" ? course.practice.routes : undefined;
+  const banks = Object.fromEntries(levelLabels.map((level) => [level, { slug: course.banks[level], freeTier: freeTier(course.banks[level]), ...(routes?.[level] ? { route: routes[level] } : {}) }]));
   const shown = new Map<string, Record<string, string[]>>();
   for (const label of practiceLabels(items)) {
-    shown.set(label, Object.fromEntries(levelLabels.map((level) => [level, idsShown(questions[level], subtopicHref(banks[level].slug, label, banks[level].freeTier))])));
+    shown.set(label, Object.fromEntries(levelLabels.map((level) => [level, idsShown(questions[level], subtopicHref(banks[level].slug, label, banks[level].freeTier, banks[level].route))])));
   }
   const subtopics = Object.fromEntries([...shown].map(([label, ids]) => [label, Object.fromEntries(levelLabels.map((level) => [level, ids[level].length]))]));
   const topicNumbers = [...new Set(items.items.map((entry) => entry.topic))].sort((a, b) => a - b);

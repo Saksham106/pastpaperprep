@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 365" role="img" aria-labelledby="t234room">
+  <title id="t234room">Side view of a room with a heater against the left wall near the floor and a window in the right wall. Warm air rises above the heater, spreads out under the ceiling, cools and sinks down the far side of the room, then flows back along the floor to the heater. The loop of moving air is a convection current</title>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <rect x="40" y="30" width="400" height="300"/>
+  </g>
+  <rect x="434" y="95" width="12" height="100" fill="var(--t3-ink)" fill-opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
+  <rect x="48" y="272" width="36" height="56" fill="var(--t1-ink)" fill-opacity="0.45" stroke="currentColor" stroke-width="1.5"/>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none">
+    <line x1="100" y1="260" x2="100" y2="76"/>
+    <polyline points="93,88 100,76 107,88"/>
+    <line x1="110" y1="60" x2="398" y2="60"/>
+    <polyline points="386,53 398,60 386,67"/>
+  </g>
+  <g stroke="var(--t3-ink)" stroke-width="2.5" fill="none">
+    <line x1="415" y1="76" x2="415" y2="278"/>
+    <polyline points="408,266 415,278 422,266"/>
+    <line x1="400" y1="305" x2="112" y2="305"/>
+    <polyline points="124,298 112,305 124,312"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="112" y="150">warm air expands,</text>
+    <text x="112" y="166">becomes less dense</text>
+    <text x="112" y="182">and rises</text>
+    <text x="403" y="150" text-anchor="end">cooler, denser</text>
+    <text x="403" y="166" text-anchor="end">air sinks</text>
+    <text x="255" y="85" text-anchor="middle">warm air spreads out under the ceiling</text>
+    <text x="255" y="295" text-anchor="middle">cooler air flows back to the heater</text>
+    <text x="255" y="228" text-anchor="middle" fill="var(--muted)">convection current</text>
+    <text x="66" y="350" text-anchor="middle">heater</text>
+    <text x="456" y="150">window</text>
+  </g>
+</svg>

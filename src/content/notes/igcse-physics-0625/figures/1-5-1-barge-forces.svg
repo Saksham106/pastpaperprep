@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 240" role="img" aria-labelledby="t151bar">
+<title id="t151bar">Side view of a canal barge moving to the right. Three horizontal forces act on it. The engine force of 850 newtons points to the right, forwards. The water drag of 520 newtons points to the left, backwards. The wind pushes on the cabin with 140 newtons to the right, forwards. An arrow above the barge shows the motion is to the right.</title>
+<path d="M120 160 H330 L310 196 H140 Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="170" y="128" width="90" height="32" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<path d="M60 196 H400" stroke="var(--muted)" stroke-width="1" stroke-dasharray="6 4"/>
+<text font-family="inherit" font-size="11" x="400" y="212" fill="var(--muted)" text-anchor="end">water</text>
+<circle cx="225" cy="178" r="4" fill="currentColor"/>
+<path d="M225.0 178.0 L336.0 178.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="345.0,178.0 336.0,182.5 336.0,173.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="350" y="182" fill="var(--t1-ink)" text-anchor="start">engine 850 N</text>
+<path d="M225.0 178.0 L161.0 178.0" fill="none" stroke="var(--t4-ink)" stroke-width="2.2"/>
+<polygon points="152.0,178.0 161.0,173.5 161.0,182.5" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="12" x="150" y="218" fill="var(--t4-ink)" text-anchor="end">water drag 520 N</text>
+<path d="M170.0 140.0 L193.0 140.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="202.0,140.0 193.0,144.5 193.0,135.5" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="166" y="136" fill="var(--t2-ink)" text-anchor="end">wind 140 N</text>
+<path d="M250.0 80.0 L303.0 80.0" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="310.0,80.0 303.0,83.5 303.0,76.5" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="280" y="70" fill="var(--muted)" text-anchor="middle">motion</text>
+</svg>

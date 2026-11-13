@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 260" role="img" aria-labelledby="t424iv">
+  <title id="t424iv">Three current against voltage graphs, each with current I on the vertical axis and voltage V on the horizontal axis, and the axes crossing at the origin. Resistor at constant temperature: a straight line through the origin, rising from bottom left to top right. Filament lamp: a curve through the origin, symmetrical for negative values, steep near the origin and getting less steep as the voltage gets bigger in either direction. Diode: the current is zero for all negative voltages and for small positive voltages, then rises very steeply once the positive voltage passes a small value.</title>
+  <!-- panel 1: resistor -->
+  <g stroke="currentColor" stroke-width="1.4" fill="none">
+    <line x1="20" y1="115" x2="196" y2="115"/>
+    <line x1="110" y1="205" x2="110" y2="29"/>
+    <line x1="240" y1="115" x2="416" y2="115"/>
+    <line x1="330" y1="205" x2="330" y2="29"/>
+    <line x1="460" y1="115" x2="636" y2="115"/>
+    <line x1="550" y1="205" x2="550" y2="29"/>
+  </g>
+  <g fill="currentColor">
+    <polygon points="204,115 196,119 196,111"/>
+    <polygon points="110,21 114,29 106,29"/>
+    <polygon points="424,115 416,119 416,111"/>
+    <polygon points="330,21 334,29 326,29"/>
+    <polygon points="644,115 636,119 636,111"/>
+    <polygon points="550,21 554,29 546,29"/>
+  </g>
+  <g stroke="var(--t1-ink)" stroke-width="2.4" fill="none">
+    <line x1="35" y1="175" x2="185" y2="55"/>
+    <path d="M250 170 C290 160 315 140 330 115 C345 90 370 70 410 60"/>
+    <path d="M465 115 L575 115 C590 113 598 95 605 35"/>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor">
+    <text x="116" y="30" text-anchor="start">I</text>
+    <text x="200" y="133" text-anchor="end">V</text>
+    <text x="336" y="30" text-anchor="start">I</text>
+    <text x="420" y="133" text-anchor="end">V</text>
+    <text x="556" y="30" text-anchor="start">I</text>
+    <text x="640" y="133" text-anchor="end">V</text>
+    <text x="104" y="110" text-anchor="end">0</text>
+    <text x="324" y="110" text-anchor="end">0</text>
+    <text x="544" y="110" text-anchor="end">0</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">
+    <text x="110" y="230">resistor</text>
+    <text x="110" y="248" fill="var(--muted)" font-size="12">(constant temperature)</text>
+    <text x="330" y="230">filament lamp</text>
+    <text x="550" y="230">diode</text>
+  </g>
+</svg>

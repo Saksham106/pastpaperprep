@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="t232dye">
+  <title id="t232dye">A beaker of water stands on a gauze. A small flame heats it under the left side only, and a purple crystal sits on the bottom just above the flame. Arrows show the purple water rising above the flame, spreading across the top, sinking down the right side and flowing back along the bottom to the flame. The rising water is warm and less dense; the sinking water is cooler and denser</title>
+  <rect x="121" y="90" width="258" height="209" fill="var(--t3-ink)" fill-opacity="0.12"/>
+  <line x1="121" y1="90" x2="379" y2="90" stroke="var(--t3-ink)" stroke-width="1.5"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <polyline points="120,60 120,300 380,300 380,60"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <line x1="95" y1="304" x2="405" y2="304"/>
+    <line x1="110" y1="304" x2="95" y2="365"/>
+    <line x1="390" y1="304" x2="405" y2="365"/>
+  </g>
+  <path d="M170,358 C152,344 156,326 170,312 C184,326 188,344 170,358 Z" fill="var(--t1-ink)" fill-opacity="0.55" stroke="currentColor" stroke-width="1.5"/>
+  <polygon points="170,288 177,294 170,300 163,294" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none">
+    <line x1="170" y1="280" x2="170" y2="118"/>
+    <polyline points="163,130 170,118 177,130"/>
+    <line x1="182" y1="106" x2="336" y2="106"/>
+    <polyline points="324,99 336,106 324,113"/>
+  </g>
+  <g stroke="var(--t3-ink)" stroke-width="2.5" fill="none">
+    <line x1="352" y1="118" x2="352" y2="270"/>
+    <polyline points="345,258 352,270 359,258"/>
+    <line x1="340" y1="284" x2="192" y2="284"/>
+    <polyline points="204,277 192,284 204,291"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="186" y="180">warm water rises:</text>
+    <text x="186" y="196">less dense</text>
+    <text x="400" y="180">cooler water sinks:</text>
+    <text x="400" y="196">denser</text>
+    <text x="186" y="80">spreads across the top</text>
+    <text x="10" y="260">purple crystal</text>
+    <text x="10" y="276">at the bottom</text>
+    <text x="196" y="344">heat under one side only</text>
+  </g>
+  <line x1="100" y1="268" x2="162" y2="292" stroke="var(--muted)" stroke-width="1"/>
+  <line x1="396" y1="186" x2="362" y2="186" stroke="var(--muted)" stroke-width="1"/>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" role="img" aria-labelledby="t623redshift">
+  <title id="t623redshift">Two spectra drawn as long horizontal strips, one above the other. Each strip runs from violet, shorter wavelength, on the left to red, longer wavelength, on the right. The top strip is labelled light from a source on Earth and has three dark lines. The bottom strip is labelled light from a distant galaxy and has the same pattern of three dark lines, but each line is further to the right. Dashed lines and small arrows show each line moving to the right, towards the red end. A label reads every line shifted towards red: longer wavelength.</title>
+  <g fill="var(--t3-ink)" fill-opacity="0.12">
+    <rect x="80" y="60" width="480" height="50"/>
+    <rect x="80" y="170" width="480" height="50"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="80" y="60" width="480" height="50"/>
+    <rect x="80" y="170" width="480" height="50"/>
+  </g>
+  <g stroke="currentColor" stroke-width="5">
+    <line x1="200" y1="60" x2="200" y2="110"/>
+    <line x1="290" y1="60" x2="290" y2="110"/>
+    <line x1="400" y1="60" x2="400" y2="110"/>
+    <line x1="245" y1="170" x2="245" y2="220"/>
+    <line x1="335" y1="170" x2="335" y2="220"/>
+    <line x1="445" y1="170" x2="445" y2="220"/>
+  </g>
+  <g stroke="var(--t5-ink)" stroke-width="1.5" stroke-dasharray="4 4" fill="none">
+    <line x1="200" y1="110" x2="200" y2="170"/>
+    <line x1="290" y1="110" x2="290" y2="170"/>
+    <line x1="400" y1="110" x2="400" y2="170"/>
+  </g>
+  <g stroke="var(--t5-ink)" stroke-width="2" fill="none">
+    <line x1="204" y1="140" x2="238" y2="140"/>
+    <polyline points="231,135 238,140 231,145"/>
+    <line x1="294" y1="140" x2="328" y2="140"/>
+    <polyline points="321,135 328,140 321,145"/>
+    <line x1="404" y1="140" x2="438" y2="140"/>
+    <polyline points="431,135 438,140 431,145"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="80" y="48" font-weight="bold">light from a source on Earth</text>
+    <text x="80" y="242" font-weight="bold">light from a distant galaxy</text>
+    <text x="80" y="262" text-anchor="start">violet: shorter wavelength</text>
+    <text x="560" y="262" text-anchor="end">red: longer wavelength</text>
+    <text x="320" y="296" text-anchor="middle" fill="var(--t5-ink)" font-weight="bold">every line shifted towards red: longer wavelength</text>
+  </g>
+</svg>

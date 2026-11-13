@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 372" role="img" aria-labelledby="t452coilgen">
+<title id="t452coilgen">A simple a.c. generator. A rectangular coil of wire sits between the N pole of a magnet on the left and the S pole on the right, with magnetic field lines running across from N to S. The coil is fixed to an upright axle and turns with it, shown by a curved rotation arrow at the top. Below the coil, each end of the coil is joined to one of two metal slip rings on the axle, which turn with the coil. A fixed brush presses against each ring. Wires from the two brushes go to a lamp, completing the circuit.</title>
+<rect x="80" y="50" width="90" height="150" fill="none" stroke="currentColor" stroke-width="2"/>
+<rect x="430" y="50" width="90" height="150" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="20" x="125" y="132" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="20" x="475" y="132" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="174" y1="78" x2="420" y2="78" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="428.0,78.0 421.0,81.5 421.0,74.5" fill="var(--muted)"/>
+<line x1="174" y1="108" x2="420" y2="108" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="428.0,108.0 421.0,111.5 421.0,104.5" fill="var(--muted)"/>
+<line x1="174" y1="148" x2="420" y2="148" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="428.0,148.0 421.0,151.5 421.0,144.5" fill="var(--muted)"/>
+<line x1="174" y1="178" x2="420" y2="178" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<polygon points="428.0,178.0 421.0,181.5 421.0,174.5" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="125" y="222" fill="var(--muted)" text-anchor="middle">field lines run from N to S</text>
+<g fill="none" stroke="var(--t2-ink)" stroke-width="3">
+<polyline points="292,185 250,185 250,70 350,70 350,185 308,185"/>
+</g>
+<text font-family="inherit" font-size="12" x="362" y="64" fill="var(--t2-ink)" text-anchor="start">coil</text>
+<line x1="300" y1="40" x2="300" y2="70" stroke="currentColor" stroke-width="3"/>
+<line x1="300" y1="185" x2="300" y2="292" stroke="currentColor" stroke-width="3"/>
+<text font-family="inherit" font-size="11" x="306" y="304" fill="currentColor" text-anchor="start">axle</text>
+<path d="M 272 40 A 28 8 0 1 0 328 40" fill="none" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<polygon points="330.0,41.0 325.2,48.5 321.1,41.7" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="340" y="30" fill="var(--t1-ink)" text-anchor="start">rotation</text>
+<polyline points="292,185 292,223" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+<polyline points="308,185 308,200 322,200 322,261" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+<ellipse cx="300" cy="230" rx="28" ry="7" fill="none" stroke="var(--t3-ink)" stroke-width="3"/>
+<ellipse cx="300" cy="265" rx="28" ry="7" fill="none" stroke="var(--t3-ink)" stroke-width="3"/>
+<line x1="330" y1="232" x2="440" y2="240" stroke="var(--t3-ink)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="444" y="238" fill="var(--t3-ink)" text-anchor="start">slip rings</text>
+<text font-family="inherit" font-size="11" x="444" y="253" fill="var(--t3-ink)" text-anchor="start">(turn with the coil)</text>
+<rect x="250" y="224" width="22" height="12" fill="none" stroke="var(--t4-ink)" stroke-width="2"/>
+<rect x="328" y="259" width="22" height="12" fill="none" stroke="var(--t4-ink)" stroke-width="2"/>
+<line x1="250" y1="236" x2="150" y2="262" stroke="var(--t4-ink)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="146" y="266" fill="var(--t4-ink)" text-anchor="end">brushes (fixed)</text>
+<polyline points="250,230 200,230 200,330 296,330" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polyline points="350,265 420,265 420,330 324,330" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<circle cx="310" cy="330" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="300" y1="320" x2="320" y2="340" stroke="currentColor" stroke-width="1.6"/>
+<line x1="320" y1="320" x2="300" y2="340" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="12" x="310" y="362" fill="currentColor" text-anchor="middle">lamp</text>
+</svg>

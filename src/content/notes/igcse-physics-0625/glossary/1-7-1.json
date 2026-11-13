@@ -1,0 +1,44 @@
+[
+  {
+    "id": "energy",
+    "term": "energy",
+    "definition": "A quantity that is stored and transferred but never created or destroyed; it is a scalar, measured in joules (J).",
+    "lesson": "1.7.1"
+  },
+  {
+    "id": "energy-store",
+    "term": "energy store",
+    "definition": "One of the ways energy is held: internal (thermal), kinetic, gravitational potential, elastic (strain), chemical, nuclear or electrostatic.",
+    "lesson": "1.7.1"
+  },
+  {
+    "id": "kinetic-energy",
+    "term": "kinetic energy",
+    "definition": "Energy in the kinetic store of a moving object (Extended: for mass $m$ moving at speed $v$ it is $E_\\text{k} = \\tfrac{1}{2}mv^2$).",
+    "lesson": "1.7.1"
+  },
+  {
+    "id": "gravitational-potential-energy",
+    "term": "gravitational potential energy",
+    "definition": "Energy in the gravitational potential store of an object because of its height; raising the object increases it (Extended: near the Earth's surface, raising a mass $m$ by a vertical height $\\Delta h$ increases it by $\\Delta E_\\text{p} = mg\\Delta h$).",
+    "lesson": "1.7.1"
+  },
+  {
+    "id": "internal-energy",
+    "term": "internal energy",
+    "definition": "The total energy of the particles in an object (their kinetic and potential energy), also called its thermal store; heating the object increases it.",
+    "lesson": "1.7.1"
+  },
+  {
+    "id": "conservation-of-energy",
+    "term": "conservation of energy",
+    "definition": "The principle that energy cannot be created or destroyed, only transferred from one store to another, so the total amount of energy stays the same.",
+    "lesson": "1.7.1"
+  },
+  {
+    "id": "sankey-diagram",
+    "term": "Sankey diagram",
+    "definition": "A diagram that shows energy transfers as arrows whose widths are proportional to the energy they carry, usually with useful energy going straight on and wasted energy branching off.",
+    "lesson": "1.7.1"
+  }
+]

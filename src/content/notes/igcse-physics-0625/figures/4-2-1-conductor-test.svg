@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 275" role="img" aria-labelledby="t421conducto">
+<title id="t421conducto">Circuit for testing whether a material conducts. A cell, a lamp and two crocodile clips are joined in a single loop of wire. The cell is on the top wire and the lamp is on the left-hand wire. On the bottom wire there is a gap between the two crocodile clips, and a sample of the material being tested is clipped across the gap. A note says that if the lamp lights, the sample is a conductor, and if the lamp stays off, it is an insulator.</title>
+<line x1="120" y1="70" x2="306" y2="70" stroke="currentColor" stroke-width="2"/>
+<line x1="334" y1="70" x2="520" y2="70" stroke="currentColor" stroke-width="2"/>
+<line x1="306" y1="48" x2="306" y2="92" stroke="currentColor" stroke-width="2"/>
+<line x1="334" y1="59" x2="334" y2="81" stroke="currentColor" stroke-width="5"/>
+<text font-family="inherit" font-size="12" x="320" y="40" fill="currentColor" text-anchor="middle">cell</text>
+<line x1="520" y1="70" x2="520" y2="200" stroke="currentColor" stroke-width="2"/>
+<line x1="120" y1="70" x2="120" y2="117" stroke="currentColor" stroke-width="2"/>
+<line x1="120" y1="153" x2="120" y2="200" stroke="currentColor" stroke-width="2"/>
+<circle cx="120" cy="135" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="107.3" y1="122.3" x2="132.7" y2="147.7" stroke="currentColor" stroke-width="2"/>
+<line x1="107.3" y1="147.7" x2="132.7" y2="122.3" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="92" y="140" fill="currentColor" text-anchor="end">lamp</text>
+<line x1="120" y1="200" x2="250" y2="200" stroke="currentColor" stroke-width="2"/>
+<line x1="390" y1="200" x2="520" y2="200" stroke="currentColor" stroke-width="2"/>
+<polygon points="250,193 268,198 268,202 250,207" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="390,193 372,198 372,202 390,207" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="262" y="194" width="116" height="12" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+<text font-family="inherit" font-size="12" x="320" y="232" fill="var(--t2-ink)" text-anchor="middle">sample being tested</text>
+<line x1="250" y1="170" x2="258" y2="191" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="250" y="164" fill="currentColor" text-anchor="middle">crocodile clip</text>
+<line x1="390" y1="170" x2="382" y2="191" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="400" y="164" fill="currentColor" text-anchor="start">crocodile clip</text>
+<text font-family="inherit" font-size="12" x="320" y="262" fill="var(--muted)" text-anchor="middle">Lamp lights: the sample is a conductor. Lamp stays off: it is an insulator.</text>
+</svg>

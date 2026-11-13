@@ -1,0 +1,817 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.3.2",
+  "slug": "series-and-parallel-circuits",
+  "title": "Series and parallel circuits",
+  "level": "Core",
+  "topic": 4,
+  "summary": "In a [[series-circuit|series circuit]] the parts form one loop, so the same current passes through each, and [[resistance|resistances]] add, as do the e.m.f.s of cells facing the same way. In a [[parallel-circuit|parallel circuit]] the current splits between branches, and each extra branch lowers the [[combined-resistance|combined resistance]]. The lamps in a house are wired in parallel so each can be switched on its own and the rest stay lit if one breaks.",
+  "goals": [
+    {
+      "text": "Use the fact that the current is the same at every point in a series circuit.",
+      "bullets": [
+        "4.3.2-1"
+      ]
+    },
+    {
+      "text": "Build series and parallel circuits from a diagram, with [[ammeter|ammeters]] and [[voltmeter|voltmeters]] in the right places.",
+      "bullets": [
+        "4.3.2-2"
+      ]
+    },
+    {
+      "text": "Add up the e.m.f.s of cells in series and the resistances of [[resistor|resistors]] in series.",
+      "bullets": [
+        "4.3.2-3",
+        "4.3.2-4"
+      ]
+    },
+    {
+      "text": "Compare the currents and the combined resistance in a parallel circuit, and give the advantages of wiring lamps in parallel.",
+      "bullets": [
+        "4.3.2-5",
+        "4.3.2-6",
+        "4.3.2-7"
+      ]
+    },
+    {
+      "text": "Use the rules for currents at a [[junction|junction]] and for p.d.s in series and parallel, and explain the junction rule using charge.",
+      "bullets": [
+        "4.3.2-8",
+        "4.3.2-9"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Work out the resistance of a pair of resistors joined in parallel.",
+      "bullets": [
+        "4.3.2-10"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "4.2.2",
+    "4.2.3",
+    "4.2.4"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "series and parallel circuits",
+    "combined resistance",
+    "resistors in parallel formula",
+    "cells in series emf",
+    "current at a junction",
+    "why house lights are in parallel"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ammeter-placing",
+      "prompt": "How do you connect an [[ammeter|ammeter]] to measure the current in a lamp?",
+      "hint": "The current you want to measure has to pass through the meter.",
+      "options": [
+        {
+          "text": "in series with the lamp",
+          "correct": true
+        },
+        {
+          "text": "in parallel with the lamp",
+          "correct": false
+        },
+        {
+          "text": "across the terminals of the cell",
+          "correct": false
+        },
+        {
+          "text": "either way, it makes no difference",
+          "correct": false
+        }
+      ],
+      "explain": "An ammeter goes in series, in the same loop as the lamp, so the lamp's current flows through it. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in series with the lamp"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-voltmeter-placing",
+      "prompt": "How do you connect a [[voltmeter|voltmeter]] to measure the [[potential-difference|potential difference]] across a resistor?",
+      "hint": "A p.d. is measured between the two ends of the component.",
+      "options": [
+        {
+          "text": "in parallel with the resistor",
+          "correct": true
+        },
+        {
+          "text": "in series with the resistor",
+          "correct": false
+        },
+        {
+          "text": "in series with the cell only",
+          "correct": false
+        }
+      ],
+      "explain": "A voltmeter connects across the component, one lead to each end: in parallel with it. Revise it in {{lesson:4.2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in parallel with the resistor"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-resistance-value",
+      "prompt": "The p.d. across a lamp is $3.6\\ \\text{V}$ and the current in it is $0.40\\ \\text{A}$. What is the [[resistance|resistance]] of the lamp, in $\\Omega$?",
+      "hint": "Use $R = \\frac{V}{I}$.",
+      "answer": {
+        "value": 9,
+        "tolerance": 0.05
+      },
+      "explain": "$R = \\frac{V}{I} = \\frac{3.6}{0.40} = 9.0\\ \\Omega$. Revise it in {{lesson:4.2.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3.6/0.40",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "series",
+      "heading": "Series circuits",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a [[series-circuit|series circuit]] the components are joined one after another in a single loop. There is only one path, so all the charge that leaves the cell passes through every component."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-2-series-circuit",
+          "alt": "Series circuit. A battery of two cells, an ammeter labelled A1, a lamp, a resistor and an ammeter labelled A2 are joined one after another in a single loop. A voltmeter is connected across the lamp, with one lead on each side of it.",
+          "caption": "One loop. Both ammeters read the same current."
+        },
+        {
+          "type": "result",
+          "statement": "The current is the same at every point in a series circuit.",
+          "why": "There is only one path, and charge is not used up as it goes round. So the same charge passes every point each second."
+        },
+        {
+          "type": "text",
+          "text": "So ammeters A1 and A2 give the same reading, wherever they sit in the loop. A lamp transfers energy from the charge. It does not use up the [[electric-current|current]]."
+        },
+        {
+          "type": "text",
+          "text": "To build a circuit from a diagram, start at one terminal of the cell. Follow the wire round, connecting each part in turn, until you are back at the other terminal. Put the [[ammeter|ammeter]] in the loop and add the [[voltmeter|voltmeter]] last, across the part it measures."
+        },
+        {
+          "type": "text",
+          "text": "Cells in series add their e.m.f.s, as long as they all face the same way (positive terminal to negative terminal). A cell turned round the wrong way subtracts its e.m.f. instead."
+        },
+        {
+          "type": "formula",
+          "tex": "E = E_1 + E_2 + E_3",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "The [[combined-resistance|combined resistance]] is the single resistance that could replace a group of [[resistor|resistors]] and take the same current from the same supply. In series, the charge has to pass through every resistor, so their resistances add."
+        },
+        {
+          "type": "formula",
+          "tex": "R = R_1 + R_2 + R_3",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-three-resistors-series",
+          "question": "Resistors of $4.7\\ \\Omega$, $8.2\\ \\Omega$ and $3.3\\ \\Omega$ are connected in series. Calculate their combined resistance.",
+          "steps": [
+            "In series, add the resistances: $R = R_1 + R_2 + R_3$.",
+            "$R = 4.7 + 8.2 + 3.3 = 16.2\\ \\Omega$",
+            "Check: the combined resistance is bigger than the largest one, $8.2\\ \\Omega$. That is always true in series."
+          ],
+          "answer": "$R = 16.2\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.7 + 8.2 + 3.3",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-torch-current",
+          "question": "A torch has four $1.2\\ \\text{V}$ cells in series, all facing the same way. They are connected to a lamp of resistance $9.6\\ \\Omega$ in series with a $2.4\\ \\Omega$ resistor. Calculate the current in the lamp.",
+          "steps": [
+            "Combined e.m.f.: $E = 4 \\times 1.2 = 4.8\\ \\text{V}$.",
+            "Combined resistance: $R = 9.6 + 2.4 = 12\\ \\Omega$.",
+            "Rearrange $R = \\frac{V}{I}$ to $I = \\frac{V}{R}$, using the whole e.m.f. and the whole resistance.",
+            "$I = \\frac{4.8}{12} = 0.40\\ \\text{A}$. The circuit is one loop, so this is the current in the lamp too."
+          ],
+          "answer": "$I = 0.40\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(4*1.2)/(9.6 + 2.4)",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking the current gets smaller after each lamp or resistor. Charge isn't used up, so the current is the same all the way round a series loop."
+        },
+        {
+          "type": "check",
+          "id": "check-series-ammeters",
+          "prompt": "A lamp and a resistor are in series with a cell. One ammeter is placed just before the lamp and another just after the resistor. Which statement about their readings is correct?",
+          "hint": "How many paths can the charge take?",
+          "options": [
+            {
+              "text": "both ammeters read the same",
+              "correct": true
+            },
+            {
+              "text": "the ammeter after the resistor reads less",
+              "correct": false
+            },
+            {
+              "text": "the ammeter before the lamp reads less",
+              "correct": false
+            },
+            {
+              "text": "it depends on which component has more resistance",
+              "correct": false
+            }
+          ],
+          "explain": "There is only one path, so the current is the same at every point in a series circuit. The lamp and resistor transfer energy; they don't use up current.",
+          "verify": {
+            "kind": "choice",
+            "truth": "both ammeters read the same"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reversed-cell",
+          "prompt": "Four cells, each of e.m.f. $1.5\\ \\text{V}$, are connected in series. One of them is turned round the wrong way. What is the combined e.m.f.?",
+          "hint": "Add the three that face the same way, then subtract the one that faces the other way.",
+          "options": [
+            {
+              "text": "$3.0\\ \\text{V}$",
+              "correct": true
+            },
+            {
+              "text": "$6.0\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$4.5\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$0.38\\ \\text{V}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1.5 + 1.5 + 1.5 - 1.5 = 3.0\\ \\text{V}$. With all four the same way it would be $6.0\\ \\text{V}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "3*1.5 - 1.5",
+            "unit": "V"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parallel",
+      "heading": "Parallel circuits",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In a [[parallel-circuit|parallel circuit]] the components sit on separate branches. Each branch is connected between the same two points. In a simple parallel circuit like the one below, those two points are the ends of the supply, so each branch is joined straight across it."
+        },
+        {
+          "type": "figure",
+          "id": "4-3-2-parallel-circuit",
+          "alt": "Parallel circuit. A cell and an ammeter labelled A1 are on the main wire. At a junction the wire splits into two branches. The upper branch has a lamp and an ammeter labelled A2. The lower branch has a lamp and an ammeter labelled A3. The two branches join again at a second junction and return to the cell.",
+          "caption": "A1 reads the current from the cell. A2 and A3 each read one branch."
+        },
+        {
+          "type": "result",
+          "statement": "In a parallel circuit, the cell supplies more current than any single branch carries.",
+          "why": "The current from the cell splits up between the branches, so each branch carries only part of it."
+        },
+        {
+          "type": "result",
+          "statement": "Two resistors in parallel have a combined resistance less than either resistor on its own.",
+          "why": "The second branch gives the charge an extra path. The supply drives a larger current, and a larger current at the same p.d. means less resistance."
+        },
+        {
+          "type": "example",
+          "id": "ex-add-lamp-parallel",
+          "question": "A lamp is connected to a battery. A second lamp is then connected in parallel with the first. State and explain what happens to the current from the battery.",
+          "steps": [
+            "State the change first.",
+            "Then explain it with the extra path and the combined resistance.",
+            "Finish by linking resistance to current for the same battery."
+          ],
+          "answer": "The current from the battery increases. The second lamp gives the charge another path. So the combined resistance of the two lamps is less than the resistance of one lamp. The battery's p.d. is the same, so a smaller resistance means a larger current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "current increases; extra path; combined resistance less than one lamp; same p.d. so larger current",
+            "requires": [
+              [
+                "increases",
+                "gets larger",
+                "goes up"
+              ],
+              [
+                "another path",
+                "extra path",
+                "second path"
+              ],
+              [
+                "combined resistance"
+              ],
+              [
+                "less than",
+                "smaller"
+              ]
+            ],
+            "forbids": [
+              "current decreases",
+              "resistance increases",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding resistances that are in parallel, as if they were in series. In parallel, the combined resistance is less than the smallest resistance."
+        },
+        {
+          "type": "text",
+          "text": "The lamps in a house lighting circuit are connected in parallel, each on its own branch with its own switch."
+        },
+        {
+          "type": "example",
+          "id": "ex-house-lamps",
+          "question": "State three advantages of connecting the lamps in a house lighting circuit in parallel rather than in series.",
+          "steps": [
+            "Think about what happens when one lamp is switched off or breaks.",
+            "Then think about the p.d. each lamp gets."
+          ],
+          "answer": "Each lamp can be switched on and off on its own. If one lamp breaks, the other lamps stay lit. Each lamp gets the full p.d. of the supply, so it lights at full brightness.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "independent switching; others stay lit if one fails; full supply p.d. so full brightness",
+            "requires": [
+              [
+                "on and off on its own",
+                "switched separately",
+                "own switch"
+              ],
+              [
+                "stay lit",
+                "stay on",
+                "still work"
+              ],
+              [
+                "full p.d.",
+                "full voltage",
+                "same p.d."
+              ]
+            ],
+            "forbids": [
+              "less current from the supply",
+              "use less power"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-source-current",
+          "prompt": "A cell is connected to two lamps in parallel. Which statement about the current from the cell is correct?",
+          "hint": "Where does the current in each branch come from?",
+          "options": [
+            {
+              "text": "it is larger than the current in either lamp",
+              "correct": true
+            },
+            {
+              "text": "it is equal to the current in each lamp",
+              "correct": false
+            },
+            {
+              "text": "it is smaller than the current in either lamp",
+              "correct": false
+            },
+            {
+              "text": "it is between the two lamp currents",
+              "correct": false
+            }
+          ],
+          "explain": "The current from the cell splits between the two branches, so it is larger than the current in either branch.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is larger than the current in either lamp"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-less",
+          "prompt": "Resistors of $36\\ \\Omega$ and $45\\ \\Omega$ are joined in parallel. Which value could be their combined resistance?",
+          "hint": "In parallel, the combined resistance is less than either resistor by itself.",
+          "options": [
+            {
+              "text": "$20\\ \\Omega$",
+              "correct": true
+            },
+            {
+              "text": "$81\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$41\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$45\\ \\Omega$",
+              "correct": false
+            }
+          ],
+          "explain": "Only $20\\ \\Omega$ is less than $36\\ \\Omega$, the smaller resistor. $81\\ \\Omega$ is the series total and $41\\ \\Omega$ is about the average.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1/(1/36 + 1/45)",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-branch-ammeter",
+          "prompt": "You want to measure the current in just one lamp of a parallel circuit. Where do you connect the ammeter?",
+          "hint": "Only the current in that lamp's branch should pass through the meter.",
+          "options": [
+            {
+              "text": "in series with that lamp, on its branch",
+              "correct": true
+            },
+            {
+              "text": "on the main wire next to the cell",
+              "correct": false
+            },
+            {
+              "text": "in parallel with that lamp",
+              "correct": false
+            }
+          ],
+          "explain": "An ammeter goes in series with what it measures. On the lamp's own branch, it reads only that lamp's current. On the main wire it would read the total.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in series with that lamp, on its branch"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: build the main loop with the cell first, then add each parallel branch between two junctions. Connect voltmeters last, across the component they measure."
+        }
+      ]
+    },
+    {
+      "id": "junctions-and-pds",
+      "heading": "Currents at junctions, p.d.s in series and parallel",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "junction",
+          "statement": "A [[junction|junction]] is a point in a circuit where three or more wires meet, so the current can split or join.",
+          "plain": "A place where the wire branches."
+        },
+        {
+          "type": "result",
+          "statement": "The sum of the currents into a junction equals the sum of the currents out of it.",
+          "why": "Current is a flow of charge. Charge is not used up, made or stored at a junction, so the charge arriving each second equals the charge leaving each second."
+        },
+        {
+          "type": "formula",
+          "tex": "I = I_1 + I_2",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $I$ is the current into a junction that splits into two branches carrying $I_1$ and $I_2$. In the parallel circuit above, A1 reads the sum of A2 and A3."
+        },
+        {
+          "type": "result",
+          "statement": "In series, the p.d.s across the components add up to the total p.d. across them all. In parallel, the p.d. across each branch is the same as the p.d. across the whole arrangement.",
+          "why": "In series, each component takes its share of the energy each coulomb carries. Parallel branches are joined between the same two points, so they share the same p.d."
+        },
+        {
+          "type": "formula",
+          "tex": "V = V_1 + V_2",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-third-branch",
+          "question": "Three lamps are connected in parallel to a supply. The current from the supply is $1.30\\ \\text{A}$. Two of the lamps carry $0.45\\ \\text{A}$ and $0.62\\ \\text{A}$. Calculate the current in the third lamp.",
+          "steps": [
+            "The current from the supply splits at the junctions into the three branches.",
+            "So $1.30 = 0.45 + 0.62 + I_3$.",
+            "$I_3 = 1.30 - 0.45 - 0.62 = 0.23\\ \\text{A}$"
+          ],
+          "answer": "$I_3 = 0.23\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1.30 - 0.45 - 0.62",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-series-pd-current",
+          "question": "A $9.0\\ \\text{V}$ supply is connected to a lamp in series with an $8.5\\ \\Omega$ resistor. A voltmeter across the lamp reads $5.6\\ \\text{V}$. Calculate the current in the circuit.",
+          "steps": [
+            "In series the p.d.s add up to the supply p.d.: $9.0 = 5.6 + V_R$.",
+            "So the p.d. across the resistor is $V_R = 9.0 - 5.6 = 3.4\\ \\text{V}$.",
+            "Use $I = \\frac{V}{R}$ for the resistor: $I = \\frac{3.4}{8.5} = 0.40\\ \\text{A}$.",
+            "The current is the same everywhere in series, so this is the current in the lamp too."
+          ],
+          "answer": "$I = 0.40\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(9.0 - 5.6)/8.5",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the whole supply p.d. with one resistor's resistance. Use $I = \\frac{V}{R}$ with the p.d. across that resistor only."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-junction",
+          "question": "Explain why the total current into a junction is equal to the total current out of it.",
+          "steps": [
+            "Start from what a current is.",
+            "Then say what happens to charge at the junction, and finish with the currents."
+          ],
+          "answer": "A current is a flow of charge. Charge is not used up, made or stored at the junction. So the charge arriving at the junction each second equals the charge leaving it each second. So the total current in equals the total current out.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "current is flow of charge; charge not lost or stored at a junction; charge per second in equals charge per second out",
+            "requires": [
+              [
+                "flow of charge"
+              ],
+              [
+                "not used up",
+                "not lost",
+                "conserved"
+              ],
+              [
+                "stored",
+                "build up"
+              ],
+              [
+                "each second",
+                "per second"
+              ]
+            ],
+            "forbids": [
+              "charge is used up",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-junction-current",
+          "prompt": "A current of $0.85\\ \\text{A}$ flows into a junction. Two wires leave it. One carries $0.32\\ \\text{A}$. What is the current in the other wire, in A?",
+          "hint": "Current in equals current out.",
+          "answer": {
+            "value": 0.53,
+            "tolerance": 0.005
+          },
+          "explain": "$0.85 = 0.32 + I$, so $I = 0.85 - 0.32 = 0.53\\ \\text{A}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.85 - 0.32",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-lamps-pd",
+          "prompt": "Two lamps are connected in parallel with each other. This pair is in series with a resistor across a $12\\ \\text{V}$ supply. The p.d. across the resistor is $7.4\\ \\text{V}$. What is the p.d. across each lamp?",
+          "hint": "First find the p.d. across the pair. Then think about branches in parallel.",
+          "options": [
+            {
+              "text": "$4.6\\ \\text{V}$",
+              "correct": true
+            },
+            {
+              "text": "$2.3\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$7.4\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$12\\ \\text{V}$",
+              "correct": false
+            }
+          ],
+          "explain": "The pair has $12 - 7.4 = 4.6\\ \\text{V}$ across it. Each branch of a parallel arrangement has the same p.d., so each lamp has $4.6\\ \\text{V}$, not half of it.",
+          "verify": {
+            "kind": "exact",
+            "truth": "12 - 7.4",
+            "unit": "V"
+          }
+        }
+      ]
+    },
+    {
+      "id": "parallel-resistance",
+      "heading": "Calculating resistance in parallel",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "For two resistors $R_1$ and $R_2$ in parallel, add their reciprocals. The answer is $\\frac{1}{R}$, so take the reciprocal again to get $R$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{1}{R} = \\frac{1}{R_1} + \\frac{1}{R_2}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-20-30",
+          "question": "Resistors of $20\\ \\Omega$ and $30\\ \\Omega$ are joined in parallel. Calculate their combined resistance.",
+          "steps": [
+            "Write the equation: $\\frac{1}{R} = \\frac{1}{R_1} + \\frac{1}{R_2}$.",
+            "Substitute: $\\frac{1}{R} = \\frac{1}{20} + \\frac{1}{30} = 0.0833…$",
+            "Take the reciprocal: $R = \\frac{1}{0.0833…} = 12\\ \\Omega$.",
+            "Check: $12\\ \\Omega$ is less than $20\\ \\Omega$, the smaller resistor, as it must be."
+          ],
+          "answer": "$R = 12\\ \\Omega$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1/(1/20 + 1/30)",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-parallel-supply-current",
+          "question": "Resistors of $15\\ \\Omega$ and $10\\ \\Omega$ are joined in parallel across a $4.5\\ \\text{V}$ supply. Calculate the current from the supply.",
+          "steps": [
+            "Combined resistance: $\\frac{1}{R} = \\frac{1}{15} + \\frac{1}{10}$, so $R = 6.0\\ \\Omega$.",
+            "Use $I = \\frac{V}{R}$: $I = \\frac{4.5}{6.0} = 0.75\\ \\text{A}$.",
+            "Check with the branches. Each has the full $4.5\\ \\text{V}$: $\\frac{4.5}{15} = 0.30\\ \\text{A}$ and $\\frac{4.5}{10} = 0.45\\ \\text{A}$.",
+            "At the junction, $0.30 + 0.45 = 0.75\\ \\text{A}$, which matches."
+          ],
+          "answer": "$I = 0.75\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.5/(1/(1/15 + 1/10))",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Stopping at $\\frac{1}{R}$. If your answer is a small decimal such as $0.083\\ \\Omega$, you forgot the last step: take the reciprocal."
+        },
+        {
+          "type": "check",
+          "id": "check-parallel-30-70",
+          "prompt": "Resistors of $30\\ \\Omega$ and $70\\ \\Omega$ are joined in parallel. Find their combined resistance.",
+          "hint": "Add $\\frac{1}{30}$ and $\\frac{1}{70}$, then take the reciprocal.",
+          "options": [
+            {
+              "text": "$21\\ \\Omega$",
+              "correct": true
+            },
+            {
+              "text": "$100\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$50\\ \\Omega$",
+              "correct": false
+            },
+            {
+              "text": "$0.048\\ \\Omega$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\frac{1}{R} = \\frac{1}{30} + \\frac{1}{70} = 0.0476…$, so $R = 21\\ \\Omega$. $0.048\\ \\Omega$ forgets the last step, and $100\\ \\Omega$ is the series total.",
+          "verify": {
+            "kind": "exact",
+            "truth": "1/(1/30 + 1/70)",
+            "unit": "Ω"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-identical-parallel",
+          "prompt": "Two identical $56\\ \\Omega$ resistors are connected in parallel. What is their combined resistance, in $\\Omega$?",
+          "hint": "Use $\\frac{1}{R} = \\frac{1}{R_1} + \\frac{1}{R_2}$ with $R_1 = R_2 = 56$.",
+          "answer": {
+            "value": 28,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{1}{R} = \\frac{1}{56} + \\frac{1}{56} = \\frac{2}{56}$, so $R = 28\\ \\Omega$. Two identical resistors in parallel give half the resistance of one.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1/(1/56 + 1/56)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Series circuit: one loop, so the current is the same at every point."
+        },
+        {
+          "type": "formula",
+          "tex": "R = R_1 + R_2 + R_3 \\quad \\text{(resistors in series)}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Cells in series that all face the same way: add their e.m.f.s. A cell turned the other way subtracts its e.m.f."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Parallel circuit: the source supplies more current than any one branch carries. Two resistors in parallel have a combined resistance less than either one by itself."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Lamps in a lighting circuit are wired in parallel: each can be switched on its own, the rest stay lit if one breaks, and each gets the full supply p.d."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Total current into a junction = total current out, because charge is not used up or stored there. Series: the p.d.s across the components add up to the total p.d. Parallel: each branch has the same p.d. as the whole arrangement."
+        },
+        {
+          "type": "formula",
+          "tex": "\\frac{1}{R} = \\frac{1}{R_1} + \\frac{1}{R_2} \\quad \\text{(two resistors in parallel)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Thinking current is used up as it passes through a lamp or resistor. In a series circuit the current is the same at every point.",
+    "Adding resistances that are in parallel. That gives the series value; in parallel the combined resistance is less than the smallest resistor.",
+    "Dividing a cell's e.m.f. by the number of cells. Cells in series facing the same way add their e.m.f.s.",
+    "Connecting a voltmeter in series or an ammeter in parallel. The ammeter goes in the loop it measures; the voltmeter goes across the component.",
+    "Extended: forgetting to take the reciprocal after adding $\\frac{1}{R_1} + \\frac{1}{R_2}$."
+  ],
+  "examTips": [
+    "\"Calculate\" a combined resistance: write the equation, then the numbers, then the answer with its unit, $\\Omega$. A missing unit can lose a mark.",
+    "Paper 1/2 multiple choice on resistors in parallel: cross out every option that is not less than the smallest resistor first.",
+    "\"State\" the advantages of lamps in parallel as separate points: own switch, others stay lit if one breaks, full supply p.d. for each lamp.",
+    "\"Explain\" the junction rule (Extended): mention charge. Current is a flow of charge, and charge is not used up or stored at the junction."
+  ],
+  "readingMinutes": 25
+}

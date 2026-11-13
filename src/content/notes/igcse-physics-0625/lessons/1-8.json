@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.8",
+  "slug": "pressure",
+  "title": "Pressure",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[pressure|Pressure]] tells you how concentrated a [[force|force]] is: the force on each unit of area, $p = \\frac{F}{A}$. The same push on a small area gives a big pressure, which is why a sharp knife cuts and wide snowshoes help you sink less. In a liquid, the pressure gets bigger the deeper you go and the denser the liquid is. Extended adds the equation $\\Delta p = \\rho g \\Delta h$.",
+  "goals": [
+    {
+      "text": "Define pressure as force per unit area, and use $p = \\frac{F}{A}$ with the unit Pa (N/m²) or N/cm².",
+      "bullets": [
+        "1.8-1"
+      ]
+    },
+    {
+      "text": "Describe how changing the force or the area changes the pressure, using everyday examples.",
+      "bullets": [
+        "1.8-2"
+      ]
+    },
+    {
+      "text": "Describe how the pressure under the surface of a liquid depends on the depth and on the [[density|density]] of the liquid.",
+      "bullets": [
+        "1.8-3"
+      ]
+    },
+    {
+      "text": "Use $\\Delta p = \\rho g \\Delta h$ to calculate a change in pressure, a depth or a density in a liquid.",
+      "bullets": [
+        "1.8-4"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.3",
+    "1.4",
+    "1.5.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "pressure formula p = F/A",
+    "pressure force and area examples",
+    "unit of pressure pascal",
+    "pressure in a liquid depth",
+    "liquid pressure rho g h",
+    "why snowshoes stop you sinking"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-suitcase-weight",
+      "prompt": "A suitcase has a mass of $12\\ \\text{kg}$. What is its [[weight|weight]], in N? Use $g = 9.8\\ \\text{N/kg}$ and give 2 significant figures.",
+      "hint": "Weight is mass times the [[gravitational-field-strength|gravitational field strength]]: $W = mg$.",
+      "answer": {
+        "value": 120,
+        "tolerance": 5
+      },
+      "explain": "$W = mg = 12 \\times 9.8 = 117.6 \\approx 120\\ \\text{N}$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "12*g",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-tank-density",
+      "prompt": "A tank holds $2.0\\ \\text{m}^3$ of liquid with a mass of $1600\\ \\text{kg}$. What is the [[density|density]] of the liquid, in kg/m³?",
+      "hint": "Density is mass divided by volume: $\\rho = \\frac{m}{V}$.",
+      "answer": {
+        "value": 800,
+        "tolerance": 5
+      },
+      "explain": "$\\rho = \\frac{m}{V} = \\frac{1600}{2.0} = 800\\ \\text{kg/m}^3$. Revise it in {{lesson:1.4}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1600/2.0",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "force-per-area",
+      "heading": "Pressure: force on each unit of area",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Press your palm on a balloon and it squashes. Press a pin on it with the same force and it bursts. The force is the same; what changes is how much area it is spread over."
+        },
+        {
+          "type": "definition",
+          "term": "pressure",
+          "statement": "[[pressure|Pressure]] is the force per unit area. The force acts at right angles to the surface.",
+          "plain": "How hard a force pushes on each square metre (or each square centimetre) of a surface."
+        },
+        {
+          "type": "formula",
+          "tex": "p = \\frac{F}{A}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$p$ is the pressure, $F$ is the force in N and $A$ is the area in m². The unit of pressure is the pascal (Pa): $1\\ \\text{Pa} = 1\\ \\text{N/m}^2$. If the area is in cm², the pressure comes out in N/cm²."
+        },
+        {
+          "type": "text",
+          "text": "For an object resting on a flat, level floor, with nothing else pushing on it, the force on the floor is the object's [[weight|weight]]. Rearrange the equation to find a force, $F = pA$, or an area, $A = \\frac{F}{p}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-crate-pressure",
+          "question": "A crate of weight $1200\\ \\text{N}$ rests on a floor. Its base is a rectangle $0.60\\ \\text{m}$ by $0.50\\ \\text{m}$. Calculate the pressure the crate exerts on the floor.",
+          "steps": [
+            "Find the area in contact with the floor: $A = 0.60 \\times 0.50 = 0.30\\ \\text{m}^2$.",
+            "The force on the floor is the weight: $F = 1200\\ \\text{N}$.",
+            "Write the equation and substitute: $p = \\frac{F}{A} = \\frac{1200}{0.30}$.",
+            "$p = 4000\\ \\text{Pa}$. The area is in m², so the unit is Pa (or N/m²)."
+          ],
+          "answer": "$p = 4000\\ \\text{Pa}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1200/(0.60*0.50)",
+            "unit": "Pa"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-camping-table",
+          "question": "A camping table has a mass of $15\\ \\text{kg}$. It stands on four legs. Each leg touches the ground over an area of $2.5\\ \\text{cm}^2$. Calculate the pressure on the ground, in N/cm². Take $g = 9.8\\ \\text{N/kg}$.",
+          "steps": [
+            "The force is the weight, not the mass: $W = mg = 15 \\times 9.8 = 147\\ \\text{N}$.",
+            "The weight rests on all four legs, so add their areas: $A = 4 \\times 2.5 = 10\\ \\text{cm}^2$.",
+            "Substitute: $p = \\frac{F}{A} = \\frac{147}{10} = 14.7\\ \\text{N/cm}^2$.",
+            "The data have 2 significant figures, so give 2."
+          ],
+          "answer": "$p \\approx 15\\ \\text{N/cm}^2$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "15*g/(4*2.5)",
+            "sf": 2,
+            "unit": "N/cm^2"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the area of one leg, foot or wheel when the weight rests on several. Add up all the areas in contact first."
+        },
+        {
+          "type": "examTip",
+          "text": "Keep units matched: N with m² gives Pa, and N with cm² gives N/cm². To change an area to m², remember $1\\ \\text{m}^2 = 10\\,000\\ \\text{cm}^2$, not 100."
+        },
+        {
+          "type": "check",
+          "id": "check-one-pascal",
+          "prompt": "What does a pressure of $1\\ \\text{Pa}$ mean?",
+          "hint": "Pressure is force per unit area. Which units does the pascal stand for?",
+          "options": [
+            {
+              "text": "a force of 1 N on each square metre",
+              "correct": true
+            },
+            {
+              "text": "a force of 1 N on any area",
+              "correct": false
+            },
+            {
+              "text": "a mass of 1 kg on each square metre",
+              "correct": false
+            },
+            {
+              "text": "a force of 1 N multiplied by an area of 1 square metre",
+              "correct": false
+            }
+          ],
+          "explain": "$1\\ \\text{Pa} = 1\\ \\text{N/m}^2$: one newton of force acting on each square metre. Pressure divides force by area; it never multiplies them, and it uses a force, not a mass.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a force of 1 N on each square metre"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tyre-force",
+          "prompt": "A car tyre presses on the road with a pressure of $200\\,000\\ \\text{Pa}$. Its area in contact with the road is $0.012\\ \\text{m}^2$. What force does this tyre exert on the road, in N?",
+          "hint": "Rearrange $p = \\frac{F}{A}$ to make $F$ the subject.",
+          "answer": {
+            "value": 2400,
+            "tolerance": 50
+          },
+          "explain": "$F = pA = 200\\,000 \\times 0.012 = 2400\\ \\text{N}$. Dividing instead gives a force of millions of newtons, far too big for one tyre.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "200000*0.012",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "everyday-pressure",
+      "heading": "Changing the force or the area",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "$p = \\frac{F}{A}$ tells you two things. A bigger force on the same area gives a bigger pressure. The same force on a bigger area gives a smaller pressure."
+        },
+        {
+          "type": "text",
+          "text": "To get a high pressure, make the area small. A knife blade, a needle point, the tip of a nail and the studs on a football boot all put the force onto a tiny area. The high pressure lets them cut or push into a material."
+        },
+        {
+          "type": "text",
+          "text": "To get a low pressure, make the area large. Snowshoes, wide tractor tyres, wide rucksack straps and the broad foundations of a building all spread a weight over a large area. The low pressure means they sink in less and dig into you less."
+        },
+        {
+          "type": "example",
+          "id": "ex-snowshoes-explain",
+          "question": "A hiker walking in ordinary boots sinks deep into soft snow. Explain why she sinks much less when she wears snowshoes, which are wide, flat frames strapped under her boots.",
+          "steps": [
+            "Say what stays the same: the force on the snow.",
+            "Say what changes: the area in contact with the snow.",
+            "Use $p = \\frac{F}{A}$ to say what happens to the pressure, then link it to sinking."
+          ],
+          "answer": "The hiker's weight is the same in boots or snowshoes, so the force on the snow is the same. Snowshoes have a much larger area in contact with the snow. Pressure is force divided by area, so the larger area gives a smaller pressure on the snow. With a lower pressure, the snow is pushed down less, so she sinks less.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same weight so same force; larger area; smaller pressure; snow pushed down less so she sinks less",
+            "requires": [
+              [
+                "weight is the same",
+                "force on the snow is the same"
+              ],
+              [
+                "larger area"
+              ],
+              [
+                "smaller pressure",
+                "lower pressure"
+              ],
+              [
+                "sinks less"
+              ]
+            ],
+            "forbids": [
+              "lighter",
+              "smaller force",
+              "more grip"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying wide tyres or snowshoes give \"more grip\" or make the vehicle \"lighter\". The weight doesn't change. The larger area lowers the pressure."
+        },
+        {
+          "type": "check",
+          "id": "check-rucksack-straps",
+          "prompt": "Why are the straps of a heavy rucksack made wide?",
+          "hint": "Does a wide strap change the rucksack's weight, or the area it presses on?",
+          "options": [
+            {
+              "text": "to spread the weight over a larger area, so the pressure on the shoulders is lower",
+              "correct": true
+            },
+            {
+              "text": "to make the force on the shoulders smaller",
+              "correct": false
+            },
+            {
+              "text": "to make the pressure on the shoulders higher, so the straps don't slip",
+              "correct": false
+            },
+            {
+              "text": "to make the rucksack's weight smaller",
+              "correct": false
+            }
+          ],
+          "explain": "The weight of the rucksack, and so the force on the shoulders, is the same with any strap. A wide strap spreads it over a larger area, so the pressure is lower and the straps hurt less.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to spread the weight over a larger area, so the pressure on the shoulders is lower"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-triple-force-half-area",
+          "prompt": "A force on a surface produces a pressure of $500\\ \\text{Pa}$. The force is made 3 times bigger, and the area is halved. What is the new pressure, in Pa?",
+          "hint": "Tripling the force triples the pressure. What does halving the area do?",
+          "answer": {
+            "value": 3000,
+            "tolerance": 50
+          },
+          "explain": "Tripling the force multiplies the pressure by 3. Halving the area multiplies it by 2. So $p = 500 \\times 3 \\times 2 = 3000\\ \\text{Pa}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "500*3/(1/2)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "liquid-pressure",
+      "heading": "Pressure in a liquid",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A liquid has weight, so it pushes on everything under its surface. This is [[liquid-pressure|liquid pressure]]. It pushes in all directions: down on the bottom, sideways on the walls, and up on anything under the surface."
+        },
+        {
+          "type": "text",
+          "text": "The deeper you go, the taller the column of liquid above you, pressing down. So the pressure increases with depth. Depth means the vertical distance below the surface."
+        },
+        {
+          "type": "figure",
+          "id": "1-8-holes-in-can",
+          "alt": "A tall can full of water, with three small holes in its side, one above the other. Water spurts out of each hole. Each jet is drawn falling through the same small height. The jet from the top hole is the slowest and moves the shortest distance sideways. The jet from the bottom hole is the fastest and moves the furthest sideways. An arrow beside the can points down, labelled greater depth, greater pressure.",
+          "caption": "The deepest hole has the greatest pressure behind it, so its water comes out fastest."
+        },
+        {
+          "type": "text",
+          "text": "At the same depth, a denser liquid gives a bigger pressure. Each cubic metre of it has more mass, so the liquid above presses down with more weight. Sea water gives a slightly bigger pressure than fresh water at the same depth."
+        },
+        {
+          "type": "text",
+          "text": "Only the depth and the density matter. The shape or width of the container, and how much liquid it holds, make no difference. At the same depth in the same liquid, the pressure is the same in a narrow tube and in a wide tank."
+        },
+        {
+          "type": "example",
+          "id": "ex-water-tank-taps",
+          "question": "A tall water tank has two taps: one near the bottom and one halfway up. Both taps are opened fully. Explain why water comes out of the lower tap faster.",
+          "steps": [
+            "Compare the depths of the two taps below the water surface.",
+            "Link the depth to the water above, and so to the pressure.",
+            "Link the pressure to how fast the water comes out."
+          ],
+          "answer": "The lower tap is at a greater depth below the water surface. There is more water above it, pressing down with more weight. So the water at the lower tap is at a greater pressure. The greater pressure pushes water out of the lower tap faster.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "lower tap at greater depth; more water above; greater pressure; pushes water out faster",
+            "requires": [
+              [
+                "greater depth",
+                "deeper"
+              ],
+              [
+                "more water above"
+              ],
+              [
+                "greater pressure"
+              ],
+              [
+                "faster"
+              ]
+            ],
+            "forbids": [
+              "more water in the tank",
+              "wider"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Picking the container that holds the most liquid, or has the widest base, as the one with the biggest pressure at the bottom. Compare only the depths and the densities."
+        },
+        {
+          "type": "check",
+          "id": "check-vase-bucket",
+          "prompt": "A narrow vase and a wide bucket both hold water to a depth of $30\\ \\text{cm}$. How do the pressures due to the water at their bases compare?",
+          "hint": "Which two things does liquid pressure depend on? Are they different here?",
+          "options": [
+            {
+              "text": "they are the same",
+              "correct": true
+            },
+            {
+              "text": "it is greater at the base of the bucket",
+              "correct": false
+            },
+            {
+              "text": "it is greater at the base of the vase",
+              "correct": false
+            }
+          ],
+          "explain": "Both hold the same liquid to the same depth, so the pressures at the bases are equal. The bucket holds more water, but it spreads that weight over a bigger base.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they are the same"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oil-sensor",
+          "prompt": "A pressure sensor is lowered $40\\ \\text{cm}$ into a tall jar of cooking oil, which is less dense than water. How does its reading compare with the reading $40\\ \\text{cm}$ down in water?",
+          "hint": "The depth is the same. What else does liquid pressure depend on?",
+          "options": [
+            {
+              "text": "it is lower in the oil",
+              "correct": true
+            },
+            {
+              "text": "it is higher in the oil",
+              "correct": false
+            },
+            {
+              "text": "it is the same in both",
+              "correct": false
+            }
+          ],
+          "explain": "At the same depth, the less dense liquid gives the smaller pressure. Oil is less dense than water, so the reading is lower in the oil.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is lower in the oil"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculating-liquid-pressure",
+      "heading": "Calculating the pressure in a liquid",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Picture a column of liquid of height $h$ standing on an area $A$. Its volume is $Ah$, so its mass is $\\rho A h$ and its weight is $\\rho A h g$. Divide this weight by the area $A$, and the pressure it causes is $\\rho g h$."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta p = \\rho g \\Delta h",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta p$ is the change in pressure in Pa, $\\rho$ is the density of the liquid in kg/m³, $g = 9.8\\ \\text{N/kg}$ and $\\Delta h$ is the change in depth in m. The symbol $\\Delta$ means \"change in\"."
+        },
+        {
+          "type": "text",
+          "text": "Measured from the surface, $\\Delta h$ is the depth and $\\Delta p$ is the pressure due to the liquid alone. Between two points in the liquid, $\\Delta h$ is the vertical distance between them."
+        },
+        {
+          "type": "example",
+          "id": "ex-diving-pool",
+          "question": "A diving pool is filled with water of density $1000\\ \\text{kg/m}^3$ to a depth of $3.5\\ \\text{m}$. Calculate the pressure due to the water at the bottom of the pool. Take $g = 9.8\\ \\text{N/kg}$.",
+          "steps": [
+            "Write the equation: $\\Delta p = \\rho g \\Delta h$.",
+            "Substitute, with the depth in metres: $\\Delta p = 1000 \\times 9.8 \\times 3.5 = 34\\,300\\ \\text{Pa}$.",
+            "The depth has 2 significant figures, so give 2: $34\\,000\\ \\text{Pa}$, or $3.4 \\times 10^4\\ \\text{Pa}$ in standard form."
+          ],
+          "answer": "$\\Delta p \\approx 3.4 \\times 10^4\\ \\text{Pa}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "1000*g*3.5",
+            "sf": 2,
+            "unit": "Pa"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-liquid-density-sensor",
+          "question": "Two pressure sensors are placed in a tank of liquid, one $0.300\\ \\text{m}$ vertically below the other. The lower sensor reads $2450\\ \\text{Pa}$ more than the upper one. Calculate the density of the liquid. Take $g = 9.8\\ \\text{N/kg}$.",
+          "steps": [
+            "The change in depth is $\\Delta h = 0.300\\ \\text{m}$ and the change in pressure is $\\Delta p = 2450\\ \\text{Pa}$.",
+            "Rearrange $\\Delta p = \\rho g \\Delta h$ for the density: $\\rho = \\frac{\\Delta p}{g \\Delta h}$.",
+            "Substitute: $\\rho = \\frac{2450}{9.8 \\times 0.300} = 833.33\\ \\text{kg/m}^3$.",
+            "Give 3 significant figures, as the pressure and depth have. The liquid is less dense than water, like an oil."
+          ],
+          "answer": "$\\rho \\approx 833\\ \\text{kg/m}^3$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "2450/(g*0.300)",
+            "sf": 3,
+            "unit": "kg/m^3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting a depth in cm into $\\Delta p = \\rho g \\Delta h$. With $\\rho$ in kg/m³, the depth must be in metres for the answer to be in Pa."
+        },
+        {
+          "type": "check",
+          "id": "check-mercury-column",
+          "prompt": "Mercury has a density of $13\\,600\\ \\text{kg/m}^3$. What is the pressure due to a column of mercury $0.20\\ \\text{m}$ tall, in Pa? Use $g = 9.8\\ \\text{N/kg}$ and give 2 significant figures.",
+          "hint": "Use $\\Delta p = \\rho g \\Delta h$ with the height in metres.",
+          "answer": {
+            "value": 27000,
+            "tolerance": 500
+          },
+          "explain": "$\\Delta p = 13\\,600 \\times 9.8 \\times 0.20 = 26\\,656 \\approx 27\\,000\\ \\text{Pa}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "13600*g*0.20",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-diver-depth",
+          "prompt": "A diver in a fresh-water lake (density $1000\\ \\text{kg/m}^3$) swims deeper, and the pressure on her increases by $49\\,000\\ \\text{Pa}$. How much deeper has she gone, in m? Use $g = 9.8\\ \\text{N/kg}$.",
+          "hint": "Rearrange $\\Delta p = \\rho g \\Delta h$ to make $\\Delta h$ the subject.",
+          "answer": {
+            "value": 5,
+            "tolerance": 0.05
+          },
+          "explain": "$\\Delta h = \\frac{\\Delta p}{\\rho g} = \\frac{49\\,000}{1000 \\times 9.8} = 5.0\\ \\text{m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "49000/(1000*g)",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Pressure is force per unit area, with the force at right angles to the surface. Its unit is the pascal: $1\\ \\text{Pa} = 1\\ \\text{N/m}^2$. With an area in cm², pressure is in N/cm²."
+        },
+        {
+          "type": "formula",
+          "tex": "p = \\frac{F}{A}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A bigger force on the same area gives a bigger pressure. The same force on a smaller area gives a bigger pressure (knife, nail); on a larger area it gives a smaller pressure (snowshoes, wide tyres)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "In a liquid at rest, the pressure increases with depth below the surface and with the density of the liquid. It doesn't depend on the shape or width of the container."
+        },
+        {
+          "type": "formula",
+          "tex": "\\Delta p = \\rho g \\Delta h",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using the area of one wheel, leg or foot when the weight rests on several. Add all the contact areas first.",
+    "Multiplying force by area, or dividing area by force. Pressure is force ÷ area: $p = \\frac{F}{A}$.",
+    "Putting a mass in kg into $p = \\frac{F}{A}$. The force is the weight, so find $W = mg$ first.",
+    "Mixing cm² and m². $1\\ \\text{m}^2 = 10\\,000\\ \\text{cm}^2$; use N with m² for Pa, or N with cm² for N/cm².",
+    "Thinking a wider container means a greater liquid pressure, or that a heavier object feels a greater liquid pressure at the same depth. Only the depth and the density of the liquid matter."
+  ],
+  "examTips": [
+    "\"Define\" pressure in words: force per unit area. If you write $p = \\frac{F}{A}$ instead, say what each symbol means.",
+    "\"Calculate\" a pressure: write the equation, then the numbers in it, then the answer with its unit: Pa (or N/m²) for an area in m², N/cm² for an area in cm².",
+    "\"Explain\" an everyday example in linked steps: what stays the same (usually the force or weight), what changes (the area), what happens to the pressure, and what that does (sinks less, cuts more easily).",
+    "For a liquid question, look only at the depth and the density of the liquid. Ignore the container's shape, the volume of liquid (except where it changes the depth) and the mass of any object in it."
+  ],
+  "readingMinutes": 21
+}

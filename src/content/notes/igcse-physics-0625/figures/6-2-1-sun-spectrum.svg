@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" role="img" aria-labelledby="t621spectrum">
+  <title id="t621spectrum">The electromagnetic spectrum drawn as a row of seven boxes, from left to right: radio, microwaves, infrared, visible, ultraviolet, X-rays and gamma. The infrared, visible and ultraviolet boxes are shaded, and a bracket above them reads most of the Sun's energy. Under them: infrared about half, visible about two-fifths, ultraviolet under a tenth. Under radio, microwaves, X-rays and gamma: very little. An arrow along the bottom points right, labelled wavelength gets shorter and frequency gets higher.</title>
+  <g fill="var(--t2-ink)" fill-opacity="0.18">
+    <rect x="200" y="90" width="80" height="50"/>
+    <rect x="280" y="90" width="80" height="50"/>
+    <rect x="360" y="90" width="80" height="50"/>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.5">
+    <rect x="40" y="90" width="560" height="50"/>
+    <line x1="120" y1="90" x2="120" y2="140"/>
+    <line x1="200" y1="90" x2="200" y2="140"/>
+    <line x1="280" y1="90" x2="280" y2="140"/>
+    <line x1="360" y1="90" x2="360" y2="140"/>
+    <line x1="440" y1="90" x2="440" y2="140"/>
+    <line x1="520" y1="90" x2="520" y2="140"/>
+  </g>
+  <rect x="200" y="90" width="240" height="50" fill="none" stroke="var(--t2-ink)" stroke-width="3"/>
+  <polyline points="200,78 200,66 440,66 440,78" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="60" y1="205" x2="580" y2="205"/>
+    <polyline points="570,199 580,205 570,211"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="320" y="54" font-weight="bold">most of the Sun's energy</text>
+    <text x="80" y="120">radio</text>
+    <text x="160" y="120">microwaves</text>
+    <text x="240" y="120">infrared</text>
+    <text x="320" y="120">visible</text>
+    <text x="400" y="120">ultraviolet</text>
+    <text x="480" y="120">X-rays</text>
+    <text x="560" y="120">gamma</text>
+    <text x="240" y="162">about half</text>
+    <text x="320" y="162">about 2/5</text>
+    <text x="400" y="162">under 1/10</text>
+    <text x="80" y="162" fill-opacity="0.7">very little</text>
+    <text x="160" y="162" fill-opacity="0.7">very little</text>
+    <text x="480" y="162" fill-opacity="0.7">very little</text>
+    <text x="560" y="162" fill-opacity="0.7">very little</text>
+    <text x="320" y="232">wavelength gets shorter, frequency gets higher</text>
+  </g>
+</svg>

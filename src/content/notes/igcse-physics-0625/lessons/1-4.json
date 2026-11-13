@@ -1,0 +1,589 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.4",
+  "slug": "density",
+  "title": "Density",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[density|Density]] tells you how much [[mass|mass]] is packed into each unit of volume: $\\rho = \\frac{m}{V}$. You find it from a mass on a balance and a volume from a measuring cylinder, a ruler or the [[displacement-method|displacement method]], and comparing densities tells you whether something floats. Extended adds which of two liquids floats on the other.",
+  "goals": [
+    {
+      "text": "Define density and use $\\rho = \\frac{m}{V}$, with units g/cm³ or kg/m³.",
+      "bullets": [
+        "1.4-1"
+      ]
+    },
+    {
+      "text": "Describe how to measure the density of a liquid, a regular solid and an irregular solid that sinks, and calculate it from the readings.",
+      "bullets": [
+        "1.4-2"
+      ]
+    },
+    {
+      "text": "Decide from densities whether an object floats or sinks in a liquid.",
+      "bullets": [
+        "1.4-3"
+      ]
+    },
+    {
+      "text": "Decide from densities which of two liquids that don't mix floats on top of the other.",
+      "bullets": [
+        "1.4-4"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "density formula rho = m/V",
+    "how to measure density",
+    "displacement method volume",
+    "float or sink density",
+    "density of a liquid",
+    "liquid layers density"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-mass-instrument",
+      "prompt": "Which instrument measures the [[mass|mass]] of a stone?",
+      "hint": "Mass is in grams or kilograms. One option measures a force in newtons.",
+      "options": [
+        {
+          "text": "a balance",
+          "correct": true
+        },
+        {
+          "text": "a newton meter",
+          "correct": false
+        },
+        {
+          "text": "a measuring cylinder",
+          "correct": false
+        },
+        {
+          "text": "a ruler",
+          "correct": false
+        }
+      ],
+      "explain": "A balance measures mass, in g or kg. A newton meter measures [[weight|weight]], which is a force in N. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a balance"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-displacement-volume",
+      "prompt": "A measuring cylinder holds water up to $35\\ \\text{cm}^3$. A bolt is lowered in until it is completely under water, and the level rises to $41\\ \\text{cm}^3$. What is the volume of the bolt, in cm³?",
+      "hint": "The bolt pushes the water up by its own volume.",
+      "answer": {
+        "value": 6,
+        "tolerance": 0
+      },
+      "explain": "Volume $= 41 - 35 = 6\\ \\text{cm}^3$: the rise in the water level. Revise it in {{lesson:1.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "41 - 35",
+        "sf": 1
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "what-is-density",
+      "heading": "Density: how tightly mass is packed",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Fill one shoebox with polystyrene and an identical one with sand. They take up the same volume, but the box of sand has far more mass. Sand packs more mass into each cubic centimetre: it has a higher density."
+        },
+        {
+          "type": "definition",
+          "term": "density",
+          "statement": "[[density|Density]] is the mass per unit volume of a material.",
+          "plain": "How many grams are packed into each cubic centimetre (or kilograms into each cubic metre)."
+        },
+        {
+          "type": "formula",
+          "tex": "\\rho = \\frac{m}{V}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $\\rho$ (the Greek letter rho) is density, $m$ is mass and $V$ is volume. Rearranged, $m = \\rho V$ and $V = \\frac{m}{\\rho}$."
+        },
+        {
+          "type": "text",
+          "text": "The unit comes from the units you divide. Mass in g and volume in cm³ give g/cm³. Mass in kg and volume in m³ give kg/m³. Water has a density of about $1.0\\ \\text{g/cm}^3$, which is $1000\\ \\text{kg/m}^3$."
+        },
+        {
+          "type": "text",
+          "text": "To change g/cm³ into kg/m³, multiply by 1000. So $2.7\\ \\text{g/cm}^3 = 2700\\ \\text{kg/m}^3$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cork-density",
+          "question": "A cork tile has a mass of $9.6\\ \\text{g}$ and a volume of $40\\ \\text{cm}^3$. Calculate the density of cork.",
+          "steps": [
+            "Write the equation: $\\rho = \\frac{m}{V}$.",
+            "Substitute the values: $\\rho = \\frac{9.6}{40}$.",
+            "$\\rho = 0.24$. Mass is in g and volume in cm³, so the unit is g/cm³."
+          ],
+          "answer": "$\\rho = 0.24\\ \\text{g/cm}^3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "9.6/40",
+            "unit": "g/cm^3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-olive-oil-mass",
+          "question": "A storage tank holds $0.035\\ \\text{m}^3$ of olive oil. The density of olive oil is $910\\ \\text{kg/m}^3$. Calculate the mass of the oil.",
+          "steps": [
+            "Rearrange $\\rho = \\frac{m}{V}$ to make $m$ the subject: $m = \\rho V$.",
+            "Substitute: $m = 910 \\times 0.035$.",
+            "$m = 31.85$. The density is in kg/m³ and the volume in m³, so the mass is in kg.",
+            "Give 2 significant figures, as the volume has only 2."
+          ],
+          "answer": "$m \\approx 32\\ \\text{kg}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "910*0.035",
+            "sf": 2,
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing volume by mass. Density is mass ÷ volume: check that your unit has a mass unit on top, such as g/cm³."
+        },
+        {
+          "type": "check",
+          "id": "check-steel-bolt",
+          "prompt": "A steel bolt has a mass of $47.4\\ \\text{g}$ and a volume of $6.0\\ \\text{cm}^3$. What is the density of the steel, in g/cm³? Give 2 significant figures.",
+          "hint": "Divide the mass by the volume.",
+          "answer": {
+            "value": 7.9,
+            "tolerance": 0.05
+          },
+          "explain": "$\\rho = \\frac{47.4}{6.0} = 7.9\\ \\text{g/cm}^3$. Dividing $6.0$ by $47.4$ gives $0.13$, which would be the volume of each gram, not the density.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "47.4/6.0",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-convert-units",
+          "prompt": "Petrol has a density of $0.74\\ \\text{g/cm}^3$. What is this in kg/m³?",
+          "hint": "1 g/cm³ is the same as 1000 kg/m³.",
+          "answer": {
+            "value": 740,
+            "tolerance": 5
+          },
+          "explain": "$0.74 \\times 1000 = 740\\ \\text{kg/m}^3$. Each cm³ holds $0.74\\ \\text{g}$, so each m³ (a million cm³) holds $740\\ 000\\ \\text{g}$, which is $740\\ \\text{kg}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.74*1000",
+            "sf": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring-density",
+      "heading": "Measuring density",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every density experiment has the same plan: measure the mass with a balance, measure the volume, then use $\\rho = \\frac{m}{V}$. Only the way you find the volume changes."
+        },
+        {
+          "type": "text",
+          "text": "A liquid. Weigh an empty measuring cylinder on a balance. Pour in some liquid and read its volume at the bottom of the meniscus, with your eye level with it. Weigh the cylinder and liquid together. The mass of the liquid is the second reading minus the first."
+        },
+        {
+          "type": "text",
+          "text": "A regular solid, such as a cuboid. Measure its length, width and height with a ruler, and work out the volume: $V = \\text{length} \\times \\text{width} \\times \\text{height}$. Find its mass on a balance."
+        },
+        {
+          "type": "text",
+          "text": "An irregular solid that sinks, such as a stone. Use the [[displacement-method|displacement method]]. Pour enough water into a measuring cylinder to cover the solid, and read the volume. Lower the solid in on a thread until it is completely under water, then read the volume again. The solid's volume is the rise in the reading."
+        },
+        {
+          "type": "text",
+          "text": "You can also use a displacement can. Fill it with water until water runs out of the spout, and wait until the dripping stops. Put an empty measuring cylinder under the spout, then lower the solid in. Collect all the water that overflows: its volume equals the solid's volume. The solid must sink, so that all of it is under water."
+        },
+        {
+          "type": "figure",
+          "id": "1-4-displacement",
+          "alt": "Two measuring cylinders side by side, each with a scale in cubic centimetres from 30 to 70, numbered every 10 with small marks every 2. Left, labelled before: water only, with the bottom of the meniscus at 42. Right, labelled after: a piece of slate hangs on a thread, fully under the water, and the bottom of the meniscus is at 66.",
+          "caption": "Displacement: the rise in the water level is the volume of the slate."
+        },
+        {
+          "type": "example",
+          "id": "ex-slate-density",
+          "question": "A piece of slate has a mass of $64.8\\ \\text{g}$. It is lowered into the measuring cylinder as shown in the diagram. Calculate the density of the slate.",
+          "steps": [
+            "Read both volumes at the bottom of the meniscus: $42\\ \\text{cm}^3$ before and $66\\ \\text{cm}^3$ after.",
+            "Volume of slate = rise in level: $V = 66 - 42 = 24\\ \\text{cm}^3$.",
+            "Write the equation and substitute: $\\rho = \\frac{m}{V} = \\frac{64.8}{24}$.",
+            "$\\rho = 2.7$, in g/cm³."
+          ],
+          "answer": "$\\rho = 2.7\\ \\text{g/cm}^3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "64.8/(66 - 42)",
+            "unit": "g/cm^3"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-liquid-density",
+          "question": "Describe how a student can find the density of some cooking oil, using a measuring cylinder and a balance.",
+          "steps": [
+            "Start with the mass of the empty container, so it can be taken away later.",
+            "Then the volume reading, and how to read it.",
+            "Then the second mass reading and the subtraction.",
+            "Finish with the calculation."
+          ],
+          "answer": "Measure the mass of the empty measuring cylinder on the balance. Pour some oil into the measuring cylinder. Read the volume of oil at the bottom of the meniscus, with your eye level with it. Measure the mass of the measuring cylinder and oil together. Subtract the mass of the empty measuring cylinder to find the mass of the oil. Divide the mass of the oil by its volume: $\\rho = \\frac{m}{V}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "mass of empty cylinder; volume read at meniscus; mass of cylinder plus oil; subtract; density = mass divided by volume",
+            "requires": [
+              [
+                "mass of the empty measuring cylinder",
+                "mass of the empty cylinder"
+              ],
+              [
+                "balance"
+              ],
+              [
+                "meniscus"
+              ],
+              [
+                "eye level"
+              ],
+              [
+                "subtract"
+              ],
+              [
+                "divide the mass of the oil by its volume",
+                "mass divided by volume"
+              ]
+            ],
+            "forbids": [
+              "divide the volume by the mass"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using the mass of the container and liquid together as the mass of the liquid. Subtract the mass of the empty container first."
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the water level only once in the displacement method. You need the reading before and after the solid goes in, and the solid must be completely under water."
+        },
+        {
+          "type": "check",
+          "id": "check-wood-block",
+          "prompt": "A wooden block measures $5.0\\ \\text{cm} \\times 4.0\\ \\text{cm} \\times 2.5\\ \\text{cm}$. Its mass is $32\\ \\text{g}$. What is the density of the wood, in g/cm³? Give 2 significant figures.",
+          "hint": "Find the volume first: length × width × height.",
+          "answer": {
+            "value": 0.64,
+            "tolerance": 0.005
+          },
+          "explain": "$V = 5.0 \\times 4.0 \\times 2.5 = 50\\ \\text{cm}^3$, so $\\rho = \\frac{32}{50} = 0.64\\ \\text{g/cm}^3$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "32/(5.0*4.0*2.5)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-beaker-liquid",
+          "prompt": "An empty beaker has a mass of $112.0\\ \\text{g}$. With $80\\ \\text{cm}^3$ of salt water in it, the mass is $207.2\\ \\text{g}$. What is the density of the salt water, in g/cm³? Give 3 significant figures.",
+          "hint": "Find the mass of the salt water alone before you divide.",
+          "answer": {
+            "value": 1.19,
+            "tolerance": 0.005
+          },
+          "explain": "Mass of salt water $= 207.2 - 112.0 = 95.2\\ \\text{g}$. $\\rho = \\frac{95.2}{80} = 1.19\\ \\text{g/cm}^3$. Using $207.2\\ \\text{g}$ would give $2.59\\ \\text{g/cm}^3$, far too high.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(207.2 - 112.0)/80",
+            "sf": 3
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Describe\" a density experiment (Paper 3/4 or 5/6) in order: name the instruments, say what you measure first, how you find the volume, any subtraction, and finish with density = mass ÷ volume."
+        }
+      ]
+    },
+    {
+      "id": "floating",
+      "heading": "Floating and sinking",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An object floats in a liquid if its density is less than the density of the liquid. It sinks if its density is greater. If the two densities are equal, it stays wherever you put it in the liquid."
+        },
+        {
+          "type": "text",
+          "text": "Compare densities, not masses. A huge log floats on a lake, but a small pebble sinks: wood is less dense than water and stone is denser. A steel ship floats because it is hollow: its average density, steel and air together, is below that of the water."
+        },
+        {
+          "type": "example",
+          "id": "ex-toy-float",
+          "question": "A plastic toy has a mass of $18.4\\ \\text{g}$ and a volume of $23\\ \\text{cm}^3$. The density of water is $1.0\\ \\text{g/cm}^3$ and the density of ethanol is $0.79\\ \\text{g/cm}^3$. Determine whether the toy floats or sinks in each liquid.",
+          "steps": [
+            "Calculate the toy's density: $\\rho = \\frac{m}{V} = \\frac{18.4}{23} = 0.80\\ \\text{g/cm}^3$.",
+            "Compare with water: $0.80 < 1.0$.",
+            "Compare with ethanol: $0.80 > 0.79$. The densities are close, but the toy's is still greater."
+          ],
+          "answer": "The density of the toy is $\\frac{18.4}{23} = 0.80\\ \\text{g/cm}^3$. This is less than the density of water, so the toy floats in water. It is greater than the density of ethanol, so the toy sinks in ethanol.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "toy density 0.80 g/cm3; less than water so floats in water; greater than ethanol so sinks in ethanol",
+            "requires": [
+              [
+                "$0.80\\ \\text{g/cm}^3$"
+              ],
+              [
+                "less than the density of water"
+              ],
+              [
+                "floats in water"
+              ],
+              [
+                "greater than the density of ethanol"
+              ],
+              [
+                "sinks in ethanol"
+              ]
+            ],
+            "forbids": [
+              "floats in ethanol",
+              "sinks in water"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking an object floats because its density is close to the liquid's. To float, its density must be less than the liquid's, even if only by a little."
+        },
+        {
+          "type": "check",
+          "id": "check-candle-sinks",
+          "prompt": "A wax candle has a density of $0.90\\ \\text{g/cm}^3$. In which liquid does it sink?",
+          "hint": "It sinks in a liquid that is less dense than the wax.",
+          "options": [
+            {
+              "text": "paraffin oil, density 0.80 g/cm³",
+              "correct": true
+            },
+            {
+              "text": "water, density 1.0 g/cm³",
+              "correct": false
+            },
+            {
+              "text": "sea water, density 1.03 g/cm³",
+              "correct": false
+            },
+            {
+              "text": "glycerol, density 1.26 g/cm³",
+              "correct": false
+            }
+          ],
+          "explain": "The candle sinks only where its density is greater than the liquid's: $0.90 > 0.80$. In the other three liquids its density is less, so it floats.",
+          "verify": {
+            "kind": "choice",
+            "truth": "paraffin oil, density 0.80 g/cm³"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-rubber-ball",
+          "prompt": "A rubber ball has a mass of $39\\ \\text{g}$ and a volume of $35\\ \\text{cm}^3$. Water has a density of $1.0\\ \\text{g/cm}^3$. What happens when the ball is put in water?",
+          "hint": "Work out the ball's density first, mass ÷ volume.",
+          "options": [
+            {
+              "text": "it sinks, because its density is 1.1 g/cm³",
+              "correct": true
+            },
+            {
+              "text": "it floats, because its density is 0.90 g/cm³",
+              "correct": false
+            },
+            {
+              "text": "it floats, because its mass is less than 1 kg",
+              "correct": false
+            },
+            {
+              "text": "it floats, because rubber is a light material",
+              "correct": false
+            }
+          ],
+          "explain": "$\\rho = \\frac{39}{35} = 1.1\\ \\text{g/cm}^3$, which is more than $1.0\\ \\text{g/cm}^3$, so the ball sinks. Dividing the other way, $\\frac{35}{39} = 0.90$, wrongly suggests it floats.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it sinks, because its density is 1.1 g/cm³"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Liquids that do not mix settle into layers. A less dense liquid floats on a denser one, so the least dense liquid ends up on top and the densest at the bottom. The order does not depend on which liquid you pour in first, or on how much of each there is.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-liquid-layers",
+          "question": "A $30\\ \\text{cm}^3$ sample of vegetable oil has a mass of $27.6\\ \\text{g}$. A $40\\ \\text{cm}^3$ sample of syrup has a mass of $55.2\\ \\text{g}$. Water has a density of $1.0\\ \\text{g/cm}^3$. The three liquids do not mix and are poured into one tall jar. Determine the order of the layers from top to bottom.",
+          "steps": [
+            "Oil: $\\rho = \\frac{27.6}{30} = 0.92\\ \\text{g/cm}^3$.",
+            "Syrup: $\\rho = \\frac{55.2}{40} = 1.38 \\approx 1.4\\ \\text{g/cm}^3$.",
+            "Put the densities in order: $0.92 < 1.0 < 1.4$. The least dense liquid floats on top."
+          ],
+          "answer": "The oil has a density of $0.92\\ \\text{g/cm}^3$ and the syrup $1.4\\ \\text{g/cm}^3$. The oil is the least dense, so it is on top. The water, at $1.0\\ \\text{g/cm}^3$, is in the middle. The syrup is the densest, so it is at the bottom.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "oil 0.92 on top, water 1.0 in the middle, syrup 1.4 at the bottom",
+            "requires": [
+              [
+                "$0.92\\ \\text{g/cm}^3$"
+              ],
+              [
+                "$1.4\\ \\text{g/cm}^3$"
+              ],
+              [
+                "oil is the least dense"
+              ],
+              [
+                "on top"
+              ],
+              [
+                "in the middle"
+              ],
+              [
+                "syrup is the densest"
+              ],
+              [
+                "at the bottom"
+              ]
+            ],
+            "forbids": [
+              "largest mass",
+              "poured in first"
+            ]
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-two-liquids",
+          "prompt": "Liquid X has a density of $0.86\\ \\text{g/cm}^3$ and liquid Y has a density of $1.6\\ \\text{g/cm}^3$. They do not mix. A student pours $50\\ \\text{cm}^3$ of Y into a beaker, then $200\\ \\text{cm}^3$ of X. What does she see when they settle?",
+          "hint": "Only the densities decide the order.",
+          "options": [
+            {
+              "text": "X forms the top layer",
+              "correct": true
+            },
+            {
+              "text": "Y forms the top layer",
+              "correct": false
+            },
+            {
+              "text": "the liquid with the larger volume forms the bottom layer",
+              "correct": false
+            },
+            {
+              "text": "the two liquids mix evenly",
+              "correct": false
+            }
+          ],
+          "explain": "X is less dense than Y, so X floats on Y. The volumes and the order of pouring make no difference.",
+          "verify": {
+            "kind": "choice",
+            "truth": "X forms the top layer"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "formula",
+          "tex": "\\rho = \\frac{m}{V}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Density is mass per unit volume, in g/cm³ (mass in g, volume in cm³) or kg/m³ (mass in kg, volume in m³). $1\\ \\text{g/cm}^3 = 1000\\ \\text{kg/m}^3$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To measure density, find the mass with a balance and the volume, then divide. Liquid: volume in a measuring cylinder, mass = (cylinder + liquid) − empty cylinder. Regular solid: volume from length × width × height. Irregular solid that sinks: volume = rise in water level when it is fully under water (displacement)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "An object floats in a liquid if its density is less than the liquid's density, and sinks if its density is greater. For a hollow object, use its average density."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Liquids that do not mix form layers in order of density: the least dense on top, the densest at the bottom, whatever their volumes."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing volume by mass. Density is mass ÷ volume, so the unit has a mass unit on top: g/cm³ or kg/m³.",
+    "Mixing units, such as a mass in kg with a volume in cm³. Convert first so the units match: g with cm³, or kg with m³.",
+    "Taking the reading for container plus liquid as the mass of the liquid. Take away the empty container's mass first.",
+    "Taking only one water reading in the displacement method, or not putting the solid fully under water. Read the level before and after, and subtract.",
+    "Saying an object floats because its density is close to the liquid's, or because it is light. It floats only if its density is less than the liquid's."
+  ],
+  "examTips": [
+    "\"Define\" density in words: mass per unit volume. If you give $\\rho = \\frac{m}{V}$ instead, say what each symbol means.",
+    "\"Calculate\" a density: write $\\rho = \\frac{m}{V}$, then the numbers in it, then the answer with a unit that matches the data (g/cm³ or kg/m³).",
+    "\"Determine whether it floats\": calculate the object's density, compare it with the liquid's using the numbers, and then state floats or sinks."
+  ],
+  "readingMinutes": 20
+}

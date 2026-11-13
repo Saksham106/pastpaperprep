@@ -1,0 +1,38 @@
+[
+  {
+    "id": "resistance",
+    "term": "resistance",
+    "definition": "How much a component opposes the current in it: the p.d. across it divided by the current, $R = \\frac{V}{I}$, measured in ohms ($\\Omega$).",
+    "lesson": "4.2.4"
+  },
+  {
+    "id": "resistor",
+    "term": "resistor",
+    "definition": "A component made to have a fixed resistance; at constant temperature the current in it is directly proportional to the p.d. across it.",
+    "lesson": "4.2.4"
+  },
+  {
+    "id": "ohm-s-law",
+    "term": "Ohm's law",
+    "definition": "The current in a metal conductor is directly proportional to the p.d. across it, as long as its temperature stays the same.",
+    "lesson": "4.2.4"
+  },
+  {
+    "id": "filament-lamp",
+    "term": "filament lamp",
+    "definition": "A lamp with a thin metal wire (the filament) that glows when hot; its resistance increases as it gets hotter, so its current–voltage graph (current on the vertical axis) gets less steep.",
+    "lesson": "4.2.4"
+  },
+  {
+    "id": "diode",
+    "term": "diode",
+    "definition": "A component that lets current flow in one direction only: it has a low resistance in the forward direction and a very high resistance in reverse.",
+    "lesson": "4.2.4"
+  },
+  {
+    "id": "resistivity-effects-of-wire",
+    "term": "resistivity effects of wire",
+    "definition": "For wires of the same metal at the same temperature, a longer wire (same thickness) has more resistance and a thicker wire (same length) less (Extended: $R$ is directly proportional to length for the same area, and inversely proportional to cross-sectional area for the same length).",
+    "lesson": "4.2.4"
+  }
+]

@@ -1,0 +1,666 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.5.4",
+  "slug": "force-on-a-current-carrying-conductor",
+  "title": "Force on a current-carrying conductor",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A wire carrying a current across a [[magnetic-field|magnetic field]] feels a [[force|force]]. This is the [[motor-effect|motor effect]]. Reverse the current or the field and the force reverses; reverse both and it does not. Extended students also find the direction of the force, for wires and for beams of charged particles.",
+  "goals": [
+    {
+      "text": "Describe an experiment that shows the force on a current in a magnetic field, and what happens when you reverse the current or the field.",
+      "bullets": [
+        "4.5.4-1"
+      ]
+    },
+    {
+      "text": "Use Fleming's [[left-hand-rule|left-hand rule]] to link the directions of force, field and current.",
+      "bullets": [
+        "4.5.4-2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Find the direction of the force on a beam of positive or negative particles moving through a magnetic field.",
+      "bullets": [
+        "4.5.4-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.5.1",
+    "4.1",
+    "4.2.2",
+    "4.5.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "motor effect",
+    "Fleming's left-hand rule",
+    "force on a wire in a magnetic field",
+    "reversing the current and the field",
+    "electron beam in a magnetic field",
+    "deflection of charged particles"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-field-n-to-s",
+      "prompt": "The N pole of one [[magnet|magnet]] faces the S pole of another across a gap. Which way do the field lines in the gap point?",
+      "hint": "Field lines show the way an N pole would be pushed.",
+      "options": [
+        {
+          "text": "from the N pole to the S pole",
+          "correct": true
+        },
+        {
+          "text": "from the S pole to the N pole",
+          "correct": false
+        },
+        {
+          "text": "there are no field lines between unlike poles",
+          "correct": false
+        }
+      ],
+      "explain": "Field lines run from N to S, and unlike poles facing each other give a strong, nearly uniform field across the gap. Revise it in {{lesson:4.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "from the N pole to the S pole"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-electrons-vs-current",
+      "prompt": "In a wire, electrons drift from left to right. Which way is the [[conventional-current|conventional current]]?",
+      "hint": "Electrons are negative. Conventional current is the way positive charge would flow.",
+      "options": [
+        {
+          "text": "from right to left",
+          "correct": true
+        },
+        {
+          "text": "from left to right",
+          "correct": false
+        },
+        {
+          "text": "there is no current, because electrons are negative",
+          "correct": false
+        }
+      ],
+      "explain": "Conventional current flows the opposite way to the electrons, so it is from right to left. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "from right to left"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-wire-own-field",
+      "prompt": "What does a current in a long straight wire produce around the wire?",
+      "hint": "Think about plotting compasses placed around the wire.",
+      "options": [
+        {
+          "text": "a magnetic field in circles around the wire",
+          "correct": true
+        },
+        {
+          "text": "a magnetic field only at the two ends of the wire",
+          "correct": false
+        },
+        {
+          "text": "no magnetic field, unless the wire is made of iron",
+          "correct": false
+        }
+      ],
+      "explain": "Any current makes a magnetic field. Around a straight wire the field lines are circles centred on the wire. Revise it in {{lesson:4.5.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "a magnetic field in circles around the wire"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "motor-effect",
+      "heading": "The motor effect",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A current makes its own [[magnetic-field|magnetic field]]. Put the current inside the field of a [[magnet|magnet]], and the two fields push on each other. So the wire feels a [[force|force]]."
+        },
+        {
+          "type": "definition",
+          "term": "motor effect",
+          "statement": "The force on a wire or other conductor carrying a current across the field lines of a magnetic field.",
+          "plain": "Current plus magnet gives a push on the wire."
+        },
+        {
+          "type": "text",
+          "text": "Electric motors use the [[motor-effect|motor effect]] to turn ({{lesson:4.5.5}})."
+        },
+        {
+          "type": "text",
+          "text": "To show it, rest a light metal rod across two metal rails. Join the rails to a low-voltage d.c. supply, so the rod completes the circuit. Place a strong [[permanent-magnet|permanent magnet]] so the rod sits between its poles."
+        },
+        {
+          "type": "text",
+          "text": "1. Switch on. The rod rolls along the rails, so a force acts on it. With no current, there is no force."
+        },
+        {
+          "type": "text",
+          "text": "2. Swap the connections to the supply, so the current reverses. Switch on again: the rod rolls the opposite way."
+        },
+        {
+          "type": "text",
+          "text": "3. Put the connections back. Turn the magnet over so its poles swap, which reverses the field. The rod again rolls the opposite way."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-4-rod-on-rails",
+          "alt": "View from above. Two straight metal rails run across the page from left to right, one above the other. A light metal rod rests across them at right angles. The left ends of the rails are joined to a d.c. supply, with its positive terminal connected to the upper rail. The rod and the middle of the rails lie between the poles of a magnet: the N pole is above the rails and the S pole is below them, so the magnetic field points into the page, shown by crosses. Arrows show the current flowing from the positive terminal along the upper rail, down through the rod and back along the lower rail. A thick arrow pointing right from the rod is labelled force, and shows that the rod rolls to the right.",
+          "caption": "The rod on the rails rolls when there is a current in it."
+        },
+        {
+          "type": "text",
+          "text": "Reverse the current or the field, and the force reverses. Reverse both at once, and the two changes cancel: the force acts the original way."
+        },
+        {
+          "type": "text",
+          "text": "Reversing flips which way the force acts. It leaves the size the same. A bigger current or a stronger magnet gives a bigger force."
+        },
+        {
+          "type": "text",
+          "text": "The force is biggest when the wire is at right angles to the [[magnetic-field-line|field lines]]. A wire that runs along the field lines feels no force."
+        },
+        {
+          "type": "text",
+          "text": "With an [[alternating-current|a.c.]] supply, the current keeps reversing, so the force keeps reversing too. A loose wire in the field then vibrates."
+        },
+        {
+          "type": "example",
+          "id": "ex-foil-strip-describe",
+          "question": "Priya has a U-shaped magnet, a low-voltage d.c. supply, a switch, leads and a long strip of aluminium foil. Describe an experiment she could do to show that there is a force on the foil when it carries a current in the magnetic field. Include how she shows the effect of reversing the current, and of reversing the field.",
+          "steps": [
+            "First make a complete circuit with the foil in the field, and say what she sees when the current flows.",
+            "Then change one thing at a time, first the current and then the field, and say what happens each time."
+          ],
+          "answer": "She connects the foil, the switch and the supply in series to make a complete circuit. She hangs the foil loosely between the poles of the magnet, across the field lines. When she closes the switch, the foil kicks to one side, which shows that a force acts on it. When she swaps the connections to the supply, the current reverses and the foil kicks the opposite way. When she turns the magnet round so its poles swap, the field reverses and the foil again kicks the opposite way.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "complete circuit; foil between the poles, across the field; foil moves when current flows; swap supply connections: current reverses, foil moves the opposite way; swap the poles: field reverses, opposite way",
+            "requires": [
+              "complete circuit",
+              "between the poles",
+              "across the field",
+              [
+                "foil kicks",
+                "foil moves",
+                "foil jumps"
+              ],
+              [
+                "swaps the connections",
+                "reverses the current"
+              ],
+              [
+                "opposite way",
+                "opposite direction"
+              ],
+              "poles swap",
+              "field reverses"
+            ],
+            "forbids": [
+              "kicks the same way",
+              "along the field lines"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-roll-away",
+          "prompt": "In the rails experiment, the rod rolls towards the supply. Which change makes it roll away from the supply instead?",
+          "hint": "Only reversing the current or the field reverses the force, and two reversals cancel.",
+          "options": [
+            {
+              "text": "turning the magnet over, so its poles swap",
+              "correct": true
+            },
+            {
+              "text": "turning the rod round, end to end",
+              "correct": false
+            },
+            {
+              "text": "using a stronger magnet",
+              "correct": false
+            },
+            {
+              "text": "swapping the supply connections and turning the magnet over",
+              "correct": false
+            }
+          ],
+          "explain": "Swapping the poles reverses the field, so the force reverses. Turning the rod round leaves the current in the same direction. A stronger magnet only makes the force bigger. Doing both reversals cancels out.",
+          "verify": {
+            "kind": "choice",
+            "truth": "turning the magnet over, so its poles swap"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-swing-predict",
+          "question": "A stiff copper wire hangs like a swing, and its lowest part passes between the poles of a magnet. When a d.c. supply is switched on, the swing kicks towards the back of the bench. Predict which way it moves, with a reason, when: (a) the supply connections are swapped; (b) instead, the magnet is turned round so its poles swap; (c) both changes are made at once; (d) the d.c. supply is replaced by a low-voltage a.c. supply.",
+          "steps": [
+            "Each reversal of the current or of the field reverses the force.",
+            "Count the reversals: one reverses the force, two cancel.",
+            "An a.c. current reverses again and again, many times a second."
+          ],
+          "answer": "(a) It kicks towards the front, because reversing the current reverses the force. (b) It kicks towards the front, because reversing the field reverses the force. (c) It kicks towards the back, because the two reversals cancel. (d) It vibrates backwards and forwards, because the current keeps reversing, so the force keeps reversing.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "(a) front: current reversed; (b) front: field reversed; (c) back: two reversals cancel; (d) vibrates: a.c. keeps reversing the force",
+            "requires": [
+              "reversing the current reverses the force",
+              "reversing the field reverses the force",
+              "kicks towards the back",
+              "two reversals cancel",
+              "vibrates",
+              "current keeps reversing"
+            ],
+            "forbids": [
+              "reversals add up",
+              "no force with a.c."
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reversing both the current and the field, and expecting the force to reverse. Each reversal flips the force, so two of them bring it back to where it started."
+        },
+        {
+          "type": "check",
+          "id": "check-both-reversed",
+          "prompt": "A wire between the poles of a magnet is pushed upwards when there is a current in it. The current and the magnetic field are both reversed. Which way is the force on the wire now?",
+          "hint": "Count the reversals.",
+          "options": [
+            {
+              "text": "upwards",
+              "correct": true
+            },
+            {
+              "text": "downwards",
+              "correct": false
+            },
+            {
+              "text": "there is no force",
+              "correct": false
+            }
+          ],
+          "explain": "Reversing the current flips the force down, and reversing the field flips it back up. The force is upwards, the same as before.",
+          "verify": {
+            "kind": "choice",
+            "truth": "upwards"
+          }
+        }
+      ]
+    },
+    {
+      "id": "left-hand-rule",
+      "heading": "Fleming's left-hand rule",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Extended students must find the direction of the force, not just say when it reverses. The force always acts at 90° to the current and at 90° to the field."
+        },
+        {
+          "type": "text",
+          "text": "When the current crosses the field at 90°, the [[left-hand-rule|left-hand rule]] gives the direction. Hold the thumb and first two fingers of your left hand at right angles to each other."
+        },
+        {
+          "type": "text",
+          "text": "First finger: the field, from N to S. Second finger: the current, as [[conventional-current|conventional current]], from + to −. Thumb: the force, which is the way the wire is pushed."
+        },
+        {
+          "type": "text",
+          "text": "A way to remember it: First finger for Field, seCond finger for Current, thuMb for Motion."
+        },
+        {
+          "type": "text",
+          "text": "Diagrams often show a wire end-on, at right angles to the page. A cross (×) means current into the page; a dot (•) means current out of the page."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-4-wire-end-on",
+          "alt": "An N pole on the left and an S pole on the right, with magnetic field lines running straight across between them from N to S, to the right. A straight wire passes through the gap at right angles to the page, drawn end-on as a small circle with a dot in it, meaning the current flows out of the page. A thick arrow pointing up the page from the wire is labelled force. Notes on the right say: field from N to S, to the right; current out of the page; force on the wire up the page.",
+          "caption": "Field to the right, current out of the page: the left thumb points up the page."
+        },
+        {
+          "type": "example",
+          "id": "ex-lhr-field-up",
+          "question": "The N pole of a magnet is at the bottom of the page and the S pole is at the top. A wire between them runs across the page and carries a current to the right. Determine which way the wire is pushed.",
+          "steps": [
+            "Field: from N to S, so up the page. Current: to the right.",
+            "Left hand: first finger up the page, second finger to the right.",
+            "The thumb points out of the page. That is at 90° to both fingers, as it must be."
+          ],
+          "answer": "The wire is pushed out of the page, towards the viewer.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "B up the page, I to the right: force out of the page",
+            "requires": [
+              "out of the page",
+              "towards the viewer"
+            ],
+            "forbids": [
+              "into the page",
+              "up the page"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-find-poles",
+          "question": "A wire at right angles to the page carries a current into the page. One magnetic pole is above the wire and the other is below it. The force on the wire acts to the left. Deduce which pole is at the top.",
+          "steps": [
+            "The field must be at right angles to both the current and the force, so it points up or down the page.",
+            "Left hand: thumb to the left (force), second finger into the page (current). The first finger then points down the page.",
+            "Field lines run from N to S, so the N pole is where they start."
+          ],
+          "answer": "The field points down the page, so the N pole is at the top and the S pole is at the bottom.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "I into the page, F to the left: B down the page, so N at the top",
+            "requires": [
+              "field points down the page",
+              "N pole is at the top"
+            ],
+            "forbids": [
+              "S pole is at the top",
+              "field points up the page"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 2 multiple-choice question, first cross out any option along the field or along the wire. The push is at 90° to both of those, so usually only two options are left."
+        },
+        {
+          "type": "mistake",
+          "text": "Using your right hand. Fleming's right-hand rule gives the induced current in a moving wire ({{lesson:4.5.1}}); for the force on a current, use your left hand."
+        },
+        {
+          "type": "check",
+          "id": "check-lhr-current-up",
+          "prompt": "A wire runs up and down the page and carries a current up the page. The magnetic field points into the page. Which way is the force on the wire?",
+          "hint": "First finger into the page, second finger up the page. Where does your thumb point?",
+          "options": [
+            {
+              "text": "to the left",
+              "correct": true
+            },
+            {
+              "text": "to the right",
+              "correct": false
+            },
+            {
+              "text": "into the page",
+              "correct": false
+            },
+            {
+              "text": "up the page",
+              "correct": false
+            }
+          ],
+          "explain": "With the first finger into the page and the second finger up the page, the thumb points to the left. Into the page is along the field and up the page is along the wire, so neither can be the force.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the left"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wire-along-field",
+          "prompt": "A wire lies along the field lines between two magnetic poles. It carries a current from the N pole side towards the S pole side. What force does the field exert on the wire?",
+          "hint": "The force needs a current across the field lines.",
+          "options": [
+            {
+              "text": "no force",
+              "correct": true
+            },
+            {
+              "text": "a force at right angles to the wire",
+              "correct": false
+            },
+            {
+              "text": "a force along the wire, towards the S pole",
+              "correct": false
+            },
+            {
+              "text": "a force along the wire, towards the N pole",
+              "correct": false
+            }
+          ],
+          "explain": "A current along the field lines does not cross them, so there is no force. Turn the wire to cross the field and a force appears.",
+          "verify": {
+            "kind": "choice",
+            "truth": "no force"
+          }
+        }
+      ]
+    },
+    {
+      "id": "beams",
+      "heading": "Beams of charged particles",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A beam of charged particles is a current, so a magnetic field pushes on it too. Each moving charge has its own magnetic field, which interacts with the magnet's field."
+        },
+        {
+          "type": "text",
+          "text": "A charge that is not moving has no magnetic field, so a magnet exerts no force on it. A charge moving along the field lines feels no force either."
+        },
+        {
+          "type": "text",
+          "text": "The left-hand rule still works, once you have the current direction right:"
+        },
+        {
+          "type": "text",
+          "text": "1. Positive particles, such as protons or alpha particles: the current is in the direction they move."
+        },
+        {
+          "type": "text",
+          "text": "2. Negative particles, such as [[electron|electrons]] or beta particles: the current is opposite to the direction they move."
+        },
+        {
+          "type": "text",
+          "text": "The push is always at 90° to the particles' [[velocity|velocity]], so the beam follows a curved path."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-4-electron-beam",
+          "alt": "A beam of electrons in a vacuum travels from the left to the right, into a region where the magnetic field points out of the page, shown by dots. Before the region the beam is straight. Inside the region the beam curves upwards, towards the top of the page. A dashed straight line continuing to the right shows the path the beam would take with no field. A short arrow at the point where the beam enters the field points up the page and is labelled force on the electrons.",
+          "caption": "Electrons moving right are a current to the left. With the field out of the page, the force is up the page."
+        },
+        {
+          "type": "example",
+          "id": "ex-proton-beam",
+          "question": "A beam of protons travels up the page through a magnetic field that points to the right. Determine the direction of the force on the protons.",
+          "steps": [
+            "Protons are positive, so the current is in the direction they move: up the page.",
+            "Left hand: first finger to the right (field), second finger up the page (current).",
+            "The thumb points into the page."
+          ],
+          "answer": "The force on the protons acts into the page, away from the viewer.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "positive, I up the page, B to the right: force into the page",
+            "requires": [
+              "into the page",
+              "away from the viewer"
+            ],
+            "forbids": [
+              "out of the page",
+              "to the left"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-alpha-beta-left",
+          "question": "Alpha and beta particles from a radioactive source both travel to the left, through a magnetic field that points up the page. Determine the direction of the force on each type of particle, and explain why the directions are different.",
+          "steps": [
+            "Alpha particles are positive, so their current is to the left. Beta particles are electrons, so their current is to the right.",
+            "Alpha: first finger up the page, second finger to the left. The thumb points into the page.",
+            "Beta: the current is the other way, so the force is the other way."
+          ],
+          "answer": "The force on the alpha particles acts into the page. The force on the beta particles acts out of the page. Alpha particles are positive and beta particles are negative. So, moving the same way, they act as currents in opposite directions, and opposite currents in the same field feel opposite forces.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "alpha: I left, B up: into the page; beta: I right: out of the page; opposite charges give opposite currents, so opposite forces",
+            "requires": [
+              "alpha particles acts into the page",
+              "beta particles acts out of the page",
+              "currents in opposite directions",
+              "opposite forces"
+            ],
+            "forbids": [
+              "alpha particles acts out of the page",
+              "same direction of force"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "You meet the deflection of alpha, beta and gamma radiation again in {{lesson:5.2.2}}."
+        },
+        {
+          "type": "mistake",
+          "text": "Using the direction an electron or beta beam moves as the current. Their current flows the opposite way, so this gives the force in the wrong direction."
+        },
+        {
+          "type": "check",
+          "id": "check-electrons-down",
+          "prompt": "A beam of electrons travels down the page. The magnetic field points into the page. Which way is the force on the electrons?",
+          "hint": "Electrons moving down the page are a current up the page.",
+          "options": [
+            {
+              "text": "to the left",
+              "correct": true
+            },
+            {
+              "text": "to the right",
+              "correct": false
+            },
+            {
+              "text": "into the page",
+              "correct": false
+            },
+            {
+              "text": "up the page",
+              "correct": false
+            }
+          ],
+          "explain": "The current is up the page. With the first finger into the page and the second finger up the page, the thumb points to the left. Forgetting that electrons are negative gives to the right.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to the left"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-no-deflection",
+          "prompt": "A beam of electrons passes through a magnetic field and is not deflected at all. Which explains this?",
+          "hint": "When is the force on a current zero?",
+          "options": [
+            {
+              "text": "the beam travels along the field lines",
+              "correct": true
+            },
+            {
+              "text": "the beam travels at right angles to the field lines",
+              "correct": false
+            },
+            {
+              "text": "electrons are too light to feel a magnetic force",
+              "correct": false
+            },
+            {
+              "text": "electrons are negatively charged",
+              "correct": false
+            }
+          ],
+          "explain": "A charge moving along the field lines does not cross them, so it feels no force. At right angles the force is biggest, and being negative only reverses the force.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the beam travels along the field lines"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Motor effect: a conductor carrying a current across a magnetic field feels a force. The force is biggest when the current crosses the field lines at 90°, and zero when it runs along them.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Demonstration: a metal rod on rails, or a loose wire, between the poles of a magnet and connected to a d.c. supply. It moves when the current is switched on.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Reversing the current, or reversing the field, reverses the force. Reversing both leaves the force in its original direction. Reversing does not change the size of the force.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The force is at 90° to the current and at 90° to the field. Fleming's left-hand rule, for a current crossing the field at 90°: first finger = field (N to S), second finger = conventional current, thumb = force.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "A beam of charged particles moving across a magnetic field is deflected. Positive particles: current in their direction of motion. Electrons and beta particles: current opposite to their motion. Charges at rest, or moving along the field lines, feel no magnetic force.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Reversing both the current and the field and expecting the force to reverse. The two reversals cancel, so the force keeps its original direction.",
+    "Thinking that reversing the current or the field changes the size of the force. It changes only the direction; a bigger current or a stronger magnet makes it bigger.",
+    "Drawing or using the field between two poles from S to N. Outside a magnet, field lines run from the N pole to the S pole.",
+    "Extended: taking the direction electrons or beta particles move as the current. Conventional current flows the opposite way, so the force comes out reversed.",
+    "Extended: using the right hand. The left-hand rule gives the force on a current; Fleming's right-hand rule is for induced current."
+  ],
+  "examTips": [
+    "\"Describe\" the experiment in three parts: the apparatus (a conductor between the poles of a magnet, in a complete circuit with a d.c. supply), what you see (it moves when the current flows), and each reversal with its result.",
+    "When you \"state\" how to reverse the force, name one change: \"reverse the current\" or \"swap the poles of the magnet\". Saying \"change the current\" or doing both at once earns no mark.",
+    "Extended: for direction questions, write down the field (N to S) and the conventional current first, then use your left hand. Check that your answer is at right angles to both."
+  ],
+  "readingMinutes": 24
+}

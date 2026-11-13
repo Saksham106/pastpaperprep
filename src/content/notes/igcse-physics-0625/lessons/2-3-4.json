@@ -1,0 +1,639 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.3.4",
+  "slug": "consequences-of-thermal-energy-transfer",
+  "title": "Consequences of thermal energy transfer",
+  "level": "Core",
+  "topic": 2,
+  "summary": "This lesson puts [[conduction|conduction]], [[convection|convection]] and [[thermal-radiation|thermal radiation]] to work in everyday things: cooking pans, room heaters and vacuum flasks. For each one, you name the transfer and say why the design speeds it up or slows it down. Extended students also explain fires and car radiators, where two or three transfers matter at once.",
+  "goals": [
+    {
+      "text": "Explain why a cooking pan has a metal base and an insulating handle, and how the food inside it heats up.",
+      "bullets": [
+        "2.3.4-1"
+      ]
+    },
+    {
+      "text": "Explain how a heater near the floor warms a whole room by convection.",
+      "bullets": [
+        "2.3.4-1"
+      ]
+    },
+    {
+      "text": "Explain how each feature of a vacuum flask reduces conduction, convection or radiation.",
+      "bullets": [
+        "2.3.4-1"
+      ]
+    },
+    {
+      "text": "Explain how conduction, convection and radiation all matter in a fire burning wood or coal and in a car radiator.",
+      "bullets": [
+        "2.3.4-2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.2.1",
+    "2.3.1",
+    "2.3.2",
+    "2.3.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "how does a vacuum flask work",
+    "why are pan handles made of plastic",
+    "how a heater warms a room",
+    "car radiator heat transfer",
+    "heat transfer from a fire"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-best-conductor",
+      "prompt": "Which of these materials is the best [[thermal-conductor|thermal conductor]]?",
+      "hint": "Think about which material a cooking pot is usually made from.",
+      "options": [
+        {
+          "text": "aluminium",
+          "correct": true
+        },
+        {
+          "text": "wood",
+          "correct": false
+        },
+        {
+          "text": "plastic",
+          "correct": false
+        },
+        {
+          "text": "air",
+          "correct": false
+        }
+      ],
+      "explain": "Metals such as aluminium are good [[thermal-conductor|thermal conductors]]. Wood, plastic and air are [[thermal-insulator|thermal insulators]]. Revise it in {{lesson:2.3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "aluminium"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-warm-air-rises",
+      "prompt": "Why does warm air rise above a heater?",
+      "hint": "What happens to air when it is heated and expands?",
+      "options": [
+        {
+          "text": "it is less dense than the cooler air around it",
+          "correct": true
+        },
+        {
+          "text": "heat always moves upwards",
+          "correct": false
+        },
+        {
+          "text": "its particles become lighter",
+          "correct": false
+        },
+        {
+          "text": "it is denser than the cooler air around it",
+          "correct": false
+        }
+      ],
+      "explain": "Heated air expands, so the same mass takes up more space and its density falls. The denser, cooler air around it sinks and pushes it up. Revise it in {{lesson:2.3.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it is less dense than the cooler air around it"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-radiation-vacuum",
+      "prompt": "Which way of transferring thermal energy can cross a vacuum?",
+      "hint": "Energy from the Sun reaches the Earth through empty space.",
+      "options": [
+        {
+          "text": "radiation",
+          "correct": true
+        },
+        {
+          "text": "conduction",
+          "correct": false
+        },
+        {
+          "text": "convection",
+          "correct": false
+        }
+      ],
+      "explain": "Thermal radiation is infrared waves, which need no particles. Conduction and convection both need particles. Revise it in {{lesson:2.3.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "radiation"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "pans-flasks",
+      "heading": "Pans and vacuum flasks: speeding up and slowing down transfer",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some designs want thermal energy to move fast, like a pan on a hob. Others want it to move slowly, like a flask of hot soup. Either way, you work out which transfers happen, then how each part of the design helps."
+        },
+        {
+          "type": "text",
+          "text": "A pan's base is metal, often steel, aluminium or copper. Metals are good [[thermal-conductor|thermal conductors]], so energy passes quickly from the hot hob through the base into the food."
+        },
+        {
+          "type": "text",
+          "text": "The handle is plastic or wood. These are [[thermal-insulator|thermal insulators]], so very little energy reaches your hand and the handle stays cool enough to hold."
+        },
+        {
+          "type": "text",
+          "text": "Inside the pan, [[conduction|conduction]] heats only the layer of soup or water touching the base. That warmed liquid expands, becomes less dense and rises, and cooler liquid sinks to take its place. This [[convection|convection]] current carries energy through the whole pan."
+        },
+        {
+          "type": "example",
+          "id": "ex-pan-copper-plastic",
+          "question": "A frying pan has a copper base and a plastic handle. Explain why each material is chosen.",
+          "steps": [
+            "Take each part in turn: name the property, then say what it does for the cook."
+          ],
+          "answer": "Copper is a good thermal conductor. So energy passes quickly from the hob through the base to the food. Plastic is a thermal insulator. So little energy is conducted along the handle, and the handle stays cool enough to hold.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "copper good conductor so energy reaches food quickly; plastic insulator so handle stays cool",
+            "requires": [
+              [
+                "good thermal conductor",
+                "good conductor"
+              ],
+              "quickly",
+              [
+                "thermal insulator",
+                "poor conductor"
+              ],
+              "handle stays cool"
+            ],
+            "forbids": [
+              "copper is an insulator",
+              "plastic is a good conductor",
+              "cold is"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A vacuum flask keeps a drink hot by slowing all three transfers. The same features keep a cold drink cold, because they slow energy moving in as well as out."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-4-vacuum-flask",
+          "alt": "Cross-section of a vacuum flask holding a hot liquid. The container has two walls with a vacuum in the gap between them, and the surfaces facing the gap are silvered. Labels say: the silvered surfaces reflect thermal radiation; the vacuum has no particles, so there is no conduction or convection across the gap; the stopper is a thermal insulator and reduces conduction and convection out of the top. An outer case protects the container.",
+          "caption": "Each feature of a vacuum flask slows a different transfer."
+        },
+        {
+          "type": "text",
+          "text": "1. The [[vacuum|vacuum]] between the walls has no particles. Conduction and convection both need particles, so neither can cross the gap."
+        },
+        {
+          "type": "text",
+          "text": "2. The silvered surfaces are poor [[emitter|emitters]] and poor [[absorber|absorbers]] of infrared. They reflect it back, so little energy crosses the gap by radiation."
+        },
+        {
+          "type": "text",
+          "text": "3. The stopper is a thermal insulator, such as plastic or cork. It reduces conduction out of the top and stops warm air carrying energy away by convection."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the vacuum stops radiation. Radiation crosses a vacuum easily; it is the silvered surfaces that reduce it."
+        },
+        {
+          "type": "example",
+          "id": "ex-travel-mug",
+          "question": "A steel travel mug has a double wall with a vacuum between the two layers. The surfaces facing the vacuum are shiny. Explain how these features keep coffee hot.",
+          "steps": [
+            "Deal with each feature: name the transfer it reduces, then give the reason."
+          ],
+          "answer": "The vacuum contains no particles. So no energy crosses it by conduction or convection, which both need particles. The shiny surfaces are poor emitters of infrared radiation. They also reflect infrared back towards the coffee. So little energy is lost by radiation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "vacuum has no particles: no conduction or convection; shiny surfaces poor emitters and reflect infrared: less radiation",
+            "requires": [
+              "no particles",
+              "conduction",
+              "convection",
+              [
+                "poor emitters",
+                "poor emitter"
+              ],
+              "reflect",
+              "radiation"
+            ],
+            "forbids": [
+              "vacuum stops radiation",
+              "vacuum reduces radiation",
+              "cold is"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6 often compares insulating materials around cups of hot water. Keep the volume of water, starting temperature, thickness of material and time the same; then the smallest temperature drop shows the best insulator."
+        },
+        {
+          "type": "check",
+          "id": "check-flask-radiation-feature",
+          "prompt": "Which feature of a vacuum flask mainly reduces energy transfer by radiation?",
+          "hint": "Radiation can cross empty space. What sends it back?",
+          "options": [
+            {
+              "text": "the silvered surfaces",
+              "correct": true
+            },
+            {
+              "text": "the vacuum",
+              "correct": false
+            },
+            {
+              "text": "the stopper",
+              "correct": false
+            },
+            {
+              "text": "the outer case",
+              "correct": false
+            }
+          ],
+          "explain": "Infrared passes straight through a vacuum. The silvered surfaces reflect it and emit little, so they cut radiation.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the silvered surfaces"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-wooden-spoon",
+          "prompt": "A cook stirs boiling soup with a wooden spoon, not a metal one. Why does the wooden spoon stay cooler to hold?",
+          "hint": "Energy travels along the spoon from the soup to the cook's hand. By which process?",
+          "options": [
+            {
+              "text": "wood is a poor thermal conductor",
+              "correct": true
+            },
+            {
+              "text": "wood is a good thermal conductor",
+              "correct": false
+            },
+            {
+              "text": "wood reflects infrared radiation",
+              "correct": false
+            },
+            {
+              "text": "wood stops convection in the soup",
+              "correct": false
+            }
+          ],
+          "explain": "Energy reaches the hand by conduction along the spoon. Wood is a thermal insulator, so it conducts very little.",
+          "verify": {
+            "kind": "choice",
+            "truth": "wood is a poor thermal conductor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "room-convection",
+      "heading": "Heating a room by convection",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A room heater sits low down, near the floor. It heats the air touching it, and that air carries energy round the whole room."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-4-room-convection",
+          "alt": "Side view of a room with a heater against the left wall near the floor and a window in the right wall. An arrow shows warm air rising above the heater, labelled: warm air expands, becomes less dense and rises. It spreads out under the ceiling, then cooler, denser air sinks down the far side of the room and flows back along the floor to the heater. The loop is labelled convection current.",
+          "caption": "A heater near the floor sets up a convection current that loops round the room."
+        },
+        {
+          "type": "text",
+          "text": "1. Air next to the heater warms up and expands, so it becomes less dense and rises."
+        },
+        {
+          "type": "text",
+          "text": "2. The warm air spreads out under the ceiling, loses energy, cools and becomes denser."
+        },
+        {
+          "type": "text",
+          "text": "3. The cooler, denser air sinks and flows along the floor back to the heater, where it is warmed again. This loop is a convection current."
+        },
+        {
+          "type": "text",
+          "text": "A wall \"radiator\" in a house works this way too. It gives out some infrared, but most of its energy reaches the room through the convection current it sets up."
+        },
+        {
+          "type": "text",
+          "text": "Cooling works the other way round. An air-conditioning unit is fixed high up: the air it cools becomes denser and sinks, and warmer air rises to take its place."
+        },
+        {
+          "type": "example",
+          "id": "ex-heater-whole-room",
+          "question": "An electric heater is fixed to the wall just above the floor. Explain how it warms the air on the far side of the room.",
+          "steps": [
+            "Follow the air round the loop: up from the heater, across, down, and back."
+          ],
+          "answer": "The heater warms the air next to it. This air expands, becomes less dense and rises. It spreads across the room under the ceiling. Cooler, denser air sinks and flows back to the heater to be warmed. This convection current carries energy to every part of the room.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "air near heater expands, less dense, rises; spreads across; cooler denser air sinks and returns; convection current",
+            "requires": [
+              "expands",
+              "less dense",
+              "rises",
+              [
+                "cooler, denser air sinks",
+                "denser air sinks"
+              ],
+              "convection current"
+            ],
+            "forbids": [
+              "heat rises",
+              "cold air rises",
+              "cold flows"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"heat rises\". Warm air rises, because it is less dense than the cooler air around it."
+        },
+        {
+          "type": "check",
+          "id": "check-aircon-high",
+          "prompt": "Why is an air-conditioning unit that cools a room fixed near the ceiling?",
+          "hint": "What happens to the density of air when it is cooled?",
+          "options": [
+            {
+              "text": "the cooled air is denser, so it sinks and sets up a convection current",
+              "correct": true
+            },
+            {
+              "text": "cold rises, so the unit must be high to reach it",
+              "correct": false
+            },
+            {
+              "text": "the cooled air is less dense, so it sinks",
+              "correct": false
+            },
+            {
+              "text": "air near the ceiling is a better thermal conductor",
+              "correct": false
+            }
+          ],
+          "explain": "Cool air contracts and becomes denser, so it sinks through the room. Warmer air rises up to the unit to be cooled.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the cooled air is denser, so it sinks and sets up a convection current"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fires-radiators",
+      "heading": "More than one transfer: fires and car radiators",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In many real situations two or three transfers are important at once. Go through all three in turn, and say where each one happens."
+        },
+        {
+          "type": "text",
+          "text": "A fire burning wood or coal in a fireplace:"
+        },
+        {
+          "type": "text",
+          "text": "1. Radiation: infrared travels straight out from the glowing fuel and flames. This is what warms your face and hands in front of the fire."
+        },
+        {
+          "type": "text",
+          "text": "2. Convection: the hot gases above the fire are much less dense than the air around them, so they rise up the chimney. Fresh air is drawn in at the bottom, along the floor of the room, which keeps the fire supplied with oxygen."
+        },
+        {
+          "type": "text",
+          "text": "3. Conduction: energy passes through the metal grate, the hearth and the bricks around the fire."
+        },
+        {
+          "type": "text",
+          "text": "Much of the energy carried by convection goes up the chimney and out of the house. So an open fire warms the people in front of it mainly by radiation."
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving radiation out of a fire question. If someone feels warm at a distance, beside or in front of the fire, that energy arrives mainly by radiation."
+        },
+        {
+          "type": "example",
+          "id": "ex-campfire-sides",
+          "question": "Campers sit round a wood fire outdoors at night. Explain why their faces feel warm, while their backs stay cold and the hot gases above the fire give them little warmth.",
+          "steps": [
+            "Use a different transfer for each part: what reaches the faces, and where the hot gases go."
+          ],
+          "answer": "The burning wood emits infrared radiation. Radiation travels in straight lines and needs no medium, so it reaches the side of each camper facing the fire. Their backs face away from the fire, so little radiation reaches them. The hot gases above the fire are less dense than the air around them, so they rise. Convection carries this energy upwards, away from the campers.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "infrared radiation in straight lines, no medium, reaches the side facing the fire; hot gases less dense rise; convection carries energy upwards away",
+            "requires": [
+              [
+                "infrared radiation",
+                "thermal radiation"
+              ],
+              "straight lines",
+              "facing the fire",
+              "less dense",
+              "rise",
+              "convection"
+            ],
+            "forbids": [
+              "heat rises",
+              "conduction through the air"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "A car engine gets very hot. A liquid called coolant is pumped through channels in the engine and then through the radiator at the front of the car."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-4-car-radiator",
+          "alt": "A car cooling system. A pump pushes coolant round a loop. Hot coolant flows from the engine along the top pipe to the radiator, which is made of thin metal tubes joined to many thin metal fins. Cool air enters from the front of the car, flows between the fins and leaves warmer, carrying energy away. Cooler coolant returns along the bottom pipe to the engine.",
+          "caption": "Coolant carries energy from the engine to the radiator, and air carries it away from the radiator."
+        },
+        {
+          "type": "text",
+          "text": "1. Conduction: energy passes from the hot engine metal into the coolant. The pump moves the hot coolant to the radiator, carrying the energy with it."
+        },
+        {
+          "type": "text",
+          "text": "2. Conduction again: in the radiator, energy passes through the thin metal walls of the tubes and into many thin metal fins. Thin metal conducts energy through quickly."
+        },
+        {
+          "type": "text",
+          "text": "3. Convection: air flowing between the fins is warmed and carried away, by the car's motion or a fan. The fins give a large surface area, so a lot of air touches hot metal."
+        },
+        {
+          "type": "text",
+          "text": "4. Radiation: the radiator also emits some infrared. Radiators are often painted dull black, a good emitter, but most of the energy is carried away by the air."
+        },
+        {
+          "type": "example",
+          "id": "ex-radiator-air",
+          "question": "Explain how energy from the hot coolant inside a car radiator ends up in the air outside it.",
+          "steps": [
+            "Follow the energy outwards: through the tube walls, into the fins, then into the air."
+          ],
+          "answer": "Energy passes by conduction through the thin metal walls of the tubes into the fins. Metal is a good thermal conductor, so this happens quickly. The fins give a large surface area in contact with the air. Air flowing past the fins is warmed and carries the energy away by convection. The radiator also loses a little energy by radiation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "conduction through thin metal walls into fins; metal good conductor; fins large surface area; air flowing past carries energy away by convection; some radiation",
+            "requires": [
+              "conduction",
+              "fins",
+              "good thermal conductor",
+              "large surface area",
+              "convection",
+              "radiation"
+            ],
+            "forbids": [
+              "cold air flows in",
+              "cold is",
+              "metal is an insulator"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fire-warm-face",
+          "prompt": "You sit a few metres in front of an open coal fire and feel your face get warm. By which process does most of this energy reach your face?",
+          "hint": "The hot gases from the fire go up the chimney. What travels straight out into the room?",
+          "options": [
+            {
+              "text": "radiation",
+              "correct": true
+            },
+            {
+              "text": "conduction",
+              "correct": false
+            },
+            {
+              "text": "convection",
+              "correct": false
+            }
+          ],
+          "explain": "Air is a poor conductor, and the hot gases rise up the chimney. Infrared radiation travels straight from the fire to your face.",
+          "verify": {
+            "kind": "choice",
+            "truth": "radiation"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-radiator-fins",
+          "prompt": "Why does a car radiator have many thin metal fins?",
+          "hint": "Air takes energy from the metal only where it touches it.",
+          "options": [
+            {
+              "text": "they give a large surface area, so more energy passes to the air",
+              "correct": true
+            },
+            {
+              "text": "they stop air flowing through the radiator",
+              "correct": false
+            },
+            {
+              "text": "they are thermal insulators that keep the coolant hot",
+              "correct": false
+            },
+            {
+              "text": "they reflect infrared back into the engine",
+              "correct": false
+            }
+          ],
+          "explain": "More surface means more air in contact with hot metal, so energy is carried away faster by convection.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they give a large surface area, so more energy passes to the air"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Pans: a metal base (good thermal conductor) passes energy quickly to the food; a plastic or wooden handle (thermal insulator) stays cool. Convection in the liquid spreads the energy through the pan.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A heater near the floor warms a room by convection: warm air expands, becomes less dense and rises; cooler, denser air sinks and flows back to the heater.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Vacuum flask: the vacuum has no particles, so no conduction or convection across it; silvered surfaces reflect infrared and emit little, reducing radiation; an insulating stopper reduces conduction and convection out of the top.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Conduction and convection need particles. Radiation does not, so it can cross a vacuum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Open fire: radiation warms people in front of it; hot gases rise up the chimney by convection, drawing in fresh air; energy conducts through the grate and surrounding bricks.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Car radiator: the pumped coolant carries energy from the engine; it conducts through thin metal tubes and fins; air flowing past the large surface area carries it away by convection, with some radiation.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying a vacuum stops radiation. Infrared crosses a vacuum; in a flask, the silvered surfaces reduce radiation and the vacuum stops conduction and convection.",
+    "Leaving out radiation when someone feels warm in front of a fire. The hot gases rise away from them, so the warmth they feel arrives mainly by radiation.",
+    "Writing \"heat rises\" or \"cold sinks\". Warm air rises because it is less dense; cooler, denser air sinks.",
+    "Extended: naming only one transfer for a fire or a car radiator. Check all three, and say where each one happens."
+  ],
+  "examTips": [
+    "\"Explain how each feature reduces energy transfer\": for each feature, name the process and give the reason, such as \"the vacuum has no particles, so there is no conduction or convection\".",
+    "A Paper 1/2 multiple-choice question may ask which transfers happen in a scene. Test conduction, convection and radiation one at a time before you choose.",
+    "\"Explain\" convection in a room: say the warm air becomes less dense and rises, and the cooler, denser air sinks. Explain it with density, never with \"heat rises\"."
+  ],
+  "readingMinutes": 20
+}

@@ -1,0 +1,551 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "6.2.1",
+  "slug": "the-sun-as-a-star",
+  "title": "The Sun as a star",
+  "level": "Core",
+  "topic": 6,
+  "summary": "The Sun is a medium-sized [[star|star]], made mostly of hydrogen and helium. Most of its energy leaves as infrared, visible light and ultraviolet. Extended adds what powers a star: [[nuclear-fusion|nuclear fusion]] of hydrogen into helium.",
+  "goals": [
+    {
+      "text": "Describe the Sun as a medium-sized star made mostly of hydrogen and helium.",
+      "bullets": [
+        "6.2.1-1"
+      ]
+    },
+    {
+      "text": "Name the three regions of the [[electromagnetic-spectrum|electromagnetic spectrum]] that carry most of the Sun's energy.",
+      "bullets": [
+        "6.2.1-1"
+      ]
+    },
+    {
+      "text": "Describe how nuclear reactions power a star, and what fuses in a [[stable-star|stable star]].",
+      "bullets": [
+        "6.2.1-2"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.3",
+    "2.3.3",
+    "3.3",
+    "6.1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "what is the Sun made of",
+    "the Sun's radiation",
+    "Sun infrared visible ultraviolet",
+    "how stars produce energy",
+    "fusion in the Sun"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solar-system-star",
+      "prompt": "How many stars are there in the [[solar-system|Solar System]]?",
+      "hint": "What do the eight planets all orbit?",
+      "options": [
+        {
+          "text": "one, the Sun",
+          "correct": true
+        },
+        {
+          "text": "none, because the Sun is a planet",
+          "correct": false
+        },
+        {
+          "text": "eight, one for each planet",
+          "correct": false
+        },
+        {
+          "text": "billions",
+          "correct": false
+        }
+      ],
+      "explain": "The Solar System has one star, the Sun, with planets, moons and smaller bodies orbiting it. Revise it in {{lesson:6.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "one, the Sun"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-next-to-visible",
+      "prompt": "Which region of the electromagnetic spectrum sits next to visible light, on its long-wavelength side?",
+      "hint": "Think of the region just beyond red light.",
+      "options": [
+        {
+          "text": "infrared",
+          "correct": true
+        },
+        {
+          "text": "ultraviolet",
+          "correct": false
+        },
+        {
+          "text": "X-rays",
+          "correct": false
+        },
+        {
+          "text": "gamma rays",
+          "correct": false
+        }
+      ],
+      "explain": "Infrared lies just beyond red, with longer wavelengths. Ultraviolet lies on the other side, beyond violet. Revise it in {{lesson:3.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "infrared"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-fusion-meaning",
+      "prompt": "What happens in nuclear fusion?",
+      "hint": "Fusion means joining.",
+      "options": [
+        {
+          "text": "small nuclei join to form a larger nucleus",
+          "correct": true
+        },
+        {
+          "text": "a large nucleus splits into smaller nuclei",
+          "correct": false
+        },
+        {
+          "text": "a fuel burns in oxygen",
+          "correct": false
+        }
+      ],
+      "explain": "Fusion joins small nuclei and releases energy. Splitting a large nucleus is fission. Revise it in {{lesson:1.7.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "small nuclei join to form a larger nucleus"
+      },
+      "level": "Extended"
+    }
+  ],
+  "sections": [
+    {
+      "id": "sun-is-a-star",
+      "heading": "The Sun is a star",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Sun is a [[star|star]], the only one in the [[solar-system|Solar System]]. It looks far bigger and brighter than the stars you see at night mainly because it is so much closer to us."
+        },
+        {
+          "type": "definition",
+          "term": "star",
+          "statement": "A huge ball of hot gas, held together by its own gravity, that gives out light and other electromagnetic radiation. For most of its life, nuclear reactions in its centre release the energy.",
+          "plain": "A giant glowing ball of gas, like the Sun."
+        },
+        {
+          "type": "text",
+          "text": "Compared with other stars, the Sun is medium-sized. Some stars are much smaller and dimmer. Others are hundreds of times wider than the Sun."
+        },
+        {
+          "type": "text",
+          "text": "The Sun is made mostly of two light elements. About three-quarters of its mass is hydrogen and about a quarter is helium. Heavier elements, such as oxygen and carbon, make up only about 2%."
+        },
+        {
+          "type": "text",
+          "text": "The Sun releases its energy by [[nuclear-fusion|nuclear fusion]] in its core, as you saw in {{lesson:1.7.3}}. Nothing is burning: there is no fire in the Sun.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-correct-sun-claim",
+          "question": "A student writes: \"The Sun is the largest star in the Universe, and it is made mostly of oxygen.\" Explain what is wrong with each part of this statement.",
+          "steps": [
+            "Compare the Sun's size with other stars.",
+            "Name the two elements that make up most of the Sun."
+          ],
+          "answer": "The Sun is not the largest star. It is a medium-sized star, and many stars are much bigger. The Sun is made mostly of hydrogen and helium, not oxygen.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "the Sun is medium-sized, not the largest; it is mostly hydrogen and helium, not oxygen",
+            "requires": [
+              [
+                "medium-sized",
+                "medium sized",
+                "medium"
+              ],
+              "hydrogen",
+              "helium"
+            ],
+            "forbids": [
+              "mostly of oxygen",
+              "is a planet",
+              "the largest star in the universe"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sun-elements",
+          "prompt": "Which two elements make up about 98% of the Sun's mass?",
+          "hint": "One is the lightest element; the other is the gas used to fill party balloons.",
+          "options": [
+            {
+              "text": "hydrogen and helium",
+              "correct": true
+            },
+            {
+              "text": "iron and nickel",
+              "correct": false
+            },
+            {
+              "text": "helium and carbon",
+              "correct": false
+            },
+            {
+              "text": "hydrogen and oxygen",
+              "correct": false
+            }
+          ],
+          "explain": "The Sun is about three-quarters hydrogen and a quarter helium. Oxygen, carbon and iron are only traces.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hydrogen and helium"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-sun-size",
+          "prompt": "How does the Sun compare in size with other stars?",
+          "hint": "It looks huge from Earth. Is that because of its size or its distance?",
+          "options": [
+            {
+              "text": "it is medium-sized: many stars are smaller and many are larger",
+              "correct": true
+            },
+            {
+              "text": "it is the largest star in our galaxy",
+              "correct": false
+            },
+            {
+              "text": "it is smaller than every other star",
+              "correct": false
+            },
+            {
+              "text": "it is not a star but the largest planet",
+              "correct": false
+            }
+          ],
+          "explain": "The Sun is a medium-sized star. It looks the biggest mainly because it is by far the closest star to us.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is medium-sized: many stars are smaller and many are larger"
+          }
+        }
+      ]
+    },
+    {
+      "id": "sun-radiation",
+      "heading": "What the Sun gives out",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The Sun gives out many kinds of radiation from the [[electromagnetic-spectrum|electromagnetic spectrum]]. Most of its energy, though, leaves in three neighbouring regions: infrared, visible light and [[ultraviolet-radiation|ultraviolet]]."
+        },
+        {
+          "type": "figure",
+          "id": "6-2-1-sun-spectrum",
+          "alt": "The electromagnetic spectrum drawn as a row of seven boxes, from left to right: radio, microwaves, infrared, visible, ultraviolet, X-rays and gamma. The infrared, visible and ultraviolet boxes are shaded, and a bracket above them reads most of the Sun's energy. Under them: infrared about half, visible about two-fifths, ultraviolet under a tenth. Under radio, microwaves, X-rays and gamma: very little. An arrow along the bottom points right, labelled wavelength gets shorter and frequency gets higher.",
+          "caption": "The three regions sit side by side, with visible light in the middle. Together they carry nearly all the Sun's energy."
+        },
+        {
+          "type": "text",
+          "text": "Roughly half of the energy is infrared, about two-fifths is visible light and under a tenth is ultraviolet. Radio waves, microwaves, X-rays and gamma rays carry only a tiny share. Learn the three names; you don't need the fractions."
+        },
+        {
+          "type": "text",
+          "text": "You notice each region. Infrared is the [[thermal-radiation|thermal radiation]] you feel as warmth. Visible light lets you see. Ultraviolet causes sunburn."
+        },
+        {
+          "type": "text",
+          "text": "This radiation supplies the energy for most of Earth's energy resources, including [[renewable-energy-resource|renewable energy resources]] such as solar, wind and wave power ({{lesson:1.7.3}}).",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-three-regions",
+          "question": "State the three regions of the electromagnetic spectrum that carry most of the energy given out by the Sun. Then state which of the three has the shortest wavelength.",
+          "steps": [
+            "Picture the spectrum. The three regions are neighbours, with visible light in the middle.",
+            "Infrared lies beyond red, at longer wavelengths. Ultraviolet lies beyond violet, at shorter wavelengths."
+          ],
+          "answer": "Most of the Sun's energy is given out as infrared, visible light and ultraviolet. Of these three, ultraviolet has the shortest wavelength.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "infrared, visible light and ultraviolet; ultraviolet has the shortest wavelength",
+            "requires": [
+              "infrared",
+              "visible light",
+              "ultraviolet",
+              "ultraviolet has the shortest wavelength"
+            ],
+            "forbids": [
+              "X-rays",
+              "gamma",
+              "microwaves",
+              "radio",
+              "infrared has the shortest wavelength"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-beach-effects",
+          "question": "On a sunny beach, a girl feels warm and can see clearly. That evening she finds her skin is sunburnt. Each effect comes from a different region of the Sun's radiation. State the region responsible for each effect.",
+          "steps": [
+            "Match each effect to what that region does: warmth, sight, damage to skin."
+          ],
+          "answer": "The warmth is caused by infrared radiation. She can see because of visible light. The sunburn is caused by ultraviolet radiation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "warmth: infrared; seeing: visible light; sunburn: ultraviolet",
+            "requires": [
+              "warmth is caused by infrared",
+              "visible light",
+              "sunburn is caused by ultraviolet"
+            ],
+            "forbids": [
+              "sunburn is caused by infrared",
+              "warmth is caused by ultraviolet"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-regions-position",
+          "prompt": "Where in the electromagnetic spectrum are the three regions that carry most of the Sun's energy?",
+          "hint": "Look at which region sits in the middle of the three.",
+          "options": [
+            {
+              "text": "side by side, with visible light in the middle",
+              "correct": true
+            },
+            {
+              "text": "at the two ends, radio waves and gamma rays",
+              "correct": false
+            },
+            {
+              "text": "all at the long-wavelength end, beyond microwaves",
+              "correct": false
+            },
+            {
+              "text": "spread evenly across the whole spectrum",
+              "correct": false
+            }
+          ],
+          "explain": "Infrared, visible light and ultraviolet are neighbours. Visible light sits between infrared and ultraviolet.",
+          "verify": {
+            "kind": "choice",
+            "truth": "side by side, with visible light in the middle"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-most-energy",
+          "prompt": "Of these four regions, which carries the most of the Sun's energy?",
+          "hint": "Only one of these is among the Sun's three main regions, and it carries the biggest share of all.",
+          "options": [
+            {
+              "text": "infrared",
+              "correct": true
+            },
+            {
+              "text": "radio waves",
+              "correct": false
+            },
+            {
+              "text": "X-rays",
+              "correct": false
+            },
+            {
+              "text": "gamma rays",
+              "correct": false
+            }
+          ],
+          "explain": "About half of the Sun's energy is infrared. Radio waves, X-rays and gamma rays carry only a tiny share.",
+          "verify": {
+            "kind": "choice",
+            "truth": "infrared"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fusion",
+      "heading": "What powers a star",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A star is powered by nuclear reactions deep inside it. These reactions release huge amounts of energy, which travels out to the surface and is radiated into space."
+        },
+        {
+          "type": "text",
+          "text": "In a [[stable-star|stable star]] such as the Sun, the reaction is [[nuclear-fusion|nuclear fusion]]. Hydrogen nuclei join together to make helium nuclei, and energy is released."
+        },
+        {
+          "type": "definition",
+          "term": "stable star",
+          "statement": "A star in the long, steady main stage of its life. The inward pull of gravity is balanced by an outward force caused by the very high temperature at its centre, and hydrogen fuses into helium in its core.",
+          "plain": "A star like the Sun today: steadily fusing hydrogen, neither collapsing nor swelling."
+        },
+        {
+          "type": "text",
+          "text": "Hydrogen is the fuel and helium is the product, so helium slowly builds up in the core. The Sun is mostly hydrogen and helium because it formed from gas that was already mostly these two elements; fusion has changed only a small part of its hydrogen. You'll see how a star becomes stable, and what happens when its hydrogen runs out, in {{lesson:6.2.2}}."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up fusion and fission. Fusion joins small nuclei, such as hydrogen, and powers stars. Fission splits large nuclei, such as uranium, in nuclear power stations."
+        },
+        {
+          "type": "example",
+          "id": "ex-not-burning",
+          "question": "A friend says the Sun shines because hydrogen is burning in oxygen. Explain what really releases energy in the Sun's core, and say which element is the fuel and which is the product.",
+          "steps": [
+            "Name the process, then say which nuclei take part, what they make and what is released.",
+            "Say which element is used up and which is made."
+          ],
+          "answer": "The energy comes from nuclear fusion, not burning. Deep in the Sun, pairs of hydrogen nuclei fuse, and the end product is helium nuclei. Each of these reactions releases energy. Hydrogen is the fuel and helium is the product.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "fusion, not burning: hydrogen nuclei fuse, making helium and releasing energy; hydrogen is the fuel, helium the product",
+            "requires": [
+              "nuclear fusion",
+              [
+                "hydrogen nuclei fuse",
+                "hydrogen nuclei join"
+              ],
+              "helium nuclei",
+              [
+                "releases energy",
+                "energy is released"
+              ],
+              "fuel",
+              "product"
+            ],
+            "forbids": [
+              "fission",
+              "helium into hydrogen",
+              "hydrogen burns"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-core-nuclei",
+          "prompt": "Which statement describes the nuclear reaction in the core of a stable star?",
+          "hint": "Which element does the star have most of to start with?",
+          "options": [
+            {
+              "text": "small hydrogen nuclei join to make helium nuclei",
+              "correct": true
+            },
+            {
+              "text": "helium nuclei join to make hydrogen nuclei",
+              "correct": false
+            },
+            {
+              "text": "large uranium nuclei split into smaller nuclei",
+              "correct": false
+            },
+            {
+              "text": "hydrogen reacts with oxygen to make water",
+              "correct": false
+            }
+          ],
+          "explain": "A stable star fuses hydrogen into helium. Splitting uranium is fission, and reacting with oxygen is burning, a chemical change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "small hydrogen nuclei join to make helium nuclei"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-helium-builds",
+          "prompt": "Why does the amount of helium in the Sun's core slowly increase?",
+          "hint": "Is helium the fuel or the product?",
+          "options": [
+            {
+              "text": "helium is made when hydrogen nuclei fuse",
+              "correct": true
+            },
+            {
+              "text": "helium is the fuel that fuses to make hydrogen",
+              "correct": false
+            },
+            {
+              "text": "helium is made when uranium nuclei split",
+              "correct": false
+            },
+            {
+              "text": "helium is left over when hydrogen burns in oxygen",
+              "correct": false
+            }
+          ],
+          "explain": "Fusion turns hydrogen into helium, so helium builds up as the hydrogen is used.",
+          "verify": {
+            "kind": "choice",
+            "truth": "helium is made when hydrogen nuclei fuse"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The Sun is a medium-sized star, made mostly of hydrogen and helium.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The Sun gives out most of its energy as infrared, visible light and ultraviolet: three neighbouring regions of the electromagnetic spectrum.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A star's energy comes from nuclear reactions in its centre. In a stable star such as the Sun, the reaction is fusion (not fission): hydrogen becomes helium.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling the Sun a planet, or the biggest star. It is a star, and a medium-sized one.",
+    "Naming oxygen, carbon or nitrogen as the Sun's main elements. It is mostly hydrogen and helium.",
+    "Picking X-rays, gamma rays, microwaves or radio waves as the Sun's main radiation. Most of its energy is infrared, visible light and ultraviolet.",
+    "Extended: mixing up fusion and fission. A stable star such as the Sun fuses small hydrogen nuclei into helium; fission splits large nuclei such as uranium.",
+    "Extended: writing fusion the wrong way round. Hydrogen is the fuel and helium is the product."
+  ],
+  "examTips": [
+    "\"State\" the Sun's main elements or main regions of radiation: a short answer is enough, but give both elements or all three regions.",
+    "A Paper 1/2 question may show the Sun's energy split into regions with one left unnamed. Picture the spectrum: the three main regions are neighbours, with visible light in the middle.",
+    "Extended: to \"describe\" what releases the energy in a stable star such as the Sun, make three separate points: name the process (nuclear fusion), say that hydrogen nuclei join and make helium, and say that energy is released."
+  ],
+  "readingMinutes": 15
+}

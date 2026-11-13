@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 245" role="img" aria-labelledby="t41compassplo">
+<title id="t41compassplo">A bar magnet with its N pole on the left and S pole on the right. A curved row of dots starts near the N pole, arches over the top of the magnet and ends near the S pole, with a dashed line joining them. Two small plotting compasses sit on the row of dots. Each needle lies along the curve, with its shaded N end pointing the way the row goes, from the N pole towards the S pole. One label points to a compass. Another label says a dot is marked at the N end of the needle. Notes say to move the compass along dot by dot from the N pole to the S pole, then join the dots with a smooth line and add an arrow from N to S.</title>
+<path d="M 240.0 140.0 C 90.0 40.0, 590.0 40.0, 440.0 140.0" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="4 4"/>
+<circle cx="215.0" cy="116.7" r="3" fill="var(--t1-ink)"/>
+<circle cx="223.2" cy="87.3" r="3" fill="var(--t1-ink)"/>
+<circle cx="255.1" cy="74.2" r="3" fill="var(--t1-ink)"/>
+<circle cx="288.8" cy="68.0" r="3" fill="var(--t1-ink)"/>
+<circle cx="323.0" cy="65.3" r="3" fill="var(--t1-ink)"/>
+<circle cx="357.0" cy="65.3" r="3" fill="var(--t1-ink)"/>
+<circle cx="391.2" cy="68.0" r="3" fill="var(--t1-ink)"/>
+<circle cx="424.9" cy="74.2" r="3" fill="var(--t1-ink)"/>
+<circle cx="456.8" cy="87.3" r="3" fill="var(--t1-ink)"/>
+<circle cx="465.0" cy="116.7" r="3" fill="var(--t1-ink)"/>
+<circle cx="271.9" cy="71.1" r="21.1" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="287.8,68.2 272.7,75.0 271.2,67.2" fill="var(--t5-ink)"/>
+<polygon points="256.1,74.0 272.7,75.0 271.2,67.2" fill="none" stroke="currentColor" stroke-width="1"/>
+<circle cx="408.1" cy="71.1" r="21.1" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<polygon points="423.9,74.0 407.3,75.0 408.8,67.2" fill="var(--t5-ink)"/>
+<polygon points="392.2,68.2 407.3,75.0 408.8,67.2" fill="none" stroke="currentColor" stroke-width="1"/>
+<rect x="240" y="125" width="200" height="50" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="340.0" y1="125" x2="340.0" y2="175" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="16" x="290.0" y="156.0" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<text font-family="inherit" font-size="16" x="390.0" y="156.0" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<line x1="130" y1="70" x2="250.8" y2="71.5" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="128.0" y="62.0" fill="currentColor" text-anchor="end">plotting compass</text>
+<text font-family="inherit" font-size="11" x="128.0" y="78.0" fill="var(--muted)" text-anchor="end">(N end of needle shaded)</text>
+<line x1="323.0" y1="60.3" x2="343.0" y2="22" stroke="var(--muted)" stroke-width="1"/>
+<text font-family="inherit" font-size="12" x="347.0" y="20.0" fill="currentColor" text-anchor="start">dot marked at the N end of the needle</text>
+<text font-family="inherit" font-size="12" x="340.0" y="215.0" fill="var(--muted)" text-anchor="middle">Move the compass along, dot by dot, from the N pole to the S pole.</text>
+<text font-family="inherit" font-size="12" x="340.0" y="233.0" fill="var(--muted)" text-anchor="middle">Join the dots with a smooth line and add an arrow from N to S.</text>
+</svg>

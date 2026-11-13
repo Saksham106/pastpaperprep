@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 300" role="img" aria-labelledby="t11pen">
+<title id="t11pen">A pendulum hangs from a clamp. The bob is drawn at its left end of swing, A, and faint copies show it at the middle and at the right end of swing, B. A fixed vertical marker stands below the middle of the swing. A curved arrow goes from A across to B, and a second curved arrow comes back from B to A. Together they make one complete oscillation.</title>
+<rect x="190" y="26" width="80" height="12" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<line x1="230" y1="38" x2="168.4" y2="207.1" stroke="currentColor" stroke-width="1.4"/>
+<circle cx="168.4" cy="207.1" r="10" fill="var(--t1-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.4"/>
+<line x1="230" y1="38" x2="230" y2="218" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="230" cy="218" r="10" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="230" y1="38" x2="291.6" y2="207.1" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+<circle cx="291.6" cy="207.1" r="10" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/>
+<line x1="230" y1="236" x2="230" y2="272" stroke="var(--t4-ink)" stroke-width="2.4"/>
+<text font-family="inherit" font-size="12" x="238" y="286" fill="var(--t4-ink)" text-anchor="start">fixed marker</text>
+<path d="M163.3 221.2 A195 195 0 0 0 296.7 221.2" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="296.7,221.2 289.7,228.5 286.7,220.1" fill="var(--t2-ink)"/>
+<path d="M301.8 235.3 A210 210 0 0 1 158.2 235.3" fill="none" stroke="var(--t2-ink)" stroke-width="1.6"/>
+<polygon points="158.2,235.3 168.2,234.2 165.2,242.6" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="14" x="150" y="200" fill="currentColor" text-anchor="end">A</text>
+<text font-family="inherit" font-size="14" x="310" y="200" fill="currentColor" text-anchor="start">B</text>
+<text font-family="inherit" font-size="12" x="330" y="240" fill="var(--t2-ink)" text-anchor="start">A to B and back to A</text>
+<text font-family="inherit" font-size="12" x="330" y="256" fill="var(--t2-ink)" text-anchor="start">= one oscillation</text>
+</svg>

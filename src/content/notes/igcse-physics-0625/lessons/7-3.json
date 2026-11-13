@@ -1,0 +1,671 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "7.3",
+  "slug": "taking-and-recording-measurements",
+  "title": "Taking and recording measurements",
+  "level": "Core",
+  "topic": 7,
+  "summary": "Paper 5 and Paper 6 give easy marks for readings done well: the right number of figures, a [[zero-error|zero error]] corrected, values that make sense, enough repeats, and a tidy table with units. This lesson shows you how to earn each of those marks.",
+  "goals": [
+    {
+      "text": "Read analogue and digital instruments, or diagrams of them, to the right [[precision|precision]], including to the nearest half division.",
+      "bullets": [
+        "7.3-1"
+      ]
+    },
+    {
+      "text": "Correct a reading for a zero error, and check that every reading or estimate is sensible.",
+      "bullets": [
+        "7.3-2",
+        "7.3-3"
+      ]
+    },
+    {
+      "text": "Take enough readings, over a wide range, and repeat them when they vary.",
+      "bullets": [
+        "7.3-4"
+      ]
+    },
+    {
+      "text": "Record what you see in words, and record measurements in a clear table with units.",
+      "bullets": [
+        "7.3-5",
+        "7.3-6"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "4.2.2",
+    "4.2.3",
+    "4.3.1",
+    "7.1",
+    "7.2"
+  ],
+  "papers": [
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "reading a scale to half a division",
+    "zero error correction",
+    "how many readings to take",
+    "repeat readings and mean",
+    "results table headings and units",
+    "qualitative observations"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-ammeter-series",
+      "prompt": "How is an [[ammeter|ammeter]] connected to measure the current in a lamp?",
+      "hint": "The current must flow through the meter.",
+      "options": [
+        {
+          "text": "in series with the lamp",
+          "correct": true
+        },
+        {
+          "text": "in parallel with the lamp",
+          "correct": false
+        },
+        {
+          "text": "across the cell only",
+          "correct": false
+        },
+        {
+          "text": "it does not matter",
+          "correct": false
+        }
+      ],
+      "explain": "The same current must pass through the ammeter and the lamp, so it goes in series. A [[voltmeter|voltmeter]] goes in parallel. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in series with the lamp"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-accurate-meaning",
+      "prompt": "What does it mean when a measurement is accurate?",
+      "hint": "Compare the reading with the value it should be.",
+      "options": [
+        {
+          "text": "it is close to the true value",
+          "correct": true
+        },
+        {
+          "text": "it has many decimal places",
+          "correct": false
+        },
+        {
+          "text": "it was taken with a digital meter",
+          "correct": false
+        },
+        {
+          "text": "it was repeated three times",
+          "correct": false
+        }
+      ],
+      "explain": "[[accuracy|Accuracy]] is about closeness to the true value. Extra decimal places or a digital display don't make a reading right. Revise it in {{lesson:7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it is close to the true value"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-dependent-variable",
+      "prompt": "A student changes the mass on a spring and measures how far it stretches. Which is the [[dependent-variable|dependent variable]]?",
+      "hint": "It is the one she measures, not the one she chooses.",
+      "options": [
+        {
+          "text": "the extension of the spring",
+          "correct": true
+        },
+        {
+          "text": "the mass on the spring",
+          "correct": false
+        },
+        {
+          "text": "the type of spring",
+          "correct": false
+        },
+        {
+          "text": "the room temperature",
+          "correct": false
+        }
+      ],
+      "explain": "She measures the extension, so it is the dependent variable. The mass she changes is the [[independent-variable|independent variable]]. Revise it in {{lesson:7.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the extension of the spring"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "reading-instruments",
+      "heading": "Reading analogue and digital instruments",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An analogue instrument has a scale and a pointer or a liquid thread, like a ruler, a thermometer or a meter with a needle. A digital instrument shows the number for you. Paper 6 shows the same scales in diagrams: read them the same way."
+        },
+        {
+          "type": "text",
+          "text": "On an analogue scale, first work out what one small division is worth. Divide the gap between two labels by the number of small divisions between them."
+        },
+        {
+          "type": "text",
+          "text": "Read with your eye level with the pointer or liquid, looking at right angles to the scale. This avoids parallax error."
+        },
+        {
+          "type": "text",
+          "text": "When the divisions are wide enough, judge the halfway point. A thermometer marked every $1\\ \\text{°C}$ can be read to $0.5\\ \\text{°C}$. On a ruler marked in mm, read to the nearest mm."
+        },
+        {
+          "type": "figure",
+          "id": "7-3-thermometer-scale",
+          "alt": "Close-up of a liquid-in-glass thermometer lying on its side, with the bulb on the left. The scale is marked every 1 degree Celsius from 20 to 30, with numbers only at 20, 25 and 30. The liquid thread ends exactly halfway between the 26 and 27 marks.",
+          "caption": "A thermometer scale marked every $1\\ \\text{°C}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-thermometer-half-division",
+          "question": "Read the temperature shown by the thermometer in the figure.",
+          "steps": [
+            "The gap from 20 to 25 has 5 small divisions, so each one is worth $1\\ \\text{°C}$.",
+            "Count on from 25: the thread passes the 26 mark but not the 27 mark.",
+            "It ends halfway between them, so read to the nearest half division."
+          ],
+          "answer": "$\\theta = 26.5\\ \\text{°C}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "25 + 1 + Rational(1, 2)",
+            "unit": "°C"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A digital display: write down every digit it shows, including a final zero. A balance showing 48.70 g is recorded as 48.70 g, not 48.7 g."
+        },
+        {
+          "type": "text",
+          "text": "Recording to the right [[precision|precision]] means giving the reading to the smallest step you can read: every digit of a digital display, or the nearest division (or half division) of an analogue scale. No more figures, and no fewer. If a digital reading flickers, wait for it to settle, or record the value it shows most often."
+        },
+        {
+          "type": "example",
+          "id": "ex-milliamps-to-amps",
+          "question": "A digital [[ammeter|ammeter]] set to its milliampere range shows 360. The results table has the heading $I$ / A. What should the student write in the table?",
+          "steps": [
+            "The meter reads in mA, and $1\\ \\text{A} = 1000\\ \\text{mA}$.",
+            "Divide by 1000: $\\frac{360}{1000} = 0.360$.",
+            "Keep the final zero, because the meter showed three figures."
+          ],
+          "answer": "$I = 0.360\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "360/1000",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting each small division as 1 unit, or as 0.1. Always divide the gap between two labels by the number of divisions first."
+        },
+        {
+          "type": "check",
+          "id": "check-ammeter-divisions",
+          "prompt": "An analogue ammeter has labels at 0, 0.5 and 1.0 A, with 5 small divisions between each pair of labels. The needle is 3 small divisions past 0.5. What is the current, in A?",
+          "hint": "One small division is $0.5 \\div 5$.",
+          "answer": {
+            "value": 0.8,
+            "tolerance": 0.005
+          },
+          "explain": "Each division is $0.1\\ \\text{A}$, so the reading is $0.5 + 3 \\times 0.1 = 0.80\\ \\text{A}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.5 + 3*(0.5/5)",
+            "dp": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "zero-errors-and-sense",
+      "heading": "Zero errors and sensible values",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Before you measure anything, look at the instrument with nothing to measure. A newton meter with no load, or a meter with no current, should read zero."
+        },
+        {
+          "type": "definition",
+          "term": "zero error",
+          "statement": "A zero error is the reading an instrument gives when the true value is zero.",
+          "plain": "The instrument doesn't start from zero."
+        },
+        {
+          "type": "text",
+          "text": "A zero error shifts every reading by the same amount. Correct each reading like this: true value = reading − zero reading."
+        },
+        {
+          "type": "text",
+          "text": "If the zero reading is below zero, subtracting it adds. A needle resting at $-0.1\\ \\text{V}$ makes every reading $0.1\\ \\text{V}$ too small."
+        },
+        {
+          "type": "example",
+          "id": "ex-newton-meter-zero",
+          "question": "A newton meter reads $0.3\\ \\text{N}$ with nothing hanging on it. With a stone hanging from it, the meter reads $4.7\\ \\text{N}$. Calculate the weight of the stone.",
+          "steps": [
+            "The meter reads $0.3\\ \\text{N}$ when it should read zero, so every reading is $0.3\\ \\text{N}$ too big.",
+            "True value = reading − zero reading $= 4.7 - 0.3$."
+          ],
+          "answer": "$W = 4.4\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "4.7 - 0.3",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A ruler with a worn end works the same way. Line the object up with a clear mark, such as 1.0 cm, and subtract that mark from the other reading."
+        },
+        {
+          "type": "check",
+          "id": "check-voltmeter-negative-zero",
+          "prompt": "A voltmeter's needle rests at $-0.2\\ \\text{V}$ when it is not connected. In a circuit it reads $2.6\\ \\text{V}$. What is the true p.d., in V?",
+          "hint": "True value = reading − zero reading, and the zero reading is negative.",
+          "answer": {
+            "value": 2.8,
+            "tolerance": 0.05
+          },
+          "explain": "$2.6 - (-0.2) = 2.8\\ \\text{V}$. The meter starts below zero, so it reads too low.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2.6 - (-0.2)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "Every reading should also make sense. Before you record it, ask: is this about what I expected? A lab is usually around 20–25 °C, and a 100 g mass should read close to 100 g. Estimates should be realistic too: a door is about 2 m high."
+        },
+        {
+          "type": "text",
+          "text": "If a value looks wrong, check the units, the scale and the connections, then measure again. Never change a reading just to match what you expected."
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-current-sense",
+          "question": "A student measures the current in a small torch lamp, powered by two cells, and records $45\\ \\text{A}$. Explain why this value is not sensible, and suggest what has gone wrong.",
+          "steps": [
+            "Compare the value with what you expect for a small lamp and two cells.",
+            "Then look for a slip that gives a number about 100 or 1000 times too big."
+          ],
+          "answer": "The current in a small lamp powered by two cells is usually well under 1 A, so 45 A is far too large. The meter was probably on its milliampere range. So the current was probably 45 mA, which is 0.045 A.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "far too large for a small lamp (expect under 1 A); meter read in mA, so 45 mA = 0.045 A",
+            "requires": [
+              [
+                "less than 1 A",
+                "under 1 A"
+              ],
+              [
+                "too large",
+                "too big"
+              ],
+              [
+                "milliampere",
+                "mA"
+              ],
+              [
+                "0.045 A"
+              ]
+            ],
+            "forbids": [
+              "45 A is correct"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-unexpected-reading",
+          "prompt": "A reading is very different from the value a student expected. What should she do first?",
+          "hint": "The reading might be a slip, or it might be real.",
+          "options": [
+            {
+              "text": "check the instrument and take the reading again",
+              "correct": true
+            },
+            {
+              "text": "change it to the expected value",
+              "correct": false
+            },
+            {
+              "text": "cross it out without saying why",
+              "correct": false
+            },
+            {
+              "text": "record it to more decimal places",
+              "correct": false
+            }
+          ],
+          "explain": "Check the scale, units and set-up, then repeat. If the new reading agrees with the first, the result is real: keep it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "check the instrument and take the reading again"
+          }
+        }
+      ]
+    },
+    {
+      "id": "enough-readings",
+      "heading": "Enough readings, and repeats",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "One reading can hide a slip. To trust a pattern, take readings for at least five values of the [[independent-variable|independent variable]], spread evenly over as wide a range as the apparatus allows."
+        },
+        {
+          "type": "text",
+          "text": "Repeat a reading when repeats could differ, such as hand timing or a meter that flickers. Then calculate the mean. Repeats also show up a slip, because one reading won't match the others."
+        },
+        {
+          "type": "definition",
+          "term": "repeatability",
+          "statement": "A measurement is repeatable if you get the same or a very similar value when you measure it again in the same way and in the same conditions, during one experiment.",
+          "plain": "You get the same answer when you do it again."
+        },
+        {
+          "type": "definition",
+          "term": "reproducibility",
+          "statement": "A measurement is reproducible if a similar value is found by another method, in other conditions, or in a separate experiment.",
+          "plain": "Someone else, or another method, gets the same answer."
+        },
+        {
+          "type": "text",
+          "text": "You won't be asked to recite these two definitions. You will be expected to use the ideas, for example \"repeat and calculate a mean\"."
+        },
+        {
+          "type": "figure",
+          "id": "7-3-results-table",
+          "alt": "A results table with four columns. The headings are: number of blocks N; t1 / s; t2 / s; mean t / s. For 1 block the times are 2.84 and 2.90 seconds, mean 2.87. For 2 blocks: 2.07 and 2.01, mean 2.04. For 3 blocks: 1.72 and 1.66, with the mean left as a question mark. For 4 blocks: 1.47 and 1.51, mean 1.49. For 5 blocks: 1.33 and 1.29, mean 1.31.",
+          "caption": "A toy car rolls down a ramp raised by $N$ wooden blocks. Each time is measured twice."
+        },
+        {
+          "type": "example",
+          "id": "ex-mean-ramp-time",
+          "question": "Calculate the missing mean time in the table for 3 blocks.",
+          "steps": [
+            "Add the two times and divide by 2: $\\frac{1.72 + 1.66}{2} = \\frac{3.38}{2} = 1.69$.",
+            "The times have 2 decimal places, so the mean has 2 too, like the rest of the column."
+          ],
+          "answer": "$t = 1.69\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(1.72 + 1.66)/2",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-wire-plan-readings",
+          "question": "A student plans to measure the current in a wire at p.d.s of $1.0\\ \\text{V}$ and $1.5\\ \\text{V}$ only, once each. Suggest two ways to make her results more reliable.",
+          "steps": [
+            "Two values can't show a pattern, so think about how many values and how wide a range.",
+            "Then think about repeats."
+          ],
+          "answer": "Take readings for at least five p.d.s over a wider range, for example from 1.0 V to 5.0 V in steps of 1.0 V, set using a [[variable-resistor|variable resistor]]. Repeat each reading and calculate a mean.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "at least five values over a wider range; repeat each reading and calculate a mean",
+            "requires": [
+              [
+                "at least five"
+              ],
+              [
+                "wider range"
+              ],
+              [
+                "repeat"
+              ],
+              [
+                "calculate a mean"
+              ]
+            ],
+            "forbids": [
+              "be more careful"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"repeat the readings\" and stopping there. Add \"and calculate a mean\": that is what earns the mark."
+        },
+        {
+          "type": "check",
+          "id": "check-reproducible",
+          "prompt": "A student finds the density of a stone by displacement. A friend measures the same stone in a different way and gets nearly the same value. What does this show about the result?",
+          "hint": "A different method, not the same one done again.",
+          "options": [
+            {
+              "text": "it is reproducible",
+              "correct": true
+            },
+            {
+              "text": "it is repeatable only",
+              "correct": false
+            },
+            {
+              "text": "it is anomalous",
+              "correct": false
+            }
+          ],
+          "explain": "The same result by a different method or person means it is reproducible. Repeatable means the same result from the same method done again.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is reproducible"
+          }
+        }
+      ]
+    },
+    {
+      "id": "recording-results",
+      "heading": "Recording observations and tables",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some tests give no number. A qualitative observation describes what you see or hear: a lamp glows more brightly, a compass needle swings, or light does or doesn't pass through a material."
+        },
+        {
+          "type": "text",
+          "text": "Record these in a few clear words for each test, such as \"lamp lights, dim\" or \"no light passes through\". \"It changed\" says nothing."
+        },
+        {
+          "type": "check",
+          "id": "check-qualitative",
+          "prompt": "Which of these is a qualitative observation?",
+          "hint": "Qualitative means described in words, not measured.",
+          "options": [
+            {
+              "text": "the lamp glows more brightly",
+              "correct": true
+            },
+            {
+              "text": "the current is 0.40 A",
+              "correct": false
+            },
+            {
+              "text": "the p.d. is 3.0 V",
+              "correct": false
+            },
+            {
+              "text": "the time is 2.5 s",
+              "correct": false
+            }
+          ],
+          "explain": "Only the lamp's brightness is described in words. The others are measurements with a number and a unit.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the lamp glows more brightly"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Record measurements in a table as you take them. Look at the table in the figure above: it follows four rules."
+        },
+        {
+          "type": "text",
+          "text": "1. One column for each quantity, and one for each repeat. The independent variable goes in the first column, then the readings, then calculated values such as the mean."
+        },
+        {
+          "type": "text",
+          "text": "2. Each heading is quantity / unit, such as $t$ / s or $I$ / A. Units go in the heading only, not after every number. A count, such as the number of blocks $N$, has no unit."
+        },
+        {
+          "type": "text",
+          "text": "3. Every reading in a column has the same number of decimal places, set by the instrument. Lengths read to the nearest mm are written 12.0 cm, not 12 cm."
+        },
+        {
+          "type": "text",
+          "text": "4. A mean keeps the decimal places of its readings. Other calculated values, such as a resistance, usually have 2 or 3 significant figures, no more than the least precise reading."
+        },
+        {
+          "type": "example",
+          "id": "ex-improve-table",
+          "question": "A student's table has the column headings \"p.d.\" and \"current\". The currents, from an ammeter that reads to 0.01 A, are written 0.2, 0.25 and 0.3. Explain two ways to improve the table.",
+          "steps": [
+            "Check each heading for a quantity and a unit.",
+            "Check that every entry shows the precision of the instrument."
+          ],
+          "answer": "Each heading needs its unit, written as p.d. / V and current / A. Every current should have 2 decimal places, because the ammeter reads to 0.01 A, so write 0.20, 0.25 and 0.30.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "add units to headings (p.d. / V, current / A); record all currents to 2 decimal places (0.20, 0.25, 0.30)",
+            "requires": [
+              [
+                "unit"
+              ],
+              [
+                "p.d. / V"
+              ],
+              [
+                "current / A"
+              ],
+              [
+                "2 decimal places"
+              ],
+              [
+                "0.20"
+              ],
+              [
+                "0.30"
+              ]
+            ],
+            "forbids": [
+              "units after every number"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving units out of the headings, or writing them after each number. Put them once, in the heading."
+        },
+        {
+          "type": "check",
+          "id": "check-table-heading",
+          "prompt": "Which is the best column heading for current readings in a results table?",
+          "hint": "Quantity, then a slash, then its unit.",
+          "options": [
+            {
+              "text": "current / A",
+              "correct": true
+            },
+            {
+              "text": "current / V",
+              "correct": false
+            },
+            {
+              "text": "current",
+              "correct": false
+            },
+            {
+              "text": "A / current",
+              "correct": false
+            }
+          ],
+          "explain": "The quantity comes first, then its unit: the ampere, A. The volt is the unit of p.d.",
+          "verify": {
+            "kind": "choice",
+            "truth": "current / A"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Analogue scale: value of one small division = gap between two labels ÷ number of divisions. Read to the nearest half division when the divisions are wide enough."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Digital display: record every digit shown, including a final zero, and convert mA to A if the table needs it."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Zero error: true value = reading − zero reading. If the zero reading is negative, subtracting it adds its size."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Check each reading is sensible; if not, check and measure again. Never change a reading to fit."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To find a pattern, take at least five values of the independent variable over a wide range. Repeat readings that can vary, and calculate a mean."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Tables: headings quantity / unit, independent variable first, the same decimal places down a column of readings, set by the instrument."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Writing \"read it carefully\". Name the technique, such as eye level with the scale or the bottom of the meniscus.",
+    "Forgetting the zero error. Look at the instrument before you start, and subtract its zero reading from every reading.",
+    "Writing \"repeat the readings\" without \"calculate a mean\".",
+    "Leaving units out of table headings, or dropping a final zero, such as 0.3 A instead of 0.30 A from a meter that reads to 0.01 A."
+  ],
+  "examTips": [
+    "\"Measure\": give the value to the precision of the scale, with its unit.",
+    "\"Suggest\" a way to make results reliable: say exactly what, such as \"repeat and calculate a mean\" or \"at least five values over a wider range\".",
+    "\"Complete\" a table: add the unit to each heading and keep the same decimal places down each column of readings."
+  ],
+  "readingMinutes": 22
+}

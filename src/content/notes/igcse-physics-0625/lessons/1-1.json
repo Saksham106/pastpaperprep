@@ -1,0 +1,726 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.1",
+  "slug": "physical-quantities-and-measurement-techniques",
+  "title": "Physical quantities and measurement techniques",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Every experiment starts with a good measurement. Use a ruler for lengths, a measuring cylinder for volumes, and a clock, stopwatch or digital timer for times. To measure something very small or very quick, measure many of them together and divide. Extended adds [[scalar|scalars]] and [[vector|vectors]], and how to combine two vectors that act at right angles.",
+  "goals": [
+    {
+      "text": "Measure a length with a ruler and a volume with a measuring cylinder, including the volume of an irregular solid.",
+      "bullets": [
+        "1.1-1"
+      ]
+    },
+    {
+      "text": "Choose a clock, stopwatch or digital timer to suit a time interval, and read it correctly.",
+      "bullets": [
+        "1.1-2"
+      ]
+    },
+    {
+      "text": "Find an average for a small distance or a short time by measuring many together, including the [[period|period]] of a pendulum.",
+      "bullets": [
+        "1.1-3"
+      ]
+    },
+    {
+      "text": "Tell scalars from vectors, and name the examples of each that you need to know.",
+      "bullets": [
+        "1.1-4",
+        "1.1-5",
+        "1.1-6"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Find the resultant of two forces or two velocities at right angles, by calculation or with a scale drawing.",
+      "bullets": [
+        "1.1-7"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "measuring cylinder meniscus",
+    "volume of an irregular object",
+    "period of a pendulum",
+    "measuring multiples",
+    "scalar and vector quantities",
+    "resultant of two forces at right angles"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-cm-to-mm",
+      "prompt": "A pencil is $14.5\\ \\text{cm}$ long. How long is it in millimetres?",
+      "hint": "There are $10\\ \\text{mm}$ in $1\\ \\text{cm}$.",
+      "answer": {
+        "value": 145,
+        "tolerance": 0
+      },
+      "explain": "$14.5 \\times 10 = 145\\ \\text{mm}$. A ruler marked in millimetres reads lengths to the nearest $0.1\\ \\text{cm}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "14.5*10",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-mean-of-three",
+      "prompt": "Three timings of the same event are $4.2\\ \\text{s}$, $4.6\\ \\text{s}$ and $4.4\\ \\text{s}$. What is their mean, in s?",
+      "hint": "Add the readings, then divide by how many there are.",
+      "answer": {
+        "value": 4.4,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{4.2 + 4.6 + 4.4}{3} = \\frac{13.2}{3} = 4.4\\ \\text{s}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(4.2 + 4.6 + 4.4)/3",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-minutes-to-seconds",
+      "prompt": "How many seconds are there in $3$ minutes $25$ seconds?",
+      "hint": "Each minute is $60\\ \\text{s}$.",
+      "answer": {
+        "value": 205,
+        "tolerance": 0
+      },
+      "explain": "$3 \\times 60 + 25 = 205\\ \\text{s}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3*60 + 25",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "length-and-volume",
+      "heading": "Measuring length and volume",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A ruler or metre rule measures length. Most read to the nearest millimetre ($0.1\\ \\text{cm}$). Line the zero mark up with one end of the object. If the end of the ruler is worn, start at another mark and subtract that starting reading."
+        },
+        {
+          "type": "text",
+          "text": "Look straight at the mark you are reading, not from the side. Looking at an angle makes the reading too big or too small: a parallax error."
+        },
+        {
+          "type": "text",
+          "text": "For a regular solid, such as a cuboid, measure its length, width and height with a ruler. Then volume = length × width × height."
+        },
+        {
+          "type": "text",
+          "text": "A measuring cylinder measures the volume of a liquid, in $\\text{cm}^3$ ($1\\ \\text{cm}^3$ = $1$ ml). Stand it on a flat bench. The water surface curves at the glass: this curve is the meniscus. Read the scale at the bottom of the meniscus, with your eye level with it."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-measuring-cylinder",
+          "alt": "Measuring cylinder containing water, with a scale in cubic centimetres from 30 to 50. The numbered marks are 30, 40 and 50, with four small marks between each pair. The water surface curves up at the walls, forming a meniscus. The bottom of the meniscus lines up with the second small mark above 40. An eye on the right looks along a dashed horizontal line level with the bottom of the meniscus.",
+          "caption": "Read the bottom of the meniscus, with your eye level with it."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-cylinder",
+          "question": "Use the diagram above. What volume of water is in the measuring cylinder?",
+          "steps": [
+            "Find what one small division is worth. The numbered marks $40$ and $50$ are $10\\ \\text{cm}^3$ apart, with $5$ spaces between them: $10 \\div 5 = 2\\ \\text{cm}^3$ per division.",
+            "The bottom of the meniscus is $2$ small divisions above the $40$ mark.",
+            "Volume $= 40 + 2 \\times 2 = 44\\ \\text{cm}^3$."
+          ],
+          "answer": "$V = 44\\ \\text{cm}^3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "40 + 2*(50 - 40)/5",
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "text",
+          "text": "You can't work out the volume of an irregular solid, such as a stone, from a formula. Use the [[displacement-method|displacement method]] instead. Read the water level, lower the solid in until it is fully under water, and read the level again. The rise in level is the solid's volume."
+        },
+        {
+          "type": "example",
+          "id": "ex-displacement-key",
+          "question": "A measuring cylinder holds $44\\ \\text{cm}^3$ of water. A student ties a thread to a brass key and lowers it in until it is completely under water. The level rises to $61\\ \\text{cm}^3$. Find the volume of the key.",
+          "steps": [
+            "The key pushes aside its own volume of water, so the level rises by the key's volume.",
+            "Volume of key = new reading − starting reading.",
+            "$61 - 44 = 17\\ \\text{cm}^3$."
+          ],
+          "answer": "$V = 17\\ \\text{cm}^3$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "61 - 44",
+            "unit": "cm^3"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Choosing a ruler to find the volume of an irregular object. A ruler works only for regular shapes; use displacement in a measuring cylinder."
+        },
+        {
+          "type": "check",
+          "id": "check-ruler-offset",
+          "prompt": "A ruler's end is worn, so a student lines a nail up with the $1.5\\ \\text{cm}$ mark. The other end of the nail is at the $12.8\\ \\text{cm}$ mark. How long is the nail, in cm?",
+          "hint": "The nail does not start at zero.",
+          "answer": {
+            "value": 11.3,
+            "tolerance": 0.05
+          },
+          "explain": "Subtract the starting reading: $12.8 - 1.5 = 11.3\\ \\text{cm}$. Reading $12.8\\ \\text{cm}$ alone would be too long.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "12.8 - 1.5",
+            "dp": 1
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-meniscus-eye",
+          "prompt": "Where should your eye be when you read the volume of water in a measuring cylinder?",
+          "hint": "Looking from above or below gives a parallax error.",
+          "options": [
+            {
+              "text": "level with the bottom of the meniscus",
+              "correct": true
+            },
+            {
+              "text": "above the water, looking down at the surface",
+              "correct": false
+            },
+            {
+              "text": "level with where the water touches the glass",
+              "correct": false
+            },
+            {
+              "text": "below the water, looking up at the surface",
+              "correct": false
+            }
+          ],
+          "explain": "For water, read the bottom of the meniscus with your eye level with it. Looking down or up from an angle gives a parallax error.",
+          "verify": {
+            "kind": "choice",
+            "truth": "level with the bottom of the meniscus"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring-time",
+      "heading": "Measuring time",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Choose the timer to suit the interval. A clock or watch is fine for minutes or hours, such as a hot drink cooling. A stopwatch suits intervals of several seconds, such as a trolley rolling down a ramp. A digital timer, started and stopped by light gates, suits very short intervals, well under a second."
+        },
+        {
+          "type": "text",
+          "text": "A stopwatch shows $0.01\\ \\text{s}$, but you start and stop it by hand. Your reaction time is roughly $0.2\\ \\text{s}$, so the last digit of a hand-timed reading can't be trusted. A light gate has no reaction time."
+        },
+        {
+          "type": "text",
+          "text": "Reset the stopwatch to zero before you start. If you forget, the time interval = final reading − starting reading. A display of 1:05.32 means $1$ minute $5.32$ seconds, which is $65.32\\ \\text{s}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-stopwatch-not-reset",
+          "question": "A student forgets to reset a stopwatch. It shows 0:04.20 when she starts it and 2:07.46 when she stops it. How long did the event last, in seconds?",
+          "steps": [
+            "Change the final reading to seconds: $2 \\times 60 + 7.46 = 127.46\\ \\text{s}$.",
+            "The starting reading is $4.20\\ \\text{s}$.",
+            "Time interval = final reading − starting reading: $127.46 - 4.20 = 123.26\\ \\text{s}$."
+          ],
+          "answer": "$t = 123.26\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2*60 + 7.46 - 4.20",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-timers",
+          "question": "Suggest a suitable timing instrument for each of these, and give a reason for your choice for (c). (a) The time for a candle to burn down. (b) The time for a toy car to roll $2$ m down a ramp. (c) The time for a falling ball to pass through a $5$ cm gap.",
+          "steps": [
+            "Estimate each interval first: hours, a few seconds, a small fraction of a second.",
+            "Match the timer to the size of the interval.",
+            "For (c), compare the interval with your reaction time."
+          ],
+          "answer": "(a) A clock, because the candle takes hours to burn. (b) A stopwatch, because the roll lasts a few seconds. (c) A digital timer with light gates. The ball passes through the gap in a small fraction of a second, which is shorter than human reaction time, so it can't be timed by hand.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "clock for hours; stopwatch for seconds; digital timer with light gates for a fraction of a second, shorter than reaction time",
+            "requires": [
+              [
+                "a clock"
+              ],
+              [
+                "a stopwatch"
+              ],
+              [
+                "digital timer"
+              ],
+              [
+                "light gates",
+                "light gate"
+              ],
+              [
+                "reaction time"
+              ]
+            ],
+            "forbids": [
+              "ruler",
+              "metre rule"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading 2:07.46 as $207.46\\ \\text{s}$. The number before the colon is minutes: multiply it by $60$, then add the seconds."
+        },
+        {
+          "type": "check",
+          "id": "check-display-to-seconds",
+          "prompt": "A stopwatch display reads 3:05.80. What is this time in seconds?",
+          "hint": "The first number is minutes.",
+          "answer": {
+            "value": 185.8,
+            "tolerance": 0.005
+          },
+          "explain": "$3 \\times 60 + 5.80 = 185.80\\ \\text{s}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3*60 + 5.80",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-best-short-timer",
+          "prompt": "A trolley takes about $0.15\\ \\text{s}$ to pass a point on a track. Which is the best way to time it?",
+          "hint": "Compare $0.15\\ \\text{s}$ with your reaction time.",
+          "options": [
+            {
+              "text": "a digital timer started and stopped by light gates",
+              "correct": true
+            },
+            {
+              "text": "a hand-operated stopwatch",
+              "correct": false
+            },
+            {
+              "text": "a wall clock with a seconds hand",
+              "correct": false
+            },
+            {
+              "text": "a stopwatch, then dividing the reading by 10",
+              "correct": false
+            }
+          ],
+          "explain": "The interval is shorter than a human reaction time (roughly $0.2\\ \\text{s}$), so hand timing can't work. Light gates start and stop the timer automatically.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a digital timer started and stopped by light gates"
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring-multiples",
+      "heading": "Measure many, then divide",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A sheet of paper is about $0.1\\ \\text{mm}$ thick: too thin for a ruler marked in millimetres. A stack of $200$ sheets is about $2\\ \\text{cm}$ thick, which a ruler can measure. Measure the stack, then divide by the number of sheets to get the average thickness of one."
+        },
+        {
+          "type": "text",
+          "text": "Short times work the same way. One complete oscillation (out and back) of a classroom pendulum takes about $1$ to $2$ s, not much longer than your reaction time. Time $20$ oscillations and the reaction-time error is shared between all $20$."
+        },
+        {
+          "type": "definition",
+          "term": "period",
+          "statement": "The [[period|period]] $T$ of a pendulum is the time for one complete oscillation, in seconds.",
+          "plain": "How long it takes to swing out, across and back to where it started."
+        },
+        {
+          "type": "figure",
+          "id": "1-1-pendulum-oscillation",
+          "alt": "A pendulum hangs from a clamp. The bob is drawn at its left end of swing, A, with faint copies at the middle and at the right end of swing, B. A fixed vertical marker stands below the middle of the swing. A curved arrow goes from A across to B, and a second curved arrow comes back from B to A. Together they make one complete oscillation.",
+          "caption": "One oscillation: from A to B and back to A."
+        },
+        {
+          "type": "text",
+          "text": "Put a fixed marker below the centre of the swing. The bob moves fastest there, so the moment it passes is sharp and easy to see. Count \"zero\" as you start the stopwatch, and stop it after $20$ complete oscillations."
+        },
+        {
+          "type": "formula",
+          "tex": "T = \\frac{\\text{time for } n \\text{ oscillations}}{n}",
+          "tag": "learn"
+        },
+        {
+          "type": "example",
+          "id": "ex-pendulum-period",
+          "question": "A student times $20$ oscillations of a pendulum three times. Her readings are $28.4\\ \\text{s}$, $28.0\\ \\text{s}$ and $28.6\\ \\text{s}$. Calculate the period of the pendulum.",
+          "steps": [
+            "Find the mean time for $20$ oscillations: $\\frac{28.4 + 28.0 + 28.6}{3} = 28.33\\ \\text{s}$.",
+            "Divide by the number of oscillations: $T = \\frac{28.33}{20}$.",
+            "$T = 1.417\\ \\text{s}$, which is $1.42\\ \\text{s}$ to 3 significant figures, like the readings."
+          ],
+          "answer": "$T \\approx 1.42\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "(28.4 + 28.0 + 28.6)/3/20",
+            "sf": 3,
+            "unit": "s"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-pendulum",
+          "question": "Describe how a student can use a stopwatch and a fixed marker to find an accurate value for the period of a pendulum.",
+          "steps": [
+            "Say where the marker goes and why.",
+            "Say what is timed: many complete oscillations, not one.",
+            "Say how the period is worked out, and how to make it more reliable."
+          ],
+          "answer": "Place a fixed marker below the centre of the swing, where the bob moves fastest. Start the stopwatch as the bob passes the marker. Time $20$ complete oscillations, counting each time the bob passes the marker going the same way. Divide the total time by $20$ to get the period. Repeat the timing and calculate the mean.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "marker at the centre of the swing; time many (20) complete oscillations; divide total time by the number; repeat and average",
+            "requires": [
+              [
+                "marker"
+              ],
+              [
+                "complete oscillations"
+              ],
+              [
+                "divide the total time"
+              ],
+              [
+                "repeat"
+              ],
+              [
+                "mean",
+                "average"
+              ]
+            ],
+            "forbids": [
+              "time one oscillation",
+              "time a single swing"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Counting a swing from one side to the other as one oscillation. That is only half; a full oscillation ends back where it started."
+        },
+        {
+          "type": "check",
+          "id": "check-coin-thickness",
+          "prompt": "A stack of $30$ identical coins is $5.70\\ \\text{cm}$ tall. What is the average thickness of one coin, in mm?",
+          "hint": "Divide the height of the stack by the number of coins, then change cm to mm.",
+          "answer": {
+            "value": 1.9,
+            "tolerance": 0.05
+          },
+          "explain": "$\\frac{5.70}{30} = 0.19\\ \\text{cm} = 1.9\\ \\text{mm}$. Measuring one coin with a ruler would give a much less accurate value.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "5.70*10/30",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-many-swings",
+          "prompt": "Why does a student time $20$ oscillations of a pendulum, rather than one?",
+          "hint": "Think about the error your reaction time adds to each timing.",
+          "options": [
+            {
+              "text": "the reaction-time error is a much smaller fraction of a longer time",
+              "correct": true
+            },
+            {
+              "text": "the pendulum swings faster after many oscillations",
+              "correct": false
+            },
+            {
+              "text": "a stopwatch cannot measure a time as long as one oscillation",
+              "correct": false
+            },
+            {
+              "text": "it removes the need to repeat the experiment",
+              "correct": false
+            }
+          ],
+          "explain": "The reaction-time error, roughly $0.2\\ \\text{s}$, is the same for one oscillation or $20$. Shared between $20$ oscillations, it becomes about $0.01\\ \\text{s}$ in each period. You should still repeat and average.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the reaction-time error is a much smaller fraction of a longer time"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: when you \"describe\" a timing method, name the number of oscillations (at least $10$), say you divide by it, and say you repeat and take the mean."
+        }
+      ]
+    },
+    {
+      "id": "scalars-and-vectors",
+      "heading": "Scalars, vectors and resultants",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "scalar",
+          "statement": "A [[scalar|scalar]] is a quantity that has size (magnitude) but no direction.",
+          "plain": "One number and a unit tells you everything, like $5\\ \\text{kg}$."
+        },
+        {
+          "type": "definition",
+          "term": "vector",
+          "statement": "A [[vector|vector]] is a quantity that has both size (magnitude) and direction.",
+          "plain": "You need a direction too, like $5\\ \\text{N}$ to the left."
+        },
+        {
+          "type": "text",
+          "text": "Scalars to know: [[distance|distance]], [[speed|speed]], time, [[mass|mass]], [[energy|energy]] and [[temperature|temperature]]. Vectors to know: [[velocity|velocity]], [[acceleration|acceleration]], [[force|force]] and [[weight|weight]], [[momentum|momentum]], and the two field strengths ([[gravitational-field-strength|gravitational]] and electric)."
+        },
+        {
+          "type": "text",
+          "text": "Watch the pairs. Speed is a scalar, but velocity is speed in a given direction, so it is a vector. Mass is a scalar, but weight is a force, so it is a vector."
+        },
+        {
+          "type": "check",
+          "id": "check-only-vectors",
+          "prompt": "Which list contains only vector quantities?",
+          "hint": "Each one must need a direction to describe it fully.",
+          "options": [
+            {
+              "text": "force, velocity, momentum",
+              "correct": true
+            },
+            {
+              "text": "force, speed, momentum",
+              "correct": false
+            },
+            {
+              "text": "mass, weight, acceleration",
+              "correct": false
+            },
+            {
+              "text": "distance, energy, temperature",
+              "correct": false
+            }
+          ],
+          "explain": "Force, velocity and momentum all have a direction. The other lists each contain a scalar: speed, mass, or (in the last) distance, energy and temperature.",
+          "verify": {
+            "kind": "choice",
+            "truth": "force, velocity, momentum"
+          }
+        },
+        {
+          "type": "text",
+          "text": "The resultant of two vectors is the single vector with the same effect as both. When two forces or two velocities act at right angles, draw them tip to tail. They make the two short sides of a right-angled triangle, and the resultant is the longest side."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{resultant} = \\sqrt{X^2 + Y^2} \\qquad \\tan\\theta = \\frac{Y}{X}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$X$ and $Y$ are the two vectors at right angles. Pythagoras gives the size of the resultant. $\\theta$ is the angle between the resultant and $X$, so it gives the direction."
+        },
+        {
+          "type": "example",
+          "id": "ex-two-forces-calc",
+          "question": "Two children pull a sledge on ice. One pulls with a force of $7.0\\ \\text{N}$ to the east, the other with $4.0\\ \\text{N}$ to the north. Calculate the size of the resultant force on the sledge, and find its direction.",
+          "steps": [
+            "The forces are at right angles, so use Pythagoras: $F = \\sqrt{7.0^2 + 4.0^2} = \\sqrt{65}$.",
+            "$F = 8.06\\ \\text{N}$, which is $8.1\\ \\text{N}$ to 2 significant figures.",
+            "Direction: $\\tan\\theta = \\frac{4.0}{7.0}$, so $\\theta = 30°$ (to 2 significant figures) north of east."
+          ],
+          "answer": "$F \\approx 8.1\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sqrt(7.0**2 + 4.0**2)",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "figure",
+          "id": "1-1-boat-scale-drawing",
+          "alt": "Scale drawing with a scale of 1 centimetre to 0.2 metres per second. From a start point, a line 12.0 centimetres long points north, for the boat's velocity of 2.4 metres per second. From its tip, a line 5.0 centimetres long points east, at right angles, for the river's velocity of 1.0 metres per second. The resultant goes from the start point to the end of the second line and measures 13.0 centimetres. The angle theta between the north line and the resultant is marked at the start point.",
+          "caption": "Scale drawing for a boat crossing a river."
+        },
+        {
+          "type": "example",
+          "id": "ex-boat-scale-drawing",
+          "question": "A boat heads north across a river at $2.4\\ \\text{m/s}$ through the water. The river flows east at $1.0\\ \\text{m/s}$. Use a scale drawing to find the resultant velocity of the boat.",
+          "steps": [
+            "Choose a scale: $1\\ \\text{cm}$ = $0.2\\ \\text{m/s}$. The boat's velocity is $2.4 \\div 0.2 = 12.0\\ \\text{cm}$ long and the river's is $1.0 \\div 0.2 = 5.0\\ \\text{cm}$ long.",
+            "Draw $12.0\\ \\text{cm}$ north. From its tip, draw $5.0\\ \\text{cm}$ east, at right angles.",
+            "Join the start to the end. It measures $13.0\\ \\text{cm}$: $13.0 \\times 0.2 = 2.6\\ \\text{m/s}$.",
+            "Measure $\\theta$ with a protractor: about $23°$ east of north.",
+            "Check by calculation: $\\sqrt{2.4^2 + 1.0^2} = 2.6\\ \\text{m/s}$."
+          ],
+          "answer": "$v = 2.6\\ \\text{m/s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(2.4**2 + 1.0**2)",
+            "unit": "m/s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Adding two vectors at right angles: $7.0 + 4.0 = 11\\ \\text{N}$ is wrong. Use Pythagoras, or draw them tip to tail to scale."
+        },
+        {
+          "type": "check",
+          "id": "check-resultant-size",
+          "prompt": "A $3.0\\ \\text{N}$ force acts to the right and a $4.0\\ \\text{N}$ force acts upwards on the same object. What is the size of the resultant force?",
+          "hint": "The forces are at right angles.",
+          "options": [
+            {
+              "text": "$5.0\\ \\text{N}$",
+              "correct": true
+            },
+            {
+              "text": "$7.0\\ \\text{N}$",
+              "correct": false
+            },
+            {
+              "text": "$1.0\\ \\text{N}$",
+              "correct": false
+            },
+            {
+              "text": "$25\\ \\text{N}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sqrt{3.0^2 + 4.0^2} = \\sqrt{25} = 5.0\\ \\text{N}$. Adding gives $7.0\\ \\text{N}$ and subtracting gives $1.0\\ \\text{N}$: both treat the forces as if they were along one line.",
+          "verify": {
+            "kind": "exact",
+            "truth": "sqrt(3.0**2 + 4.0**2)",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-plane-wind",
+          "prompt": "A plane flies north at $75\\ \\text{m/s}$ through the air. A wind blows east at $20\\ \\text{m/s}$. What is the size of the plane's resultant velocity, in m/s? Give 2 significant figures.",
+          "hint": "Square each velocity, add, then take the square root.",
+          "answer": {
+            "value": 78,
+            "tolerance": 0.5
+          },
+          "explain": "$\\sqrt{75^2 + 20^2} = \\sqrt{6025} = 77.6 \\approx 78\\ \\text{m/s}$, a little east of north.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "sqrt(75**2 + 20**2)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "For a scale drawing, write your scale, draw each vector to that scale, and give the resultant's size and its direction (an angle from a named direction)."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Length: use a ruler, start at the zero mark (or subtract the starting reading), and look straight at the mark. Liquid volume: use a measuring cylinder; for water, read the bottom of the meniscus with your eye level with it."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Volume of an irregular solid that sinks: lower it into water in a measuring cylinder until it is fully under water. Its volume = new reading − starting reading."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Time: a clock for minutes or hours, a stopwatch for several seconds, a digital timer with light gates for intervals well under a second. Hand timing adds a reaction-time error of roughly $0.2\\ \\text{s}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Small distance or short time: measure many together (a stack, or $20$ oscillations) and divide by the number. Repeat and take the mean."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Period of a pendulum: the time for one complete oscillation, out, across and back to the start. Period = time for $n$ oscillations ÷ $n$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Scalars have size only: distance, speed, time, mass, energy, temperature. Vectors have size and direction: force, weight, velocity, acceleration, momentum, electric and gravitational field strength."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Two forces or two velocities at right angles: resultant $= \\sqrt{X^2 + Y^2}$, at angle $\\theta$ to $X$ where $\\tan\\theta = \\frac{Y}{X}$. Or draw them tip to tail to scale and measure. Give the size and the direction."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Using a ruler for the volume of an irregular object. Use displacement in a measuring cylinder.",
+    "Timing a single swing of a pendulum. Time at least $10$ complete oscillations and divide, so reaction time matters less.",
+    "Forgetting the starting reading on a stopwatch or ruler. Subtract it from the final reading.",
+    "Reading a stopwatch display such as 1:05.32 as $105.32\\ \\text{s}$. It is $1$ minute $5.32$ seconds, $65.32\\ \\text{s}$.",
+    "Counting from one side of the swing to the other as a whole oscillation. That is half of one.",
+    "Extended: adding two vectors at right angles. Use Pythagoras or a scale drawing."
+  ],
+  "examTips": [
+    "\"Describe\" a measurement (Paper 3/4 and 5/6): name the instrument, say what you read and how (eye level, starting reading), and how you get the final value (subtract, or divide by the number).",
+    "\"Calculate\" a period or an average: show the total, the number you divide by, and the answer with its unit.",
+    "\"Determine\" a resultant (Extended): give its size with a unit and its direction, such as \"$8.1\\ \\text{N}$ at $30°$ north of east\"."
+  ],
+  "readingMinutes": 25
+}

@@ -1,0 +1,648 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.2.3",
+  "slug": "emf-and-potential-difference",
+  "title": "Electromotive force and potential difference",
+  "level": "Core",
+  "topic": 4,
+  "summary": "A cell does work on the charge it pushes round a circuit: the work it does on each [[coulomb|coulomb]] is its [[electromotive-force|electromotive force]] (e.m.f.). The charge then does work in each component: the work per coulomb there is the [[potential-difference|potential difference]] (p.d.). Both are measured in volts, with a [[voltmeter|voltmeter]] connected in parallel.",
+  "goals": [
+    {
+      "text": "Define [[electromotive-force|electromotive force]] (e.m.f.) and know that it is measured in volts.",
+      "bullets": [
+        "4.2.3-1",
+        "4.2.3-2"
+      ]
+    },
+    {
+      "text": "Define [[potential-difference|potential difference]] (p.d.), know that it is measured in volts, and tell it apart from e.m.f.",
+      "bullets": [
+        "4.2.3-3",
+        "4.2.3-4"
+      ]
+    },
+    {
+      "text": "Use analogue and digital [[voltmeter|voltmeters]]: connect them in parallel, choose a suitable range and read the scale.",
+      "bullets": [
+        "4.2.3-5"
+      ]
+    },
+    {
+      "text": "Calculate e.m.f. and p.d. with $E = \\frac{W}{Q}$ and $V = \\frac{W}{Q}$, and rearrange them.",
+      "bullets": [
+        "4.2.3-6",
+        "4.2.3-7"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.1",
+    "1.7.2",
+    "4.2.1",
+    "4.2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "what is emf",
+    "what is potential difference",
+    "difference between emf and pd",
+    "how to use a voltmeter",
+    "volt joule per coulomb",
+    "E = W/Q and V = W/Q"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-work-unit",
+      "prompt": "What is the unit of [[work-done|work done]]?",
+      "hint": "Work done is the same as the [[energy|energy]] transferred.",
+      "options": [
+        {
+          "text": "joule",
+          "correct": true
+        },
+        {
+          "text": "newton",
+          "correct": false
+        },
+        {
+          "text": "watt",
+          "correct": false
+        },
+        {
+          "text": "coulomb",
+          "correct": false
+        }
+      ],
+      "explain": "Work done is energy transferred, so it is measured in joules (J). Force is in newtons, and power is in watts. Revise it in {{lesson:1.7.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "joule"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-charge-unit",
+      "prompt": "What is the unit of [[electric-charge|electric charge]]?",
+      "hint": "It is named after the French scientist Charles-Augustin de Coulomb.",
+      "options": [
+        {
+          "text": "coulomb",
+          "correct": true
+        },
+        {
+          "text": "ampere",
+          "correct": false
+        },
+        {
+          "text": "volt",
+          "correct": false
+        },
+        {
+          "text": "joule",
+          "correct": false
+        }
+      ],
+      "explain": "Charge is measured in coulombs (C), the unit this lesson uses. The ampere is the unit of current, not charge.",
+      "verify": {
+        "kind": "choice",
+        "truth": "coulomb"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ammeter-series",
+      "prompt": "How is an [[ammeter|ammeter]] connected to measure the current in a lamp?",
+      "hint": "The current has to pass through the meter.",
+      "options": [
+        {
+          "text": "in series with the lamp",
+          "correct": true
+        },
+        {
+          "text": "in parallel with the lamp",
+          "correct": false
+        },
+        {
+          "text": "across the cell only",
+          "correct": false
+        }
+      ],
+      "explain": "An ammeter goes in series, in the same loop as the lamp, so the lamp's current flows through it. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "in series with the lamp"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "emf-and-pd",
+      "heading": "E.m.f. and p.d.: energy given and energy used",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A cell or battery is the energy source for a circuit. It uses energy from its chemical store to push [[electric-charge|charge]] round the circuit. So the cell does [[work-done|work]] on the charge."
+        },
+        {
+          "type": "text",
+          "text": "To compare sources, we look at how much work a source does on every unit of charge. Charge is measured in [[coulomb|coulombs]] (C), so this is the [[energy|energy]] given to each coulomb."
+        },
+        {
+          "type": "definition",
+          "term": "electromotive force",
+          "statement": "A source's [[electromotive-force|electromotive force]] (e.m.f.) is the electrical work it does to move one unit of charge round a complete circuit.",
+          "plain": "How much energy the cell gives each coulomb of charge it pushes round the circuit."
+        },
+        {
+          "type": "text",
+          "text": "E.m.f. is measured in volts (V). One volt is one joule per coulomb: $1\\ \\text{V} = 1\\ \\text{J/C}$. So a $1.5\\ \\text{V}$ cell does $1.5\\ \\text{J}$ of work on every coulomb it moves round the circuit."
+        },
+        {
+          "type": "text",
+          "text": "The charge gives up this energy in the components. As charge passes through a lamp, it does work there: energy is transferred to the surroundings by light and by heating."
+        },
+        {
+          "type": "definition",
+          "term": "potential difference",
+          "statement": "The [[potential-difference|potential difference]] (p.d.) across a component is the work done by each unit of charge as it passes through that component.",
+          "plain": "How much energy each coulomb gives up in the component."
+        },
+        {
+          "type": "text",
+          "text": "P.d. is also measured in volts. A p.d. of $4\\ \\text{V}$ across a heater means each coulomb transfers $4\\ \\text{J}$ in the heater. A p.d. is always between two points, such as the two ends of a component."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-3-energy-in-circuit",
+          "alt": "A cell and a lamp joined in a single loop. The cell is on the left with its positive terminal at the top, and the lamp is on the right. Arrows show the current going clockwise, out of the positive terminal and through the lamp. A label by the cell says it does work on the charge: e.m.f. A label by the lamp says the charge does work here: p.d.",
+          "caption": "E.m.f. belongs to the source, which gives the charge energy. P.d. belongs to a component, where the charge gives energy up."
+        },
+        {
+          "type": "text",
+          "text": "Despite its name, e.m.f. is not a force. It is work done per unit charge, just like p.d. People often call both of them \"voltage\", but use e.m.f. or p.d. in the exam."
+        },
+        {
+          "type": "example",
+          "id": "ex-explain-emf",
+          "question": "A rechargeable cell has an e.m.f. of $1.2\\ \\text{V}$. Explain what this means.",
+          "steps": [
+            "Recall what e.m.f. is: the work a source does on each unit of charge it moves round the circuit.",
+            "The unit of charge is the coulomb, and $1\\ \\text{V} = 1\\ \\text{J/C}$.",
+            "So put the number into words: joules of work for each coulomb."
+          ],
+          "answer": "The e.m.f. is the electrical work the cell does on each unit of charge it moves round a complete circuit. So the cell does 1.2 J of work on each coulomb of charge that it moves round the circuit.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "1.2 J of work on each coulomb moved round the complete circuit",
+            "requires": [
+              [
+                "1.2 J"
+              ],
+              [
+                "each coulomb",
+                "per coulomb"
+              ],
+              [
+                "round a complete circuit",
+                "round the circuit"
+              ],
+              [
+                "work"
+              ]
+            ],
+            "forbids": [
+              "1.2 A",
+              "1.2 C",
+              "is a force"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-emf-vs-pd",
+          "question": "State one way in which e.m.f. and p.d. are the same, and one way in which they are different.",
+          "steps": [
+            "Same: look at the unit, and at what kind of quantity each one is.",
+            "Different: ask who does the work on whom, and where."
+          ],
+          "answer": "Both are measured in volts, because both are work done per unit charge. E.m.f. is the work done by a source on each unit of charge it moves round the whole circuit. P.d. is the work done by each unit of charge as it passes through one component.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same: volts, work per unit charge; different: e.m.f. is work by the source round the circuit, p.d. is work by the charge in a component",
+            "requires": [
+              [
+                "volts"
+              ],
+              [
+                "by a source",
+                "source"
+              ],
+              [
+                "passes through"
+              ],
+              [
+                "component"
+              ]
+            ],
+            "forbids": [
+              "measured in amperes",
+              "e.m.f. is a force"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling a p.d. an e.m.f. just because both are in volts. Ask where the energy goes: a source gives it to the charge (e.m.f.), and the charge gives it up in a component (p.d.)."
+        },
+        {
+          "type": "check",
+          "id": "check-battery-label",
+          "prompt": "A battery is labelled 9 V. What does the 9 V tell you about the battery?",
+          "hint": "Which quantity of a source is measured in volts?",
+          "options": [
+            {
+              "text": "its e.m.f.",
+              "correct": true
+            },
+            {
+              "text": "the current it supplies",
+              "correct": false
+            },
+            {
+              "text": "the charge it stores",
+              "correct": false
+            },
+            {
+              "text": "its resistance",
+              "correct": false
+            }
+          ],
+          "explain": "The volt is the unit of e.m.f. A 9 V battery does 9 J of work on each coulomb it moves round a circuit. Current is in amperes, charge in coulombs and resistance in ohms.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its e.m.f."
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-motor-energy",
+          "prompt": "A student finds the energy that each coulomb of charge transfers as it passes through a motor. Which quantity has she found?",
+          "hint": "Is the charge gaining energy here, or giving it up in a component?",
+          "options": [
+            {
+              "text": "the p.d. across the motor",
+              "correct": true
+            },
+            {
+              "text": "the e.m.f. of the motor",
+              "correct": false
+            },
+            {
+              "text": "the current in the motor",
+              "correct": false
+            },
+            {
+              "text": "the power of the motor",
+              "correct": false
+            }
+          ],
+          "explain": "Work done by each unit of charge passing through a component is the p.d. across it. E.m.f. belongs to a source, current is charge per second and power is energy per second.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the p.d. across the motor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "voltmeters",
+      "heading": "Measuring p.d. with a voltmeter",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[voltmeter|voltmeter]] measures p.d. in volts. Connect it in parallel: one lead to each end of the component. You don't break the circuit to add it. Its circuit symbol is a circle with the letter V."
+        },
+        {
+          "type": "text",
+          "text": "A voltmeter has a very high resistance. Almost no current passes through it, so it hardly changes the circuit it measures."
+        },
+        {
+          "type": "text",
+          "text": "A voltmeter connected across the terminals of a cell or battery, with nothing else connected to it, measures its e.m.f. So a voltmeter is all you need to measure an e.m.f."
+        },
+        {
+          "type": "text",
+          "text": "Join the meter's + terminal (often red) to the side nearer the + terminal of the supply. Connected the other way round, an analogue pointer tries to move below zero and a digital meter shows a minus sign."
+        },
+        {
+          "type": "text",
+          "text": "A digital voltmeter shows the p.d. as a number and often has several ranges, such as 200 mV, 2 V and 20 V. Choose the smallest range that is bigger than the p.d. you expect: it gives the most decimal places. If you can't estimate the p.d., start on the largest range and switch down."
+        },
+        {
+          "type": "text",
+          "text": "Many analogue voltmeters have two ranges, such as 0–3 V and 0–15 V. Each range has its own terminal and its own scale. Read the scale that matches the terminal you used."
+        },
+        {
+          "type": "text",
+          "text": "Read an analogue scale as in {{lesson:4.2.2}}: work out what one small division is worth, and read to the nearest half division. Look straight at the pointer, and check it starts at zero."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-3-two-scale-voltmeter",
+          "alt": "The scale of an analogue voltmeter, marked V, with two scales on one arc. The upper scale runs from 0 to 15 with labels at 0, 5, 10 and 15. The lower scale runs from 0 to 3 with labels at 0, 1, 2 and 3. There are ten small divisions between each pair of labels. Three terminals at the bottom are marked minus, 3 V and 15 V. The pointer lies on the fourth small mark after 2 on the lower scale, which is the fourth small mark after 10 on the upper scale.",
+          "caption": "A two-range analogue voltmeter. The 3 V terminal uses the lower scale; the 15 V terminal uses the upper scale."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-voltmeter",
+          "question": "The voltmeter in the figure is connected with its − and 3 V terminals. State the p.d. it shows.",
+          "steps": [
+            "The 3 V terminal is in use, so read the lower scale, which runs from 0 to 3.",
+            "Between the labels 2 and 3 there are 10 small divisions, so one division is $\\frac{1}{10} = 0.1\\ \\text{V}$.",
+            "The pointer is 4 divisions past 2: $2 + 4 \\times 0.1 = 2.4\\ \\text{V}$."
+          ],
+          "answer": "$V = 2.4\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2 + 4*(3 - 2)/10",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-terminal",
+          "question": "A student wants to measure the e.m.f. of a battery labelled 4.5 V with the voltmeter in the figure. Should she use the 3 V terminal or the 15 V terminal? Explain your choice.",
+          "steps": [
+            "Compare the expected value with each range: $4.5\\ \\text{V}$ is more than $3\\ \\text{V}$ but less than $15\\ \\text{V}$.",
+            "A range smaller than the p.d. sends the pointer off the end of the scale.",
+            "So only the larger range works, and she reads the upper scale."
+          ],
+          "answer": "She should use the 15 V terminal. The battery's e.m.f. of about 4.5 V is more than 3 V, so on the 3 V range the pointer would go off the scale and could damage the meter. On the 15 V range she reads the upper scale, where one small division is 0.5 V.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "15 V terminal; 4.5 V is more than 3 V; 3 V range goes off the scale",
+            "requires": [
+              [
+                "15 V terminal"
+              ],
+              [
+                "more than 3 V",
+                "bigger than 3 V"
+              ],
+              [
+                "off the scale",
+                "damage"
+              ]
+            ],
+            "forbids": [
+              "use the 3 V terminal"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading the wrong scale on a two-range meter, for example 12 V instead of 2.4 V. Check which terminal is connected, then read only that scale."
+        },
+        {
+          "type": "check",
+          "id": "check-voltmeter-placing",
+          "prompt": "Which meter measures the p.d. across a resistor, and how is it connected?",
+          "hint": "The meter compares the two ends of the resistor.",
+          "options": [
+            {
+              "text": "a voltmeter, in parallel with the resistor",
+              "correct": true
+            },
+            {
+              "text": "a voltmeter, in series with the resistor",
+              "correct": false
+            },
+            {
+              "text": "an ammeter, in parallel with the resistor",
+              "correct": false
+            },
+            {
+              "text": "an ammeter, in series with the resistor",
+              "correct": false
+            }
+          ],
+          "explain": "A voltmeter measures p.d., and it goes in parallel, with one lead on each end of the resistor. An ammeter measures current, not p.d.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a voltmeter, in parallel with the resistor"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mv-to-v",
+          "prompt": "A digital voltmeter on its 200 mV range shows 148.0. What is the p.d. in volts?",
+          "hint": "The display is in mV, and $1\\ \\text{mV} = 0.001\\ \\text{V}$.",
+          "options": [
+            {
+              "text": "$0.1480\\ \\text{V}$",
+              "correct": true
+            },
+            {
+              "text": "$148\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$1.48\\ \\text{V}$",
+              "correct": false
+            },
+            {
+              "text": "$14.8\\ \\text{V}$",
+              "correct": false
+            }
+          ],
+          "explain": "The reading is $148.0\\ \\text{mV}$. Divide by 1000: $148.0 \\div 1000 = 0.1480\\ \\text{V}$. Keep the same number of significant figures as the display.",
+          "verify": {
+            "kind": "exact",
+            "truth": "148.0/1000",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: record each voltmeter reading with its unit and to the precision the meter shows, such as $2.4\\ \\text{V}$ on the 3 V range. Say which range you used if the question asks."
+        }
+      ]
+    },
+    {
+      "id": "work-per-charge",
+      "heading": "Calculating e.m.f. and p.d.",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "E.m.f. and p.d. are both work done divided by charge. Each has its own equation, and you need to recall both."
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{W}{Q}",
+          "tag": "learn"
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{W}{Q}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $E$ is the e.m.f. and $V$ is the p.d., both in volts (V). $W$ is the work done (the energy transferred) in joules (J), and $Q$ is the charge in coulombs (C)."
+        },
+        {
+          "type": "text",
+          "text": "Both rearrange the same way: $W = EQ$ or $W = VQ$, and $Q = \\frac{W}{E}$ or $Q = \\frac{W}{V}$. If a question gives a current and a time instead of a charge, find the charge first with $Q = It$ ({{lesson:4.2.2}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-work-by-battery",
+          "question": "A $12\\ \\text{V}$ car battery drives $450\\ \\text{C}$ of charge round the circuit of its starter motor. Calculate the work done by the battery.",
+          "steps": [
+            "The battery is the source, so use the e.m.f. equation: $E = \\frac{W}{Q}$.",
+            "Rearrange for the work done: $W = EQ$.",
+            "Substitute: $W = 12 \\times 450 = 5400\\ \\text{J}$."
+          ],
+          "answer": "$W = 5400\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "12*450",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-pd-from-current",
+          "question": "A lamp carries a current of $0.80\\ \\text{A}$ for $1.5$ minutes. In that time, the charge passing through it transfers $432\\ \\text{J}$ of energy. Calculate the p.d. across the lamp.",
+          "steps": [
+            "Convert the time to seconds: $1.5 \\times 60 = 90\\ \\text{s}$.",
+            "Find the charge: $Q = It = 0.80 \\times 90 = 72\\ \\text{C}$.",
+            "Write the equation for p.d.: $V = \\frac{W}{Q}$.",
+            "Substitute: $V = \\frac{432}{72} = 6.0\\ \\text{V}$."
+          ],
+          "answer": "$V = 6.0\\ \\text{V}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "432/(0.80*1.5*60)",
+            "unit": "V"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the charge by the energy, or dividing the energy by the current or the time. The equation needs the charge in coulombs, so find it with $Q = It$ first, using seconds."
+        },
+        {
+          "type": "check",
+          "id": "check-charge-from-work",
+          "prompt": "A $9.0\\ \\text{V}$ battery does $315\\ \\text{J}$ of work. How much charge has it moved round the circuit?",
+          "hint": "Rearrange $E = \\frac{W}{Q}$ to make $Q$ the subject.",
+          "options": [
+            {
+              "text": "$35\\ \\text{C}$",
+              "correct": true
+            },
+            {
+              "text": "$2835\\ \\text{C}$",
+              "correct": false
+            },
+            {
+              "text": "$0.029\\ \\text{C}$",
+              "correct": false
+            }
+          ],
+          "explain": "$Q = \\frac{W}{E} = \\frac{315}{9.0} = 35\\ \\text{C}$. Multiplying gives $2835$, and $\\frac{9.0}{315}$ gives $0.029$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "315/9.0",
+            "unit": "C"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pd-numeric",
+          "prompt": "As $25\\ \\text{C}$ of charge passes through a resistor, it transfers $150\\ \\text{J}$ of energy. What is the p.d. across the resistor, in V?",
+          "hint": "Use $V = \\frac{W}{Q}$.",
+          "answer": {
+            "value": 6,
+            "tolerance": 0
+          },
+          "explain": "$V = \\frac{W}{Q} = \\frac{150}{25} = 6.0\\ \\text{V}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "150/25",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "E.m.f.: the electrical work a source does on each unit of charge it moves round a complete circuit. Measured in volts (V)."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "P.d.: the work done by each unit of charge as it passes through a component. Measured in volts (V), between two points. $1\\ \\text{V} = 1\\ \\text{J/C}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A voltmeter measures p.d. (or e.m.f.) and is connected in parallel. Choose the smallest range bigger than the expected p.d., and read the scale that matches the terminal used."
+        },
+        {
+          "type": "formula",
+          "tex": "E = \\frac{W}{Q}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "V = \\frac{W}{Q}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Choosing p.d. when the question describes e.m.f., or the other way round, because both are in volts. E.m.f. is work done by a source on the charge; p.d. is work done by the charge in a component.",
+    "Thinking e.m.f. is a force because of its name. It is work done per unit charge, measured in volts.",
+    "Connecting a voltmeter in series. It goes in parallel, with one lead on each side of the component.",
+    "Reading the wrong scale on a two-range analogue voltmeter. Use the scale that matches the terminal in use.",
+    "Extended: writing units such as $\\frac{\\text{J}}{\\text{C}}$ when asked for the equation. Write the quantities: $E = \\frac{W}{Q}$, work done divided by charge.",
+    "Extended: dividing energy by current or time, or charge by energy. Find the charge in coulombs, then divide the work done by it."
+  ],
+  "examTips": [
+    "\"Define\" e.m.f.: say it is the electrical work that a source does on each unit of charge, and include \"round a complete circuit\". Just writing \"the voltage of a cell\" earns nothing.",
+    "\"Define\" p.d.: say it is the work done per unit charge passing through a component. Naming the component is what makes it p.d. and not e.m.f.",
+    "\"Calculate\" with $E = \\frac{W}{Q}$ or $V = \\frac{W}{Q}$ (Extended): write the equation, substitute joules and coulombs, then give the answer in volts."
+  ],
+  "readingMinutes": 20
+}

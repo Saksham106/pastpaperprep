@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 290" role="img" aria-labelledby="t433vd">
+  <title id="t433vd">A battery connected across the two ends, A and B, of a long resistance track. A slider presses on the track partway along. A lamp is connected between end A and the slider.</title>
+  <g stroke="currentColor" stroke-width="2.2" fill="none">
+    <!-- top wire with battery -->
+    <line x1="80" y1="50" x2="240" y2="50"/>
+    <line x1="250" y1="50" x2="265" y2="50"/>
+    <line x1="275" y1="50" x2="440" y2="50"/>
+    <!-- sides down to the track ends -->
+    <line x1="80" y1="50" x2="80" y2="150"/>
+    <line x1="440" y1="50" x2="440" y2="150"/>
+    <!-- track -->
+    <line x1="80" y1="150" x2="140" y2="150"/>
+    <rect x="140" y="140" width="240" height="20"/>
+    <line x1="380" y1="150" x2="440" y2="150"/>
+    <!-- lamp from end A to the slider -->
+    <line x1="110" y1="150" x2="110" y2="235"/>
+    <line x1="110" y1="235" x2="185" y2="235"/>
+    <circle cx="200" cy="235" r="15"/>
+    <line x1="189.4" y1="224.4" x2="210.6" y2="245.6"/>
+    <line x1="210.6" y1="224.4" x2="189.4" y2="245.6"/>
+    <line x1="215" y1="235" x2="300" y2="235"/>
+    <!-- slider -->
+    <line x1="300" y1="235" x2="300" y2="172"/>
+  </g>
+  <g fill="currentColor">
+    <polygon points="300,161 294,173 306,173"/>
+    <circle cx="110" cy="150" r="4"/>
+  </g>
+  <!-- cells: long thin plate is positive, short thick plate negative -->
+  <line x1="240" y1="30" x2="240" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="250" y1="40" x2="250" y2="60" stroke="currentColor" stroke-width="6"/>
+  <line x1="265" y1="30" x2="265" y2="70" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="275" y1="40" x2="275" y2="60" stroke="currentColor" stroke-width="6"/>
+  <g font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle">
+    <text x="150" y="130">A</text>
+    <text x="370" y="130">B</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor">
+    <text x="258" y="20" text-anchor="middle">battery</text>
+    <text x="260" y="130" text-anchor="middle">resistance track</text>
+    <text x="312" y="205" text-anchor="start">slider</text>
+    <text x="200" y="272" text-anchor="middle">lamp</text>
+  </g>
+</svg>

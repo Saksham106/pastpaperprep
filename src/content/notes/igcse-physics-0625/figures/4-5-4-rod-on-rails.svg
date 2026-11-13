@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" role="img" aria-labelledby="t454rails">
+<title id="t454rails">View from above. Two straight metal rails run across the page from left to right, one above the other. A light metal rod rests across them at right angles. The left ends of the rails are joined to a d.c. supply, with its positive terminal connected to the upper rail. The rod and the middle of the rails lie between the poles of a magnet: the N pole is above the rails and the S pole is below them, so the magnetic field points into the page, shown by crosses. Arrows show the current flowing from the positive terminal along the upper rail, down through the rod and back along the lower rail. A thick arrow pointing right from the rod is labelled force, and shows that the rod rolls to the right.</title>
+<rect x="250" y="55" width="160" height="190" fill="none" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text font-family="inherit" font-size="12" x="330" y="44" fill="currentColor" text-anchor="middle">magnet: N pole above the rails, S pole below</text>
+<g font-family="inherit" font-size="18" fill="var(--muted)" text-anchor="middle">
+<text x="270" y="84">×</text><text x="300" y="84">×</text><text x="360" y="84">×</text><text x="390" y="84">×</text>
+<text x="270" y="156">×</text><text x="300" y="156">×</text>
+<text x="270" y="234">×</text><text x="300" y="234">×</text><text x="360" y="234">×</text><text x="390" y="234">×</text>
+</g>
+<line x1="110" y1="95" x2="580" y2="95" stroke="currentColor" stroke-width="4"/>
+<line x1="110" y1="205" x2="580" y2="205" stroke="currentColor" stroke-width="4"/>
+<text font-family="inherit" font-size="12" x="580" y="82" fill="currentColor" text-anchor="end">metal rail</text>
+<text font-family="inherit" font-size="12" x="580" y="224" fill="currentColor" text-anchor="end">metal rail</text>
+<line x1="110" y1="95" x2="110" y2="132" stroke="currentColor" stroke-width="2"/>
+<circle cx="110" cy="137" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="110" cy="163" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="110" y1="168" x2="110" y2="205" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="14" x="122" y="142" fill="currentColor">+</text>
+<text font-family="inherit" font-size="14" x="122" y="168" fill="currentColor">−</text>
+<text font-family="inherit" font-size="12" x="84" y="144" fill="currentColor" text-anchor="end">d.c.</text>
+<text font-family="inherit" font-size="12" x="84" y="160" fill="currentColor" text-anchor="end">supply</text>
+<line x1="330" y1="82" x2="330" y2="218" stroke="var(--t2-ink)" stroke-width="6"/>
+<text font-family="inherit" font-size="12" x="330" y="264" fill="var(--t2-ink)" text-anchor="middle">light metal rod</text>
+<g fill="var(--t1-ink)">
+<polygon points="200,95 186,88 186,102"/>
+<polygon points="330,134 323,120 337,120"/>
+<polygon points="180,205 194,198 194,212"/>
+</g>
+<text font-family="inherit" font-size="12" x="193" y="80" fill="var(--t1-ink)" text-anchor="middle">current</text>
+<text font-family="inherit" font-size="12" x="187" y="230" fill="var(--t1-ink)" text-anchor="middle">current</text>
+<line x1="342" y1="168" x2="440" y2="168" stroke="var(--t3-ink)" stroke-width="3"/>
+<polygon points="454,168 438,160 438,176" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="462" y="164" fill="var(--t3-ink)">force: the rod</text>
+<text font-family="inherit" font-size="12" x="462" y="180" fill="var(--t3-ink)">rolls to the right</text>
+<text font-family="inherit" font-size="12" x="330" y="294" fill="currentColor" text-anchor="middle">× = magnetic field into the page</text>
+</svg>

@@ -1,0 +1,611 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.5.3",
+  "slug": "centre-of-gravity",
+  "title": "Centre of gravity",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Every part of an object has weight, but all of it acts as if it pulls down at one point: the [[centre-of-gravity|centre of gravity]]. Learn to find it for a flat shape with a plumb line, and why a low centre of gravity and a wide base make an object hard to knock over.",
+  "goals": [
+    {
+      "text": "State what the centre of gravity of an object is, and where it is for a simple symmetrical object.",
+      "bullets": [
+        "1.5.3-1"
+      ]
+    },
+    {
+      "text": "Describe how to find the centre of gravity of an irregular flat sheet by hanging it from a pin with a plumb line.",
+      "bullets": [
+        "1.5.3-2"
+      ]
+    },
+    {
+      "text": "Describe how the height of the centre of gravity and the width of the base affect the [[stability|stability]] of an object, and say when it topples.",
+      "bullets": [
+        "1.5.3-3"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.5.1",
+    "1.5.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "centre of mass",
+    "plumb line experiment",
+    "centre of gravity of an irregular lamina",
+    "balance point",
+    "stability and toppling"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-moment-meaning",
+      "prompt": "What is the [[moment|moment]] of a [[force|force]] about a pivot?",
+      "hint": "A moment measures how much a force turns something. Which two things make the turning effect bigger?",
+      "options": [
+        {
+          "text": "the force multiplied by the perpendicular distance from the pivot to its line of action",
+          "correct": true
+        },
+        {
+          "text": "the force divided by the distance from the pivot",
+          "correct": false
+        },
+        {
+          "text": "the force multiplied by the time for which it acts",
+          "correct": false
+        },
+        {
+          "text": "the force multiplied by the mass of the object",
+          "correct": false
+        }
+      ],
+      "explain": "A moment is force × perpendicular distance from the pivot, measured in N m. A bigger force, or one further from the pivot, turns more. Revise it in {{lesson:1.5.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the force multiplied by the perpendicular distance from the pivot to its line of action"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-equilibrium-conditions",
+      "prompt": "A shelf is in [[equilibrium|equilibrium]]. Which statement must be true?",
+      "hint": "Equilibrium has two conditions: one about forces, one about turning.",
+      "options": [
+        {
+          "text": "there is no resultant force and no resultant moment on it",
+          "correct": true
+        },
+        {
+          "text": "no forces act on it",
+          "correct": false
+        },
+        {
+          "text": "there is no resultant force, but there can be a resultant moment",
+          "correct": false
+        },
+        {
+          "text": "the clockwise moments are larger than the anticlockwise moments",
+          "correct": false
+        }
+      ],
+      "explain": "Forces still act on the shelf, but they balance and their moments balance too. Revise it in {{lesson:1.5.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "there is no resultant force and no resultant moment on it"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-balanced-forces-rest",
+      "prompt": "A box is at rest on the floor. The forces on it are balanced. What happens to the box?",
+      "hint": "Balanced forces give no resultant [[force|force]]. What does that mean for the motion?",
+      "options": [
+        {
+          "text": "it stays at rest",
+          "correct": true
+        },
+        {
+          "text": "it starts to move slowly",
+          "correct": false
+        },
+        {
+          "text": "it speeds up slowly",
+          "correct": false
+        }
+      ],
+      "explain": "With no resultant force, an object at rest stays at rest. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it stays at rest"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "what-it-is",
+      "heading": "What the centre of gravity is",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Gravity pulls on every tiny piece of an object. So a ruler has thousands of small downward forces on it, one on each piece."
+        },
+        {
+          "type": "text",
+          "text": "You don't need to draw thousands of arrows. Together, these small forces act like one [[force|force]], the object's [[weight|weight]], pulling down at a single point. We call it the [[centre-of-gravity|centre of gravity]]."
+        },
+        {
+          "type": "definition",
+          "term": "centre of gravity",
+          "statement": "The point through which all the weight of an object can be taken to act.",
+          "plain": "Draw the whole weight as one arrow, straight down from this point."
+        },
+        {
+          "type": "text",
+          "text": "A uniform object is made of the same material all through. Its centre of gravity lies on every line of symmetry. So when the shape has two or more lines of symmetry, it is at the centre, where they cross: halfway along a uniform ruler, and where the diagonals cross on a uniform rectangular sheet."
+        },
+        {
+          "type": "text",
+          "text": "The centre of gravity can be outside the material. For a ring, it is at the middle of the hole."
+        },
+        {
+          "type": "text",
+          "text": "This is why you can balance an object on one support. Put the support directly under the centre of gravity. The weight then acts through the support, so it has no [[moment|moment]] about it and the object doesn't turn."
+        },
+        {
+          "type": "example",
+          "id": "ex-rule-off-centre",
+          "question": "A uniform metre rule balances on a narrow support at its $50\\ \\text{cm}$ mark. The support is moved to the $35\\ \\text{cm}$ mark. Explain why the rule no longer balances.",
+          "steps": [
+            "Say where the weight acts. Then compare that point with the support in each position."
+          ],
+          "answer": "The rule is uniform, so its centre of gravity is at its midpoint, the $50\\ \\text{cm}$ mark. At first the weight acts through the support, so it has no moment about the support and the rule balances. With the support at $35\\ \\text{cm}$, the centre of gravity is $15\\ \\text{cm}$ to one side of the support. The weight now has a moment about the support, and nothing balances it. So the rule turns, and the $100\\ \\text{cm}$ end drops.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "uniform so centre of gravity at midpoint; weight through support gives no moment; off-centre support leaves an unbalanced moment of the weight; rule turns",
+            "requires": [
+              "centre of gravity",
+              [
+                "midpoint",
+                "middle",
+                "halfway"
+              ],
+              "no moment",
+              [
+                "has a moment",
+                "unbalanced moment",
+                "resultant moment"
+              ],
+              [
+                "turns",
+                "tips"
+              ]
+            ],
+            "forbids": [
+              "the weight disappears",
+              "gravity stops"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cog-meaning",
+          "prompt": "Which statement describes the centre of gravity of an object?",
+          "hint": "It is about where one force seems to act.",
+          "options": [
+            {
+              "text": "the point through which all its weight can be taken to act",
+              "correct": true
+            },
+            {
+              "text": "the heaviest part of the object",
+              "correct": false
+            },
+            {
+              "text": "the point where the object touches the surface it rests on",
+              "correct": false
+            },
+            {
+              "text": "the point about which the object always turns",
+              "correct": false
+            }
+          ],
+          "explain": "The centre of gravity is where the whole weight seems to act. It need not be the heaviest part, or a point of contact, or a pivot.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the point through which all its weight can be taken to act"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cog-plywood",
+          "prompt": "Where is the centre of gravity of a uniform rectangular sheet of plywood?",
+          "hint": "For a uniform sheet, the centre of gravity lies on every line of symmetry. Where do a rectangle's lines of symmetry cross?",
+          "options": [
+            {
+              "text": "where its two diagonals cross",
+              "correct": true
+            },
+            {
+              "text": "at the middle of its bottom edge",
+              "correct": false
+            },
+            {
+              "text": "at one of its corners",
+              "correct": false
+            },
+            {
+              "text": "at whichever point it is held",
+              "correct": false
+            }
+          ],
+          "explain": "For a uniform sheet the centre of gravity lies on each line of symmetry. A rectangle's two lines of symmetry cross at its centre, which is where the diagonals cross.",
+          "verify": {
+            "kind": "choice",
+            "truth": "where its two diagonals cross"
+          }
+        }
+      ]
+    },
+    {
+      "id": "plumb-line",
+      "heading": "Finding the centre of gravity of a flat shape",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A thin flat sheet, such as a piece of card, is called a plane lamina. If its shape is irregular, symmetry can't tell you where the centre of gravity is. So you hang it up and let gravity show you."
+        },
+        {
+          "type": "text",
+          "text": "An object hanging freely from a pin comes to rest with its centre of gravity directly below the pin. If the centre of gravity were to one side of the pin, its weight would have a [[moment|moment]] about the pin and turn it."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-3-plumb-line",
+          "alt": "An irregular flat card hangs from a pin held in a clamp stand. The pin passes through a small hole near the top edge of the card. A plumb line, a thread with a small mass on the end, hangs from the same pin and runs straight down across the card. A second small hole is near the right-hand edge of the card. A dashed line, marked earlier when the card hung from that second hole, crosses the card and meets the plumb line at a point labelled G, the centre of gravity, which is directly below the pin.",
+          "caption": "Each hanging gives one vertical line through the [[centre-of-gravity|centre of gravity]], G. Two lines cross at G."
+        },
+        {
+          "type": "text",
+          "text": "You need the card, a clamp and stand, a pin, a pencil and a plumb line: a small mass hanging on a thread, which shows the vertical."
+        },
+        {
+          "type": "text",
+          "text": "1. Make three small holes near the edge of the card, well apart."
+        },
+        {
+          "type": "text",
+          "text": "2. Push the pin through one hole and clamp it, so that the card hangs and can swing freely."
+        },
+        {
+          "type": "text",
+          "text": "3. Hang the plumb line from the pin. Wait until the card and the thread are both still."
+        },
+        {
+          "type": "text",
+          "text": "4. Mark two points on the card under the thread, one high and one low, then join them with a ruler."
+        },
+        {
+          "type": "text",
+          "text": "5. Hang the card from a second hole and repeat. The centre of gravity is where the two lines cross."
+        },
+        {
+          "type": "text",
+          "text": "6. Repeat from the third hole as a check. Its line should pass through the same point."
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6 may ask how to improve this experiment. Good answers: use holes far apart, so the lines cross at a wide angle; wait until the card stops swinging; use a thin thread; make sure the card turns freely on the pin."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-island-card",
+          "question": "A student cuts the outline of an island from thick card. She has a clamp and stand, a pin, a thread with a small mass on the end, and a pencil. Describe how she can find the centre of gravity of the card.",
+          "steps": [
+            "Give the steps in order: hang the card, find the vertical, mark it, repeat, then say where the centre of gravity is."
+          ],
+          "answer": "Make two holes near the edge of the card, far apart. Hang the card from the pin through one hole, so it can swing freely. Hang the plumb line from the same pin. When the card and the thread are still, mark the vertical line of the thread on the card. Hang the card from the other hole and mark the new vertical line in the same way. The centre of gravity is where the two lines cross.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "hang card freely from pin through a hole; plumb line from the same pin; mark the vertical line; repeat from a second hole; centre of gravity where the lines cross",
+            "requires": [
+              "swing freely",
+              "plumb line",
+              [
+                "vertical line",
+                "line of the thread"
+              ],
+              [
+                "other hole",
+                "second hole"
+              ],
+              "cross"
+            ],
+            "forbids": [
+              "stop-watch",
+              "timing",
+              "balance it on a finger"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hanging-card-cog",
+          "prompt": "A flat card hangs freely from a pin and has stopped swinging. Where is its centre of gravity?",
+          "hint": "If the weight had a moment about the pin, the card would still be turning.",
+          "options": [
+            {
+              "text": "somewhere on the vertical line directly below the pin",
+              "correct": true
+            },
+            {
+              "text": "somewhere on the vertical line directly above the pin",
+              "correct": false
+            },
+            {
+              "text": "level with the pin, to one side of it",
+              "correct": false
+            },
+            {
+              "text": "always at the lowest point of the card",
+              "correct": false
+            }
+          ],
+          "explain": "At rest, the weight has no moment about the pin, so its line of action passes through the pin. The centre of gravity hangs directly below it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "somewhere on the vertical line directly below the pin"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-third-hole",
+          "prompt": "After marking lines from two holes, a student hangs the card from a third hole. Why?",
+          "hint": "Two lines already give a crossing point. What could a third line tell you?",
+          "options": [
+            {
+              "text": "to check that the third line passes through the same point",
+              "correct": true
+            },
+            {
+              "text": "because two lines can never cross",
+              "correct": false
+            },
+            {
+              "text": "to find the weight of the card",
+              "correct": false
+            },
+            {
+              "text": "to make the card swing more quickly",
+              "correct": false
+            }
+          ],
+          "explain": "Two lines fix the point. A third line through the same point shows the marking was done carefully.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to check that the third line passes through the same point"
+          }
+        }
+      ]
+    },
+    {
+      "id": "stability",
+      "heading": "Centre of gravity and stability",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Tilt a tall box a little and let go: it falls back onto its base. Tilt it too far and it falls over. Where its weight acts decides which happens."
+        },
+        {
+          "type": "text",
+          "text": "While the box is tilted, it turns about the edge of its base, so that edge is the pivot. The weight acts vertically down from the [[centre-of-gravity|centre of gravity]]."
+        },
+        {
+          "type": "text",
+          "text": "1. If the vertical line down from the centre of gravity passes inside the base, the weight's [[moment|moment]] turns the box back onto its base."
+        },
+        {
+          "type": "text",
+          "text": "2. If that line passes outside the base, the weight's moment turns the box further over, and it topples."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-3-tilting",
+          "alt": "Two drawings of the same tall block tilted onto its right-hand bottom edge, which acts as the pivot. In the left drawing the block is tilted a little. A weight arrow points straight down from its centre of gravity, G, and a dashed vertical line from G reaches the ground inside the base, to the left of the pivot. The label says the weight turns the block back onto its base. In the right drawing the block is tilted further. The dashed vertical line from G now reaches the ground outside the base, to the right of the pivot. The label says the weight turns the block over and it topples.",
+          "caption": "The same block: it falls back while the line of its weight is inside the base, and topples once it is outside."
+        },
+        {
+          "type": "definition",
+          "term": "stability",
+          "statement": "How hard it is to tip an object over. The more stable an object is, the further you must tilt it before it topples.",
+          "plain": "A stable object is hard to knock over."
+        },
+        {
+          "type": "text",
+          "text": "Two things make an object more [[stability|stable]]: a lower centre of gravity, and a wider base in contact with the ground. Both mean it must tilt further before the line of its weight moves outside the base."
+        },
+        {
+          "type": "text",
+          "text": "Mass alone doesn't decide this. A heavier object needs a bigger push to tilt, but with the same shape and the same height of centre of gravity, it topples at the same angle."
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-heavy-base",
+          "question": "A desk lamp has a heavy metal base and a light plastic arm. Explain why the heavy base makes the lamp less likely to fall over when it is knocked.",
+          "steps": [
+            "Say where the heavy base puts the centre of gravity, then what happens to the line of the weight when the lamp tilts."
+          ],
+          "answer": "Most of the lamp's mass is in its base, so its centre of gravity is low. When the lamp is knocked and tilts, the vertical line down from its centre of gravity stays inside the base unless the tilt is large. While the line is inside the base, the weight has a moment that turns the lamp back onto its base. So the lamp must tilt a long way before it topples: it is more stable.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "heavy base gives a low centre of gravity; line of weight stays inside the base unless the tilt is large; weight's moment turns lamp back; more stable",
+            "requires": [
+              [
+                "centre of gravity is low",
+                "low centre of gravity",
+                "lower centre of gravity"
+              ],
+              "inside the base",
+              [
+                "turns the lamp back",
+                "back onto its base"
+              ],
+              "more stable"
+            ],
+            "forbids": [
+              "heavy objects cannot fall",
+              "no weight"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-tripod-legs-spread",
+          "question": "A camera sits on a tripod with three legs of fixed length. Explain why spreading the legs further apart makes the camera less likely to be knocked over.",
+          "steps": [
+            "Spreading the legs changes two things: the width of the base and the height of the camera. Deal with each."
+          ],
+          "answer": "Spreading the legs makes the base wider, so its edges are further out from the centre of gravity. It also lowers the camera, so the centre of gravity is lower. So you must tilt the tripod further before the vertical line down from its centre of gravity passes outside the base. This makes it more stable.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "wider base; lower centre of gravity; must tilt through a larger angle before the line of the weight passes outside the base; more stable",
+            "requires": [
+              [
+                "base wider",
+                "wider base"
+              ],
+              [
+                "centre of gravity is lower",
+                "lower centre of gravity"
+              ],
+              [
+                "tilt the tripod further",
+                "tilt further"
+              ],
+              "outside the base",
+              "more stable"
+            ],
+            "forbids": [
+              "heavier",
+              "more mass"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that an object is more stable because it is heavier, or just \"bigger\". Give the reason: its centre of gravity is lower, or the base in contact with the ground is wider."
+        },
+        {
+          "type": "check",
+          "id": "check-bottle-most-stable",
+          "prompt": "A tall, straight-sided plastic bottle stands upright on a table. When is it most stable?",
+          "hint": "Where does the water put the centre of gravity of the bottle and water together?",
+          "options": [
+            {
+              "text": "when it is one-quarter full of water",
+              "correct": true
+            },
+            {
+              "text": "when it is completely full of water, because it is heaviest",
+              "correct": false
+            },
+            {
+              "text": "when it is empty, because it is lightest",
+              "correct": false
+            }
+          ],
+          "explain": "A little water at the bottom pulls the centre of gravity down. Empty or full, the centre of gravity is about halfway up, so it topples at a smaller tilt.",
+          "verify": {
+            "kind": "choice",
+            "truth": "when it is one-quarter full of water"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tilted-falls-back",
+          "prompt": "A tall block is tilted onto one edge and released. When does it fall back onto its base?",
+          "hint": "Picture the weight arrow pointing straight down from the centre of gravity.",
+          "options": [
+            {
+              "text": "when the vertical line down from its centre of gravity passes inside its base",
+              "correct": true
+            },
+            {
+              "text": "when the vertical line down from its centre of gravity passes outside its base",
+              "correct": false
+            },
+            {
+              "text": "whenever its weight is larger than the push that tilted it",
+              "correct": false
+            },
+            {
+              "text": "only when its centre of gravity is below the middle of the block",
+              "correct": false
+            }
+          ],
+          "explain": "With the line of the weight inside the base, the weight's moment about the edge turns the block back. Outside the base, it turns the block over.",
+          "verify": {
+            "kind": "choice",
+            "truth": "when the vertical line down from its centre of gravity passes inside its base"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "The centre of gravity is the point through which all the weight of an object can be taken to act. For a uniform object it lies on every line of symmetry, so for a uniform ruler, rectangular sheet or ring it is at the centre.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To find the centre of gravity of a flat irregular sheet: hang it freely from a pin and mark the vertical line of a plumb line from the pin. Repeat from a second hole. The centre of gravity is where the two lines meet.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A tilted object, when released, falls back onto its base if the vertical line down from its centre of gravity passes inside the base. It topples if the line passes outside the base.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An object is more stable when its centre of gravity is lower or its base is wider: it must tilt further before it topples.",
+          "tag": "learn",
+          "cheatSheet": true
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying a heavier object is always more stable. Stability depends on how low the centre of gravity is and how wide the base is, not on mass alone.",
+    "Writing that one object is \"wider\" or has a \"bigger surface area\". Say which part: the base in contact with the ground is wider.",
+    "Thinking a shape that is narrow in the middle, like an hourglass, must be unstable. What matters is how wide the base is and where the centre of gravity is (how low, and whether it is over the base), not the width higher up.",
+    "Marking the line on the card while it is still swinging. Wait until the card and the plumb line are still, or the line will miss the centre of gravity."
+  ],
+  "examTips": [
+    "\"State\" the meaning of centre of gravity in one sentence, using the word weight: the point through which all the weight of the object can be taken to act.",
+    "\"Explain\" why one object is more stable than another: give a reason for each mark, such as a lower centre of gravity or a wider base, so it must tilt further before the line of its weight leaves the base.",
+    "\"Describe\" the plumb-line experiment in order: hang the card freely, hang the plumb line from the same pin, mark the vertical line, repeat from another hole, then say the centre of gravity is where the lines meet."
+  ],
+  "readingMinutes": 21
+}

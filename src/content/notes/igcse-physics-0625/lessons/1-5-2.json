@@ -1,0 +1,468 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.5.2",
+  "slug": "turning-effect-of-forces",
+  "title": "Turning effect of forces",
+  "level": "Core",
+  "topic": 1,
+  "summary": "A [[force|force]] can turn an object about a pivot. Its turning effect, the [[moment|moment]], is the force times its perpendicular distance from the pivot. A beam balances when the clockwise and anticlockwise moments about the pivot are equal, and an object is in [[equilibrium|equilibrium]] only when both the forces and the moments balance.",
+  "goals": [
+    {
+      "text": "Describe a moment as the turning effect of a force, with everyday examples.",
+      "bullets": ["1.5.2-1"]
+    },
+    {
+      "text": "Calculate a moment from a force and its perpendicular distance from the pivot, and rearrange to find the force or the distance.",
+      "bullets": ["1.5.2-2"]
+    },
+    {
+      "text": "Use the [[principle-of-moments|principle of moments]] to balance a beam with one force on each side of the pivot.",
+      "bullets": ["1.5.2-3"]
+    },
+    {
+      "text": "State the two conditions for an object to be in equilibrium.",
+      "bullets": ["1.5.2-4"]
+    },
+    {
+      "text": "Use the principle of moments with more than one force on a side, including the weight of the beam itself.",
+      "bullets": ["1.5.2-5"],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe an experiment that shows a balanced object has no resultant moment on it.",
+      "bullets": ["1.5.2-6"],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": ["1.5.1"],
+  "papers": ["P1", "P2", "P3", "P4", "P5", "P6"],
+  "synonyms": [
+    "moment of a force",
+    "principle of moments",
+    "turning effect",
+    "clockwise and anticlockwise moments",
+    "balancing a beam",
+    "equilibrium conditions"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-resultant-tug",
+      "prompt": "Two teams pull a rope. One pulls with $640\\ \\text{N}$ to the left and the other with $590\\ \\text{N}$ to the right. What is the size of the [[resultant-force|resultant force]], in N?",
+      "hint": "The forces point in opposite directions.",
+      "answer": {
+        "value": 50,
+        "tolerance": 0.5
+      },
+      "explain": "Opposite directions, so subtract: $640 - 590 = 50\\ \\text{N}$, to the left. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "640 - 590",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-lift-steady",
+      "prompt": "A lift moves upwards at a steady speed. What can you say about the forces on it?",
+      "hint": "Is its velocity changing? Think of [[newton-s-first-law|Newton's first law]].",
+      "options": [
+        { "text": "the upward and downward forces are balanced", "correct": true },
+        { "text": "the upward force is bigger than its weight", "correct": false },
+        { "text": "no forces act on it", "correct": false },
+        { "text": "its weight is bigger than the upward force", "correct": false }
+      ],
+      "explain": "The velocity is constant, so the resultant force is zero: the upward pull of the cable balances the weight. Forces still act; they just balance. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the upward and downward forces are balanced"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "moment",
+      "heading": "The moment of a force",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Push a door near its hinges and it hardly moves. Push the same door at the handle, far from the hinges, and it swings open easily. The same force has a bigger turning effect when it acts further from the pivot."
+        },
+        {
+          "type": "text",
+          "text": "The pivot is the point an object turns about: the hinges of a door, the nut a spanner grips, the middle of a see-saw. Other everyday examples are a wheelbarrow, a bottle opener and the pedals of a bike."
+        },
+        {
+          "type": "definition",
+          "term": "moment",
+          "statement": "A force's [[moment|moment]] tells you how strongly it turns an object about a pivot. It equals the force times the perpendicular distance of the force's line from the pivot.",
+          "plain": "How hard a force twists something round."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{moment} = \\text{force} \\times \\text{perpendicular distance from the pivot}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Moment is measured in newton metres, $\\text{N m}$. If the distance is in cm, the moment comes out in $\\text{N cm}$. Each moment turns either clockwise or anticlockwise."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-2-spanner",
+          "alt": "A spanner gripping a nut on the left. The centre of the nut is the pivot. A force F pushes straight down at the right-hand end of the horizontal handle, at right angles to it. A dashed line marks the perpendicular distance d from the centre of the nut to the line of the force. The force turns the spanner clockwise.",
+          "caption": "The moment of $F$ about the nut is $F \\times d$."
+        },
+        {
+          "type": "text",
+          "text": "Perpendicular means at right angles. When you push at right angles to a spanner, $d$ is the distance along the spanner. If you push along the handle, the line of the force passes through the pivot. Then $d = 0$, and the force has no turning effect at all."
+        },
+        {
+          "type": "example",
+          "id": "ex-pedal-moment",
+          "question": "A cyclist pushes straight down on a pedal with a force of $180\\ \\text{N}$. The crank is horizontal, and the pedal is $0.17\\ \\text{m}$ from the centre of the axle. Calculate the moment of the force about the axle.",
+          "steps": [
+            "The force is at right angles to the horizontal crank, so the perpendicular distance is $0.17\\ \\text{m}$.",
+            "Write the equation: moment $=$ force $\\times$ perpendicular distance from the pivot.",
+            "Substitute: moment $= 180 \\times 0.17 = 30.6\\ \\text{N m}$.",
+            "The data have 2 significant figures, so give 2."
+          ],
+          "answer": "$\\text{moment} \\approx 31\\ \\text{N m}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "180*0.17",
+            "sf": 2,
+            "unit": "N m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-plumber-force",
+          "question": "A plumber needs a moment of $36\\ \\text{N m}$ to undo a pipe fitting. She pushes at right angles to her wrench, $45\\ \\text{cm}$ from the centre of the fitting. Calculate the smallest force she must apply.",
+          "steps": [
+            "The moment is in $\\text{N m}$, so change the distance to metres: $45\\ \\text{cm} = 0.45\\ \\text{m}$.",
+            "Rearrange moment $= F \\times d$ to get $F = \\frac{\\text{moment}}{d}$.",
+            "Substitute: $F = \\frac{36}{0.45} = 80\\ \\text{N}$.",
+            "Check: $80 \\times 0.45 = 36\\ \\text{N m}$. A longer wrench would need a smaller force."
+          ],
+          "answer": "$F = 80\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "36/(45/100)",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the moment by the distance when you want the force. Moment $= F \\times d$, so $F = \\text{moment} \\div d$. Check your answer by multiplying back."
+        },
+        {
+          "type": "check",
+          "id": "check-door-moment",
+          "prompt": "A child pushes a door at right angles with a force of $15\\ \\text{N}$, $0.80\\ \\text{m}$ from the hinges. What is the moment of the force about the hinges, in N m?",
+          "hint": "Moment is force times perpendicular distance from the pivot.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0.5
+          },
+          "explain": "Moment $= 15 \\times 0.80 = 12\\ \\text{N m}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "15*0.80",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-door-easier",
+          "prompt": "You push on a heavy door with the same size of force each time. Which way gives the biggest moment about the hinges?",
+          "hint": "Which push has the largest perpendicular distance from the hinges?",
+          "options": [
+            { "text": "pushing at right angles to the door, at the edge furthest from the hinges", "correct": true },
+            { "text": "pushing at right angles to the door, close to the hinges", "correct": false },
+            { "text": "pushing along the door, towards the hinges", "correct": false },
+            { "text": "pushing on the hinges themselves", "correct": false }
+          ],
+          "explain": "The moment is force $\\times$ perpendicular distance, so the push furthest from the hinges, at right angles, wins. A push along the door passes through the hinges, so its moment is zero.",
+          "verify": {
+            "kind": "choice",
+            "truth": "pushing at right angles to the door, at the edge furthest from the hinges"
+          }
+        }
+      ]
+    },
+    {
+      "id": "balancing",
+      "heading": "Balancing a beam and equilibrium",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "On a see-saw, the child on the left turns it anticlockwise and the child on the right turns it clockwise. It balances when the two turning effects are the same size."
+        },
+        {
+          "type": "result",
+          "statement": "The [[principle-of-moments|principle of moments]]: when an object is in equilibrium, the clockwise moments about any point add up to the same total as the anticlockwise moments about that point.",
+          "why": "If one side's moment were bigger, the object would start to turn that way."
+        },
+        {
+          "type": "text",
+          "text": "With one force on each side of the pivot, on a beam that is light or pivoted at its centre, this becomes $F_1 \\times d_1 = F_2 \\times d_2$. A smaller force can balance a bigger one if it acts further from the pivot."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-2-see-saw",
+          "alt": "A level see-saw balanced on a pivot at its centre. Maya's weight of 420 newtons acts down 1.5 metres to the left of the pivot. Her brother's weight of 350 newtons acts down a distance d to the right of the pivot. Not to scale.",
+          "caption": "A balanced see-saw (not to scale)."
+        },
+        {
+          "type": "example",
+          "id": "ex-see-saw-distance",
+          "question": "The see-saw in the diagram is balanced and level. Maya weighs $420\\ \\text{N}$ and sits $1.5\\ \\text{m}$ from the pivot. Her brother weighs $350\\ \\text{N}$. The see-saw is uniform and pivoted at its centre. Calculate how far from the pivot her brother sits.",
+          "steps": [
+            "Its own weight acts through the pivot, because the pivot is at its centre. So that weight has no moment.",
+            "Principle of moments: clockwise moment $=$ anticlockwise moment.",
+            "Brother (clockwise) and Maya (anticlockwise): $350 \\times d = 420 \\times 1.5 = 630\\ \\text{N m}$.",
+            "Rearrange: $d = \\frac{630}{350} = 1.8\\ \\text{m}$. He is lighter, so he sits further out."
+          ],
+          "answer": "$d = 1.8\\ \\text{m}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "420*1.5/350",
+            "unit": "m"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-metre-rule-position",
+          "question": "A uniform metre rule balances on a pivot at its $50\\ \\text{cm}$ mark. A $0.60\\ \\text{N}$ weight hangs at the $20\\ \\text{cm}$ mark. A $0.75\\ \\text{N}$ weight is hung on the other side so that the rule balances again. Calculate its distance from the pivot.",
+          "steps": [
+            "The rule's weight acts at the $50\\ \\text{cm}$ mark, right at the pivot, so it has no moment. Distances are measured from the pivot, not from the end of the rule. The $0.60\\ \\text{N}$ weight is $50 - 20 = 30\\ \\text{cm}$ from the pivot.",
+            "Anticlockwise moment: $0.60 \\times 30 = 18\\ \\text{N cm}$.",
+            "Clockwise moment: $0.75 \\times d$. Set them equal: $0.75 \\times d = 18$.",
+            "So $d = \\frac{18}{0.75} = 24\\ \\text{cm}$: the weight hangs at the $50 + 24 = 74\\ \\text{cm}$ mark."
+          ],
+          "answer": "$d = 24\\ \\text{cm}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.60*(50 - 20)/0.75",
+            "unit": "cm"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using a scale reading, such as the $20\\ \\text{cm}$ mark, as the distance. The distance in a moment is always measured from the pivot."
+        },
+        {
+          "type": "check",
+          "id": "check-plank-force",
+          "prompt": "A light plank is pivoted at one point. A $6.0\\ \\text{N}$ force acts downwards $25\\ \\text{cm}$ to the left of the pivot. What downward force $30\\ \\text{cm}$ to the right of the pivot balances it?",
+          "hint": "Set the two moments equal: $6.0 \\times 25 = F \\times 30$.",
+          "options": [
+            { "text": "$5.0\\ \\text{N}$", "correct": true },
+            { "text": "$7.2\\ \\text{N}$", "correct": false },
+            { "text": "$6.0\\ \\text{N}$", "correct": false },
+            { "text": "$0.20\\ \\text{N}$", "correct": false }
+          ],
+          "explain": "$6.0 \\times 25 = 150\\ \\text{N cm}$, so $F = \\frac{150}{30} = 5.0\\ \\text{N}$. Swapping the distances gives $7.2\\ \\text{N}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "6.0*25/30",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A balanced beam doesn't move in any way. So it needs two things. The forces balance: the pivot pushes up as hard as the weights pull down, so there is no resultant force and the beam doesn't start to move. The moments balance, so it doesn't start to turn."
+        },
+        {
+          "type": "definition",
+          "term": "equilibrium",
+          "statement": "An object is in [[equilibrium|equilibrium]] when it has no resultant force and no resultant moment on it.",
+          "plain": "Everything on it cancels out, both the pushes and the turning effects."
+        },
+        {
+          "type": "mistake",
+          "text": "Checking only that up and down forces match. A beam with balanced forces can still turn, so check the moments too."
+        },
+        {
+          "type": "check",
+          "id": "check-forces-not-moments",
+          "prompt": "A light rod rests on a pivot. A $5.0\\ \\text{N}$ weight hangs $0.20\\ \\text{m}$ to the left of the pivot and another $5.0\\ \\text{N}$ weight hangs $0.40\\ \\text{m}$ to the right. The pivot pushes up with $10\\ \\text{N}$. Is the rod in equilibrium?",
+          "hint": "Work out the moment on each side, not just the forces.",
+          "options": [
+            { "text": "no: the forces balance, but the moments don't", "correct": true },
+            { "text": "yes: the upward and downward forces are equal", "correct": false },
+            { "text": "yes: the two weights are equal", "correct": false },
+            { "text": "no: the forces don't balance", "correct": false }
+          ],
+          "explain": "Up $10\\ \\text{N}$ equals down $5.0 + 5.0 = 10\\ \\text{N}$, so there is no resultant force. But the moments are $1.0\\ \\text{N m}$ anticlockwise and $2.0\\ \\text{N m}$ clockwise, so the rod turns clockwise.",
+          "verify": {
+            "kind": "choice",
+            "truth": "no: the forces balance, but the moments don't"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Use the principle of moments\": write it in words first (clockwise moment $=$ anticlockwise moment), then the equation with numbers, then the answer with its unit."
+        }
+      ]
+    },
+    {
+      "id": "several-forces",
+      "heading": "Several forces, and testing the principle",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With more than one force on a side, find the moment of each force about the pivot. Add all the clockwise moments, and add all the anticlockwise moments. In equilibrium the two totals are equal."
+        },
+        {
+          "type": "figure",
+          "id": "1-5-2-rod-three-forces",
+          "alt": "A light, level rod balanced on a pivot at its centre. On the left, a 4.5 newton weight acts down 0.32 metres from the pivot. On the right, a 3.0 newton weight acts down 0.12 metres from the pivot, and an unknown weight W acts down 0.40 metres from the pivot.",
+          "caption": "Three weights on a light rod: two of them on the right."
+        },
+        {
+          "type": "example",
+          "id": "ex-rod-three-forces",
+          "question": "The light rod in the diagram is balanced. Calculate the weight $W$.",
+          "steps": [
+            "Anticlockwise: $4.5 \\times 0.32 = 1.44\\ \\text{N m}$.",
+            "Clockwise: $3.0 \\times 0.12 + W \\times 0.40 = 0.36 + 0.40W$.",
+            "Principle of moments: $0.36 + 0.40W = 1.44$, so $0.40W = 1.08$.",
+            "$W = \\frac{1.08}{0.40} = 2.7\\ \\text{N}$."
+          ],
+          "answer": "$W = 2.7\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(4.5*0.32 - 3.0*0.12)/0.40",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "text",
+          "text": "A uniform beam's own weight acts at the middle of the beam. If the beam is not pivoted there, its weight has a moment too."
+        },
+        {
+          "type": "check",
+          "id": "check-rule-own-weight",
+          "prompt": "A uniform metre rule weighs $1.2\\ \\text{N}$. It balances on a pivot at its $35\\ \\text{cm}$ mark when a weight hangs at its $5\\ \\text{cm}$ mark. What is that weight, in N?",
+          "hint": "The rule's own weight acts at its $50\\ \\text{cm}$ mark. How far is that from the pivot?",
+          "answer": {
+            "value": 0.6,
+            "tolerance": 0.005
+          },
+          "explain": "The rule's weight is $50 - 35 = 15\\ \\text{cm}$ from the pivot: $1.2 \\times 15 = 18\\ \\text{N cm}$. The hanging weight is $35 - 5 = 30\\ \\text{cm}$ away, so $W = \\frac{18}{30} = 0.60\\ \\text{N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.2*(50 - 35)/(35 - 5)",
+            "sf": 2
+          }
+        },
+        {
+          "type": "figure",
+          "id": "1-5-2-moments-experiment",
+          "alt": "A metre rule level on a pivot at its 50 centimetre mark. Two weights hang from loops of thread on the left of the pivot and one weight hangs on the right. The distances of the threads from the pivot are marked d1 and d2 on the left and d3 on the right.",
+          "caption": "Testing the principle of moments with a metre rule."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-moments-experiment",
+          "question": "Describe an experiment to show that a balanced metre rule has no resultant moment on it.",
+          "steps": [
+            "Set up: where the pivot goes, and what hangs on each side.",
+            "Measure: when to take readings, and which distances.",
+            "Calculate and conclude: compare the two totals."
+          ],
+          "answer": "Balance a uniform metre rule on a pivot at its 50 cm mark, so its own weight has no moment. Hang two known weights from loops of thread on one side of the pivot and one known weight on the other side. Slide the weights until the rule balances level. Read the distance of each thread from the pivot on the rule's scale. Calculate each moment as weight × distance. Add the anticlockwise moments and add the clockwise moments. The two totals are equal within experimental accuracy, so there is no resultant moment. Repeat with different weights and positions.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "rule pivoted at centre; known weights on both sides; adjust until level; measure distances from pivot; calculate weight x distance; total clockwise = total anticlockwise; repeat",
+            "requires": [
+              "pivot",
+              ["50 cm", "centre", "middle"],
+              ["weight"],
+              ["level", "balances"],
+              ["distance"],
+              ["clockwise"],
+              ["anticlockwise"],
+              ["equal"],
+              ["repeat"]
+            ],
+            "forbids": ["no forces act", "the forces are zero"]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a Paper 5/6 question, totals within about 10% of each other count as equal within experimental accuracy. Loops of thread give a clear point to measure each distance from."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Moment: the turning effect of a force about a pivot, in N m (or N cm when distances are in cm)."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{moment} = \\text{force} \\times \\text{perpendicular distance from the pivot}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Principle of moments: when an object is in equilibrium, the clockwise moments about any point add up to the same total as the anticlockwise moments about that point."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "An object is in equilibrium only when there is no resultant force on it and no resultant moment on it. Balanced forces alone are not enough."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "With several forces, add all the clockwise moments and all the anticlockwise moments about the pivot. A uniform beam's own weight acts at its middle, so it has a moment unless the pivot is there."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "To test the principle: balance a metre rule at its centre with weights on both sides, measure each distance from the pivot, and show the total clockwise and anticlockwise moments are equal."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Multiplying the moment by the distance to find a force. Divide: $F = \\text{moment} \\div d$.",
+    "Using a scale reading as the distance. Measure every distance from the pivot.",
+    "Mixing cm and m. Use one unit for every distance; a moment with distances in cm is in N cm.",
+    "Saying a beam is in equilibrium because the forces balance. The moments must balance too.",
+    "Confusing moment with work done. Both multiply a force by a distance, but a moment uses the perpendicular distance from a pivot.",
+    "Extended: leaving out a uniform beam's own weight when the pivot is not at its centre, or adding a moment for it when the pivot is at its centre."
+  ],
+  "examTips": [
+    "\"State the principle of moments\": give the condition (an object in equilibrium) and both sides: total clockwise moment equals total anticlockwise moment about the same point.",
+    "\"Calculate\": write the moment on each side as force × perpendicular distance from the pivot, set them equal, then solve. Give the unit.",
+    "\"State\" the conditions for equilibrium: both of them, no resultant force and no resultant moment.",
+    "\"Describe\" an experiment (Extended): say what you set up, what you measure, how you calculate the moments, and what result shows there is no resultant moment."
+  ],
+  "readingMinutes": 20
+}

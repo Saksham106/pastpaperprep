@@ -1,0 +1,568 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "3.2.4",
+  "slug": "dispersion-of-light",
+  "title": "Dispersion of light",
+  "level": "Core",
+  "topic": 3,
+  "summary": "A glass prism spreads white light out into a band of colours: this is [[dispersion|dispersion]]. Learn why it happens and the order of the seven colours of the [[visible-spectrum|visible spectrum]] by [[wavelength|wavelength]] and by [[frequency|frequency]]. Extended adds [[monochromatic|monochromatic]] light.",
+  "goals": [
+    {
+      "text": "Describe how a glass prism spreads white light into a spectrum, and explain why each colour bends by a different amount.",
+      "bullets": [
+        "3.2.4-1"
+      ]
+    },
+    {
+      "text": "List the seven colours of the spectrum in their order, and rank colours by wavelength and by frequency.",
+      "bullets": [
+        "3.2.4-2"
+      ]
+    },
+    {
+      "text": "Recall what monochromatic light is, and what a prism does to it.",
+      "bullets": [
+        "3.2.4-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "3.2.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "prism and white light",
+    "splitting white light into colours",
+    "colours of the spectrum in order",
+    "ROYGBIV",
+    "rainbow colours wavelength and frequency",
+    "monochromatic light"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-refraction-slows",
+      "prompt": "A ray of light passes at an angle from air into glass. Which way does it bend, and why?",
+      "hint": "Compare the speed of light in air and in glass.",
+      "options": [
+        {
+          "text": "towards the normal, because it slows down",
+          "correct": true
+        },
+        {
+          "text": "away from the normal, because it slows down",
+          "correct": false
+        },
+        {
+          "text": "towards the normal, because it speeds up",
+          "correct": false
+        },
+        {
+          "text": "it does not bend, because glass is clear",
+          "correct": false
+        }
+      ],
+      "explain": "Light is slower in glass, so it bends towards the [[normal|normal]] as it goes in. Revise it in {{lesson:3.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "towards the normal, because it slows down"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-speed-wavelength",
+      "prompt": "Two waves travel at the same speed. Wave X has a longer wavelength than wave Y. Which statement is correct?",
+      "hint": "Use $v = f\\lambda$ with the same $v$ for both.",
+      "options": [
+        {
+          "text": "X has a lower frequency than Y",
+          "correct": true
+        },
+        {
+          "text": "X has a higher frequency than Y",
+          "correct": false
+        },
+        {
+          "text": "X and Y have the same frequency",
+          "correct": false
+        },
+        {
+          "text": "X has a larger amplitude than Y",
+          "correct": false
+        }
+      ],
+      "explain": "With $v$ fixed, $f = \\frac{v}{\\lambda}$, so a longer [[wavelength|wavelength]] means a lower [[frequency|frequency]]. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "X has a lower frequency than Y"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "prism",
+      "heading": "Splitting white light with a prism",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "White light, such as sunlight, is not one colour. It is a mixture of many colours."
+        },
+        {
+          "type": "text",
+          "text": "A prism is a block of glass with triangular ends. Shine a narrow beam of white light into one face. A band of colours comes out of another face and shows on a screen, with red at one end and violet at the other."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-4-prism-spectrum",
+          "alt": "A triangular glass prism with its point at the top. A single ray of white light comes from the lower left and meets the left face, where a dashed normal is drawn. Inside the glass the ray bends towards the normal and splits into a narrow fan of seven rays, all bending towards the base of the prism. At the right face every ray bends again, towards the base, and the fan spreads much wider. The rays carry on to a screen on the right. From top to bottom the screen is labelled red, orange, yellow, green, blue, indigo, violet. Red, at the top, is labelled bent least; violet, at the bottom, is labelled bent most. A note says the spreading inside the glass is drawn larger than it really is.",
+          "caption": "Red is bent least and violet most, so the colours fan out into a spectrum."
+        },
+        {
+          "type": "text",
+          "text": "Each colour travels at a different speed in glass. Violet slows down the most and red the least. So the glass [[refraction|refracts]] each colour through a different angle."
+        },
+        {
+          "type": "text",
+          "text": "At the first face the light slows down and bends towards the [[normal|normal]]. Violet bends most, so the colours start to separate. At the second face the light speeds up and bends away from the normal, and the colours spread further apart."
+        },
+        {
+          "type": "definition",
+          "term": "dispersion",
+          "statement": "The splitting of white light into its separate colours, because the colours are refracted through different angles.",
+          "plain": "A prism fans white light out into a band of colours."
+        },
+        {
+          "type": "text",
+          "text": "In the usual set-up, both faces bend the light towards the thick base of the prism. With the point of the prism at the top, red lands highest on the screen and violet lowest."
+        },
+        {
+          "type": "example",
+          "id": "ex-prism-card",
+          "question": "A narrow beam from a lamp gives white light. It passes through a glass prism and falls on a sheet of white card. Describe what appears on the card and explain how it forms.",
+          "steps": [
+            "Say what you see, what white light is made of, why the colours separate, which colour bends most and least, and name the effect."
+          ],
+          "answer": "A band of colours, a spectrum from red to violet, appears on the card. White light is a mixture of colours. Each colour travels at a different speed in glass, so each colour is refracted through a different angle. Violet is refracted the most and red the least. The colours separate at the first face and spread further at the second face. The effect is called dispersion.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "spectrum; white light is a mixture of colours; different speeds in glass; refracted by different amounts; violet most, red least; dispersion",
+            "requires": [
+              "spectrum",
+              "mixture",
+              [
+                "different speed",
+                "different speeds"
+              ],
+              [
+                "refracted through a different angle",
+                "refracted through different angles"
+              ],
+              [
+                "violet is refracted the most",
+                "violet is bent the most"
+              ],
+              "red the least",
+              "dispersion"
+            ],
+            "forbids": [
+              "diffraction",
+              "reflected",
+              "red is refracted the most"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling the splitting diffraction or reflection. The colours separate because the glass refracts each one by a different amount: that is dispersion."
+        },
+        {
+          "type": "examTip",
+          "text": "Drawing a prism diagram: bend every ray towards the base at both faces, start the spreading at the first face, and continue each ray out to the screen. With the prism's point at the top, label red at the top and violet at the bottom."
+        },
+        {
+          "type": "check",
+          "id": "check-prism-name",
+          "prompt": "Sunlight passing through a triangular glass ornament makes a band of colours on a wall. Which word names this effect?",
+          "hint": "The colours were mixed together in the sunlight and are now separated.",
+          "options": [
+            {
+              "text": "dispersion",
+              "correct": true
+            },
+            {
+              "text": "diffraction",
+              "correct": false
+            },
+            {
+              "text": "total internal reflection",
+              "correct": false
+            },
+            {
+              "text": "reflection",
+              "correct": false
+            }
+          ],
+          "explain": "The glass refracts each colour through a different angle, so the colours separate: [[dispersion|dispersion]]. Diffraction is waves spreading out after a narrow gap.",
+          "verify": {
+            "kind": "choice",
+            "truth": "dispersion"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-prism-most",
+          "prompt": "White light passes through a glass prism. Which colour is refracted the most?",
+          "hint": "Which colour slows down the most in glass?",
+          "options": [
+            {
+              "text": "violet",
+              "correct": true
+            },
+            {
+              "text": "red",
+              "correct": false
+            },
+            {
+              "text": "yellow",
+              "correct": false
+            },
+            {
+              "text": "they are all refracted by the same amount",
+              "correct": false
+            }
+          ],
+          "explain": "Violet slows down most in glass, so it bends most. Red bends least. If every colour bent the same amount, no spectrum would form.",
+          "verify": {
+            "kind": "choice",
+            "truth": "violet"
+          }
+        }
+      ]
+    },
+    {
+      "id": "spectrum-order",
+      "heading": "The seven colours in order",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The colours of the [[visible-spectrum|visible spectrum]] always come in the same order. Seven are named traditionally: red, orange, yellow, green, blue, indigo, violet."
+        },
+        {
+          "type": "text",
+          "text": "To remember the order, use \"Richard Of York Gave Battle In Vain\". The first letters are R, O, Y, G, B, I, V."
+        },
+        {
+          "type": "definition",
+          "term": "visible spectrum",
+          "statement": "The light the human eye can detect. Traditionally it has seven colours, from red through orange, yellow, green, blue and indigo to violet.",
+          "plain": "The band of colours a prism makes from white light."
+        },
+        {
+          "type": "text",
+          "text": "Each colour is light of a different [[wavelength|wavelength]] and [[frequency|frequency]]. The wavelength is longest at the red end and shortest at the violet end."
+        },
+        {
+          "type": "text",
+          "text": "In a vacuum every colour travels at the same speed, and in air almost exactly the same. With $v = f\\lambda$ and the same $v$, a longer wavelength means a lower frequency. So red has the lowest frequency and violet the highest."
+        },
+        {
+          "type": "text",
+          "text": "Increasing frequency (decreasing wavelength): red, orange, yellow, green, blue, indigo, violet."
+        },
+        {
+          "type": "text",
+          "text": "Increasing wavelength (decreasing frequency): violet, indigo, blue, green, yellow, orange, red."
+        },
+        {
+          "type": "text",
+          "text": "This links to the prism: violet, with the highest frequency and shortest wavelength, is refracted the most. Red is refracted the least."
+        },
+        {
+          "type": "example",
+          "id": "ex-order-frequency",
+          "question": "Write these four colours in order of increasing frequency: blue, orange, violet, yellow.",
+          "steps": [
+            "Write out the spectrum: red, orange, yellow, green, blue, indigo, violet.",
+            "Frequency increases from the red end to the violet end, so keep that order.",
+            "Pick out the four colours as they appear."
+          ],
+          "answer": "Frequency increases from the red end of the spectrum to the violet end. So in order of increasing frequency the colours are orange, yellow, blue, violet.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "orange, yellow, blue, violet",
+            "requires": [
+              [
+                "red end",
+                "from red"
+              ],
+              "orange, yellow, blue, violet"
+            ],
+            "forbids": [
+              "violet, blue, yellow, orange"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-order-explain",
+          "question": "In air, green light has a shorter wavelength than orange light. Explain which of the two colours has the higher frequency.",
+          "steps": [
+            "Both colours travel at the same speed in air, so use $v = f\\lambda$ with the same $v$."
+          ],
+          "answer": "Green light has the higher frequency. Both colours travel at the same speed in air. Since $v = f\\lambda$, frequency is speed divided by wavelength. So the colour with the shorter wavelength, green, has the higher frequency.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "green has the higher frequency; same speed; f = v / lambda; shorter wavelength means higher frequency",
+            "requires": [
+              "green light has the higher frequency",
+              "same speed",
+              [
+                "shorter wavelength"
+              ],
+              [
+                "divided by wavelength",
+                "v = f\\lambda"
+              ]
+            ],
+            "forbids": [
+              "orange light has the higher frequency"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the two orders. Fix one fact: red has the longest wavelength. Frequency goes the opposite way, so red also has the lowest frequency."
+        },
+        {
+          "type": "check",
+          "id": "check-order-wavelength",
+          "prompt": "Which list gives three colours in order of increasing wavelength?",
+          "hint": "Which end of the spectrum has the shortest wavelength?",
+          "options": [
+            {
+              "text": "blue, yellow, red",
+              "correct": true
+            },
+            {
+              "text": "red, yellow, blue",
+              "correct": false
+            },
+            {
+              "text": "yellow, blue, red",
+              "correct": false
+            },
+            {
+              "text": "blue, red, yellow",
+              "correct": false
+            }
+          ],
+          "explain": "Wavelength increases from violet to red, so blue comes first, then yellow, then red. Red, yellow, blue is the order of increasing frequency.",
+          "verify": {
+            "kind": "choice",
+            "truth": "blue, yellow, red"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-order-red",
+          "prompt": "Which statement about red light in the visible spectrum is correct?",
+          "hint": "Red is at the end of the spectrum that a prism bends least.",
+          "options": [
+            {
+              "text": "it has the longest wavelength and the lowest frequency",
+              "correct": true
+            },
+            {
+              "text": "it has the longest wavelength and the highest frequency",
+              "correct": false
+            },
+            {
+              "text": "it has the shortest wavelength and the lowest frequency",
+              "correct": false
+            },
+            {
+              "text": "it is refracted more than any other colour by a prism",
+              "correct": false
+            }
+          ],
+          "explain": "Red has the longest wavelength. At the same speed, a longer wavelength means a lower frequency. A prism refracts red the least.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it has the longest wavelength and the lowest frequency"
+          }
+        }
+      ]
+    },
+    {
+      "id": "monochromatic",
+      "heading": "Monochromatic light",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light with just one frequency is [[monochromatic|monochromatic]]. One frequency means one colour. A laser gives light that is very nearly monochromatic."
+        },
+        {
+          "type": "definition",
+          "term": "monochromatic",
+          "statement": "Describes visible light that has a single frequency.",
+          "plain": "Light of one pure colour."
+        },
+        {
+          "type": "text",
+          "text": "A prism still refracts monochromatic light at each face. But there are no other colours to separate, so one ray goes in and one ray comes out."
+        },
+        {
+          "type": "text",
+          "text": "So if a prism splits a beam into two or more colours, the beam was not monochromatic."
+        },
+        {
+          "type": "example",
+          "id": "ex-mono-laser",
+          "question": "A beam from a red laser pointer passes through a glass prism. A single red ray comes out, bent towards the base, with no other colours. What does this tell you about the laser light? Explain.",
+          "steps": [
+            "Ask what would happen if the beam held more than one frequency."
+          ],
+          "answer": "The laser light is monochromatic. It has a single frequency, so it is one colour. The prism refracts it at each face, so the ray changes direction. There are no other colours to separate, so no spectrum forms.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "monochromatic; single frequency; refracted but not dispersed; no spectrum",
+            "requires": [
+              "monochromatic",
+              [
+                "single frequency",
+                "one frequency"
+              ],
+              [
+                "refracts",
+                "refracted"
+              ],
+              [
+                "no spectrum",
+                "not dispersed",
+                "no other colours"
+              ]
+            ],
+            "forbids": [
+              "white light",
+              "not refracted"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mono-meaning",
+          "prompt": "A beam of light is described as monochromatic. What must be true of the light in the beam?",
+          "hint": "\"Mono\" means one. One of what?",
+          "options": [
+            {
+              "text": "it all has one frequency",
+              "correct": true
+            },
+            {
+              "text": "it all has the same brightness",
+              "correct": false
+            },
+            {
+              "text": "it is a mixture of every colour",
+              "correct": false
+            },
+            {
+              "text": "it is not refracted by glass",
+              "correct": false
+            }
+          ],
+          "explain": "Monochromatic light has a single frequency, so it is one colour. It is still refracted by glass; it just cannot be split.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it all has one frequency"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mono-prism",
+          "prompt": "Beam P passes through a glass prism and comes out as a band of colours. Beam Q, aimed the same way, comes out as one ray of one colour. Which statement is correct?",
+          "hint": "Only light containing more than one frequency can be split.",
+          "options": [
+            {
+              "text": "Q is monochromatic and P is not",
+              "correct": true
+            },
+            {
+              "text": "P is monochromatic and Q is not",
+              "correct": false
+            },
+            {
+              "text": "both beams are monochromatic",
+              "correct": false
+            },
+            {
+              "text": "neither beam is refracted",
+              "correct": false
+            }
+          ],
+          "explain": "P was split, so it held many frequencies. Q stayed one colour, so it has a single frequency: monochromatic.",
+          "verify": {
+            "kind": "choice",
+            "truth": "Q is monochromatic and P is not"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Dispersion: a glass prism splits white light into its colours, because the glass refracts each colour through a different angle. Violet is refracted most, red least.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The visible spectrum, in order: red, orange, yellow, green, blue, indigo, violet (Richard Of York Gave Battle In Vain).",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From red to violet, wavelength decreases and frequency increases. Red: longest wavelength, lowest frequency. Violet: shortest wavelength, highest frequency.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Monochromatic light has a single frequency (one colour). A prism refracts it but cannot split it.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing the spectrum upside down. Violet bends most and red least, so with the prism point-up, red is at the top of the screen and violet at the bottom.",
+    "Naming the effect diffraction or reflection. The colours separate by refraction, and the splitting is called dispersion.",
+    "Stopping the rays inside the prism, or splitting them only at the second face. The colours start to separate at the first face; continue every ray to the screen.",
+    "Giving red the highest frequency. Red has the longest wavelength, so it has the lowest frequency; violet has the highest."
+  ],
+  "examTips": [
+    "\"Describe\" dispersion (Paper 3/4): say white light is a mixture of colours, that the glass refracts each colour through a different angle (violet most, red least), and name the effect dispersion.",
+    "Paper 1/2 order questions: write R O Y G B I V in the margin and mark the long-wavelength, low-frequency end before you read the options.",
+    "Practical (Paper 5/6): use a narrow beam from a ray box in a darkened room, so the spectrum on the white screen is clear enough to see every colour."
+  ],
+  "readingMinutes": 16
+}

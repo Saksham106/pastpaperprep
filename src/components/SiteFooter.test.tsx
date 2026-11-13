@@ -65,6 +65,20 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: "IB Chemistry notes" })).toHaveAttribute("href", "/revision-notes/ib-chemistry");
   });
 
+  it("links the IGCSE Physics notes only while that course is visible", () => {
+    vi.stubEnv("NOTES_PREVIEW", "");
+    const restore = setCoursePublishedForTests(false, "igcse-physics-0625");
+    try {
+      const view = render(<SiteFooter />);
+      expect(screen.queryByRole("link", { name: "IGCSE Physics notes" })).not.toBeInTheDocument();
+      view.unmount();
+    } finally {
+      restore();
+    }
+    render(<SiteFooter />);
+    expect(screen.getByRole("link", { name: "IGCSE Physics notes" })).toHaveAttribute("href", "/revision-notes/igcse-physics-0625");
+  });
+
   it("links the IB Maths AI notes only while that course is visible", () => {
     vi.stubEnv("NOTES_PREVIEW", "");
     const restore = setCoursePublishedForTests(false, "ib-math-ai");

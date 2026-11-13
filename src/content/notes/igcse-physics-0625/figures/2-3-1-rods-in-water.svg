@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" role="img" aria-labelledby="t231rods">
+  <title id="t231rods">Four equal rods of copper, aluminium, steel and glass stand in one beaker of hot water. A bead is stuck near the top of each rod with wax, all at the same height. Time how long each bead takes to fall off: the shortest time means the best conductor</title>
+  <rect x="111" y="250" width="268" height="99" fill="var(--t1-ink)" fill-opacity="0.15"/>
+  <line x1="111" y1="250" x2="379" y2="250" stroke="var(--t1-ink)" stroke-width="1.5"/>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <polyline points="110,215 110,350 380,350 380,215"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5">
+    <rect x="155" y="70" width="10" height="270" fill="var(--t5-ink)" fill-opacity="0.6"/>
+    <rect x="215" y="70" width="10" height="270" fill="var(--muted)" fill-opacity="0.35"/>
+    <rect x="275" y="70" width="10" height="270" fill="var(--muted)" fill-opacity="0.7"/>
+    <rect x="335" y="70" width="10" height="270" fill="var(--t3-ink)" fill-opacity="0.2"/>
+  </g>
+  <g fill="var(--t2-ink)" fill-opacity="0.5" stroke="currentColor" stroke-width="1">
+    <ellipse cx="167" cy="120" rx="7" ry="9"/>
+    <ellipse cx="227" cy="120" rx="7" ry="9"/>
+    <ellipse cx="287" cy="120" rx="7" ry="9"/>
+    <ellipse cx="347" cy="120" rx="7" ry="9"/>
+  </g>
+  <g fill="currentColor">
+    <circle cx="178" cy="120" r="6"/>
+    <circle cx="238" cy="120" r="6"/>
+    <circle cx="298" cy="120" r="6"/>
+    <circle cx="358" cy="120" r="6"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="160" y="58">copper</text>
+    <text x="220" y="42">aluminium</text>
+    <text x="280" y="58">steel</text>
+    <text x="340" y="42">glass</text>
+  </g>
+  <line x1="130" y1="120" x2="370" y2="120" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="400" y="104">bead stuck on with wax,</text>
+    <text x="400" y="120">same height on every rod</text>
+    <text x="400" y="190">time how long each</text>
+    <text x="400" y="206">bead takes to fall off</text>
+    <text x="400" y="270">shortest time means</text>
+    <text x="400" y="286">the best conductor</text>
+  </g>
+  <text x="20" y="304" font-size="13" fill="currentColor" font-family="inherit">hot water</text>
+  <line x1="84" y1="300" x2="140" y2="300" stroke="var(--muted)" stroke-width="1"/>
+  <line x1="396" y1="112" x2="366" y2="118" stroke="var(--muted)" stroke-width="1"/>
+</svg>

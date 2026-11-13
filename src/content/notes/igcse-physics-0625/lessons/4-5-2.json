@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.5.2",
+  "slug": "the-a-c-generator",
+  "title": "The a.c. generator",
+  "level": "Extended",
+  "topic": 4,
+  "summary": "An [[a-c-generator|a.c. generator]] turns a coil in a magnetic field, or turns a magnet beside a coil. The induced e.m.f. reverses every half turn, so the output is alternating. [[slip-rings|Slip rings]] and brushes connect a turning coil to the outside circuit, and the coil's position tells you where the peaks and zeros of the e.m.f.–time graph fall.",
+  "goals": [
+    {
+      "text": "Describe how a rotating coil or a rotating magnet produces an alternating e.m.f., and why a rotating coil needs slip rings and brushes.",
+      "bullets": [
+        "4.5.2-1"
+      ]
+    },
+    {
+      "text": "Sketch the e.m.f.–time graph of a simple a.c. generator, and link each peak, trough and zero to the position of the coil.",
+      "bullets": [
+        "4.5.2-2"
+      ]
+    },
+    {
+      "text": "Read the number of turns and the [[frequency|frequency]] from the graph, and show how faster turning, a stronger magnet or more turns change it.",
+      "bullets": [
+        "4.5.2-2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "1.7.3",
+    "3.1",
+    "4.2.2",
+    "4.5.1"
+  ],
+  "papers": [
+    "P2",
+    "P4"
+  ],
+  "synonyms": [
+    "ac generator",
+    "alternator how it works",
+    "slip rings and brushes",
+    "emf time graph generator",
+    "coil position peak emf",
+    "rotating magnet generator"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-when-induced",
+      "prompt": "A coil is connected to a sensitive meter. When is an e.m.f. induced in the coil?",
+      "hint": "Think about what has to be happening to the magnetic field through the coil.",
+      "options": [
+        {
+          "text": "only while the magnetic field through the coil is changing",
+          "correct": true
+        },
+        {
+          "text": "whenever a magnet is close to the coil, even if it is still",
+          "correct": false
+        },
+        {
+          "text": "only when a battery is also in the circuit",
+          "correct": false
+        },
+        {
+          "text": "only when the magnet is held still inside the coil",
+          "correct": false
+        }
+      ],
+      "explain": "An e.m.f. is induced only while field lines are being cut, or the field through the coil is changing. A still magnet induces nothing. Revise it in {{lesson:4.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "only while the magnetic field through the coil is changing"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-what-is-ac",
+      "prompt": "Which statement describes an [[alternating-current|alternating current]]?",
+      "hint": "Look at the word \"alternating\": what keeps swapping?",
+      "options": [
+        {
+          "text": "it keeps reversing its direction",
+          "correct": true
+        },
+        {
+          "text": "it flows one way and stays the same size",
+          "correct": false
+        },
+        {
+          "text": "it flows one way but its size changes",
+          "correct": false
+        },
+        {
+          "text": "it is always larger than a direct current",
+          "correct": false
+        }
+      ],
+      "explain": "An alternating current reverses its direction again and again. A current that flows one way only, even if its size changes, is a [[direct-current|direct current]]. Revise it in {{lesson:4.2.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it keeps reversing its direction"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-frequency",
+      "prompt": "A string makes 45 complete vibrations in $0.50\\ \\text{s}$. What is its frequency, in Hz?",
+      "hint": "Frequency is the number of complete vibrations each second.",
+      "answer": {
+        "value": 90,
+        "tolerance": 0
+      },
+      "explain": "In one second it makes $\\frac{45}{0.50} = 90$ vibrations, so $f = 90\\ \\text{Hz}$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "45/0.50",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "generator",
+      "heading": "How an a.c. generator works",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[generator|generator]] transfers kinetic energy into electrical energy by [[electromagnetic-induction|electromagnetic induction]]. In the simplest [[a-c-generator|a.c. generator]], a coil of wire is turned between the poles of a magnet."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-2-coil-generator",
+          "alt": "A simple a.c. generator. A rectangular coil of wire sits between the N pole of a magnet on the left and the S pole on the right, with field lines running from N to S. The coil is fixed to an upright axle and turns with it. Below the coil, each end of the coil is joined to one of two slip rings on the axle, which turn with the coil. A fixed brush presses on each ring, and wires from the two brushes go to a lamp.",
+          "caption": "A rotating-coil generator. Each slip ring is joined to one end of the coil."
+        },
+        {
+          "type": "text",
+          "text": "1. As the coil turns, its sides cut across the magnetic field lines. So an e.m.f. is induced in the coil."
+        },
+        {
+          "type": "text",
+          "text": "2. Each side moves one way across the field for half a turn, then back the other way for the next half."
+        },
+        {
+          "type": "text",
+          "text": "3. When a side's motion reverses, its induced e.m.f. reverses too. So the e.m.f. changes direction every half turn: it is an alternating e.m.f."
+        },
+        {
+          "type": "text",
+          "text": "4. Join the coil into a complete circuit, and this e.m.f. drives an [[alternating-current|alternating current]] round it."
+        },
+        {
+          "type": "definition",
+          "term": "slip rings",
+          "statement": "[[slip-rings|Slip rings]] are two metal rings on the axle of a rotating coil, each joined to one end of the coil, that turn with it. Fixed brushes press against them and carry the current to the outside circuit.",
+          "plain": "They keep a spinning coil connected to wires that don't spin."
+        },
+        {
+          "type": "text",
+          "text": "Without slip rings, the wires from the coil would twist up as it turned. Each brush always touches the same ring, so it stays joined to the same end of the coil. So the output reverses each time the e.m.f. in the coil reverses."
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking slip rings cause the a.c. or keep the coil spinning. The turning coil makes the a.c.; slip rings and brushes only keep it connected to the circuit."
+        },
+        {
+          "type": "text",
+          "text": "A second kind of generator keeps the coil still and spins a magnet beside it. Each half turn, the magnet's poles swap places, so the field through the coil reverses and the induced e.m.f. alternates."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-2-rotating-magnet",
+          "alt": "A rotating-magnet generator. A bar magnet spins on an axle at its centre, shown by a curved arrow. Beside it is a fixed coil of wire whose two ends are joined straight to a lamp. A note says the coil does not move, so its wires join the lamp directly and no slip rings are needed.",
+          "caption": "Rotating magnet, fixed coil: no slip rings needed."
+        },
+        {
+          "type": "text",
+          "text": "Slip rings are needed only when the coil turns. Don't confuse them with the split-ring commutator of a d.c. motor ({{lesson:4.5.5}}). A commutator swaps the connections every half turn, so the output would never reverse."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-water-wheel",
+          "question": "A small water wheel turns a coil between the poles of a magnet. The coil is connected through slip rings and brushes to a resistor. Describe how an alternating current is produced in the resistor.",
+          "steps": [
+            "Start with the movement: the coil turns in the magnetic field.",
+            "Say why there is an e.m.f.: field lines are cut, so an e.m.f. is induced.",
+            "Say why there is a current: the circuit is complete.",
+            "Finish with why it alternates: the motion of each side reverses every half turn."
+          ],
+          "answer": "The coil turns in the magnetic field between the poles. Its sides cut across the magnetic field lines, so an e.m.f. is induced in the coil. The coil and the resistor form a complete circuit, so the e.m.f. drives a current. Every half turn, each side starts moving the opposite way through the field, so the e.m.f. and the current reverse. This repeated reversal is an alternating current.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "coil turns in field; sides cut field lines so e.m.f. induced; complete circuit so current; reverses every half turn",
+            "requires": [
+              [
+                "cut across the magnetic field lines",
+                "cut field lines",
+                "cuts the field lines"
+              ],
+              [
+                "e.m.f. is induced",
+                "induced e.m.f."
+              ],
+              [
+                "complete circuit"
+              ],
+              [
+                "every half turn",
+                "each half turn"
+              ],
+              [
+                "reverse"
+              ]
+            ],
+            "forbids": [
+              "slip rings make the current alternate",
+              "current is used up"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-dynamo-no-slip-rings",
+          "question": "A bicycle dynamo has a magnet that spins beside a fixed coil, which is wired to a lamp. Explain why the dynamo gives an alternating e.m.f., and why it needs no slip rings.",
+          "steps": [
+            "The coil doesn't move here, so explain the e.m.f. with the changing field through the coil.",
+            "Then say what happens to that field every half turn.",
+            "Finally, say why fixed wires are fine."
+          ],
+          "answer": "As the magnet spins, the magnetic field through the coil keeps changing, so an e.m.f. is induced in the coil. Every half turn the magnet's poles swap places, so the field through the coil reverses. So the induced e.m.f. reverses every half turn, which makes it alternating. The coil does not move, so its ends can be joined straight to the lamp without the wires twisting.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "field through coil changes so e.m.f. induced; field reverses every half turn so e.m.f. alternates; coil does not move so wires don't twist",
+            "requires": [
+              [
+                "field through the coil keeps changing",
+                "field through the coil changes",
+                "changing magnetic field"
+              ],
+              [
+                "induced"
+              ],
+              [
+                "reverses every half turn",
+                "reverses each half turn"
+              ],
+              [
+                "does not move",
+                "doesn't move",
+                "is fixed"
+              ],
+              [
+                "twisting",
+                "twist up"
+              ]
+            ],
+            "forbids": [
+              "slip rings make the current alternate"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-slip-rings",
+          "prompt": "Why does a rotating-coil generator need slip rings and brushes?",
+          "hint": "What would happen to fixed wires joined straight onto a spinning coil?",
+          "options": [
+            {
+              "text": "to connect the turning coil to the circuit without the wires twisting",
+              "correct": true
+            },
+            {
+              "text": "to make the current change direction every half turn",
+              "correct": false
+            },
+            {
+              "text": "to make the magnetic field stronger",
+              "correct": false
+            },
+            {
+              "text": "to keep the coil turning",
+              "correct": false
+            }
+          ],
+          "explain": "The rings rotate with the coil while the brushes stay still, so the connection never breaks and nothing twists. The current alternates because the coil's sides reverse their motion, not because of the rings.",
+          "verify": {
+            "kind": "choice",
+            "truth": "to connect the turning coil to the circuit without the wires twisting"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-commutator-swap",
+          "prompt": "The slip rings of an a.c. generator are replaced by a split-ring commutator. What happens to the current in the outside circuit?",
+          "hint": "A commutator swaps the connections at the same moment the e.m.f. in the coil reverses.",
+          "options": [
+            {
+              "text": "it no longer reverses direction",
+              "correct": true
+            },
+            {
+              "text": "it reverses twice as often",
+              "correct": false
+            },
+            {
+              "text": "it stops completely",
+              "correct": false
+            },
+            {
+              "text": "nothing changes",
+              "correct": false
+            }
+          ],
+          "explain": "The e.m.f. in the coil still reverses every half turn, but the commutator swaps the connections at the same time. The two reversals cancel, so the current in the outside circuit always flows the same way.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it no longer reverses direction"
+          }
+        }
+      ]
+    },
+    {
+      "id": "emf-graph",
+      "heading": "The e.m.f.–time graph",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Turn the coil at a steady speed and plot its e.m.f. against time. You get a smooth wave, above zero for one half turn and below zero for the next."
+        },
+        {
+          "type": "text",
+          "text": "The size of the e.m.f. depends on how fast the sides of the coil are cutting field lines. That depends on the direction the sides are moving."
+        },
+        {
+          "type": "text",
+          "text": "Plane of the coil at right angles to the field lines: the sides are moving along the field lines, parallel to them. They cut no field lines, so the e.m.f. is zero."
+        },
+        {
+          "type": "text",
+          "text": "Plane of the coil parallel to the field lines: the sides are moving straight across the field lines. They cut field lines fastest, so the e.m.f. is at a peak or a trough."
+        },
+        {
+          "type": "figure",
+          "id": "4-5-2-emf-graph",
+          "alt": "Graph of e.m.f. against time for one turn of a generator coil: a smooth wave that starts at zero, rises to a peak after a quarter turn, is zero after half a turn, reaches a trough of the same size after three quarters of a turn, and is zero again after one turn. Below the graph, five views from above show the coil turning clockwise between an N pole on the left and an S pole on the right. At the start, half turn and full turn the coil lies at right angles to the field and its two sides move along the field lines: e.m.f. zero. At a quarter turn and three quarters of a turn the coil lies along the field and its two sides move straight across the field lines: e.m.f. peak, then trough. The two sides are coloured differently and have swapped places between the peak and the trough.",
+          "caption": "One turn, seen from above. The arrows show which way each side of the coil is moving."
+        },
+        {
+          "type": "text",
+          "text": "At the trough, the two sides have swapped places compared with the peak. Each is cutting the field the opposite way, so the e.m.f. is just as big but in the opposite direction."
+        },
+        {
+          "type": "result",
+          "statement": "In a simple a.c. generator (one coil turning between two poles), one complete turn of the coil gives one complete cycle of e.m.f.",
+          "why": "Each side moves one way across the field for half a turn and back for the other half. That gives one positive and one negative half-cycle."
+        },
+        {
+          "type": "text",
+          "text": "So the [[period|period]] of the e.m.f. is the time for one turn, and its [[frequency|frequency]] is the number of turns each second. A coil turning 25 times a second gives an e.m.f. of frequency $25\\ \\text{Hz}$, and each cycle takes $\\frac{1}{25} = 0.040\\ \\text{s}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-graph-frequency",
+          "question": "The e.m.f.–time graph of a simple generator shows 6 complete cycles in $0.20\\ \\text{s}$. State how many turns the coil makes in this time, and calculate the frequency of the e.m.f.",
+          "steps": [
+            "One complete cycle of e.m.f. comes from one turn of the coil, so the coil makes 6 turns in $0.20\\ \\text{s}$.",
+            "Frequency is the number of cycles each second: $f = \\frac{6}{0.20}$.",
+            "$f = 30\\ \\text{Hz}$"
+          ],
+          "answer": "$f = 30\\ \\text{Hz}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "6/0.20",
+            "unit": "Hz"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Turning the coil faster makes its sides cut field lines faster, so the peaks get taller. Each turn also takes less time, so the cycles get shorter and the frequency rises."
+        },
+        {
+          "type": "example",
+          "id": "ex-twice-as-fast",
+          "question": "A generator's e.m.f. has a peak value of $4.0\\ \\text{V}$ and a period of $0.080\\ \\text{s}$. The coil is then turned twice as fast, with nothing else changed. Describe how the e.m.f.–time graph changes, giving the new peak e.m.f. and the new period.",
+          "steps": [
+            "Twice the speed means the sides cut field lines twice as fast, so the e.m.f. at each point of the turn is twice as big.",
+            "Each turn takes half as long, so each cycle takes half as long.",
+            "Say what that does to the number of cycles in the same time, and the shape."
+          ],
+          "answer": "The peaks and troughs are twice as high: the new peak e.m.f. is $8.0\\ \\text{V}$. Each cycle takes half as long: the new period is $0.040\\ \\text{s}$. So the graph shows twice as many cycles in the same time. It is still a smooth wave, with equal peaks above and below zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "peak doubles to 8.0 V; period halves to 0.040 s; twice as many cycles in the same time",
+            "requires": [
+              [
+                "twice as high",
+                "doubles"
+              ],
+              [
+                "$8.0\\ \\text{V}$"
+              ],
+              [
+                "$0.040\\ \\text{s}$"
+              ],
+              [
+                "twice as many cycles",
+                "more cycles"
+              ]
+            ],
+            "forbids": [
+              "same peak",
+              "period doubles",
+              "only the frequency changes"
+            ]
+          }
+        },
+        {
+          "type": "figure",
+          "id": "4-5-2-faster-rotation",
+          "alt": "Two graphs of e.m.f. against time on the same axes, both starting at zero. The solid curve is the generator at its original speed and shows two complete cycles. The dashed curve is the same generator turning twice as fast: its peaks and troughs are twice as tall, and each cycle takes half as long, so it fits four cycles into the same time.",
+          "caption": "Twice as fast: twice the peak, half the period."
+        },
+        {
+          "type": "text",
+          "text": "A stronger magnet, or more turns of wire on the coil, also makes the peaks taller. But the coil turns at the same speed, so the period and frequency don't change."
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking the e.m.f. is biggest when the coil faces the poles, at right angles to the field. It is zero there: the sides are moving along the field lines, not cutting them."
+        },
+        {
+          "type": "check",
+          "id": "check-zero-position",
+          "prompt": "At which position of a generator coil is the induced e.m.f. zero?",
+          "hint": "The e.m.f. is zero when the sides of the coil are not cutting any field lines.",
+          "options": [
+            {
+              "text": "plane of the coil at right angles to the field lines",
+              "correct": true
+            },
+            {
+              "text": "plane of the coil parallel to the field lines",
+              "correct": false
+            },
+            {
+              "text": "plane of the coil halfway between these two",
+              "correct": false
+            },
+            {
+              "text": "the e.m.f. is never zero while the coil turns",
+              "correct": false
+            }
+          ],
+          "explain": "With the coil at right angles to the field, its sides move along the field lines, so they cut none. With the coil parallel to the field, the sides cut field lines fastest: that is a peak or trough.",
+          "verify": {
+            "kind": "choice",
+            "truth": "plane of the coil at right angles to the field lines"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-three-quarters",
+          "prompt": "At $t = 0$ a generator coil lies parallel to the magnetic field and the e.m.f. is at a peak. What is the e.m.f. after the coil has made three quarters of a turn?",
+          "hint": "Go a quarter turn at a time: parallel, at right angles, parallel, at right angles.",
+          "options": [
+            {
+              "text": "zero",
+              "correct": true
+            },
+            {
+              "text": "a peak, the same as at the start",
+              "correct": false
+            },
+            {
+              "text": "a trough, in the opposite direction",
+              "correct": false
+            },
+            {
+              "text": "half the starting value",
+              "correct": false
+            }
+          ],
+          "explain": "Peak at the start, zero after a quarter turn, trough after half a turn, zero after three quarters of a turn. The coil is at right angles to the field again, so its sides cut no field lines.",
+          "verify": {
+            "kind": "choice",
+            "truth": "zero"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-same-frequency",
+          "prompt": "Which change makes the peak e.m.f. of a generator larger but leaves its frequency the same?",
+          "hint": "Frequency depends only on how many turns the coil makes each second.",
+          "options": [
+            {
+              "text": "using more turns of wire on the coil",
+              "correct": true
+            },
+            {
+              "text": "turning the coil faster",
+              "correct": false
+            },
+            {
+              "text": "turning the coil more slowly",
+              "correct": false
+            },
+            {
+              "text": "connecting a brighter lamp to the generator",
+              "correct": false
+            }
+          ],
+          "explain": "More turns of wire add more e.m.f. without changing the speed. Turning faster also raises the frequency, turning more slowly lowers both, and the lamp is not part of the generator.",
+          "verify": {
+            "kind": "choice",
+            "truth": "using more turns of wire on the coil"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-turns-per-second",
+          "prompt": "The e.m.f. from a simple generator has a period of $0.025\\ \\text{s}$. How many turns does the coil make each second?",
+          "hint": "One cycle of e.m.f. is one turn. How many $0.025\\ \\text{s}$ cycles fit into one second?",
+          "answer": {
+            "value": 40,
+            "tolerance": 0
+          },
+          "explain": "Each turn takes $0.025\\ \\text{s}$, so in one second the coil makes $\\frac{1}{0.025} = 40$ turns. The frequency of the e.m.f. is $40\\ \\text{Hz}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1/0.025",
+            "dp": 0
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "\"Sketch\" an e.m.f.–time graph: a smooth wave with equal peaks above and below zero, the right number of cycles, and a starting value that matches the coil's position (zero at right angles to the field, a peak or trough when parallel)."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Rotating-coil a.c. generator: the coil turns in a magnetic field, its sides cut field lines, and the induced e.m.f. reverses every half turn."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Slip rings turn with the coil, and fixed brushes press on them. They connect the turning coil to the circuit without the wires twisting; they do not make the current alternate."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Rotating-magnet generator: the field through a fixed coil reverses every half turn of the magnet, giving an alternating e.m.f. The coil doesn't move, so no slip rings are needed."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Rotating coil: the e.m.f. is zero when the plane of the coil is at right angles to the field lines, and is a peak or trough when it is parallel to them."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "In a simple generator (one coil, two poles), one turn of the coil gives one cycle of e.m.f., so the frequency equals the number of turns each second."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "With everything else kept the same: faster turning gives taller peaks and a higher frequency; a stronger magnet or more turns on the coil gives taller peaks at the same frequency."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Thinking slip rings cause the alternating current or keep the coil spinning. They only keep the turning coil connected to the circuit; the a.c. comes from the coil's sides reversing their motion.",
+    "Thinking the e.m.f. is largest when the coil is at right angles to the field. It is zero there, because the sides move along the field lines; it is largest when the coil is parallel to the field.",
+    "Counting the labelled points on a graph instead of fractions of a cycle. Each quarter of a cycle is a quarter turn, whatever letters mark the points.",
+    "Giving changes outside the generator, such as a brighter lamp, when asked how to increase the e.m.f. Change the generator: faster turning, a stronger magnet or more turns on the coil.",
+    "Saying faster turning only raises the frequency. The sides cut field lines faster too, so the peaks get taller as well."
+  ],
+  "examTips": [
+    "\"Describe\" how an a.c. generator works as separate points: the coil turns in a magnetic field, its sides cut field lines, an e.m.f. is induced, and it reverses every half turn.",
+    "\"Explain\" the job of slip rings and brushes: they keep a continuous connection between the turning coil and the circuit, without the wires twisting.",
+    "Asked how to increase a generator's output, \"state\" separate changes to the generator, each with a direction word: turn the coil faster, use a stronger magnet, or put more turns on the coil."
+  ],
+  "readingMinutes": 21
+}

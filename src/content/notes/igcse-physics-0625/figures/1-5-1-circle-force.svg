@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 310" role="img" aria-labelledby="t151cir">
+<title id="t151cir">Top view of a ball on a string moving clockwise in a horizontal circle at constant speed. The ball is shown at the top of the circle, with the string running to the centre. The velocity arrow at the ball points to the right, along the tangent to the circle. The force arrow at the ball points down the string, towards the centre, at right angles to the velocity. A dashed straight line continuing to the right along the tangent is labelled path if the string breaks.</title>
+<circle cx="180" cy="165" r="110" fill="none" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="5 4"/>
+<circle cx="180" cy="165" r="3" fill="currentColor"/>
+<text font-family="inherit" font-size="11" x="188" y="183" fill="currentColor" text-anchor="start">centre</text>
+<path d="M180 55 L180 165" stroke="currentColor" stroke-width="1" stroke-opacity="0.6"/>
+<text font-family="inherit" font-size="11" x="172" y="125" fill="currentColor" text-anchor="end">string</text>
+<circle cx="180" cy="55" r="9" fill="var(--t3-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.4"/>
+<text font-family="inherit" font-size="12" x="166" y="45" fill="currentColor" text-anchor="end">ball</text>
+<path d="M189.0 55.0 L276.0 55.0" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="285.0,55.0 276.0,59.5 276.0,50.5" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="240" y="45" fill="var(--t1-ink)" text-anchor="middle">velocity</text>
+<path d="M182.0 64.0 L182.0 118.0" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="182.0,127.0 177.5,118.0 186.5,118.0" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="11" x="190" y="113" fill="var(--t2-ink)" text-anchor="start">force towards</text>
+<text font-family="inherit" font-size="11" x="190" y="127" fill="var(--t2-ink)" text-anchor="start">the centre</text>
+<path d="M285 55 H380" stroke="var(--muted)" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text font-family="inherit" font-size="11" x="380" y="71" fill="var(--muted)" text-anchor="end">path if the string breaks</text>
+<path d="M258 243 A110 110 0 0 1 180 275" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<path d="M192.0 274.5 L189.0 274.7" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="182.0,275.0 188.8,271.2 189.2,278.1" fill="var(--muted)"/>
+<text font-family="inherit" font-size="11" x="250" y="293" fill="var(--muted)" text-anchor="middle">clockwise, constant speed</text>
+</svg>

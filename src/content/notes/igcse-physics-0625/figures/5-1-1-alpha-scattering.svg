@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 360" role="img" aria-labelledby="t511alpha">
+  <title id="t511alpha">Alpha particles travel from the left towards a magnified view of thin gold foil, which contains three tiny positive nuclei far apart. Two alpha particles that pass far from any nucleus go straight through. One that passes close to a nucleus is pushed away and deflected through an angle. One heading straight at a nucleus bounces back the way it came.</title>
+  <rect x="320" y="40" width="40" height="290" fill="var(--t2-ink)" fill-opacity="0.12" stroke="var(--muted)" stroke-width="1"/>
+  <g fill="var(--t1-ink)" stroke="currentColor" stroke-width="1">
+    <circle cx="340" cy="90" r="5"/><circle cx="340" cy="190" r="5"/><circle cx="340" cy="290" r="5"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="40" y1="140" x2="480" y2="140"/>
+    <polyline points="470,134 480,140 470,146"/>
+    <polyline points="140,134 150,140 140,146"/>
+    <line x1="40" y1="240" x2="480" y2="240"/>
+    <polyline points="470,234 480,240 470,246"/>
+    <polyline points="140,234 150,240 140,246"/>
+    <path d="M40,78 L300,78 Q342,72 380,58 L480,30"/>
+    <polyline points="470,39 480,30 467,27"/>
+    <polyline points="140,72 150,78 140,84"/>
+    <path d="M40,296 L322,296 Q334,290 322,284 L60,284"/>
+    <polyline points="140,290 150,296 140,302"/>
+    <polyline points="70,278 60,284 70,290"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="40" y="24">alpha particles (positive)</text>
+    <text x="490" y="34">a few: deflected</text>
+    <text x="490" y="144">most: straight</text>
+    <text x="490" y="160">through</text>
+    <text x="490" y="244">most: straight</text>
+    <text x="490" y="260">through</text>
+    <text x="60" y="322">very few: bounce back</text>
+    <text x="372" y="196">nucleus (positive)</text>
+    <text x="300" y="350" fill="var(--muted)">gold foil, magnified (not to scale)</text>
+  </g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 300" role="img" aria-labelledby="t523chg">
+  <title id="t523chg">Three rows, one for each kind of decay. Each row shows an unstable nucleus X on the left, an arrow, the nucleus left afterwards, and the radiation given out. Alpha decay: X becomes Y and an alpha particle leaves; 2 protons and 2 neutrons leave, so it is a different element. Beta decay: X becomes Y and a beta particle leaves; the nucleus has one more proton, so it is a different element. Gamma emission: X stays X and gamma radiation leaves; only energy leaves, so it is the same element.</title>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="16" y="65">alpha decay</text>
+    <text x="16" y="155">beta decay</text>
+    <text x="16" y="245">gamma emission</text>
+    <text x="150" y="22" font-size="12" fill="var(--muted)">before</text>
+    <text x="290" y="22" font-size="12" fill="var(--muted)">after</text>
+    <text x="370" y="22" font-size="12" fill="var(--muted)">given out</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1.5">
+    <circle cx="170" cy="60" r="26" fill="var(--t2-ink)" fill-opacity="0.18"/>
+    <circle cx="170" cy="150" r="26" fill="var(--t2-ink)" fill-opacity="0.18"/>
+    <circle cx="170" cy="240" r="26" fill="var(--t2-ink)" fill-opacity="0.18"/>
+    <circle cx="310" cy="60" r="24" fill="var(--t4-ink)" fill-opacity="0.18"/>
+    <circle cx="310" cy="150" r="26" fill="var(--t4-ink)" fill-opacity="0.18"/>
+    <circle cx="310" cy="240" r="26" fill="var(--t2-ink)" fill-opacity="0.18"/>
+    <circle cx="392" cy="60" r="10" fill="var(--t1-ink)" fill-opacity="0.35"/>
+    <circle cx="392" cy="150" r="4" fill="currentColor"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="204" y1="60" x2="274" y2="60"/>
+    <polyline points="265,54 275,60 265,66"/>
+    <line x1="204" y1="150" x2="274" y2="150"/>
+    <polyline points="265,144 275,150 265,156"/>
+    <line x1="204" y1="240" x2="274" y2="240"/>
+    <polyline points="265,234 275,240 265,246"/>
+    <path d="M372,240 q5,-8 10,0 t10,0 t10,0"/>
+    <polyline points="398,235 404,240 398,245"/>
+  </g>
+  <g font-size="16" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="170" y="66">X</text>
+    <text x="170" y="156">X</text>
+    <text x="170" y="246">X</text>
+    <text x="310" y="66">Y</text>
+    <text x="310" y="156">Y</text>
+    <text x="310" y="246">X</text>
+    <text x="392" y="94">α</text>
+    <text x="392" y="176">β</text>
+    <text x="388" y="266">γ</text>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit">
+    <text x="440" y="55">2 protons and 2 neutrons leave:</text>
+    <text x="440" y="75" font-weight="bold">a different element</text>
+    <text x="440" y="145">the nucleus has one more proton:</text>
+    <text x="440" y="165" font-weight="bold">a different element</text>
+    <text x="440" y="235">only energy leaves:</text>
+    <text x="440" y="255" font-weight="bold">the same element</text>
+  </g>
+</svg>

@@ -1,0 +1,779 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "4.2.2",
+  "slug": "electric-current",
+  "title": "Electric current",
+  "level": "Core",
+  "topic": 4,
+  "summary": "An [[electric-current|electric current]] is a flow of charge. In a metal wire the charge is carried by [[free-electron|free electrons]] drifting along the wire. You measure current in amperes with an [[ammeter|ammeter]]: a cell gives a current that flows one way only, while the mains supply's current keeps reversing.",
+  "goals": [
+    {
+      "text": "Say what an electric current is, and describe how a metal conducts using its free electrons.",
+      "bullets": [
+        "4.2.2-1",
+        "4.2.2-3"
+      ]
+    },
+    {
+      "text": "Use analogue and digital ammeters: connect them in series, choose a suitable range and read the scale.",
+      "bullets": [
+        "4.2.2-2"
+      ]
+    },
+    {
+      "text": "Tell [[direct-current|direct current]] (d.c.) from [[alternating-current|alternating current]] (a.c.).",
+      "bullets": [
+        "4.2.2-4"
+      ]
+    },
+    {
+      "text": "Define current as charge per unit time, and use $I = \\frac{Q}{t}$.",
+      "bullets": [
+        "4.2.2-5"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "State which way [[conventional-current|conventional current]] and the free electrons flow round a circuit.",
+      "bullets": [
+        "4.2.2-6"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.1",
+    "2.3.1",
+    "3.1",
+    "4.2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "what is electric current",
+    "how to read an ammeter",
+    "choosing an ammeter range",
+    "difference between ac and dc",
+    "I = Q/t charge and current",
+    "conventional current and electron flow"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-electron-charge",
+      "prompt": "What type of charge does an [[electron|electron]] carry?",
+      "hint": "Think about what happens to a rod that gains electrons when it is rubbed.",
+      "options": [
+        {
+          "text": "negative",
+          "correct": true
+        },
+        {
+          "text": "positive",
+          "correct": false
+        },
+        {
+          "text": "no charge",
+          "correct": false
+        }
+      ],
+      "explain": "Electrons are negatively charged. A rod that gains electrons becomes negative. Revise it in {{lesson:4.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "negative"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-good-conductor",
+      "prompt": "Which of these materials is a good [[electrical-conductor|electrical conductor]]?",
+      "hint": "Good conductors are usually metals.",
+      "options": [
+        {
+          "text": "aluminium",
+          "correct": true
+        },
+        {
+          "text": "rubber",
+          "correct": false
+        },
+        {
+          "text": "glass",
+          "correct": false
+        },
+        {
+          "text": "dry wood",
+          "correct": false
+        }
+      ],
+      "explain": "Aluminium is a metal, so it has electrons that are free to move. Rubber, glass and dry wood are insulators. Revise it in {{lesson:4.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "aluminium"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-frequency",
+      "prompt": "A source makes 120 complete vibrations in $3.0\\ \\text{s}$. What is its [[frequency|frequency]]?",
+      "hint": "Frequency is the number of complete vibrations each second.",
+      "options": [
+        {
+          "text": "$40\\ \\text{Hz}$",
+          "correct": true
+        },
+        {
+          "text": "$360\\ \\text{Hz}$",
+          "correct": false
+        },
+        {
+          "text": "$0.025\\ \\text{Hz}$",
+          "correct": false
+        },
+        {
+          "text": "$120\\ \\text{Hz}$",
+          "correct": false
+        }
+      ],
+      "explain": "$\\frac{120}{3.0} = 40$ vibrations each second, so $40\\ \\text{Hz}$. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "120/3.0",
+        "unit": "Hz"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "flow-of-charge",
+      "heading": "Current is a flow of charge",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[electric-current|electric current]] is a flow of [[electric-charge|electric charge]]. Whenever charge moves round a circuit, there is a current. The more charge that flows past a point each second, the bigger the current."
+        },
+        {
+          "type": "text",
+          "text": "Current is measured in amperes (A), often called amps. Small currents are given in milliamperes (mA): $1\\ \\text{mA} = 0.001\\ \\text{A}$."
+        },
+        {
+          "type": "text",
+          "text": "A metal is made of positive ions in fixed positions, with [[free-electron|free electrons]] moving in the gaps between them. A free [[electron|electron]] is not tied to any one atom. The ions can only vibrate where they are."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-2-electrons-in-wire",
+          "alt": "A short piece of metal wire drawn as a long box. Inside are rows of large circles marked plus, the positive ions, in fixed positions. Small circles marked minus, the free electrons, sit in the gaps. An arrow below the wire shows the free electrons drifting along it.",
+          "caption": "Only the free electrons move along the wire. The positive ions stay where they are."
+        },
+        {
+          "type": "text",
+          "text": "Connect the wire to a cell and the free electrons drift along it, all in the same overall direction. This flow of charge is the current."
+        },
+        {
+          "type": "text",
+          "text": "This is why metals are good [[electrical-conductor|electrical conductors]]: they have charges that are free to move. Insulators such as plastic have no free electrons, so charge cannot flow through them."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-metal-conduction",
+          "question": "Describe how a metal wire conducts electricity when it is connected to a battery.",
+          "steps": [
+            "Say what is inside the metal that can move.",
+            "Say what those particles do when the battery is connected.",
+            "Say what the positive ions do, so it is clear which particles carry the charge."
+          ],
+          "answer": "The metal has free electrons that are not tied to any one atom. The battery makes the free electrons drift along the wire. This flow of charge is the current. The positive ions stay in fixed positions and only vibrate.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "free electrons; drift along the wire; flow of charge is the current; ions stay fixed",
+            "requires": [
+              [
+                "free electrons"
+              ],
+              [
+                "drift",
+                "move along",
+                "flow along"
+              ],
+              [
+                "flow of charge"
+              ],
+              [
+                "ions"
+              ],
+              [
+                "fixed",
+                "stay in place"
+              ]
+            ],
+            "forbids": [
+              "protons move",
+              "ions move along",
+              "ions drift"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying that protons or positive ions move along a metal wire. They stay in place; only the free electrons move along the wire."
+        },
+        {
+          "type": "check",
+          "id": "check-ions-in-wire",
+          "prompt": "There is a current in a copper wire. What do the positive ions in the copper do?",
+          "hint": "Which particles in a metal are free to move?",
+          "options": [
+            {
+              "text": "they vibrate about fixed positions",
+              "correct": true
+            },
+            {
+              "text": "they move along the wire towards the negative terminal",
+              "correct": false
+            },
+            {
+              "text": "they move along the wire with the electrons",
+              "correct": false
+            },
+            {
+              "text": "they are used up as the current flows",
+              "correct": false
+            }
+          ],
+          "explain": "The positive ions are held in fixed positions and can only vibrate. The free electrons are the particles that move along the wire.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they vibrate about fixed positions"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-current-unit",
+          "prompt": "Which of these is a unit of electric current?",
+          "hint": "Look for the unit that an ammeter reads.",
+          "options": [
+            {
+              "text": "milliampere",
+              "correct": true
+            },
+            {
+              "text": "volt",
+              "correct": false
+            },
+            {
+              "text": "ohm",
+              "correct": false
+            },
+            {
+              "text": "watt",
+              "correct": false
+            }
+          ],
+          "explain": "Current is measured in amperes, and $1\\ \\text{mA}$ is a thousandth of an ampere. Volts measure p.d., ohms measure resistance and watts measure power.",
+          "verify": {
+            "kind": "choice",
+            "truth": "milliampere"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ammeters",
+      "heading": "Measuring current with an ammeter",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[ammeter|ammeter]] measures current. It is connected in series: break the circuit and put the ammeter in the gap, so the current you want to measure passes through it. Its circuit symbol is a circle with the letter A."
+        },
+        {
+          "type": "text",
+          "text": "An ammeter has a very small resistance, so it hardly changes the current it measures."
+        },
+        {
+          "type": "text",
+          "text": "A digital ammeter shows the current as a number. An analogue ammeter has a pointer that moves over a scale, and you read the value yourself."
+        },
+        {
+          "type": "text",
+          "text": "Most ammeters have several ranges, such as 0–200 mA, 0–2 A and 0–20 A. The range is the largest current the meter can show on that setting. Choose the smallest range that is still bigger than the current you expect: it gives the most precise reading."
+        },
+        {
+          "type": "text",
+          "text": "If you have no idea how big the current is, start on the largest range, then switch down. A current bigger than the range can damage the meter."
+        },
+        {
+          "type": "text",
+          "text": "To read an analogue scale, first work out what one small division is worth. Then count divisions from the labelled mark below the pointer. If the pointer is between two marks, read to the nearest half division."
+        },
+        {
+          "type": "text",
+          "text": "Look straight at the pointer, not from one side, to avoid a parallax error. Before you switch on, check that the pointer starts at zero."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-2-analogue-ammeter",
+          "alt": "The scale of an analogue ammeter, marked A. The scale runs from 0 to 1.0 with labels at 0, 0.2, 0.4, 0.6, 0.8 and 1.0, and four small divisions between each pair of labels. The pointer lies on the third small mark after 0.6.",
+          "caption": "An analogue ammeter on its 0–1.0 A range."
+        },
+        {
+          "type": "example",
+          "id": "ex-read-analogue",
+          "question": "The analogue ammeter in the figure is on its 0–1.0 A range. State the current it shows.",
+          "steps": [
+            "Between two labelled marks, such as $0.6$ and $0.8$, the scale goes up by $0.2\\ \\text{A}$.",
+            "There are 4 small divisions in that gap, so one division is $\\frac{0.2}{4} = 0.05\\ \\text{A}$.",
+            "The pointer is 3 divisions past $0.6$: $0.6 + 3 \\times 0.05 = 0.75\\ \\text{A}$."
+          ],
+          "answer": "$I = 0.75\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.6 + 3*(0.8 - 0.6)/4",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-choose-range",
+          "question": "A student expects the current in a small motor to be about $0.4\\ \\text{A}$. Her digital ammeter has three ranges: 0–200 mA, 0–2 A and 0–20 A. Which range should she use? Explain your choice.",
+          "steps": [
+            "Put the expected current in the same unit as the smallest range: $0.4\\ \\text{A} = 400\\ \\text{mA}$.",
+            "Rule out any range smaller than the expected current.",
+            "Of the ranges left, pick the smallest, because it shows more decimal places."
+          ],
+          "answer": "She should use the 0–2 A range. The current of about $400\\ \\text{mA}$ is bigger than $200\\ \\text{mA}$, so the 0–200 mA range is too small and would overload the meter. The 0–20 A range would work, but it shows fewer decimal places, so the reading would be less precise.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "0-2 A range; 0-200 mA too small (400 mA > 200 mA); 0-20 A less precise",
+            "requires": [
+              [
+                "0–2 A"
+              ],
+              [
+                "too small",
+                "overload"
+              ],
+              [
+                "less precise",
+                "fewer decimal places"
+              ]
+            ],
+            "forbids": [
+              "use the 0–200 mA range",
+              "use the 0–20 A range"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading an analogue scale as if each small division were $0.1$. Work out what one division is worth before you count."
+        },
+        {
+          "type": "check",
+          "id": "check-ammeter-series",
+          "prompt": "Which meter measures the current in a lamp, and how is it connected?",
+          "hint": "The current has to pass through the meter.",
+          "options": [
+            {
+              "text": "an ammeter, in series with the lamp",
+              "correct": true
+            },
+            {
+              "text": "an ammeter, in parallel with the lamp",
+              "correct": false
+            },
+            {
+              "text": "a voltmeter, in series with the lamp",
+              "correct": false
+            },
+            {
+              "text": "a voltmeter, in parallel with the lamp",
+              "correct": false
+            }
+          ],
+          "explain": "An ammeter measures current, and it goes in series so the lamp's current flows through it. A voltmeter measures p.d., not current.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an ammeter, in series with the lamp"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ma-to-a",
+          "prompt": "A digital ammeter on its 0–200 mA range shows 36.5. What is the current in amperes?",
+          "hint": "The display is in mA, and $1\\ \\text{mA} = 0.001\\ \\text{A}$.",
+          "options": [
+            {
+              "text": "$0.0365\\ \\text{A}$",
+              "correct": true
+            },
+            {
+              "text": "$36.5\\ \\text{A}$",
+              "correct": false
+            },
+            {
+              "text": "$0.365\\ \\text{A}$",
+              "correct": false
+            },
+            {
+              "text": "$3.65\\ \\text{A}$",
+              "correct": false
+            }
+          ],
+          "explain": "The reading is $36.5\\ \\text{mA}$. Divide by 1000: $36.5 \\div 1000 = 0.0365\\ \\text{A}$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "36.5/1000",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: record each ammeter reading with its unit and to the precision the meter shows, for example $0.75\\ \\text{A}$ from the scale above, not $0.8\\ \\text{A}$."
+        }
+      ]
+    },
+    {
+      "id": "dc-and-ac",
+      "heading": "Direct and alternating current",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "With [[direct-current|direct current]] (d.c.), charge flows round the circuit in one direction only. Cells, batteries and solar cells give d.c."
+        },
+        {
+          "type": "text",
+          "text": "With [[alternating-current|alternating current]] (a.c.), the current keeps reversing: it flows one way, then the other way, many times each second. The mains supply in homes is a.c."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-2-dc-ac-graphs",
+          "alt": "Three graphs of current against time. First, steady d.c.: a horizontal line above the time axis. Second, varying d.c.: a wavy line that rises and falls but always stays above the time axis. Third, a.c.: a smooth wave that goes above the time axis, then below it, again and again.",
+          "caption": "Above the time axis is one direction and below it is the other. Only the a.c. graph crosses the axis."
+        },
+        {
+          "type": "text",
+          "text": "What decides d.c. or a.c. is the direction, not the size. A current that rises and falls but never reverses is still d.c."
+        },
+        {
+          "type": "text",
+          "text": "The [[frequency|frequency]] of an a.c. supply is the number of complete cycles each second, in hertz (Hz). In one cycle the current flows one way, then back the other way. Mains supplies are 50 Hz in many countries and 60 Hz in some."
+        },
+        {
+          "type": "example",
+          "id": "ex-dc-or-ac",
+          "question": "A graph of the current from a power supply against time shows the current rising and falling between $0.3\\ \\text{A}$ and $0.7\\ \\text{A}$. State whether this is d.c. or a.c. Explain your answer.",
+          "steps": [
+            "Look at the sign of the current: it stays above zero the whole time.",
+            "So the current never reverses, even though its size changes.",
+            "Only a change of direction makes a current a.c."
+          ],
+          "answer": "It is d.c. The current changes in size, but it never goes below zero. So it always flows in the same direction. A current is a.c. only if its direction keeps reversing.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "d.c.; size changes but never reverses; a.c. needs reversal of direction",
+            "requires": [
+              [
+                "d.c.",
+                "direct current"
+              ],
+              [
+                "same direction",
+                "one direction"
+              ],
+              [
+                "never"
+              ],
+              [
+                "reversing",
+                "reverses",
+                "changes direction"
+              ]
+            ],
+            "forbids": [
+              "it is a.c."
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-which-ac",
+          "prompt": "Which of these supplies gives an alternating current?",
+          "hint": "Which one keeps reversing the direction of the current?",
+          "options": [
+            {
+              "text": "the mains supply in a house",
+              "correct": true
+            },
+            {
+              "text": "a torch battery",
+              "correct": false
+            },
+            {
+              "text": "a car battery",
+              "correct": false
+            },
+            {
+              "text": "a solar cell",
+              "correct": false
+            }
+          ],
+          "explain": "The mains supply is a.c. Batteries, cells and solar cells all give d.c., which flows in one direction only.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the mains supply in a house"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mains-frequency",
+          "prompt": "A mains supply has a frequency of 60 Hz. What does this tell you?",
+          "hint": "Frequency counts complete cycles each second.",
+          "options": [
+            {
+              "text": "the current goes through 60 complete cycles each second",
+              "correct": true
+            },
+            {
+              "text": "the current reverses once every 60 seconds",
+              "correct": false
+            },
+            {
+              "text": "the current is 60 A",
+              "correct": false
+            },
+            {
+              "text": "the supply is switched off 60 times each second",
+              "correct": false
+            }
+          ],
+          "explain": "Frequency is the number of complete cycles each second. At 60 Hz the current goes one way and back again 60 times every second.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the current goes through 60 complete cycles each second"
+          }
+        }
+      ]
+    },
+    {
+      "id": "charge-per-second",
+      "heading": "Current as charge per second, and its direction",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "definition",
+          "term": "electric current",
+          "statement": "[[electric-current|Electric current]] is the charge that passes a point in a circuit per unit time.",
+          "plain": "How much charge goes past a point each second."
+        },
+        {
+          "type": "formula",
+          "tex": "I = \\frac{Q}{t}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $I$ is the current in amperes (A), $Q$ is the charge in [[coulomb|coulombs]] (C) and $t$ is the time in seconds (s). So $1\\ \\text{A}$ is a flow of $1\\ \\text{C}$ each second."
+        },
+        {
+          "type": "text",
+          "text": "Rearranged, $Q = It$ and $t = \\frac{Q}{I}$. Convert minutes and hours to seconds, and mA to A, before you substitute."
+        },
+        {
+          "type": "example",
+          "id": "ex-current-from-charge",
+          "question": "A charge of $84\\ \\text{C}$ flows through a kettle's heating element in $12\\ \\text{s}$. Calculate the current in the element.",
+          "steps": [
+            "Write the equation: $I = \\frac{Q}{t}$.",
+            "Substitute: $I = \\frac{84}{12}$.",
+            "$I = 7.0\\ \\text{A}$"
+          ],
+          "answer": "$I = 7.0\\ \\text{A}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "84/12",
+            "unit": "A"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-charge-from-current",
+          "question": "A lamp carries a current of $250\\ \\text{mA}$ for $4.0$ minutes. Calculate the charge that passes through the lamp.",
+          "steps": [
+            "Convert to amperes and seconds: $250\\ \\text{mA} = 0.25\\ \\text{A}$ and $4.0 \\times 60 = 240\\ \\text{s}$.",
+            "Rearrange $I = \\frac{Q}{t}$ to $Q = It$.",
+            "$Q = 0.25 \\times 240 = 60\\ \\text{C}$"
+          ],
+          "answer": "$Q = 60\\ \\text{C}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(250/1000)*(4.0*60)",
+            "unit": "C"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting minutes or milliamperes straight into $I = \\frac{Q}{t}$. Convert to seconds and amperes first."
+        },
+        {
+          "type": "check",
+          "id": "check-time-from-charge",
+          "prompt": "A current of $2.5\\ \\text{A}$ flows in a circuit. How long does it take for $150\\ \\text{C}$ of charge to pass a point?",
+          "hint": "Rearrange $I = \\frac{Q}{t}$ to make $t$ the subject.",
+          "options": [
+            {
+              "text": "$60\\ \\text{s}$",
+              "correct": true
+            },
+            {
+              "text": "$375\\ \\text{s}$",
+              "correct": false
+            },
+            {
+              "text": "$0.017\\ \\text{s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$t = \\frac{Q}{I} = \\frac{150}{2.5} = 60\\ \\text{s}$. Multiplying gives $375$, and $\\frac{2.5}{150}$ gives $0.017$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "150/2.5",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-charge-numeric",
+          "prompt": "A current of $1.6\\ \\text{A}$ flows for $45\\ \\text{s}$. How much charge passes, in C?",
+          "hint": "Use $Q = It$.",
+          "answer": {
+            "value": 72,
+            "tolerance": 0
+          },
+          "explain": "$Q = It = 1.6 \\times 45 = 72\\ \\text{C}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "1.6*45",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "text": "Scientists chose a direction for current before electrons were discovered. They took current to leave the supply at its + terminal, go round the circuit and return to the − terminal. This is [[conventional-current|conventional current]], and circuit diagrams still use it."
+        },
+        {
+          "type": "figure",
+          "id": "4-2-2-current-directions",
+          "alt": "A cell and a lamp joined in a single loop. The cell's positive terminal is on the left and its negative terminal on the right. Arrows outside the loop, labelled conventional current, go anticlockwise from the positive terminal round through the lamp to the negative terminal. Arrows inside the loop, labelled electron flow, go the opposite way, clockwise, from the negative terminal round to the positive terminal.",
+          "caption": "Round the circuit outside the cell, conventional current flows from + to −. The free electrons flow the other way."
+        },
+        {
+          "type": "result",
+          "statement": "Round the circuit outside the supply, conventional current goes from + to −. The free electrons flow the opposite way, from − to +.",
+          "why": "Electrons are negative, so they are pulled towards the positive terminal. Negative charge moving one way counts as a current in the other direction."
+        },
+        {
+          "type": "check",
+          "id": "check-electron-direction",
+          "prompt": "A cell is connected to a resistor. Which way do the free electrons flow through the resistor?",
+          "hint": "Electrons are negative. Which terminal attracts them?",
+          "options": [
+            {
+              "text": "from the end joined to the negative terminal to the end joined to the positive terminal",
+              "correct": true
+            },
+            {
+              "text": "from the end joined to the positive terminal to the end joined to the negative terminal",
+              "correct": false
+            },
+            {
+              "text": "back and forth, with no overall direction",
+              "correct": false
+            },
+            {
+              "text": "the same way as the conventional current",
+              "correct": false
+            }
+          ],
+          "explain": "Electrons are negative, so they flow towards the positive terminal. That is the opposite way to conventional current, which flows from + to −.",
+          "verify": {
+            "kind": "choice",
+            "truth": "from the end joined to the negative terminal to the end joined to the positive terminal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Electric current is a flow of charge, measured in amperes (A). $1\\ \\text{mA} = 0.001\\ \\text{A}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "In a metal, the current is free electrons drifting along the wire. The positive ions stay in place and only vibrate."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "An ammeter measures current and is connected in series. Choose the smallest range bigger than the expected current; if you can't estimate it, start on the largest range."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "d.c. flows in one direction only (cells, batteries). a.c. keeps reversing direction (mains supply). A current that changes size but never reverses is still d.c."
+        },
+        {
+          "type": "formula",
+          "tex": "I = \\frac{Q}{t}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Current is the charge that passes a point each second. Round the circuit outside the supply, conventional current flows from + to −, and free electrons flow from − to +."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Saying that protons or positive ions carry the current along a metal. The ions keep their places; only the free electrons move along.",
+    "Using a voltmeter to measure current, or connecting the ammeter in parallel. An ammeter measures current and goes in series.",
+    "Reading an analogue scale without working out what one small division is worth, or reading it from the side. Find the division value first and look straight at the pointer.",
+    "Calling a current a.c. just because its size changes. It is a.c. only if its direction keeps reversing.",
+    "Extended: putting minutes or milliamperes straight into $I = \\frac{Q}{t}$. Convert to seconds and amperes first.",
+    "Extended: drawing the electron flow the same way as conventional current. Electrons flow from − to +, the opposite way."
+  ],
+  "examTips": [
+    "\"Describe\" how a metal conducts: name the free electrons, say they drift along the wire, and say the positive ions stay in fixed positions.",
+    "\"State\" which meter measures current and how it is connected: an ammeter, in series. Naming a voltmeter, or putting the ammeter in parallel, is wrong.",
+    "\"Define\" current (Extended): the charge that passes a point per unit time. The equation $I = \\frac{Q}{t}$ alone counts only if you say what $I$, $Q$ and $t$ stand for.",
+    "\"Calculate\" with $I = \\frac{Q}{t}$ (Extended): write the equation, substitute in coulombs and seconds, then give the answer with its unit."
+  ],
+  "readingMinutes": 21
+}

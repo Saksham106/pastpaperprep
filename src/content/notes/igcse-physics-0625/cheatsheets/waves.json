@@ -1,0 +1,59 @@
+{
+  "lines": [
+    {
+      "text": "'Calculate the speed, frequency or wavelength of a wave' → $v = f\\lambda$, rearranged, after converting cm to m and kHz or MHz to Hz; frequency from a count is waves passing ÷ time in s; across $n$ neighbouring wavefronts, $\\lambda$ = measured span ÷ $(n - 1)$ ({{lesson:3.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Waves pass into shallow water' or 'light enters glass': what changes? → the frequency stays the same, because the source sets it; the speed and the wavelength both fall; the direction changes only if the waves meet the boundary at an angle ({{lesson:3.1}}, {{lesson:3.2.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Which change makes the waves spread out more beyond the gap?' → compare the gap with the wavelength: spreading is greatest when the gap is about one wavelength wide; for a gap wider than the wavelength, a narrower gap or a longer wavelength gives more spreading; amplitude has no effect ({{lesson:3.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Plane-mirror angles and distances → measure angles from the normal, so a ray at $x^\\circ$ to the mirror has $i = 90^\\circ - x$, then $r = i$; the image is as far behind the mirror as the object is in front, so object to image is twice object to mirror ({{lesson:3.2.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Construct the image' or 'draw the ray that reaches the eye' for a plane mirror → rule a line from the object at $90^\\circ$ to the mirror and mark the image the same distance behind; join image to eye, and the ray reflects where that line crosses the mirror ({{lesson:3.2.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Does the ray leave the glass or reflect back?' → total internal reflection only if the light is heading into a material where it is faster (glass or water into air) and its angle of incidence is greater than the critical angle; below the critical angle most of it refracts out, bending away from the normal ({{lesson:3.2.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Calculate the refractive index or the critical angle' → $n = \\dfrac{\\sin i}{\\sin r}$ with $i$ in air and both angles from the normal, or $n$ = speed in air ÷ speed in the material; then $\\sin c = \\dfrac{1}{n}$ for light going from the material into air ({{lesson:3.2.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Find the position and size of the image' for an object further from a converging lens than F → scale ray diagram: from the object's tip, a ray parallel to the axis bends through F on the far side, and a ray through the centre goes straight on; the image tip is where they cross; convert back with the scale ({{lesson:3.2.3}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Object closer to a converging lens than F' or 'how is the lens used as a magnifying glass?' → draw the same two rays, then extend them backwards as dashed lines; they cross on the object's side at a virtual, upright, enlarged image ({{lesson:3.2.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Find the wavelength or frequency of an electromagnetic wave' with no speed given → recall $3.0 \\times 10^8\\ \\text{m/s}$ in a vacuum or air, then $v = f\\lambda$; dividing by $10^{-7}$ is multiplying by $10^{7}$ ({{lesson:3.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Calculate the speed of sound' or 'how far away is the cliff?' → $v = \\dfrac{s}{t}$, timing over a large distance and averaging repeats; an echo goes to the surface and back, so with the source and listener together, distance to the surface = speed × time from sound to echo ÷ 2 ({{lesson:3.4}})",
+      "tag": "learn",
+      "level": "Core"
+    }
+  ]
+}

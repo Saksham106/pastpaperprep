@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260" role="img" aria-labelledby="t13bal">
+<title id="t13bal">A beam balance. An upright stand holds a pivot at its top, and a horizontal beam rests on the pivot at its centre. A pan hangs from each end of the beam. The left pan holds a stone, the object being measured. The right pan holds a stack of standard masses. The beam is level. An arrow points down from each pan: the weight of the object on the left and the weight of the standard masses on the right. The two arrows are the same length.</title>
+<rect x="190" y="236" width="60" height="10" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<path d="M220 236 V84" stroke="currentColor" stroke-width="3"/>
+<polygon points="220,70 211,84 229,84" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M100 70 H340" stroke="currentColor" stroke-width="3"/>
+<text font-family="inherit" font-size="11" x="220" y="56" fill="var(--muted)" text-anchor="middle">beam is level</text>
+<text font-family="inherit" font-size="12" x="234" y="100" fill="currentColor" text-anchor="start">pivot</text>
+<path d="M110 70 L80 150 M110 70 L140 150" stroke="currentColor" stroke-width="1.2"/>
+<path d="M75 150 H145 Q110 172 75 150 Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<path d="M90 150 Q92 128 112 126 Q132 128 130 150 Z" fill="var(--t3-ink)" fill-opacity="0.3" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="12" x="70" y="140" fill="currentColor" text-anchor="end">object</text>
+<path d="M330 70 L300 150 M330 70 L360 150" stroke="currentColor" stroke-width="1.2"/>
+<path d="M295 150 H365 Q330 172 295 150 Z" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="313" y="138" width="34" height="12" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.2"/>
+<rect x="317" y="126" width="26" height="12" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.2"/>
+<rect x="321" y="116" width="18" height="10" fill="var(--t4-ink)" fill-opacity="0.25" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="12" x="372" y="140" fill="currentColor" text-anchor="start">standard masses</text>
+<path d="M110 166 L110 205" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="110,214 105.5,205 114.5,205" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="110" y="232" fill="var(--t1-ink)" text-anchor="middle">weight of object</text>
+<path d="M330 166 L330 205" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="330,214 325.5,205 334.5,205" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="12" x="330" y="232" fill="var(--t1-ink)" text-anchor="middle">weight of masses</text>
+</svg>

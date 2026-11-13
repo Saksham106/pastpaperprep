@@ -1,0 +1,44 @@
+[
+  {
+    "id": "variable-resistor",
+    "term": "variable resistor",
+    "definition": "A resistor whose resistance can be changed, often with a sliding contact, to control the current in a circuit; with the supply p.d. unchanged, more resistance gives a smaller current.",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "thermistor",
+    "term": "thermistor",
+    "definition": "A resistor whose resistance changes with temperature; for the NTC thermistor in this course, the resistance falls as the temperature rises.",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "light-dependent-resistor",
+    "term": "light-dependent resistor",
+    "definition": "A resistor (LDR) whose resistance changes with light: its resistance falls as the light falling on it gets brighter, and is high in the dark.",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "relay",
+    "term": "relay",
+    "definition": "A switch worked by an electromagnet: a small current in the relay's coil magnetises it, and the coil closes (or opens) a switch in a second circuit that can carry a large current.",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "fuse",
+    "term": "fuse",
+    "definition": "A safety device with a thin wire that melts when the current rises above the fuse's rating, breaking the circuit before the wires overheat.",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "potential-divider",
+    "term": "potential divider",
+    "definition": "Resistors (or a resistor with a sliding contact) in series across a supply, which share the supply p.d. so that a smaller p.d. can be taken from part of it.",
+    "lesson": "4.3.1"
+  },
+  {
+    "id": "light-emitting-diode",
+    "term": "light-emitting diode",
+    "definition": "A diode (LED) that gives out light when a current passes through it in the forward direction; in reverse almost no current flows and it stays dark.",
+    "lesson": "4.3.1"
+  }
+]

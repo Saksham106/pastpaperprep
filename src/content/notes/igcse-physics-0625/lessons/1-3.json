@@ -1,0 +1,604 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.3",
+  "slug": "mass-and-weight",
+  "title": "Mass and weight",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[mass|Mass]] is how much matter an object contains, in kilograms. [[weight|Weight]] is the pull of gravity on that mass: a force, in newtons. The [[gravitational-field-strength|gravitational field strength]] $g$ links them: near the Earth, every kilogram weighs about $9.8\\ \\text{N}$. Extended adds why weight changes from place to place while mass doesn't.",
+  "goals": [
+    {
+      "text": "State what mass and weight are, and give the unit of each.",
+      "bullets": [
+        "1.3-1",
+        "1.3-2"
+      ]
+    },
+    {
+      "text": "Define gravitational field strength, use $g = \\frac{W}{m}$ to find a weight or a mass, and know that $g$ is the [[acceleration-of-free-fall|acceleration of free fall]].",
+      "bullets": [
+        "1.3-3"
+      ]
+    },
+    {
+      "text": "Explain how a balance compares weights, and so masses.",
+      "bullets": [
+        "1.3-4"
+      ]
+    },
+    {
+      "text": "Describe weight as a gravitational field pulling on a mass, and use this to work out weights in places where $g$ is different.",
+      "bullets": [
+        "1.3-5"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "difference between mass and weight",
+    "W = mg",
+    "gravitational field strength g",
+    "weight in newtons",
+    "mass and weight on the moon",
+    "beam balance"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-free-fall-mass",
+      "prompt": "Two balls of different mass are dropped side by side near the Earth's surface, with no air resistance. How does the heavier ball's acceleration compare with the lighter one's?",
+      "hint": "Near the Earth's surface, the acceleration of free fall is about $9.8\\ \\text{m/s}^2$ for every object.",
+      "options": [
+        {
+          "text": "it is the same",
+          "correct": true
+        },
+        {
+          "text": "it is larger",
+          "correct": false
+        },
+        {
+          "text": "it is smaller",
+          "correct": false
+        }
+      ],
+      "explain": "With no air resistance, every object falls with the same acceleration, about $9.8\\ \\text{m/s}^2$, whatever its mass. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it is the same"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-average-speed",
+      "prompt": "A dropped ball falls $1.8\\ \\text{m}$ in $0.60\\ \\text{s}$. What is its average [[speed|speed]], in m/s?",
+      "hint": "Average speed is total distance divided by total time.",
+      "answer": {
+        "value": 3,
+        "tolerance": 0.05
+      },
+      "explain": "$v = \\frac{s}{t} = \\frac{1.8}{0.60} = 3.0\\ \\text{m/s}$. Revise it in {{lesson:1.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "1.8/0.60",
+        "sf": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "mass-and-weight",
+      "heading": "Mass and weight are different",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In everyday speech, \"weight\" often means mass: a shop sells \"1 kg of rice\". In physics they are two different quantities, with different units."
+        },
+        {
+          "type": "definition",
+          "term": "mass",
+          "statement": "The [[mass|mass]] of an object measures the quantity of matter it contains. Its unit is the kilogram (kg).",
+          "plain": "How much stuff the object is made of."
+        },
+        {
+          "type": "text",
+          "text": "Mass changes only if matter is added or taken away. Squash, bend or move an object, and its mass stays the same. Strictly, mass is measured with the object at rest relative to the observer (not moving compared with whoever measures it). At everyday speeds, this makes no difference."
+        },
+        {
+          "type": "definition",
+          "term": "weight",
+          "statement": "The [[weight|weight]] of an object is the gravitational force that acts on it because it has mass. Like every force, it is measured in newtons (N).",
+          "plain": "The pull of gravity on the object."
+        },
+        {
+          "type": "text",
+          "text": "Near the Earth, weight pulls downwards, towards the centre of the Earth. A force meter (newton meter) measures weight; a balance measures mass."
+        },
+        {
+          "type": "example",
+          "id": "ex-rice-sack-explain",
+          "question": "A shopkeeper says a sack of rice \"weighs 5 kg\". Explain why a physicist would call 5 kg the sack's mass, and say what its weight is.",
+          "steps": [
+            "Say what mass measures and which unit goes with it.",
+            "Say what weight is, and which unit goes with it."
+          ],
+          "answer": "Kilograms are the unit of mass, so 5 kg is the sack's mass. Mass is the quantity of matter in the sack. Weight is the gravitational force on the sack. Weight is a force, so it is measured in newtons, not kilograms.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "kg is the unit of mass; mass is the quantity of matter; weight is the gravitational force on the sack; weight is in newtons",
+            "requires": [
+              [
+                "unit of mass",
+                "kilograms are"
+              ],
+              [
+                "quantity of matter"
+              ],
+              [
+                "gravitational force"
+              ],
+              [
+                "newtons"
+              ]
+            ],
+            "forbids": [
+              "weight is measured in kilograms",
+              "weight is the mass"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling mass \"how big it is\" or weight \"how heavy it is\". Mass is the quantity of matter; weight is a gravitational force."
+        },
+        {
+          "type": "check",
+          "id": "check-describes-weight",
+          "prompt": "Which of these describes the weight of a bicycle?",
+          "hint": "Weight is a force. Which unit do forces have?",
+          "options": [
+            {
+              "text": "the gravitational force on it, in newtons",
+              "correct": true
+            },
+            {
+              "text": "the quantity of matter in it, in kilograms",
+              "correct": false
+            },
+            {
+              "text": "the space it takes up, in cubic metres",
+              "correct": false
+            },
+            {
+              "text": "how fast it falls, in metres per second",
+              "correct": false
+            }
+          ],
+          "explain": "Weight is the gravitational force on the bicycle, in N. The quantity of matter, in kg, is its mass.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the gravitational force on it, in newtons"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-squashed-clay",
+          "prompt": "A ball of modelling clay is squashed into a flat pancake. What happens to its mass?",
+          "hint": "Has any clay been added or taken away?",
+          "options": [
+            {
+              "text": "it stays the same",
+              "correct": true
+            },
+            {
+              "text": "it increases",
+              "correct": false
+            },
+            {
+              "text": "it decreases",
+              "correct": false
+            }
+          ],
+          "explain": "No matter is added or removed, so the mass stays the same. Only the shape has changed.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it stays the same"
+          }
+        }
+      ]
+    },
+    {
+      "id": "field-strength",
+      "heading": "Gravitational field strength",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Near its surface, the Earth pulls on every kilogram with about the same force: $9.8\\ \\text{N}$. This force on each kilogram is the gravitational field strength."
+        },
+        {
+          "type": "definition",
+          "term": "gravitational field strength",
+          "statement": "[[gravitational-field-strength|Gravitational field strength]], $g$, means force per unit mass: the pull of gravity on each kilogram. Its unit is the newton per kilogram (N/kg).",
+          "plain": "How many newtons of pull each kilogram gets."
+        },
+        {
+          "type": "formula",
+          "tex": "g = \\frac{W}{m}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$W$ is the weight in N, $m$ is the mass in kg and $g$ is in N/kg. Rearrange it to find a weight, $W = mg$, or a mass, $m = \\frac{W}{g}$. Near the Earth's surface, $g = 9.8\\ \\text{N/kg}$; the papers give this value."
+        },
+        {
+          "type": "text",
+          "text": "Gravitational field strength is the same as the [[acceleration-of-free-fall|acceleration of free fall]] from {{lesson:1.2}}. Near the Earth, $9.8\\ \\text{N/kg}$ and $9.8\\ \\text{m/s}^2$ are the same value in equivalent units."
+        },
+        {
+          "type": "example",
+          "id": "ex-watermelon-weight",
+          "question": "A watermelon has a mass of $3.2\\ \\text{kg}$. Calculate its weight. Take $g = 9.8\\ \\text{N/kg}$.",
+          "steps": [
+            "Write the equation: $g = \\frac{W}{m}$, so $W = mg$.",
+            "Substitute: $W = 3.2 \\times 9.8 = 31.36\\ \\text{N}$.",
+            "The data have 2 significant figures, so give 2."
+          ],
+          "answer": "$W \\approx 31\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "3.2*g",
+            "sf": 2,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-potatoes-mass",
+          "question": "A bag of potatoes hangs from a force meter, which reads $24.5\\ \\text{N}$. Calculate the mass of the potatoes. Take $g = 9.8\\ \\text{N/kg}$.",
+          "steps": [
+            "The force meter measures the weight: $W = 24.5\\ \\text{N}$.",
+            "Rearrange $g = \\frac{W}{m}$ for the mass: $m = \\frac{W}{g}$.",
+            "Substitute: $m = \\frac{24.5}{9.8} = 2.5\\ \\text{kg}$.",
+            "Check by multiplying back: $2.5 \\times 9.8 = 24.5\\ \\text{N}$."
+          ],
+          "answer": "$m = 2.5\\ \\text{kg}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "24.5/g",
+            "unit": "kg"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying by $g$ when the question asks for a mass. To go from newtons to kilograms, divide: $m = \\frac{W}{g}$."
+        },
+        {
+          "type": "check",
+          "id": "check-apple-weight",
+          "prompt": "An apple has a mass of $150\\ \\text{g}$. What is its weight, in N? Use $g = 9.8\\ \\text{N/kg}$ and give 2 significant figures.",
+          "hint": "Change the mass to kilograms first.",
+          "answer": {
+            "value": 1.5,
+            "tolerance": 0.05
+          },
+          "explain": "$m = 150\\ \\text{g} = 0.150\\ \\text{kg}$, so $W = 0.150 \\times 9.8 = 1.47 \\approx 1.5\\ \\text{N}$. Using $150$ as the mass gives $1470\\ \\text{N}$, far too big for an apple.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "0.150*g",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-same-as-g",
+          "prompt": "Near the Earth's surface, gravitational field strength is $9.8\\ \\text{N/kg}$. Which quantity has the same value, in equivalent units?",
+          "hint": "Which quantity about falling objects is $9.8\\ \\text{m/s}^2$?",
+          "options": [
+            {
+              "text": "the acceleration of free fall",
+              "correct": true
+            },
+            {
+              "text": "the weight of any object",
+              "correct": false
+            },
+            {
+              "text": "the mass of any object",
+              "correct": false
+            },
+            {
+              "text": "the speed of any falling object",
+              "correct": false
+            }
+          ],
+          "explain": "$g$ is both the force on each kilogram, $9.8\\ \\text{N/kg}$, and the acceleration of free fall, $9.8\\ \\text{m/s}^2$. Weight and mass depend on the object, so they have no single value.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the acceleration of free fall"
+          }
+        }
+      ]
+    },
+    {
+      "id": "balances",
+      "heading": "Comparing weights and masses with a balance",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A beam balance is a beam resting on a pivot at its centre, with a pan hanging from each end. Put the object in one pan. Add standard masses to the other pan until the beam is level."
+        },
+        {
+          "type": "figure",
+          "id": "1-3-beam-balance",
+          "alt": "A beam balance. An upright stand holds a pivot, and a horizontal beam rests on the pivot at its centre. A pan hangs from each end of the beam. The left pan holds a stone, the object being measured, and the right pan holds a stack of standard masses. The beam is level. An arrow points down from each pan, labelled weight of object and weight of masses. The two arrows are the same length.",
+          "caption": "A beam balance is level when the weights in its two pans are equal."
+        },
+        {
+          "type": "text",
+          "text": "The beam is level when the two pans pull down with equal weights. Both pans are in the same place, so $g$ is the same for each. Since $W = mg$, equal weights mean equal masses. So a balance compares weights, and the masses with them."
+        },
+        {
+          "type": "text",
+          "text": "An electronic top-pan balance measures how hard the object pushes down on the pan, but it is set to show mass, in g or kg. A force meter shows the weight, in N."
+        },
+        {
+          "type": "example",
+          "id": "ex-stone-balance-explain",
+          "question": "A student puts a stone in one pan of a beam balance. She adds standard masses to the other pan until the beam is level. The standard masses add up to $340\\ \\text{g}$. Explain why the mass of the stone is $340\\ \\text{g}$.",
+          "steps": [
+            "Say what a level beam tells you about the two weights.",
+            "Link equal weights to equal masses, and give the reason."
+          ],
+          "answer": "The beam is level, so the weight of the stone equals the weight of the standard masses. Both pans are in the same gravitational field, so $g$ is the same for each. Weight is mass times $g$, so equal weights mean equal masses. So the stone's mass is $340\\ \\text{g}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "level beam means equal weights; same g for both pans; so equal masses",
+            "requires": [
+              [
+                "weight of the stone equals",
+                "weights are equal"
+              ],
+              [
+                "same gravitational field",
+                "g is the same"
+              ],
+              [
+                "equal masses"
+              ]
+            ],
+            "forbids": [
+              "the mass is a force",
+              "weight is measured in grams"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: check a top-pan balance reads zero with nothing on it, or press \"tare\" with the empty container on the pan. Record the reading with its unit, such as $86.4\\ \\text{g}$."
+        },
+        {
+          "type": "check",
+          "id": "check-reads-newtons",
+          "prompt": "Which instrument shows a weight directly in newtons?",
+          "hint": "Weight is a force.",
+          "options": [
+            {
+              "text": "a force meter",
+              "correct": true
+            },
+            {
+              "text": "a top-pan balance",
+              "correct": false
+            },
+            {
+              "text": "a metre rule",
+              "correct": false
+            },
+            {
+              "text": "a measuring cylinder",
+              "correct": false
+            }
+          ],
+          "explain": "A force meter (newton meter) measures forces, so it reads weight in N. A top-pan balance is set to show mass, in g or kg.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a force meter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "weight-and-field",
+      "heading": "Weight comes from a gravitational field",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A gravitational field is a region where a mass feels a force. Every planet, moon and star has one around it. Weight is what that field does to an object's mass: it pulls on it."
+        },
+        {
+          "type": "text",
+          "text": "So weight depends on two things: the mass and the field strength, $W = mg$. Take an object to a place where $g$ is different, and its weight changes. Its mass stays the same, because no matter is added or removed."
+        },
+        {
+          "type": "text",
+          "text": "$g$ is about $1.6\\ \\text{N/kg}$ on the Moon and about $3.7\\ \\text{N/kg}$ on Mars. It also gets smaller further from the Earth. Far out in space, a long way from any planet or star, $g$ is almost zero: an object there has almost no weight, but all of its mass."
+        },
+        {
+          "type": "example",
+          "id": "ex-rover-mars",
+          "question": "A rover has a mass of $180\\ \\text{kg}$ on Earth. Calculate its weight on Mars, where $g = 3.71\\ \\text{N/kg}$.",
+          "steps": [
+            "Mass doesn't depend on place, so on Mars $m = 180\\ \\text{kg}$ still.",
+            "$W = mg = 180 \\times 3.71 = 667.8\\ \\text{N}$.",
+            "Give 3 significant figures, as the data have.",
+            "On Earth it weighs $180 \\times 9.8 \\approx 1800\\ \\text{N}$: the weight changes with $g$, the mass doesn't."
+          ],
+          "answer": "$W \\approx 668\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "180*3.71",
+            "sf": 3,
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-probe-explain",
+          "question": "A space probe travels from the Earth to a point far out in space, a long way from any planet or star. Explain what happens to its mass and to its weight.",
+          "steps": [
+            "Mass: has any matter been added or removed?",
+            "Weight: what causes it, and how strong is that cause far out in space?"
+          ],
+          "answer": "Its mass stays the same, because no matter is added to the probe or removed from it. Weight is the effect of a gravitational field pulling on the probe's mass. Far from any planet or star, the gravitational field strength is almost zero. So the probe's weight decreases to almost zero.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "mass unchanged (no matter added or removed); weight is a gravitational field acting on mass; field strength almost zero far away; weight decreases to almost zero",
+            "requires": [
+              [
+                "mass stays the same",
+                "mass does not change"
+              ],
+              [
+                "no matter"
+              ],
+              [
+                "gravitational field"
+              ],
+              [
+                "almost zero",
+                "very small"
+              ],
+              [
+                "weight decreases"
+              ]
+            ],
+            "forbids": [
+              "mass decreases",
+              "has no mass"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying an astronaut's mass is smaller on the Moon. The quantity of matter is the same; only the weight is smaller, because $g$ is smaller there."
+        },
+        {
+          "type": "check",
+          "id": "check-kit-moon",
+          "prompt": "A box of tools weighs $72\\ \\text{N}$ on Earth, where $g = 9.8\\ \\text{N/kg}$. What does it weigh on the Moon, where $g = 1.6\\ \\text{N/kg}$? Give your answer in N to 2 significant figures.",
+          "hint": "Find the mass first. It is the same on the Moon.",
+          "answer": {
+            "value": 12,
+            "tolerance": 0.5
+          },
+          "explain": "$m = \\frac{72}{9.8} = 7.35\\ \\text{kg}$. On the Moon, $W = 7.35 \\times 1.6 = 11.8 \\approx 12\\ \\text{N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "72/g*1.6",
+            "sf": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-balance-moon",
+          "prompt": "On Earth, a beam balance is level with a pebble in one pan and standard masses in the other. An astronaut repeats this on the Moon with the same pebble and masses. What does the beam do?",
+          "hint": "Both pans are in the same gravitational field, wherever the balance is.",
+          "options": [
+            {
+              "text": "it stays level",
+              "correct": true
+            },
+            {
+              "text": "it tips down on the pebble side",
+              "correct": false
+            },
+            {
+              "text": "it tips down on the standard masses side",
+              "correct": false
+            }
+          ],
+          "explain": "On the Moon, both weights are smaller by the same factor, because both pans have the same $g$. They are still equal, so the beam stays level and the balance still gives the right mass.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it stays level"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Mass is the quantity of matter in an object, in kg. It changes only if matter is added or removed, so moving or reshaping an object doesn't change it."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Weight is the pull of gravity on an object's mass. It is a force, so it is measured in newtons (N), not kg."
+        },
+        {
+          "type": "formula",
+          "tex": "g = \\frac{W}{m}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Gravitational field strength $g$ means force per unit mass, in N/kg: the pull of gravity on each kilogram. Near the Earth's surface it is about $9.8\\ \\text{N/kg}$, equal to the acceleration of free fall, about $9.8\\ \\text{m/s}^2$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A beam balance has its pivot at the centre, with the pans at equal distances from it. It is level when the weights in its two pans are equal. Both pans have the same $g$, so the masses are equal too."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Weight is the effect of a gravitational field pulling on a mass, $W = mg$. Where $g$ is different (the Moon, another planet, far from the Earth), the weight changes but the mass stays the same."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Giving a weight in kilograms. Mass is in kg; weight is a force, in N.",
+    "Multiplying by $g$ to find a mass. Divide instead: $m = \\frac{W}{g}$.",
+    "Putting a mass in grams into $W = mg$. Change it to kilograms first: $250\\ \\text{g} = 0.25\\ \\text{kg}$.",
+    "Describing weight as \"how heavy it is\" without naming gravity. Name gravity: weight is the force that gravity exerts on the object.",
+    "Extended: thinking mass changes on the Moon or in space. Only the weight changes, because $g$ is different there."
+  ],
+  "examTips": [
+    "\"State\" what mass is: the quantity of matter in the object. For weight, name the gravitational force; \"how heavy it is\" doesn't score.",
+    "\"Define\" gravitational field strength in words: force per unit mass. If you also write $g = \\frac{W}{m}$, say what each symbol means.",
+    "\"Calculate\" a weight or a mass: write the equation, substitute the numbers, then give the answer with its unit (N for weight, kg for mass). A missing unit can cost a mark."
+  ],
+  "readingMinutes": 20
+}

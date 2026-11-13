@@ -1,0 +1,809 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "3.2.2",
+  "slug": "refraction-of-light",
+  "title": "Refraction of light",
+  "level": "Core",
+  "topic": 3,
+  "summary": "Light bends when it crosses into a material where its speed is different. Learn the [[normal|normal]] and the two angles, the glass-block experiment, the [[critical-angle|critical angle]] and [[total-internal-reflection|total internal reflection]]. Extended adds [[refractive-index|refractive index]] and [[optical-fibre|optical fibres]].",
+  "goals": [
+    {
+      "text": "Define the normal, the angle of incidence and the angle of [[refraction|refraction]], and use them to describe how light bends at a boundary.",
+      "bullets": [
+        "3.2.2-1",
+        "3.2.2-3"
+      ]
+    },
+    {
+      "text": "Describe an experiment that traces rays of light through transparent blocks of different shapes.",
+      "bullets": [
+        "3.2.2-2"
+      ]
+    },
+    {
+      "text": "State what the critical angle is, and describe internal [[reflection|reflection]] and total internal reflection with experiments and everyday examples.",
+      "bullets": [
+        "3.2.2-4",
+        "3.2.2-5"
+      ]
+    },
+    {
+      "text": "Define refractive index as a ratio of speeds, and use $n = \\frac{\\sin i}{\\sin r}$ and $n = \\frac{1}{\\sin c}$.",
+      "bullets": [
+        "3.2.2-6",
+        "3.2.2-7",
+        "3.2.2-8"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how optical fibres carry light and why they are used in telecommunications.",
+      "bullets": [
+        "3.2.2-9"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "3.1",
+    "3.2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "angle of incidence and angle of refraction",
+    "refraction through a glass block",
+    "critical angle",
+    "total internal reflection",
+    "refractive index",
+    "Snell's law",
+    "optical fibres"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-frequency",
+      "prompt": "A wave moves into a region where it travels more slowly. Which quantity stays the same?",
+      "hint": "Think about what the source of the wave controls.",
+      "options": [
+        {
+          "text": "its frequency",
+          "correct": true
+        },
+        {
+          "text": "its speed",
+          "correct": false
+        },
+        {
+          "text": "its wavelength",
+          "correct": false
+        },
+        {
+          "text": "its direction, whatever the angle",
+          "correct": false
+        }
+      ],
+      "explain": "The source sets the frequency, so it never changes at a boundary. The speed and the [[wavelength|wavelength]] both fall. Revise it in {{lesson:3.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "its frequency"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-normal",
+      "prompt": "When light reflects from a flat mirror, which line are the angles measured from?",
+      "hint": "It is the same line for reflection and for refraction.",
+      "options": [
+        {
+          "text": "the normal, at right angles to the mirror",
+          "correct": true
+        },
+        {
+          "text": "the surface of the mirror",
+          "correct": false
+        },
+        {
+          "text": "the reflected ray",
+          "correct": false
+        },
+        {
+          "text": "a horizontal line",
+          "correct": false
+        }
+      ],
+      "explain": "Both angles are measured from the normal. Revise it in {{lesson:3.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the normal, at right angles to the mirror"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "crossing-a-boundary",
+      "heading": "Light crossing a boundary",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light travels in straight lines through one material. Its speed depends on the material: it is slower in glass, water or clear plastic than in air. When light crosses a boundary at an angle, the change of speed makes it change direction. This is [[refraction|refraction]]."
+        },
+        {
+          "type": "text",
+          "text": "To describe the bending, draw the [[normal|normal]] where the ray meets the boundary. Measure every angle from the normal, never from the surface."
+        },
+        {
+          "type": "definition",
+          "term": "normal",
+          "statement": "A line drawn at $90^\\circ$ to a surface, at the point where a ray meets it.",
+          "plain": "The line every angle is measured from."
+        },
+        {
+          "type": "definition",
+          "term": "angle of incidence ($i$)",
+          "statement": "The angle between the incident ray (the ray arriving at the boundary) and the normal.",
+          "plain": "How far the ray going in is tilted from the normal."
+        },
+        {
+          "type": "definition",
+          "term": "angle of refraction ($r$)",
+          "statement": "The angle between the refracted ray (the ray after crossing the boundary) and the normal.",
+          "plain": "How far the ray coming out is tilted from the normal."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-2-glass-block",
+          "alt": "A rectangular glass block with air above and below. A ray of light comes down from the upper left and meets the top surface. A dashed normal is drawn at 90 degrees to the surface there. The angle between the incoming ray and the normal is labelled i. Inside the glass the ray bends towards the normal, and the smaller angle between it and the normal is labelled r. At the bottom surface a second dashed normal is drawn. The ray bends away from the normal as it leaves into the air, and comes out parallel to the ray that went in, shifted sideways. On the right, a second ray travels straight down along a normal, through the block and out, without changing direction.",
+          "caption": "The ray bends towards the normal going in and away from it coming out."
+        },
+        {
+          "type": "text",
+          "text": "Into a material where light is slower (air into glass), the ray bends towards the normal, so $r$ is smaller than $i$."
+        },
+        {
+          "type": "text",
+          "text": "Into a material where light is faster (glass into air), it bends away from the normal: $r$ is bigger than $i$."
+        },
+        {
+          "type": "text",
+          "text": "A ray along the normal changes speed but not direction."
+        },
+        {
+          "type": "text",
+          "text": "Through a rectangular block with air on both sides, a ray that comes out of the opposite face bends one way going in and back the same amount coming out. It leaves parallel to the ray that went in, shifted sideways."
+        },
+        {
+          "type": "text",
+          "text": "At every boundary the frequency of the light stays the same. Its speed and its [[wavelength|wavelength]] change. Some light is also reflected at the boundary, so a faint reflected ray is often seen too."
+        },
+        {
+          "type": "example",
+          "id": "ex-angle-from-surface",
+          "question": "A narrow beam of light hits the top face of a glass block, making $34^\\circ$ with that face. Find the angle of incidence.",
+          "steps": [
+            "The angle of incidence is measured from the normal, which is at $90^\\circ$ to the surface.",
+            "$i = 90^\\circ - 34^\\circ = 56^\\circ$",
+            "Check: inside the glass the ray bends closer to the normal, giving an angle of refraction below $56^\\circ$."
+          ],
+          "answer": "$i = 56^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "90 - 34"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-path-through-block",
+          "question": "A narrow ray of light in air strikes one face of a rectangular glass block at an angle. It passes through the block and out of the opposite face. Describe the path of the ray.",
+          "steps": [
+            "Describe each boundary in turn: what happens to the speed, and which way the ray bends compared with the normal."
+          ],
+          "answer": "As the ray enters the glass it slows down, so it bends towards the normal. Inside the block it travels in a straight line. As it leaves the glass it speeds up, so it bends away from the normal. It comes out parallel to the incident ray, shifted sideways.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "slows, bends to the normal on entry; straight inside; speeds up, bends from the normal on exit; emerges parallel",
+            "requires": [
+              [
+                "slows down",
+                "slower"
+              ],
+              "towards the normal",
+              "straight line",
+              [
+                "speeds up",
+                "faster"
+              ],
+              "away from the normal",
+              "parallel"
+            ],
+            "forbids": [
+              "frequency changes",
+              "away from the normal as it enters",
+              "towards the normal as it leaves"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-water-to-air",
+          "prompt": "A ray of light passes at an angle from water into air. Which statement is correct?",
+          "hint": "Light is faster in air than in water.",
+          "options": [
+            {
+              "text": "it bends away from the normal, making the angle of refraction larger than the angle of incidence",
+              "correct": true
+            },
+            {
+              "text": "it bends towards the normal, making the angle of refraction smaller than the angle of incidence",
+              "correct": false
+            },
+            {
+              "text": "it carries straight on without changing direction",
+              "correct": false
+            },
+            {
+              "text": "its frequency increases as it speeds up",
+              "correct": false
+            }
+          ],
+          "explain": "Speeding up means bending away from the normal. The frequency never changes at a boundary.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it bends away from the normal, making the angle of refraction larger than the angle of incidence"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-along-normal",
+          "prompt": "A ray of light enters a glass block along the normal. What happens to it?",
+          "hint": "What is the angle of incidence?",
+          "options": [
+            {
+              "text": "it slows down but does not change direction",
+              "correct": true
+            },
+            {
+              "text": "it bends towards the normal",
+              "correct": false
+            },
+            {
+              "text": "it bends away from the normal",
+              "correct": false
+            },
+            {
+              "text": "it keeps the same speed and direction",
+              "correct": false
+            }
+          ],
+          "explain": "The angle of incidence is $0^\\circ$, so there is nothing to bend from. The light still slows down in the glass.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it slows down but does not change direction"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Measuring an angle from the surface. Angles of incidence and refraction are always measured from the normal: subtract from $90^\\circ$ if the diagram gives the angle to the surface."
+        }
+      ]
+    },
+    {
+      "id": "block-experiment",
+      "heading": "Experiment: rays through blocks",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You need a ray box (a lamp with a narrow slit), transparent blocks of different shapes, white paper, a sharp pencil, a ruler and a protractor."
+        },
+        {
+          "type": "text",
+          "text": "Rectangular block: the ray bends going in and coming out. If it leaves through the opposite face, it comes out parallel to its first direction."
+        },
+        {
+          "type": "text",
+          "text": "Triangular prism: the ray bends at both faces, both times towards the thicker part of the prism, so it comes out in a new direction."
+        },
+        {
+          "type": "text",
+          "text": "Semicircular block: aim the ray at the centre of the flat face, through the curved face. It enters along a radius, which is a normal, so it bends only at the flat face."
+        },
+        {
+          "type": "example",
+          "id": "ex-tracing-method",
+          "question": "Describe an experiment to show how a ray of light is refracted by a transparent block. Include how you would measure the angles.",
+          "steps": [
+            "Paper 6 rewards each step in order: set up, mark the rays, draw the path, draw the normals, measure, repeat."
+          ],
+          "answer": "Place the block on white paper and draw round the block with a sharp pencil. Shine a narrow ray from a ray box at one face, at an angle. Mark the incident ray and the ray that comes out with two crosses each, placed far apart. Remove the block and join the crosses with a ruler, then join the points where the ray entered and left to show its path inside the block. Draw the normal at each of these points with a protractor and measure the angle of incidence and the angle of refraction. Repeat for different angles of incidence and for blocks of different shapes.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "draw round block; narrow ray from ray box; mark rays with crosses far apart; join to show path; draw normals; measure angles with protractor; repeat",
+            "requires": [
+              "draw round the block",
+              [
+                "narrow ray",
+                "ray box"
+              ],
+              [
+                "two crosses",
+                "crosses"
+              ],
+              "join",
+              "normal",
+              "protractor",
+              [
+                "repeat for different angles",
+                "different angles of incidence"
+              ]
+            ],
+            "forbids": [
+              "from the surface"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-crosses-apart",
+          "prompt": "Why should the two crosses marking a ray be placed far apart?",
+          "hint": "Think about how much a small error in one cross changes the line through both.",
+          "options": [
+            {
+              "text": "so the direction of the line through them is more accurate",
+              "correct": true
+            },
+            {
+              "text": "so the ray of light is brighter",
+              "correct": false
+            },
+            {
+              "text": "so the angle of refraction is bigger",
+              "correct": false
+            },
+            {
+              "text": "so the block does not move",
+              "correct": false
+            }
+          ],
+          "explain": "A small error in placing a cross tilts a short line a lot, but a long line hardly at all.",
+          "verify": {
+            "kind": "choice",
+            "truth": "so the direction of the line through them is more accurate"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6: use a narrow ray and a sharp pencil, put the crosses far apart, and measure angles from the normal with a protractor to the nearest degree."
+        }
+      ]
+    },
+    {
+      "id": "total-internal-reflection",
+      "heading": "Critical angle and total internal reflection",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Light inside glass meeting the boundary with air at a small angle of incidence splits in two. Most refracts out, bending away from the normal. A little reflects back into the glass: this is internal reflection."
+        },
+        {
+          "type": "text",
+          "text": "Make the angle of incidence bigger and the ray that gets out bends further from the normal and grows dimmer. The internally reflected ray grows brighter."
+        },
+        {
+          "type": "text",
+          "text": "At one angle of incidence, the refracted ray runs along the boundary: the angle of refraction is $90^\\circ$. That angle of incidence is the [[critical-angle|critical angle]], $c$. For glass it is about $42^\\circ$, and for water about $49^\\circ$."
+        },
+        {
+          "type": "definition",
+          "term": "critical angle",
+          "statement": "The angle of incidence, for light going from a material where it is slower into one where it is faster, at which the angle of refraction is $90^\\circ$.",
+          "plain": "Any bigger, and no light gets out."
+        },
+        {
+          "type": "text",
+          "text": "Above the critical angle no light refracts out. All of it reflects back inside: [[total-internal-reflection|total internal reflection]]. It follows the law of reflection, so the angle of reflection equals the angle of incidence."
+        },
+        {
+          "type": "text",
+          "text": "Total internal reflection needs both conditions: the light is heading into a material where it would be faster (glass or water into air), and the angle of incidence is greater than the critical angle. Light going from air into glass is never totally internally reflected."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-2-critical-angle",
+          "alt": "Three semicircular glass blocks side by side, each with its flat face at the top and air above it. In each, a ray enters through the curved face without bending and travels to the centre of the flat face, where a dashed normal is drawn. This ray's angle to the normal is labelled i. Left, i less than c: most light leaves the glass, bending away from the normal, and a faint ray reflects back into the glass. Middle, i equal to c: the refracted ray runs along the flat surface, at 90 degrees to the normal, and a faint ray reflects back. Right, i greater than c: no ray leaves the glass, and one bright ray reflects back into the glass at the same angle to the normal.",
+          "caption": "Increase the angle of incidence inside the glass. At the critical angle the refracted ray runs along the surface; beyond it, all the light reflects."
+        },
+        {
+          "type": "text",
+          "text": "To show this, aim a ray through the curved face of a semicircular block at the centre of its flat face. Turn the block a little at a time to increase the angle of incidence and watch the ray that gets out. Mark the position where it just runs along the flat face. The angle of incidence there is the critical angle."
+        },
+        {
+          "type": "text",
+          "text": "Everyday examples. Prism periscopes and binoculars: light meets the long face of a $45^\\circ$ right-angled glass prism at $45^\\circ$, which is more than $42^\\circ$, so it is totally reflected. Diamonds sparkle because light is totally reflected many times inside before it leaves. Under water, you see the surface above you shine like a mirror when you look up at a slant."
+        },
+        {
+          "type": "example",
+          "id": "ex-plastic-tir",
+          "question": "A ray of light travels inside a clear plastic block and meets the boundary with the air. Its angle of incidence is $52^\\circ$. The critical angle for this plastic is $39^\\circ$. Describe what happens to the ray at the boundary, and explain why.",
+          "steps": [
+            "Check both conditions: the direction the light is travelling, and how the angle of incidence compares with the critical angle."
+          ],
+          "answer": "The ray is totally internally reflected. It is travelling from plastic towards air, where light is faster. Its angle of incidence, $52^\\circ$, is greater than the critical angle, $39^\\circ$. So no light refracts into the air. The ray reflects back into the plastic with an angle of reflection of $52^\\circ$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "totally internally reflected; going from plastic to air; angle of incidence greater than critical angle; angle of reflection equals angle of incidence",
+            "requires": [
+              "totally internally reflected",
+              [
+                "towards air",
+                "into air"
+              ],
+              "greater than the critical angle",
+              [
+                "no light refracts",
+                "none refracts"
+              ],
+              "angle of reflection"
+            ],
+            "forbids": [
+              "less than the critical angle",
+              "partly refracted",
+              "bends away from the normal into the air"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tir-conditions",
+          "prompt": "Which conditions give total internal reflection?",
+          "hint": "Two things must both be true.",
+          "options": [
+            {
+              "text": "light going from glass towards air, with the angle of incidence above the critical angle",
+              "correct": true
+            },
+            {
+              "text": "light going from air towards glass, with the angle of incidence above the critical angle",
+              "correct": false
+            },
+            {
+              "text": "light going from glass towards air, with the angle of incidence equal to the critical angle",
+              "correct": false
+            },
+            {
+              "text": "light going from glass towards air, with the angle of incidence below the critical angle",
+              "correct": false
+            }
+          ],
+          "explain": "The light must be heading into air, where it is faster, and above the critical angle. At exactly the critical angle the ray runs along the surface.",
+          "verify": {
+            "kind": "choice",
+            "truth": "light going from glass towards air, with the angle of incidence above the critical angle"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-water-below-c",
+          "prompt": "Under water, a ray meets the water surface at $27^\\circ$ to the normal. The critical angle for water is $49^\\circ$. What happens to the ray?",
+          "hint": "Compare the angle of incidence with the critical angle.",
+          "options": [
+            {
+              "text": "most refracts into the air, bending away from the normal, and a little reflects",
+              "correct": true
+            },
+            {
+              "text": "all of it is totally internally reflected",
+              "correct": false
+            },
+            {
+              "text": "it refracts along the water surface",
+              "correct": false
+            },
+            {
+              "text": "it passes into the air without changing direction",
+              "correct": false
+            }
+          ],
+          "explain": "$27^\\circ$ is less than $49^\\circ$, so most light gets out, bending away from the normal, with weak internal reflection.",
+          "verify": {
+            "kind": "choice",
+            "truth": "most refracts into the air, bending away from the normal, and a little reflects"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking total internal reflection can happen when light goes from air into glass or water. It happens only when light heads into a material where it would be faster."
+        }
+      ]
+    },
+    {
+      "id": "refractive-index",
+      "heading": "Refractive index",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A material's [[refractive-index|refractive index]], $n$, tells you how much it slows light down."
+        },
+        {
+          "type": "definition",
+          "term": "refractive index",
+          "statement": "Light's speed in air (or a vacuum) divided by its speed in the material: a ratio of the speeds in two regions.",
+          "plain": "How many times slower light travels in the material."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{\\text{speed in air}}{\\text{speed in the material}}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$n$ is a ratio of two speeds, so it has no unit. Light is always slower in glass or water than in air, so their $n$ is greater than 1: about $1.5$ for glass and $1.33$ for water."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{\\sin i}{\\sin r}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "Here $i$ is the angle in air and $r$ the angle in the material, both measured from the normal."
+        },
+        {
+          "type": "example",
+          "id": "ex-n-from-angles",
+          "question": "Light crosses from air into a clear plastic sheet. Measured from the normal, the ray makes $55.0^\\circ$ in the air and $34.0^\\circ$ in the plastic. Calculate the refractive index of the plastic.",
+          "steps": [
+            "Write the equation: $n = \\frac{\\sin i}{\\sin r}$.",
+            "Substitute: $n = \\frac{\\sin 55.0^\\circ}{\\sin 34.0^\\circ} = \\frac{0.819}{0.559}$.",
+            "$n = 1.46$, with no unit. It is greater than 1, as it must be."
+          ],
+          "answer": "$n \\approx 1.46$",
+          "video": null,
+          "verify": {
+            "kind": "rounded",
+            "truth": "sind(55.0)/sind(34.0)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{1}{\\sin c}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "This links the critical angle $c$ to $n$. A bigger refractive index gives a smaller critical angle."
+        },
+        {
+          "type": "example",
+          "id": "ex-diamond-critical",
+          "question": "Diamond has a refractive index of $2.42$. Calculate the critical angle for light inside a diamond.",
+          "steps": [
+            "Rearrange $n = \\frac{1}{\\sin c}$: $\\sin c = \\frac{1}{n}$.",
+            "$\\sin c = \\frac{1}{2.42} = 0.413$",
+            "$c = \\sin^{-1} 0.413 = 24.4^\\circ$",
+            "This small critical angle is why light is trapped and reflected so many times inside a diamond."
+          ],
+          "answer": "$c \\approx 24.4^{\\circ}$",
+          "video": null,
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(1/2.42)",
+            "sf": 3
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-n-from-speeds",
+          "prompt": "Light travels at $3.0 \\times 10^8\\ \\text{m/s}$ in air and $2.25 \\times 10^8\\ \\text{m/s}$ in water. What is the refractive index of water, to 2 decimal places?",
+          "hint": "Divide the speed in air by the speed in water.",
+          "answer": {
+            "value": 1.33,
+            "tolerance": 0.005
+          },
+          "explain": "$n = \\frac{3.0 \\times 10^8}{2.25 \\times 10^8} = 1.33$. It has no unit.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "3.0*10**8/(2.25*10**8)",
+            "dp": 2
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-angle-of-refraction",
+          "prompt": "A ray passes from air into glass of refractive index $1.50$. The angle of incidence is $36^\\circ$. What is the angle of refraction?",
+          "hint": "Find $\\sin r = \\frac{\\sin i}{n}$ first, then use $\\sin^{-1}$.",
+          "options": [
+            {
+              "text": "$\\approx 23.1^{\\circ}$",
+              "correct": true
+            },
+            {
+              "text": "$\\approx 24.0^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 61.9^{\\circ}$",
+              "correct": false
+            },
+            {
+              "text": "$\\approx 66.9^{\\circ}$",
+              "correct": false
+            }
+          ],
+          "explain": "$\\sin r = \\frac{\\sin 36^\\circ}{1.50} = 0.392$, so $r = 23.1^\\circ$. Dividing the angle itself by $1.50$ gives $24.0^\\circ$, which is wrong.",
+          "verify": {
+            "kind": "angle",
+            "truth": "asind(sind(36)/1.50)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting angles measured from the surface into $n = \\frac{\\sin i}{\\sin r}$, or dividing the angles instead of their sines."
+        }
+      ]
+    },
+    {
+      "id": "optical-fibres",
+      "heading": "Optical fibres",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An [[optical-fibre|optical fibre]] is a thin, flexible strand of very clear glass. Light entering one end nearly along the fibre meets the side with an angle of incidence bigger than the critical angle, so it is totally internally reflected. It zig-zags along the fibre, even round gentle bends, and almost none escapes."
+        },
+        {
+          "type": "figure",
+          "id": "3-2-2-optical-fibre",
+          "alt": "A long, straight glass fibre drawn as two parallel lines. A ray of light enters the left end at a slant and zig-zags along the fibre, reflecting off the top and bottom sides in turn. At one reflection a dashed normal is drawn, and the angle between the ray and the normal is labelled i. A note says i is greater than the critical angle, so no light escapes, and the light is totally internally reflected each time it meets the side.",
+          "caption": "Each reflection is total, so the light stays inside the fibre."
+        },
+        {
+          "type": "text",
+          "text": "In telecommunications, fibres carry telephone calls, internet data and television as fast pulses of light, often infrared. Compared with copper cables, they carry much more information, lose less of the signal over long distances and pick up no electrical interference. Doctors also use bundles of fibres in an endoscope to see inside the body."
+        },
+        {
+          "type": "example",
+          "id": "ex-fibre-telecoms",
+          "question": "Explain how a signal travels along an optical fibre, and give two reasons why optical fibres are used for long-distance internet links.",
+          "steps": [
+            "Say what happens each time the light meets the side, and why. Then compare fibres with copper cables."
+          ],
+          "answer": "The signal travels as pulses of light. Each time the light meets the side of the fibre, its angle of incidence is greater than the critical angle. So it is totally internally reflected and stays inside the fibre, even where the fibre bends gently. A fibre carries much more information than a copper cable. The signal also loses less energy over long distances, so fewer boosters are needed.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "pulses of light; angle of incidence greater than critical angle; total internal reflection keeps light in; more information; less loss",
+            "requires": [
+              "pulses of light",
+              "greater than the critical angle",
+              "totally internally reflected",
+              [
+                "more information",
+                "more data"
+              ],
+              [
+                "loses less",
+                "less loss"
+              ]
+            ],
+            "forbids": [
+              "less than the critical angle",
+              "refracts out of the fibre"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fibre-why",
+          "prompt": "Why does light stay inside an optical fibre?",
+          "hint": "What happens at the side of the fibre?",
+          "options": [
+            {
+              "text": "it is totally internally reflected, because its angle of incidence at the side is greater than the critical angle",
+              "correct": true
+            },
+            {
+              "text": "it is refracted towards the normal each time it meets the side",
+              "correct": false
+            },
+            {
+              "text": "its angle of incidence at the side is less than the critical angle",
+              "correct": false
+            },
+            {
+              "text": "the light slows to zero speed inside the glass",
+              "correct": false
+            }
+          ],
+          "explain": "Light stays in only if its angle of incidence is greater than the critical angle. Below it, light would refract out and escape.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is totally internally reflected, because its angle of incidence at the side is greater than the critical angle"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Normal: a line at $90^\\circ$ to the surface where the ray meets it. The angles of incidence and refraction are measured from the normal, never from the surface."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Into a material where light is slower (air into glass): bends towards the normal. Into one where it is faster (glass into air): bends away. Along the normal: no change of direction. The frequency never changes."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Critical angle: the angle of incidence, for light going into a material where it is faster, at which the angle of refraction is $90^\\circ$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Total internal reflection: light heading into a material where it would be faster is all reflected back when its angle of incidence is greater than the critical angle. Examples: prism periscopes and binoculars, sparkling diamonds."
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{\\text{speed in air}}{\\text{speed in the material}} \\quad \\text{(refractive index, no unit)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{\\sin i}{\\sin r} \\quad \\text{(}i\\text{ in air, }r\\text{ in the material)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "n = \\frac{1}{\\sin c} \\quad \\text{(}c\\text{: critical angle, material to air)}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Optical fibres keep light inside by total internal reflection. In telecommunications they carry more information than copper cables, with less loss and no electrical interference."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Drawing a ray straight on through a boundary it meets at an angle. It must bend: towards the normal going into glass or water, away from it coming out.",
+    "Marking or calculating an angle from the surface instead of the normal.",
+    "Saying the frequency changes when light enters glass. Only the speed and the wavelength change.",
+    "Drawing a refracted ray out of the glass when the angle of incidence is greater than the critical angle. Draw only the reflected ray, at the same angle to the normal."
+  ],
+  "examTips": [
+    "\"State the meaning of critical angle\": name the angle of incidence (inside the slower material, such as glass) and say the angle of refraction is then $90^\\circ$. Both points earn marks.",
+    "Ray diagrams: use a ruler, put arrows on the rays, draw the normal dashed and at $90^\\circ$ to the surface, and label angles between the ray and the normal.",
+    "For total internal reflection, the reflected ray must make the same angle with the normal as the incident ray, with no ray drawn out into the air."
+  ],
+  "readingMinutes": 26
+}

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 320" role="img" aria-labelledby="tabsorbreflect">
+  <title id="tabsorbreflect">Two surfaces with infrared falling on them. On the left, a dull black surface: three infrared arrows hit it and only one short dashed arrow bounces off, labelled absorbs most of the infrared, reflects very little. On the right, a shiny white surface: three infrared arrows hit it and three arrows of the same length bounce off, labelled reflects most of the infrared, absorbs very little.</title>
+  <rect x="50" y="210" width="220" height="36" fill="currentColor" fill-opacity="0.75" stroke="currentColor" stroke-width="2"/>
+  <rect x="350" y="210" width="220" height="36" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="370" y1="218" x2="420" y2="218" stroke="currentColor" stroke-width="1.5" stroke-opacity="0.6"/>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="70" y1="70" x2="120" y2="205"/><polyline points="112.8,198.1 120,205 121.0,195.0"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="120" y1="70" x2="170" y2="205"/><polyline points="162.8,198.1 170,205 171.0,195.0"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="170" y1="70" x2="220" y2="205"/><polyline points="212.8,198.1 220,205 221.0,195.0"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="1.5" fill="none"><line x1="220" y1="205" x2="236" y2="175" stroke-dasharray="4 3"/><polyline points="235.6,185.0 236,175 227.9,180.9"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="370" y1="70" x2="420" y2="205"/><polyline points="412.8,198.1 420,205 421.0,195.0"/></g>
+  <g stroke="var(--t3-ink)" stroke-width="2.5" fill="none"><line x1="424" y1="205" x2="474" y2="70"/><polyline points="475.0,80.0 474,70 466.8,76.9"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="420" y1="70" x2="470" y2="205"/><polyline points="462.8,198.1 470,205 471.0,195.0"/></g>
+  <g stroke="var(--t3-ink)" stroke-width="2.5" fill="none"><line x1="474" y1="205" x2="524" y2="70"/><polyline points="525.0,80.0 524,70 516.8,76.9"/></g>
+  <g stroke="var(--t1-ink)" stroke-width="2.5" fill="none"><line x1="470" y1="70" x2="520" y2="205"/><polyline points="512.8,198.1 520,205 521.0,195.0"/></g>
+  <g stroke="var(--t3-ink)" stroke-width="2.5" fill="none"><line x1="524" y1="205" x2="574" y2="70"/><polyline points="575.0,80.0 574,70 566.8,76.9"/></g>
+  <g font-size="13" fill="currentColor" font-family="inherit"><text x="70" y="55">infrared falls on the surface</text><text x="160" y="272" text-anchor="middle" font-weight="bold">dull black surface</text><text x="160" y="290" text-anchor="middle">absorbs most of the infrared,</text><text x="160" y="306" text-anchor="middle">reflects very little</text><text x="370" y="55">infrared in</text><text x="500" y="55" text-anchor="middle">reflected</text><text x="460" y="272" text-anchor="middle" font-weight="bold">shiny white surface</text><text x="460" y="290" text-anchor="middle">reflects most of the infrared,</text><text x="460" y="306" text-anchor="middle">absorbs very little</text></g>
+</svg>

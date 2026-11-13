@@ -1,0 +1,734 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "7.2",
+  "slug": "planning-investigations",
+  "title": "Planning investigations",
+  "level": "Core",
+  "topic": 7,
+  "summary": "A planning question asks you to design an experiment you won't carry out. You decide what to change, what to measure and what to keep the same, choose the values and apparatus, keep it safe, and say how the results will answer the question.",
+  "goals": [
+    {
+      "text": "Identify the [[independent-variable|independent variable]] and the [[dependent-variable|dependent variable]], and describe how and explain why to control the others.",
+      "bullets": [
+        "7.2-1",
+        "7.2-2"
+      ]
+    },
+    {
+      "text": "Suggest how many values to use and their [[range|range]], and choose and justify the apparatus or technique.",
+      "bullets": [
+        "7.2-3",
+        "7.2-4"
+      ]
+    },
+    {
+      "text": "Describe a method with its risks and precautions, a results table, and how the results lead to a conclusion.",
+      "bullets": [
+        "7.2-5",
+        "7.2-6"
+      ]
+    },
+    {
+      "text": "Make a prediction with a physics reason, and judge whether results support it.",
+      "bullets": [
+        "7.2-6",
+        "7.2-7"
+      ]
+    }
+  ],
+  "prerequisites": [],
+  "papers": [
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "plan an experiment",
+    "independent and dependent variables",
+    "control variables and fair test",
+    "how many readings should I take",
+    "planning question Paper 6",
+    "make a prediction in physics"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-mean-of-readings",
+      "prompt": "A student measures the same length three times: $4.2\\ \\text{cm}$, $4.6\\ \\text{cm}$ and $4.4\\ \\text{cm}$. What is the mean, in cm?",
+      "hint": "Add the readings, then divide by how many there are.",
+      "answer": {
+        "value": 4.4,
+        "tolerance": 0.05
+      },
+      "explain": "$\\frac{4.2 + 4.6 + 4.4}{3} = \\frac{13.2}{3} = 4.4\\ \\text{cm}$.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "(4.2 + 4.6 + 4.4)/3",
+        "dp": 1
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ammeter",
+      "prompt": "Which instrument measures the current in a circuit?",
+      "hint": "Current is measured in amperes.",
+      "options": [
+        {
+          "text": "an ammeter",
+          "correct": true
+        },
+        {
+          "text": "a voltmeter",
+          "correct": false
+        },
+        {
+          "text": "a newton meter",
+          "correct": false
+        },
+        {
+          "text": "a thermometer",
+          "correct": false
+        }
+      ],
+      "explain": "An ammeter, connected in series. A voltmeter measures potential difference.",
+      "verify": {
+        "kind": "choice",
+        "truth": "an ammeter"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "variables",
+      "heading": "Variables and a fair test",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every investigation asks how one quantity affects another, such as how the drop height of a ball affects how high it bounces."
+        },
+        {
+          "type": "definition",
+          "term": "independent variable",
+          "statement": "The independent variable is the quantity you choose and change on purpose.",
+          "plain": "What you change."
+        },
+        {
+          "type": "definition",
+          "term": "dependent variable",
+          "statement": "The dependent variable is the quantity you measure, to see how it changes when the independent variable changes.",
+          "plain": "What you measure."
+        },
+        {
+          "type": "text",
+          "text": "Anything else that could affect the dependent variable is a [[control-variable|control variable]]. Keep each one the same for every reading. This makes the experiment a fair test."
+        },
+        {
+          "type": "text",
+          "text": "Why? If two things change at once, you can't tell which one caused the change in your results. A fair test has [[validity|validity]]: it tests what it says it tests."
+        },
+        {
+          "type": "example",
+          "id": "ex-bounce-variables",
+          "question": "A student drops a tennis ball from different heights onto the floor and measures how high it bounces. Identify the independent and dependent variables, and name two control variables.",
+          "steps": [
+            "She chooses the drop height, so that is what she changes.",
+            "She measures the bounce height.",
+            "Ask what else could change the bounce: the ball itself and the surface it lands on."
+          ],
+          "answer": "The independent variable is the drop height. The dependent variable is the bounce height. Two control variables are the ball (use the same ball each time) and the surface (drop it onto the same spot on the floor).",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "independent: drop height; dependent: bounce height; controls: same ball, same surface",
+            "requires": [
+              [
+                "independent variable is the drop height"
+              ],
+              [
+                "dependent variable is the bounce height"
+              ],
+              [
+                "same ball"
+              ],
+              [
+                "same spot",
+                "same surface"
+              ]
+            ],
+            "forbids": [
+              "independent variable is the bounce height"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "To describe how you control a variable, say what stays the same and how. \"Keep the current constant\" is weaker than \"adjust the variable resistor so the ammeter shows the same current each time\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-electromagnet-control",
+          "question": "A student winds wire around an iron nail to make an electromagnet. She investigates how the number of turns affects how many paper clips it picks up. Describe how she should control the current, and explain why.",
+          "steps": [
+            "The current also changes an electromagnet's strength, so it is a control variable.",
+            "How: an ammeter to read it, a variable resistor to adjust it. Why: link a change in current to a change in the result."
+          ],
+          "answer": "Connect an ammeter and a variable resistor in series with the coil. Before each test, adjust the variable resistor so the ammeter shows the same current. This matters because a larger current also makes the electromagnet stronger. If the current changed, she could not tell whether the turns or the current caused the change in the number of clips.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ammeter and variable resistor keep the same current; current also affects strength, so otherwise she could not tell which caused the change",
+            "requires": [
+              [
+                "ammeter"
+              ],
+              [
+                "variable resistor"
+              ],
+              [
+                "same current"
+              ],
+              [
+                "larger current also makes the electromagnet stronger"
+              ],
+              [
+                "could not tell"
+              ]
+            ],
+            "forbids": [
+              "number of turns constant",
+              "same number of turns"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Naming a control variable without saying how you keep it the same. Add the method, such as \"measure the same volume of water with a measuring cylinder each time\"."
+        },
+        {
+          "type": "check",
+          "id": "check-guitar-dependent",
+          "prompt": "A student changes the length of a vibrating guitar string and measures the frequency of the note. Which is the dependent variable?",
+          "hint": "It is the quantity she measures.",
+          "options": [
+            {
+              "text": "the frequency of the note",
+              "correct": true
+            },
+            {
+              "text": "the length of the string",
+              "correct": false
+            },
+            {
+              "text": "the tension in the string",
+              "correct": false
+            },
+            {
+              "text": "the thickness of the string",
+              "correct": false
+            }
+          ],
+          "explain": "She measures the frequency, so it is the dependent variable. The length is the independent variable. Tension and thickness are control variables.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the frequency of the note"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-parachute-control",
+          "prompt": "A student tests how the area of a paper parachute affects its fall time. Why must she hang the same mass of plasticine on each parachute?",
+          "hint": "Could the mass change the fall time too?",
+          "options": [
+            {
+              "text": "the mass also affects the fall time, so the test would not be fair",
+              "correct": true
+            },
+            {
+              "text": "the mass is the dependent variable",
+              "correct": false
+            },
+            {
+              "text": "the mass is the independent variable",
+              "correct": false
+            },
+            {
+              "text": "the fall time does not depend on the mass",
+              "correct": false
+            }
+          ],
+          "explain": "A heavier load falls faster, so a changing mass would also change the fall time. Then she couldn't tell whether the area caused the change.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the mass also affects the fall time, so the test would not be fair"
+          }
+        }
+      ]
+    },
+    {
+      "id": "values-and-apparatus",
+      "heading": "Choosing values and apparatus",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Next, choose the values of the independent variable. Plan at least five different values, so a graph shows a clear pattern and an [[anomaly|anomaly]] stands out."
+        },
+        {
+          "type": "text",
+          "text": "Spread them evenly over a wide [[range|range]], from the smallest to the largest sensible value. A narrow range can hide the pattern. Give real values with units, and check your apparatus can reach them."
+        },
+        {
+          "type": "example",
+          "id": "ex-solar-cell-range",
+          "question": "A student investigates how the distance between a lamp and a small solar cell affects the current from the cell. Her bench allows distances up to about 80 cm. Suggest a suitable number and range of distances, and explain your choice.",
+          "steps": [
+            "Pick at least five values.",
+            "Spread them widely with equal gaps, within what the bench allows.",
+            "Say how the choice helps the graph."
+          ],
+          "answer": "Use six distances: 20 cm, 30 cm, 40 cm, 50 cm, 60 cm and 70 cm. That is a range of 20 cm to 70 cm in equal steps of 10 cm. Six values spread over a wide range show the pattern clearly on a graph and make an anomaly easy to spot.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "six evenly spaced distances from 20 cm to 70 cm; enough points over a wide range to show the pattern",
+            "requires": [
+              [
+                "six distances"
+              ],
+              [
+                "20 cm to 70 cm"
+              ],
+              [
+                "equal steps"
+              ],
+              [
+                "pattern"
+              ]
+            ],
+            "forbids": [
+              "two distances",
+              "three distances"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-step-size",
+          "prompt": "A student plans six equally spaced loads from $1.5\\ \\text{N}$ to $9.0\\ \\text{N}$. What is the step between loads, in N?",
+          "hint": "Six values have five gaps between them.",
+          "answer": {
+            "value": 1.5,
+            "tolerance": 0.05
+          },
+          "explain": "The range covers $9.0 - 1.5 = 7.5\\ \\text{N}$ over 5 gaps: $7.5 \\div 5 = 1.5\\ \\text{N}$. The loads are 1.5, 3.0, 4.5, 6.0, 7.5 and 9.0 N.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "(9.0 - 1.5)/(6 - 1)",
+            "dp": 1
+          }
+        },
+        {
+          "type": "text",
+          "text": "Then choose apparatus. Pick an instrument whose range reaches the largest reading and whose scale divisions are small compared with the reading, and justify it with a reason. A technique can help too, such as timing 10 oscillations of a pendulum and dividing by 10. {{lesson:7.1}} covers the common choices."
+        },
+        {
+          "type": "example",
+          "id": "ex-milliammeter",
+          "question": "The solar cell gives a current of about 40 mA. The student can use an ammeter reading 0–5 A in 0.1 A divisions, or a milliammeter reading 0–100 mA in 2 mA divisions. Suggest which to use, and justify your choice.",
+          "steps": [
+            "Convert: $40\\ \\text{mA} = 0.04\\ \\text{A}$.",
+            "On the 0–5 A meter, 0.04 A is less than one 0.1 A division.",
+            "The milliammeter's divisions are 2 mA, much smaller than the reading."
+          ],
+          "answer": "Use the milliammeter. About 40 mA is 0.04 A, less than one division on the 0–5 A ammeter, so its needle would barely move. The milliammeter has smaller divisions of 2 mA, so the reading spans many divisions.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "milliammeter: 40 mA is less than one 0.1 A division on the ammeter; the milliammeter has smaller (2 mA) divisions",
+            "requires": [
+              [
+                "use the milliammeter"
+              ],
+              [
+                "less than one division"
+              ],
+              [
+                "smaller divisions"
+              ]
+            ],
+            "forbids": [
+              "use the ammeter"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing \"use different values\", or planning only three. Give at least five real values with units, evenly spread over a wide range."
+        },
+        {
+          "type": "check",
+          "id": "check-narrow-range",
+          "prompt": "To test how the angle of a ramp affects a trolley's speed, a student plans angles of 10°, 11°, 12°, 13° and 14°. What is the main problem?",
+          "hint": "Compare the smallest and largest values.",
+          "options": [
+            {
+              "text": "the range is too narrow",
+              "correct": true
+            },
+            {
+              "text": "there are too many values",
+              "correct": false
+            },
+            {
+              "text": "the values should not be evenly spaced",
+              "correct": false
+            },
+            {
+              "text": "the angle should be the dependent variable",
+              "correct": false
+            }
+          ],
+          "explain": "Five evenly spaced values is good, but 10° to 14° is a tiny range: the speeds will be so close that any pattern is hidden. Something like 10° to 50° is better.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the range is too narrow"
+          }
+        }
+      ]
+    },
+    {
+      "id": "writing-a-plan",
+      "heading": "Writing the plan: method, safety and results",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Papers 5 and 6 usually include a planning question. It lists what your plan must contain: work through that list in order."
+        },
+        {
+          "type": "text",
+          "text": "A full plan covers: 1. apparatus, including any you add; 2. the method in clear steps; 3. the control variables and how you keep them the same."
+        },
+        {
+          "type": "text",
+          "text": "4. A risk in this experiment, such as hot water or falling masses, and the precaution that matches it. 5. A results table. 6. How the results lead to a conclusion."
+        },
+        {
+          "type": "text",
+          "text": "Write the method so someone else could follow it: what to set up, what to measure and with what, then \"repeat for each value\". Repeat each reading and calculate a mean."
+        },
+        {
+          "type": "text",
+          "text": "In the table, put the independent variable first, then the dependent variable, with columns for repeats and the mean. Head each column quantity / unit, such as mass / g, so the boxes hold numbers only."
+        },
+        {
+          "type": "text",
+          "text": "To reach a conclusion, plot the dependent variable ($y$-axis) against the independent variable ($x$-axis) and describe the pattern. A straight line through the origin means they are directly proportional."
+        },
+        {
+          "type": "figure",
+          "id": "7-2-cantilever",
+          "alt": "Side view of a ruler clamped to the edge of a bench with a G-clamp. Part of the ruler sticks out past the bench edge: this overhang length is marked with a double-headed arrow and kept constant. A hanger with slotted masses hangs from the free end, which bends down below its starting level, shown by a dashed horizontal line. The drop of the end below that line is marked d, the deflection. A vertical metre rule stands just beyond the end to measure its height. A tray of sand sits on the floor under the masses.",
+          "caption": "A loaded ruler bends down by a deflection $d$."
+        },
+        {
+          "type": "example",
+          "id": "ex-cantilever-plan",
+          "question": "Plan an experiment to find how the mass hung on the end of a ruler clamped to a bench, as in the figure, affects how far the end bends down. A 100 g hanger and 100 g slotted masses are available. Include extra apparatus, method, control variables, a risk and precaution, a results table and how to reach a conclusion.",
+          "steps": [
+            "Independent variable: the mass. Dependent variable: the deflection $d$. Anything else that changes the bend is a control variable.",
+            "Add apparatus to measure $d$, then write the steps, the table and the analysis."
+          ],
+          "answer": "Extra apparatus: a vertical metre rule to measure the height of the end of the ruler, and a set square to line the end up with the scale. Read the height of the end with nothing hung on it, then hang the 100 g hanger and read it again. The deflection is the difference between the two readings. Repeat for 200 g, 300 g, 400 g, 500 g and 600 g, then repeat the whole set and calculate the mean deflection for each mass. Control variables: keep the same overhang length, measured each time, use the same ruler, and hang the masses at the same point. Risk: the masses could fall on someone's feet, so put a tray of sand underneath. Table columns: mass / g, first d / mm, second d / mm and mean d / mm. Plot a graph of mean d against mass. If it is a straight line through the origin, the deflection is directly proportional to the mass.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "metre rule and set square; deflection = change in height; six masses, repeats and a mean; same overhang length, ruler, point; tray of sand; table with units; graph, straight line through origin means proportional",
+            "requires": [
+              [
+                "vertical metre rule"
+              ],
+              [
+                "set square"
+              ],
+              [
+                "difference between the two readings"
+              ],
+              [
+                "repeat for"
+              ],
+              [
+                "calculate the mean"
+              ],
+              [
+                "same overhang length"
+              ],
+              [
+                "same ruler"
+              ],
+              [
+                "tray of sand"
+              ],
+              [
+                "mass / g"
+              ],
+              [
+                "d / mm"
+              ],
+              [
+                "plot a graph"
+              ],
+              [
+                "straight line through the origin"
+              ]
+            ],
+            "forbids": [
+              "be careful",
+              "different values"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving units out of the table headings, or writing \"repeat the readings\" with no mean. Write quantity / unit, and \"repeat and calculate the mean\"."
+        },
+        {
+          "type": "check",
+          "id": "check-table-first-column",
+          "prompt": "In a results table, which quantity goes in the first column?",
+          "hint": "It is the quantity whose values you chose before you started.",
+          "options": [
+            {
+              "text": "the independent variable",
+              "correct": true
+            },
+            {
+              "text": "the dependent variable",
+              "correct": false
+            },
+            {
+              "text": "the mean of the readings",
+              "correct": false
+            },
+            {
+              "text": "a control variable",
+              "correct": false
+            }
+          ],
+          "explain": "You choose the independent variable's values first, so they go in the first column. The readings of the dependent variable and their mean follow it.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the independent variable"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-conclusion-graph",
+          "prompt": "A student plots mean deflection against mass. The points lie close to a straight line through the origin. What can she conclude?",
+          "hint": "What does a straight line through the origin show?",
+          "options": [
+            {
+              "text": "the deflection is directly proportional to the mass",
+              "correct": true
+            },
+            {
+              "text": "the deflection does not depend on the mass",
+              "correct": false
+            },
+            {
+              "text": "the deflection decreases as the mass increases",
+              "correct": false
+            },
+            {
+              "text": "the deflection is the independent variable",
+              "correct": false
+            }
+          ],
+          "explain": "A straight line through the origin means directly proportional: double the mass, double the deflection.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the deflection is directly proportional to the mass"
+          }
+        }
+      ]
+    },
+    {
+      "id": "predictions",
+      "heading": "Predictions and testing them",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A prediction says what you expect to happen. A reasoned prediction adds why, using physics you know."
+        },
+        {
+          "type": "text",
+          "text": "Weak: \"the bounce height will change\". Better: \"the bounce height will increase as the drop height increases, because the ball has more kinetic energy when it hits the floor\"."
+        },
+        {
+          "type": "example",
+          "id": "ex-predict-parachute",
+          "question": "Predict how the fall time of a paper parachute carrying the same load changes as its area increases. Give a reason.",
+          "steps": [
+            "State the direction of the change, then the physics behind it."
+          ],
+          "answer": "The fall time will increase as the area increases. A larger parachute has more air resistance at the same speed. So air resistance balances the weight at a lower speed, and the parachute falls more slowly.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "fall time increases; more air resistance at the same speed, so it balances the weight at a lower speed",
+            "requires": [
+              [
+                "fall time will increase"
+              ],
+              [
+                "more air resistance"
+              ],
+              [
+                "weight"
+              ],
+              [
+                "more slowly",
+                "lower speed"
+              ]
+            ],
+            "forbids": [
+              "less air resistance",
+              "falls faster"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "Afterwards, compare the results with the prediction. At IGCSE, a predicted and a measured value agree within the limits of experimental [[accuracy|accuracy]] if they differ by 10% or less of the predicted value ({{lesson:7.4}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-evaluate-prediction",
+          "question": "For the ruler experiment, a student predicts that doubling the mass doubles the deflection. With 200 g she measures 14 mm, and with 400 g she measures 27 mm. Explain whether her results support the prediction.",
+          "steps": [
+            "Predicted deflection for 400 g: $2 \\times 14 = 28\\ \\text{mm}$.",
+            "Difference: $28 - 27 = 1\\ \\text{mm}$, and $\\frac{1}{28} \\times 100 \\approx 4\\%$ of the predicted value."
+          ],
+          "answer": "Yes, the results support the prediction. Doubling 14 mm predicts 28 mm, and she measured 27 mm. The difference is about 4%, which is less than 10%, so the results agree with the prediction within the limits of experimental accuracy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "predicted 28 mm, measured 27 mm, difference about 4% (< 10%), so the results support the prediction",
+            "requires": [
+              [
+                "support the prediction"
+              ],
+              [
+                "28 mm"
+              ],
+              [
+                "27 mm"
+              ],
+              [
+                "4%"
+              ],
+              [
+                "less than 10%"
+              ]
+            ],
+            "forbids": [
+              "does not support",
+              "exactly double"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Giving a prediction with no reason, or a \"reason\" that just repeats the prediction. Name the physics behind it."
+        },
+        {
+          "type": "check",
+          "id": "check-reasoned-prediction",
+          "prompt": "A student adds identical cells in series to a circuit with one lamp. Which is the best reasoned prediction?",
+          "hint": "It should say what happens and why.",
+          "options": [
+            {
+              "text": "the lamp will get brighter, because the p.d. across it and the current increase",
+              "correct": true
+            },
+            {
+              "text": "the lamp will get brighter",
+              "correct": false
+            },
+            {
+              "text": "the brightness of the lamp will change",
+              "correct": false
+            },
+            {
+              "text": "the lamp will get dimmer, because the cells share the current",
+              "correct": false
+            }
+          ],
+          "explain": "Only the first gives a direction and a physics reason. More cells give a larger p.d., so a larger current flows and the lamp is brighter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the lamp will get brighter, because the p.d. across it and the current increase"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Independent variable: what you change. Dependent variable: what you measure. Control variables: anything else that could affect the result, kept the same so the test is fair."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "To control a variable, say how you keep it the same, such as setting the same current with a variable resistor and an ammeter. Explain why: it also affects the dependent variable."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Values: at least five, with units, evenly spaced over a wide range."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Justify apparatus or a technique with a reason, such as a range that reaches the reading with scale divisions small compared with it, or timing 10 oscillations to get a larger time to measure."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Plan: apparatus, method, control variables, a risk and its precaution, a results table, and how to reach a conclusion."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Results table: independent variable first, headings as quantity / unit, columns for repeats and the mean. Plot the dependent variable against the independent variable."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A reasoned prediction gives the expected change and the physics reason. At IGCSE, a numerical prediction is supported if the measured value differs from it by 10% or less of the predicted value."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Naming a control variable without saying how it is kept the same.",
+    "Writing \"different values\" instead of at least five real values, with units, over a wide range.",
+    "Leaving units out of table headings, or writing \"repeat\" without \"calculate a mean\".",
+    "Giving a prediction with no physics reason."
+  ],
+  "examTips": [
+    "\"Identify\" a variable: name the exact quantity, such as \"bounce height\", not just \"the ball\".",
+    "\"Describe how\" to control a variable: name the apparatus and what stays the same. \"Explain why\": it would also change the dependent variable.",
+    "In a planning question, answer every point in the list you are given, in order."
+  ],
+  "readingMinutes": 24
+}

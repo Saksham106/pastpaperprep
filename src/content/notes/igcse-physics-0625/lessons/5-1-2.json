@@ -1,0 +1,812 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "5.1.2",
+  "slug": "the-nucleus",
+  "title": "The nucleus",
+  "level": "Core",
+  "topic": 5,
+  "summary": "A [[nucleus|nucleus]] is made of [[proton|protons]] and [[neutron|neutrons]]. Two numbers describe it: the [[proton-number|proton number]] $Z$ counts the protons, and the [[nucleon-number|nucleon number]] $A$ counts protons and neutrons together, so the number of neutrons is $A - Z$. [[isotope|Isotopes]] of an element have the same proton number but different numbers of neutrons.",
+  "goals": [
+    {
+      "text": "Describe a nucleus as protons and neutrons, and give the relative charges of a proton, a neutron and an electron.",
+      "bullets": [
+        "5.1.2-1",
+        "5.1.2-2"
+      ]
+    },
+    {
+      "text": "Use the proton number $Z$ and nucleon number $A$ to find the number of neutrons, and read and write [[nuclide|nuclide]] notation.",
+      "bullets": [
+        "5.1.2-3",
+        "5.1.2-4"
+      ]
+    },
+    {
+      "text": "Explain what isotopes are, and give an element that has more than one isotope.",
+      "bullets": [
+        "5.1.2-5"
+      ]
+    },
+    {
+      "text": "Find the relative charge and the relative mass of a nucleus from $Z$ and $A$.",
+      "bullets": [
+        "5.1.2-7",
+        "5.1.2-8"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe [[nuclear-fission|nuclear fission]] and [[nuclear-fusion|nuclear fusion]], balance their nuclide equations, and say what happens to mass and energy.",
+      "bullets": [
+        "5.1.2-6"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.3",
+    "5.1.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "protons neutrons and electrons",
+    "atomic number and mass number",
+    "how to find the number of neutrons",
+    "nuclide notation",
+    "what is an isotope",
+    "nuclear fission and fusion equations"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-nucleus-charge",
+      "prompt": "What is the charge on the nucleus at the centre of an atom?",
+      "hint": "The electrons around the nucleus are negative, and they are attracted to it.",
+      "options": [
+        {
+          "text": "positive",
+          "correct": true
+        },
+        {
+          "text": "negative",
+          "correct": false
+        },
+        {
+          "text": "no charge",
+          "correct": false
+        }
+      ],
+      "explain": "The nucleus is positively charged. It attracts the negative electrons that orbit it. Revise it in {{lesson:5.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "positive"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-ion-charge",
+      "prompt": "A neutral atom has 13 protons. It loses 3 electrons. What is the charge on the ion it forms?",
+      "hint": "Count each proton as $+1$ and each electron as $-1$. How many electrons are left?",
+      "options": [
+        {
+          "text": "$+3$",
+          "correct": true
+        },
+        {
+          "text": "$-3$",
+          "correct": false
+        },
+        {
+          "text": "$+13$",
+          "correct": false
+        },
+        {
+          "text": "$+10$",
+          "correct": false
+        }
+      ],
+      "explain": "The ion keeps 13 protons and has $13 - 3 = 10$ electrons. Its charge is $13 - 10 = +3$. Losing electrons makes a positive ion. Revise it in {{lesson:5.1.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "13 - (13 - 3)",
+        "signed": true
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-sun-energy",
+      "prompt": "Which process releases the energy given out by the Sun?",
+      "hint": "In the Sun, small nuclei such as hydrogen are involved.",
+      "options": [
+        {
+          "text": "nuclear fusion",
+          "correct": true
+        },
+        {
+          "text": "nuclear fission",
+          "correct": false
+        },
+        {
+          "text": "burning hydrogen in oxygen",
+          "correct": false
+        }
+      ],
+      "explain": "The Sun releases energy by nuclear fusion: hydrogen nuclei join to make helium. It is not burning, and it is not fission. Revise it in {{lesson:1.7.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "nuclear fusion"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "particles",
+      "heading": "What a nucleus is made of",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:5.1.1}} you met the [[nucleus|nucleus]]: the tiny, positive centre of an atom. It is made of two kinds of particle, [[proton|protons]] and [[neutron|neutrons]]. The electrons are not in the nucleus. They move in orbits around it."
+        },
+        {
+          "type": "definition",
+          "term": "nucleon",
+          "statement": "A [[nucleon|nucleon]] is any particle in the nucleus: a proton or a neutron.",
+          "plain": "Nucleon is one name that covers both protons and neutrons."
+        },
+        {
+          "type": "text",
+          "text": "Charges in an atom are compared using relative charges. A proton's charge counts as $+1$. An electron's charge is the same size but negative, so it counts as $-1$."
+        },
+        {
+          "type": "result",
+          "statement": "Relative charges: proton $+1$, neutron $0$, electron $-1$.",
+          "why": "A proton and an electron carry charges of equal size and opposite sign. A neutron has no charge at all."
+        },
+        {
+          "type": "text",
+          "text": "Neutrons have no charge, so only the protons give the nucleus its charge. That is why every nucleus is positive."
+        },
+        {
+          "type": "mistake",
+          "text": "Putting electrons in the nucleus because they are part of the atom. The nucleus holds only protons and neutrons. The electrons orbit outside it."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-nucleus",
+          "question": "Describe the composition of a nucleus, and state the relative charge of each particle in it.",
+          "steps": [
+            "Name the two kinds of particle in the nucleus.",
+            "Give the relative charge of each one.",
+            "Finish with the overall charge of the nucleus."
+          ],
+          "answer": "A nucleus is made of protons and neutrons. A proton has a relative charge of $+1$. A neutron has a relative charge of $0$, so it has no charge. So the nucleus has a positive charge overall.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "protons and neutrons; proton +1; neutron 0 (no charge); nucleus positive",
+            "requires": [
+              "protons and neutrons",
+              "+1",
+              [
+                "no charge",
+                "charge of $0$"
+              ],
+              "positive"
+            ],
+            "forbids": [
+              "electrons in the nucleus",
+              "neutron has a negative charge"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-nucleus-charge-source",
+          "prompt": "A nucleus has a positive charge. Which particles give it this charge?",
+          "hint": "Which particle in the nucleus has no charge?",
+          "options": [
+            {
+              "text": "protons only",
+              "correct": true
+            },
+            {
+              "text": "protons and neutrons",
+              "correct": false
+            },
+            {
+              "text": "neutrons only",
+              "correct": false
+            },
+            {
+              "text": "protons and electrons",
+              "correct": false
+            }
+          ],
+          "explain": "Protons have a relative charge of $+1$ and neutrons have none. Electrons are outside the nucleus. So the protons alone give the nucleus its charge.",
+          "verify": {
+            "kind": "choice",
+            "truth": "protons only"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-minus-one",
+          "prompt": "Which particle has a relative charge of $-1$?",
+          "hint": "It is the particle that orbits the nucleus.",
+          "options": [
+            {
+              "text": "an electron",
+              "correct": true
+            },
+            {
+              "text": "a neutron",
+              "correct": false
+            },
+            {
+              "text": "a proton",
+              "correct": false
+            }
+          ],
+          "explain": "An electron's relative charge is $-1$. A proton's is $+1$ and a neutron's is $0$.",
+          "verify": {
+            "kind": "choice",
+            "truth": "an electron"
+          }
+        }
+      ]
+    },
+    {
+      "id": "numbers",
+      "heading": "Proton number, nucleon number and nuclide notation",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two numbers describe any nucleus. Each one counts particles."
+        },
+        {
+          "type": "definition",
+          "term": "proton number",
+          "statement": "The [[proton-number|proton number]] $Z$ is the number of protons in a nucleus. It is also called the atomic number.",
+          "plain": "It counts the protons."
+        },
+        {
+          "type": "definition",
+          "term": "nucleon number",
+          "statement": "The [[nucleon-number|nucleon number]] $A$ counts all the protons and neutrons in a nucleus together. It is also called the mass number.",
+          "plain": "It counts every particle in the nucleus."
+        },
+        {
+          "type": "text",
+          "text": "Every atom of an element has the same proton number. All carbon nuclei have 6 protons, and any nucleus with 6 protons is carbon. So $Z$ tells you the element."
+        },
+        {
+          "type": "text",
+          "text": "The nucleon number counts protons and neutrons together. Take away the protons and the neutrons are left."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number of neutrons} = A - Z",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "A particular nucleus, with a set number of protons and of neutrons, is a [[nuclide|nuclide]]. You write it in nuclide notation: the chemical symbol X, with $A$ at the top left and $Z$ at the bottom left."
+        },
+        {
+          "type": "formula",
+          "tex": "^{A}_{Z}\\text{X}",
+          "tag": "learn"
+        },
+        {
+          "type": "figure",
+          "id": "5-1-2-nuclide-notation",
+          "alt": "Nuclide notation for aluminium-27. The chemical symbol Al is written large. The number 27 at the top left is labelled nucleon number A, the number of protons plus neutrons. The number 13 at the bottom left is labelled proton number Z, the number of protons.",
+          "caption": "Aluminium-27, $^{27}_{13}\\text{Al}$: 13 protons and $27 - 13 = 14$ neutrons. A nuclide is often named by its element and nucleon number like this."
+        },
+        {
+          "type": "example",
+          "id": "ex-cobalt-neutrons",
+          "question": "A nucleus of cobalt-59 is written $^{59}_{27}\\text{Co}$. Calculate the number of neutrons in it.",
+          "steps": [
+            "The lower number gives the protons: $Z = 27$.",
+            "The top number is the nucleon number: $A = 59$ protons and neutrons in total.",
+            "Number of neutrons $= A - Z = 59 - 27 = 32$."
+          ],
+          "answer": "$\\text{number of neutrons} = 32$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "59 - 27"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-zinc-notation",
+          "question": "A nucleus of zinc (symbol Zn) has 30 protons and 34 neutrons. Find $A$ and $Z$, and write the nucleus in nuclide notation.",
+          "steps": [
+            "The proton number is the number of protons: $Z = 30$.",
+            "The nucleon number counts protons and neutrons: $A = 30 + 34 = 64$.",
+            "Put $A$ at the top left and $Z$ at the bottom left: $^{64}_{30}\\text{Zn}$. This nuclide is zinc-64."
+          ],
+          "answer": "$A = 64,\\; Z = 30$",
+          "video": null,
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 30 + 34, 'Z': 30}"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Taking the top number as the number of neutrons, or adding the two numbers. The top number counts protons and neutrons together, so neutrons $= A - Z$."
+        },
+        {
+          "type": "check",
+          "id": "check-iron-neutrons",
+          "prompt": "How many neutrons are in one nucleus of $^{56}_{26}\\text{Fe}$?",
+          "hint": "Subtract the bottom number from the top number.",
+          "answer": {
+            "value": 30,
+            "tolerance": 0
+          },
+          "explain": "Neutrons $= A - Z = 56 - 26 = 30$. The 26 protons and 30 neutrons make 56 nucleons.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "56 - 26",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-most-neutrons",
+          "prompt": "Argon has proton number 18, potassium 19 and calcium 20. Which of these nuclides has the most neutrons?",
+          "hint": "Work out $A - Z$ for each one. The largest nucleon number is not always the answer.",
+          "options": [
+            {
+              "text": "argon-40",
+              "correct": true
+            },
+            {
+              "text": "calcium-41",
+              "correct": false
+            },
+            {
+              "text": "calcium-40",
+              "correct": false
+            },
+            {
+              "text": "potassium-39",
+              "correct": false
+            }
+          ],
+          "explain": "Neutrons: argon $40 - 18 = 22$; calcium-41 $41 - 20 = 21$; calcium-40 $40 - 20 = 20$; potassium $39 - 19 = 20$. Argon-40 has the most, even though calcium-41 has more nucleons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "argon-40"
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Each proton has a relative charge of $+1$ and neutrons have none. So the relative charge on a nucleus is equal to its proton number: $+Z$."
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "A proton and a neutron each have a relative mass of 1. So the relative mass of a nucleus is equal to its nucleon number, $A$."
+        },
+        {
+          "type": "check",
+          "id": "check-calcium-charge",
+          "level": "Extended",
+          "prompt": "What is the relative charge on a nucleus of $^{48}_{20}\\text{Ca}$?",
+          "hint": "Only the protons are charged.",
+          "options": [
+            {
+              "text": "$+20$",
+              "correct": true
+            },
+            {
+              "text": "$+48$",
+              "correct": false
+            },
+            {
+              "text": "$+28$",
+              "correct": false
+            },
+            {
+              "text": "$0$",
+              "correct": false
+            }
+          ],
+          "explain": "The nucleus has 20 protons, each $+1$, and its 28 neutrons are uncharged. So its relative charge is $+20$, the proton number.",
+          "verify": {
+            "kind": "exact",
+            "truth": "20*(+1) + (48 - 20)*0",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-equal-mass",
+          "level": "Extended",
+          "prompt": "Compare the relative masses of the nuclei $^{58}_{26}\\text{Fe}$ and $^{58}_{28}\\text{Ni}$.",
+          "hint": "The relative mass of a nucleus depends only on its nucleon number.",
+          "options": [
+            {
+              "text": "they are the same",
+              "correct": true
+            },
+            {
+              "text": "the nickel nucleus is heavier",
+              "correct": false
+            },
+            {
+              "text": "the iron nucleus is heavier",
+              "correct": false
+            }
+          ],
+          "explain": "Both have nucleon number 58, so both have relative mass 58. Nickel has two more protons, but iron has two more neutrons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they are the same"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 3/4 often asks you to \"determine\" the numbers of protons and neutrons from nuclide notation. Give the bottom number as the protons, then show the subtraction $A - Z$ for the neutrons."
+        }
+      ]
+    },
+    {
+      "id": "isotopes",
+      "heading": "Isotopes",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Atoms of one element always have the same number of protons. The number of neutrons, though, can vary."
+        },
+        {
+          "type": "definition",
+          "term": "isotope",
+          "statement": "[[isotope|Isotopes]] are atoms of one element that have the same proton number $Z$ but different numbers of neutrons. So they have different nucleon numbers $A$.",
+          "plain": "Same element, different number of neutrons."
+        },
+        {
+          "type": "text",
+          "text": "An element can have more than one isotope, and most do. Hydrogen has three. Carbon has carbon-12, carbon-13 and carbon-14."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-2-hydrogen-isotopes",
+          "alt": "The nuclei of the three isotopes of hydrogen. Hydrogen-1 has 1 proton and no neutrons. Hydrogen-2 has 1 proton and 1 neutron. Hydrogen-3 has 1 proton and 2 neutrons. Under each is its nuclide notation, with proton number 1 every time and nucleon numbers 1, 2 and 3.",
+          "caption": "The isotopes of hydrogen: the same proton number, different nucleon numbers."
+        },
+        {
+          "type": "text",
+          "text": "Isotopes of an element have the same number of protons, so their nuclei carry the same charge. Their neutron numbers differ, so their nuclei have different masses."
+        },
+        {
+          "type": "example",
+          "id": "ex-chlorine-isotopes",
+          "question": "Chlorine has proton number 17. Chlorine-35 and chlorine-37 are two of its isotopes. Explain what is meant by isotopes, using the particles in these two nuclei.",
+          "steps": [
+            "Start with the meaning: same element, so same proton number, but different numbers of neutrons.",
+            "Then show it with the numbers: both nuclei have $Z = 17$.",
+            "Work out each neutron number with $A - Z$."
+          ],
+          "answer": "Isotopes are atoms of one element that have the same proton number but different numbers of neutrons. Both nuclei have 17 protons, because both are chlorine. Chlorine-35 has $35 - 17 = 18$ neutrons. Chlorine-37 has $37 - 17 = 20$ neutrons.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same proton number, different neutron numbers; both 17 protons; 18 and 20 neutrons",
+            "requires": [
+              [
+                "same proton number",
+                "same number of protons"
+              ],
+              [
+                "different numbers of neutrons",
+                "different number of neutrons"
+              ],
+              "17 protons",
+              "18",
+              "20"
+            ],
+            "forbids": [
+              "different numbers of protons",
+              "different number of protons",
+              "different numbers of electrons"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying isotopes have different numbers of protons or electrons. A different number of protons would make a different element. Isotopes differ only in their neutrons."
+        },
+        {
+          "type": "check",
+          "id": "check-isotope-pair",
+          "prompt": "Four nuclei are written with made-up letters instead of chemical symbols: $^{16}_{8}\\text{J}$, $^{18}_{8}\\text{L}$, $^{18}_{9}\\text{M}$ and $^{16}_{7}\\text{Q}$. Which two are isotopes of the same element?",
+          "hint": "Isotopes share the bottom number.",
+          "options": [
+            {
+              "text": "J and L",
+              "correct": true
+            },
+            {
+              "text": "L and M",
+              "correct": false
+            },
+            {
+              "text": "J and Q",
+              "correct": false
+            },
+            {
+              "text": "M and Q",
+              "correct": false
+            }
+          ],
+          "explain": "J and L both have proton number 8, so they are the same element, with different nucleon numbers. L and M, and J and Q, share a nucleon number but not a proton number, so they are different elements.",
+          "verify": {
+            "kind": "choice",
+            "truth": "J and L"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-isotope-compare",
+          "prompt": "Uranium-235 and uranium-238 are isotopes of uranium. How do their nuclei compare?",
+          "hint": "Both are uranium. What does that fix?",
+          "options": [
+            {
+              "text": "same number of protons, different number of neutrons",
+              "correct": true
+            },
+            {
+              "text": "different number of protons, same number of neutrons",
+              "correct": false
+            },
+            {
+              "text": "same number of protons, same number of neutrons",
+              "correct": false
+            },
+            {
+              "text": "different numbers of protons and neutrons",
+              "correct": false
+            }
+          ],
+          "explain": "Both are uranium, so their proton numbers are equal. Their nucleon numbers differ by 3, so uranium-238 has 3 more neutrons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "same number of protons, different number of neutrons"
+          }
+        }
+      ]
+    },
+    {
+      "id": "fission-fusion",
+      "heading": "Nuclear fission and nuclear fusion",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Some nuclei can change into other nuclei and release a lot of energy. There are two ways: split a large nucleus, or join small ones."
+        },
+        {
+          "type": "definition",
+          "term": "nuclear fission",
+          "statement": "[[nuclear-fission|Nuclear fission]] is the splitting of a large nucleus into two smaller nuclei.",
+          "plain": "One big nucleus breaks into two."
+        },
+        {
+          "type": "text",
+          "text": "In a nuclear power station, a uranium-235 nucleus absorbs a slow-moving neutron. The nucleus becomes unstable and splits into two smaller nuclei, which fly apart. Two or three neutrons are released as well."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-2-fission",
+          "alt": "Nuclear fission. A slow neutron moves towards a large uranium-235 nucleus and is absorbed. The nucleus splits into two smaller nuclei moving apart, and three neutrons fly out in different directions. Energy is released.",
+          "caption": "Fission of uranium-235: two smaller nuclei, a few neutrons and energy."
+        },
+        {
+          "type": "text",
+          "text": "[[nuclear-fusion|Nuclear fusion]] is the opposite: two small nuclei join to make one larger nucleus. In the Sun, hydrogen nuclei fuse to make helium."
+        },
+        {
+          "type": "text",
+          "text": "Both can be written as a nuclide equation. A neutron is written $^{1}_{0}\\text{n}$: nucleon number 1 and proton number 0."
+        },
+        {
+          "type": "result",
+          "statement": "In the nuclide equation for fission or fusion, the nucleon numbers on each side add up to the same total, and so do the proton numbers.",
+          "why": "No nucleons are lost or gained in the reaction, so the total nucleon number stays the same. The total charge stays the same too."
+        },
+        {
+          "type": "example",
+          "id": "ex-fission-neutrons",
+          "question": "A uranium-235 nucleus absorbs a neutron and splits: $^{1}_{0}\\text{n} + {}^{235}_{92}\\text{U} \\to {}^{137}_{52}\\text{Te} + {}^{97}_{40}\\text{Zr} + x\\,{}^{1}_{0}\\text{n}$. Find $x$, the number of neutrons released.",
+          "steps": [
+            "Add the nucleon numbers on the left: $1 + 235 = 236$.",
+            "Add the nucleon numbers on the right: $137 + 97 + x = 234 + x$.",
+            "The totals must be equal: $234 + x = 236$, so $x = 2$.",
+            "Check the proton numbers: left $0 + 92 = 92$, right $52 + 40 + 0 = 92$. They balance."
+          ],
+          "answer": "$x = 2$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "(1 + 235) - (137 + 97)"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In both fission and fusion, the total mass after the reaction is slightly less than the total mass before. This lost mass has been changed into energy, which is released. Most of it is kinetic energy of the particles that fly apart."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-fission",
+          "question": "Describe what happens when a uranium-235 nucleus undergoes fission in a nuclear reactor. Include what happens to the mass.",
+          "steps": [
+            "Start with the neutron that triggers the fission.",
+            "Say what the nucleus splits into and what else comes out.",
+            "Finish with the change in mass and the energy."
+          ],
+          "answer": "A slow-moving neutron is absorbed by the uranium-235 nucleus. The nucleus splits into two smaller nuclei. Two or three neutrons are released as well. The total mass of the products is slightly less than the mass before. This lost mass is released as energy.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "neutron absorbed; nucleus splits into two smaller nuclei; two or three neutrons released; mass of products less; energy released",
+            "requires": [
+              "absorbed",
+              "splits into two smaller nuclei",
+              "neutrons are released",
+              "slightly less",
+              "released as energy"
+            ],
+            "forbids": [
+              "small nuclei join",
+              "mass is conserved",
+              "mass increases"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up the two. Fission splits one large nucleus; fusion joins small nuclei together. Both release energy."
+        },
+        {
+          "type": "mistake",
+          "text": "Saying mass is unchanged because the equation balances. The nucleon and proton numbers balance, but the products have slightly less mass. That mass difference is released as energy."
+        },
+        {
+          "type": "check",
+          "id": "check-fusion-product",
+          "prompt": "Two hydrogen-2 nuclei fuse: $^{2}_{1}\\text{H} + {}^{2}_{1}\\text{H} \\to {}^{A}_{Z}\\text{X} + {}^{1}_{0}\\text{n}$. Find the nucleon number $A$ and the proton number $Z$ of X.",
+          "hint": "Balance the top numbers, then the bottom numbers. Don't forget the neutron.",
+          "options": [
+            {
+              "text": "$A = 3,\\; Z = 2$",
+              "correct": true
+            },
+            {
+              "text": "$A = 4,\\; Z = 2$",
+              "correct": false
+            },
+            {
+              "text": "$A = 3,\\; Z = 1$",
+              "correct": false
+            },
+            {
+              "text": "$A = 2,\\; Z = 2$",
+              "correct": false
+            }
+          ],
+          "explain": "Nucleon numbers: $2 + 2 = A + 1$, so $A = 3$. Proton numbers: $1 + 1 = Z + 0$, so $Z = 2$, which is helium. X is helium-3, $^{3}_{2}\\text{He}$.",
+          "verify": {
+            "kind": "assignments",
+            "truth": "{'A': 2 + 2 - 1, 'Z': 1 + 1 - 0}"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-fusion-mass",
+          "prompt": "In a fusion reaction, how does the total mass of the products compare with the total mass of the nuclei that joined?",
+          "hint": "Energy is released. Where does it come from?",
+          "options": [
+            {
+              "text": "it is slightly less",
+              "correct": true
+            },
+            {
+              "text": "it is exactly the same",
+              "correct": false
+            },
+            {
+              "text": "it is slightly more",
+              "correct": false
+            }
+          ],
+          "explain": "The products have slightly less mass. The lost mass is released as energy. This is true of fission too.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it is slightly less"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "In a nuclide equation question, check that both the top numbers and the bottom numbers balance. Count every neutron released, each written $^{1}_{0}\\text{n}$."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "A nucleus is made of protons and neutrons (nucleons). Electrons orbit outside it. Relative charges: proton $+1$, neutron $0$, electron $-1$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Proton number (atomic number) $Z$ = number of protons. Nucleon number (mass number) $A$ = number of protons + number of neutrons."
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{number of neutrons} = A - Z",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Nuclide notation $^{A}_{Z}\\text{X}$: nucleon number at the top left, proton number at the bottom left of the chemical symbol."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Isotopes are atoms of one element with the same proton number but different numbers of neutrons. An element can have more than one isotope."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Relative charge on a nucleus $= +Z$, its proton number. Relative mass of a nucleus $= A$, its nucleon number."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended",
+          "text": "Fission: a large nucleus splits into two smaller nuclei. Fusion: two small nuclei join into a larger one. In both, the nucleon and proton numbers balance, the products have slightly less mass, and the lost mass is released as energy."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Putting electrons in the nucleus. The nucleus holds only protons and neutrons; the electrons orbit outside it.",
+    "Giving the nucleon number as the number of neutrons. Subtract the proton number: neutrons $= A - Z$.",
+    "Swapping the numbers in nuclide notation. The nucleon number goes at the top; it is never smaller than the proton number.",
+    "Saying isotopes have different numbers of protons or electrons. Isotopes of an element have the same number of protons; only the neutrons differ.",
+    "Extended: thinking extra neutrons change the charge of a nucleus. Neutrons are uncharged, so the relative charge is $+Z$ for every isotope.",
+    "Extended: calling fission \"joining\" or fusion \"splitting\". Fission splits a large nucleus; fusion joins small nuclei."
+  ],
+  "examTips": [
+    "\"Explain what is meant by an isotope\": give both points, the same number of protons and a different number of neutrons. One point on its own is not a full answer.",
+    "\"Determine\" the number of neutrons: write $A - Z$ with the numbers, then the answer. Neutrons have no unit.",
+    "Paper 2/4 nuclide equations: add the top numbers on each side, then the bottom numbers. Both totals must match."
+  ],
+  "readingMinutes": 22
+}

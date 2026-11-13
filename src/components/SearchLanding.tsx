@@ -87,6 +87,7 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
         <section className="landing-method" aria-labelledby="igcse-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="igcse-resources-heading">Choose a free past-paper archive</h2></div>
           {notesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={notesHref}>Notes: IGCSE Maths 0580 course notes</Link> with worked examples and checks for every topic.</p> : null}
+          {physicsNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={physicsNotesHref}>Notes: IGCSE Physics 0625 course notes</Link> with worked examples and checks for every topic.</p> : null}
           <p>Need complete papers rather than a topic set? Compare the <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">best free IGCSE past-paper websites</Link> by exam board, subject and access.</p>
         </section>
       )}

@@ -1,0 +1,683 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "5.2.4",
+  "slug": "half-life",
+  "title": "Half-life",
+  "level": "Core",
+  "topic": 5,
+  "summary": "The [[half-life|half-life]] of an [[isotope|isotope]] is the time it takes for half of its unstable nuclei to decay. In every half-life, the nuclei left, the mass of the isotope and the [[count-rate|count rate]] from it (once background is taken away) all halve. Learn to read half-life from tables and [[decay-curve|decay curves]] and to count half-lives in calculations. Extended adds [[background-radiation|background radiation]] and choosing the right isotope for a job.",
+  "goals": [
+    {
+      "text": "Define half-life, and explain why it is the same however much of the isotope you start with.",
+      "bullets": [
+        "5.2.4-1"
+      ]
+    },
+    {
+      "text": "Read the half-life from a [[decay-curve|decay curve]] or a table of readings.",
+      "bullets": [
+        "5.2.4-1"
+      ]
+    },
+    {
+      "text": "Calculate a half-life, a time taken or the amount left by counting half-lives.",
+      "bullets": [
+        "5.2.4-1"
+      ]
+    },
+    {
+      "text": "Find the half-life from readings and decay curves that still include [[background-radiation|background radiation]].",
+      "bullets": [
+        "5.2.4-2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Explain how the type of radiation and the half-life decide which isotope suits smoke alarms, food irradiation, sterilising equipment, thickness control, and the diagnosis and treatment of cancer.",
+      "bullets": [
+        "5.2.4-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "5.1.1",
+    "5.1.2",
+    "5.2.1",
+    "5.2.2",
+    "5.2.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "half life calculations",
+    "decay curve half-life",
+    "radioactive half-life from a graph",
+    "half-life with background radiation",
+    "uses of radioactive isotopes",
+    "choosing a radioactive source"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-isotope-same",
+      "prompt": "Two isotopes of the same element must have the same number of which particle in the [[nucleus|nucleus]]?",
+      "hint": "The number of this particle decides which element the atom is.",
+      "options": [
+        {
+          "text": "protons",
+          "correct": true
+        },
+        {
+          "text": "neutrons",
+          "correct": false
+        },
+        {
+          "text": "nucleons",
+          "correct": false
+        }
+      ],
+      "explain": "Isotopes of an element have the same number of protons but different numbers of neutrons, so their nucleon numbers differ too. Revise it in {{lesson:5.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "protons"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-count-rate-minute",
+      "prompt": "A counter records $1350$ counts in $3.0$ minutes. What is the count rate?",
+      "hint": "Count rate is the number of counts divided by the time taken.",
+      "options": [
+        {
+          "text": "$450\\ \\text{counts/minute}$",
+          "correct": true
+        },
+        {
+          "text": "$4050\\ \\text{counts/minute}$",
+          "correct": false
+        },
+        {
+          "text": "$1350\\ \\text{counts/minute}$",
+          "correct": false
+        }
+      ],
+      "explain": "Count rate $= \\frac{1350}{3.0} = 450$ counts/minute. Revise it in {{lesson:5.2.1}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "1350/3.0",
+        "unit": "counts/minute"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-decay-random",
+      "prompt": "Which statement about one [[unstable-nucleus|unstable nucleus]] is correct?",
+      "hint": "Think about the word \"random\".",
+      "options": [
+        {
+          "text": "you cannot predict when it will decay",
+          "correct": true
+        },
+        {
+          "text": "it decays when it is heated",
+          "correct": false
+        },
+        {
+          "text": "it decays after a fixed time",
+          "correct": false
+        }
+      ],
+      "explain": "[[radioactive-decay|Radioactive decay]] is spontaneous and random: nothing outside sets it off, and nobody can say when one particular nucleus will decay. Revise it in {{lesson:5.2.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "you cannot predict when it will decay"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "half-life",
+      "heading": "Half-life and decay curves",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "You can't predict when one [[unstable-nucleus|unstable nucleus]] will decay. But even a tiny sample holds billions of them. With so many, very nearly the same fraction decays in each equal time, so the whole sample behaves predictably."
+        },
+        {
+          "type": "text",
+          "text": "As nuclei decay, fewer unstable nuclei are left. So fewer decay each second, and the [[count-rate|count rate]] from the sample falls too."
+        },
+        {
+          "type": "definition",
+          "term": "half-life",
+          "statement": "The half-life of an isotope is the time it takes for half of the unstable nuclei of that isotope in a sample to decay.",
+          "plain": "Wait one half-life and half the radioactive nuclei are left; wait another and a quarter are left."
+        },
+        {
+          "type": "text",
+          "text": "In each half-life, three things halve together: the number of unstable nuclei left, the mass of the isotope left and the count rate from it (with background ignored or subtracted)."
+        },
+        {
+          "type": "text",
+          "text": "Each [[isotope|isotope]] has its own half-life, from less than a second to billions of years. It doesn't depend on how much you have: $1\\ \\text{g}$ and $1\\ \\text{kg}$ of the same isotope take the same time to halve."
+        },
+        {
+          "type": "text",
+          "text": "A [[decay-curve|decay curve]] is a graph of count rate (or nuclei or mass left) against time. It falls steeply at first, then less and less steeply: its [[gradient|gradient]] gets smaller. It gets closer and closer to zero, but some of the isotope is still left after any whole number of half-lives."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-4-decay-curve",
+          "alt": "Decay curve. Time in minutes from 0 to 100 on the horizontal axis; count rate in counts per minute from 0 to 400 on the vertical axis. A smooth curve starts at 360 counts per minute and falls less and less steeply. It passes through 180 at 20 minutes, 90 at 40 minutes, 45 at 60 minutes and about 23 at 80 minutes. Dashed lines go across from 180 and 90 to the curve, then down to 20 and 40 minutes.",
+          "caption": "Each fall to half takes the same time. Background radiation can be ignored."
+        },
+        {
+          "type": "example",
+          "id": "ex-curve-half-life",
+          "question": "Use the decay curve in the figure. Find the half-life of the isotope.",
+          "steps": [
+            "Read the count rate at the start: $360$ counts/minute at $0$ min.",
+            "Halve the count rate, not the time: $\\frac{360}{2} = 180$ counts/minute.",
+            "Draw a line across from $180$ until it meets the curve, then drop straight down from there: $20$ min.",
+            "Check with a second halving: $180$ falls to $90$ between $20$ min and $40$ min, which is $20$ min again."
+          ],
+          "answer": "$\\text{half-life} = 20\\ \\text{min}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "40 - 20",
+            "unit": "min"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Draw your construction lines on the graph (background ignored): across from half the starting value, then down to the time axis. You can start from any point on the curve: the half-life is the time you reach half its value minus the starting time."
+        },
+        {
+          "type": "mistake",
+          "text": "Halving the time axis, or giving a count rate as the half-life. Halve the value on the vertical axis; the half-life is the time between the two points, so subtract the starting time unless you began at $t = 0$."
+        },
+        {
+          "type": "check",
+          "id": "check-curve-time-to-45",
+          "prompt": "Use the decay curve. How long does the count rate take to fall from $360$ to $45$ counts/minute?",
+          "hint": "Halve $360$ until you reach $45$, and count the halvings.",
+          "options": [
+            {
+              "text": "$60\\ \\text{min}$",
+              "correct": true
+            },
+            {
+              "text": "$80\\ \\text{min}$",
+              "correct": false
+            },
+            {
+              "text": "$40\\ \\text{min}$",
+              "correct": false
+            },
+            {
+              "text": "$160\\ \\text{min}$",
+              "correct": false
+            }
+          ],
+          "explain": "$360 \\to 180 \\to 90 \\to 45$ is $3$ halvings, so $3$ half-lives: $3 \\times 20 = 60$ min.",
+          "verify": {
+            "kind": "exact",
+            "truth": "20*log(360/45, 2)",
+            "unit": "min"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-half-life-amount",
+          "prompt": "Sample A holds $2$ g of an isotope. Sample B holds $10$ g of the same isotope. How do their half-lives compare?",
+          "hint": "Does halving take longer when there is more to halve?",
+          "options": [
+            {
+              "text": "they are the same",
+              "correct": true
+            },
+            {
+              "text": "B's half-life is five times longer",
+              "correct": false
+            },
+            {
+              "text": "A's half-life is five times longer",
+              "correct": false
+            }
+          ],
+          "explain": "Half-life belongs to the isotope, not to the sample. Any amount of it halves in the same time.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they are the same"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculations",
+      "heading": "Half-life calculations",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most half-life questions are solved with a halving chain. In Core questions, background radiation can be ignored."
+        },
+        {
+          "type": "text",
+          "text": "1. Write the starting value. 2. Halve it again and again, one arrow per half-life, until you reach the value you need. 3. Count the arrows, not the numbers. 4. Time taken = number of half-lives × half-life."
+        },
+        {
+          "type": "text",
+          "text": "After $1$, $2$, $3$ and $4$ half-lives, the fraction left is $\\frac{1}{2}$, $\\frac{1}{4}$, $\\frac{1}{8}$ and $\\frac{1}{16}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-sodium-mass-left",
+          "question": "Sodium-24 has a half-life of $15$ hours. A sample contains $80$ mg of sodium-24. Calculate the mass of sodium-24 left after $60$ hours.",
+          "steps": [
+            "Number of half-lives: $\\frac{60}{15} = 4$.",
+            "Halve the mass $4$ times: $80 \\to 40 \\to 20 \\to 10 \\to 5$ mg.",
+            "Check: $4$ arrows, and $80 \\times \\frac{1}{16} = 5$."
+          ],
+          "answer": "$\\text{mass left} = 5.0\\ \\text{mg}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "80/2**(60/15)",
+            "unit": "mg"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-table-half-life",
+          "question": "A student measures the count rate from a source every $3$ days. Background radiation can be ignored. Times: $0$, $3$, $6$, $9$, $12$ days. Count rates: $960$, $680$, $480$, $340$, $240$ counts/minute. Determine the half-life of the source.",
+          "steps": [
+            "Start at $960$ counts/minute. Half of it is $480$ counts/minute.",
+            "The table shows $480$ at $6$ days, so one half-life is $6$ days.",
+            "Check: $480$ halves to $240$ between $6$ and $12$ days, which is $6$ days again."
+          ],
+          "answer": "$\\text{half-life} = 6\\ \\text{days}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "12 - 6",
+            "unit": "days"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Treating the first number in the chain as one half-life. In $80 \\to 40 \\to 20 \\to 10 \\to 5$ there are five numbers but only four arrows, so four half-lives."
+        },
+        {
+          "type": "check",
+          "id": "check-half-life-from-fall",
+          "prompt": "The count rate from a source falls from $1200$ to $75$ counts/s in $26$ hours. Ignore background radiation. Find the half-life.",
+          "hint": "Halve $1200$ until you reach $75$, then share the $26$ hours between the halvings.",
+          "options": [
+            {
+              "text": "$6.5\\ \\text{hours}$",
+              "correct": true
+            },
+            {
+              "text": "$13\\ \\text{hours}$",
+              "correct": false
+            },
+            {
+              "text": "$5.2\\ \\text{hours}$",
+              "correct": false
+            },
+            {
+              "text": "$1.6\\ \\text{hours}$",
+              "correct": false
+            }
+          ],
+          "explain": "$1200 \\to 600 \\to 300 \\to 150 \\to 75$ is $4$ half-lives, so the half-life is $\\frac{26}{4} = 6.5$ hours. Counting the five numbers gives $5.2$ hours.",
+          "verify": {
+            "kind": "exact",
+            "truth": "26/log(1200/75, 2)",
+            "unit": "hours"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-count-rate-after",
+          "prompt": "The half-life of an isotope is $5.0$ days. Near a sample of it, a detector reads $2400$ counts/minute. Ignore background radiation. What will the count rate be $20$ days later, in counts/minute?",
+          "hint": "How many half-lives fit into $20$ days?",
+          "answer": {
+            "value": 150,
+            "tolerance": 0
+          },
+          "explain": "$\\frac{20}{5.0} = 4$ half-lives: $2400 \\to 1200 \\to 600 \\to 300 \\to 150$ counts/minute.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2400/2**(20/5.0)",
+            "dp": 0
+          }
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "Real readings include [[background-radiation|background radiation]]. The background doesn't come from the sample, so it doesn't halve. Only the [[corrected-count-rate|corrected count rate]] (reading minus background) halves in each half-life."
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "1. Subtract the background from each reading. 2. Find the half-life from the corrected values. 3. If you need a measured reading, add the background back on at the end."
+        },
+        {
+          "type": "text",
+          "level": "Extended",
+          "text": "On a decay curve drawn from measured readings, the curve levels off at the background count rate, not at zero. Measure every halving from that level, not from the time axis."
+        },
+        {
+          "type": "example",
+          "level": "Extended",
+          "id": "ex-background-table",
+          "question": "The background count rate in a laboratory is $40$ counts/minute. A detector near a source reads: $680$ counts/minute at $0$ min, $360$ at $10$ min, $200$ at $20$ min and $120$ at $30$ min. These readings include background. Determine the half-life of the source.",
+          "steps": [
+            "Subtract the background: the corrected count rates are $640$, $320$, $160$ and $80$ counts/minute.",
+            "Half of $640$ is $320$, which is reached at $10$ min.",
+            "Check: $320$ halves to $160$ between $10$ and $20$ min, which is $10$ min again.",
+            "Halving the raw $680$ gives $340$, which is not in the table: that route goes wrong."
+          ],
+          "answer": "$\\text{half-life} = 10\\ \\text{min}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "20 - 10",
+            "unit": "min"
+          }
+        },
+        {
+          "type": "check",
+          "level": "Extended",
+          "id": "check-background-after",
+          "prompt": "A detector near a source reads $1240$ counts/minute. The background count rate is $40$ counts/minute and the half-life is $6.0$ hours. What will the detector read $18$ hours later?",
+          "hint": "Take off the background, halve what is left, then put the background back.",
+          "options": [
+            {
+              "text": "$190\\ \\text{counts/minute}$",
+              "correct": true
+            },
+            {
+              "text": "$155\\ \\text{counts/minute}$",
+              "correct": false
+            },
+            {
+              "text": "$150\\ \\text{counts/minute}$",
+              "correct": false
+            },
+            {
+              "text": "$115\\ \\text{counts/minute}$",
+              "correct": false
+            }
+          ],
+          "explain": "Corrected: $1240 - 40 = 1200$. Three half-lives: $1200 \\to 600 \\to 300 \\to 150$. The detector reads $150 + 40 = 190$ counts/minute.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(1240 - 40)/2**(18/6.0) + 40",
+            "unit": "counts/minute"
+          }
+        },
+        {
+          "type": "check",
+          "level": "Extended",
+          "id": "check-background-curve",
+          "prompt": "A graph of measured count rate starts at $510$ counts/minute and levels off at $30$ counts/minute. What measured count rate does the curve show after one half-life?",
+          "hint": "What level does the curve settle at? Halve only the part above it.",
+          "options": [
+            {
+              "text": "$270\\ \\text{counts/minute}$",
+              "correct": true
+            },
+            {
+              "text": "$255\\ \\text{counts/minute}$",
+              "correct": false
+            },
+            {
+              "text": "$240\\ \\text{counts/minute}$",
+              "correct": false
+            },
+            {
+              "text": "$225\\ \\text{counts/minute}$",
+              "correct": false
+            }
+          ],
+          "explain": "The curve levels off at the background, $30$ counts/minute. The source's part is $510 - 30 = 480$, which halves to $240$, so the curve shows $240 + 30 = 270$ counts/minute.",
+          "verify": {
+            "kind": "exact",
+            "truth": "(510 - 30)/2 + 30",
+            "unit": "counts/minute"
+          }
+        }
+      ]
+    },
+    {
+      "id": "choosing",
+      "heading": "Choosing an isotope for a job",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two properties decide which isotope suits a job. The type of radiation decides how far it gets through materials and how much it ionises. The half-life decides how long the source keeps working."
+        },
+        {
+          "type": "text",
+          "text": "If the half-life is too short, the source's count rate falls quickly, so it must be replaced often. Inside a patient's body, a long half-life is the problem: the body would stay radioactive long after the test."
+        },
+        {
+          "type": "text",
+          "text": "Smoke alarm: an [[alpha-particle|alpha]] source ionises the air between two metal plates, so a small current flows. Smoke absorbs the alpha particles, the current falls and the alarm sounds. Alpha travels only a few centimetres in air, so it doesn't escape the alarm. The half-life is hundreds of years, so the source lasts the life of the alarm."
+        },
+        {
+          "type": "text",
+          "text": "Irradiating food and sterilising equipment: [[gamma-radiation|gamma]] radiation is used because it passes right through food, packaging and sealed medical equipment, killing bacteria inside. Equipment can be sterilised already sealed in its packet. Neither the food nor the equipment becomes radioactive. The source has a half-life of years, so it doesn't need replacing often."
+        },
+        {
+          "type": "text",
+          "text": "Thickness control: radiation from a source passes through a sheet to a detector. If the sheet gets thicker, more radiation is absorbed and the count rate falls; a control unit then moves the rollers. Beta suits paper and thin sheets, and gamma suits thick metal sheets. The half-life must be long, so the count rate changes only because the thickness changes."
+        },
+        {
+          "type": "figure",
+          "id": "5-2-4-thickness-gauge",
+          "alt": "A paper sheet leaves a pair of rollers and moves to the right. A beta source below the sheet sends radiation up through it to a detector directly above. A cable joins the detector to a counter and control unit, which adjusts the gap between the rollers.",
+          "caption": "If the count rate falls, the paper is too thick, so the rollers press closer together."
+        },
+        {
+          "type": "text",
+          "text": "Diagnosing cancer: a gamma-emitting tracer is put into the body, and a detector outside shows where it collects. Gamma passes out through the body; alpha or beta would be absorbed inside, ionising cells. The half-life is a few hours: long enough for the scan, short enough that the body is soon not radioactive."
+        },
+        {
+          "type": "text",
+          "text": "Treating cancer: in one method, beams of gamma rays from a source outside the body are aimed at the tumour from several directions. The tumour gets a large dose that kills its cells, while healthy tissue gets less. This source has a long half-life, so it keeps working for years."
+        },
+        {
+          "type": "example",
+          "id": "ex-paper-beta",
+          "question": "A paper mill uses a radioactive source to monitor the thickness of its paper. Explain why the source chosen emits beta particles and has a long half-life.",
+          "steps": [
+            "Say what each type of radiation would do with paper, then give one reason for the long half-life."
+          ],
+          "answer": "Alpha particles would be stopped completely by the paper, so the count rate would not change with thickness. Gamma rays would pass through almost unchanged, so a small change in thickness would hardly change the count rate. Beta particles are partly absorbed by paper, so thicker paper gives a clearly lower count rate. A long half-life means the count rate does not fall noticeably because of decay, so any change is caused by the thickness.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "alpha fully stopped by paper; gamma barely absorbed; beta partly absorbed so count rate depends on thickness; long half-life so decay doesn't change count rate",
+            "requires": [
+              [
+                "alpha particles would be stopped completely",
+                "alpha would be stopped"
+              ],
+              [
+                "gamma rays would pass through almost unchanged",
+                "gamma would pass straight through"
+              ],
+              "partly absorbed",
+              "long half-life",
+              [
+                "does not fall noticeably because of decay",
+                "count rate does not fall"
+              ]
+            ],
+            "forbids": [
+              "beta particles are stopped completely",
+              "gamma rays are stopped by paper",
+              "short half-life"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Choosing alpha for a job just because it ionises most. First ask how far the radiation must get: out of a body or through packaging needs gamma."
+        },
+        {
+          "type": "check",
+          "id": "check-tracer-choice",
+          "prompt": "A hospital needs a tracer to inject into a patient so that a camera outside the body can show how an organ is working. Which isotope is best?",
+          "hint": "The radiation must get out of the body, and the patient should not stay radioactive for long.",
+          "options": [
+            {
+              "text": "a gamma emitter with a half-life of a few hours",
+              "correct": true
+            },
+            {
+              "text": "an alpha emitter with a half-life of a few hours",
+              "correct": false
+            },
+            {
+              "text": "a gamma emitter with a half-life of a thousand years",
+              "correct": false
+            },
+            {
+              "text": "a beta emitter with a half-life of a few seconds",
+              "correct": false
+            }
+          ],
+          "explain": "Gamma passes out of the body to the camera. A few hours is long enough for the scan but short enough that little of the isotope is left in the body soon after.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a gamma emitter with a half-life of a few hours"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-food-choice",
+          "prompt": "Which source is suitable for killing bacteria in boxes of packed food?",
+          "hint": "The radiation must get through the boxes, and the source should keep working.",
+          "options": [
+            {
+              "text": "a gamma emitter with a half-life of several years",
+              "correct": true
+            },
+            {
+              "text": "an alpha emitter with a half-life of several years",
+              "correct": false
+            },
+            {
+              "text": "a gamma emitter with a half-life of a few seconds",
+              "correct": false
+            },
+            {
+              "text": "a beta emitter with a half-life of several years",
+              "correct": false
+            }
+          ],
+          "explain": "Only gamma passes through the boxes and the food. A half-life of years means the source doesn't fade away during use.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a gamma emitter with a half-life of several years"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-smoke-alarm",
+          "prompt": "Why does a smoke alarm use an alpha source?",
+          "hint": "Think about ionising and about how far alpha travels in air.",
+          "options": [
+            {
+              "text": "alpha ionises air strongly but cannot travel far outside the alarm",
+              "correct": true
+            },
+            {
+              "text": "alpha passes easily through smoke",
+              "correct": false
+            },
+            {
+              "text": "alpha is the most penetrating radiation",
+              "correct": false
+            }
+          ],
+          "explain": "Alpha's strong ionising makes the air conduct, and smoke stops it, which the alarm detects. A few centimetres of air absorb it, so it is safe outside the alarm.",
+          "verify": {
+            "kind": "choice",
+            "truth": "alpha ionises air strongly but cannot travel far outside the alarm"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Half-life: the time for half of the unstable nuclei of an isotope in a sample to decay. It is the same for any amount of that isotope.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "In each half-life, the nuclei left, the mass of the isotope and the count rate from it (background ignored or subtracted) all halve: $\\frac{1}{2}$, $\\frac{1}{4}$, $\\frac{1}{8}$, … after $1$, $2$, $3$ half-lives.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Halving chain (background ignored or subtracted): count the arrows, not the numbers. Time taken = number of half-lives × half-life.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "From a decay curve (background ignored): halve the count rate at a starting time, go across to the curve, then straight down to read the time. Half-life = that time − the starting time. Check with a second halving.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "With background in the readings: subtract it, halve the corrected count rate, then add the background back for a measured reading. A measured decay curve levels off at the background count rate.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Isotope choice: smoke alarm, alpha with a long half-life; food, equipment and cancer treatment by gamma beams from outside the body, gamma with a long half-life; paper thickness, beta with a long half-life; medical tracer for diagnosis, gamma with a half-life of a few hours.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Taking the first number of the halving chain as one half-life. Count the arrows in the halving chain, not the numbers.",
+    "Halving the time instead of the count rate on a decay curve. Halve the vertical value; the half-life is the time taken to get there from your starting point.",
+    "Drawing the decay as a straight line to zero, as if everything decays in two half-lives. The amount halves each time, so the curve flattens and never quite reaches zero.",
+    "Thinking a bigger sample has a longer half-life. Half-life is the same for any amount of the isotope.",
+    "Extended: halving a reading that still includes background. Subtract the background first, halve, then add it back if the question asks for the measured reading."
+  ],
+  "examTips": [
+    "\"Calculate\" questions: write the halving chain and the number of half-lives before the answer. These lines show your method and can earn marks even if the final answer slips.",
+    "Paper 5/6: when you plot count rate against time, draw one smooth curve of best fit, not straight lines from point to point. Decay is random, so the points scatter a little about the curve.",
+    "Extended: to \"explain\" a choice of isotope, make two separate points: the type of radiation with a penetration reason, and the half-life with a reason."
+  ],
+  "readingMinutes": 22
+}

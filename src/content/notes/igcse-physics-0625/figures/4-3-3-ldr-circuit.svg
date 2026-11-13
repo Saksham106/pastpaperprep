@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 300" role="img" aria-labelledby="t433ldr">
+  <title id="t433ldr">A cell, an ammeter, a light-dependent resistor and a fixed resistor connected in series in a single loop. A voltmeter is connected across the fixed resistor only.</title>
+  <g stroke="currentColor" stroke-width="2.2" fill="none">
+    <!-- top wire with cell -->
+    <line x1="60" y1="60" x2="245" y2="60"/>
+    <line x1="255" y1="60" x2="460" y2="60"/>
+    <!-- right side with ammeter -->
+    <line x1="460" y1="60" x2="460" y2="105"/>
+    <circle cx="460" cy="120" r="15"/>
+    <line x1="460" y1="135" x2="460" y2="200"/>
+    <!-- bottom wire: fixed resistor then LDR -->
+    <line x1="460" y1="200" x2="370" y2="200"/>
+    <rect x="310" y="190" width="60" height="20"/>
+    <line x1="310" y1="200" x2="205" y2="200"/>
+    <rect x="145" y="190" width="60" height="20"/>
+    <line x1="145" y1="200" x2="60" y2="200"/>
+    <!-- left side -->
+    <line x1="60" y1="200" x2="60" y2="60"/>
+    <!-- light arrows pointing at the LDR -->
+    <line x1="118" y1="148" x2="143" y2="173"/>
+    <line x1="142" y1="148" x2="167" y2="173"/>
+    <!-- voltmeter across the fixed resistor -->
+    <line x1="290" y1="200" x2="290" y2="260"/>
+    <line x1="290" y1="260" x2="325" y2="260"/>
+    <circle cx="340" cy="260" r="15"/>
+    <line x1="355" y1="260" x2="390" y2="260"/>
+    <line x1="390" y1="260" x2="390" y2="200"/>
+  </g>
+  <g fill="currentColor">
+    <polygon points="149,180 139.8,176.4 145.4,170.8"/>
+    <polygon points="173,180 163.8,176.4 169.4,170.8"/>
+    <circle cx="290" cy="200" r="4"/>
+    <circle cx="390" cy="200" r="4"/>
+  </g>
+  <!-- cell: long thin plate is positive, short thick plate negative -->
+  <line x1="245" y1="40" x2="245" y2="80" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="255" y1="50" x2="255" y2="70" stroke="currentColor" stroke-width="6"/>
+  <g font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle">
+    <text x="460" y="125">A</text>
+    <text x="340" y="265">V</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">
+    <text x="250" y="28">cell</text>
+    <text x="175" y="235">LDR</text>
+    <text x="340" y="180">fixed resistor</text>
+    <text x="438" y="125" text-anchor="end">ammeter</text>
+    <text x="340" y="295">voltmeter</text>
+  </g>
+</svg>

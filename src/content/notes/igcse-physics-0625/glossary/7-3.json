@@ -1,0 +1,26 @@
+[
+  {
+    "id": "precision",
+    "term": "precision",
+    "definition": "How close repeated measured values of a quantity are to each other; recording a reading to the right precision means giving it to the smallest step you can read on the instrument, no more and no fewer figures.",
+    "lesson": "7.3"
+  },
+  {
+    "id": "zero-error",
+    "term": "zero error",
+    "definition": "The reading an instrument gives when the true value is zero; subtract it from every reading to get the true values (subtracting a negative zero error adds its size).",
+    "lesson": "7.3"
+  },
+  {
+    "id": "repeatability",
+    "term": "repeatability",
+    "definition": "A measurement is repeatable if you get the same or a very similar value when you measure it again in the same way and in the same conditions, during one experiment.",
+    "lesson": "7.3"
+  },
+  {
+    "id": "reproducibility",
+    "term": "reproducibility",
+    "definition": "A measurement is reproducible if a similar value is found by another method, in other conditions, or in a separate experiment.",
+    "lesson": "7.3"
+  }
+]

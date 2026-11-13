@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-labelledby="t456trans">
+<title id="t456trans">A simple transformer. A square ring of soft iron forms the core. On the left side of the ring is the primary coil, with 5 turns of insulated copper wire, connected to an a.c. supply. On the right side of the ring is the secondary coil, with 10 turns, connected to a lamp. The two coils are not joined by any wire. The secondary has more turns than the primary, so this is a step-up transformer.</title>
+<path d="M 220 60 H 420 V 260 H 220 Z M 260 100 V 220 H 380 V 100 Z" fill="var(--muted)" fill-opacity="0.25" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="13" x="320" y="48" fill="currentColor" text-anchor="middle">soft-iron core</text>
+<line x1="212" y1="110" x2="268" y2="118" stroke="var(--t1-ink)" stroke-width="3"/>
+<line x1="212" y1="135" x2="268" y2="143" stroke="var(--t1-ink)" stroke-width="3"/>
+<line x1="212" y1="160" x2="268" y2="168" stroke="var(--t1-ink)" stroke-width="3"/>
+<line x1="212" y1="185" x2="268" y2="193" stroke="var(--t1-ink)" stroke-width="3"/>
+<line x1="212" y1="210" x2="268" y2="218" stroke="var(--t1-ink)" stroke-width="3"/>
+<polyline points="212,110 120,110 120,142" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<polyline points="212,210 120,210 120,178" fill="none" stroke="var(--t1-ink)" stroke-width="2"/>
+<circle cx="120" cy="147" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<circle cx="120" cy="173" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="18" x="120" y="166" fill="currentColor" text-anchor="middle">~</text>
+<text font-family="inherit" font-size="13" x="94" y="156" fill="currentColor" text-anchor="end">a.c.</text>
+<text font-family="inherit" font-size="13" x="94" y="172" fill="currentColor" text-anchor="end">supply</text>
+<text font-family="inherit" font-size="13" x="240" y="290" fill="var(--t1-ink)" text-anchor="middle">primary coil</text>
+<text font-family="inherit" font-size="12" x="240" y="307" fill="var(--t1-ink)" text-anchor="middle">input, 5 turns</text>
+<line x1="372" y1="104" x2="428" y2="110" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="116" x2="428" y2="122" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="128" x2="428" y2="134" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="140" x2="428" y2="146" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="152" x2="428" y2="158" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="164" x2="428" y2="170" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="176" x2="428" y2="182" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="188" x2="428" y2="194" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="200" x2="428" y2="206" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<line x1="372" y1="212" x2="428" y2="218" stroke="var(--t2-ink)" stroke-width="2.5"/>
+<polyline points="428,110 520,110 520,146" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+<polyline points="428,218 520,218 520,174" fill="none" stroke="var(--t2-ink)" stroke-width="2"/>
+<circle cx="520" cy="160" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="510" y1="150" x2="530" y2="170" stroke="currentColor" stroke-width="1.6"/>
+<line x1="530" y1="150" x2="510" y2="170" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="13" x="544" y="164" fill="currentColor" text-anchor="start">lamp</text>
+<text font-family="inherit" font-size="13" x="400" y="290" fill="var(--t2-ink)" text-anchor="middle">secondary coil</text>
+<text font-family="inherit" font-size="12" x="400" y="307" fill="var(--t2-ink)" text-anchor="middle">output, 10 turns</text>
+</svg>

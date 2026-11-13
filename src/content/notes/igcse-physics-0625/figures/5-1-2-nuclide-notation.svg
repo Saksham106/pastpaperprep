@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" role="img" aria-labelledby="t512notation">
+  <title id="t512notation">Nuclide notation for aluminium-27. The chemical symbol Al is written large. The number 27 sits at the top left of the symbol and is labelled nucleon number A, the number of protons plus neutrons. The number 13 sits at the bottom left and is labelled proton number Z, the number of protons. The symbol itself is labelled chemical symbol of the element.</title>
+  <g fill="currentColor" font-family="inherit">
+    <text x="300" y="140" font-size="72">Al</text>
+    <text x="294" y="90" font-size="32" text-anchor="end" fill="var(--t1-ink)">27</text>
+    <text x="294" y="168" font-size="32" text-anchor="end" fill="var(--t3-ink)">13</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1.5" fill="none">
+    <line x1="196" y1="62" x2="250" y2="74"/>
+    <polyline points="241,68 250,74 240,78"/>
+    <line x1="196" y1="182" x2="250" y2="162"/>
+    <polyline points="239,160 250,162 243,171"/>
+    <line x1="430" y1="112" x2="396" y2="112"/>
+    <polyline points="405,106 396,112 405,118"/>
+  </g>
+  <g font-size="15" fill="currentColor" font-family="inherit">
+    <text x="24" y="52">nucleon number, A</text>
+    <text x="24" y="70" fill="var(--muted)">(protons + neutrons)</text>
+    <text x="24" y="182">proton number, Z</text>
+    <text x="24" y="200" fill="var(--muted)">(number of protons)</text>
+    <text x="438" y="108">chemical symbol</text>
+    <text x="438" y="126" fill="var(--muted)">of the element</text>
+  </g>
+</svg>

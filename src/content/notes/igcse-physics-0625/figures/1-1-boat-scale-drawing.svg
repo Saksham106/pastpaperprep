@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 300" role="img" aria-labelledby="t11boat">
+<title id="t11boat">Scale drawing with a scale of 1 centimetre to 0.2 metres per second. From a start point, a line 12.0 centimetres long points north, for the boat's velocity of 2.4 metres per second. From its tip, a line 5.0 centimetres long points east, at right angles, for the river's velocity of 1.0 metres per second. The resultant goes from the start point to the end of the second line and measures 13.0 centimetres. The angle theta between the north line and the resultant is marked at the start point.</title>
+<path d="M120 250 L120 67" fill="none" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="120,58 115.5,67 124.5,67" fill="var(--t1-ink)"/>
+<path d="M120 58 L191 58" fill="none" stroke="var(--t2-ink)" stroke-width="2.2"/>
+<polygon points="200,58 191,53.5 191,62.5" fill="var(--t2-ink)"/>
+<path d="M120 250 L196.5 66.3" fill="none" stroke="var(--t4-ink)" stroke-width="2.2"/>
+<polygon points="200,58 200.7,68.0 192.4,64.6" fill="var(--t4-ink)"/>
+<path d="M120 70 H132 V58" fill="none" stroke="currentColor" stroke-width="1"/>
+<path d="M120 210 A40 40 0 0 1 135.4 213.1" fill="none" stroke="currentColor" stroke-width="1.2"/>
+<text font-family="inherit" font-size="13" x="131" y="198" fill="currentColor" text-anchor="middle">θ</text>
+<circle cx="120" cy="250" r="3" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="112" y="150" fill="var(--t1-ink)" text-anchor="end">boat 2.4 m/s</text>
+<text font-family="inherit" font-size="12" x="112" y="166" fill="var(--t1-ink)" text-anchor="end">12.0 cm</text>
+<text font-family="inherit" font-size="12" x="160" y="46" fill="var(--t2-ink)" text-anchor="middle">river 1.0 m/s, 5.0 cm</text>
+<text font-family="inherit" font-size="12" x="172" y="160" fill="var(--t4-ink)" text-anchor="start">resultant</text>
+<text font-family="inherit" font-size="12" x="172" y="176" fill="var(--t4-ink)" text-anchor="start">13.0 cm</text>
+<path d="M360 120 V70" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="360,62 355.5,71 364.5,71" fill="var(--muted)"/>
+<text font-family="inherit" font-size="12" x="360" y="56" fill="var(--muted)" text-anchor="middle">N</text>
+<path d="M360 120 H402" fill="none" stroke="var(--muted)" stroke-width="1.4"/>
+<polygon points="410,120 401,115.5 401,124.5" fill="var(--muted)"/>
+<text font-family="inherit" font-size="12" x="416" y="124" fill="var(--muted)" text-anchor="start">E</text>
+<text font-family="inherit" font-size="12" x="300" y="270" fill="var(--muted)" text-anchor="start">scale: 1 cm = 0.2 m/s</text>
+</svg>

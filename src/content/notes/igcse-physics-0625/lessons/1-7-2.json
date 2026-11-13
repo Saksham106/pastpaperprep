@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.7.2",
+  "slug": "work",
+  "title": "Work",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[work-done|Work done]] is the [[energy|energy]] transferred when a [[force|force]] moves an object, or when an electric current flows. For a force, multiply the force by how far the object moves in the direction of the force: $W = Fd$. The answer is in joules, the same unit as energy.",
+  "goals": [
+    {
+      "text": "Explain that the work done by a force or by an electric current equals the energy it transfers.",
+      "bullets": [
+        "1.7.2-1"
+      ]
+    },
+    {
+      "text": "Describe everyday events as mechanical or electrical work, naming the [[energy-store|energy stores]] involved.",
+      "bullets": [
+        "1.7.2-1"
+      ]
+    },
+    {
+      "text": "Calculate work done with $W = Fd$, with $d$ measured along the direction of the force.",
+      "bullets": [
+        "1.7.2-2"
+      ]
+    },
+    {
+      "text": "Use $W = \\Delta E$ to find a force, a distance or an energy change.",
+      "bullets": [
+        "1.7.2-2"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.3",
+    "1.5.1",
+    "1.7.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "work done formula W = Fd",
+    "work done equals energy transferred",
+    "mechanical and electrical work",
+    "joule newton metre",
+    "work done against friction"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-weight-of-suitcase",
+      "prompt": "A small suitcase has a mass of $3.2\\ \\text{kg}$. What is its weight, in N? Use $g = 9.8\\ \\text{N/kg}$ and give 2 significant figures.",
+      "hint": "Weight is mass times gravitational field strength.",
+      "answer": {
+        "value": 31,
+        "tolerance": 0.5
+      },
+      "explain": "Weight $= mg = 3.2 \\times 9.8 = 31.36 \\approx 31\\ \\text{N}$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "3.2*g",
+        "sf": 2
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-friction-direction",
+      "prompt": "A box slides to the right across a rough floor. Which way does [[friction|friction]] act on the box?",
+      "hint": "Friction opposes sliding.",
+      "options": [
+        {
+          "text": "to the left",
+          "correct": true
+        },
+        {
+          "text": "to the right",
+          "correct": false
+        },
+        {
+          "text": "straight down",
+          "correct": false
+        },
+        {
+          "text": "there is no friction once it is moving",
+          "correct": false
+        }
+      ],
+      "explain": "The box moves right, so friction acts to the left, against the motion. Revise it in {{lesson:1.5.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "to the left"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-store-when-lifted",
+      "prompt": "A book is lifted from the floor onto a high shelf. Which energy store of the book increases?",
+      "hint": "Which store depends on height?",
+      "options": [
+        {
+          "text": "gravitational potential",
+          "correct": true
+        },
+        {
+          "text": "elastic",
+          "correct": false
+        },
+        {
+          "text": "nuclear",
+          "correct": false
+        },
+        {
+          "text": "chemical",
+          "correct": false
+        }
+      ],
+      "explain": "The book is higher, so its gravitational potential store has more energy. Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "gravitational potential"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "work-is-energy-transferred",
+      "heading": "Work done is energy transferred",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In {{lesson:1.7.1}} you saw energy move between [[energy-store|energy stores]]. Two ways it moves are called working. A [[force|force]] that moves an object does mechanical work. An electric current does electrical work."
+        },
+        {
+          "type": "definition",
+          "term": "work done",
+          "statement": "Work done is the energy transferred when a force moves an object (mechanical work) or when an electric current flows (electrical work).",
+          "plain": "Doing work moves energy from one store to another."
+        },
+        {
+          "type": "result",
+          "statement": "Work done = energy transferred. Both are measured in joules (J): a force that does $500\\ \\text{J}$ of work transfers $500\\ \\text{J}$ of energy.",
+          "why": "Working is a way of moving [[energy|energy]] between stores, and by [[conservation-of-energy|conservation of energy]] none is made or destroyed on the way."
+        },
+        {
+          "type": "text",
+          "text": "Mechanical work: you push a wheelbarrow and it speeds up, so energy goes from the chemical store in your muscles to the wheelbarrow's kinetic store. An apple falls from a tree: its weight does work, moving energy from its [[gravitational-potential-energy|gravitational potential]] store to its kinetic store."
+        },
+        {
+          "type": "text",
+          "text": "Electrical work: a battery drives a current through an electric motor. The current does electrical work, transferring energy from the battery's chemical store. The motor can then do mechanical work, such as winding up a load."
+        },
+        {
+          "type": "text",
+          "text": "Work done against [[friction|friction]] heats things. Slide a book across a table at a steady speed: the work your push does ends up in the internal (thermal) stores of the book and table, which get slightly warmer."
+        },
+        {
+          "type": "example",
+          "id": "ex-sledge-stops",
+          "question": "A sledge slides across flat snow and slows down until it stops. Describe the energy transfer, and say how the energy is transferred.",
+          "steps": [
+            "Name the force that slows the sledge.",
+            "Say that this force does work, and name the store energy leaves and the store it goes to.",
+            "Link the amount of work to the amount of energy."
+          ],
+          "answer": "Friction between the snow and the sledge acts against its motion. The friction force does mechanical work as the sledge moves. This work transfers energy from the kinetic store of the sledge to the internal (thermal) stores of the sledge and the snow, which warm up. The work done by friction equals the energy taken from the kinetic store.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "friction acts against the motion; friction does mechanical work; kinetic store to internal (thermal) store; work done equals energy transferred",
+            "requires": [
+              [
+                "friction"
+              ],
+              [
+                "mechanical work",
+                "does work"
+              ],
+              [
+                "kinetic store"
+              ],
+              [
+                "internal",
+                "thermal"
+              ],
+              [
+                "equals",
+                "equal to"
+              ]
+            ],
+            "forbids": [
+              "energy is used up",
+              "energy is destroyed",
+              "friction creates energy"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying energy is \"used up\" when work is done. Work moves energy into other stores, and the total stays the same."
+        },
+        {
+          "type": "check",
+          "id": "check-electrical-work",
+          "prompt": "Which of these is an example of electrical work being done?",
+          "hint": "Electrical work needs an electric current.",
+          "options": [
+            {
+              "text": "a current flowing through the heating element of a kettle",
+              "correct": true
+            },
+            {
+              "text": "a person pushing a wheelbarrow up a path",
+              "correct": false
+            },
+            {
+              "text": "sunlight warming a brick wall",
+              "correct": false
+            },
+            {
+              "text": "a hot drink cooling in a mug",
+              "correct": false
+            }
+          ],
+          "explain": "Only the kettle has a current, so only it involves electrical work. Pushing a wheelbarrow is mechanical work; sunlight transfers energy by waves; a cooling drink loses energy by heating its surroundings.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a current flowing through the heating element of a kettle"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-falling-ball-energy",
+          "prompt": "A ball falls from a shelf. Air resistance is too small to matter. How does the energy gained by its kinetic store compare with the work done on it by its weight?",
+          "hint": "Work done is energy transferred, and energy is never used up.",
+          "options": [
+            {
+              "text": "they are equal",
+              "correct": true
+            },
+            {
+              "text": "the kinetic store gains less, because some energy is used up",
+              "correct": false
+            },
+            {
+              "text": "the kinetic store gains more, because the ball speeds up",
+              "correct": false
+            },
+            {
+              "text": "the weight does no work, because nothing pushes the ball",
+              "correct": false
+            }
+          ],
+          "explain": "The work done by the weight moves energy out of the ball's gravitational potential store and into its kinetic store. With no air resistance, nothing goes anywhere else, so the two amounts are equal.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they are equal"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculating-work",
+      "heading": "Calculating work done",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "The work a force does depends on two things: how big the force is, and how far the object moves in the direction of the force."
+        },
+        {
+          "type": "formula",
+          "tex": "W = Fd = \\Delta E",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$W$ is the work done in joules (J), $F$ is the force in newtons (N), and $d$ is how far the object moves in the direction of the force, in metres (m). $\\Delta E$ is the energy transferred, in J."
+        },
+        {
+          "type": "text",
+          "text": "So $1\\ \\text{J}$ is the work done when a force of $1\\ \\text{N}$ moves an object $1\\ \\text{m}$ in the direction of the force. That is why $1\\ \\text{J} = 1\\ \\text{N m}$. A moment ({{lesson:1.5.2}}) is also in N m, but it is not an energy, so never give a moment in J."
+        },
+        {
+          "type": "text",
+          "text": "Careful: $W$ also stands for weight. Read the question to see which one it means."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-2-force-and-distance",
+          "alt": "Two side views. Left, pushing along the floor: a crate moves to the right, and the force arrow and the distance arrow both point to the right. Right, lifting at a steady speed: a box is raised from the floor, and the lifting force arrow and the height gained both point straight up.",
+          "caption": "Use the distance moved in the same direction as the force."
+        },
+        {
+          "type": "example",
+          "id": "ex-push-wardrobe",
+          "question": "A removal worker pushes a wardrobe across a floor with a force of $180\\ \\text{N}$. It slides $3.5\\ \\text{m}$ the same way as the push. Calculate how much work the push does.",
+          "steps": [
+            "Write the equation: $W = Fd$.",
+            "Substitute: $W = 180 \\times 3.5$.",
+            "$W = 630$. Force in N times distance in m gives joules."
+          ],
+          "answer": "$W = 630\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "180*3.5",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-lift-cement",
+          "question": "A builder lifts a bag of cement of mass $25\\ \\text{kg}$ at a steady speed, from the ground onto a platform $1.6\\ \\text{m}$ higher. Calculate the work done on the bag. Use $g = 9.8\\ \\text{N/kg}$.",
+          "steps": [
+            "At a steady speed, the lifting force equals the bag's weight: weight $= mg = 25 \\times 9.8 = 245\\ \\text{N}$.",
+            "The force is upwards, so use the height gained: $d = 1.6\\ \\text{m}$.",
+            "$W = Fd = 245 \\times 1.6 = 392$. Force in N times distance in m gives J.",
+            "The data have 2 significant figures, so $390\\ \\text{J}$ is also accepted. This energy goes into the bag's gravitational potential store."
+          ],
+          "answer": "$W = 392\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "25*g*1.6",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using a distance that isn't along the force. A lifting force does no work while the object moves sideways at a steady height, such as when it is carried along a level floor."
+        },
+        {
+          "type": "mistake",
+          "text": "Dividing the force by the distance, or giving the answer in N or m. Multiply them, and give the work done in J (N m is also accepted)."
+        },
+        {
+          "type": "check",
+          "id": "check-wagon-work",
+          "prompt": "A child pulls a toy wagon with a force of $16\\ \\text{N}$, and it rolls $7.5\\ \\text{m}$ the same way as the pull. How much work does the pull do, in J?",
+          "hint": "Multiply the force by the distance.",
+          "answer": {
+            "value": 120,
+            "tolerance": 0
+          },
+          "explain": "$W = Fd = 16 \\times 7.5 = 120\\ \\text{J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "16*7.5",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-carry-level",
+          "prompt": "A girl holds a $40\\ \\text{N}$ bag at a steady height and walks $15\\ \\text{m}$ along a level corridor at a steady speed. How much work does her upward force do on the bag?",
+          "hint": "Does the bag move up, in the direction of her force?",
+          "options": [
+            {
+              "text": "none, because the bag does not move in the direction of her upward force",
+              "correct": true
+            },
+            {
+              "text": "the bag's weight times the 15 m she walks",
+              "correct": false
+            },
+            {
+              "text": "the bag's weight divided by the 15 m she walks",
+              "correct": false
+            },
+            {
+              "text": "none, because the bag has no weight while it is held",
+              "correct": false
+            }
+          ],
+          "explain": "Her force is upwards, but the bag moves sideways and stays at the same height. The distance moved in the direction of her force is zero, so her upward force does no work.",
+          "verify": {
+            "kind": "choice",
+            "truth": "none, because the bag does not move in the direction of her upward force"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a practical, you can find the work done pulling a block along a bench. Pull it at a steady speed with a newton meter and read the force. Measure the distance it moves with a metre rule, then multiply."
+        }
+      ]
+    },
+    {
+      "id": "work-and-energy-changes",
+      "heading": "Using work done to find forces and energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Because $W = \\Delta E$, you can use an energy change to find a force or a distance. Rearrange $W = Fd$ first: $F = \\frac{W}{d}$ and $d = \\frac{W}{F}$."
+        },
+        {
+          "type": "text",
+          "text": "A braking force is an example. On level ground, when the brakes are the only thing slowing a vehicle, a constant braking force times the braking distance (the distance it travels while braking) equals the energy taken from its kinetic store."
+        },
+        {
+          "type": "example",
+          "id": "ex-car-braking-force",
+          "question": "A car on a level road has $240\\ \\text{kJ}$ in its kinetic store. A constant braking force brings it to rest in $40\\ \\text{m}$. Ignore air resistance. Calculate the braking force.",
+          "steps": [
+            "The brakes do work equal to the kinetic energy removed: $W = \\Delta E = 240\\ \\text{kJ} = 240\\,000\\ \\text{J}$.",
+            "Rearrange $W = Fd$: $F = \\frac{W}{d}$.",
+            "$F = \\frac{240\\,000}{40} = 6000$. With $W$ in J and $d$ in m, $F$ is in N."
+          ],
+          "answer": "$F = 6000\\ \\text{N}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "240*1000/40",
+            "unit": "N"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-winch-boat",
+          "question": "An electric winch is supplied with $8.0\\ \\text{kJ}$ by electrical work. It pulls a boat $5.0\\ \\text{m}$ up a slipway with a force of $1200\\ \\text{N}$ along the slipway. How much of the energy supplied is not transferred to the boat as work?",
+          "steps": [
+            "The boat moves $5.0\\ \\text{m}$ in the direction of the pull, so the work done on the boat is $W = Fd = 1200 \\times 5.0 = 6000\\ \\text{J}$.",
+            "Energy supplied $= 8.0\\ \\text{kJ} = 8000\\ \\text{J}$.",
+            "Energy not done as work on the boat $= 8000 - 6000 = 2000\\ \\text{J}$. Most of it heats the winch's motor and gears (their internal stores)."
+          ],
+          "answer": "$2000\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "8.0*1000 - 1200*5.0",
+            "unit": "J"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Using kilojoules in $F = \\frac{W}{d}$ and calling the answer newtons. Change kJ to J first (multiply by 1000)."
+        },
+        {
+          "type": "hlNote",
+          "text": "Extended students often find the energy change first with $E_\\text{k} = \\tfrac{1}{2}mv^2$ or $\\Delta E_\\text{p} = mg\\Delta h$, then use it in $W = Fd$.",
+          "lesson": "1.7.1"
+        },
+        {
+          "type": "check",
+          "id": "check-skier-friction",
+          "prompt": "A skier slides to a stop on level snow. Friction takes $2700\\ \\text{J}$ from her kinetic store while she slides $18\\ \\text{m}$. What is the friction force, in N, if it stays constant?",
+          "hint": "Work done by friction equals the energy removed. Then $F = \\frac{W}{d}$.",
+          "answer": {
+            "value": 150,
+            "tolerance": 0
+          },
+          "explain": "$F = \\frac{W}{d} = \\frac{2700}{18} = 150\\ \\text{N}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "2700/18",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-trolley-steady",
+          "prompt": "A trolley is pushed with a force of $25\\ \\text{N}$ for $4.0\\ \\text{m}$ along a level floor at a steady speed. Where do the $100\\ \\text{J}$ of work end up?",
+          "hint": "The speed doesn't change. What acts against the motion?",
+          "options": [
+            {
+              "text": "in internal (thermal) stores, because friction and air resistance act against the motion",
+              "correct": true
+            },
+            {
+              "text": "in the trolley's kinetic store, which keeps increasing",
+              "correct": false
+            },
+            {
+              "text": "in the trolley's gravitational potential store",
+              "correct": false
+            },
+            {
+              "text": "nowhere, because the energy is used up",
+              "correct": false
+            }
+          ],
+          "explain": "The speed is steady, so the kinetic store doesn't grow, and the floor is level, so the gravitational potential store doesn't change either. The work is done against friction and air resistance, which warm the trolley, the floor and the air.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in internal (thermal) stores, because friction and air resistance act against the motion"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Work done = energy transferred. A force that moves an object does mechanical work; an electric current does electrical work."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "In $W = Fd$, $d$ is how far the object moves in the direction of the force. A force does no work on an object that doesn't move, or that moves at right angles to the force."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Work and energy are both measured in joules: $1\\ \\text{J} = 1\\ \\text{N m}$, the work done when a force of $1\\ \\text{N}$ moves an object $1\\ \\text{m}$ in the direction of the force."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Lifting at a steady speed: the lifting force equals the weight, so the work done by the lifting force is weight × height gained."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Rearranged: $F = \\frac{W}{d}$ and $d = \\frac{W}{F}$. On level ground, when the braking force is the only force slowing a vehicle, a constant braking force times the braking distance (the distance it travels while braking) equals the energy taken from its kinetic store."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Dividing force by distance instead of multiplying. Work done is $F \\times d$.",
+    "Leaving out the unit, or writing N or m. Work done is in joules (J); N m is also accepted.",
+    "Using a distance that isn't along the force. For a lift, use the height gained, not the distance walked sideways.",
+    "Saying work \"uses up\" energy. Work transfers energy to other stores, and the total stays the same.",
+    "Putting kilojoules into $F = \\frac{W}{d}$. Change kJ to J first, so the force comes out in N."
+  ],
+  "examTips": [
+    "\"Calculate\" work done: write $W = Fd$, then the equation with your numbers in, then the answer with its unit, J. When a question says \"include the unit\", the unit earns a mark of its own.",
+    "\"Describe\" an energy transfer: name the store the energy leaves, the store it goes to, and how it moves (mechanical work, electrical work, heating or waves).",
+    "Paper 1/2 multiple choice: energy transferred by a force is $Fd$. $\\frac{Fd}{t}$ is energy per second (power), and force × time is not an energy."
+  ],
+  "readingMinutes": 19
+}

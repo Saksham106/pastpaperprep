@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 80 480 230" role="img" aria-labelledby="t153tilt">
+<title id="t153tilt">Two drawings of the same tall block tilted onto its right-hand bottom edge, which acts as the pivot. In the left drawing the block is tilted a little. A weight arrow points straight down from its centre of gravity, G, and a dashed vertical line from G reaches the ground inside the base, to the left of the pivot. The label says the weight turns the block back onto its base. In the right drawing the block is tilted further. The dashed vertical line from G now reaches the ground outside the base, to the right of the pivot. The label says the weight turns the block over and it topples.</title>
+<path d="M20 250 H460" stroke="currentColor" stroke-width="1.6"/>
+<polygon points="91.8,235.5 150.0,250.0 183.9,114.2 125.7,99.6" fill="var(--t4-ink)" fill-opacity="0.18" stroke="currentColor" stroke-width="1.8"/>
+<path d="M137.8 174.8 V250" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M137.8 174.8 V218.8" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="137.8,227.8 133.3,218.8 142.3,218.8" fill="var(--t1-ink)"/>
+<circle cx="137.8" cy="174.8" r="3.5" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="129.8" y="168.8" fill="currentColor" text-anchor="end">G</text>
+<text font-family="inherit" font-size="11" x="145.8" y="214.8" fill="var(--t1-ink)" text-anchor="start">weight</text>
+<circle cx="150" cy="250" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text font-family="inherit" font-size="11" x="158" y="266" fill="currentColor" text-anchor="start">pivot</text>
+<text font-family="inherit" font-size="12" x="120" y="286" fill="var(--t3-ink)" text-anchor="middle">line of weight inside base:</text>
+<text font-family="inherit" font-size="12" x="120" y="300" fill="var(--t3-ink)" text-anchor="middle">falls back</text>
+<polygon points="332.7,213.1 380.0,250.0 466.2,139.7 418.9,102.7" fill="var(--t4-ink)" fill-opacity="0.18" stroke="currentColor" stroke-width="1.8"/>
+<path d="M399.5 176.4 V250" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 3"/>
+<path d="M399.5 176.4 V220.4" stroke="var(--t1-ink)" stroke-width="2.2"/>
+<polygon points="399.5,229.4 395.0,220.4 404.0,220.4" fill="var(--t1-ink)"/>
+<circle cx="399.5" cy="176.4" r="3.5" fill="currentColor"/>
+<text font-family="inherit" font-size="12" x="391.5" y="170.4" fill="currentColor" text-anchor="end">G</text>
+<text font-family="inherit" font-size="11" x="407.5" y="216.4" fill="var(--t1-ink)" text-anchor="start">weight</text>
+<circle cx="380" cy="250" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+<text font-family="inherit" font-size="11" x="388" y="266" fill="currentColor" text-anchor="start">pivot</text>
+<text font-family="inherit" font-size="12" x="350" y="286" fill="var(--t5-ink)" text-anchor="middle">line of weight outside base:</text>
+<text font-family="inherit" font-size="12" x="350" y="300" fill="var(--t5-ink)" text-anchor="middle">topples</text>
+</svg>

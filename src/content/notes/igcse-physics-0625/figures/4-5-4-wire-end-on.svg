@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="t454wire">
+<title id="t454wire">An N pole on the left and an S pole on the right, with magnetic field lines running straight across between them from N to S, to the right. A straight wire passes through the gap at right angles to the page, drawn end-on as a small circle with a dot in it, meaning the current flows out of the page. A thick arrow pointing up the page from the wire is labelled force. Notes on the right say: field from N to S, to the right; current out of the page; force on the wire up the page.</title>
+<rect x="60" y="60" width="80" height="170" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="20" x="100" y="152" fill="currentColor" text-anchor="middle" font-weight="bold">N</text>
+<rect x="420" y="60" width="80" height="170" fill="none" stroke="currentColor" stroke-width="2"/>
+<text font-family="inherit" font-size="20" x="460" y="152" fill="currentColor" text-anchor="middle" font-weight="bold">S</text>
+<g stroke="var(--muted)" stroke-width="1.2">
+<line x1="140" y1="80" x2="272" y2="80"/>
+<line x1="288" y1="80" x2="420" y2="80"/>
+<line x1="140" y1="112" x2="272" y2="112"/>
+<line x1="288" y1="112" x2="420" y2="112"/>
+<line x1="140" y1="145" x2="262" y2="145"/>
+<line x1="298" y1="145" x2="420" y2="145"/>
+<line x1="140" y1="178" x2="420" y2="178"/>
+<line x1="140" y1="210" x2="420" y2="210"/>
+</g>
+<g fill="var(--muted)">
+<polygon points="200,80 190,75 190,85"/><polygon points="380,80 370,75 370,85"/>
+<polygon points="200,112 190,107 190,117"/><polygon points="380,112 370,107 370,117"/>
+<polygon points="200,145 190,140 190,150"/><polygon points="380,145 370,140 370,150"/>
+<polygon points="200,178 190,173 190,183"/><polygon points="380,178 370,173 370,183"/>
+<polygon points="200,210 190,205 190,215"/><polygon points="380,210 370,205 370,215"/>
+</g>
+<circle cx="280" cy="145" r="15" fill="none" stroke="var(--t2-ink)" stroke-width="2.4"/>
+<circle cx="280" cy="145" r="4" fill="var(--t2-ink)"/>
+<line x1="280" y1="127" x2="280" y2="40" stroke="var(--t3-ink)" stroke-width="3"/>
+<polygon points="280,24 272,42 288,42" fill="var(--t3-ink)"/>
+<text font-family="inherit" font-size="12" x="292" y="36" fill="var(--t3-ink)">force</text>
+<text font-family="inherit" font-size="12" x="520" y="110" fill="currentColor">Field: N to S, to the right</text>
+<text font-family="inherit" font-size="12" x="520" y="134" fill="var(--t2-ink)">Current: out of the page (•)</text>
+<text font-family="inherit" font-size="12" x="520" y="158" fill="var(--t3-ink)">Force on wire: up the page</text>
+</svg>

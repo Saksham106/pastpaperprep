@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { QualificationHub } from "@/components/SearchLanding";
-import { IGCSE_MATHS_NOTES_HREF, igcseMathsNotesVisible } from "@/lib/course-notes/visibility";
+import { IGCSE_MATHS_NOTES_HREF, IGCSE_PHYSICS_NOTES_HREF, igcseMathsNotesVisible, igcsePhysicsNotesVisible } from "@/lib/course-notes/visibility";
 export const metadata: Metadata = {
   title: "IGCSE Past Papers by Topic: Maths, Sciences and Economics",
   description:
@@ -13,6 +13,7 @@ export default function CambridgeIgcsePage() {
       qualification="Cambridge IGCSE"
       title="Cambridge IGCSE past-paper practice"
       notesHref={igcseMathsNotesVisible() ? IGCSE_MATHS_NOTES_HREF : undefined}
+      physicsNotesHref={igcsePhysicsNotesVisible() ? IGCSE_PHYSICS_NOTES_HREF : undefined}
       intro="Real Cambridge IGCSE past-paper questions sorted by topic, with mark schemes, for Maths, Additional Maths, the sciences, Economics and Computer Science."
     />
   );

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" role="img" aria-labelledby="t152saw">
+<title id="t152saw">A see-saw: a level plank resting at its centre on a triangular pivot. Maya's weight of 420 newtons acts straight down on the plank 1.5 metres to the left of the pivot. Her brother's weight of 350 newtons acts straight down on the plank a distance d to the right of the pivot. Not to scale.</title>
+<path d="M40 166 H440" stroke="var(--muted)" stroke-width="1"/>
+<polygon points="240,112 222,166 258,166" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<rect x="55" y="104" width="370" height="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+<text font-family="inherit" font-size="12" x="266" y="150" fill="currentColor" text-anchor="start">pivot</text>
+<path d="M90 36 V92" stroke="var(--t1-ink)" stroke-width="2.4"/>
+<polygon points="90,102 85,91 95,91" fill="var(--t1-ink)"/>
+<text font-family="inherit" font-size="13" x="100" y="50" fill="var(--t1-ink)" text-anchor="start">Maya 420 N</text>
+<path d="M410 36 V92" stroke="var(--t4-ink)" stroke-width="2.4"/>
+<polygon points="410,102 405,91 415,91" fill="var(--t4-ink)"/>
+<text font-family="inherit" font-size="13" x="400" y="50" fill="var(--t4-ink)" text-anchor="end">brother 350 N</text>
+<path d="M90 116 V200 M240 172 V200 M410 116 V200" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4 4"/>
+<path d="M98 192 H232" stroke="var(--t2-ink)" stroke-width="1.4"/>
+<polygon points="90,192 99,188 99,196" fill="var(--t2-ink)"/>
+<polygon points="240,192 231,188 231,196" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="165" y="214" fill="var(--t2-ink)" text-anchor="middle">1.5 m</text>
+<path d="M248 192 H402" stroke="var(--t2-ink)" stroke-width="1.4"/>
+<polygon points="240,192 249,188 249,196" fill="var(--t2-ink)"/>
+<polygon points="410,192 401,188 401,196" fill="var(--t2-ink)"/>
+<text font-family="inherit" font-size="12" x="325" y="214" fill="var(--t2-ink)" text-anchor="middle">d</text>
+<text font-family="inherit" font-size="11" x="440" y="234" fill="var(--muted)" text-anchor="end">not to scale</text>
+</svg>

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "best-fit-line",
+    "term": "best-fit line",
+    "definition": "A single thin straight line or smooth curve drawn to follow the trend of plotted points, with the points spread evenly on both sides; it need not pass through every point or through the origin.",
+    "lesson": "7.4"
+  },
+  {
+    "id": "interpolation",
+    "term": "interpolation",
+    "definition": "Reading a value from a best-fit line at a point between the plotted points, inside the range of the data.",
+    "lesson": "7.4"
+  },
+  {
+    "id": "extrapolation",
+    "term": "extrapolation",
+    "definition": "Extending a best-fit line beyond the plotted points, for example back to an axis to find an intercept, to read a value outside the range of the data.",
+    "lesson": "7.4"
+  },
+  {
+    "id": "anomaly",
+    "term": "anomaly",
+    "definition": "A result that lies well outside the general pattern of the other results: much higher or much lower than expected.",
+    "lesson": "7.4"
+  },
+  {
+    "id": "random-error",
+    "term": "random error",
+    "definition": "An error that makes repeated readings scatter unpredictably above and below the true value; repeating the readings and taking a mean reduces its effect.",
+    "lesson": "7.4"
+  },
+  {
+    "id": "systematic-error",
+    "term": "systematic error",
+    "definition": "An error that shifts every reading in the same direction, often by the same amount, such as a zero error; repeating the readings does not reduce it.",
+    "lesson": "7.4"
+  },
+  {
+    "id": "uncertainty",
+    "term": "uncertainty",
+    "definition": "The doubt in a measurement or a conclusion: how far the true value could be from the result, or how far the conclusion can be trusted.",
+    "lesson": "7.4"
+  }
+]

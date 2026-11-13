@@ -74,7 +74,7 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
   it("glossary lives in one file per lesson, named by a real item, and the index merges them all", () => {
     const dir = join(root, "glossary");
     const files = existsSync(dir) ? readdirSync(dir).filter((name) => name.endsWith(".json")) : [];
-    for (const file of files) expect(lessonItems.has(file.replace(/\.json$/, "").replace("-", ".")), file).toBe(true);
+    for (const file of files) expect(lessonItems.has(file.replace(/\.json$/, "").replaceAll("-", ".")), file).toBe(true);
     expect(existsSync(join(root, "glossary.json"))).toBe(false);
     const ids = new Set(files.flatMap((file) => (JSON.parse(readFileSync(join(dir, file), "utf8")) as { id: string }[]).map((entry) => entry.id)));
     expect(new Set(course.glossary.map((entry) => entry.id))).toEqual(ids);
@@ -153,9 +153,9 @@ describe.each(COURSES.map((course) => [course.slug, course] as const))("%s cours
     for (const figure of ids) expect(course.figures[figure.id], figure.id).toMatch(/^<svg/);
     for (const lesson of course.lessons)
       for (const section of lesson.sections)
-        for (const block of section.blocks) if (block.type === "figure") expect(block.id, block.id).toMatch(new RegExp(`^${lesson.item.replace(".", "-")}-`));
+        for (const block of section.blocks) if (block.type === "figure") expect(block.id, block.id).toMatch(new RegExp(`^${lesson.item.replaceAll(".", "-")}-`));
     const files = existsSync(join(root, "lessons")) ? readdirSync(join(root, "lessons")).filter((name) => name.endsWith(".json")).sort() : [];
-    expect(files).toEqual(course.lessons.map((lesson) => `${lesson.item.replace(".", "-")}.json`).sort());
+    expect(files).toEqual(course.lessons.map((lesson) => `${lesson.item.replaceAll(".", "-")}.json`).sort());
   });
 
   it("generated index is up to date with the content folder", () => {

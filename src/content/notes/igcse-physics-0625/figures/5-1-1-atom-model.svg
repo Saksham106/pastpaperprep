@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="t511atom">
+  <title id="t511atom">A simple model of an atom, not to scale. At the centre is a small nucleus made of four protons, each marked plus, and five neutrons with no charge. Two circular orbits surround the nucleus. Two electrons, each marked minus, move on the inner orbit and two on the outer orbit.</title>
+  <g stroke="currentColor" stroke-width="1.5" fill="none">
+    <circle cx="231" cy="180" r="62"/>
+    <circle cx="231" cy="180" r="122"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="var(--muted)" fill-opacity="0.35">
+    <circle cx="223" cy="166" r="8"/><circle cx="215" cy="180" r="8"/><circle cx="247" cy="180" r="8"/>
+    <circle cx="239" cy="194" r="8"/><circle cx="231" cy="208" r="8"/>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="var(--t1-ink)" fill-opacity="0.6">
+    <circle cx="231" cy="152" r="8"/><circle cx="239" cy="166" r="8"/><circle cx="231" cy="180" r="8"/><circle cx="223" cy="194" r="8"/>
+  </g>
+  <g font-size="12" font-weight="bold" fill="currentColor" text-anchor="middle" font-family="inherit">
+    <text x="231" y="156">+</text><text x="239" y="170">+</text><text x="231" y="184">+</text><text x="223" y="198">+</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1" fill="var(--t3-ink)" fill-opacity="0.6">
+    <circle cx="293" cy="180" r="7"/><circle cx="169" cy="180" r="7"/>
+    <circle cx="292" cy="74" r="7"/><circle cx="170" cy="286" r="7"/>
+  </g>
+  <g font-size="13" font-weight="bold" fill="currentColor" text-anchor="middle" font-family="inherit">
+    <text x="293" y="184">−</text><text x="169" y="184">−</text><text x="292" y="78">−</text><text x="170" y="290">−</text>
+  </g>
+  <g stroke="var(--muted)" stroke-width="1" fill="none">
+    <line x1="395" y1="140" x2="252" y2="166"/>
+    <line x1="395" y1="70" x2="301" y2="74"/>
+    <line x1="395" y1="250" x2="337" y2="241"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="400" y="66">electron (negative)</text>
+    <text x="400" y="82">in orbit</text>
+    <text x="400" y="136">nucleus (positive):</text>
+    <text x="400" y="152">protons and neutrons</text>
+    <text x="400" y="254">orbit</text>
+  </g>
+  <g stroke="currentColor" stroke-width="1">
+    <circle cx="70" cy="350" r="8" fill="var(--t1-ink)" fill-opacity="0.6"/>
+    <circle cx="190" cy="350" r="8" fill="var(--muted)" fill-opacity="0.35"/>
+    <circle cx="310" cy="350" r="7" fill="var(--t3-ink)" fill-opacity="0.6"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit">
+    <text x="70" y="354" text-anchor="middle" font-weight="bold" font-size="12">+</text>
+    <text x="310" y="354" text-anchor="middle" font-weight="bold">−</text>
+    <text x="84" y="355">proton</text>
+    <text x="204" y="355">neutron</text>
+    <text x="323" y="355">electron</text>
+    <text x="520" y="355" fill="var(--muted)">not to scale</text>
+  </g>
+</svg>

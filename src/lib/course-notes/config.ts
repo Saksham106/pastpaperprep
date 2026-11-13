@@ -9,12 +9,13 @@ import type { CourseLevels, PerView } from "./types";
  *   extension view, where `{item}` is the lesson's item ("C{item}" for 1.1 is "C1.1").
  * - `bank-subtopics`: each item names one bank subtopic label (`practice` in the items file); a lesson practises it in
  *   the base level's bank in the base view and the extension level's bank in the extension view. Counts come from
- *   src/data/notes-practice/<course>.json (`npm run generate:notes-practice`).
+ *   src/data/notes-practice/<course>.json (`npm run generate:notes-practice`). `routes` (IGCSE: one bank for both levels)
+ *   names each level's Core / Extended route, so a level's links and counts open only that route's questions.
  */
 export type PracticeConfig =
   | { kind: "aa-items" }
   | { kind: "official-codes"; source: "igcse-0580-section-retrieval-v3"; refPrefix: string; codes: PerView<string> }
-  | { kind: "bank-subtopics" };
+  | { kind: "bank-subtopics"; routes?: Record<string, "core" | "extended"> };
 
 /** Words that differ per course. Everything else is built from `name` and the level labels. */
 export type CourseCopy = {
@@ -52,9 +53,11 @@ export type CourseConfig = {
   practice: PracticeConfig;
   /**
    * Lesson gate inputs: the sidecar folder (repo-relative), the source-pack folder and the glossary plan (both
-   * relative to ../research; no plan skips the glossary lints), and lints this course is exempt from.
+   * relative to ../research; no plan skips the glossary lints), and lints this course is exempt from. `physics` /
+   * `chemistry` give check-math.py the science names (phys_data.py, chem_data.py) for a course whose edition does not
+   * start "ib-physics" / "ib-chemistry".
    */
-  gate: { sidecars: string; packs: string; glossaryPlan?: string; exempt?: GateLint[] };
+  gate: { sidecars: string; packs: string; glossaryPlan?: string; exempt?: GateLint[]; physics?: boolean; chemistry?: boolean };
   /** Calculator models, in tab order; every calculator block gives steps for exactly these ids. None: no calculator blocks. */
   calculators: CalculatorModel[];
   copy: CourseCopy;

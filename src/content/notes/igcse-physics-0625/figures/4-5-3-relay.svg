@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 330" role="img" aria-labelledby="t453relay">
+<title id="t453relay">A relay. On the left, a vertical soft-iron core has a coil of wire wound round it, and two leads from the coil go down to the small-current circuit. Just above the top of the core is a horizontal soft-iron armature, a bar that can tip about a pivot at its left end. A spring above the armature holds it up, away from the core. At the right-hand end of the armature is a contact, with a second, fixed contact a short gap below it. Leads from the two contacts go down to the large-current circuit. When the coil is magnetised, it pulls the armature down and the contacts touch.</title>
+<rect x="110" y="152" width="40" height="110" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="103" y1="160" x2="157" y2="165" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="171" x2="157" y2="176" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="182" x2="157" y2="187" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="193" x2="157" y2="198" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="204" x2="157" y2="209" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="215" x2="157" y2="220" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="226" x2="157" y2="231" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="237" x2="157" y2="242" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="248" x2="157" y2="253" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="103" y1="160" x2="103" y2="300" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<line x1="157" y1="258" x2="157" y2="300" stroke="var(--t1-ink)" stroke-width="1.8"/>
+<rect x="70" y="124" width="260" height="12" fill="none" stroke="currentColor" stroke-width="2"/>
+<polygon points="80,136 66,162 94,162" fill="none" stroke="currentColor" stroke-width="2"/>
+<line x1="54" y1="162" x2="97" y2="162" stroke="currentColor" stroke-width="2"/>
+<line x1="200" y1="50" x2="260" y2="50" stroke="currentColor" stroke-width="2"/>
+<path d="M 230 50 L 230 58 L 240 64 L 220 72 L 240 80 L 220 88 L 240 96 L 220 104 L 240 112 L 230 118 L 230 124" fill="none" stroke="currentColor" stroke-width="1.8"/>
+<rect x="312" y="136" width="16" height="8" fill="currentColor"/>
+<rect x="312" y="170" width="16" height="8" fill="currentColor"/>
+<line x1="320" y1="178" x2="320" y2="300" stroke="var(--t2-ink)" stroke-width="1.8"/>
+<line x1="330" y1="130" x2="400" y2="130" stroke="var(--t2-ink)" stroke-width="1.8"/>
+<line x1="400" y1="130" x2="400" y2="300" stroke="var(--t2-ink)" stroke-width="1.8"/>
+<text font-family="inherit" font-size="12" x="96" y="214" fill="currentColor" text-anchor="end">soft-iron</text>
+<text font-family="inherit" font-size="12" x="96" y="229" fill="currentColor" text-anchor="end">core</text>
+<text font-family="inherit" font-size="12" x="166" y="214" fill="currentColor" text-anchor="start">coil</text>
+<text font-family="inherit" font-size="12" x="140" y="114" fill="currentColor" text-anchor="middle">soft-iron armature</text>
+<text font-family="inherit" font-size="12" x="80" y="180" fill="currentColor" text-anchor="middle">pivot</text>
+<text font-family="inherit" font-size="12" x="250" y="90" fill="currentColor" text-anchor="start">spring</text>
+<text font-family="inherit" font-size="12" x="338" y="160" fill="currentColor" text-anchor="start">contacts</text>
+<text font-family="inherit" font-size="12" x="130" y="318" fill="var(--muted)" text-anchor="middle">to the small-current circuit</text>
+<text font-family="inherit" font-size="12" x="380" y="318" fill="var(--muted)" text-anchor="middle">to the large-current circuit</text>
+</svg>

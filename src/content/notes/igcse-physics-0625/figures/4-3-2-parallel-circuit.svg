@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 310" role="img" aria-labelledby="t432pc">
+  <title id="t432pc">Parallel circuit: a cell and an ammeter A1 are on the main wire. At a junction the wire splits into two branches. The upper branch has a lamp and ammeter A2; the lower branch has a lamp and ammeter A3. The branches join again at a second junction.</title>
+  <g stroke="currentColor" stroke-width="2.2" fill="none">
+    <!-- main wire with cell and A1 -->
+    <line x1="80" y1="60" x2="195" y2="60"/>
+    <line x1="205" y1="60" x2="315" y2="60"/>
+    <circle cx="330" cy="60" r="15"/>
+    <line x1="345" y1="60" x2="440" y2="60"/>
+    <!-- sides -->
+    <line x1="80" y1="60" x2="80" y2="240"/>
+    <line x1="440" y1="60" x2="440" y2="240"/>
+    <!-- upper branch: lamp then A2 -->
+    <line x1="80" y1="150" x2="205" y2="150"/>
+    <circle cx="220" cy="150" r="15"/>
+    <line x1="209.4" y1="139.4" x2="230.6" y2="160.6"/>
+    <line x1="230.6" y1="139.4" x2="209.4" y2="160.6"/>
+    <line x1="235" y1="150" x2="315" y2="150"/>
+    <circle cx="330" cy="150" r="15"/>
+    <line x1="345" y1="150" x2="440" y2="150"/>
+    <!-- lower branch: lamp then A3 -->
+    <line x1="80" y1="240" x2="205" y2="240"/>
+    <circle cx="220" cy="240" r="15"/>
+    <line x1="209.4" y1="229.4" x2="230.6" y2="250.6"/>
+    <line x1="230.6" y1="229.4" x2="209.4" y2="250.6"/>
+    <line x1="235" y1="240" x2="315" y2="240"/>
+    <circle cx="330" cy="240" r="15"/>
+    <line x1="345" y1="240" x2="440" y2="240"/>
+  </g>
+  <!-- cell: long thin plate positive, short thick plate negative -->
+  <line x1="195" y1="40" x2="195" y2="80" stroke="currentColor" stroke-width="2.2"/>
+  <line x1="205" y1="50" x2="205" y2="70" stroke="currentColor" stroke-width="6"/>
+  <circle cx="80" cy="150" r="4" fill="currentColor"/>
+  <circle cx="440" cy="150" r="4" fill="currentColor"/>
+  <g font-family="inherit" font-size="15" fill="currentColor" text-anchor="middle">
+    <text x="330" y="65">A</text>
+    <text x="330" y="155">A</text>
+    <text x="330" y="245">A</text>
+  </g>
+  <g font-family="inherit" font-size="13" fill="currentColor" text-anchor="middle">
+    <text x="200" y="28">cell</text>
+    <text x="330" y="32">A1</text>
+    <text x="330" y="125">A2</text>
+    <text x="330" y="215">A3</text>
+    <text x="220" y="125">lamp</text>
+    <text x="220" y="215">lamp</text>
+    <text x="80" y="135" text-anchor="end" dx="-8">junction</text>
+    <text x="440" y="135" text-anchor="start" dx="8">junction</text>
+  </g>
+  <text x="260" y="292" font-family="inherit" font-size="12" fill="var(--muted)" text-anchor="middle">the current splits at one junction and joins again at the other</text>
+</svg>

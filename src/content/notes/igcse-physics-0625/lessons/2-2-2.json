@@ -1,0 +1,655 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.2.2",
+  "slug": "specific-heat-capacity",
+  "title": "Specific heat capacity",
+  "level": "Core",
+  "topic": 2,
+  "summary": "When an object gets hotter, its [[internal-energy|internal energy]] goes up. Extended adds why, in terms of the particles, and [[specific-heat-capacity|specific heat capacity]]: how much [[energy|energy]] each kilogram of a substance needs for each degree it warms, and how to measure it.",
+  "goals": [
+    {
+      "text": "Say what happens to an object's internal energy when its [[temperature|temperature]] rises.",
+      "bullets": [
+        "2.2.2-1"
+      ]
+    },
+    {
+      "text": "Describe a temperature rise in terms of the average [[kinetic-energy|kinetic energy]] of all the particles.",
+      "bullets": [
+        "2.2.2-2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Define specific heat capacity and use $c = \\frac{\\Delta E}{m\\Delta\\theta}$ to find $c$, the energy, the [[mass|mass]] or the temperature rise.",
+      "bullets": [
+        "2.2.2-3"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Describe how to find $c$ for a solid and for a liquid by experiment, and work out $c$ from the results.",
+      "bullets": [
+        "2.2.2-4"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.2",
+    "1.3",
+    "1.7.1",
+    "1.7.4",
+    "2.1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "synonyms": [
+    "specific heat capacity equation",
+    "E = mcΔθ",
+    "c = ΔE/mΔθ",
+    "specific heat capacity experiment",
+    "internal energy and temperature",
+    "J/(kg °C)"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-tea-cools",
+      "prompt": "A hot cup of tea cools down on a table. What happens to the energy in the tea's internal store?",
+      "hint": "Energy cannot be created or destroyed.",
+      "options": [
+        {
+          "text": "it is transferred to the internal store of the surroundings",
+          "correct": true
+        },
+        {
+          "text": "it is destroyed as the tea cools",
+          "correct": false
+        },
+        {
+          "text": "it is transferred to the kinetic store of the cup",
+          "correct": false
+        }
+      ],
+      "explain": "Energy is conserved. The tea's internal energy falls and the surroundings' internal energy rises by the same amount. Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "it is transferred to the internal store of the surroundings"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-grams-to-kg",
+      "prompt": "A beaker holds $350\\ \\text{g}$ of water. What is this mass in kilograms?",
+      "hint": "There are $1000\\ \\text{g}$ in $1\\ \\text{kg}$.",
+      "options": [
+        {
+          "text": "$0.35\\ \\text{kg}$",
+          "correct": true
+        },
+        {
+          "text": "$3.5\\ \\text{kg}$",
+          "correct": false
+        },
+        {
+          "text": "$0.035\\ \\text{kg}$",
+          "correct": false
+        },
+        {
+          "text": "$350\\,000\\ \\text{kg}$",
+          "correct": false
+        }
+      ],
+      "explain": "Divide by 1000: $350 \\div 1000 = 0.35\\ \\text{kg}$. Revise it in {{lesson:1.3}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "350/1000",
+        "unit": "kg"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-heater-energy",
+      "prompt": "A $60\\ \\text{W}$ heater is switched on for $2.0$ minutes. How much energy does it transfer?",
+      "hint": "Power is energy per second, so $\\Delta E = Pt$ with $t$ in seconds.",
+      "options": [
+        {
+          "text": "$7200\\ \\text{J}$",
+          "correct": true
+        },
+        {
+          "text": "$120\\ \\text{J}$",
+          "correct": false
+        },
+        {
+          "text": "$30\\ \\text{J}$",
+          "correct": false
+        },
+        {
+          "text": "$3600\\ \\text{J}$",
+          "correct": false
+        }
+      ],
+      "explain": "$t = 2.0 \\times 60 = 120\\ \\text{s}$, so $\\Delta E = 60 \\times 120 = 7200\\ \\text{J}$. Using 2.0 instead of 120 s gives $120\\ \\text{J}$. Revise it in {{lesson:1.7.4}}.",
+      "verify": {
+        "kind": "exact",
+        "truth": "60*2.0*60",
+        "unit": "J"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "temperature-internal-energy",
+      "heading": "Hotter means more internal energy",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Every object is made of particles that are always moving. Its [[internal-energy|internal energy]] is the total [[energy|energy]] of all its particles: [[kinetic-energy|kinetic energy]] from their movement, plus potential energy from the forces between them."
+        },
+        {
+          "type": "text",
+          "text": "When the [[temperature|temperature]] of an object rises, its internal energy increases. This is true however the energy gets in: by heating it, or by doing work on it, such as rubbing or hammering."
+        },
+        {
+          "type": "text",
+          "text": "The energy is not lost. It goes into the object's internal [[energy-store|energy store]]. When the object cools, its internal energy falls again and the energy passes to the surroundings, so energy is conserved."
+        },
+        {
+          "type": "example",
+          "id": "ex-drill-bit-hot",
+          "question": "A drill bit becomes hot while it drills a hole in a wooden plank. Explain what happens to the internal energy of the drill bit, and where the energy comes from.",
+          "steps": [
+            "Trace the energy from the drill to the bit, then link the temperature rise to internal energy."
+          ],
+          "answer": "The motor turns the drill bit, and work is done against friction as the bit rubs on the wood. This transfers energy to the drill bit. The temperature of the drill bit rises. So the internal energy of the drill bit increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "work done against friction transfers energy to the bit; its temperature rises; so its internal energy increases",
+            "requires": [
+              "friction",
+              [
+                "temperature of the drill bit rises",
+                "temperature rises"
+              ],
+              [
+                "internal energy of the drill bit increases",
+                "internal energy increases"
+              ]
+            ],
+            "forbids": [
+              "energy is created",
+              "temperature is a store",
+              "internal energy decreases"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling temperature a store of energy. Temperature tells you how hot something is; the energy itself is stored as internal energy."
+        },
+        {
+          "type": "text",
+          "text": "The reverse is not always true: while a substance melts or boils, its internal energy rises with no change in temperature ({{lesson:2.2.3}})."
+        },
+        {
+          "type": "check",
+          "id": "check-ice-pack",
+          "prompt": "An ice pack is taken out of a freezer. It warms from $-18\\ \\text{°C}$ to $-5\\ \\text{°C}$ and is still frozen. What happens to its internal energy?",
+          "hint": "Did its temperature go up or down?",
+          "options": [
+            {
+              "text": "it increases",
+              "correct": true
+            },
+            {
+              "text": "it decreases",
+              "correct": false
+            },
+            {
+              "text": "it stays the same, because the pack is still frozen",
+              "correct": false
+            }
+          ],
+          "explain": "Its temperature rose (from $-18$ to $-5\\ \\text{°C}$), so its internal energy increased. Being below $0\\ \\text{°C}$ does not matter.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it increases"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-brake-pads",
+          "prompt": "A cyclist brakes hard and the brake pads get hot. Which energy store of the brake pads increases?",
+          "hint": "Which store goes up whenever an object's temperature rises?",
+          "options": [
+            {
+              "text": "internal",
+              "correct": true
+            },
+            {
+              "text": "kinetic",
+              "correct": false
+            },
+            {
+              "text": "chemical",
+              "correct": false
+            },
+            {
+              "text": "elastic",
+              "correct": false
+            }
+          ],
+          "explain": "The pads' temperature rises, so their internal store increases. The energy comes from the bicycle's kinetic store.",
+          "verify": {
+            "kind": "choice",
+            "truth": "internal"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Why does internal energy rise with temperature? A higher temperature means the particles move faster on average. In a solid they vibrate faster; in a liquid or gas they move around faster. So the average kinetic energy of all the particles in the object increases.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "The particles always have a range of speeds, and not every one speeds up. It is the average over all of them that rises.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-iron-rod-particles",
+          "question": "An iron rod is heated from $15\\ \\text{°C}$ to $70\\ \\text{°C}$. Describe this temperature rise in terms of the particles in the rod.",
+          "steps": [
+            "Say how the particles in a solid move, what changes, and that it is an average over all of them."
+          ],
+          "answer": "The iron atoms vibrate about fixed positions. As the temperature rises, they vibrate faster. So the average kinetic energy of all the atoms in the rod increases.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "atoms vibrate about fixed positions; vibrate faster; average kinetic energy of all the atoms increases",
+            "requires": [
+              "vibrate",
+              [
+                "vibrate faster",
+                "vibrate more quickly"
+              ],
+              "average kinetic energy",
+              [
+                "all the atoms",
+                "all the particles"
+              ],
+              "increases"
+            ],
+            "forbids": [
+              "atoms get bigger",
+              "atoms expand",
+              "every atom moves at the same speed"
+            ]
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-gas-average",
+          "prompt": "The temperature of the air in a sealed bottle rises. Which statement about the air particles is correct?",
+          "hint": "Particles always have a range of speeds.",
+          "options": [
+            {
+              "text": "their average kinetic energy increases",
+              "correct": true
+            },
+            {
+              "text": "every particle speeds up by the same amount",
+              "correct": false
+            },
+            {
+              "text": "the particles get bigger",
+              "correct": false
+            },
+            {
+              "text": "the number of particles increases",
+              "correct": false
+            }
+          ],
+          "explain": "A higher temperature means a higher average kinetic energy. Some particles may still be slow; the particles do not grow, and none are added.",
+          "verify": {
+            "kind": "choice",
+            "truth": "their average kinetic energy increases"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "specific-heat-capacity",
+      "heading": "Specific heat capacity",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Heat equal masses of water and cooking oil on identical hot plates for the same time. The oil gets much hotter. Each kilogram of water needs more energy for each degree it warms."
+        },
+        {
+          "type": "definition",
+          "term": "specific heat capacity",
+          "statement": "The [[specific-heat-capacity|specific heat capacity]] $c$ of a substance is the energy needed per unit mass per unit rise in temperature.",
+          "plain": "How many joules it takes to warm 1 kg of the substance by 1 °C."
+        },
+        {
+          "type": "formula",
+          "tex": "c = \\frac{\\Delta E}{m\\Delta\\theta}",
+          "tag": "learn"
+        },
+        {
+          "type": "text",
+          "text": "$\\Delta E$ is the energy transferred, in J. $m$ is the [[mass|mass]], in kg. $\\Delta\\theta$ is the temperature rise, in °C. So the unit of $c$ is $\\text{J/(kg °C)}$."
+        },
+        {
+          "type": "text",
+          "text": "To find the energy, rearrange to $\\Delta E = mc\\Delta\\theta$. Water's value is high, about $4200\\ \\text{J/(kg °C)}$; a question will give you the value it wants you to use."
+        },
+        {
+          "type": "text",
+          "text": "The equation only works while the substance stays in the same state. During melting or boiling, energy goes in with no temperature rise."
+        },
+        {
+          "type": "example",
+          "id": "ex-saucepan-energy",
+          "question": "An aluminium saucepan of mass $650\\ \\text{g}$ is heated from $21\\ \\text{°C}$ to $85\\ \\text{°C}$. The specific heat capacity of aluminium is $900\\ \\text{J/(kg °C)}$. Calculate the energy transferred to the saucepan.",
+          "steps": [
+            "Change the mass to kilograms: $650\\ \\text{g} = 0.650\\ \\text{kg}$.",
+            "Find the temperature rise: $\\Delta\\theta = 85 - 21 = 64\\ \\text{°C}$.",
+            "Rearrange $c = \\frac{\\Delta E}{m\\Delta\\theta}$ to $\\Delta E = mc\\Delta\\theta$.",
+            "Substitute: $\\Delta E = 0.650 \\times 900 \\times 64 = 37\\,440\\ \\text{J}$.",
+            "The temperatures have 2 significant figures, so give 2."
+          ],
+          "answer": "$\\Delta E \\approx 3.7 \\times 10^4\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "0.650*900*(85 - 21)",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-metal-find-c",
+          "question": "A block of an unknown metal has a mass of $1.2\\ \\text{kg}$. It takes in $27\\ \\text{kJ}$ of energy, and its temperature rises from $19\\ \\text{°C}$ to $69\\ \\text{°C}$. Calculate the specific heat capacity of the metal.",
+          "steps": [
+            "Change the energy to joules: $27\\ \\text{kJ} = 27\\,000\\ \\text{J}$.",
+            "Find the temperature rise: $\\Delta\\theta = 69 - 19 = 50\\ \\text{°C}$.",
+            "Write the equation and substitute: $c = \\frac{\\Delta E}{m\\Delta\\theta} = \\frac{27\\,000}{1.2 \\times 50}$.",
+            "$c = \\frac{27\\,000}{60} = 450$, in $\\text{J/(kg °C)}$."
+          ],
+          "answer": "$c = 450\\ \\text{J/(kg °C)}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "27*10**3/(1.2*(69 - 19))",
+            "unit": "J/(kg °C)"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Putting the final temperature into the equation as $\\Delta\\theta$. Subtract the starting temperature to get the rise."
+        },
+        {
+          "type": "check",
+          "id": "check-larger-c",
+          "prompt": "Equal masses of copper and aluminium are given the same amount of energy. Aluminium has the greater specific heat capacity. Which statement is correct?",
+          "hint": "Rearrange to $\\Delta\\theta = \\frac{\\Delta E}{mc}$. What does a bigger $c$ do?",
+          "options": [
+            {
+              "text": "the aluminium has the smaller temperature rise",
+              "correct": true
+            },
+            {
+              "text": "the aluminium has the larger temperature rise",
+              "correct": false
+            },
+            {
+              "text": "both have the same temperature rise, because they get the same energy",
+              "correct": false
+            }
+          ],
+          "explain": "Each kilogram of aluminium needs more energy per degree, so the same energy warms it less.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the aluminium has the smaller temperature rise"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oil-rise",
+          "prompt": "Cooking oil of mass $0.40\\ \\text{kg}$ has a specific heat capacity of $2200\\ \\text{J/(kg °C)}$. It takes in $13\\,200\\ \\text{J}$ of energy. Calculate its temperature rise, in °C.",
+          "hint": "Rearrange $c = \\frac{\\Delta E}{m\\Delta\\theta}$ to make $\\Delta\\theta$ the subject.",
+          "answer": {
+            "value": 15,
+            "tolerance": 0
+          },
+          "explain": "$\\Delta\\theta = \\frac{\\Delta E}{mc} = \\frac{13\\,200}{0.40 \\times 2200} = 15\\ \\text{°C}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "13200/(0.40*2200)",
+            "dp": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "measuring-c",
+      "heading": "Measuring specific heat capacity",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To find $c$ you measure three things: the energy supplied $\\Delta E$, the mass $m$ and the temperature rise $\\Delta\\theta$. An electric heater supplies the energy, and a joulemeter measures it."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-2-block-apparatus",
+          "alt": "A metal block on the bench, wrapped in insulation on all sides. An electric heater fits into one hole in the top of the block and a thermometer into another. The heater's wires go up to a power supply, with a joulemeter connected in series to measure the energy supplied.",
+          "caption": "Apparatus for finding $c$ for a metal."
+        },
+        {
+          "type": "text",
+          "text": "Without a joulemeter, use $\\Delta E = Pt$ for a heater of known power $P$. A voltmeter and an ammeter can give $P$ too ({{lesson:4.2.5}})."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-solid",
+          "question": "Describe an experiment to measure the specific heat capacity of aluminium, using an aluminium block with two holes in it.",
+          "steps": [
+            "Say what you measure, which instrument measures it, and how you work out $c$."
+          ],
+          "answer": "Measure the mass of the block with a balance. Put an electric heater in one hole and a thermometer in the other. Wrap the block in insulation. Record the starting temperature. Switch on the heater for a measured time, and read the energy supplied from a joulemeter. Record the highest temperature reached, and subtract to find the temperature rise. Calculate $c = \\frac{\\Delta E}{m\\Delta\\theta}$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "mass with balance; heater and thermometer in block; insulation; energy from joulemeter; temperature rise; c = E/(m Δθ)",
+            "requires": [
+              "balance",
+              "heater",
+              "thermometer",
+              "insulation",
+              "joulemeter",
+              "temperature rise",
+              [
+                "$c = \\frac{\\Delta E}{m\\Delta\\theta}$"
+              ]
+            ],
+            "forbids": [
+              "final temperature as the temperature rise",
+              "ruler"
+            ]
+          }
+        },
+        {
+          "type": "text",
+          "text": "For a liquid, put it in an insulated beaker or polystyrene cup with a lid. Weigh the container empty and then with the liquid, and subtract to find the liquid's mass. Keep the heater fully under the liquid."
+        },
+        {
+          "type": "text",
+          "text": "Stir the liquid before each temperature reading, so the whole liquid is at the same temperature."
+        },
+        {
+          "type": "text",
+          "text": "Some energy always escapes to the surroundings, and some warms the heater and container. So the temperature rise is smaller than it should be, and the value of $c$ you calculate is too high. Insulation and a lid reduce this."
+        },
+        {
+          "type": "text",
+          "text": "You can also record the temperature every 60 s and plot temperature against time. While the heater supplies energy at a steady rate and little energy escapes, the graph is a straight line. Its [[gradient|gradient]] is $\\frac{\\Delta\\theta}{t}$, so $c = \\frac{P}{m \\times \\text{gradient}}$."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-2-temperature-time",
+          "alt": "Graph of the temperature of a metal block against time while a heater warms it. Time in seconds from 0 to 350 is on the horizontal axis and temperature in degrees Celsius from 0 to 40 is on the vertical axis. Crosses every 60 seconds lie on a straight line from 17.0 degrees Celsius at 0 seconds to 35.0 degrees Celsius at 300 seconds. A dashed triangle under the line has a horizontal side of 300 s and a vertical side of 18.0 degrees Celsius.",
+          "caption": "Temperature against time for a heated block. The gradient is the temperature rise per second."
+        },
+        {
+          "type": "example",
+          "id": "ex-gradient-c",
+          "question": "A $40\\ \\text{W}$ heater warms a metal block of mass $0.75\\ \\text{kg}$. The graph of temperature against time is a straight line from $17.0\\ \\text{°C}$ at $t = 0$ to $35.0\\ \\text{°C}$ at $t = 300\\ \\text{s}$. Calculate the specific heat capacity of the metal.",
+          "steps": [
+            "Find the gradient: $\\frac{35.0 - 17.0}{300} = \\frac{18.0}{300} = 0.060\\ \\text{°C/s}$.",
+            "The energy supplied is $\\Delta E = Pt$, so $c = \\frac{Pt}{m\\Delta\\theta} = \\frac{P}{m \\times \\text{gradient}}$.",
+            "Substitute: $c = \\frac{40}{0.75 \\times 0.060} = 888.9$.",
+            "The power and mass have 2 significant figures, so give 2: $890$, written $8.9 \\times 10^2$ to show 2 significant figures."
+          ],
+          "answer": "$c \\approx 8.9 \\times 10^2\\ \\text{J/(kg °C)}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "40/(0.75*(35.0 - 17.0)/300)",
+            "sf": 2,
+            "unit": "J/(kg °C)"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 6 often asks for an improvement. Name it and say why it helps: insulation or a lid means less energy escapes; stirring means the thermometer reads the temperature of the whole liquid."
+        },
+        {
+          "type": "check",
+          "id": "check-c-too-high",
+          "prompt": "A student's value for the specific heat capacity of copper is higher than the accepted value. What is the most likely reason?",
+          "hint": "A higher $c$ means the measured temperature rise was too small for the energy supplied.",
+          "options": [
+            {
+              "text": "energy escaped from the block to the surroundings",
+              "correct": true
+            },
+            {
+              "text": "the temperature rise was measured in °C instead of K",
+              "correct": false
+            },
+            {
+              "text": "the block took in extra energy from a warmer room",
+              "correct": false
+            }
+          ],
+          "explain": "Lost energy makes the temperature rise too small, so $c = \\frac{\\Delta E}{m\\Delta\\theta}$ comes out too big. A rise of 1 °C is the same as a rise of 1 K, and extra energy from the room would make $c$ too small.",
+          "verify": {
+            "kind": "choice",
+            "truth": "energy escaped from the block to the surroundings"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-stir-liquid",
+          "prompt": "When measuring the specific heat capacity of water, why do you stir the water before reading the thermometer?",
+          "hint": "The heater warms the water next to it first.",
+          "options": [
+            {
+              "text": "so that all the water is at the same temperature",
+              "correct": true
+            },
+            {
+              "text": "to make the water evaporate faster",
+              "correct": false
+            },
+            {
+              "text": "to increase the power of the heater",
+              "correct": false
+            }
+          ],
+          "explain": "Without stirring, the water near the heater is hotter than the rest, so one reading would not give the temperature of all the water.",
+          "verify": {
+            "kind": "choice",
+            "truth": "so that all the water is at the same temperature"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "When the temperature of an object rises, its internal energy increases. (Internal energy can also rise with no temperature change, while a substance melts or boils.)",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A temperature rise means the average kinetic energy of all the particles in the object increases.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Specific heat capacity is the energy needed per unit mass per unit rise in temperature, in $\\text{J/(kg °C)}$.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "c = \\frac{\\Delta E}{m\\Delta\\theta}",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "$\\Delta E = mc\\Delta\\theta$ holds only while there is no change of state. Use J, kg and the temperature rise in °C.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "To measure $c$: mass on a balance, energy from a joulemeter (or $Pt$), temperature rise from a thermometer. Insulate, and stir a liquid. Energy lost to the surroundings makes the measured $c$ too high.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Extended: using the final temperature as $\\Delta\\theta$. Subtract the starting temperature to get the rise.",
+    "Extended: leaving the energy in kJ or the mass in g. Change to J and kg first, or $c$ comes out 1000 times too small.",
+    "Using a time in minutes in $\\Delta E = Pt$. Change it to seconds first.",
+    "Extended: defining specific heat capacity without \"per unit mass\". The definition needs both: per unit mass and per unit rise in temperature."
+  ],
+  "examTips": [
+    "\"Define\" specific heat capacity (Extended) in words: energy, per unit mass, per unit (1 °C) rise in temperature. An equation alone counts only if you explain every symbol.",
+    "\"Calculate\" $c$ (Extended): write $c = \\frac{\\Delta E}{m\\Delta\\theta}$ or its rearrangement, substitute in J, kg and °C, then give the answer with its unit.",
+    "\"Describe\" an experiment to measure $c$ (Extended): say what you measure, the instrument for each, and how you work out $c$ from the readings."
+  ],
+  "readingMinutes": 20
+}

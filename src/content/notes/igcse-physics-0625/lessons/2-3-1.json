@@ -1,0 +1,656 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.3.1",
+  "slug": "conduction",
+  "title": "Conduction",
+  "level": "Core",
+  "topic": 2,
+  "summary": "[[conduction|Conduction]] moves thermal energy through a material while the material itself stays put. Metals are good [[thermal-conductor|thermal conductors]]; wood, plastic and air are [[thermal-insulator|thermal insulators]]. You need to describe experiments that show the difference, and Extended students explain it with particles and [[free-electron|free electrons]].",
+  "goals": [
+    {
+      "text": "Say what conduction is, and name good thermal conductors and thermal insulators.",
+      "bullets": [
+        "2.3.1-1"
+      ]
+    },
+    {
+      "text": "Describe experiments that compare how well materials conduct, and read their results fairly.",
+      "bullets": [
+        "2.3.1-1"
+      ]
+    },
+    {
+      "text": "Know that many [[solid|solids]] conduct better than insulators but less well than metals.",
+      "bullets": [
+        "2.3.1-4"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Explain conduction in solids by [[lattice-vibration|lattice vibrations]], and in metals also by moving [[free-electron|free electrons]].",
+      "bullets": [
+        "2.3.1-2"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Explain, in terms of particles, why gases and most liquids conduct badly.",
+      "bullets": [
+        "2.3.1-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.1.1",
+    "2.1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "thermal conduction",
+    "good and bad conductors of heat",
+    "thermal insulators examples",
+    "why metals feel cold",
+    "free electrons conduction",
+    "why air is a poor conductor"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-solid-particles",
+      "prompt": "How do the particles in a [[solid|solid]] move?",
+      "hint": "A solid keeps its shape, so its particles cannot wander off.",
+      "options": [
+        {
+          "text": "they vibrate about fixed positions",
+          "correct": true
+        },
+        {
+          "text": "they do not move at all",
+          "correct": false
+        },
+        {
+          "text": "they slide past each other",
+          "correct": false
+        },
+        {
+          "text": "they move quickly in random directions, far apart",
+          "correct": false
+        }
+      ],
+      "explain": "Forces hold the particles of a solid in fixed positions, but they still vibrate. Sliding past each other is a liquid; far apart and fast is a gas. Revise it in {{lesson:2.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they vibrate about fixed positions"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-hotter-particles",
+      "prompt": "One end of an iron bar is warmed. What happens to the particles at that end?",
+      "hint": "Think of the [[particle-model|particle model]]: what does a higher temperature mean for the particles?",
+      "options": [
+        {
+          "text": "they vibrate more, with more kinetic energy",
+          "correct": true
+        },
+        {
+          "text": "they get bigger",
+          "correct": false
+        },
+        {
+          "text": "they vibrate less",
+          "correct": false
+        }
+      ],
+      "explain": "A higher temperature means a greater average kinetic energy, so the particles vibrate more. The particles themselves do not change size. Revise it in {{lesson:2.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they vibrate more, with more kinetic energy"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "conductors-insulators",
+      "heading": "Good and bad thermal conductors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Stir hot soup with a metal spoon and the handle soon gets hot. A wooden spoon's handle stays cool. Thermal energy travels along the metal much faster than along the wood."
+        },
+        {
+          "type": "definition",
+          "term": "conduction",
+          "statement": "The transfer of thermal energy through a material, from the hotter part to the colder part, without the material itself moving.",
+          "plain": "Energy is passed along from particle to particle, like a message along a line of people."
+        },
+        {
+          "type": "text",
+          "text": "Conduction is the main way energy passes through a [[solid|solid]]. A material that lets energy through quickly is a good [[thermal-conductor|thermal conductor]]. A material that lets it through only slowly is a bad conductor, called a [[thermal-insulator|thermal insulator]]."
+        },
+        {
+          "type": "text",
+          "text": "Metals are the good conductors. Some are better than others: copper, aluminium and silver conduct much better than steel. Metals conduct so well because they contain [[free-electron|free electrons]] that carry energy quickly through them."
+        },
+        {
+          "type": "text",
+          "text": "Wood, plastic, rubber, wool and polystyrene are thermal insulators, and glass is a poor conductor too. Liquids such as water conduct badly too, and air is one of the best insulators of all. Many insulators, such as wool, feathers and foam, work by trapping air."
+        },
+        {
+          "type": "text",
+          "text": "Not every solid is clearly one or the other. Brick, concrete, stone and glass conduct much better than true insulators such as polystyrene or wool, but far less well than metals. Glass is often called a poor conductor because it is poor next to a metal.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-soldering-iron",
+          "question": "A soldering iron gets very hot at its tip. The tip is made of copper and the handle is made of thick plastic. Explain why each material is chosen.",
+          "steps": [
+            "Ask what each part needs to do with thermal energy: pass it on quickly, or hold it back."
+          ],
+          "answer": "The tip needs to pass thermal energy quickly from the heater to the work. Copper is a good thermal conductor, so it does this well. The handle must stay cool enough to hold. Plastic is a thermal insulator, so very little energy is conducted through it to your hand.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "copper tip: good thermal conductor, passes energy quickly; plastic handle: thermal insulator, little energy reaches the hand, stays cool",
+            "requires": [
+              "good thermal conductor",
+              "quickly",
+              "insulator",
+              [
+                "very little energy",
+                "little energy"
+              ],
+              [
+                "stay cool",
+                "stays cool"
+              ]
+            ],
+            "forbids": [
+              "plastic is a good conductor",
+              "copper is an insulator",
+              "keeps the cold in"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-bench-feels-cold",
+          "question": "On a frosty morning, a park bench has a wooden seat and steel armrests. Both have been outside all night and are at the same temperature. Explain why the armrests feel colder to touch than the seat.",
+          "steps": [
+            "Both parts are at the same temperature, so the difference must be how fast energy leaves your hand.",
+            "Say which way the energy flows, then compare the two materials."
+          ],
+          "answer": "Your hand is warmer than the bench, so thermal energy is transferred from your hand into the bench. Steel is a better thermal conductor than wood. So the steel conducts energy away from your hand faster. Your hand loses energy more quickly when touching the steel, which makes it feel colder.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "energy flows from hand to bench; steel better conductor than wood; conducts energy away from hand faster; hand loses energy faster",
+            "requires": [
+              "from your hand into the bench",
+              "better thermal conductor",
+              [
+                "faster",
+                "more quickly"
+              ],
+              "loses energy"
+            ],
+            "forbids": [
+              "cold flows",
+              "cold moves",
+              "steel is at a lower temperature",
+              "coldness"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that the metal \"is colder\" or \"lets cold in\". Both objects are at the same temperature; the metal just conducts energy away from your skin faster."
+        },
+        {
+          "type": "check",
+          "id": "check-best-conductor",
+          "prompt": "Four spoons have the same size and shape. Which one gets hot along its whole length fastest when it stands in hot tea?",
+          "hint": "All metals are good conductors, but some are better than others.",
+          "options": [
+            {
+              "text": "aluminium",
+              "correct": true
+            },
+            {
+              "text": "steel",
+              "correct": false
+            },
+            {
+              "text": "wood",
+              "correct": false
+            },
+            {
+              "text": "polystyrene",
+              "correct": false
+            }
+          ],
+          "explain": "Wood and polystyrene are insulators. Aluminium and steel are both metals, but aluminium is the much better conductor.",
+          "verify": {
+            "kind": "choice",
+            "truth": "aluminium"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-in-between",
+          "prompt": "Which material conducts thermal energy better than polystyrene but less well than copper?",
+          "hint": "Look for a solid that is neither a metal nor a true insulator.",
+          "options": [
+            {
+              "text": "brick",
+              "correct": true
+            },
+            {
+              "text": "aluminium",
+              "correct": false
+            },
+            {
+              "text": "silver",
+              "correct": false
+            },
+            {
+              "text": "wool",
+              "correct": false
+            }
+          ],
+          "explain": "Brick sits in between: much better than polystyrene, far worse than a metal. Aluminium and silver are good conductors; wool is an insulator.",
+          "verify": {
+            "kind": "choice",
+            "truth": "brick"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "experiments",
+      "heading": "Experiments that compare conductors",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To compare materials, heat one end of equal rods in the same way and see how quickly energy reaches the other end. The only thing that changes is the material."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-1-rods-in-water",
+          "alt": "Four rods of the same length and thickness, made of copper, aluminium, steel and glass, stand upright in one beaker of hot water. Near the top of each rod, at the same height above the water, a small metal bead is stuck on with a blob of wax. A label says to time how long each bead takes to fall off. Another label says the shortest time means the best conductor.",
+          "caption": "Equal rods, the same hot water, beads stuck with wax at the same height."
+        },
+        {
+          "type": "text",
+          "text": "1. Stick a small bead to each rod with the same amount of wax, at the same height."
+        },
+        {
+          "type": "text",
+          "text": "2. Stand all the rods in the same beaker of hot water at the same moment, and start a stopwatch."
+        },
+        {
+          "type": "text",
+          "text": "3. Record the time each bead falls. The wax melts when energy has been conducted up to it, so the shortest time means the best conductor."
+        },
+        {
+          "type": "text",
+          "text": "A second experiment shows that water is a bad conductor. Weigh down some ice at the bottom of a test tube of cold water with metal gauze. Heat the top of the tube with a flame until the water there boils. The ice at the bottom stays frozen for minutes."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-1-ice-in-tube",
+          "alt": "A test tube full of water held at a slant. A small piece of ice is held down at the bottom by a piece of metal gauze. A flame heats the tube near the top, where the water is boiling with bubbles. A label at the bottom says the ice is still not melted.",
+          "caption": "The water at the top boils while the ice at the bottom stays frozen."
+        },
+        {
+          "type": "text",
+          "text": "Heating at the top matters. Warm water is less dense than cold water, so it stays at the top and cannot carry energy down to the ice ({{lesson:2.3.2}}). Energy can only reach the ice by conduction through the water, and that is very slow."
+        },
+        {
+          "type": "example",
+          "id": "ex-plan-rod-test",
+          "question": "A student has three rods of the same size, made of brass, copper and glass. Describe an experiment to find out which material is the best thermal conductor.",
+          "steps": [
+            "A Paper 6 plan needs: what you set up, what you keep the same, what you measure and how you decide."
+          ],
+          "answer": "Stick a small bead to each rod with the same amount of wax, at the same distance from one end. Put that end of every rod into the same beaker of hot water at the same time. Start a stopwatch and record the time taken for each bead to fall off. The bead falls when enough energy has been conducted along the rod to melt the wax. The rod whose bead falls first, in the shortest time, is the best conductor.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same amount of wax at same distance; same hot water at same time; time for each bead to fall; shortest time = best conductor",
+            "requires": [
+              "same amount of wax",
+              [
+                "same distance",
+                "same height"
+              ],
+              [
+                "same beaker of hot water",
+                "same hot water"
+              ],
+              "record the time",
+              "shortest time"
+            ],
+            "forbids": [
+              "longest time is the best",
+              "different amounts of wax"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-read-bead-times",
+          "question": "In a bead-and-wax test with equal rods, the beads fell after these times: aluminium $52\\ \\text{s}$, steel $190\\ \\text{s}$, copper $34\\ \\text{s}$. The bead on a plastic rod had not fallen after $10\\ \\text{min}$. Put the materials in order from best to worst conductor, and explain your order.",
+          "steps": [
+            "A short time means energy reached the wax quickly, so the material is a better conductor.",
+            "Sort the times from shortest to longest. The plastic took longest of all, since it had still not melted the wax after $600\\ \\text{s}$."
+          ],
+          "answer": "The order is copper, aluminium, steel, plastic. A shorter time means energy was conducted to the wax more quickly. Copper had the shortest time, so it is the best conductor. Plastic had the longest time, so it is the worst conductor: it is a thermal insulator.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "order copper, aluminium, steel, plastic; shorter time = faster conduction = better conductor",
+            "requires": [
+              "copper, aluminium, steel, plastic",
+              "shorter time",
+              "more quickly",
+              "best conductor"
+            ],
+            "forbids": [
+              "plastic, steel, aluminium, copper",
+              "longer time means a better"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Reading a longer time as better conduction. A long wait means the energy travelled slowly, so that material is the worse conductor."
+        },
+        {
+          "type": "examTip",
+          "text": "When Paper 5/6 asks how to make the test fair, name the variables to keep the same: rod length and thickness, the amount and position of the wax, and the same heat source for every rod."
+        },
+        {
+          "type": "check",
+          "id": "check-fair-test",
+          "prompt": "A student tests rods of different metals by timing beads stuck on with wax. Which change would make the comparison unfair?",
+          "hint": "In a fair test only the material changes.",
+          "options": [
+            {
+              "text": "using a thicker rod for one of the metals",
+              "correct": true
+            },
+            {
+              "text": "putting all the rods in the same beaker of hot water",
+              "correct": false
+            },
+            {
+              "text": "using the same amount of wax on every rod",
+              "correct": false
+            },
+            {
+              "text": "starting the stopwatch as all the rods go into the water",
+              "correct": false
+            }
+          ],
+          "explain": "A thicker rod conducts more energy each second, so its bead falls sooner even if the metal is no better a conductor.",
+          "verify": {
+            "kind": "choice",
+            "truth": "using a thicker rod for one of the metals"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ice-tube",
+          "prompt": "In the ice-in-a-test-tube experiment, the water at the top boils but the ice at the bottom does not melt. What does this show?",
+          "hint": "Energy can only reach the ice by passing through the water.",
+          "options": [
+            {
+              "text": "water is a bad thermal conductor",
+              "correct": true
+            },
+            {
+              "text": "water is a good thermal conductor",
+              "correct": false
+            },
+            {
+              "text": "glass is a good thermal conductor",
+              "correct": false
+            },
+            {
+              "text": "ice cannot gain thermal energy",
+              "correct": false
+            }
+          ],
+          "explain": "The warm water stays at the top, so the only route down is conduction through the water. The ice stays frozen because that route is very slow.",
+          "verify": {
+            "kind": "choice",
+            "truth": "water is a bad thermal conductor"
+          }
+        }
+      ]
+    },
+    {
+      "id": "particles",
+      "heading": "Conduction in terms of particles",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In every solid, the atoms or molecules are held in fixed positions in a structure called a lattice. Heat one end and the particles there vibrate more strongly. They push on their neighbours, which then vibrate more too, and so on along the solid. These are [[lattice-vibration|lattice vibrations]]."
+        },
+        {
+          "type": "text",
+          "text": "Lattice vibrations are the only way a solid with no free electrons, such as glass or wood, conducts. Passing energy from neighbour to neighbour like this is slow."
+        },
+        {
+          "type": "text",
+          "text": "A metal is a lattice of positive ions with [[free-electron|free electrons]] (delocalised electrons) moving between them. At the hot end the free electrons gain kinetic energy. They move quickly through the metal and collide with ions further along, giving them energy."
+        },
+        {
+          "type": "figure",
+          "id": "2-3-1-metal-lattice",
+          "alt": "A metal bar drawn as rows of large circles, the positive ions, with small dots between them, the free electrons. The left end is labelled hot. The ions there have big vibration marks, and the marks get smaller towards the cool right end. Arrows show some free electrons moving from the hot end towards the cool end. Labels say that ions vibrate about fixed positions and pass vibrations to their neighbours, and that free electrons move through the metal, taking energy to the cool end.",
+          "caption": "In a metal, energy travels by lattice vibrations and by fast-moving free electrons."
+        },
+        {
+          "type": "text",
+          "text": "So a metal conducts in two ways at once: lattice vibrations and moving free electrons. The electrons carry energy much faster, which is why metals are the best conductors. The ions stay in place; only the electrons move through the metal."
+        },
+        {
+          "type": "example",
+          "id": "ex-aluminium-rod-particles",
+          "question": "One end of an aluminium rod is held in a flame. Explain, in terms of particles, how thermal energy reaches the other end.",
+          "steps": [
+            "Aluminium is a metal, so give both ways: lattice vibrations and free electrons."
+          ],
+          "answer": "The ions at the hot end gain energy and vibrate more strongly. They pass these vibrations on to neighbouring ions, so energy spreads along the lattice. Aluminium also has free electrons. Near the flame, they gain kinetic energy and move quickly through the metal. They collide with ions further along the rod and transfer energy to them.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "ions vibrate more and pass vibrations to neighbours; free electrons gain kinetic energy, move through the metal, collide with ions and transfer energy",
+            "requires": [
+              "vibrate more",
+              "neighbouring ions",
+              "free electrons",
+              "move quickly through the metal",
+              [
+                "collide",
+                "collisions"
+              ]
+            ],
+            "forbids": [
+              "ions move through",
+              "ions move along",
+              "atoms move along the rod",
+              "heat rises"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-electrons-ions",
+          "prompt": "A copper wire is warmed at one end. Which statement about the energy reaching the other end is correct?",
+          "hint": "In a solid, the lattice stays in place. Only one kind of particle is free to travel.",
+          "options": [
+            {
+              "text": "free electrons carry energy along the wire, while the ions pass on vibrations in place",
+              "correct": true
+            },
+            {
+              "text": "copper ions travel along the wire, carrying the energy with them",
+              "correct": false
+            },
+            {
+              "text": "only the free electrons carry energy; the ions do not vibrate",
+              "correct": false
+            },
+            {
+              "text": "energy is carried only by lattice vibrations, as in glass",
+              "correct": false
+            }
+          ],
+          "explain": "Copper is a metal, so it conducts in both ways. The ions are held in the lattice: they vibrate more and pass this on to their neighbours. The free electrons are not tied to any ion, so they move along the wire and carry energy quickly.",
+          "verify": {
+            "kind": "choice",
+            "truth": "free electrons carry energy along the wire, while the ions pass on vibrations in place"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In a gas, the particles are far apart. They collide with each other far less often than particles in a solid, so energy is passed on very slowly. Gases have no free electrons either, which makes them very bad conductors."
+        },
+        {
+          "type": "text",
+          "text": "In most liquids, the particles are close together but not held in a lattice, and there are no free electrons. Energy passes from particle to particle much less well than in a solid. Liquid metals such as mercury are the exception: their free electrons make them good conductors."
+        },
+        {
+          "type": "example",
+          "id": "ex-double-glazing-air",
+          "question": "A double-glazed window has a thin layer of air sealed between two panes of glass. Explain, in terms of particles, why the air layer reduces the energy conducted through the window.",
+          "steps": [
+            "Compare the particles in air with those in a solid, and say why that slows conduction."
+          ],
+          "answer": "Air is a gas, so its particles are far apart. They collide with each other much less often than the particles in a solid. So energy is passed from particle to particle very slowly. Air also has no free electrons to carry energy. This makes air a very bad conductor, so little energy is conducted across the gap.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "gas particles far apart; collide less often; energy passed on slowly; no free electrons; little energy conducted",
+            "requires": [
+              "far apart",
+              [
+                "collide with each other much less often",
+                "fewer collisions",
+                "collide less often"
+              ],
+              "very slowly",
+              "no free electrons"
+            ],
+            "forbids": [
+              "air is a good conductor",
+              "cold air"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-gas-bad",
+          "prompt": "Why is a gas a much worse thermal conductor than a solid?",
+          "hint": "Picture how close the particles are in each state.",
+          "options": [
+            {
+              "text": "its particles are far apart, so they collide less often",
+              "correct": true
+            },
+            {
+              "text": "its particles move more slowly than those in a solid",
+              "correct": false
+            },
+            {
+              "text": "its particles are smaller than those in a solid",
+              "correct": false
+            },
+            {
+              "text": "it has more free electrons than a solid",
+              "correct": false
+            }
+          ],
+          "explain": "Gas particles are far apart, so energy is rarely passed from one to the next. Gases have no free electrons at all.",
+          "verify": {
+            "kind": "choice",
+            "truth": "its particles are far apart, so they collide less often"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the ions or atoms travel along a hot metal bar. In a solid they only vibrate about fixed positions; the free electrons are what move through the metal."
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "Conduction transfers thermal energy through a material from hotter to colder parts, without the material moving.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Metals are good thermal conductors (copper better than steel). Wood, plastic, wool and air are thermal insulators; water and most other liquids are poor conductors too.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "To compare conductors, use rods of the same size, heated the same way, with the same wax at the same distance. The shortest time for the wax to melt means the best conductor.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Many solids, such as brick, concrete and glass, conduct better than insulators but much less well than metals.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "All solids conduct by lattice vibrations passed from particle to neighbour. Metals also have free electrons that move through the metal and carry energy quickly, so metals conduct best.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Gases conduct badly: their particles are far apart and collide less often. Most liquids conduct badly: no lattice and no free electrons (liquid metals are the exception).",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Picking any metal as the best conductor. Compare them: copper and aluminium conduct much better than steel.",
+    "Reading a longer time to melt the wax as better conduction. A longer time means a worse conductor.",
+    "Changing more than the material, such as using a longer rod or more wax on one rod. Keep everything else the same so the test is fair.",
+    "Saying a metal feels cold because it is colder or lets cold in. At the same temperature, it just conducts energy away from your hand faster."
+  ],
+  "examTips": [
+    "\"Describe an experiment\": say what you set up, what you keep the same, what you measure and how the result shows the better conductor.",
+    "\"Explain\" conduction in a metal (Extended): name both ways, lattice vibrations passed to neighbouring ions and free electrons that move through the metal and collide with ions."
+  ],
+  "readingMinutes": 23
+}

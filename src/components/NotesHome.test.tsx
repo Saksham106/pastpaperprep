@@ -47,6 +47,17 @@ describe("notes home", () => {
     expect(row().notes).toEqual({ href: "/revision-notes/ib-chemistry", label: "71 lessons" });
   });
 
+  it("keeps IGCSE Physics 0625 'Coming soon' while its course is unpublished, and links it once visible", () => {
+    const row = () => notesRows(banks.filter((bank) => bank.slug === "igcse-physics-0625"))[0];
+    const restore = setCoursePublishedForTests(false, "igcse-physics-0625");
+    try {
+      expect(row().notes).toBeUndefined();
+    } finally {
+      restore();
+    }
+    expect(row().notes).toEqual({ href: "/revision-notes/igcse-physics-0625", label: "62 lessons" });
+  });
+
   it("keeps IB Maths AI 'Coming soon' while its course is unpublished, and links it once visible", () => {
     const row = () => notesRows(banks.filter((bank) => bank.slug === "ib-ai-hl" || bank.slug === "ib-ai-sl"))[0];
     const restore = setCoursePublishedForTests(false, "ib-math-ai");

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "live-wire",
+    "term": "live wire",
+    "definition": "The mains wire (also called the line wire) that carries the high alternating p.d. of the supply, about 230 V in many countries; the fuse and the switch are connected in it.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "neutral-wire",
+    "term": "neutral wire",
+    "definition": "The mains wire that completes the circuit back to the supply; it stays close to 0 V.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "earth-wire",
+    "term": "earth wire",
+    "definition": "A low-resistance safety wire that joins the metal casing of an appliance to the ground; it carries a current only if a fault makes the casing live.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "trip-switch",
+    "term": "trip switch",
+    "definition": "An automatic switch (a circuit breaker) that opens and cuts off the current when the current goes above its setting; it can be reset once the fault is fixed.",
+    "lesson": "4.4"
+  },
+  {
+    "id": "double-insulation",
+    "term": "double insulation",
+    "definition": "A design in which the outer casing of an appliance is made of a non-conducting material, so the casing cannot become live; the appliance needs no earth wire but still has a fuse.",
+    "lesson": "4.4"
+  }
+]

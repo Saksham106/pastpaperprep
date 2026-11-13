@@ -6,7 +6,7 @@ export type InlineNode =
   | { kind: "lesson"; item: string };
 
 const TERM = /^\[\[([a-z0-9-]+)\|([^\]|]+)\]\]/;
-const LESSON = /^\{\{lesson:(\d+\.\d+)\}\}/;
+const LESSON = /^\{\{lesson:(\d+(?:\.\d+)+)\}\}/;
 
 export function parseInline(text: string): InlineNode[] {
   const nodes: InlineNode[] = [];

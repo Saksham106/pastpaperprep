@@ -1,0 +1,49 @@
+{
+  "lines": [
+    {
+      "text": "'How many protons, neutrons and electrons?' or 'What is the charge on this particle?' → protons $= Z$ (the bottom number) and neutrons $= A - Z$; a neutral atom has $Z$ electrons; charge = number of protons − number of electrons, leaving neutrons out, so losing electrons gives a positive ion and gaining them a negative one; the same $Z$ with a different $A$ means isotopes of one element ({{lesson:5.1.1}}, {{lesson:5.1.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'What does each result of alpha-particle scattering show?' → most go straight through: the atom is mostly empty space with a very small nucleus; a few are deflected: the nucleus is positive, with its charge packed into a tiny space; a very small number bounce back: the nucleus also holds most of the atom's mass ({{lesson:5.1.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Complete the equation' for fission, fusion or a decay → write every particle with both numbers ($^{4}_{2}\\alpha$, $^{\\,0}_{-1}\\beta$, $^{1}_{0}\\text{n}$; $\\gamma$ adds to neither total), then make the top numbers add to the same total on each side, and the bottom numbers too; alpha decay lowers $A$ by 4 and $Z$ by 2, beta decay raises $Z$ by 1 and leaves $A$ the same ({{lesson:5.1.2}}, {{lesson:5.2.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Which radiation does the source give out?' from absorber readings → compare each reading with the background count rate: a clear drop when paper goes in means alpha; a further clear drop with a few mm of aluminium means beta; still clearly above background behind the aluminium means gamma; a drop no bigger than the random variation means nothing was stopped. Alpha only reaches a detector a few cm from the source ({{lesson:5.2.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Paths of the three emissions in an electric or magnetic field across the beam → $\\gamma$ goes straight on (no charge); $\\alpha$ and $\\beta$ bend opposite ways and $\\beta$ bends much more (tiny mass); between charged plates, $\\alpha$ bends towards the negative plate and $\\beta$ towards the positive; in a magnetic field, use the left-hand rule with the current along the motion of $\\alpha$ but against the motion of $\\beta$ ({{lesson:5.2.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "Half-life questions with background ignored → from a table or a decay curve, halve a count rate (not the time) and read how long it takes to fall to that value, then check with a second halving; for 'how much is left after…' or 'how long until…', number of half-lives = time ÷ half-life, then a halving chain: count the arrows, not the numbers ({{lesson:5.2.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "Half-life from readings or a decay curve that include background → subtract the background count rate (in the same unit) from every reading to get the corrected count rate, find the half-life from those values, and add the background back if the question wants a detector reading; a measured curve levels off at the background, not at zero ({{lesson:5.2.1}}, {{lesson:5.2.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Explain why this isotope is used' → make two points. The radiation type, for how far it must get and how strongly it ionises: alpha ionises the air in a smoke alarm but cannot escape it; beta is partly absorbed by paper, so it measures paper thickness; gamma gets out of a body and through packaging or thick metal. The half-life: long for a source that must keep working for years, a few hours for a tracer inside a patient ({{lesson:5.2.4}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Explain how this precaution protects the worker' (a source outside the body) → name the idea, then link it to less radiation absorbed: less time near the source, a smaller dose; more distance, the radiation has spread out (and air absorbs alpha within a few cm); a shield matched to the radiation absorbs it, though lead only reduces gamma ({{lesson:5.2.5}})",
+      "tag": "learn",
+      "level": "Extended"
+    }
+  ]
+}

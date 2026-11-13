@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" role="img" aria-labelledby="t212bm">
+  <title id="t212bm">Left: a large microscopic particle surrounded by much smaller, fast-moving molecules of the liquid or gas, each with an arrow towards the particle. At this instant more molecules hit it from the left than from the right, so the particle gets an unbalanced push to the right. Right: the path of one microscopic particle over time, made of short straight steps that change direction at random</title>
+  <circle cx="160" cy="135" r="42" fill="var(--t4-ink)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.5"/>
+  <g fill="var(--t2-ink)" stroke="currentColor" stroke-width="0.8">
+    <circle cx="70" cy="100" r="5"/><circle cx="62" cy="140" r="5"/><circle cx="74" cy="178" r="5"/><circle cx="96" cy="70" r="5"/>
+    <circle cx="246" cy="118" r="5"/><circle cx="160" cy="45" r="5"/><circle cx="196" cy="226" r="5"/>
+  </g>
+  <g stroke="var(--t2-ink)" stroke-width="1.5" fill="none">
+    <line x1="76" y1="103" x2="110" y2="116"/><polyline points="100,109 111,116 98,118"/>
+    <line x1="68" y1="140" x2="106" y2="138"/><polyline points="97,133 107,138 97,143"/>
+    <line x1="80" y1="174" x2="111" y2="158"/><polyline points="99,158 112,158 104,166"/>
+    <line x1="101" y1="75" x2="124" y2="100"/><polyline points="114,96 125,101 122,89"/>
+    <line x1="240" y1="120" x2="210" y2="128"/><polyline points="218,121 209,128 221,131"/>
+    <line x1="160" y1="51" x2="160" y2="85"/><polyline points="155,76 160,86 165,76"/>
+    <line x1="194" y1="220" x2="184" y2="184"/><polyline points="181,195 184,183 191,192"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2.5" fill="none">
+    <line x1="160" y1="135" x2="232" y2="170"/><polyline points="219,170 233,171 225,159"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <polyline points="420,150 452,128 440,96 478,104 470,140 505,152 492,186 530,176 548,140 520,118 556,90 580,118 566,160 590,196 548,214"/>
+  </g>
+  <circle cx="420" cy="150" r="5" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+  <circle cx="548" cy="214" r="5" fill="var(--t4-ink)" stroke="currentColor" stroke-width="1"/>
+  <g font-family="inherit" fill="currentColor" font-size="12">
+    <text x="392" y="168">start</text>
+    <text x="520" y="232">end</text>
+    <text x="236" y="190">unbalanced push</text>
+    <text x="250" y="80" fill="var(--muted)">molecules: tiny, light,</text>
+    <text x="250" y="96" fill="var(--muted)">fast, too small to see</text>
+  </g>
+  <line x1="248" y1="92" x2="246" y2="112" stroke="var(--muted)" stroke-width="1"/>
+  <g font-family="inherit" fill="currentColor" text-anchor="middle" font-size="13">
+    <text x="160" y="262">more hits on one side at this instant</text>
+    <text x="500" y="262">path of one particle: random short steps</text>
+  </g>
+</svg>

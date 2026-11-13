@@ -1,0 +1,786 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "2.2.3",
+  "slug": "melting-boiling-and-evaporation",
+  "title": "Melting, boiling and evaporation",
+  "level": "Core",
+  "topic": 2,
+  "summary": "While a pure substance melts or boils, energy keeps going in but its [[temperature|temperature]] stays the same. In [[evaporation|evaporation]], the fastest particles escape from a [[liquid|liquid]]'s surface at any temperature, so the liquid left behind cools. That is why sweating cools you down.",
+  "goals": [
+    {
+      "text": "Explain why the temperature stays the same while a substance melts or boils, even though energy is still being supplied.",
+      "bullets": [
+        "2.2.3-1"
+      ]
+    },
+    {
+      "text": "State the [[melting|melting]] and [[boiling|boiling]] points of pure water at standard atmospheric pressure.",
+      "bullets": [
+        "2.2.3-2"
+      ]
+    },
+    {
+      "text": "Describe what the particles do when a gas condenses and when a liquid solidifies.",
+      "bullets": [
+        "2.2.3-3"
+      ]
+    },
+    {
+      "text": "Describe evaporation as the more energetic particles leaving the surface, and explain why it cools the liquid.",
+      "bullets": [
+        "2.2.3-4",
+        "2.2.3-5"
+      ]
+    },
+    {
+      "text": "Compare boiling with evaporation, and say how temperature, surface area and moving air change the rate of evaporation.",
+      "bullets": [
+        "2.2.3-6",
+        "2.2.3-7"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Explain how an evaporating liquid cools the object it is touching.",
+      "bullets": [
+        "2.2.3-8"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.1",
+    "2.1.1",
+    "2.1.2"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "heating curve",
+    "why temperature stays constant when boiling",
+    "latent heat",
+    "evaporation cooling effect",
+    "difference between boiling and evaporation",
+    "factors affecting evaporation"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-name-gas-to-liquid",
+      "prompt": "What is the name for the change of state from a gas to a liquid?",
+      "hint": "It is the change you see on a cold mirror after a shower.",
+      "options": [
+        {
+          "text": "condensation",
+          "correct": true
+        },
+        {
+          "text": "evaporation",
+          "correct": false
+        },
+        {
+          "text": "melting",
+          "correct": false
+        },
+        {
+          "text": "solidification",
+          "correct": false
+        }
+      ],
+      "explain": "Gas to liquid is [[condensation|condensation]]. Evaporation and boiling go the other way, liquid to gas. Revise it in {{lesson:2.1.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "condensation"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-particles-hotter",
+      "prompt": "The temperature of a gas rises. What happens to its particles?",
+      "hint": "Temperature is linked to how the particles move.",
+      "options": [
+        {
+          "text": "they move faster on average",
+          "correct": true
+        },
+        {
+          "text": "they get bigger",
+          "correct": false
+        },
+        {
+          "text": "they move more slowly on average",
+          "correct": false
+        },
+        {
+          "text": "they stop colliding with each other",
+          "correct": false
+        }
+      ],
+      "explain": "A higher temperature means a greater average kinetic energy, so the particles move faster on average. The particles themselves do not change size. Revise it in {{lesson:2.1.2}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they move faster on average"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-internal-energy",
+      "prompt": "What is the [[internal-energy|internal energy]] of an object?",
+      "hint": "Think about all the particles inside the object, not the object as a whole.",
+      "options": [
+        {
+          "text": "the total kinetic and potential energy of its particles",
+          "correct": true
+        },
+        {
+          "text": "the temperature of the object",
+          "correct": false
+        },
+        {
+          "text": "the kinetic energy of the object as it moves",
+          "correct": false
+        }
+      ],
+      "explain": "Internal energy is the energy stored by all the particles: their kinetic energy (movement) plus their potential energy (from the forces between them). Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the total kinetic and potential energy of its particles"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "melting-boiling",
+      "heading": "Melting and boiling: energy in, no temperature rise",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Heat ice from a freezer steadily, with a thermometer in it. The reading climbs to $0\\ \\text{°C}$, then stays there until all the ice has melted, though energy is still going in."
+        },
+        {
+          "type": "text",
+          "text": "In a solid, attractive forces hold the particles in fixed positions. During [[melting|melting]], the energy supplied overcomes these forces so the particles can move around each other. Their average kinetic energy does not rise, so the [[temperature|temperature]] stays the same until all the solid has melted."
+        },
+        {
+          "type": "text",
+          "text": "[[boiling|Boiling]] works the same way: the energy separates the particles until they escape as a gas, and the temperature stays at the boiling point until all the liquid has gone."
+        },
+        {
+          "type": "definition",
+          "term": "latent heat",
+          "statement": "The energy taken in or given out by a substance while it changes state, with no change in its temperature.",
+          "plain": "Energy that changes the state, not the temperature."
+        },
+        {
+          "type": "text",
+          "text": "The [[latent-heat|latent heat]] is not lost. It raises the substance's [[internal-energy|internal energy]] as potential energy of the particles, while their average kinetic energy stays the same."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-3-heating-curve",
+          "alt": "A graph of temperature in degrees Celsius against time for pure water heated steadily, starting as ice at minus 20 degrees Celsius. The line rises steeply while the ice warms. It is flat at 0 degrees Celsius while the ice melts, labelled ice plus water. It rises again, less steeply, while the water warms. It is flat at 100 degrees Celsius for longer while the water boils, labelled water plus steam. Then it rises while the steam warms. A note says that on the flat sections energy goes in but the temperature stays the same.",
+          "caption": "A heating curve for water. Each flat section is a change of state."
+        },
+        {
+          "type": "text",
+          "text": "Learn these values: at standard atmospheric pressure, pure water melts (and freezes) at $0\\ \\text{°C}$ and boils at $100\\ \\text{°C}$. At lower pressure, such as up a mountain, water boils below $100\\ \\text{°C}$."
+        },
+        {
+          "type": "example",
+          "id": "ex-boil-pan-steady",
+          "question": "A pan of water has been boiling on a gas hob for several minutes, with the flame still on. Explain why a thermometer in the water still reads $100\\ \\text{°C}$.",
+          "steps": [
+            "Say where the energy comes from, what it does to the particles, and what happens to their average kinetic energy."
+          ],
+          "answer": "The flame keeps supplying energy to the water. While the water boils, this energy overcomes the attractive forces between the particles, so they separate and escape as a gas. The average kinetic energy of the particles does not increase. So the temperature stays at the boiling point, $100\\ \\text{°C}$, until all the water has boiled away.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "energy still supplied; used to overcome attractive forces and separate particles; average kinetic energy unchanged; temperature stays at boiling point",
+            "requires": [
+              [
+                "supplying energy",
+                "supplies energy",
+                "energy is supplied"
+              ],
+              [
+                "attractive forces",
+                "forces between the particles"
+              ],
+              "average kinetic energy",
+              [
+                "does not increase",
+                "stays the same",
+                "does not change"
+              ],
+              "boiling point"
+            ],
+            "forbids": [
+              "temperature rises",
+              "particles speed up",
+              "heat is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-melt-energy-heater",
+          "question": "A student heats a solid with a $40\\ \\text{W}$ electric heater and records its temperature every half minute. It stays at $62\\ \\text{°C}$ from $t = 3.0\\ \\text{min}$ to $t = 8.5\\ \\text{min}$, then rises again. Assume all the heater's energy goes into the substance. Calculate the energy supplied while it melts.",
+          "steps": [
+            "The flat section is the melting: $8.5 - 3.0 = 5.5\\ \\text{min} = 5.5 \\times 60 = 330\\ \\text{s}$.",
+            "Power is energy transferred per unit time, $P = \\frac{\\Delta E}{t}$ ({{lesson:1.7.4}}), so $\\Delta E = Pt$.",
+            "Substitute: $\\Delta E = 40 \\times 330 = 13\\,200\\ \\text{J}$.",
+            "Give 2 significant figures, as in the data."
+          ],
+          "answer": "$\\Delta E \\approx 1.3 \\times 10^4\\ \\text{J}$",
+          "video": null,
+          "verify": {
+            "kind": "standard-form",
+            "truth": "40*(8.5 - 3.0)*60",
+            "sf": 2,
+            "unit": "J"
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 5/6 often gives temperature readings in a table. Change minutes to seconds before using $\\Delta E = Pt$."
+        },
+        {
+          "type": "check",
+          "id": "check-heating-curve-boiling",
+          "prompt": "A pure solid is heated steadily from room temperature until it has become a gas. Its heating curve has two flat sections. Which part of the curve shows the substance boiling?",
+          "hint": "Which change of state happens first as a solid is heated?",
+          "options": [
+            {
+              "text": "the second flat section",
+              "correct": true
+            },
+            {
+              "text": "the first flat section",
+              "correct": false
+            },
+            {
+              "text": "the sloping section between the two flat sections",
+              "correct": false
+            },
+            {
+              "text": "the final sloping section",
+              "correct": false
+            }
+          ],
+          "explain": "The solid melts first (first flat section), the liquid warms (slope), then it boils (second flat section).",
+          "verify": {
+            "kind": "choice",
+            "truth": "the second flat section"
+          }
+        }
+      ]
+    },
+    {
+      "id": "condense-solidify",
+      "heading": "Condensation and solidification",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "[[condensation|Condensation]] and solidification reverse boiling and melting, so the substance gives energy out."
+        },
+        {
+          "type": "text",
+          "text": "In a gas, the particles are far apart and move fast. As the gas cools, they slow down until attractive forces pull them close together. They can still move around each other, so they form a liquid: this is condensation."
+        },
+        {
+          "type": "text",
+          "text": "Cool the liquid further and, at the melting point, attractive forces hold the particles in fixed positions in a regular pattern, where they can only vibrate. This is solidification (freezing)."
+        },
+        {
+          "type": "text",
+          "text": "During both changes a pure substance gives out latent heat and its temperature stays the same, so its cooling curve has a flat section."
+        },
+        {
+          "type": "example",
+          "id": "ex-condense-windscreen",
+          "question": "On a cold morning, droplets of water form on the inside of a car windscreen. Describe, in terms of particles, how the droplets form.",
+          "steps": [
+            "Start with the water vapour particles, then say what happens when they meet the cold glass."
+          ],
+          "answer": "The air in the car contains water vapour, with particles far apart and moving quickly. Particles that hit the cold glass transfer energy to it and slow down. Once slow enough, attractive forces pull them close together. They can still move past each other, so they form drops of liquid. Gas turning to liquid like this is condensation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "vapour particles far apart and fast; lose energy to cold glass and slow down; attractive forces pull them close together; form liquid: condensation",
+            "requires": [
+              [
+                "transfer energy",
+                "lose energy"
+              ],
+              "slow down",
+              "attractive forces",
+              "close together",
+              "condensation"
+            ],
+            "forbids": [
+              "particles get smaller",
+              "particles shrink",
+              "evaporation"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Saying the particles of a solid \"stop moving\". They stop moving around each other, but they still vibrate about fixed positions."
+        },
+        {
+          "type": "check",
+          "id": "check-solidify-particles",
+          "prompt": "Which statement describes the particles of a substance as it solidifies?",
+          "hint": "Particles in a solid are still moving. How?",
+          "options": [
+            {
+              "text": "they settle into fixed positions and only vibrate",
+              "correct": true
+            },
+            {
+              "text": "they stop moving completely",
+              "correct": false
+            },
+            {
+              "text": "they move further apart",
+              "correct": false
+            },
+            {
+              "text": "they become smaller",
+              "correct": false
+            }
+          ],
+          "explain": "Attractive forces lock the particles into fixed positions, but they keep vibrating about them.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they settle into fixed positions and only vibrate"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-condense-energy",
+          "prompt": "Steam at $100\\ \\text{°C}$ condenses into water at $100\\ \\text{°C}$. What happens to energy during this change?",
+          "hint": "Condensation is the reverse of boiling. Boiling needs energy in.",
+          "options": [
+            {
+              "text": "energy is given out to the surroundings",
+              "correct": true
+            },
+            {
+              "text": "energy is taken in from the surroundings",
+              "correct": false
+            },
+            {
+              "text": "no energy is transferred, because the temperature does not change",
+              "correct": false
+            }
+          ],
+          "explain": "Boiling takes energy in, so condensing gives the same energy out, at a steady $100\\ \\text{°C}$. That is why steam scalds so badly.",
+          "verify": {
+            "kind": "choice",
+            "truth": "energy is given out to the surroundings"
+          }
+        }
+      ]
+    },
+    {
+      "id": "evaporation",
+      "heading": "Evaporation: the fastest particles escape",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A puddle dries up on a cool day, far below $100\\ \\text{°C}$. So a liquid can turn into a gas without boiling."
+        },
+        {
+          "type": "text",
+          "text": "Particles in a liquid move at a range of speeds. A fast particle at the surface, moving outwards, can have enough energy to break free from its neighbours and escape into the air. This is evaporation. It happens only at the surface, at any temperature."
+        },
+        {
+          "type": "figure",
+          "id": "2-2-3-evaporation-particles",
+          "alt": "A container of liquid with its particles drawn as circles, close together. Two fast particles have left the surface and are moving up into the air, shown with long arrows. A slower particle at the surface has only a short arrow, and a label says the attractions of its neighbours pull it back. A label on the liquid says the particles left behind have less kinetic energy on average, which cools the liquid.",
+          "caption": "Only the more energetic particles near the surface can escape."
+        },
+        {
+          "type": "text",
+          "text": "The more energetic particles escape and the slower ones stay, so the particles left have a lower average kinetic energy. Evaporation cools the liquid that is left."
+        },
+        {
+          "type": "example",
+          "id": "ex-evap-dish-cooler",
+          "question": "A shallow dish of water is left in a room at $25\\ \\text{°C}$. After a few hours, a thermometer in the water reads a little below room temperature. Explain why.",
+          "steps": [
+            "Say which particles escape, from where, and what that does to the particles left."
+          ],
+          "answer": "The particles in the water have a range of kinetic energies. The more energetic particles close to the surface can break free from their neighbours and escape into the air: the water evaporates. So the particles left behind have a lower average kinetic energy. This means the water's temperature drops below room temperature.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "range of energies; more energetic particles escape from the surface; remaining particles have lower average kinetic energy; temperature falls",
+            "requires": [
+              "range of kinetic energies",
+              [
+                "more energetic",
+                "most energetic",
+                "faster"
+              ],
+              "surface",
+              "lower average kinetic energy",
+              [
+                "temperature drops",
+                "temperature falls"
+              ]
+            ],
+            "forbids": [
+              "less energetic particles escape",
+              "coldness",
+              "boils"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-evap-which-particles",
+          "prompt": "During evaporation, which particles leave the liquid?",
+          "hint": "Escaping means overcoming the pull of the neighbouring particles.",
+          "options": [
+            {
+              "text": "the more energetic particles at the surface",
+              "correct": true
+            },
+            {
+              "text": "the less energetic particles at the surface",
+              "correct": false
+            },
+            {
+              "text": "particles from all through the liquid, at random",
+              "correct": false
+            },
+            {
+              "text": "the heaviest particles in the liquid",
+              "correct": false
+            }
+          ],
+          "explain": "Only a surface particle fast enough to break free from its neighbours can escape.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the more energetic particles at the surface"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-evap-temperature",
+          "prompt": "A glass of water at room temperature is left on a shelf and slowly evaporates. What happens to the temperature of the water left in the glass?",
+          "hint": "Are the particles that stay behind faster or slower on average?",
+          "options": [
+            {
+              "text": "it falls below room temperature",
+              "correct": true
+            },
+            {
+              "text": "it rises above room temperature",
+              "correct": false
+            },
+            {
+              "text": "it stays at room temperature",
+              "correct": false
+            }
+          ],
+          "explain": "The faster particles leave, so the average kinetic energy of the rest falls and the water cools.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it falls below room temperature"
+          }
+        },
+        {
+          "type": "text",
+          "text": "Boiling and evaporation both turn a liquid into a gas. Evaporation happens only at the surface, at any temperature, with no bubbles, and it cools the liquid. Boiling happens throughout the liquid, with bubbles, only at the boiling point; the liquid stays at that temperature while energy is supplied.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-compare-three-differences",
+          "question": "Describe three differences between boiling and evaporation.",
+          "steps": [
+            "Compare both processes in each point, linking them with \"but\" or \"while\"."
+          ],
+          "answer": "Evaporation happens only at the surface of a liquid, but boiling happens throughout the liquid. Evaporation happens at any temperature, but boiling happens only at the boiling point. In boiling, bubbles of gas form inside the liquid, while evaporation forms no bubbles.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "evaporation at surface only, boiling throughout; evaporation at any temperature, boiling only at boiling point; bubbles in boiling only",
+            "requires": [
+              "surface",
+              "throughout",
+              "any temperature",
+              "boiling point",
+              "bubbles"
+            ],
+            "forbids": [
+              "evaporation happens only at the boiling point",
+              "boiling happens only at the surface"
+            ]
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-compare-evap-only",
+          "prompt": "Which statement is true of evaporation but not of boiling?",
+          "hint": "Picture a puddle on a cool day.",
+          "options": [
+            {
+              "text": "it can happen at any temperature",
+              "correct": true
+            },
+            {
+              "text": "it happens throughout the liquid",
+              "correct": false
+            },
+            {
+              "text": "it turns a liquid into a gas",
+              "correct": false
+            },
+            {
+              "text": "bubbles form inside the liquid",
+              "correct": false
+            }
+          ],
+          "explain": "Both turn liquid into gas. Only evaporation happens below the boiling point.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it can happen at any temperature"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "evaporation-rate-cooling",
+      "heading": "Faster evaporation, and how it cools an object",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Three things make a liquid evaporate faster:"
+        },
+        {
+          "type": "text",
+          "text": "1. A higher temperature: more particles have enough energy to escape."
+        },
+        {
+          "type": "text",
+          "text": "2. A larger surface area: more particles are at the surface, where they can escape."
+        },
+        {
+          "type": "text",
+          "text": "3. Air moving over the surface: it carries escaped particles away before they can fall back into the liquid."
+        },
+        {
+          "type": "example",
+          "id": "ex-rate-hair-dryer",
+          "question": "Explain why a hair dryer, which blows warm air, dries wet hair faster than leaving it to dry in still, cool air.",
+          "steps": [
+            "The hair dryer changes two of the three factors: deal with each."
+          ],
+          "answer": "The warm air raises the temperature of the water in the hair, so more water particles have enough energy to escape from the surface. The moving air carries the escaped particles away from the hair, so fewer of them return to the liquid. Both effects increase the rate of evaporation.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "higher temperature: more particles have enough energy to escape; moving air carries escaped particles away so fewer return; faster evaporation",
+            "requires": [
+              "temperature",
+              "more water particles have enough energy",
+              "escape",
+              [
+                "carries the escaped particles away",
+                "carries them away"
+              ],
+              [
+                "fewer of them return",
+                "fewer return"
+              ],
+              "rate of evaporation"
+            ],
+            "forbids": [
+              "the water boils",
+              "cold is removed"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 6 may ask you to plan a test of one factor: for surface area, measure the mass lost from equal volumes of water in dishes of different area over the same time, keeping temperature and air movement the same."
+        },
+        {
+          "type": "check",
+          "id": "check-rate-slower",
+          "prompt": "Which change would make the water on a freshly mopped floor evaporate more slowly?",
+          "hint": "Go through the three factors. Which change works against evaporation?",
+          "options": [
+            {
+              "text": "a fan blowing across the floor is switched off",
+              "correct": true
+            },
+            {
+              "text": "the heating is turned up and the water warms",
+              "correct": false
+            },
+            {
+              "text": "the water is spread over a larger area",
+              "correct": false
+            },
+            {
+              "text": "a window is opened and a breeze blows over it",
+              "correct": false
+            }
+          ],
+          "explain": "With still air, more escaped particles fall back in. Warming, spreading out or a breeze all speed evaporation up.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a fan blowing across the floor is switched off"
+          }
+        },
+        {
+          "type": "text",
+          "text": "An evaporating liquid on an object, such as sweat on skin, cools the object too:"
+        },
+        {
+          "type": "text",
+          "text": "1. Evaporation cools the liquid below the temperature of the object it touches."
+        },
+        {
+          "type": "text",
+          "text": "2. Thermal energy flows from the warmer object into the cooler liquid."
+        },
+        {
+          "type": "text",
+          "text": "3. That energy keeps evaporation going, so the object keeps losing energy and its temperature falls."
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that \"cold moves into\" the object. Energy moves out of the warmer object into the cooler liquid."
+        },
+        {
+          "type": "example",
+          "id": "ex-cool-hand-gel",
+          "question": "Hand-sanitiser gel is at room temperature, yet your hands feel cold a few seconds after you rub it in. The gel contains alcohol, which evaporates quickly. Explain why your hands cool.",
+          "steps": [
+            "First explain why the liquid cools, then which way energy flows between skin and liquid."
+          ],
+          "answer": "The alcohol evaporates from your hands. Its more energetic particles break free from the liquid's surface. That leaves particles with a lower average kinetic energy, which means the liquid cools. The liquid is now colder than your skin. So thermal energy is transferred from your skin to the liquid. Your skin loses energy, so its temperature falls.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "more energetic particles escape; remaining liquid has lower average KE and cools below skin temperature; energy flows from skin to liquid; skin cools",
+            "requires": [
+              "more energetic particles break free",
+              "lower average kinetic energy",
+              "colder than your skin",
+              "from your skin to the liquid",
+              "skin loses energy"
+            ],
+            "forbids": [
+              "cold is transferred",
+              "coldness",
+              "less energetic particles escape"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-cool-energy-direction",
+          "prompt": "A metal can of drink is wrapped in a damp cloth, and the water in the cloth evaporates. In which direction is thermal energy transferred?",
+          "hint": "Evaporation has cooled the water below the temperature of the can.",
+          "options": [
+            {
+              "text": "from the can to the water in the cloth",
+              "correct": true
+            },
+            {
+              "text": "from the water in the cloth to the can",
+              "correct": false
+            },
+            {
+              "text": "there is no transfer; cold passes from the cloth into the can",
+              "correct": false
+            }
+          ],
+          "explain": "Evaporation leaves the water cooler than the can, so energy flows from the can into the water.",
+          "verify": {
+            "kind": "choice",
+            "truth": "from the can to the water in the cloth"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "While a pure substance melts or boils, its temperature stays constant although energy is still supplied. This energy (latent heat) overcomes the forces between particles; it does not raise their average kinetic energy.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Pure water at standard atmospheric pressure melts (and freezes) at $0\\ \\text{°C}$ and boils at $100\\ \\text{°C}$.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Condensation: gas particles slow down and attractive forces pull them close together. Solidification: the particles settle into fixed positions and only vibrate. Both give out energy; for a pure substance the temperature stays constant while they happen.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Evaporation: at any temperature, the more energetic particles escape from a liquid's surface. The particles left behind are slower on average, which cools the liquid.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Boiling happens throughout the liquid, with bubbles, only at the boiling point. Evaporation happens only at the surface, at any temperature.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "Evaporation is faster when the liquid is warmer, its surface area is larger, or air moves faster over its surface.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "An evaporating liquid cools below the temperature of the object it touches. Thermal energy then flows from the object into the liquid, so the object cools.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Expecting a boiling liquid to keep getting hotter because the heater is still on. The energy separates the particles, so the temperature stays at the boiling point.",
+    "Saying the less energetic particles escape during evaporation. The more energetic ones escape, which is why the liquid left behind cools.",
+    "Drawing a heating curve as one straight slope. A pure substance has a flat section at its melting point and another at its boiling point."
+  ],
+  "examTips": [
+    "\"Explain\" why evaporation cools: one linked step per sentence. The faster particles leave the surface; those remaining have a lower average kinetic energy; this lowers the temperature.",
+    "\"Describe the differences\" between boiling and evaporation (Extended): compare both in each point, such as \"boiling happens throughout the liquid, but evaporation happens only at the surface\"."
+  ],
+  "readingMinutes": 24
+}

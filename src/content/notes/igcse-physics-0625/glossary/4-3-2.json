@@ -1,0 +1,26 @@
+[
+  {
+    "id": "series-circuit",
+    "term": "series circuit",
+    "definition": "A circuit in which the components are joined one after another in a single loop, so the same current passes through each of them.",
+    "lesson": "4.3.2"
+  },
+  {
+    "id": "parallel-circuit",
+    "term": "parallel circuit",
+    "definition": "A circuit in which components are on separate branches joined between the same two points, so the current from the source splits between the branches and each branch has the same p.d. across it.",
+    "lesson": "4.3.2"
+  },
+  {
+    "id": "combined-resistance",
+    "term": "combined resistance",
+    "definition": "The single resistance that could replace a group of resistors and take the same current from the same supply: in series it is the sum of the resistances, and in parallel it is less than the smallest resistance.",
+    "lesson": "4.3.2"
+  },
+  {
+    "id": "junction",
+    "term": "junction",
+    "definition": "A point in a circuit where three or more wires meet, so the current can split or join (Extended: the total current into it equals the total current out).",
+    "lesson": "4.3.2"
+  }
+]

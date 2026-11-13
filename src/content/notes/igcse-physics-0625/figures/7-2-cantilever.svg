@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 275" role="img" aria-labelledby="t72c">
+<title id="t72c">Side view of a ruler clamped to the edge of a bench with a G-clamp. Part of the ruler sticks out past the bench edge: this overhang length is marked with a double-headed arrow and kept constant. A hanger with slotted masses hangs from the free end, which bends down below its starting level, shown by a dashed horizontal line. The drop of the end below that line is marked d, the deflection. A vertical metre rule stands just beyond the end to measure its height. A tray of sand sits on the floor under the masses.</title>
+<defs>
+<marker id="a72c" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0 0 L8 4 L0 8 Z" fill="currentColor"/>
+</marker>
+</defs>
+<rect x="10" y="110" width="150" height="20" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M40 107 L160 107 Q250 109 325 126" fill="none" stroke="var(--t1-ink)" stroke-width="6" stroke-linecap="round"/>
+<path d="M68 96 L100 96 L100 138 L68 138" fill="none" stroke="currentColor" stroke-width="3"/>
+<line x1="76" y1="138" x2="76" y2="146" stroke="currentColor" stroke-width="3"/>
+<line x1="160" y1="107" x2="398" y2="107" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="325" y1="126" x2="378" y2="126" stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="5 4"/>
+<line x1="160" y1="78" x2="325" y2="78" stroke="currentColor" stroke-width="1.5" marker-start="url(#a72c)" marker-end="url(#a72c)"/>
+<line x1="160" y1="72" x2="160" y2="100" stroke="var(--muted)" stroke-width="1"/>
+<line x1="325" y1="72" x2="325" y2="122" stroke="var(--muted)" stroke-width="1"/>
+<line x1="362" y1="108" x2="362" y2="125" stroke="var(--t2-ink)" stroke-width="1.8" marker-start="url(#a72c)" marker-end="url(#a72c)"/>
+<line x1="325" y1="128" x2="325" y2="166" stroke="currentColor" stroke-width="2"/>
+<g fill="none" stroke="currentColor" stroke-width="2">
+<rect x="309" y="166" width="32" height="9"/>
+<rect x="309" y="176" width="32" height="9"/>
+<rect x="309" y="186" width="32" height="9"/>
+<rect x="285" y="238" width="80" height="14"/>
+<rect x="380" y="40" width="14" height="215"/>
+</g>
+<g stroke="currentColor" stroke-width="1">
+<line x1="380" y1="50" x2="388" y2="50"/>
+<line x1="380" y1="70" x2="388" y2="70"/>
+<line x1="380" y1="90" x2="388" y2="90"/>
+<line x1="380" y1="110" x2="388" y2="110"/>
+<line x1="380" y1="130" x2="388" y2="130"/>
+<line x1="380" y1="150" x2="388" y2="150"/>
+<line x1="380" y1="170" x2="388" y2="170"/>
+<line x1="380" y1="190" x2="388" y2="190"/>
+<line x1="380" y1="210" x2="388" y2="210"/>
+<line x1="380" y1="230" x2="388" y2="230"/>
+<line x1="380" y1="250" x2="388" y2="250"/>
+</g>
+<g fill="currentColor" font-size="12" font-family="sans-serif">
+<text x="242" y="68" text-anchor="middle">overhang length (kept constant)</text>
+<text x="58" y="88" text-anchor="end">G-clamp</text>
+<text x="108" y="94">ruler</text>
+<text x="132" y="124" text-anchor="middle" fill="var(--muted)">bench</text>
+<text x="354" y="121" text-anchor="end">d</text>
+<text x="300" y="210" text-anchor="end">masses</text>
+<text x="300" y="224" text-anchor="end">on a hanger</text>
+<text x="325" y="268" text-anchor="middle">tray of sand</text>
+<text x="398" y="32" text-anchor="end">metre rule</text>
+</g>
+</svg>

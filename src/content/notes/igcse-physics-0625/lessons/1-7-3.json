@@ -1,0 +1,856 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.7.3",
+  "slug": "energy-resources",
+  "title": "Energy resources",
+  "level": "Core",
+  "topic": 1,
+  "summary": "Most power stations heat water into steam, which spins a turbine and a [[generator|generator]]. Wind, water and sunlight can do the job without a boiler. You compare resources by whether they run out, when and where they work, how much they give and what harm they do, and by how much of the input [[energy|energy]] ends up useful.",
+  "goals": [
+    {
+      "text": "Describe how each energy resource gives useful energy or generates electrical power, naming the boiler, turbine and generator wherever a method uses them.",
+      "bullets": [
+        "1.7.3-1"
+      ]
+    },
+    {
+      "text": "Give advantages and disadvantages of each resource: renewability, availability, reliability, scale and environmental impact.",
+      "bullets": [
+        "1.7.3-2"
+      ]
+    },
+    {
+      "text": "Explain what it means for an energy transfer to be more or less efficient.",
+      "bullets": [
+        "1.7.3-3"
+      ]
+    },
+    {
+      "text": "Say which resources get their energy from the Sun's radiation, and that the Sun releases energy by [[nuclear-fusion|nuclear fusion]], which scientists are trying to use for electricity.",
+      "bullets": [
+        "1.7.3-4",
+        "1.7.3-5",
+        "1.7.3-6"
+      ],
+      "level": "Extended"
+    },
+    {
+      "text": "Calculate [[efficiency|efficiency]] from energies or powers, as a percentage.",
+      "bullets": [
+        "1.7.3-7"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "1.7.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "how a power station works",
+    "renewable and non-renewable energy",
+    "advantages and disadvantages of energy resources",
+    "solar cells and solar panels",
+    "efficiency equation",
+    "nuclear fusion in the Sun"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-store-petrol",
+      "prompt": "Which [[energy-store|energy store]] does the petrol in a car's tank hold?",
+      "hint": "The energy is released when the petrol reacts with oxygen as it burns.",
+      "options": [
+        {
+          "text": "chemical",
+          "correct": true
+        },
+        {
+          "text": "kinetic",
+          "correct": false
+        },
+        {
+          "text": "nuclear",
+          "correct": false
+        },
+        {
+          "text": "elastic",
+          "correct": false
+        }
+      ],
+      "explain": "Fuels hold energy in a chemical store, released by a chemical reaction when they burn. Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "chemical"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-falling-water",
+      "prompt": "Water falls from the top of a waterfall to the pool below. Which energy transfer happens as it falls?",
+      "hint": "The water loses height and gains speed.",
+      "options": [
+        {
+          "text": "gravitational potential store to kinetic store",
+          "correct": true
+        },
+        {
+          "text": "kinetic store to gravitational potential store",
+          "correct": false
+        },
+        {
+          "text": "chemical store to kinetic store",
+          "correct": false
+        }
+      ],
+      "explain": "As the water drops, its [[gravitational-potential-energy|gravitational potential energy]] falls and its [[kinetic-energy|kinetic energy]] rises. Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "gravitational potential store to kinetic store"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-wasted-motor",
+      "prompt": "A motor is supplied with $500\\ \\text{J}$ of electrical energy. It transfers $350\\ \\text{J}$ usefully to lift a load. How much energy, in J, is wasted?",
+      "hint": "Energy is not created or destroyed, so input = useful output + wasted.",
+      "answer": {
+        "value": 150,
+        "tolerance": 0
+      },
+      "explain": "Wasted $= 500 - 350 = 150\\ \\text{J}$, mostly as thermal energy in the motor and the surroundings. Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "500 - 350",
+        "dp": 0
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "steam",
+      "heading": "Power stations that make steam",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Most power stations heat water in a boiler until it turns to high-pressure steam. The steam spins a turbine, a wheel of angled blades. The turbine turns a generator, which generates electrical power."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-3-power-station",
+          "alt": "A flow chart of a power station in five boxes joined by arrows from left to right. First a heat source: a furnace, a nuclear reactor or hot rocks. Then a boiler, where water is heated and turns to steam. Then a turbine, which the steam makes spin. Then a generator, turned by the turbine. Then electrical power out. An arrow below goes from the turbine back to the boiler, labelled condenser: used steam cools back into water for the boiler. A line along the top reads thermal energy, then kinetic energy of the steam and turbine, then electrical energy.",
+          "caption": "Fuel-burning and nuclear power stations work this way. In a geothermal station, the hot rocks do the boiler's job."
+        },
+        {
+          "type": "text",
+          "text": "Four resources can supply the heat:"
+        },
+        {
+          "type": "text",
+          "text": "1. [[fossil-fuel|Fossil fuels]] (coal, oil and natural gas) hold energy in a chemical store. They are burned in a furnace, and the thermal energy released heats the water in the boiler."
+        },
+        {
+          "type": "text",
+          "text": "2. Biofuels are fuels made from plants or animal waste: wood, ethanol from sugar cane, or biogas from rotting waste. They also hold chemical energy and are burned in the same way."
+        },
+        {
+          "type": "text",
+          "text": "3. Nuclear fuel, such as uranium, holds energy in a nuclear store. In a reactor, uranium nuclei split (nuclear fission) and release thermal energy, which heats the water. Nothing is burned."
+        },
+        {
+          "type": "text",
+          "text": "4. Geothermal energy comes from hot rocks deep underground. Water pumped down is heated by the rocks and returns as steam. The heat can also warm buildings directly."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-nuclear-station",
+          "question": "Describe how a nuclear power station generates electrical power. Refer to the boiler, the turbine and the generator.",
+          "steps": [
+            "Start at the fuel and follow the energy through each part in order, one part per sentence."
+          ],
+          "answer": "In the reactor, uranium nuclei split by nuclear fission. This releases energy from the nuclear store as thermal energy. The thermal energy heats water in the boiler and turns it into steam. The high-pressure steam makes the turbine spin. The turbine turns the generator, which generates electrical power.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "fission in reactor releases thermal energy; heats water in boiler into steam; steam spins turbine; turbine turns generator; electrical power",
+            "requires": [
+              "fission",
+              "steam",
+              "turbine",
+              "generator"
+            ],
+            "forbids": [
+              "uranium is burned",
+              "burns the uranium",
+              "fusion"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Writing that nuclear fuel is burned. Uranium nuclei split in a reactor; there is no burning and no flame."
+        },
+        {
+          "type": "check",
+          "id": "check-coal-turbine",
+          "prompt": "In a coal-fired power station, what makes the turbine spin?",
+          "hint": "Follow the energy from the furnace to the turbine.",
+          "options": [
+            {
+              "text": "steam from the boiler",
+              "correct": true
+            },
+            {
+              "text": "the generator",
+              "correct": false
+            },
+            {
+              "text": "the coal as it falls into the furnace",
+              "correct": false
+            },
+            {
+              "text": "electricity from the grid",
+              "correct": false
+            }
+          ],
+          "explain": "Burning coal boils water into steam, which pushes the turbine blades round. The turbine then turns the generator.",
+          "verify": {
+            "kind": "choice",
+            "truth": "steam from the boiler"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-geothermal-source",
+          "prompt": "Where does a geothermal power station get the energy that makes its steam?",
+          "hint": "Geo means Earth.",
+          "options": [
+            {
+              "text": "hot rocks deep underground",
+              "correct": true
+            },
+            {
+              "text": "fuel burned in a furnace",
+              "correct": false
+            },
+            {
+              "text": "nuclear fission in a reactor",
+              "correct": false
+            },
+            {
+              "text": "sunlight warming the ground's surface",
+              "correct": false
+            }
+          ],
+          "explain": "Water pumped down to the hot rocks comes back as steam. Nothing is burned.",
+          "verify": {
+            "kind": "choice",
+            "truth": "hot rocks deep underground"
+          }
+        }
+      ]
+    },
+    {
+      "id": "no-boiler",
+      "heading": "Water, wind and sunlight",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "These resources need no boiler. Moving water or air turns the turbine directly, or sunlight is used without a turbine at all."
+        },
+        {
+          "type": "text",
+          "text": "1. Hydroelectric: a dam holds water high up in a reservoir, with gravitational potential energy. Released water flows down pipes and gains kinetic energy. It spins turbines at the bottom, which turn generators."
+        },
+        {
+          "type": "text",
+          "text": "2. Tides: a barrage (a low dam) is built across a river mouth. Water flows through turbines in the barrage as the tide comes in and as it goes out. The turbines turn generators."
+        },
+        {
+          "type": "text",
+          "text": "3. Waves: the up-and-down motion of waves moves floats, or pushes air through a turbine. This motion drives a generator."
+        },
+        {
+          "type": "text",
+          "text": "4. Wind: the Sun heats land, sea and air unevenly. Warm air is less dense, so it rises, and cooler air moves in to replace it: this is wind. The kinetic energy of the wind turns the blades of a wind turbine, which turn a generator."
+        },
+        {
+          "type": "text",
+          "text": "5. Solar cells: light from the Sun falling on a solar cell generates electrical power directly. There is no turbine and no generator."
+        },
+        {
+          "type": "text",
+          "text": "6. Solar panels: water flows through pipes in a dark panel on a roof. The panel absorbs the Sun's radiation, mostly infrared and visible light, and the water heats up. A solar panel gives hot water, not electricity."
+        },
+        {
+          "type": "example",
+          "id": "ex-describe-tidal-barrage",
+          "question": "Describe how a tidal barrage across a river mouth generates electrical power.",
+          "steps": [
+            "Say where the water is stored, what happens to its energy as it moves, and which parts it turns."
+          ],
+          "answer": "At high tide, water is held back behind the barrage, higher than the sea outside. As the tide falls, the trapped water flows out through the barrage and gains kinetic energy. The moving water spins turbines in the barrage. The turbines turn generators, which generate electrical power.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "water held behind barrage at high tide; flows out as tide falls, gaining kinetic energy; spins turbines; turbines turn generators",
+            "requires": [
+              "high tide",
+              "kinetic energy",
+              "turbines",
+              "generators"
+            ],
+            "forbids": [
+              "steam",
+              "boiler",
+              "heats the water"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-solar-cell",
+          "prompt": "Which of these turns light directly into electrical energy, with no turbine or generator?",
+          "hint": "One of the two \"solar\" devices makes hot water, not electricity.",
+          "options": [
+            {
+              "text": "a solar cell",
+              "correct": true
+            },
+            {
+              "text": "a solar panel that heats water",
+              "correct": false
+            },
+            {
+              "text": "a wind turbine",
+              "correct": false
+            },
+            {
+              "text": "a hydroelectric dam",
+              "correct": false
+            }
+          ],
+          "explain": "A solar cell generates electrical power from light directly. A solar panel only heats water.",
+          "verify": {
+            "kind": "choice",
+            "truth": "a solar cell"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-reservoir-store",
+          "prompt": "Water is held in a reservoir high in the hills, behind a hydroelectric dam. Which energy store does it have because of its height?",
+          "hint": "It has not started moving yet.",
+          "options": [
+            {
+              "text": "gravitational potential",
+              "correct": true
+            },
+            {
+              "text": "kinetic",
+              "correct": false
+            },
+            {
+              "text": "chemical",
+              "correct": false
+            },
+            {
+              "text": "internal (thermal)",
+              "correct": false
+            }
+          ],
+          "explain": "Raised water has gravitational potential energy. It gains kinetic energy only as it flows down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "gravitational potential"
+          }
+        }
+      ]
+    },
+    {
+      "id": "compare",
+      "heading": "Comparing energy resources",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "A [[renewable-energy-resource|renewable energy resource]] is replaced naturally as fast as we use it, so it will not run out. A [[non-renewable-energy-resource|non-renewable energy resource]] is used up much faster than it forms, so it will run out."
+        },
+        {
+          "type": "text",
+          "text": "Judge each resource on five things. Renewability: will it run out? Availability: can it be used anywhere? Reliability: does it work whenever it is needed? Scale: how much power can one station give? Environmental impact: what harm does it do?"
+        },
+        {
+          "type": "text",
+          "text": "Fossil fuels: non-renewable, reliable and large-scale. Burning them releases carbon dioxide, which adds to global warming. Coal also gives off gases that cause acid rain."
+        },
+        {
+          "type": "text",
+          "text": "Biofuels: renewable, as the plants regrow, and reliable. Burning releases carbon dioxide, though the growing plants take some in. The crops use land that could grow food."
+        },
+        {
+          "type": "text",
+          "text": "Nuclear fuel: non-renewable. Reliable and very large-scale, with no carbon dioxide while running. Its radioactive waste stays dangerous for thousands of years, and an accident can release radioactive material."
+        },
+        {
+          "type": "text",
+          "text": "Geothermal: renewable and reliable, but only possible in a few places, such as volcanic areas. Usually small to medium scale."
+        },
+        {
+          "type": "text",
+          "text": "Hydroelectric: renewable, reliable and large-scale, and it can start within minutes. It needs a suitable valley and rainfall. The reservoir floods land, destroying habitats and sometimes homes."
+        },
+        {
+          "type": "text",
+          "text": "Tides: renewable, and the tides come at times you can predict. Few river mouths are suitable, and the barrage changes habitats for birds and fish."
+        },
+        {
+          "type": "text",
+          "text": "Wind and waves: renewable, with no fuel and no polluting gases. Unreliable, because they depend on the wind. Each machine is small-scale, so many are needed, and wind turbines can be noisy and spoil the view."
+        },
+        {
+          "type": "text",
+          "text": "Solar cells and solar panels: renewable, with no polluting gases. They work only in daylight and give less on cloudy days. Small-scale: a large power output needs a large area."
+        },
+        {
+          "type": "example",
+          "id": "ex-nuclear-vs-coal",
+          "question": "A country plans to replace a coal-fired power station with a nuclear power station. State one advantage and one disadvantage of the nuclear power station. Do not refer to cost.",
+          "steps": [
+            "Pick one point from each side and say why it matters, not just \"better for the environment\"."
+          ],
+          "answer": "Advantage: a nuclear power station releases no carbon dioxide while it generates electricity, so it does not add to global warming. Disadvantage: it produces radioactive waste, which stays dangerous for thousands of years and must be stored safely.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "advantage: no carbon dioxide so no added global warming; disadvantage: radioactive waste dangerous for a long time, must be stored",
+            "requires": [
+              [
+                "no carbon dioxide",
+                "no greenhouse gases"
+              ],
+              "global warming",
+              "radioactive waste",
+              [
+                "thousands of years",
+                "a long time"
+              ]
+            ],
+            "forbids": [
+              "nuclear fuel is renewable",
+              "cheaper",
+              "it is burned"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-wind-solar-backup",
+          "question": "A town gets all its electricity from wind turbines and solar cells. Explain why it also needs a power station it can switch on when needed.",
+          "steps": [
+            "This is about reliability: say when each resource fails, then what the town must do."
+          ],
+          "answer": "Solar cells generate no electricity at night and less on cloudy days. Wind turbines generate none when the wind does not blow. So at some times the supply is less than the demand. The town needs a reliable resource, such as a gas-fired or hydroelectric power station, that can be switched on at those times.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "solar none at night; wind none without wind; supply can fall below demand; need reliable station switched on when needed",
+            "requires": [
+              "at night",
+              [
+                "wind does not blow",
+                "no wind"
+              ],
+              "demand",
+              "reliable"
+            ],
+            "forbids": [
+              "solar cells work at night",
+              "wind always blows"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-non-renewable",
+          "prompt": "Which of these energy resources is non-renewable?",
+          "hint": "Which one is dug out of the ground and cannot be replaced?",
+          "options": [
+            {
+              "text": "nuclear fuel",
+              "correct": true
+            },
+            {
+              "text": "biofuel",
+              "correct": false
+            },
+            {
+              "text": "geothermal",
+              "correct": false
+            },
+            {
+              "text": "tides",
+              "correct": false
+            }
+          ],
+          "explain": "Uranium is a limited supply. Crops regrow, the rocks stay hot and the tides keep coming.",
+          "verify": {
+            "kind": "choice",
+            "truth": "nuclear fuel"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-tidal-disadvantage",
+          "prompt": "Which is a disadvantage of a tidal barrage?",
+          "hint": "Tides are regular and nothing is burned.",
+          "options": [
+            {
+              "text": "it changes habitats for birds and fish in the river mouth",
+              "correct": true
+            },
+            {
+              "text": "it releases carbon dioxide",
+              "correct": false
+            },
+            {
+              "text": "the times of the tides cannot be predicted",
+              "correct": false
+            },
+            {
+              "text": "its fuel will run out",
+              "correct": false
+            }
+          ],
+          "explain": "Holding back the water changes the mudflats that birds and fish depend on. Tides are predictable and need no fuel.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it changes habitats for birds and fish in the river mouth"
+          }
+        },
+        {
+          "type": "text",
+          "text": "In the end, nearly every resource gets its energy from the Sun's radiation. Plants grow in sunlight, so fossil fuels and biofuels store the Sun's energy. The Sun drives the wind, and the wind makes waves. The Sun evaporates water, which falls as rain and fills reservoirs.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "Three resources are different. Geothermal energy comes from inside the Earth, nuclear fuel formed before the Earth existed, and tides are caused mainly by the Moon's gravitational pull.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "The Sun releases its energy by nuclear fusion. In its core, small nuclei such as hydrogen join to form larger nuclei such as helium, and energy is released.",
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "Scientists are researching how to use fusion to generate electrical power on a large scale. It is hard: the fuel must be heated to many millions of degrees, and no fusion power station supplies homes yet.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-not-from-sun",
+          "prompt": "Which energy resource does not get its energy from radiation from the Sun?",
+          "hint": "Ask where each one's energy was before it reached us.",
+          "options": [
+            {
+              "text": "nuclear fuel",
+              "correct": true
+            },
+            {
+              "text": "biofuel",
+              "correct": false
+            },
+            {
+              "text": "waves",
+              "correct": false
+            },
+            {
+              "text": "hydroelectric",
+              "correct": false
+            }
+          ],
+          "explain": "Uranium formed before the Earth existed. Biofuels grow in sunlight, waves come from the wind, and sunlight evaporates the water that fills reservoirs.",
+          "verify": {
+            "kind": "choice",
+            "truth": "nuclear fuel"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-sun-process",
+          "prompt": "Which process releases energy in the Sun?",
+          "hint": "Light nuclei in the Sun's core join together.",
+          "options": [
+            {
+              "text": "nuclear fusion",
+              "correct": true
+            },
+            {
+              "text": "nuclear fission",
+              "correct": false
+            },
+            {
+              "text": "burning of hydrogen gas in oxygen",
+              "correct": false
+            }
+          ],
+          "explain": "In fusion, small nuclei join. Fission, used in nuclear power stations, splits large nuclei. Nothing burns in the Sun.",
+          "verify": {
+            "kind": "choice",
+            "truth": "nuclear fusion"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "efficiency",
+      "heading": "Efficiency",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "In any energy transfer, some of the input energy ends up where you want it: the useful output. The rest is wasted, usually as thermal energy that spreads into the surroundings."
+        },
+        {
+          "type": "text",
+          "text": "[[efficiency|Efficiency]] tells you what fraction of the input becomes useful. A more efficient device wastes a smaller fraction. Energy is conserved, so the useful output can never be more than the input."
+        },
+        {
+          "type": "text",
+          "text": "A steam power station wastes much of the fuel's energy as thermal energy in its cooling water and the air. A more efficient station needs less fuel for the same electrical output."
+        },
+        {
+          "type": "example",
+          "id": "ex-lamp-efficiency",
+          "question": "A filament lamp and an LED lamp give out the same amount of light each second. The filament lamp transfers much more energy to its surroundings as thermal energy than the LED lamp does. Explain which lamp is more efficient.",
+          "steps": [
+            "Compare the useful output first, then where the rest of the input goes."
+          ],
+          "answer": "Both lamps give the same useful output, light. The filament lamp also transfers much more energy as thermal energy to its surroundings, which is wasted. So the filament lamp needs a larger total energy input for the same useful output. A smaller fraction of its input is useful, so the LED lamp is more efficient.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same useful light output; filament wastes more as thermal energy; needs larger input; smaller fraction useful; LED more efficient",
+            "requires": [
+              "same useful output",
+              "thermal energy",
+              "wasted",
+              [
+                "smaller fraction",
+                "lower fraction"
+              ],
+              "LED lamp is more efficient"
+            ],
+            "forbids": [
+              "filament lamp is more efficient",
+              "energy is destroyed"
+            ]
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-hotter-motor",
+          "prompt": "Motors P and Q do the same useful work in the same time. Motor P wastes more energy as thermal energy than motor Q. Which statement is correct?",
+          "hint": "The useful output is the same. Which motor needs the larger input?",
+          "options": [
+            {
+              "text": "motor Q is more efficient",
+              "correct": true
+            },
+            {
+              "text": "motor P is more efficient",
+              "correct": false
+            },
+            {
+              "text": "they are equally efficient, because they do the same useful work",
+              "correct": false
+            }
+          ],
+          "explain": "P wastes more energy as thermal energy, so it needs a larger input for the same useful output. A smaller fraction of its input is useful. A motor's temperature alone would not tell you this: how hot it gets also depends on how well it cools.",
+          "verify": {
+            "kind": "choice",
+            "truth": "motor Q is more efficient"
+          }
+        },
+        {
+          "type": "text",
+          "text": "To calculate efficiency, use energies or powers. Recall both forms:",
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{efficiency} = \\frac{\\text{useful energy output}}{\\text{total energy input}} \\times 100\\%",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "formula",
+          "tex": "\\text{efficiency} = \\frac{\\text{useful output power}}{\\text{total input power}} \\times 100\\%",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "Leave out the $\\times 100\\%$ to get a decimal, such as $0.25$ instead of $25\\%$. Power is energy transferred per second ({{lesson:1.7.4}}). Input and output must be in the same unit.",
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-led-efficiency",
+          "question": "An LED lamp is supplied with $1200\\ \\text{J}$ of electrical energy. It gives out $480\\ \\text{J}$ of energy as light. Calculate its efficiency.",
+          "steps": [
+            "Write the equation: $\\text{efficiency} = \\frac{\\text{useful energy output}}{\\text{total energy input}} \\times 100\\%$.",
+            "The light is the useful output: $\\text{efficiency} = \\frac{480}{1200} \\times 100\\%$.",
+            "Evaluate: $\\frac{480}{1200} = 0.40$, which is $40\\%$."
+          ],
+          "answer": "$\\text{efficiency} = 40\\%$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "480/1200*100",
+            "unit": "%"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "example",
+          "id": "ex-turbine-input-power",
+          "question": "A wind turbine's generator has a useful output power of $1.8\\ \\text{MW}$. The turbine is $45\\%$ efficient. Calculate the power input from the wind.",
+          "steps": [
+            "Write the equation: $\\text{efficiency} = \\frac{\\text{useful output power}}{\\text{total input power}} \\times 100\\%$.",
+            "Rearrange for the input: $\\text{total input power} = \\frac{\\text{useful output power} \\times 100\\%}{\\text{efficiency}}$.",
+            "Substitute: $\\text{total input power} = \\frac{1.8 \\times 100}{45} = 4.0\\ \\text{MW}$.",
+            "Check: the input is bigger than the output, as it must be."
+          ],
+          "answer": "$\\text{total input power} = 4.0\\ \\text{MW}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1.8*100/45",
+            "unit": "MW"
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "text",
+          "text": "Don't multiply the output by the efficiency ($1.8 \\times 0.45$) to find the input. That gives less than the output, which is impossible.",
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-motor-efficiency",
+          "prompt": "An electric motor has a total input power of $250\\ \\text{W}$ and a useful output power of $190\\ \\text{W}$. Calculate its efficiency as a percentage.",
+          "hint": "Divide the useful output by the total input, then multiply by 100.",
+          "answer": {
+            "value": 76,
+            "tolerance": 0.5
+          },
+          "explain": "$\\frac{190}{250} \\times 100\\% = 76\\%$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "190/250*100",
+            "sf": 2
+          },
+          "level": "Extended"
+        },
+        {
+          "type": "check",
+          "id": "check-efficiency-above-one",
+          "prompt": "A student works out the efficiency of a pulley system and gets $1.6$. What is the most likely mistake?",
+          "hint": "Can the useful output be bigger than the input?",
+          "options": [
+            {
+              "text": "they divided the input by the useful output",
+              "correct": true
+            },
+            {
+              "text": "they forgot to multiply by 100",
+              "correct": false
+            },
+            {
+              "text": "nothing: a pulley can be more than 100% efficient",
+              "correct": false
+            }
+          ],
+          "explain": "An efficiency above 1 means more useful energy out than in, which is impossible. The fraction is upside down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "they divided the input by the useful output"
+          },
+          "level": "Extended"
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "In a power station, fossil fuels, biofuels and nuclear fuel heat water in a boiler into steam; in geothermal power, hot rocks underground turn water into steam. The steam spins a turbine, which drives a generator.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Hydroelectric, tidal, wave and wind power need no boiler: moving water or air drives the turbine or generator directly. Solar cells turn light straight into electrical power; solar panels heat water.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Non-renewable: fossil fuels and nuclear fuel. Renewable: biofuels, hydroelectric, tides, waves, wind, solar and geothermal.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Compare resources by renewability, availability (where), reliability (when), scale (how much) and environmental impact. Wind, waves and solar depend on the weather or daylight.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "A more efficient device transfers a larger fraction of its input energy usefully. The rest is wasted, usually as thermal energy to the surroundings. Efficiency can never be more than 100%.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "The Sun's radiation is where most resources get their energy. The exceptions are geothermal, nuclear fuel and tides.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        },
+        {
+          "type": "fact",
+          "text": "The Sun releases energy by nuclear fusion. Research is under way to use fusion to generate electrical power on a large scale.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Calling nuclear fuel renewable. It gives off no polluting gases while running, but uranium will run out.",
+    "Putting a boiler and steam into hydroelectric, tidal, wave or wind power. Moving water or air turns the turbine directly.",
+    "Mixing up solar cells and solar panels. Solar cells generate electricity from light; solar panels heat water. A question may call a panel of solar cells a \"solar panel\", so read what it does.",
+    "Writing \"energy is lost\". Say where it goes: usually the internal (thermal) store of the surroundings."
+  ],
+  "examTips": [
+    "\"Describe\" how a power station works: one stage per sentence, in order. Energy source, then boiler and steam (only where used), turbine, generator. Each stage is usually a mark.",
+    "\"State\" an advantage or disadvantage precisely: \"releases carbon dioxide, which adds to global warming\", not \"bad for the environment\". If cost is ruled out, a cost answer scores nothing."
+  ],
+  "readingMinutes": 25
+}

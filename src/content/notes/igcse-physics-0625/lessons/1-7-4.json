@@ -1,0 +1,517 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "1.7.4",
+  "slug": "power",
+  "title": "Power",
+  "level": "Core",
+  "topic": 1,
+  "summary": "[[power|Power]] tells you how fast [[energy|energy]] is transferred: the [[work-done|work done]] or energy transferred each second. Use $P = \\frac{W}{t}$ or $P = \\frac{\\Delta E}{t}$, with the energy in joules and the time in seconds, and the answer is in watts (W).",
+  "goals": [
+    {
+      "text": "Say what power means: the work done, or the energy transferred, in each unit of time.",
+      "bullets": [
+        "1.7.4-1"
+      ]
+    },
+    {
+      "text": "Say what a power rating in W, kW or MW means, and compare the powers of machines and appliances.",
+      "bullets": [
+        "1.7.4-1"
+      ]
+    },
+    {
+      "text": "Calculate power with $P = \\frac{W}{t}$ and $P = \\frac{\\Delta E}{t}$, with the time in seconds.",
+      "bullets": [
+        "1.7.4-1"
+      ]
+    },
+    {
+      "text": "Rearrange the equations to find the energy transferred or the time taken.",
+      "bullets": [
+        "1.7.4-1"
+      ]
+    }
+  ],
+  "prerequisites": [
+    "1.7.1",
+    "1.7.2",
+    "1.7.3"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "power formula P = W/t",
+    "power is energy transferred per second",
+    "watt joule per second",
+    "power of a motor or appliance",
+    "measuring power running up stairs"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-work-lifting",
+      "prompt": "A box of weight $60\\ \\text{N}$ is lifted at a steady speed through a height of $1.5\\ \\text{m}$. How much work is done on the box, in J?",
+      "hint": "Multiply the force by how far the box moves along the line of the force.",
+      "answer": {
+        "value": 90,
+        "tolerance": 0
+      },
+      "explain": "$W = Fd = 60 \\times 1.5 = 90\\ \\text{J}$. Revise it in {{lesson:1.7.2}}.",
+      "verify": {
+        "kind": "numeric",
+        "truth": "60*1.5",
+        "dp": 0
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-kettle-store",
+      "prompt": "An electric kettle heats some water. Which store does most of the energy go into?",
+      "hint": "The water gets hotter.",
+      "options": [
+        {
+          "text": "the internal (thermal) store of the water",
+          "correct": true
+        },
+        {
+          "text": "the chemical store of the water",
+          "correct": false
+        },
+        {
+          "text": "the kinetic store of the kettle",
+          "correct": false
+        },
+        {
+          "text": "the gravitational potential store of the water",
+          "correct": false
+        }
+      ],
+      "explain": "The water's temperature rises, so its internal (thermal) store gains the energy. Revise it in {{lesson:1.7.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "the internal (thermal) store of the water"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-more-efficient",
+      "prompt": "Motor X wastes $30\\ \\text{J}$ of every $100\\ \\text{J}$ supplied to it. Motor Y wastes $45\\ \\text{J}$ of every $100\\ \\text{J}$. Which motor is more efficient?",
+      "hint": "The more efficient motor transfers a bigger fraction of its input usefully.",
+      "options": [
+        {
+          "text": "motor X",
+          "correct": true
+        },
+        {
+          "text": "motor Y",
+          "correct": false
+        },
+        {
+          "text": "they are equally efficient",
+          "correct": false
+        }
+      ],
+      "explain": "Motor X transfers $70\\ \\text{J}$ of every $100\\ \\text{J}$ usefully; motor Y only $55\\ \\text{J}$. Revise it in {{lesson:1.7.3}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "motor X"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "what-power-means",
+      "heading": "Power: how fast energy is transferred",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Two motors lift identical crates through the same height. They do the same work, so they transfer the same energy. But one finishes in half the time. That motor is more powerful."
+        },
+        {
+          "type": "figure",
+          "id": "1-7-4-same-work-different-times",
+          "alt": "Two motors, A and B, each lift an identical crate of weight 400 N through 2.0 m. Both do 800 J of work. Motor A takes 4.0 s and has a power of 200 W. Motor B takes 8.0 s and has a power of 100 W.",
+          "caption": "Same work, half the time, twice the power."
+        },
+        {
+          "type": "definition",
+          "term": "power",
+          "statement": "Power is the work done per unit time. It is also the energy transferred per unit time.",
+          "plain": "Power is how much energy is transferred each second."
+        },
+        {
+          "type": "formula",
+          "tex": "P = \\frac{W}{t} \\qquad P = \\frac{\\Delta E}{t}",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "text",
+          "text": "$P$ is the power, $W$ is the work done in joules (J), $\\Delta E$ is the energy transferred in J, and $t$ is the time taken in seconds (s). The two equations say the same thing, because work done is energy transferred ({{lesson:1.7.2}})."
+        },
+        {
+          "type": "text",
+          "text": "Power is measured in watts (W). One watt is one joule per second: $1\\ \\text{W} = 1\\ \\text{J/s}$. Larger powers use $1\\ \\text{kW} = 1000\\ \\text{W}$ and $1\\ \\text{MW} = 1\\,000\\,000\\ \\text{W}$."
+        },
+        {
+          "type": "text",
+          "text": "So a $2\\ \\text{kW}$ heater transfers $2000\\ \\text{J}$ every second it is on. Careful with the letters: $W$ in italics is work done, but an upright W after a number is the unit, watts."
+        },
+        {
+          "type": "example",
+          "id": "ex-cranes-compare",
+          "question": "Two cranes each raise an identical pallet of bricks through the same height. Crane X takes $25\\ \\text{s}$ and crane Y takes $40\\ \\text{s}$. Explain which crane has the greater useful power output.",
+          "steps": [
+            "Compare the work done by the two cranes.",
+            "Compare the times.",
+            "Use the definition of power to link the two."
+          ],
+          "answer": "Both cranes lift the same weight through the same height, so they do the same work. Crane X does this work in less time. Power is work done per unit time, so crane X does more work each second. Crane X has the greater useful power output.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "same work done; crane X takes less time; power is work done per unit time; crane X has the greater power",
+            "requires": [
+              [
+                "same work"
+              ],
+              [
+                "less time",
+                "shorter time"
+              ],
+              [
+                "per unit time",
+                "each second",
+                "per second"
+              ],
+              [
+                "crane X has the greater"
+              ]
+            ],
+            "forbids": [
+              "crane Y has the greater",
+              "more work in total"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up power and energy. Power is not the total energy a device transfers: it is how fast the device transfers it. A $40\\ \\text{W}$ lamp left on all day can transfer more energy than a $2\\ \\text{kW}$ kettle used for one minute."
+        },
+        {
+          "type": "check",
+          "id": "check-define-power",
+          "prompt": "Which of these is a correct definition of power?",
+          "hint": "Power is a rate: something divided by time.",
+          "options": [
+            {
+              "text": "the energy transferred per unit time",
+              "correct": true
+            },
+            {
+              "text": "the energy transferred multiplied by the time taken",
+              "correct": false
+            },
+            {
+              "text": "the total energy transferred by a device",
+              "correct": false
+            },
+            {
+              "text": "the time taken per unit of energy transferred",
+              "correct": false
+            }
+          ],
+          "explain": "Power is energy transferred divided by time, $P = \\frac{\\Delta E}{t}$. Multiplying by the time gives no rate, the total energy has no time in it, and time per unit energy is the equation upside down.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the energy transferred per unit time"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-mixer-rating",
+          "prompt": "A food mixer is rated at $450\\ \\text{W}$. What does this rating tell you?",
+          "hint": "One watt is one joule per second.",
+          "options": [
+            {
+              "text": "it transfers 450 J of energy every second while it runs",
+              "correct": true
+            },
+            {
+              "text": "it transfers 450 J of energy in total",
+              "correct": false
+            },
+            {
+              "text": "it transfers 450 J of energy every minute while it runs",
+              "correct": false
+            },
+            {
+              "text": "it is more efficient than a 300 W mixer",
+              "correct": false
+            }
+          ],
+          "explain": "$450\\ \\text{W} = 450\\ \\text{J/s}$, so $450\\ \\text{J}$ is transferred each second. A power rating says nothing about the total energy (that depends on how long it runs) or about [[efficiency|efficiency]].",
+          "verify": {
+            "kind": "choice",
+            "truth": "it transfers 450 J of energy every second while it runs"
+          }
+        }
+      ]
+    },
+    {
+      "id": "calculating-power",
+      "heading": "Calculating power",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "To calculate a power, you need the energy transferred (or work done) in joules and the time in seconds. Change any kJ or MJ into J, and any minutes or hours into seconds, before you divide."
+        },
+        {
+          "type": "example",
+          "id": "ex-heater-power",
+          "question": "An electric heater transfers $0.54\\ \\text{MJ}$ of energy in $15$ minutes. Calculate the power of the heater.",
+          "steps": [
+            "Change the units: $0.54\\ \\text{MJ} = 540\\,000\\ \\text{J}$ and $15\\ \\text{min} = 15 \\times 60 = 900\\ \\text{s}$.",
+            "Write the equation: $P = \\frac{\\Delta E}{t}$.",
+            "Substitute: $P = \\frac{540\\,000}{900}$.",
+            "$P = 600$. Energy in J divided by time in s gives watts."
+          ],
+          "answer": "$P = 600\\ \\text{W}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "0.54*10**6/(15*60)",
+            "unit": "W"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-winch-power",
+          "question": "A winch on a fishing boat lifts a net of fish of weight $2400\\ \\text{N}$ at a steady speed through a height of $15\\ \\text{m}$. This takes $40\\ \\text{s}$. Calculate the useful power output of the winch.",
+          "steps": [
+            "Find the work done first. At a steady speed the lifting force equals the weight, so $W = Fd = 2400 \\times 15 = 36\\,000\\ \\text{J}$.",
+            "Write the equation: $P = \\frac{W}{t}$.",
+            "Substitute: $P = \\frac{36\\,000}{40}$.",
+            "$P = 900$, in watts."
+          ],
+          "answer": "$P = 900\\ \\text{W}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "2400*15/40",
+            "unit": "W"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Leaving the time in minutes or hours. Dividing joules by minutes gives joules per minute, not watts. Change the time to seconds first."
+        },
+        {
+          "type": "mistake",
+          "text": "Multiplying the energy by the time, or dividing the time by the energy. Power is energy divided by time, and its unit is W (J/s is also correct), never J."
+        },
+        {
+          "type": "text",
+          "text": "A practical you may meet: measuring your own power by running up a flight of stairs. Find your weight from your mass ($\\text{weight} = m \\times 9.8\\ \\text{N/kg}$). Measure the vertical height of the stairs with a metre rule: one step's height times the number of steps. Time the run with a stopwatch."
+        },
+        {
+          "type": "text",
+          "text": "Then the work done against gravity is weight × vertical height, and power is that work divided by the time. Repeat the timing and take an average to reduce the effect of reaction time."
+        },
+        {
+          "type": "check",
+          "id": "check-stairs-power",
+          "prompt": "A student of weight $520\\ \\text{N}$ runs up stairs with a vertical height of $3.5\\ \\text{m}$ in $7.0\\ \\text{s}$. What useful power does she develop, in W?",
+          "hint": "Work done = weight × vertical height. Then divide by the time.",
+          "answer": {
+            "value": 260,
+            "tolerance": 0
+          },
+          "explain": "$W = 520 \\times 3.5 = 1820\\ \\text{J}$, so $P = \\frac{1820}{7.0} = 260\\ \\text{W}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "520*3.5/7.0",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-most-powerful",
+          "prompt": "Four machines do these amounts of work. Machine A: $600\\ \\text{J}$ in $4.0\\ \\text{s}$. Machine B: $900\\ \\text{J}$ in $5.0\\ \\text{s}$. Machine C: $1500\\ \\text{J}$ in $12\\ \\text{s}$. Machine D: $400\\ \\text{J}$ in $2.0\\ \\text{s}$. Which machine is the most powerful?",
+          "hint": "Work out the work done per second for each machine.",
+          "options": [
+            {
+              "text": "machine D",
+              "correct": true
+            },
+            {
+              "text": "machine C",
+              "correct": false
+            },
+            {
+              "text": "machine B",
+              "correct": false
+            },
+            {
+              "text": "machine A",
+              "correct": false
+            }
+          ],
+          "explain": "The powers are A $150\\ \\text{W}$, B $180\\ \\text{W}$, C $125\\ \\text{W}$ and D $200\\ \\text{W}$. Machine C does the most work in total, but D does the most work each second.",
+          "verify": {
+            "kind": "choice",
+            "truth": "machine D"
+          }
+        }
+      ]
+    },
+    {
+      "id": "energy-and-time",
+      "heading": "Finding the energy or the time",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Rearrange $P = \\frac{\\Delta E}{t}$ to find the other two quantities: $\\Delta E = Pt$ and $t = \\frac{\\Delta E}{P}$. The same works with $W$ for work done. Use the power in W and the time in s, so the energy comes out in J."
+        },
+        {
+          "type": "example",
+          "id": "ex-kettle-energy",
+          "question": "A kettle with a power of $1.8\\ \\text{kW}$ is switched on for $2.5$ minutes. Calculate the energy it transfers, in kJ.",
+          "steps": [
+            "Change the units: $P = 1.8\\ \\text{kW} = 1800\\ \\text{W}$ and $t = 2.5 \\times 60 = 150\\ \\text{s}$.",
+            "Rearrange $P = \\frac{\\Delta E}{t}$: $\\Delta E = Pt$.",
+            "Substitute: $\\Delta E = 1800 \\times 150 = 270\\,000\\ \\text{J}$.",
+            "Divide by 1000 to give kJ: $270\\ \\text{kJ}$."
+          ],
+          "answer": "$\\Delta E = 270\\ \\text{kJ}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1.8*1000*2.5*60/1000",
+            "unit": "kJ"
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-motor-time",
+          "question": "A motor has a useful power output of $450\\ \\text{W}$. It lifts a load of weight $1500\\ \\text{N}$ at a steady speed through a height of $6.0\\ \\text{m}$. Calculate how long this takes.",
+          "steps": [
+            "Find the work done: $W = Fd = 1500 \\times 6.0 = 9000\\ \\text{J}$.",
+            "Rearrange $P = \\frac{W}{t}$: $t = \\frac{W}{P}$.",
+            "Substitute: $t = \\frac{9000}{450} = 20$. Joules divided by watts gives seconds."
+          ],
+          "answer": "$t = 20\\ \\text{s}$",
+          "video": null,
+          "verify": {
+            "kind": "exact",
+            "truth": "1500*6.0/450",
+            "unit": "s"
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Thinking a more powerful machine is more efficient. Power tells you how fast energy is transferred; efficiency tells you what fraction of it is useful. The two are separate."
+        },
+        {
+          "type": "hlNote",
+          "text": "Extended students also find efficiency from powers: useful power output divided by total power input, times 100%.",
+          "lesson": "1.7.3"
+        },
+        {
+          "type": "check",
+          "id": "check-drill-energy",
+          "prompt": "An electric drill with a power of $650\\ \\text{W}$ runs for $12\\ \\text{s}$. How much energy does it transfer, in J?",
+          "hint": "Rearrange to $\\Delta E = Pt$.",
+          "answer": {
+            "value": 7800,
+            "tolerance": 0
+          },
+          "explain": "$\\Delta E = Pt = 650 \\times 12 = 7800\\ \\text{J}$.",
+          "verify": {
+            "kind": "numeric",
+            "truth": "650*12",
+            "dp": 0
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-oven-time",
+          "prompt": "An oven element with a power of $1.5\\ \\text{kW}$ must transfer $360\\ \\text{kJ}$ of energy. How long does this take?",
+          "hint": "Change both values to W and J, then use $t = \\frac{\\Delta E}{P}$.",
+          "options": [
+            {
+              "text": "$240\\ \\text{s}$",
+              "correct": true
+            },
+            {
+              "text": "$0.24\\ \\text{s}$",
+              "correct": false
+            },
+            {
+              "text": "$4.2\\ \\text{s}$",
+              "correct": false
+            },
+            {
+              "text": "$4.0\\ \\text{s}$",
+              "correct": false
+            }
+          ],
+          "explain": "$t = \\frac{360\\,000}{1500} = 240\\ \\text{s}$ (4 minutes). $0.24\\ \\text{s}$ mixes kJ with W, $4.2\\ \\text{s}$ divides the wrong way, and $4.0$ is the time in minutes, not seconds.",
+          "verify": {
+            "kind": "exact",
+            "truth": "360*1000/(1.5*1000)",
+            "unit": "s"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Power is the work done per unit time, or the energy transferred per unit time."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Power is measured in watts: $1\\ \\text{W} = 1\\ \\text{J/s}$, $1\\ \\text{kW} = 1000\\ \\text{W}$, $1\\ \\text{MW} = 1\\,000\\,000\\ \\text{W}$."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Rearranging $P = \\frac{\\Delta E}{t}$ gives $\\Delta E = Pt$ and $t = \\frac{\\Delta E}{P}$, where $\\Delta E$ is the energy transferred and $t$ the time. With the power in W and the time in s, the energy is in J."
+        },
+        {
+          "type": "fact",
+          "tag": "learn",
+          "cheatSheet": true,
+          "text": "Doing the same work in less time needs more power. Power says how fast energy is transferred, not how much in total or how efficiently."
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Leaving the time in minutes or hours. Change it to seconds first, so the power comes out in watts.",
+    "Multiplying energy by time, or dividing time by energy. Power is energy (or work done) divided by time.",
+    "Giving power in joules, or with no unit. The unit is the watt, W (J/s is also correct).",
+    "Mixing kJ or kW with J or W in one calculation. Change everything to J, W and s first.",
+    "Thinking a more powerful device transfers more energy in total, or is more efficient. Power only tells you how fast energy is transferred."
+  ],
+  "examTips": [
+    "\"Define\" power in words: \"work done per unit time\" or \"energy transferred per unit time\". An equation alone earns the mark only if you say what each symbol means.",
+    "\"Calculate\" a power: write $P = \\frac{W}{t}$ or $P = \\frac{\\Delta E}{t}$, then the equation with your numbers in (time in s), then the answer with its unit, W.",
+    "Paper 1/2 multiple choice: when machines do the same work, the shortest time means the greatest power. Otherwise work out the energy per second for each, with every value in the same units (for example, change kW to W)."
+  ],
+  "readingMinutes": 16
+}

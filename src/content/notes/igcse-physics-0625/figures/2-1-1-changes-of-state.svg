@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 230" role="img" aria-labelledby="t211cs">
+  <title id="t211cs">Three boxes in a row labelled solid, liquid and gas. Arrows pointing right show changes on heating: solid to liquid is melting, and liquid to gas is boiling or evaporation. Arrows pointing left show changes on cooling: liquid to solid is freezing, also called solidification, and gas to liquid is condensation</title>
+  <g stroke="currentColor" stroke-width="2">
+    <rect x="30" y="90" width="120" height="50" fill="var(--t1-ink)" fill-opacity="0.25"/>
+    <rect x="240" y="90" width="120" height="50" fill="var(--t3-ink)" fill-opacity="0.25"/>
+    <rect x="450" y="90" width="120" height="50" fill="var(--t5-ink)" fill-opacity="0.25"/>
+  </g>
+  <g font-size="16" font-weight="bold" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="90" y="121">solid</text>
+    <text x="300" y="121">liquid</text>
+    <text x="510" y="121">gas</text>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <line x1="152" y1="102" x2="236" y2="102"/>
+    <polyline points="228,96 238,102 228,108"/>
+    <line x1="362" y1="102" x2="446" y2="102"/>
+    <polyline points="438,96 448,102 438,108"/>
+    <line x1="236" y1="128" x2="152" y2="128"/>
+    <polyline points="160,122 150,128 160,134"/>
+    <line x1="446" y1="128" x2="362" y2="128"/>
+    <polyline points="370,122 360,128 370,134"/>
+  </g>
+  <g font-size="13" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="195" y="90">melting</text>
+    <text x="405" y="72">boiling or</text>
+    <text x="405" y="88">evaporation</text>
+    <text x="195" y="154">freezing</text>
+    <text x="195" y="170">(solidification)</text>
+    <text x="405" y="154">condensation</text>
+  </g>
+  <g font-size="13" fill="var(--muted)" font-family="inherit" text-anchor="middle">
+    <text x="300" y="30">heating: arrows to the right</text>
+    <text x="300" y="210">cooling: arrows to the left</text>
+  </g>
+</svg>

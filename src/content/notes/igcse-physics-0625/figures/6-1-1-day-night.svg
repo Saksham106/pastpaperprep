@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-labelledby="t611daynight">
+  <title id="t611daynight">The Earth seen from above the North Pole, with sunlight arriving from the left as four parallel arrows. The left half of the Earth, facing the Sun, is lit and labelled day. The right half is dark and labelled night. A curved arrow outside the Earth shows it spinning anticlockwise, labelled spins once in about 24 hours. Points on the surface are labelled midday on the left, facing the Sun, sunrise at the top, midnight on the right and sunset at the bottom.</title>
+  <path d="M330 60 A90 90 0 0 0 330 240 Z" fill="var(--t3-ink)" fill-opacity="0.22"/>
+  <path d="M330 60 A90 90 0 0 1 330 240 Z" fill="currentColor" fill-opacity="0.28"/>
+  <circle cx="330" cy="150" r="90" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="330" cy="150" r="3" fill="currentColor"/>
+  <g stroke="var(--t3-ink)" stroke-width="2" fill="none">
+    <line x1="40" y1="80" x2="200" y2="80"/>
+    <polyline points="190,74 200,80 190,86"/>
+    <line x1="40" y1="115" x2="200" y2="115"/>
+    <polyline points="190,109 200,115 190,121"/>
+    <line x1="40" y1="185" x2="200" y2="185"/>
+    <polyline points="190,179 200,185 190,191"/>
+    <line x1="40" y1="220" x2="200" y2="220"/>
+    <polyline points="190,214 200,220 190,226"/>
+  </g>
+  <g stroke="currentColor" stroke-width="2" fill="none">
+    <path d="M435.2 111.7 A112 112 0 0 0 368.3 44.8"/>
+    <polyline points="374.7,52.5 368.3,44.8 378.2,43.1"/>
+  </g>
+  <g fill="currentColor">
+    <circle cx="240" cy="150" r="4"/>
+    <circle cx="330" cy="60" r="4"/>
+    <circle cx="420" cy="150" r="4"/>
+    <circle cx="330" cy="240" r="4"/>
+  </g>
+  <g font-size="14" fill="currentColor" font-family="inherit" text-anchor="middle">
+    <text x="120" y="60" font-weight="bold">sunlight</text>
+    <text x="290" y="135" font-weight="bold">day</text>
+    <text x="375" y="135" font-weight="bold">night</text>
+    <text x="340" y="170" font-size="12">N</text>
+    <text x="232" y="155" text-anchor="end">midday</text>
+    <text x="322" y="50" text-anchor="end">sunrise</text>
+    <text x="430" y="155" text-anchor="start">midnight</text>
+    <text x="330" y="262">sunset</text>
+    <text x="450" y="70" text-anchor="start">spins once in</text>
+    <text x="450" y="88" text-anchor="start">about 24 hours</text>
+    <text x="330" y="290" fill-opacity="0.75">seen from above the North Pole (N)</text>
+  </g>
+</svg>

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "speed",
+    "term": "speed",
+    "definition": "The distance an object travels per unit time, $v = \\frac{s}{t}$, usually in m/s; a scalar, so it has no direction.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "velocity",
+    "term": "velocity",
+    "definition": "Speed in a given direction; a vector, so two objects with the same speed moving in different directions have different velocities.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "average-speed",
+    "term": "average speed",
+    "definition": "The total distance travelled divided by the total time taken, including any stops; it is not, in general, the mean of the starting and final speeds.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "distance",
+    "term": "distance",
+    "definition": "The total length of the path an object travels, in m; a scalar, so it has no direction.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "distance-time-graph",
+    "term": "distance-time graph",
+    "definition": "A graph of distance travelled (vertical axis) against time (horizontal axis); its gradient is the speed, so a horizontal line means at rest and a straight sloping line means constant speed.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "speed-time-graph",
+    "term": "speed-time graph",
+    "definition": "A graph of speed (vertical axis) against time (horizontal axis); the area under it is the distance travelled (Extended: for motion in a straight line, its gradient is the acceleration).",
+    "lesson": "1.2"
+  },
+  {
+    "id": "gradient",
+    "term": "gradient",
+    "definition": "The steepness of a straight line: the change in the vertical quantity divided by the change in the horizontal quantity, found from two points on the line far apart.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "acceleration",
+    "term": "acceleration",
+    "definition": "The change in velocity per unit time, $a = \\frac{\\Delta v}{\\Delta t}$, in $\\text{m/s}^2$; a vector.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "deceleration",
+    "term": "deceleration",
+    "definition": "A negative acceleration, taking the direction of motion as positive: the object's speed decreases.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "acceleration-of-free-fall",
+    "term": "acceleration of free fall",
+    "definition": "The acceleration $g$ of an object falling with no air resistance; near the Earth's surface it is approximately constant, about $9.8\\ \\text{m/s}^2$, whatever the object's mass.",
+    "lesson": "1.2"
+  },
+  {
+    "id": "terminal-velocity",
+    "term": "terminal velocity",
+    "definition": "The constant velocity an object falling through air or a liquid reaches when the forces on it balance, so the resultant force on it is zero; in air, this is when the air resistance equals its weight.",
+    "lesson": "1.2"
+  }
+]

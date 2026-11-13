@@ -1,0 +1,553 @@
+{
+  "schemaVersion": 1,
+  "edition": "igcse-physics-0625-2026",
+  "item": "5.1.1",
+  "slug": "the-atom",
+  "title": "The atom",
+  "level": "Core",
+  "topic": 5,
+  "summary": "An [[atom|atom]] has a tiny, positively charged [[nucleus|nucleus]] at its centre, with negatively charged [[electron|electrons]] moving in orbits around it. An atom that loses electrons becomes a positive [[ion|ion]]. An atom that gains electrons becomes a negative ion.",
+  "goals": [
+    {
+      "text": "Describe an atom as a small, positive nucleus at the centre, with negative electrons moving in orbits around it.",
+      "bullets": [
+        "5.1.1-1"
+      ]
+    },
+    {
+      "text": "Explain why a neutral atom has no overall charge.",
+      "bullets": [
+        "5.1.1-1"
+      ]
+    },
+    {
+      "text": "Explain how an atom becomes a positive ion by losing electrons, or a negative ion by gaining them, and work out the charge on an ion.",
+      "bullets": [
+        "5.1.1-2"
+      ]
+    },
+    {
+      "text": "Describe how firing alpha particles at thin metal foil shows that the nucleus is very small, positively charged and holds most of the atom's mass.",
+      "bullets": [
+        "5.1.1-3"
+      ],
+      "level": "Extended"
+    }
+  ],
+  "prerequisites": [
+    "2.1.2",
+    "4.2.1"
+  ],
+  "papers": [
+    "P1",
+    "P2",
+    "P3",
+    "P4"
+  ],
+  "synonyms": [
+    "structure of the atom",
+    "nuclear model of the atom",
+    "how ions are formed",
+    "positive and negative ions",
+    "Rutherford gold foil experiment",
+    "alpha particle scattering"
+  ],
+  "before": [
+    {
+      "type": "check",
+      "id": "before-like-charges",
+      "prompt": "Two small balls both carry a positive charge. They are held close together. What happens?",
+      "hint": "Think about like charges and unlike charges.",
+      "options": [
+        {
+          "text": "they repel each other",
+          "correct": true
+        },
+        {
+          "text": "they attract each other",
+          "correct": false
+        },
+        {
+          "text": "there is no force between them",
+          "correct": false
+        }
+      ],
+      "explain": "Like charges repel and unlike charges attract. Two positive charges push each other apart. Revise it in {{lesson:4.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "they repel each other"
+      }
+    },
+    {
+      "type": "check",
+      "id": "before-rubbed-rod",
+      "prompt": "A plastic comb becomes negatively charged when it is rubbed with a dry cloth. What has happened?",
+      "hint": "Only one kind of charged particle moves when solids are charged by rubbing.",
+      "options": [
+        {
+          "text": "electrons have moved from the cloth to the comb",
+          "correct": true
+        },
+        {
+          "text": "electrons have moved from the comb to the cloth",
+          "correct": false
+        },
+        {
+          "text": "protons have moved from the comb to the cloth",
+          "correct": false
+        }
+      ],
+      "explain": "Rubbing moves only negative charge: electrons. The comb gained electrons, which gives it an overall negative charge. Revise it in {{lesson:4.2.1}}.",
+      "verify": {
+        "kind": "choice",
+        "truth": "electrons have moved from the cloth to the comb"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "id": "structure",
+      "heading": "Inside an atom: nucleus and electrons",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Everything around you is made of [[atom|atoms]]. An atom is about a ten-millionth of a millimetre across, far too small to see. Even so, it has parts inside it."
+        },
+        {
+          "type": "text",
+          "text": "At the centre of every atom is the [[nucleus|nucleus]]. It is tiny compared with the whole atom, and it has a positive [[electric-charge|charge]]."
+        },
+        {
+          "type": "text",
+          "text": "Around the nucleus, [[electron|electrons]] move in orbits, a bit like planets around the Sun. Each electron has a negative charge."
+        },
+        {
+          "type": "text",
+          "text": "The nucleus is made of [[proton|protons]], which are positive, and [[neutron|neutrons]], which have no charge. You'll meet them properly in {{lesson:5.1.2}}."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-1-atom-model",
+          "alt": "A simple model of an atom, not to scale. A small nucleus at the centre holds four protons, each marked plus, and five neutrons with no charge. Four electrons, each marked minus, move on two circular orbits around the nucleus, two on each orbit.",
+          "caption": "A model of a beryllium atom: a positive nucleus, with negative electrons in orbit around it."
+        },
+        {
+          "type": "text",
+          "text": "Each electron's charge is the same size as a proton's, but negative. A neutral atom has as many electrons as protons. So the electrons' negative charge exactly balances the positive charge of the nucleus, and the atom has no overall charge."
+        },
+        {
+          "type": "example",
+          "id": "ex-boron-atom-structure",
+          "question": "A boron atom has five electrons. Describe the structure of the atom, and explain why the atom has no overall charge.",
+          "steps": [
+            "Say what is at the centre and its charge, then where the electrons are and their charge. Finish by comparing the two amounts of charge."
+          ],
+          "answer": "At the centre of the atom is a very small nucleus, which is positively charged. Five negatively charged electrons move in orbits around the nucleus. The nucleus contains five protons, so its positive charge is equal in size to the total negative charge of the five electrons. The charges cancel, so the atom is neutral.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "small positively charged nucleus at the centre; negatively charged electrons orbit it; positive charge equals total negative charge; atom neutral",
+            "requires": [
+              "nucleus",
+              [
+                "positively charged",
+                "positive charge"
+              ],
+              [
+                "negatively charged electrons",
+                "electrons are negative"
+              ],
+              [
+                "orbits",
+                "orbit"
+              ],
+              [
+                "equal in size",
+                "the same size"
+              ],
+              [
+                "neutral",
+                "no overall charge"
+              ]
+            ],
+            "forbids": [
+              "negatively charged nucleus",
+              "positively charged electrons",
+              "neutrons cancel"
+            ]
+          }
+        },
+        {
+          "type": "mistake",
+          "text": "Calling a neutral atom positive because its nucleus is positive. The electrons' negative charge balances the nucleus exactly, so the atom has no overall charge."
+        },
+        {
+          "type": "check",
+          "id": "check-where-positive-charge",
+          "prompt": "Where is the positive charge of an atom?",
+          "hint": "Which part of the atom do the electrons move around?",
+          "options": [
+            {
+              "text": "in the nucleus, at the centre of the atom",
+              "correct": true
+            },
+            {
+              "text": "spread evenly through the whole atom",
+              "correct": false
+            },
+            {
+              "text": "on the electrons in orbit",
+              "correct": false
+            },
+            {
+              "text": "in the space between the nucleus and the electrons",
+              "correct": false
+            }
+          ],
+          "explain": "All the positive charge is in the tiny nucleus at the centre. The electrons in orbit around it are negative.",
+          "verify": {
+            "kind": "choice",
+            "truth": "in the nucleus, at the centre of the atom"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-why-atom-neutral",
+          "prompt": "Why does a neutral atom have no overall charge?",
+          "hint": "Compare the charge on the nucleus with the charge on all the electrons together.",
+          "options": [
+            {
+              "text": "the positive charge of its nucleus is equal in size to the negative charge of all its electrons",
+              "correct": true
+            },
+            {
+              "text": "its neutrons cancel out the charge of its protons",
+              "correct": false
+            },
+            {
+              "text": "its nucleus and its electrons are both uncharged",
+              "correct": false
+            }
+          ],
+          "explain": "The protons give the nucleus a positive charge, and the electrons together carry an equal negative charge. Neutrons have no charge, so they cannot cancel anything.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the positive charge of its nucleus is equal in size to the negative charge of all its electrons"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ions",
+      "heading": "Ions: losing or gaining electrons",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "An atom can lose one or more of its electrons, for example when another particle hits it hard. An atom can also pick up extra electrons. In both cases the nucleus stays the same."
+        },
+        {
+          "type": "text",
+          "text": "The atom now has unequal amounts of positive and negative charge, so it has an overall charge. A charged atom like this is called an [[ion|ion]]."
+        },
+        {
+          "type": "text",
+          "text": "Losing electrons leaves less negative charge than positive charge. The atom becomes a positive ion."
+        },
+        {
+          "type": "text",
+          "text": "Gaining electrons gives more negative charge than positive charge. The atom becomes a negative ion."
+        },
+        {
+          "type": "text",
+          "text": "To find the charge on an ion, count each proton as $+1$ and each electron as $-1$, then add them up. Neutrons have no charge, so leave them out."
+        },
+        {
+          "type": "example",
+          "id": "ex-magnesium-ion",
+          "question": "A magnesium atom has 12 protons and 12 electrons. It loses two electrons. Explain what kind of particle it becomes, and state its charge.",
+          "steps": [
+            "Say which particles move, count the protons and electrons that are left, then compare the charges."
+          ],
+          "answer": "The atom loses two negatively charged electrons, and its nucleus does not change. It still has 12 protons but now has only 10 electrons. So it has two more units of positive charge than negative charge. It becomes a positive ion with a charge of $+2$.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "loses two electrons; nucleus unchanged, 12 protons and 10 electrons; more positive than negative charge; positive ion with charge +2",
+            "requires": [
+              [
+                "loses two",
+                "lost two"
+              ],
+              "12 protons",
+              "10 electrons",
+              "positive ion",
+              "+2"
+            ],
+            "forbids": [
+              "negative ion",
+              "loses two protons",
+              "gains two electrons"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "Paper 1/2 questions often show atoms and ions as diagrams of dots. Count only the protons and the electrons: more electrons than protons means a negative ion, and fewer means a positive ion."
+        },
+        {
+          "type": "mistake",
+          "text": "Mixing up losing and gaining. Electrons are negative, so losing them makes a positive ion and gaining them makes a negative ion."
+        },
+        {
+          "type": "check",
+          "id": "check-ion-charge-count",
+          "prompt": "A particle has 16 protons, 16 neutrons and 18 electrons. What is its overall charge?",
+          "hint": "Count each proton as $+1$ and each electron as $-1$. What charge does a neutron have?",
+          "options": [
+            {
+              "text": "$-2$",
+              "correct": true
+            },
+            {
+              "text": "$+2$",
+              "correct": false
+            },
+            {
+              "text": "$+14$",
+              "correct": false
+            }
+          ],
+          "explain": "The charge is $16 - 18 = -2$, so it is a negative ion: it has gained two electrons. The neutrons have no charge. Counting them as positive gives the wrong answer $+14$.",
+          "verify": {
+            "kind": "exact",
+            "truth": "16*(+1) + 18*(-1)",
+            "signed": true
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-ion-back-to-atom",
+          "prompt": "A calcium ion has a charge of $+2$. What must happen for it to become a neutral calcium atom?",
+          "hint": "A $+2$ ion is short of electrons. How many?",
+          "options": [
+            {
+              "text": "it gains two electrons",
+              "correct": true
+            },
+            {
+              "text": "it loses two electrons",
+              "correct": false
+            },
+            {
+              "text": "it loses two protons",
+              "correct": false
+            },
+            {
+              "text": "it gains two neutrons",
+              "correct": false
+            }
+          ],
+          "explain": "The ion has two fewer electrons than protons. Gaining two electrons adds $-2$, which cancels the $+2$. Ions form and become neutral again by electrons moving, never protons.",
+          "verify": {
+            "kind": "choice",
+            "truth": "it gains two electrons"
+          }
+        }
+      ]
+    },
+    {
+      "id": "alpha-scattering",
+      "heading": "Evidence for the nucleus: alpha-particle scattering",
+      "level": "Extended",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "How do we know an atom has a tiny nucleus at all? The evidence comes from [[alpha-particle-scattering|alpha-particle scattering]] experiments, first done in the early 1900s."
+        },
+        {
+          "type": "text",
+          "text": "An alpha particle is a small, positively charged particle given out by some radioactive materials ({{lesson:5.2.2}}). It is thousands of times more massive than an electron, and it moves fast."
+        },
+        {
+          "type": "text",
+          "text": "In a vacuum, a narrow beam of alpha particles is aimed at very thin gold foil, less than a thousandth of a millimetre thick. A detector is moved around the foil to find where the alpha particles go."
+        },
+        {
+          "type": "figure",
+          "id": "5-1-1-alpha-scattering",
+          "alt": "Alpha particles travel from the left towards a magnified view of thin gold foil, which contains three tiny positive nuclei far apart. Two alpha particles that pass far from any nucleus go straight through. One that passes close to a nucleus is pushed away and deflected through an angle. One heading straight at a nucleus bounces back the way it came.",
+          "caption": "Most alpha particles miss every nucleus. Only those that pass very close to one are pushed off course."
+        },
+        {
+          "type": "text",
+          "text": "1. Most alpha particles pass straight through without changing direction. They met nothing that pushed on them. So an atom is mostly empty space, with a nucleus far smaller than the atom itself."
+        },
+        {
+          "type": "text",
+          "text": "2. A few alpha particles are deflected: they pass close to a nucleus and are pushed away from it. Like charges repel, so the nucleus is positively charged, with its charge packed into a tiny space."
+        },
+        {
+          "type": "text",
+          "text": "3. A very small number bounce back towards the source. Turning back a fast, massive alpha particle needs something much more massive than the alpha particle. So the nucleus contains most of the mass of the atom."
+        },
+        {
+          "type": "example",
+          "id": "ex-charge-spread-out",
+          "question": "A student claims that the positive charge of an atom is spread evenly through the whole atom. Use the results of alpha-particle scattering to explain why the student is wrong.",
+          "steps": [
+            "Say what the student's model predicts, then what was actually seen, then what the results show instead."
+          ],
+          "answer": "If the positive charge were spread evenly, no part of the atom could push hard on an alpha particle, so every alpha particle would pass through with at most a tiny change in direction. In fact, a few alpha particles are deflected through large angles and a very small number bounce back. This needs a strong repulsion from positive charge concentrated in a very small space. So the positive charge is concentrated in a tiny nucleus, not spread through the atom.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "spread charge gives only tiny deflections; observed large-angle deflections and some bounce back; needs strong repulsion from concentrated positive charge; positive charge in tiny nucleus",
+            "requires": [
+              [
+                "tiny change in direction",
+                "very small deflection",
+                "small deflections"
+              ],
+              "large angles",
+              "bounce back",
+              "repulsion",
+              [
+                "concentrated",
+                "packed"
+              ],
+              "nucleus"
+            ],
+            "forbids": [
+              "attraction",
+              "negatively charged nucleus",
+              "most alpha particles are deflected"
+            ]
+          }
+        },
+        {
+          "type": "example",
+          "id": "ex-two-observations",
+          "question": "Alpha particles are fired at a thin sheet of gold foil. Almost all of them go through in a straight line, but a very small number come straight back. For each observation, state what it shows about the nucleus and explain why.",
+          "steps": [
+            "Take each observation in turn: what the alpha particles did, why, and the conclusion about the nucleus."
+          ],
+          "answer": "Almost all the alpha particles go straight through, so they felt almost no force. This shows that an atom is mostly empty space, with a very small nucleus. A very small number come straight back, so they were repelled very strongly by something much more massive than themselves. This shows that the nucleus is positively charged and contains most of the mass of the atom.",
+          "video": null,
+          "verify": {
+            "kind": "explanation",
+            "truth": "straight through: almost no force, mostly empty space, very small nucleus; come back: strongly repelled by something more massive, nucleus positive and holds most of the mass",
+            "requires": [
+              "empty space",
+              [
+                "very small",
+                "tiny"
+              ],
+              "repelled",
+              "positively charged",
+              "most of the mass"
+            ],
+            "forbids": [
+              "attracted",
+              "negatively charged nucleus",
+              "mass is spread"
+            ]
+          }
+        },
+        {
+          "type": "examTip",
+          "text": "When a question asks you to \"state\" the conclusion from one observation, link it to the right one. Straight through shows empty space and a small nucleus; being pushed away (deflected or bounced back) shows a positive, concentrated charge; bouncing back also shows the nucleus holds most of the mass."
+        },
+        {
+          "type": "mistake",
+          "text": "Linking \"most pass straight through\" to the charge on the nucleus. Those alpha particles felt almost no force, so they tell you the atom is mostly empty space, not what charge the nucleus has."
+        },
+        {
+          "type": "check",
+          "id": "check-observation-empty-space",
+          "prompt": "Which result of the alpha-particle scattering experiment shows that most of an atom is empty space?",
+          "hint": "Which alpha particles never came near anything?",
+          "options": [
+            {
+              "text": "most alpha particles pass straight through the foil",
+              "correct": true
+            },
+            {
+              "text": "a few alpha particles are deflected through large angles",
+              "correct": false
+            },
+            {
+              "text": "a very small number of alpha particles bounce back",
+              "correct": false
+            }
+          ],
+          "explain": "An alpha particle that goes straight through met nothing that pushed on it. Since most do this, most of each atom must be empty space.",
+          "verify": {
+            "kind": "choice",
+            "truth": "most alpha particles pass straight through the foil"
+          }
+        },
+        {
+          "type": "check",
+          "id": "check-pushed-away-positive",
+          "prompt": "Alpha particles that pass close to a nucleus are pushed away from it. What does this show?",
+          "hint": "Alpha particles are positive. Which kind of charge would push them away?",
+          "options": [
+            {
+              "text": "the nucleus is positively charged",
+              "correct": true
+            },
+            {
+              "text": "the nucleus is negatively charged",
+              "correct": false
+            },
+            {
+              "text": "the nucleus has no charge",
+              "correct": false
+            }
+          ],
+          "explain": "Like charges repel. A negative nucleus would pull the alpha particles towards it, and an uncharged one would not push them at all.",
+          "verify": {
+            "kind": "choice",
+            "truth": "the nucleus is positively charged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "takeaways",
+      "heading": "Key takeaways",
+      "blocks": [
+        {
+          "type": "fact",
+          "text": "An atom has a tiny, positively charged nucleus at its centre, with negatively charged electrons in orbit around it. A neutral atom has as many electrons as protons, so it has no overall charge.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "An atom forms a positive ion by losing electrons and a negative ion by gaining electrons. The nucleus does not change. Counting a proton as $+1$ and an electron as $-1$, charge on an ion = number of protons − number of electrons.",
+          "tag": "learn",
+          "cheatSheet": true
+        },
+        {
+          "type": "fact",
+          "text": "Alpha particles fired at thin metal foil: most pass straight through, so the atom is mostly empty space with a very small nucleus. A few are pushed away, so the nucleus is positive. A very small number bounce back, so the nucleus holds most of the atom's mass.",
+          "tag": "learn",
+          "cheatSheet": true,
+          "level": "Extended"
+        }
+      ]
+    }
+  ],
+  "mistakes": [
+    "Mixing up losing and gaining electrons. Losing negative electrons leaves a positive ion; gaining them makes a negative ion.",
+    "Counting neutrons when you work out the charge on an ion. Neutrons have no charge, so count only the protons and the electrons.",
+    "Saying an ion forms by gaining or losing protons. Ions form when electrons move; the nucleus stays the same.",
+    "Calling a neutral atom positive because its nucleus is positive. The electrons' negative charge balances the nucleus exactly."
+  ],
+  "examTips": [
+    "\"Describe\" the structure of an atom: say the nucleus is at the centre and is positively charged, then that the electrons are negatively charged and orbit the nucleus. Give both charges, not just the names of the parts.",
+    "When asked for the charge on an ion, give the sign as well as the number, such as $+2$ or $-1$, and say whether electrons were lost or gained."
+  ],
+  "readingMinutes": 18
+}

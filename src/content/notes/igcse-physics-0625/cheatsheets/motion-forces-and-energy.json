@@ -1,0 +1,79 @@
+{
+  "lines": [
+    {
+      "text": "'Find the density of an irregular solid that sinks, such as a stone' → mass on a balance; volume = rise in the measuring-cylinder reading once it is fully under water (or the overflow from a full displacement can); then $\\rho = \\dfrac{m}{V}$, with g and cm³ giving g/cm³ ({{lesson:1.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Find the period of a pendulum' → time $20$ complete oscillations (out and back) from a fixed marker at the centre of the swing, repeat and take the mean, then divide by the number of oscillations ({{lesson:1.1}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Find the speed from a straight section of a distance–time graph' → read the distance and time at both ends of that section and divide the change in distance by the change in time; the end reading ÷ its time works only if the section starts at the origin ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Find the distance travelled from a speed–time graph made of straight lines' → find the area under the line: a rectangle (speed × time) where the speed is constant, a triangle ($\\tfrac{1}{2}$ × base × height) where it changes steadily from or to zero, a rectangle plus a triangle where it changes steadily between two non-zero speeds, then add the parts ({{lesson:1.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'A see-saw or beam balances with one force each side of the pivot: find a force or a distance' → with the beam light, or uniform and pivoted at its centre, set clockwise moment = anticlockwise moment, $F_1 d_1 = F_2 d_2$, measuring each perpendicular distance from the pivot, not from the end ({{lesson:1.5.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'A uniform metre rule balances on a pivot away from its 50 cm mark: find a weight' → the rule's own weight acts at the 50 cm mark and has a moment too; add all the clockwise and all the anticlockwise moments about the pivot and set the totals equal ({{lesson:1.5.2}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Given a driving force, resistive forces and the mass, find the acceleration' → find the resultant force first (forces the other way count as negative), then $a = \\dfrac{F}{m}$; the acceleration is in the direction of the resultant force ({{lesson:1.5.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'An object's weight on Earth is given: find its weight on the Moon or Mars' → find its mass with Earth's $g$, $m = \\dfrac{W}{g}$; the mass is the same there, so multiply it by the new $g$ ({{lesson:1.3}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Two trolleys collide and stick together, or push apart from rest: find a velocity' → choose a positive direction, then set total momentum before = total momentum after (no outside resultant force), adding both masses if they stick ({{lesson:1.6}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'A ball bounces back off a wall: find the impulse or the average force' → give the two velocities opposite signs, find $m(v - u)$, then divide by the contact time ({{lesson:1.6}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Explain how an airbag or crumple zone protects the driver' → the change in momentum is the same, the stopping time is longer, so $F = \\dfrac{\\Delta p}{\\Delta t}$ is smaller ({{lesson:1.6}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'An object falls or slides from rest, ignore air resistance and friction: find its speed' → set $mg\\Delta h = \\tfrac{1}{2}mv^2$ with $\\Delta h$ the vertical drop, then take the square root ({{lesson:1.7.1}})",
+      "tag": "learn",
+      "level": "Extended"
+    },
+    {
+      "text": "'Find the constant braking force from the braking distance' → on level ground with the brakes the only thing slowing it, the work done by the brakes equals the kinetic energy removed, so $F = \\dfrac{W}{d}$ with $W$ in J ({{lesson:1.7.2}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Find the useful power of a student running upstairs or a motor lifting a load at a steady speed' → work done = weight × vertical height gained, then divide by the time in seconds ({{lesson:1.7.4}})",
+      "tag": "learn",
+      "level": "Core"
+    },
+    {
+      "text": "'Find the pressure a table or vehicle exerts on level ground' → the force is its weight ($W = mg$), the area is all the legs or wheels in contact added together, then $p = \\dfrac{F}{A}$ with N and m² for Pa ({{lesson:1.8}})",
+      "tag": "learn",
+      "level": "Core"
+    }
+  ]
+}
