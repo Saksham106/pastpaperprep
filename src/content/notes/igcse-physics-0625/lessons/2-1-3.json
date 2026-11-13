@@ -192,7 +192,7 @@
         },
         {
           "type": "mistake",
-          "text": "Writing that the particles bump into each other, or forgetting \"on average\". Say the particles move faster on average and hit the walls of the container more often."
+          "text": "Writing that the particles bump into each other, or forgetting \"on average\". When the gas is heated, say the particles move faster on average and hit the walls of the container more often and harder."
         },
         {
           "type": "text",
@@ -472,7 +472,7 @@
         },
         {
           "type": "mistake",
-          "text": "Using the pressures upside down, so the volume goes the wrong way. Before you finish, check: a higher pressure means a smaller volume."
+          "text": "Using the pressures upside down, so the volume goes the wrong way. Before you finish, check: for a fixed mass at constant temperature, a higher pressure means a smaller volume."
         },
         {
           "type": "text",
@@ -573,5 +573,5 @@
     "\"Explain\" a pressure change \"in terms of particles\" in linked steps: the particles' average speed, how often they hit the walls, the force on the walls, then the pressure. Say what stays constant.",
     "\"Convert\" a temperature: write $T = \\theta + 273$, substitute, and give the unit K (never °K)."
   ],
-  "readingMinutes": 20
+  "readingMinutes": 21
 }

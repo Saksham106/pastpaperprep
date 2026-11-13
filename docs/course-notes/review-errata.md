@@ -33,6 +33,9 @@ Add a line whenever a review finds a new class of error. Each line is the genera
 22. **Candidates for turning points and inflexions include where f′ or f″ is undefined but f exists** (x^(2/3), x^(5/3)), once fractional powers are taught (AI 5.2, 5.10).
 23. **s_{n−1}² is unbiased for σ²; s_{n−1} is not exactly unbiased for σ** (AI 4.16).
 
+25. **Standalone lines in a two-tier course carry their tier.** Exam tips, mistakes and glossary definitions in a Core lesson that use Supplement content (an Extended equation, experiment or rule) must be marked Extended, or say "(Extended: …)" inside a Core glossary entry; otherwise Core students see content they are not taught (0625: 2.2.2, 2.2.3, 2.3.3, 4.2.x glossary).
+26. **Diagrams use the board's own symbol sheet.** Check every circuit figure against it, symbol by symbol: writers drew a generator as a circle (it is a square with G), a home-made relay, a fuse with no wire through it (the resistor symbol) and cells where the question says "d.c. supply" (0625 4.3.1, 4.4, 4.5.x). Render the symbol page (`pdfplumber` `page.to_image()` works without poppler).
+
 ## Rules for the answer gate
 
 17. **Every new answer kind gets mutation tests before it ships.** Each review of a new gate found 3–4 holes: containment instead of equivalence, sample points instead of proof, a zero factor accepted, denominator exclusions dropped, `+ C` erased, an isomer accepted by composition (AA, 0580, Chemistry).

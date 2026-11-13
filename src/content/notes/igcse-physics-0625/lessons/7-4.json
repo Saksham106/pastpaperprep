@@ -455,7 +455,7 @@
         },
         {
           "type": "mistake",
-          "text": "Saying \"no, because the numbers are different\". Compare the difference with 10% first."
+          "text": "Saying \"no, because the numbers are different\". Give the difference as a percentage of one value (the predicted one, if any), then compare with 10%."
         },
         {
           "type": "check",
@@ -837,13 +837,13 @@
   "mistakes": [
     "Drawing dot to dot or a thick line. Draw one thin best-fit line.",
     "Calling a line proportional \"because it goes up\". It must be straight and pass through the origin.",
-    "Saying two results differ because the numbers aren't identical. Compare the difference with 10%.",
+    "Saying two results differ because the numbers aren't identical. Give the difference as a percentage of one value (the predicted one, if any) and compare with 10%.",
     "Writing \"repeat it\" without \"calculate a mean\", or \"be more careful\". Name the change and how it helps."
   ],
   "examTips": [
     "\"Plot\": each point within half a small square, axes labelled quantity / unit.",
     "\"Determine\" a gradient: show the triangle and write down the readings used.",
-    "\"Comment\" on agreement: quote both values, compare the difference with 10%, then conclude.",
+    "\"Comment\" on agreement: quote both values, give the difference as a percentage of one value (the predicted one, if any), compare with 10%, then conclude.",
     "\"Suggest\" an improvement: name the change and what it improves."
   ],
   "readingMinutes": 26

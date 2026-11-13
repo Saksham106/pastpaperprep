@@ -641,15 +641,15 @@
     }
   ],
   "mistakes": [
-    "Using the final temperature as $\\Delta\\theta$. Subtract the starting temperature to get the rise.",
-    "Leaving the energy in kJ or the mass in g. Change to J and kg first, or $c$ comes out 1000 times too small.",
+    "Extended: using the final temperature as $\\Delta\\theta$. Subtract the starting temperature to get the rise.",
+    "Extended: leaving the energy in kJ or the mass in g. Change to J and kg first, or $c$ comes out 1000 times too small.",
     "Using a time in minutes in $\\Delta E = Pt$. Change it to seconds first.",
-    "Defining specific heat capacity without \"per unit mass\". The definition needs both: per unit mass and per unit rise in temperature."
+    "Extended: defining specific heat capacity without \"per unit mass\". The definition needs both: per unit mass and per unit rise in temperature."
   ],
   "examTips": [
-    "\"Define\" specific heat capacity in words: energy, per unit mass, per unit (1 °C) rise in temperature. An equation alone counts only if you explain every symbol.",
-    "\"Calculate\": write $c = \\frac{\\Delta E}{m\\Delta\\theta}$ or its rearrangement, substitute in J, kg and °C, then give the answer with its unit.",
-    "\"Describe\" an experiment: say what you measure, the instrument for each, and how you work out $c$ from the readings."
+    "\"Define\" specific heat capacity (Extended) in words: energy, per unit mass, per unit (1 °C) rise in temperature. An equation alone counts only if you explain every symbol.",
+    "\"Calculate\" $c$ (Extended): write $c = \\frac{\\Delta E}{m\\Delta\\theta}$ or its rearrangement, substitute in J, kg and °C, then give the answer with its unit.",
+    "\"Describe\" an experiment to measure $c$ (Extended): say what you measure, the instrument for each, and how you work out $c$ from the readings."
   ],
   "readingMinutes": 20
 }

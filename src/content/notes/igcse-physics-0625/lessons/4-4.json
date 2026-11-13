@@ -685,7 +685,7 @@
           "type": "fact",
           "tag": "learn",
           "cheatSheet": true,
-          "text": "A casing must be earthed or double-insulated. A double-insulated appliance has no earth wire but still has a fuse, which protects the circuit and the cable."
+          "text": "A metal casing must be earthed. A double-insulated appliance has a non-conducting casing and no earth wire, but still has a fuse, which protects the circuit and the cable."
         }
       ]
     }
@@ -700,7 +700,7 @@
     "\"State\" the hazard: name the danger itself. For damaged insulation or damp conditions, write an electric shock; for overheating cables or overloading, write a fire. \"A short circuit\" alone does not score.",
     "\"Explain\" why the switch is in the live wire: say that switching off disconnects the appliance from the high p.d., so it is safe to touch.",
     "To choose a fuse, write $I = \\frac{P}{V}$ with the numbers, give the current, then pick the smallest rating above it.",
-    "\"Explain\" how earthing works as a chain: low-resistance earth wire, large current, fuse melts, live wire cut off, casing no longer live."
+    "\"Explain\" how earthing works as a chain: live wire touches the metal casing, low-resistance earth wire, large current, fuse melts, live wire cut off, casing no longer live."
   ],
   "readingMinutes": 24
 }
