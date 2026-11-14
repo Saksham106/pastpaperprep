@@ -19,7 +19,7 @@ describe("source-confirmed IB subtopic repair",()=>{
  it.each(pairs)("changes precisely the approved rows in %s",(path,ids)=>{
   const before=pinned(path),after=get(path),key=path.includes("aa-official")?"records":"rows";
   // Later, separately reviewed change: the donated May 2026 AA rows were retired for the official papers.
-  const retired=path.includes("aa-official")?new Set(Object.values(aliases.banks).flatMap(map=>Object.keys(map))):new Set();
+  const retired=path.includes("aa-official")?new Set(["ib-hl","ib-sl"].flatMap(bank=>Object.keys(aliases.banks[bank]))):new Set();
   // Added rows: reviewed official May 2026 rows (AA: provenance.officialReview; Biology: year 2026, covered by docs/audits/ib-biology-may-2026-review.json).
   const isAdded=row=>Boolean(row.provenance?.officialReview)||(path.includes("ib-biology")&&row.year===2026);
   const added=after[key].filter(isAdded);

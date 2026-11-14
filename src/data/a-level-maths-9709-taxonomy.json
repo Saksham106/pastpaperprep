@@ -1,0 +1,357 @@
+{
+  "artifact": "a_level_maths_9709_student_taxonomy",
+  "version": "mathematics9709_syllabus_taxonomy@1",
+  "qualification": "9709",
+  "era": "2020",
+  "note": "Topics are the official syllabus sections. Each paper is its own tab; a question carries sections of its own paper only (no Pure 2 / Pure 3 cross-tags).",
+  "sourceTaxonomyPath": "data/classification/taxonomy.json",
+  "sourceTaxonomySHA256": "cfbb1efd4efd8018bd5c0a02eac863d49043566da37d0be64ce0ddfd72918ae7",
+  "papers": [
+    {
+      "paper": 1,
+      "title": "Pure Mathematics 1",
+      "level": "AS",
+      "sections": [
+        {
+          "id": "9709:2020:1.1",
+          "code": "1.1",
+          "label": "Quadratics",
+          "level": "AS",
+          "official": true,
+          "questions": 85
+        },
+        {
+          "id": "9709:2020:1.2",
+          "code": "1.2",
+          "label": "Functions",
+          "level": "AS",
+          "official": true,
+          "questions": 86
+        },
+        {
+          "id": "9709:2020:1.3",
+          "code": "1.3",
+          "label": "Coordinate geometry",
+          "level": "AS",
+          "official": true,
+          "questions": 70
+        },
+        {
+          "id": "9709:2020:1.4",
+          "code": "1.4",
+          "label": "Circular measure",
+          "level": "AS",
+          "official": true,
+          "questions": 46
+        },
+        {
+          "id": "9709:2020:1.5",
+          "code": "1.5",
+          "label": "Trigonometry",
+          "level": "AS",
+          "official": true,
+          "questions": 62
+        },
+        {
+          "id": "9709:2020:1.6",
+          "code": "1.6",
+          "label": "Series",
+          "level": "AS",
+          "official": true,
+          "questions": 103
+        },
+        {
+          "id": "9709:2020:1.7",
+          "code": "1.7",
+          "label": "Differentiation",
+          "level": "AS",
+          "official": true,
+          "questions": 100
+        },
+        {
+          "id": "9709:2020:1.8",
+          "code": "1.8",
+          "label": "Integration",
+          "level": "AS",
+          "official": true,
+          "questions": 87
+        }
+      ]
+    },
+    {
+      "paper": 2,
+      "title": "Pure Mathematics 2",
+      "level": "AS",
+      "sections": [
+        {
+          "id": "9709:2020:2.1",
+          "code": "2.1",
+          "label": "Algebra",
+          "level": "AS",
+          "official": true,
+          "questions": 66
+        },
+        {
+          "id": "9709:2020:2.2",
+          "code": "2.2",
+          "label": "Logarithmic and exponential functions",
+          "level": "AS",
+          "official": true,
+          "questions": 61
+        },
+        {
+          "id": "9709:2020:2.3",
+          "code": "2.3",
+          "label": "Trigonometry",
+          "level": "AS",
+          "official": true,
+          "questions": 61
+        },
+        {
+          "id": "9709:2020:2.4",
+          "code": "2.4",
+          "label": "Differentiation",
+          "level": "AS",
+          "official": true,
+          "questions": 72
+        },
+        {
+          "id": "9709:2020:2.5",
+          "code": "2.5",
+          "label": "Integration",
+          "level": "AS",
+          "official": true,
+          "questions": 69
+        },
+        {
+          "id": "9709:2020:2.6",
+          "code": "2.6",
+          "label": "Numerical solution of equations",
+          "level": "AS",
+          "official": true,
+          "questions": 34
+        }
+      ]
+    },
+    {
+      "paper": 3,
+      "title": "Pure Mathematics 3",
+      "level": "A2",
+      "sections": [
+        {
+          "id": "9709:2020:3.1",
+          "code": "3.1",
+          "label": "Algebra",
+          "level": "A2",
+          "official": true,
+          "questions": 99
+        },
+        {
+          "id": "9709:2020:3.2",
+          "code": "3.2",
+          "label": "Logarithmic and exponential functions",
+          "level": "A2",
+          "official": true,
+          "questions": 51
+        },
+        {
+          "id": "9709:2020:3.3",
+          "code": "3.3",
+          "label": "Trigonometry",
+          "level": "A2",
+          "official": true,
+          "questions": 65
+        },
+        {
+          "id": "9709:2020:3.4",
+          "code": "3.4",
+          "label": "Differentiation",
+          "level": "A2",
+          "official": true,
+          "questions": 89
+        },
+        {
+          "id": "9709:2020:3.5",
+          "code": "3.5",
+          "label": "Integration",
+          "level": "A2",
+          "official": true,
+          "questions": 95
+        },
+        {
+          "id": "9709:2020:3.6",
+          "code": "3.6",
+          "label": "Numerical solution of equations",
+          "level": "A2",
+          "official": true,
+          "questions": 43
+        },
+        {
+          "id": "9709:2020:3.7",
+          "code": "3.7",
+          "label": "Vectors",
+          "level": "A2",
+          "official": true,
+          "questions": 45
+        },
+        {
+          "id": "9709:2020:3.8",
+          "code": "3.8",
+          "label": "Differential equations",
+          "level": "A2",
+          "official": true,
+          "questions": 45
+        },
+        {
+          "id": "9709:2020:3.9",
+          "code": "3.9",
+          "label": "Complex numbers",
+          "level": "A2",
+          "official": true,
+          "questions": 72
+        }
+      ]
+    },
+    {
+      "paper": 4,
+      "title": "Mechanics",
+      "level": "AS",
+      "sections": [
+        {
+          "id": "9709:2020:4.1",
+          "code": "4.1",
+          "label": "Forces and equilibrium",
+          "level": "AS",
+          "official": true,
+          "questions": 83
+        },
+        {
+          "id": "9709:2020:4.2",
+          "code": "4.2",
+          "label": "Kinematics of motion in a straight line",
+          "level": "AS",
+          "official": true,
+          "questions": 147
+        },
+        {
+          "id": "9709:2020:4.3",
+          "code": "4.3",
+          "label": "Momentum",
+          "level": "AS",
+          "official": true,
+          "questions": 44
+        },
+        {
+          "id": "9709:2020:4.4",
+          "code": "4.4",
+          "label": "Newton’s laws of motion",
+          "level": "AS",
+          "official": true,
+          "questions": 87
+        },
+        {
+          "id": "9709:2020:4.5",
+          "code": "4.5",
+          "label": "Energy, work and power",
+          "level": "AS",
+          "official": true,
+          "questions": 104
+        }
+      ]
+    },
+    {
+      "paper": 5,
+      "title": "Probability & Statistics 1",
+      "level": "AS",
+      "sections": [
+        {
+          "id": "9709:2020:5.1",
+          "code": "5.1",
+          "label": "Representation of data",
+          "level": "AS",
+          "official": true,
+          "questions": 57
+        },
+        {
+          "id": "9709:2020:5.2",
+          "code": "5.2",
+          "label": "Permutations and combinations",
+          "level": "AS",
+          "official": true,
+          "questions": 58
+        },
+        {
+          "id": "9709:2020:5.3",
+          "code": "5.3",
+          "label": "Probability",
+          "level": "AS",
+          "official": true,
+          "questions": 87
+        },
+        {
+          "id": "9709:2020:5.4",
+          "code": "5.4",
+          "label": "Discrete random variables",
+          "level": "AS",
+          "official": true,
+          "questions": 107
+        },
+        {
+          "id": "9709:2020:5.5",
+          "code": "5.5",
+          "label": "The normal distribution",
+          "level": "AS",
+          "official": true,
+          "questions": 74
+        }
+      ]
+    },
+    {
+      "paper": 6,
+      "title": "Probability & Statistics 2",
+      "level": "A2",
+      "sections": [
+        {
+          "id": "9709:2020:6.1",
+          "code": "6.1",
+          "label": "The Poisson distribution",
+          "level": "A2",
+          "official": true,
+          "questions": 69
+        },
+        {
+          "id": "9709:2020:6.2",
+          "code": "6.2",
+          "label": "Linear combinations of random variables",
+          "level": "A2",
+          "official": true,
+          "questions": 49
+        },
+        {
+          "id": "9709:2020:6.3",
+          "code": "6.3",
+          "label": "Continuous random variables",
+          "level": "A2",
+          "official": true,
+          "questions": 42
+        },
+        {
+          "id": "9709:2020:6.4",
+          "code": "6.4",
+          "label": "Sampling and estimation",
+          "level": "A2",
+          "official": true,
+          "questions": 82
+        },
+        {
+          "id": "9709:2020:6.5",
+          "code": "6.5",
+          "label": "Hypothesis tests",
+          "level": "A2",
+          "official": true,
+          "questions": 78
+        }
+      ]
+    }
+  ]
+}

@@ -54,6 +54,7 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
   'igcse-computer-science-0478': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'ib-computer-science-hl': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'ib-computer-science-sl': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
+  'a-level-maths-9709': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'igcse-physics-0625': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 336 },
 };
 

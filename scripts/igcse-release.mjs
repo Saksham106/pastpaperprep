@@ -57,6 +57,13 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9',
   },
+  // Cambridge International A Level Mathematics 9709 rides the same lane: 2,118 rows, crops from one segmentation lane.
+  'a-level-maths-9709': {
+    prefix: 'a-level-maths-9709/releases/full2118-v1-191db74b1cb4',
+    sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_MATHS_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '191db74b1cb400a1a095ee61cc3b3f033d47edaff6c1936e4d13f9f2e7351d22',
+  },
 };
 
 export function sha256(value) {
@@ -186,7 +193,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  // So does the A Level Maths 9709 source (assets/<paper>/questions|markschemes/<file>).
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

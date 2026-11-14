@@ -15,7 +15,7 @@ import {
   getTopicOptions as getLegacyTopicOptions,
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
-import { A_LEVEL_MATHS_9709, MATHS_9709_SECTION_ORDER } from "@/lib/a-level-9709";
+import { A_LEVEL_MATHS_9709, MATHS_9709_PAPERS, MATHS_9709_SECTION_ORDER } from "@/lib/a-level-9709";
 import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -168,7 +168,10 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   // 9709: syllabus order. The explorer passes only the selected paper's questions, so a paper tab lists that paper's sections.
   if (bank === A_LEVEL_MATHS_9709) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
-    return [...MATHS_9709_SECTION_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !MATHS_9709_SECTION_ORDER.includes(topic)).sort()];
+    // One paper (a paper tab): that paper's own section order. Several papers: first appearance across Papers 1-6.
+    const papers = new Set(questions.map((question) => question.paper));
+    const order = papers.size === 1 ? MATHS_9709_PAPERS.find((paper) => papers.has(paper.paper))?.sections ?? MATHS_9709_SECTION_ORDER : MATHS_9709_SECTION_ORDER;
+    return [...order.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !order.includes(topic)).sort()];
   }
   if (isOfficial0610Bank(bank)) return [...BIOLOGY_0610_TOPIC_ORDER, ...(questions.some((question) => question.primaryTopic === BIOLOGY_0610_EARLIER_TOPIC) ? [BIOLOGY_0610_EARLIER_TOPIC] : [])];
   if (!isReleaseBank(bank)) return getLegacyTopicOptions(questions);
