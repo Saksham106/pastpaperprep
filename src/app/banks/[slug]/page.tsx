@@ -34,7 +34,7 @@ function topicalCopy(slug: BankSlug, fallbackName: string) {
   const name = catalog ? subjectSearchName(catalog) : fallbackName;
   return {
     name,
-    // IB students search "question bank"; IGCSE students search "topical past papers".
+    // IB students search "question bank"; IGCSE and A Level students search "topical past papers".
     title: catalog?.qualification === "IB Diploma"
       ? fitTitle(`${name} Question Bank: Topical Past Papers`, `${name} Topical Past Papers`)
       : fitTitle(`${name} Topical Past Paper Questions`, `${name} Topical Past Papers`),

@@ -205,6 +205,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     { label: "IB Mathematics", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && getCatalogBank(bank.slug)?.subject.startsWith("Mathematics")) },
     { label: "IB Sciences", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && !getCatalogBank(bank.slug)?.subject.startsWith("Mathematics") && getCatalogBank(bank.slug)?.subject !== "Computer Science") },
     { label: "IB Computer Science", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && getCatalogBank(bank.slug)?.subject === "Computer Science") },
+    { label: "Cambridge A Level", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "Cambridge A Level") },
     { label: "Other banks", banks: bankOptions.filter((bank) => !getCatalogBank(bank.slug)) },
   ].filter((group) => group.banks.length > 0);
   return <div className="account-plan-editor">

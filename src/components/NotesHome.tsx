@@ -28,6 +28,7 @@ function NotesCards({ banks }: { banks: readonly Bank[] }) {
 export function NotesHome({ banks }: { banks: readonly Bank[] }) {
   const cambridge = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ib = banks.filter((bank) => bank.qualification === "International Baccalaureate");
+  const aLevel = banks.filter((bank) => bank.qualification === "Cambridge A Level");
   return (
     <div className={`${styles.page} shell`}>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Notes" }]} />
@@ -38,6 +39,7 @@ export function NotesHome({ banks }: { banks: readonly Bank[] }) {
       <QualificationTabs items={[
         ...(cambridge.length ? [{ id: "notes-igcse", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <NotesCards banks={cambridge} /> }] : []),
         ...(ib.length ? [{ id: "notes-ib", label: "IB Diploma", qualification: "ib" as const, panel: <NotesCards banks={ib} /> }] : []),
+        ...(aLevel.length ? [{ id: "notes-a-level", label: "Cambridge A Level", qualification: "a-level" as const, panel: <NotesCards banks={aLevel} /> }] : []),
       ]} />
     </div>
   );

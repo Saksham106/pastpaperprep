@@ -1,4 +1,5 @@
 import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
+import { QUALIFICATIONS, qualifiedBankTitle } from "@/lib/qualifications";
 import { BookOpenText } from "@phosphor-icons/react/dist/ssr";
 import { getCatalogBanksForDisplay } from "@/lib/catalog";
 import { CookieSettingsLink } from "@/components/CookieSettingsLink";
@@ -13,21 +14,22 @@ function FooterGroup({ title, links }: { title: string; links: readonly (readonl
 
 export function SiteFooter() {
   const banks = getCatalogBanksForDisplay();
+  const hasALevel = banks.some((bank) => bank.qualification === "Cambridge A Level");
   const groups = new Map<string, [string, string][]>();
   for (const bank of banks) {
-    const group = bank.qualification === "Cambridge IGCSE" ? "Cambridge" : bank.subject.startsWith("Mathematics") ? "IB Mathematics" : bank.subject === "Computer Science" ? "IB Computer Science" : "IB Sciences & Economics";
+    const group = bank.qualification === "Cambridge IGCSE" ? "Cambridge" : bank.qualification === "Cambridge A Level" ? QUALIFICATIONS["a-level"].groupLabel : bank.subject.startsWith("Mathematics") ? "IB Mathematics" : bank.subject === "Computer Science" ? "IB Computer Science" : "IB Sciences & Economics";
     const links = groups.get(group) ?? [];
     const label = bank.title.replace(/ Higher Level$/, " HL").replace(/ Standard Level$/, " SL");
-    links.push([bank.route, bank.qualification === "Cambridge IGCSE" ? `IGCSE ${label}` : label]);
+    links.push([bank.route, bank.qualification === "IB Diploma" ? label : qualifiedBankTitle({ qualification: bank.qualification, title: label })]);
     groups.set(group, links);
   }
   return (
     <footer className="site-footer">
-      <div className="footer-brand"><IntentPrefetchLink href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></IntentPrefetchLink><p>Focused practice for Cambridge IGCSE and IB Diploma question banks.</p><GooglePreferredSourceButton className="footer-preferred-source" /></div>
+      <div className="footer-brand"><IntentPrefetchLink href="/" aria-label="PastPaperPrep home"><BookOpenText weight="bold" /><strong>PastPaperPrep</strong></IntentPrefetchLink><p>Focused practice for Cambridge IGCSE{hasALevel ? ", Cambridge A Level" : ""} and IB Diploma question banks.</p><GooglePreferredSourceButton className="footer-preferred-source" /></div>
       <nav className="footer-links" aria-label="Footer navigation">
         {[...groups.entries()].map(([title, links]) => <FooterGroup title={title} links={links} key={title} />)}
         <FooterGroup title="Exam-style practice" links={[["/banks/ib-sl/exam-style", "IB Math AA SL"], ["/banks/ib-hl/exam-style", "IB Math AA HL"], ["/banks/igcse/exam-style", "IGCSE 0580"], ["/banks/igcse-additional/exam-style", "IGCSE 0606"], ["/banks/ib-economics/exam-style", "IB Economics"]]} />
-        <FooterGroup title="Resources" links={[...(pastPaperLinksEnabled() ? [["/past-papers", "Free past papers"] as const] : []), ["/cambridge-igcse", "Cambridge IGCSE hub"], ["/ib", "IB Diploma hub"], ["/revision-notes", "Revision notes"], ...(aaNotesVisible() ? [[NOTES_INDEX_HREF, "IB Maths AA notes"] as const] : []), ...(ibMathsAiNotesVisible() ? [[IB_MATHS_AI_NOTES_HREF, "IB Maths AI notes"] as const] : []), ...(igcseMathsNotesVisible() ? [[IGCSE_MATHS_NOTES_HREF, "IGCSE Maths notes"] as const] : []), ...(igcsePhysicsNotesVisible() ? [[IGCSE_PHYSICS_NOTES_HREF, "IGCSE Physics notes"] as const] : []), ...(ibChemistryNotesVisible() ? [[IB_CHEMISTRY_NOTES_HREF, "IB Chemistry notes"] as const] : []), ...(ibPhysicsNotesVisible() ? [[IB_PHYSICS_NOTES_HREF, "IB Physics notes"] as const] : []), ["/teachers", "For teachers"], ["/about", "About PastPaperPrep"], ["/updates", "What's new"], ["/articles", "Revision guides"], ["/faq", "Frequently asked questions"]]} />
+        <FooterGroup title="Resources" links={[...(pastPaperLinksEnabled() ? [["/past-papers", "Free past papers"] as const] : []), ["/cambridge-igcse", "Cambridge IGCSE hub"], ["/ib", "IB Diploma hub"], ...(hasALevel ? [[QUALIFICATIONS["a-level"].hubPath, "Cambridge A Level hub"] as const] : []), ["/revision-notes", "Revision notes"], ...(aaNotesVisible() ? [[NOTES_INDEX_HREF, "IB Maths AA notes"] as const] : []), ...(ibMathsAiNotesVisible() ? [[IB_MATHS_AI_NOTES_HREF, "IB Maths AI notes"] as const] : []), ...(igcseMathsNotesVisible() ? [[IGCSE_MATHS_NOTES_HREF, "IGCSE Maths notes"] as const] : []), ...(igcsePhysicsNotesVisible() ? [[IGCSE_PHYSICS_NOTES_HREF, "IGCSE Physics notes"] as const] : []), ...(ibChemistryNotesVisible() ? [[IB_CHEMISTRY_NOTES_HREF, "IB Chemistry notes"] as const] : []), ...(ibPhysicsNotesVisible() ? [[IB_PHYSICS_NOTES_HREF, "IB Physics notes"] as const] : []), ["/teachers", "For teachers"], ["/about", "About PastPaperPrep"], ["/updates", "What's new"], ["/articles", "Revision guides"], ["/faq", "Frequently asked questions"]]} />
       </nav>
       {/* The skyline stands behind the wordmark, on the same ground line. */}
       <div className="footer-mark" aria-hidden="true"><FooterSkyline /><p className="footer-wordmark" aria-hidden="true">PastPaperPrep</p></div>

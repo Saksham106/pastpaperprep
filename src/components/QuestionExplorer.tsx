@@ -12,7 +12,9 @@ import { LargeExportConfirm } from "@/components/LargeExportConfirm";
 import { LARGE_PDF_QUESTIONS } from "@/lib/export-limits";
 import { suggestWorksheetTitle } from "@/lib/worksheet-title";
 import { PeriodicTableButton } from "@/components/PeriodicTableButton";
+import { FormulaListButton } from "@/components/FormulaListButton";
 import { hasPeriodicTable } from "@/lib/periodic-table";
+import { isNotSatSeries } from "@/lib/series-notes";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { fetchExplanation } from "@/lib/explanation-client";
 import type { Explanation } from "@/lib/explanation-format";
@@ -33,7 +35,7 @@ import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
 import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, sessionLifecycleOwner, writeCachedAccess } from "@/lib/member-session-cache";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, type PublicBankIndex } from "@/lib/question-index";
-import { matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
+import { defaultRouteSelection, matchesCourseRoute, readRememberedRoute, rememberRoute, routeConfigFor, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, isMathsEarlierToken } from "@/lib/maths-picker";
 import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel, formatQuestionTopic } from "@/lib/presentation";
@@ -418,8 +420,12 @@ access: ExplorerAccess;
   const explorerRootRef = useRef<HTMLElement>(null);
 
   const bank = bankSlug ?? questions[0]?.bankSlug;
-  const routeSupported = supportsCourseRoute(bank);
+  const routeConfig = routeConfigFor(bank);
+  const routeSupported = Boolean(routeConfig);
   const effectiveCourseRoute: CourseRouteSelection = routeSupported ? courseRoute : "all";
+  // Paper tabs (A Level) narrow the topic list too and make the paper filter redundant.
+  const routeScopesTopics = Boolean(routeConfig?.scopesTopics);
+  const hidePaperFilter = Boolean(routeConfig?.hidesPaperFilter) && effectiveCourseRoute !== "all";
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
   const calculatorFilter = (CALCULATOR_FILTER_BANKS as readonly string[]).includes(bank);
   const plansHref = plansHrefFor(resolvedAccess.authenticated);
@@ -431,9 +437,14 @@ access: ExplorerAccess;
   // A bank without a free tier has nothing to filter to; it always shows the full, locked bank.
   const bankHasFreeTier = bank ? hasFreeTier(bank as BankSlug) : true;
   const effectiveFreeOnly = freeOnly && bankHasFreeTier && !provisional && !resolvedAccess.bankAccess;
+  const routeScopedQuestions = useMemo(
+    () => catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute)),
+    [catalogQuestions, effectiveCourseRoute],
+  );
+  const topicSourceQuestions = routeScopesTopics ? routeScopedQuestions : catalogQuestions;
   const subtopicGroups = useMemo(
-    () => isCleanMathsBank(bank) ? getMathsPickerGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []) : getSubtopicGroups(catalogQuestions, filters.topics ?? [], filters.subtopics ?? []),
-    [catalogQuestions, filters.topics, filters.subtopics, bank],
+    () => isCleanMathsBank(bank) ? getMathsPickerGroups(topicSourceQuestions, filters.topics ?? [], filters.subtopics ?? []) : getSubtopicGroups(topicSourceQuestions, filters.topics ?? [], filters.subtopics ?? []),
+    [topicSourceQuestions, filters.topics, filters.subtopics, bank],
   );
   const cleanMaths = isCleanMathsBank(bank);
   const subtopicsCollapsed = !filters.topics?.length && !showAllSubtopics;
@@ -444,12 +455,8 @@ access: ExplorerAccess;
       ? showAllSubtopics ? subtopicGroups.all : [...subtopicGroups.relevant, ...subtopicGroups.selectedOutsideContext]
       : subtopicGroups.all);
   const earlierSubtopics = keepSelectedSubtopics(cleanMaths && "earlier" in subtopicGroups && Array.isArray(subtopicGroups.earlier) ? subtopicGroups.earlier : []);
-  const routeScopedQuestions = useMemo(
-    () => catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute)),
-    [catalogQuestions, effectiveCourseRoute],
-  );
   const options = useMemo(() => ({
-    topics: isCleanMathsBank(bank) ? getMathsPickerTopics(catalogQuestions) : getTopicOptions(catalogQuestions),
+    topics: isCleanMathsBank(bank) ? getMathsPickerTopics(catalogQuestions) : getTopicOptions(topicSourceQuestions),
     years: unique(catalogQuestions, (q) => String(q.year)).reverse(),
     papers: unique(routeScopedQuestions, (q) => String(q.paper)),
     sessions: unique(catalogQuestions, (q) => q.session),
@@ -461,7 +468,7 @@ access: ExplorerAccess;
     granularLabels: unique(catalogQuestions, (q) => q.granularLabels ?? []),
     officialCodeRefs: unique(catalogQuestions, (q) => q.officialCodeRefs ?? []),
     retrievalFacets: unique(catalogQuestions, (q) => q.retrievalFacets ?? []),
-  }), [catalogQuestions, routeScopedQuestions, bank]);
+  }), [catalogQuestions, routeScopedQuestions, topicSourceQuestions, bank]);
 
   const matching = useMemo(() => {
     const normalizedSearch = search.trim().toLocaleLowerCase();
@@ -635,7 +642,7 @@ access: ExplorerAccess;
         const current = raw[key];
         raw[key] = current === undefined ? value : Array.isArray(current) ? [...current, value] : [current, value];
       }
-      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess && (bank ? hasFreeTier(bank as BankSlug) : true), defaultPartialTopics: Boolean(routePreset?.topic), bank });
+      const next = parseExplorerState(routePreset && !locationParams.has("set") && !locationParams.has("worksheet") ? withRoutePreset(raw, routePreset) : raw, { defaultFreeOnly: !access.bankAccess && (bank ? hasFreeTier(bank as BankSlug) : true), defaultPartialTopics: Boolean(routePreset?.topic), bank, rememberedRoute: readRememberedRoute(bank) });
       if (locationParams.has("set") && !locationParams.has("worksheet")) {
         try { setSharedIds(currentQuestionIds(bank ?? "", parseSharedSet(locationParams.get("set") ?? ""))); setSharedError(""); }
         catch { setSharedIds(null); setSharedError("This shared question link is invalid."); }
@@ -647,7 +654,7 @@ access: ExplorerAccess;
       setFreeOnly(next.freeOnly);
       setSavedOnly(next.savedOnly);
       setPartialTopics(Boolean(next.partialTopics));
-      setCourseRoute(supportsCourseRoute(bank) ? next.courseRoute : "all");
+      setCourseRoute(supportsCourseRoute(bank) ? next.courseRoute : defaultRouteSelection(bank));
       setShowMoreFilters(SECONDARY_FILTER_KEYS.some((key) => Boolean(next.filters[key]?.length)));
       setLocationHydrated(true);
     });
@@ -912,12 +919,12 @@ access: ExplorerAccess;
 
   useEffect(() => {
     if (!locationHydrated || bootstrapPending) return;
-    const query = sharedSetView ? new URLSearchParams(window.location.search) : serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible, partialTopics }, { persistFreeChoice: !resolvedAccess.bankAccess, defaultPartialTopics: topicPage });
+    const query = sharedSetView ? new URLSearchParams(window.location.search) : serializeExplorerState({ search, sort, filters, freeOnly: effectiveFreeOnly, savedOnly, courseRoute: effectiveCourseRoute, visible, partialTopics }, { persistFreeChoice: !resolvedAccess.bankAccess, defaultPartialTopics: topicPage, bank });
     const params = routePreset && !sharedSetView && !worksheetId ? stripRoutePreset(preserveClearedRoutePreset(new URLSearchParams(query), routePreset), routePreset) : new URLSearchParams(query);
     if (worksheetId) { params.set("worksheet", worksheetId); if (worksheetMode === "edit") params.set("mode", "edit"); }
     const nextUrl = `${window.location.pathname}${params.size ? `?${params}` : ""}${window.location.hash}`;
     window.history.replaceState(window.history.state, "", nextUrl);
-  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, partialTopics, resolvedAccess.bankAccess, routePreset, savedOnly, search, sharedSetView, sort, topicPage, visible, worksheetId, worksheetMode]);
+  }, [bootstrapPending, effectiveCourseRoute, effectiveFreeOnly, filters, locationHydrated, partialTopics, resolvedAccess.bankAccess, routePreset, savedOnly, search, sharedSetView, sort, topicPage, visible, worksheetId, worksheetMode, bank]);
 
   const applySignedAssets = (assets: Map<string, SignedAsset>, owner: string | null) => {
     if (!scopeIsCurrent() || !assets.size) return;
@@ -1165,16 +1172,23 @@ access: ExplorerAccess;
     setFreeOnly(false);
     setSavedOnly(false);
     setPartialTopics(topicPage);
-    setCourseRoute("all");
+    // A paper tab is the student's paper, not a filter: Clear filters keeps it.
+    if (!routeConfig?.remember) setCourseRoute("all");
     setShowAllSubtopics(false);
     restartResults();
   };
 
   const changeCourseRoute = (value: CourseRouteSelection) => {
     setCourseRoute(value);
+    rememberRoute(bank, value);
     // Route is the broad course-level scope. Paper/component filters stay optional
     // refinements, so discard stale refinements rather than mirroring hidden checkbox state.
-    setFilters((current) => ({ ...current, papers: [], components: [] }));
+    // Paper tabs also scope topics: keep only picked topics the new paper has.
+    const keepTopics = (picked: string[] | undefined, inRoute: (topic: string) => boolean) => routeScopesTopics ? (picked ?? []).filter(inRoute) : picked;
+    const nextQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, value));
+    const routeTopics = new Set(nextQuestions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]));
+    const routeSubtopics = new Set(nextQuestions.flatMap((question) => question.subtopics));
+    setFilters((current) => ({ ...current, papers: [], components: [], topics: keepTopics(current.topics, (topic) => routeTopics.has(topic)), subtopics: keepTopics(current.subtopics, (subtopic) => routeSubtopics.has(subtopic)) }));
     restartResults();
     if (!worksheetId) { setSelectionIsExplicit(false); setSelectedIds(new Set()); }
   };
@@ -1460,13 +1474,12 @@ access: ExplorerAccess;
           <MagnifyingGlass aria-hidden="true" />
           <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
         </label>
-        {routeSupported && <fieldset className="course-route-picker" role="radiogroup" aria-label="Course route">
-          <legend className="sr-only">Course route</legend>
+        {routeConfig && <fieldset className={`course-route-picker${routeConfig.options.length > 2 ? " is-paper-tabs" : ""}`} role="radiogroup" aria-label={routeConfig.name}>
+          <legend className="sr-only">{routeConfig.name}</legend>
           <div className="course-route-options">
             {([
-              ["all", "All", "Core + Extended"],
-              ["core", "Core", "Papers 1 & 3"],
-              ["extended", "Extended", "Papers 2 & 4"],
+              ["all", routeConfig.allLabel, routeConfig.allDetail],
+              ...routeConfig.options.map((option) => [option.id, option.label, option.detail]),
             ] as Array<[CourseRouteSelection, string, string]>).map(([value, label, detail]) => <label key={value}>
               <input type="radio" name="course-route" value={value} checked={courseRoute === value} onChange={() => changeCourseRoute(value)} />
               <span title={detail}><strong>{label}</strong><small>{detail}</small></span>
@@ -1500,7 +1513,7 @@ access: ExplorerAccess;
           {!filters.topics?.length && subtopicGroups.all.length > 0 && <button className="text-button subtopic-more" type="button" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide subtopics" : "Show all subtopics"}</button>}
           {!cleanMaths && !!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
           <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
-          <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />
+          {!hidePaperFilter && <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />}
           <button className="more-filters-button" type="button" aria-expanded={showMoreFilters} onClick={() => setShowMoreFilters((show) => !show)}><Funnel aria-hidden="true" /> {showMoreFilters ? "Fewer filters" : "More filters"}</button>
           <div className={`secondary-filters${showMoreFilters ? " is-open" : ""}`} aria-hidden={!showMoreFilters} inert={showMoreFilters ? undefined : true}>
             <div className="secondary-filters-inner">
@@ -1523,7 +1536,7 @@ access: ExplorerAccess;
         <div className="explorer-results" inert={filtersOpen || undefined}>
           <div ref={resultsHeadingRef} className="results-heading" tabIndex={-1}>
             <div><strong>{resultQuestions.length.toLocaleString("en-US")} {savedWorksheetView ? "saved " : !sharedSetView && effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && !sharedSetView && <span>{selectedIds.size} selected for PDF</span>}</div>
-            <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Clear selection</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || courseRoute !== "all") && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
+            <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Clear selection</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || (courseRoute !== "all" && !routeConfig?.remember)) && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
           </div>
           {nudgesActive && <p className="sr-only" role="status">{milestoneQuestionId ? "10 practised. Nice. Unlock the newer papers from a plan." : ""}</p>}
           {!savedWorksheetView && !sharedSetView && activeCount > 0 && <div className="active-filters">
@@ -1578,6 +1591,7 @@ access: ExplorerAccess;
       {signinPrompt && <div className="pdf-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setSigninPrompt(null); }}><section ref={signinPromptRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="signin-prompt-title"><button className="pdf-close" aria-label="Close" onClick={() => setSigninPrompt(null)}><X /></button><span className="access-upgrade-icon"><BookmarkSimple aria-hidden="true" weight="bold" /></span><h2 id="signin-prompt-title">{signinPrompt.reason === "save" ? "Save this question" : "Your saved questions"}</h2><p>Create a free account to save questions and come back to them anytime.</p><IntentPrefetchLink className="button primary" href={`/login?mode=sign-up&next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_up" })}>Create free account</IntentPrefetchLink><p className="signin-prompt-alt">Have an account? <IntentPrefetchLink href={`/login?next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_in" })}>Sign in</IntentPrefetchLink></p></section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Testimonial testimonial={PDF_TESTIMONIAL} variant="inline" signedOutOnly /><IntentPrefetchLink className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</IntentPrefetchLink></section></div>}
       {hasPeriodicTable(bank) && <PeriodicTableButton variant="floating" source="bank" />}
+      <FormulaListButton bank={bank} variant="floating" source="bank" />
     </section>
   );
 }
@@ -1761,7 +1775,7 @@ function QuestionCard({ question, notesLink, fullPaperHref, unlocked, authentica
 
   return (
     <article className={`question-card question-paper${selected && selectable ? " is-selected" : ""}`}>
-      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
+      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span>{isNotSatSeries(question.bankSlug, question.year, question.session) && <span>Not sat</span>}<span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><IntentPrefetchLink className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</IntentPrefetchLink></div>}
       <div className="question-actions">

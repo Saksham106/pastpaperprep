@@ -1,8 +1,9 @@
 import type { Bank } from "@/lib/banks";
+import { qualificationInfo, type QualificationLabel } from "@/lib/qualifications";
 
-export type Qualification = "Cambridge IGCSE" | "IB Diploma";
+export type Qualification = QualificationLabel;
 export type DeliveryMode = "hosted" | "local-preview";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709";
 
 export type CatalogBank = {
   slug: BankSlug;
@@ -58,6 +59,9 @@ export const BANK_CATALOG = [
   bank({ slug: "ib-computer-science-sl", qualification: "IB Diploma", subject: "Computer Science", title: "IB Computer Science Standard Level", shortName: "Computer Science SL", syllabusCode: "Computer Science", level: "SL", questionCount: 391, paperCount: 32, years: "2019-2026", access: "paid-bank", productId: "bank_ib_computer_science_sl", release: "gated", delivery: "hosted" }),
   bank({ slug: "ib-economics-hl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Higher Level", shortName: "IB Economics HL", syllabusCode: "Economics", level: "HL", questionCount: 128, paperCount: 49, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_hl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
   bank({ slug: "ib-economics-sl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Standard Level", shortName: "IB Economics SL", syllabusCode: "Economics", level: "SL", questionCount: 104, paperCount: 38, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_sl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
+  // Cambridge International AS & A Level Mathematics 9709 (2020 syllabus onward): one bank with paper tabs.
+  // Staged with fixture rows only; the real runtime and crops come from the content workspace.
+  bank({ slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", shortName: "Mathematics 9709", syllabusCode: "9709", level: "AS & A Level", questionCount: 18, paperCount: 18, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_maths_9709", release: "gated", delivery: "hosted", pendingStorage: true }),
 ] as const satisfies readonly CatalogBank[];
 
 export function getCatalogBank(slug: string) { return BANK_CATALOG.find((entry) => entry.slug === slug); }
@@ -66,7 +70,8 @@ export function isCatalogBankBillable(bank: CatalogBank, environment: Record<str
   return bank.release !== "local-preview" && Boolean(bank.productId) && (bank.delivery !== "local-preview" || economicsProductionGate);
 }
 export function isCatalogBankEnabled(bank: CatalogBank, environment: Record<string, string | undefined> = process.env) {
-  if ("pendingStorage" in bank && bank.pendingStorage) return false;
+  // Staged banks stay hidden everywhere; `npm run dev` can opt in to preview them with fixture data.
+  if ("pendingStorage" in bank && bank.pendingStorage) return environment.NODE_ENV === "development" && environment.PASTPAPERPREP_PREVIEW_PENDING_BANKS === "true";
   if (bank.release === "published") return true;
   if (bank.slug === "ib-economics-hl" || bank.slug === "ib-economics-sl") {
     return (environment.NODE_ENV !== "production" && environment.PASTPAPERPREP_ENABLE_LOCAL_IB_ECONOMICS_PREVIEW === "true") || (environment.NODE_ENV === "production" && environment.PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION === "true" && environment.PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED === "true");
@@ -101,7 +106,7 @@ export function catalogBankToRuntimeBank(entry: CatalogBank): Bank {
     shortName: entry.shortName,
     title: entry.title,
     description: `${entry.title} questions organised by topic, paper, and session.`,
-    qualification: entry.qualification === "IB Diploma" ? "International Baccalaureate" : entry.qualification,
+    qualification: qualificationInfo(entry.qualification).runtimeLabel,
     subject: entry.subject + (entry.level === "HL" || entry.level === "SL" ? ` ${entry.level}` : entry.syllabusCode ? ` ${entry.syllabusCode}` : ""),
     questionCount: entry.questionCount,
     paperCount: entry.paperCount,

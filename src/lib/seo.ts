@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { Qualification } from "@/lib/catalog";
+import { qualificationInfo } from "@/lib/qualifications";
 import type { PastPaperQualification } from "@/lib/past-paper-catalog";
 
 export const PRIVATE_ROBOTS: Metadata["robots"] = {
@@ -36,6 +37,6 @@ export const SOCIAL_IMAGE_URL = SOCIAL_IMAGE.url;
  * IB pages get the 1–7 grade scale. A page-level openGraph replaces the layout's, so spread this into each one.
  */
 export function socialPreview(qualification?: Qualification | PastPaperQualification) {
-  const preview = SOCIAL_PREVIEWS[qualification === "IB Diploma" || qualification === "ib" ? "ib" : "igcse"];
+  const preview = SOCIAL_PREVIEWS[qualificationInfo(qualification).socialPreview];
   return { images: [preview.image], videos: [preview.video] };
 }

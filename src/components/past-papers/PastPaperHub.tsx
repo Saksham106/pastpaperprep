@@ -11,12 +11,16 @@ import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import styles from './PastPaperPages.module.css';
 
 const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics'], ['computer-science', 'Computer Science']];
-const SCOPES: [string, string, PastPaperQualification | undefined][] = [['All', '/past-papers', undefined], ['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib']];
-const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB' } as const;
+const SCOPES: [string, string, PastPaperQualification | undefined][] = [['All', '/past-papers', undefined], ['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib'], ['A Level', '/past-papers/a-level', 'a-level']];
+const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB', 'a-level': 'Cambridge A Level' } as const;
 const GUIDE = {
   igcse: {
     title: 'How Cambridge IGCSE papers are named',
     body: 'Cambridge sits IGCSE exams in three series: February/March, May/June and October/November. Each paper has a code like 0580/42/M/J/24: syllabus 0580, Paper 4 variant 2, May/June 2024. Cambridge\'s files use the same facts as 0580_s24_qp_42 for the question paper and 0580_s24_ms_42 for the mark scheme. Search either form above to find a paper.',
+  },
+  'a-level': {
+    title: 'How Cambridge A Level papers are named',
+    body: 'Cambridge sits AS & A Level exams in three series: February/March, May/June and October/November. Each paper has a code like 9709/12/M/J/24: syllabus 9709, Paper 1 variant 2, May/June 2024. Pick your subject above, then search a session and paper.',
   },
   ib: {
     title: 'How IB papers are organised',
@@ -24,7 +28,10 @@ const GUIDE = {
   },
 } as const;
 
-export function PastPaperHub({ banks, qualification }: { banks: HubBank[]; qualification?: PastPaperQualification }) {
+/** `boards` lists the qualifications that have papers, so a board-filtered page still links to the others. */
+export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[]; qualification?: PastPaperQualification; boards?: PastPaperQualification[] }) {
+  const available = new Set<PastPaperQualification | undefined>(['igcse', 'ib', ...(boards ?? banks.map(b => b.qualification))]);
+  const scopes = SCOPES.filter(([, , scope]) => scope !== 'a-level' || available.has('a-level') || qualification === 'a-level');
   const copy = hubCopy(banks.reduce((n, b) => n + b.paperCount, 0), qualification);
   const path = qualification ? `/past-papers/${qualification}` : '/past-papers';
   const crumbs = [{ name: 'Past papers', path: '/past-papers' }, ...(qualification ? [{ name: QUALIFICATION_NAME[qualification], path }] : [])];
@@ -40,7 +47,7 @@ export function PastPaperHub({ banks, qualification }: { banks: HubBank[]; quali
       <p>{copy.answer}</p>
       {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
       <div className={styles.hubFind}>
-        <ScopeSwitch scopes={SCOPES.map(([label, href]) => ({ label, href }))} current={SCOPES.findIndex(([, , scope]) => scope === qualification)} />
+        <ScopeSwitch scopes={scopes.map(([label, href]) => ({ label, href }))} current={scopes.findIndex(([, , scope]) => scope === qualification)} />
         <PaperFinder mode="subjects" subjects={banks.map(b => ({ name: b.name, code: /\b(0\d{3})$/.exec(b.name)?.[1] ?? '', href: `/past-papers/${b.subjectSlug}` }))} />
       </div>
     </header>

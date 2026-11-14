@@ -45,7 +45,7 @@ function PaperNumberThresholds({ label, subject, papers }: { label: string; subj
   </section>;
 }
 
-const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' } } as const;
+const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' }, 'a-level': { name: 'Cambridge A Level', path: '/past-papers/a-level' } } as const;
 
 /** Subject, year and paper-number pages share one shell: answer first, then the matrix, then links. */
 export function PastPaperListPage({ view }: { view: ListView }) {

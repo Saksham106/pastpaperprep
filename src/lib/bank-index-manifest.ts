@@ -21,5 +21,6 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "igcse-coordinated-sciences-0654": "igcse-coordinated-sciences-0654.v1-7346e2715d0c.json",
   "igcse-computer-science-0478": "igcse-computer-science-0478.v1-d7eff25340ca.json",
   "ib-computer-science-hl": "ib-computer-science-hl.v1-86b4a77c9ba5.json",
-  "ib-computer-science-sl": "ib-computer-science-sl.v1-e71b12c6df84.json"
+  "ib-computer-science-sl": "ib-computer-science-sl.v1-e71b12c6df84.json",
+  "a-level-maths-9709": "a-level-maths-9709.v1-c1cc0dd025e5.json"
 } as const;
