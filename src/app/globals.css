@@ -608,7 +608,7 @@ main { min-height: 72vh; }
 .secondary-filters { display: grid; grid-template-rows: 0fr; opacity: 0; transform: translateY(-4px); visibility: hidden; transition: grid-template-rows 220ms cubic-bezier(.2,.8,.2,1), opacity 160ms ease, transform 220ms cubic-bezier(.2,.8,.2,1), visibility 0s linear 220ms; }
 .secondary-filters.is-open { grid-template-rows: 1fr; opacity: 1; transform: none; visibility: visible; transition-delay: 0s; }
 .secondary-filters-inner { min-height: 0; overflow: hidden; }
-.results-heading { min-height: 42px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.results-heading { min-height: 42px; margin-bottom: 10px; scroll-margin-top: 96px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .results-heading > div { display: flex; align-items: baseline; gap: 10px; }
 .results-heading span { color: var(--muted); font-size: .78rem; }
 .active-filters { margin: 0 0 12px; display: flex; gap: 6px; flex-wrap: wrap; }

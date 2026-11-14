@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useCallback, useEffect, useId, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { Fragment, useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -554,6 +554,20 @@ access: ExplorerAccess;
   const feedNudges = nudgesActive && effectiveFreeOnly && indexLoaded && !storedFeedDismissed && !feedDismissedNow;
   const [sentUpgradeViews] = useState(() => new Set<string>()); // stable for the page; views are recorded, not rendered
   const resultsHeadingRef = useRef<HTMLDivElement>(null);
+  // A filter change swaps in a new, usually shorter list. Left alone, the window keeps its old
+  // offset, so a reader deep in the list lands mid-list or at the page bottom. Bring the results
+  // heading back into view, but only when it has scrolled above the viewport.
+  const scrollToResultsRef = useRef(false);
+  const restartResults = () => { scrollToResultsRef.current = true; setVisible(EXPLORER_PAGE_SIZE); };
+  useLayoutEffect(() => {
+    if (!scrollToResultsRef.current) return;
+    scrollToResultsRef.current = false;
+    const heading = resultsHeadingRef.current;
+    if (!heading) return;
+    const offset = parseFloat(getComputedStyle(heading).scrollMarginTop) || 0;
+    if (heading.getBoundingClientRect().top >= offset) return;
+    heading.scrollIntoView({ block: "start", behavior: "instant" });
+  });
   const dismissFeedNudges = () => { writeFeedNudgeDismissed(); setFeedDismissedNow(true); resultsHeadingRef.current?.focus({ preventScroll: true }); };
   const renderFeedSlot = (position: number, isLast: boolean) => {
     if (!feedNudges) return null;
@@ -1141,7 +1155,7 @@ access: ExplorerAccess;
       const next = values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
       return { ...current, [key]: next };
     });
-    setVisible(EXPLORER_PAGE_SIZE);
+    restartResults();
     trackProductEvent("question_filter_change", { bank: bank ?? "unknown", filter: key });
   };
 
@@ -1153,7 +1167,7 @@ access: ExplorerAccess;
     setPartialTopics(topicPage);
     setCourseRoute("all");
     setShowAllSubtopics(false);
-    setVisible(EXPLORER_PAGE_SIZE);
+    restartResults();
   };
 
   const changeCourseRoute = (value: CourseRouteSelection) => {
@@ -1161,7 +1175,7 @@ access: ExplorerAccess;
     // Route is the broad course-level scope. Paper/component filters stay optional
     // refinements, so discard stale refinements rather than mirroring hidden checkbox state.
     setFilters((current) => ({ ...current, papers: [], components: [] }));
-    setVisible(EXPLORER_PAGE_SIZE);
+    restartResults();
     if (!worksheetId) { setSelectionIsExplicit(false); setSelectedIds(new Set()); }
   };
 
@@ -1477,10 +1491,10 @@ access: ExplorerAccess;
         {filtersOpen && <button className="filter-backdrop" type="button" tabIndex={-1} aria-hidden="true" onClick={() => setFiltersOpen(false)} />}
         <aside ref={filterDialogRef} className={`filter-sidebar ${filtersOpen ? "is-open" : ""}`} role={filtersOpen ? "dialog" : undefined} aria-modal={filtersOpen ? true : undefined} aria-labelledby={filtersOpen ? "filter-sidebar-title" : undefined} aria-label={filtersOpen ? undefined : "Question filters"}>
           <div className="filter-sidebar-heading"><strong id="filter-sidebar-title">Filters</strong><button className="filter-close" type="button" aria-label="Close filters" onClick={() => setFiltersOpen(false)}><X /></button></div>
-          {!resolvedAccess.bankAccess && bankHasFreeTier && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Free questions only</span></label></div></div>}
-          {(resolvedAccess.authenticated || !bootstrapPending) && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { if (!resolvedAccess.authenticated) { openSigninPrompt({ reason: "saved-filter" }); return; } setSavedOnly((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Saved questions only</span></label></div></div>}
+          {!resolvedAccess.bankAccess && bankHasFreeTier && <div className="filter-group" role="group" aria-labelledby="filter-access"><h3 id="filter-access">Access</h3><div className="filter-options"><label><input aria-label="Free questions only" type="checkbox" checked={effectiveFreeOnly} onChange={() => { setFreeOnly((current) => !current); restartResults(); }} /><span>Free questions only</span></label></div></div>}
+          {(resolvedAccess.authenticated || !bootstrapPending) && <div className="filter-group" role="group" aria-labelledby="filter-study"><h3 id="filter-study">Study</h3><div className="filter-options"><label><input aria-label="Saved questions only" type="checkbox" checked={savedOnly} onChange={() => { if (!resolvedAccess.authenticated) { openSigninPrompt({ reason: "saved-filter" }); return; } setSavedOnly((current) => !current); restartResults(); }} /><span>Saved questions only</span></label></div></div>}
           <FilterGroup label="Topics" filterKey="topics" values={options.topics} selected={filters.topics ?? []} onToggle={toggle} />
-          {!!filters.topics?.length && <div className="filter-group filter-partial"><div className="filter-options"><label><input type="checkbox" checked={partialTopics} onChange={() => { setPartialTopics((current) => !current); setVisible(EXPLORER_PAGE_SIZE); }} /><span>Include questions that partly cover a topic</span></label></div></div>}
+          {!!filters.topics?.length && <div className="filter-group filter-partial"><div className="filter-options"><label><input type="checkbox" checked={partialTopics} onChange={() => { setPartialTopics((current) => !current); restartResults(); }} /><span>Include questions that partly cover a topic</span></label></div></div>}
           <FilterGroup label="Subtopics" filterKey="subtopics" values={visibleSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
           <FilterGroup label="Earlier syllabus" filterKey="subtopics" values={earlierSubtopics} selected={filters.subtopics ?? []} onToggle={toggle} bank={bank} />
           {!filters.topics?.length && subtopicGroups.all.length > 0 && <button className="text-button subtopic-more" type="button" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide subtopics" : "Show all subtopics"}</button>}

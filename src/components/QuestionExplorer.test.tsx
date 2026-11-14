@@ -143,6 +143,34 @@ describe("QuestionExplorer", () => {
     await waitFor(() => expect(new URLSearchParams(window.location.search).get("partial")).toBe("1"));
   });
 
+  it("brings the results back into view after a filter change only when they scrolled above the viewport", () => {
+    window.history.replaceState({}, "", "/banks/igcse-biology-0610");
+    const topic = "Characteristics and classification of living organisms";
+    const index = JSON.parse(readFileSync(join(process.cwd(), "public", "bank-index", PUBLIC_BANK_INDEX_FILES["igcse-biology-0610"]), "utf8")) as PublicBankIndex;
+    const bank = index.questions.map((question) => publicMetadataToQuestion(question, "igcse-biology-0610"));
+    const questions = prepareQuestionsForDelivery(bank.slice(0, 30), [{ productId: "bank_igcse_biology_0610", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
+    const scrollIntoView = vi.fn();
+    const original = HTMLElement.prototype.scrollIntoView;
+    HTMLElement.prototype.scrollIntoView = scrollIntoView;
+    try {
+      const { container } = render(<QuestionExplorer questions={questions} bankSlug="igcse-biology-0610" access={fullAccess} />);
+      const heading = container.querySelector<HTMLElement>(".results-heading")!;
+      let top = 40;
+      heading.getBoundingClientRect = () => ({ top } as DOMRect);
+
+      fireEvent.click(screen.getByRole("checkbox", { name: `Topics: ${topic}` }));
+      expect(scrollIntoView).not.toHaveBeenCalled();
+
+      top = -2400;
+      fireEvent.click(screen.getByRole("checkbox", { name: `Topics: ${topic}` }));
+      expect(scrollIntoView).toHaveBeenCalledTimes(1);
+      expect(scrollIntoView.mock.contexts[0]).toBe(heading);
+      expect(scrollIntoView).toHaveBeenCalledWith({ block: "start", behavior: "instant" });
+    } finally {
+      HTMLElement.prototype.scrollIntoView = original;
+    }
+  });
+
   it("puts the text of viewable questions into the server HTML for screen readers and search", () => {
     const [question] = prepareQuestionsForDelivery(loadBankQuestions("ib-sl").filter((item) => item.accessibleText).slice(0, 1), [{ productId: "bank_ib_sl", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
     const html = renderToString(<QuestionExplorer questions={[question]} bankSlug="ib-sl" access={fullAccess} initialState={parseExplorerState({})} />);
