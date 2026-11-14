@@ -16,6 +16,7 @@ import { BankWorkedExample } from "@/components/BankWorkedExample";
 import { notesSubjectForBank, getNoteTopic } from "@/lib/revision-notes";
 import { getGradeThresholds } from "@/lib/grade-thresholds";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
+import { qualificationInfo } from "@/lib/qualifications";
 import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
 import { paperFacts, topicFacts } from "@/lib/quick-facts";
 import { hasPublishedExplanations } from "@/lib/explanations";
@@ -61,7 +62,7 @@ function assessmentGroups(papers: AssessmentPaper[]) {
 
 export function QualificationHub({ qualification, title, intro, notesHref, chemistryNotesHref, physicsNotesHref, mathsAiNotesHref }: { qualification: Qualification; title: string; intro: string; notesHref?: string; chemistryNotesHref?: string; physicsNotesHref?: string; mathsAiNotesHref?: string }) {
   const banks = getCatalogBanksForDisplay().filter((bank) => bank.qualification === qualification);
-  const path = qualification === "IB Diploma" ? "/ib" : "/cambridge-igcse";
+  const path = qualificationInfo(qualification).hubPath;
   const updated = lastUpdated(banks.flatMap((bank) => [`/banks/${bank.slug}`, `/past-papers/${subjectSlugForBank(bank.slug)}`]));
   return (
     <div className="search-hub shell public-editorial">
@@ -82,6 +83,11 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
           {chemistryNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={chemistryNotesHref}>Notes: IB Chemistry course notes</Link> with worked examples and checks for every topic.</p> : null}
           {physicsNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={physicsNotesHref}>Notes: IB Physics course notes</Link> with worked examples and checks for every topic.</p> : null}
           <p>Comparing revision platforms? Read <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link> or our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
+        </section>
+      ) : qualification === "Cambridge A Level" ? (
+        <section className="landing-method" aria-labelledby="a-level-resources-heading">
+          <div><Target aria-hidden="true" /><h2 id="a-level-resources-heading">Practise by topic</h2></div>
+          <p>Every question comes with its mark scheme, so you can mark your own work as you go.</p>
         </section>
       ) : (
         <section className="landing-method" aria-labelledby="igcse-resources-heading">
@@ -132,9 +138,9 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   return (
     <div className={`search-landing shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/${bank.qualification === "IB Diploma" ? "ib" : "cambridge-igcse"}#page` } }} />
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.qualification, href: bank.qualification === "IB Diploma" ? "/ib" : "/cambridge-igcse" }, { label: bank.shortName }]} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.qualification, href: qualificationInfo(bank.qualification).hubPath }, { label: bank.shortName }]} />
       <header className="landing-hero">
-        <div className="landing-hero-copy"><p className="eyebrow">Syllabus and practice guide</p><h1>{bank.qualification === "Cambridge IGCSE" ? `Cambridge IGCSE ${bank.title}` : bank.title} syllabus, topics, and past-paper practice</h1><p className="lead">A clear map of what the course covers, how it is assessed, and where real archive practice fits.</p></div>
+        <div className="landing-hero-copy"><p className="eyebrow">Syllabus and practice guide</p><h1>{bank.qualification === "Cambridge IGCSE" ? `Cambridge IGCSE ${bank.title}` : bank.qualification === "Cambridge A Level" ? `Cambridge A Level ${bank.title}` : bank.title} syllabus, topics, and past-paper practice</h1><p className="lead">A clear map of what the course covers, how it is assessed, and where real archive practice fits.</p></div>
         <ArchiveStats bank={bank} manifest={manifest} />
       </header>
 
@@ -194,6 +200,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
           {getGradeThresholds(subjectSlug) ? <Link transitionTypes={PAGE_NAVIGATION} href={`/grade-thresholds/${subjectSlug}`}>Grade thresholds</Link> : null}
           {bank.qualification === "IB Diploma"
             ? <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link>
+            : bank.qualification === "Cambridge A Level" ? null
             : <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">Compare free IGCSE archives</Link>}
         </nav>
         <p className="official-source"><a href={officialQualificationSource(bank)} target="_blank" rel="noreferrer">Read the official {bank.qualification} course source <ArrowRight weight="bold" /></a></p>

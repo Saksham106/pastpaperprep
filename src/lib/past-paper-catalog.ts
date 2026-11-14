@@ -1,9 +1,10 @@
 import type { BankSlug } from './catalog';
+import { qualificationIdOfSlug, type QualificationId } from './qualifications';
 import type { WholePaperSummary } from './whole-paper-types';
 
 /** Public naming for the free past-paper library: URLs, labels, the matrix and paper-code search.
  * Pure and client-safe. Archive I/O stays in whole-paper-archive.ts. */
-export type PastPaperQualification = 'igcse' | 'ib';
+export type PastPaperQualification = QualificationId;
 
 export const SUBJECT_SLUGS: Record<BankSlug, string> = {
   igcse: 'igcse-maths-0580',
@@ -28,11 +29,12 @@ export const SUBJECT_SLUGS: Record<BankSlug, string> = {
   'ib-biology-sl': 'ib-biology-sl',
   'ib-economics-hl': 'ib-economics-hl',
   'ib-economics-sl': 'ib-economics-sl',
+  'a-level-maths-9709': 'a-level-maths-9709',
 };
 const BANK_BY_SUBJECT = new Map(Object.entries(SUBJECT_SLUGS).map(([bank, subject]) => [subject, bank as BankSlug]));
 export const subjectSlugForBank = (bank: BankSlug) => SUBJECT_SLUGS[bank];
 export const bankForSubjectSlug = (slug: string): BankSlug | null => BANK_BY_SUBJECT.get(slug) ?? null;
-export const qualificationOfBank = (bank: BankSlug): PastPaperQualification => bank.startsWith('igcse') ? 'igcse' : 'ib';
+export const qualificationOfBank = (bank: BankSlug): PastPaperQualification => qualificationIdOfSlug(bank);
 
 const SESSION_SLUG: Record<string, string> = { 'February/March': 'feb-march', 'May/June': 'may-june', 'October/November': 'oct-nov', May: 'may', November: 'november' };
 const SESSION_SHORT: Record<string, string> = { 'February/March': 'Feb/March', 'May/June': 'May/June', 'October/November': 'Oct/Nov' };
@@ -40,7 +42,8 @@ const SESSION_SHORT: Record<string, string> = { 'February/March': 'Feb/March', '
 export const sessionRank = (session: string) => session.startsWith('Feb') ? 1 : session.startsWith('May') ? 2 : 3;
 export const shortSession = (session: string) => SESSION_SHORT[session] ?? session;
 
-const isIgcse = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE';
+/** Cambridge papers (IGCSE and A Level) are named by component; IB papers by paper number. */
+const isIgcse = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE' || p.qualification === 'Cambridge A Level';
 const timezone = (p: WholePaperSummary) => /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
 const OPTION_LABELS: Record<string, string> = { calculus: 'Calculus', 'discrete-mathematics': 'Discrete', 'sets-relations-and-groups': 'Sets', 'statistics-and-probability': 'Statistics' };
 /** IB papers with several options in one sitting (AA HL Paper 3, 2017–18) carry the option at the end of the ID. */

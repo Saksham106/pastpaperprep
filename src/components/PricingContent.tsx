@@ -353,6 +353,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           <QualificationTabs className="pricing-qualification-tabs" items={[
             { id: "pricing-cambridge", label: "Cambridge IGCSE", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
             { id: "pricing-ib", label: "IB Diploma", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "International Baccalaureate")} /> },
+            ...(availableBanks.some((bank) => bank.qualification === "Cambridge A Level") ? [{ id: "pricing-a-level", label: "Cambridge A Level", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge A Level")} /> }] : []),
           ].filter((item) => item.panel.props.banks.length > 0)} />
         </section>
 

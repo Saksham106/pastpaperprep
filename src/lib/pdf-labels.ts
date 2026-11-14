@@ -1,5 +1,7 @@
 import { BANK_CATALOG, type BankSlug } from "@/lib/catalog";
-import { deriveCourseRoute } from "@/lib/course-route";
+import { deriveCourseRoute, routeLabel } from "@/lib/course-route";
+import { qualifiedBankTitle } from "@/lib/qualifications";
+import { isNotSatSeries } from "@/lib/series-notes";
 import { formatQuestionTopic } from "@/lib/presentation";
 
 export type PdfLabelQuestion = {
@@ -16,13 +18,15 @@ const CAMBRIDGE_SESSIONS: Record<string, string> = {
 const catalogEntry = (bankSlug: BankSlug) => BANK_CATALOG.find((entry) => entry.slug === bankSlug);
 
 export function pdfSessionLabel(bankSlug: BankSlug, session: string): string {
-  return catalogEntry(bankSlug)?.qualification === "Cambridge IGCSE" ? CAMBRIDGE_SESSIONS[session.toLowerCase()] ?? session : session;
+  const qualification = catalogEntry(bankSlug)?.qualification;
+  return qualification === "Cambridge IGCSE" || qualification === "Cambridge A Level" ? CAMBRIDGE_SESSIONS[session.toLowerCase()] ?? session : session;
 }
 
 /** Where a question came from, e.g. "2024 May/June · Paper 22 · Q5". */
 export function pdfSourceLabel(question: Pick<PdfLabelQuestion, "bankSlug" | "year" | "session" | "paper" | "component" | "id" | "number">): string {
   const component = question.component || question.id.match(/-(\d{2})-q\d+$/)?.[1] || String(question.paper);
-  return `${question.year} ${pdfSessionLabel(question.bankSlug, question.session)} · Paper ${component} · Q${question.number}`;
+  const notSat = isNotSatSeries(question.bankSlug, question.year, question.session) ? " (not sat)" : "";
+  return `${question.year} ${pdfSessionLabel(question.bankSlug, question.session)}${notSat} · Paper ${component} · Q${question.number}`;
 }
 
 export function rankedTopicLabels(questions: readonly Pick<PdfLabelQuestion, "bankSlug" | "primaryTopic">[]): string[] {
@@ -40,8 +44,8 @@ export function pdfCoverSummary(questions: readonly PdfLabelQuestion[], bankSlug
   // Practicals (Papers 5 and 6) suit both routes, so they never decide it.
   const routes = new Set(questions.map((question) => deriveCourseRoute(bankSlug, question.paper)).filter((route) => route !== "both"));
   const route = routes.size === 1 ? [...routes][0] : "";
-  const name = entry ? `${entry.qualification === "Cambridge IGCSE" ? "IGCSE " : ""}${entry.title}` : bankSlug;
-  const eyebrow = [name, route === "core" ? "Core" : route === "extended" ? "Extended" : "", content === "answers" ? "Mark scheme" : ""]
+  const name = entry ? qualifiedBankTitle(entry) : bankSlug;
+  const eyebrow = [name, routeLabel(bankSlug, route), content === "answers" ? "Mark scheme" : ""]
     .filter(Boolean).join(" · ").toUpperCase();
   const totalMarks = questions.length && questions.every((question) => Number.isInteger(question.marks) && question.marks! > 0)
     ? questions.reduce((sum, question) => sum + question.marks!, 0) : null;

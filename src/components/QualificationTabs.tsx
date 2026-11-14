@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import styles from "./MarketingHome.module.css";
 import { onPracticeModeRequest, PRACTICE_MODE_KEY } from "@/lib/practice-mode";
+import { isQualificationId, type QualificationId } from "@/lib/qualifications";
 
 export { PRACTICE_MODE_KEY };
 
-export type Qualification = "igcse" | "ib";
+export type Qualification = QualificationId;
 export type QualificationTabItem = { id: string; label: string; panel: ReactNode; qualification?: Qualification };
 /** An optional switch (e.g. By topic / Full papers) before the tabs; the active id lands on the root's data-mode. */
 export type QualificationMode = { id: string; label: string; icon?: ReactNode };
@@ -39,7 +40,7 @@ export function QualificationTabs({
   // Restore after hydration so the server markup and the first client render agree.
   useEffect(() => {
     const stored = read(QUALIFICATION_KEY);
-    const wanted = stored === "igcse" || stored === "ib" ? stored : preferredQualification;
+    const wanted = isQualificationId(stored) ? stored : preferredQualification;
     const index = items.findIndex((item) => item.qualification && item.qualification === wanted);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-off restore from localStorage
     if (index >= 0) setActiveIndex(index);

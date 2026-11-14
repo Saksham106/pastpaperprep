@@ -1,5 +1,6 @@
 import { isPreviewQuestion } from "@/lib/access";
 import type { BankSlug, CatalogBank } from "@/lib/catalog";
+import { qualificationInfo } from "@/lib/qualifications";
 import { getCatalogBanksForDisplay, getCatalogBank } from "@/lib/catalog";
 import { loadBankQuestions } from "@/lib/question-loader";
 import type { UnifiedQuestion } from "@/lib/questions";
@@ -46,6 +47,7 @@ const CAMBRIDGE_OFFICIAL_PAGES: Partial<Record<BankSlug, string>> = {
   "igcse-chemistry-0620": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-chemistry-0620/",
   "igcse-physics-0625": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-physics-0625/",
   "igcse-coordinated-sciences-0654": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-sciences-co-ordinated-double-0654/",
+  "a-level-maths-9709": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-mathematics-9709/",
 };
 
 const COURSE_OVERVIEWS: Record<string, string> = {
@@ -187,7 +189,9 @@ export function paperFilterHref(bankSlug: string, paper: number) {
 export function officialQualificationSource(bank: CatalogBank) {
   return bank.qualification === "IB Diploma"
     ? "https://www.ibo.org/programmes/diploma-programme/curriculum/"
-    : CAMBRIDGE_OFFICIAL_PAGES[bank.slug] ?? "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-upper-secondary/cambridge-igcse/subjects/";
+    : CAMBRIDGE_OFFICIAL_PAGES[bank.slug] ?? (bank.qualification === "Cambridge A Level"
+      ? "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-advanced/cambridge-international-as-and-a-levels/"
+      : "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-upper-secondary/cambridge-igcse/subjects/");
 }
 
 export function courseOverview(bank: CatalogBank) {
@@ -217,6 +221,6 @@ export function landingDetailStats(bankSlug: BankSlug, matches: readonly Unified
 
 /** The course name students type into search, e.g. "IGCSE Mathematics 0580" or "IB Chemistry HL". */
 export function bankSearchName(bank: CatalogBank) {
-  if (bank.qualification !== "IB Diploma") return `IGCSE ${bank.shortName}`;
+  if (bank.qualification !== "IB Diploma") return `${qualificationInfo(bank.qualification).namePrefix}${bank.shortName}`;
   return bank.shortName.startsWith("IB ") ? bank.shortName : `IB ${bank.shortName}`;
 }

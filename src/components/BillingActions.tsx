@@ -54,8 +54,9 @@ function getBankGroups(banks: readonly Bank[]): readonly BankGroup[] {
   return [
     { label: "Cambridge", banks: banks.filter((bank) => bank.qualification === "Cambridge IGCSE") },
     { label: "IB Mathematics", banks: banks.filter((bank) => bank.qualification === "International Baccalaureate" && bank.subject.startsWith("Mathematics")) },
-    { label: "IB Sciences", banks: banks.filter((bank) => !bank.subject.startsWith("Mathematics") && !bank.subject.startsWith("Computer Science") && bank.qualification !== "Cambridge IGCSE") },
-    { label: "IB Computer Science", banks: banks.filter((bank) => bank.subject.startsWith("Computer Science") && bank.qualification !== "Cambridge IGCSE") },
+    { label: "IB Sciences", banks: banks.filter((bank) => !bank.subject.startsWith("Mathematics") && !bank.subject.startsWith("Computer Science") && bank.qualification === "International Baccalaureate") },
+    { label: "IB Computer Science", banks: banks.filter((bank) => bank.subject.startsWith("Computer Science") && bank.qualification === "International Baccalaureate") },
+    { label: "Cambridge A Level", banks: banks.filter((bank) => bank.qualification === "Cambridge A Level") },
   ].filter((group) => group.banks.length > 0);
 }
 

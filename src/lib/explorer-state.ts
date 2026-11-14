@@ -1,5 +1,5 @@
 import type { QuestionFilters, QuestionSort } from "@/lib/questions";
-import type { CourseRouteSelection } from "@/lib/course-route";
+import { parseRouteSelection, routeConfigFor, type CourseRouteSelection } from "@/lib/course-route";
 import { AA_BANK_SLUGS, isAaItemId } from "@/lib/aa-item-ids";
 
 export const EXPLORER_PAGE_SIZE = 24;
@@ -54,8 +54,23 @@ function boundedPage(value: string | string[] | undefined): number {
   return Number.isFinite(parsed) && parsed > 0 ? Math.min(parsed, MAX_SHARED_PAGES) : 1;
 }
 
+/**
+ * The route for a bank whose URL names none. Banks that open on one route (A Level paper tabs)
+ * follow a paper filter that sits in one route, open on "all" for any other filtered link (a topic
+ * link must not land on a paper without that topic), and otherwise use the remembered, then default, route.
+ */
+function implicitRoute(bank: string | undefined, filters: ExplorerFilters, search: string, remembered: string | undefined): CourseRouteSelection {
+  const config = routeConfigFor(bank);
+  if (!config || config.defaultSelection === "all") return "all";
+  const papers = (filters.papers ?? []).map(Number);
+  const paperRoutes = new Set(papers.map((paper) => config.options.find((option) => option.papers.includes(paper))?.id));
+  if (papers.length && paperRoutes.size === 1 && !paperRoutes.has(undefined)) return [...paperRoutes][0]!;
+  if (search || Object.values(filters).some((selected) => selected?.length)) return "all";
+  return parseRouteSelection(bank, remembered) ?? config.defaultSelection;
+}
+
 /** Topic pages list everything tagged with their topic, so they start with partial matches on. */
-export function parseExplorerState(params: ExplorerSearchParams, options: { defaultFreeOnly?: boolean; defaultPartialTopics?: boolean; bank?: string } = {}): ExplorerState {
+export function parseExplorerState(params: ExplorerSearchParams, options: { defaultFreeOnly?: boolean; defaultPartialTopics?: boolean; bank?: string; rememberedRoute?: string } = {}): ExplorerState {
   const rawSearch = first(params.q).trim();
   const rawSort = first(params.sort) as QuestionSort;
   const filters: ExplorerFilters = {};
@@ -72,24 +87,28 @@ export function parseExplorerState(params: ExplorerSearchParams, options: { defa
   }
 
   const partial = first(params.partial);
+  const search = rawSearch.length <= 200 ? rawSearch : "";
+  // Without a bank, only the Cambridge Core/Extended values are known (topic and notes links).
+  const route = options.bank ? parseRouteSelection(options.bank, first(params.route)) : first(params.route) === "core" || first(params.route) === "extended" ? first(params.route) : undefined;
   return {
     ...((partial ? partial === "1" : options.defaultPartialTopics) ? { partialTopics: true } : {}),
-    search: rawSearch.length <= 200 ? rawSearch : "",
+    search,
     sort: SORTS.has(rawSort) ? rawSort : "paper",
     filters,
     freeOnly: params.free === undefined ? Boolean(options.defaultFreeOnly) : first(params.free) === "1",
     savedOnly: first(params.saved) === "1",
-    courseRoute: first(params.route) === "core" || first(params.route) === "extended" ? first(params.route) as CourseRouteSelection : "all",
+    courseRoute: route ?? implicitRoute(options.bank, filters, search, options.rememberedRoute),
     visible: boundedPage(params.page) * EXPLORER_PAGE_SIZE,
   };
 }
 
-export function serializeExplorerState(state: ExplorerState, options: { persistFreeChoice?: boolean; defaultPartialTopics?: boolean } = {}): URLSearchParams {
+export function serializeExplorerState(state: ExplorerState, options: { persistFreeChoice?: boolean; defaultPartialTopics?: boolean; bank?: string } = {}): URLSearchParams {
   const params = new URLSearchParams();
   const search = state.search.trim();
   if (search) params.set("q", search.slice(0, 200));
   if (state.sort !== "paper") params.set("sort", state.sort);
-  if (state.courseRoute !== "all") params.set("route", state.courseRoute);
+  // Banks that open on one route always write it, so a reload or shared link keeps the student's paper.
+  if (state.courseRoute !== "all" || (routeConfigFor(options.bank)?.defaultSelection ?? "all") !== "all") params.set("route", state.courseRoute);
 
   for (const [param, key] of PARAMS) {
     const selected = [...new Set((state.filters[key] ?? []).filter((item) => item && item.length <= 100))].slice(0, 20);

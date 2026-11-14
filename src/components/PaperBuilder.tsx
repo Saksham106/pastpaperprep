@@ -8,7 +8,7 @@ import { BuilderSheet } from "@/components/BuilderSheet";
 import { PaperPreview } from "@/components/PaperPreview";
 import { buildTopicIndex, countNodes, knownKeys, partlyCovered, selectionMatcher, toggleKey, type BuilderQuestion, type TopicIndex } from "@/lib/builder-topics";
 import { parseBuilderState, serializeBuilderState } from "@/lib/builder-url";
-import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
+import { deriveCourseRoute, matchesCourseRoute, routeConfigFor, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { paperCalculator } from "@/lib/paper-builder";
 import { sessionLifecycleOwner } from "@/lib/member-session-cache";
 import { lowerTarget, reconcileDraft, swapCandidate, type DraftResult, type DraftTarget, type PaperDraftTarget } from "@/lib/paper-draft";
@@ -117,7 +117,8 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     setSelection(knownKeys(topicIndex.tree, pendingKeys));
     setPendingKeys(null);
   }
-  const routed = supportsCourseRoute(bank || undefined);
+  // Core/Extended only: where the route is the paper (A Level tabs), the paper targets already choose it.
+  const routed = supportsCourseRoute(bank || undefined) && !routeConfigFor(bank || undefined)?.hidesPaperFilter;
   const inRoute = (paper: number) => !routed || route === "all" || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, paper), route);
   const basePool = useMemo(() => questions.filter((question) => inRoute(question.paper) && (!from || question.year >= from) && (!to || question.year <= to)),
     // inRoute only reads bank, route and routed, which are listed.

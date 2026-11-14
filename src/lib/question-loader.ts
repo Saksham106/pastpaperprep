@@ -28,6 +28,8 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "igcse-computer-science-0478": async () => (await import("@/data/production/igcse-computer-science-0478.json")).default as RawBank,
   "ib-computer-science-hl": async () => (await import("@/data/production/ib-computer-science-hl.json")).default as RawBank,
   "ib-computer-science-sl": async () => (await import("@/data/production/ib-computer-science-sl.json")).default as RawBank,
+  // Fixture rows until the 9709 runtime is staged; the bank is hidden (pendingStorage) meanwhile.
+  "a-level-maths-9709": async () => (await import("@/data/production/a-level-maths-9709.json")).default as RawBank,
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();
