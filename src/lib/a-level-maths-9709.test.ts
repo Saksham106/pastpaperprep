@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -7,7 +8,8 @@ import privateIndex from "@/data/private-index/a-level-maths-9709.json";
 import aliases from "@/data/question-id-aliases.json";
 import manifestJson from "../../data/storage/a-level-maths-9709.manifest.json";
 import dryRun from "../../data/storage/a-level-maths-9709.dry-run.json";
-import { assertContentSealedCandidate, blankedCandidateSha256, RELEASE_BANKS, runtimeSha256 as releaseRuntimeSha256 } from "../../scripts/igcse-release.mjs";
+import receipt from "../../data/storage/a-level-maths-9709.receipt.json";
+import { assertContentSealedCandidate, blankedCandidateSha256, manifestSha256, RELEASE_BANKS, runtimeSha256 as releaseRuntimeSha256 } from "../../scripts/igcse-release.mjs";
 import { getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
 import { PRIVATE_RUNTIME_OBJECT_PREFIXES } from "@/lib/private-runtime-mapping";
 import { inferredPdfDpiForBank } from "@/lib/pdf-export";
@@ -40,6 +42,27 @@ const runtime = runtimeJson as unknown as { questionCount: number; paperCount: n
 const taxonomy = taxonomyJson as { papers: Array<{ paper: number; sections: Array<{ id: string; label: string }> }> };
 const manifest = manifestJson as { storageState: string; objectPrefix: string; originalCandidateRuntimeSha256: string; assets: Array<{ objectKey: string; sha256: string; size: number; contentType: string }> };
 const CANDIDATE = "191db74b1cb400a1a095ee61cc3b3f033d47edaff6c1936e4d13f9f2e7351d22";
+/** Undo exactly what `generate-igcse-release.mjs --finalize` writes; the result must be the pinned candidate. */
+function reconstructCandidate(finalized: unknown) {
+  const candidate = JSON.parse(JSON.stringify(finalized));
+  for (const question of candidate.questions) {
+    question.publicationStatus = "authorized_production_candidate";
+    question.classificationReviewStatus = "candidate_not_approved";
+  }
+  candidate.releaseStatus = "authorized_production_candidate";
+  candidate.publicationStatus = "authorized_production_candidate";
+  candidate.assetVerification = "pending_upload";
+  const meta = candidate.runtimeArtifact;
+  meta.assetVerification = "pending_upload";
+  meta.publicationStatus = "authorized_production_candidate";
+  meta.assetManifestSha256 = null;
+  meta.storageReceiptSha256 = null;
+  delete meta.storageState;
+  delete meta.finalizedContentSha256;
+  meta.runtimeSha256 = null;
+  meta.runtimeSha256 = createHash("sha256").update(JSON.stringify(candidate)).digest("hex");
+  return candidate;
+}
 const questions = normalizeBankQuestions(slug, runtimeJson.questions as unknown as Array<Record<string, unknown>>);
 const stripeConfig = validateStripeConfig({
   NEXT_PUBLIC_SITE_URL: "https://pastpaperprep.com", STRIPE_SECRET_KEY: "sk_test_example", STRIPE_WEBHOOK_SECRET: "whsec_example",
@@ -63,16 +86,16 @@ describe("A Level Mathematics 9709 catalog entry", () => {
     expect(qualificationInfo(entry.qualification).hubPath).toBe("/cambridge-a-level");
   });
 
-  it("rides the shared gated release lane, staged as an unfinalized candidate", () => {
+  it("rides the shared gated release lane, finalized against a verified readback but still hidden", () => {
     expect(isIGCSEReleaseBank(slug)).toBe(true);
     expect(IGCSE_RELEASE_BANK_CATALOG.some((entry) => entry.slug === slug)).toBe(false);
     expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(false);
     expect(RELEASE_BANKS[slug]).toEqual({ prefix: "a-level-maths-9709/releases/full2118-v1-191db74b1cb4", sourceRootEnv: "PASTPAPERPREP_A_LEVEL_MATHS_SOURCE_ROOT", candidateSeal: "blanked-v1", originalCandidateRuntimeSha256: CANDIDATE });
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[slug]).toBe(`${RELEASE_BANKS[slug].prefix}/`);
     expect(inferredPdfDpiForBank(slug)).toBe(108);
-    // Not finalized: no verified storage, so the release runtime refuses to serve it even with every gate on.
-    expect(runtime.assetVerification).toBe("pending_upload");
-    expect(() => getIGCSERuntimeArtifact(slug, PRODUCTION)).toThrow();
+    // Finalized: the sealed release runtime loads; the catalog's pendingStorage still keeps the bank off the site.
+    expect(runtime.assetVerification).toBe("verified_readback");
+    expect(getIGCSERuntimeArtifact(slug, PRODUCTION).questions).toHaveLength(2118);
   });
 
   it("is hidden and unsellable in production even with every release gate on", () => {
@@ -87,7 +110,7 @@ describe("A Level Mathematics 9709 catalog entry", () => {
   it("can be previewed locally with the dev-only pending-bank flag", () => {
     expect(getCatalogBanksForDisplay(PREVIEW).some((entry) => entry.slug === slug)).toBe(true);
     expect(getBank(slug, PREVIEW)?.qualification).toBe("Cambridge A Level");
-    // Only the dev preview reads the unfinalized candidate; production never does, flag or not.
+    // Only the dev preview reads the staged runtime directly; production never does, flag or not.
     expect(isPendingStoragePreview(slug, PREVIEW)).toBe(true);
     expect(isPendingStoragePreview(slug, PRODUCTION)).toBe(false);
     expect(isPendingStoragePreview(slug, { ...PRODUCTION, PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" })).toBe(false);
@@ -166,12 +189,28 @@ describe("A Level Mathematics 9709 runtime and paper tabs", () => {
 
   it("is sealed to its pinned, content-derived candidate", () => {
     expect(runtime.runtimeArtifact.originalCandidateRuntimeSha256).toBe(CANDIDATE);
-    expect(blankedCandidateSha256(runtime)).toBe(CANDIDATE);
     expect(releaseRuntimeSha256(runtime)).toBe(runtime.runtimeArtifact.runtimeSha256);
-    expect(() => assertContentSealedCandidate(slug, runtime)).not.toThrow();
-    const edited = JSON.parse(JSON.stringify(runtime));
+    const candidate = reconstructCandidate(runtime);
+    expect(blankedCandidateSha256(candidate)).toBe(CANDIDATE);
+    expect(() => assertContentSealedCandidate(slug, candidate)).not.toThrow();
+    const edited = JSON.parse(JSON.stringify(candidate));
     edited.questions[0].marks += 1;
     expect(() => assertContentSealedCandidate(slug, edited)).toThrow("does not reproduce its pinned seal");
+  });
+
+  it("is finalized against a complete verified readback of exactly the manifest's crops", () => {
+    expect(receipt).toMatchObject({ bank: slug, storageState: "verified_readback", failed: [], assetManifestSha256: manifestSha256(manifest) });
+    expect([...receipt.completed].sort()).toEqual(manifest.assets.map((asset) => asset.objectKey).sort());
+    const logText = readFileSync(join(ROOT, receipt.readbackProvenance.log), "utf8");
+    expect(createHash("sha256").update(logText).digest("hex")).toBe(receipt.readbackProvenance.logSha256);
+    const log = logText.split("\n").filter(Boolean).map((line) => JSON.parse(line) as { key: string; sha256: string; bytes: number; status: string });
+    const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
+    expect(log).toHaveLength(6496);
+    for (const row of log) expect(row.status === "verified" && byKey.get(row.key)?.sha256 === row.sha256 && byKey.get(row.key)?.size === row.bytes, row.key).toBe(true);
+    const meta = runtimeJson.runtimeArtifact as unknown as Record<string, string>;
+    expect(meta.assetManifestSha256).toBe(manifestSha256(manifest));
+    expect(meta.storageReceiptSha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "data/storage/a-level-maths-9709.receipt.json"), "utf8")).digest("hex"));
+    expect(runtime.questions.every((question) => (question as unknown as { publicationStatus: string }).publicationStatus === "production")).toBe(true);
   });
 
   it("labels every question with sections of its own paper only, primary first, every section used", () => {

@@ -1,6 +1,6 @@
 # A Level Mathematics 9709: addition receipt (14 November 2026)
 
-The owner approved folding the real 9709 questions into this PR in chat ("Yes, fold in", relayed by the coordinating session). Nothing has been uploaded, migrated or published: the catalog entry stays hidden (`pendingStorage: true`) and the runtime is an unfinalized candidate.
+The owner approved folding the real 9709 questions into this PR in chat ("Yes, fold in", relayed by the coordinating session). The crops are uploaded and the runtime is finalized. Nothing is migrated or published: the catalog entry stays hidden (`pendingStorage: true`).
 
 ## Source
 - Workspace: `cambridge-a-level-mathematics-9709-topic-practice` at commit 5c9254a (local git, clean). Receipts there: `docs/coverage-receipt.md`, `docs/classification-receipt.md`.
@@ -24,19 +24,43 @@ The owner approved folding the real 9709 questions into this PR in chat ("Yes, f
 
 Topics are the official section titles; the paper tab equals the paper number, and a paper tab lists that paper's sections in syllabus order.
 
-## Storage plan (not uploaded)
-- Release lane: `scripts/igcse-release.mjs` bank `a-level-maths-9709`, prefix `a-level-maths-9709/releases/full2118-v1-191db74b1cb4/` in the private bucket `pastpaperprep-assets`.
-- Create-only plan: `data/storage/a-level-maths-9709.manifest.json`, **6,496 WebP objects, 84,547,318 bytes**, every key new under the prefix.
-- Dry run: `data/storage/a-level-maths-9709.dry-run.json`. 0 R2 writes; every file re-hashed locally, and all 6,496 hashes match the segmentation record.
-- The source holds 6,498 crops; the 2 not in the plan are the held question's QP crops (`9709-2024-s-33/questions/q11-16-1.webp`, `q11-17-2.webp`).
+## Storage (uploaded and read back, 14 November 2026)
+The owner approved the R2 upload in this session ("Yes, upload"). That approval covered only the 6,496 objects in the manifest, create-only.
+- Prefix `a-level-maths-9709/releases/full2118-v1-191db74b1cb4/` in the private bucket `pastpaperprep-assets`.
+- Plan: `data/storage/a-level-maths-9709.manifest.json`, 6,496 WebP objects, 84,547,318 bytes.
+- Dry run: `data/storage/a-level-maths-9709.dry-run.json`. Every local file was re-hashed and matches the segmentation record.
+- Upload: `scripts/upload-computer-science-wrangler.mjs --bank a-level-maths-9709` with wrangler 4.152.0 (OAuth) and concurrency 2. For each object the script:
+  1. checked the local SHA-256 and size;
+  2. confirmed the key was absent with `get`;
+  3. uploaded it with `put`;
+  4. read it back with `get` and compared the SHA-256 and size.
+- Results: **6,496 of 6,496 verified, 0 failed, 0 already present**, with no 429 failures.
+  - Log: `docs/a-level-maths-9709-r2-upload-log.jsonl` (SHA `1f082223…`).
+  - Receipt: `data/storage/a-level-maths-9709.receipt.json` (`verified_readback`).
+- The 2 held-question QP crops were not uploaded.
+
+## Finalized runtime
+`generate-igcse-release.mjs --finalize a-level-maths-9709` checked the receipt against the manifest seal. It then moved all 2,118 rows to `production` / `classified` and sealed the runtime:
+
+| Seal | Value |
+|---|---|
+| Original candidate | `191db74b1cb400a1a095ee61cc3b3f033d47edaff6c1936e4d13f9f2e7351d22` |
+| Asset manifest | `5e3be084cc5546dee4b58fd31a67f914c0bf64fe99f9d9a8829f68ee7f01bbd5` |
+| Storage receipt | `0e99a49588ecd02a3421dc261e2dbb4893a37afbb848ca011c94737d77d21809` |
+| Finalized content | `76268395f8bf77825b81b4170de3f182fa237eb36cafa94c593ad171c2e08674` |
+| Runtime | `91005b99f339c7515d57bc550ad3ec902bbb9fb960866b6cce2f96b663c3a9c3` |
+
+The catalog entry **keeps `pendingStorage: true`**, so the bank is still hidden and unsellable. The release test reconstructs the candidate from the finalized runtime and checks it reproduces the pinned seal.
+
+## Calculator policy
+`calculatorAllowed("a-level-maths-9709", …)` is true for all six papers. The source is syllabus section 4, "Calculators", which is identical in the 2020–22, 2023–25 and 2026–27 syllabuses: a calculator with standard scientific functions in all examinations; graphical and symbolic-algebra calculators are not permitted.
 
 ## Still owner-gated
-1. **R2 upload** (after approval): `WRANGLER=<bin> node scripts/upload-computer-science-wrangler.mjs --bank a-level-maths-9709`. Per object: absent check, put, read-back SHA-256 and size. It writes `docs/a-level-maths-9709-r2-upload-log.jsonl` and `data/storage/a-level-maths-9709.receipt.json`.
-2. **Finalize** (needs that receipt): `PASTPAPERPREP_A_LEVEL_MATHS_SOURCE_ROOT=<workspace> node scripts/generate-igcse-release.mjs --finalize a-level-maths-9709`. Then repin the finalized runtime and drop `pendingStorage`.
-3. **Production migration** `20261114000000_a_level_maths_9709_release.sql` (products row, catalog rows copied from `bank_igcse`, slug and product lists).
-4. **Stripe**: none needed. Single bank uses the shared single-bank prices; All Access and Lifetime cover every bank.
-5. **Merge.**
-6. Before release, decide the held question, and run explanations (the article-claim test re-arms when `pendingStorage` comes off).
+1. **Production migration** `20261114000000_a_level_maths_9709_release.sql`.
+2. **Stripe:** none needed. Single bank uses the shared single-bank prices; All Access and Lifetime cover every bank.
+3. **Switching the bank on:** drop `pendingStorage`. This re-arms the explanation-coverage test, which needs 2,118 explanations or a decision on the article copy.
+4. **Merge.**
+5. Decide the held question.
 
 ## Existing banks unchanged
 For every other bank, raw and normalized rows were hashed on `origin/main` (cdb1fe2a) and on this branch. All 22 banks are identical (43,617 rows), and the bank-index manifest changes only the 9709 entry.
