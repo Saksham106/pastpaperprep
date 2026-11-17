@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Build the Cambridge International AS & A Level Mathematics 9709 candidate runtime from the pinned source
- * workspace (cambridge-a-level-mathematics-9709-topic-practice, commit 5c9254a). Every input is SHA-256
+ * workspace (cambridge-a-level-mathematics-9709-topic-practice, commit 8e5f3a7). Every input is SHA-256
  * pinned; any drift fails closed.
  *
  *   data/segmentation/full/segmentation.json   2,119 canonical questions in 256 canonical papers (crops, marks, text)
@@ -29,20 +29,23 @@ export const BANK = "a-level-maths-9709";
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/cambridge-a-level-mathematics-9709-topic-practice";
-export const SOURCE_COMMIT = "5c9254a";
+export const SOURCE_COMMIT = "8e5f3a7";
 export const SOURCE_SHA256 = {
-  segmentation: "eb809c0dbcc18ed06dcdad8ce763eeb9f3f439944ac4f62317e475e908a20b23",
-  labels: "a915a0513a3f788631fe2190257df6541c16c0a350d64eab12b2c29fb7ff7605",
+  segmentation: "eb5d9ff0f4324ff1fc98676f6948514f4acb324a85912e50a1abf69fd37c3798",
+  labels: "66ad8d7d1649bda242aa397c27e83c29b639a00e48fc1d804f6c87df9b8bf6ec",
   taxonomy: "cfbb1efd4efd8018bd5c0a02eac863d49043566da37d0be64ce0ddfd72918ae7",
   canonicalManifest: "2143e6553c0cfcb545e16e2449c75a82e627a9ecb9f9ff6e6c4634aa8365e40a",
   paperFacts: "69e95e717e187a71c4e2057e33583f1fcb2b803935a1e164f5935ab3283eb6c5",
   sourceManifest: "ff314542cb9f80ada368b93538d63173a76de12470980d2b484a76e4d3cf73ce",
   acquisitionManifest: "ce9e850b21e77bce4b760d885ecaffd8370f5d2c50601a1af70208c04e07f238",
   heldQuestions: "7fa568d0878f77954a10520c3baba4d0620dc9237e5aa2db0be236e8c06df231",
+  /** Crop revision v2 (2026-11-15): 23 crops re-rendered under new .v2.webp names, and the 20 questions re-transcribed. */
+  cropRevisions: "e8ab88cab6d82ad9367692450ade42f8e9ce8513e5b47a75dec3e0a5011ee595",
+  transcriptOverrides: "abebfd7365a9e47276df8a077ecd9a57e6d1dd7b10601748d8f0543727ef5f7d",
   /** SHA-256 over the sorted "<file> <sha256>" lines of every blind-results/*.json file. */
   blindResults: "e605c6857c2694266b291a8a7f938d2c1a55858c396b733172320814cc5e6006",
 };
-export const EXPECTED = { canonicalQuestions: 2119, rows: 2118, papers: 256, aliases: 149, sections: 38, freeRows: 636, notSatRows: 138, years: "2020-2026" };
+export const EXPECTED = { canonicalQuestions: 2119, rows: 2118, papers: 256, aliases: 149, sections: 38, freeRows: 636, notSatRows: 138, years: "2020-2026", revisedCrops: 23, revisedQuestions: 20 };
 export const HELD = ["9709-2024-s-33-q11"];
 export const TAXONOMY_OUTPUT = "src/data/a-level-maths-9709-taxonomy.json";
 export const ALIASES_OUTPUT = "src/data/question-id-aliases.json";
@@ -108,7 +111,7 @@ export function studentTaxonomy(source, used) {
 }
 
 function runtimeAsset(kind, asset, paperId) {
-  const match = /^assets\/(9709-20\d{2}-[msw]-\d{2})\/(questions|markschemes)\/(q\d+-\d+-\d+\.webp)$/.exec(asset.path);
+  const match = /^assets\/(9709-20\d{2}-[msw]-\d{2})\/(questions|markschemes)\/(q\d+-\d+-\d+(?:\.v2)?\.webp)$/.exec(asset.path);
   if (!match || match[2] !== kind || match[1] !== paperId) throw new Error(`Unexpected 9709 ${kind} asset path: ${asset.path}`);
   return `${kind}/${match[1]}/${match[3]}`;
 }
@@ -140,7 +143,17 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const sourceManifest = await pinned(sourceRoot, "data/source-manifest.json", SOURCE_SHA256.sourceManifest);
   const acquisition = await pinned(sourceRoot, "data/acquisition-manifest.json", SOURCE_SHA256.acquisitionManifest);
   const held = await pinned(sourceRoot, "data/held-questions.json", SOURCE_SHA256.heldQuestions);
+  const cropRevisions = await pinned(sourceRoot, "data/crop-revisions.json", SOURCE_SHA256.cropRevisions);
+  const transcriptOverrides = await pinned(sourceRoot, "data/classification/transcript-overrides.json", SOURCE_SHA256.transcriptOverrides);
   const blind = await blindTranscripts(sourceRoot);
+  // Re-transcriptions from the v2 crops replace the blind-pass text for the revised questions.
+  for (const row of transcriptOverrides.rows) {
+    if (!blind.transcripts.has(row.id) || typeof row.transcript !== "string" || !row.transcript.trim()) throw new Error(`9709 transcript override ${row.id} is invalid`);
+    blind.transcripts.set(row.id, row.transcript.trim());
+  }
+  const revisedQuestions = new Set(Object.values(cropRevisions.revisions).map((revision) => revision.question));
+  if (Object.keys(cropRevisions.revisions).length !== EXPECTED.revisedCrops || revisedQuestions.size !== EXPECTED.revisedQuestions
+    || transcriptOverrides.rows.length !== EXPECTED.revisedQuestions || transcriptOverrides.rows.some((row) => !revisedQuestions.has(row.id))) throw new Error("9709 crop revision set drifted");
   if (blind.pin !== SOURCE_SHA256.blindResults) throw new Error(`9709 blind results ${blind.pin} != pinned ${SOURCE_SHA256.blindResults}`);
 
   if (JSON.stringify(Object.keys(held.questions).sort()) !== JSON.stringify(HELD)) throw new Error("9709 held set drifted");

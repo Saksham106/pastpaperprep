@@ -19,7 +19,7 @@ The owner approved folding the real 9709 questions into this PR in chat ("Yes, f
 | Free | 2020-2021: 636 questions |
 | Not sat | May/June 2020: 138 questions, labelled "Not sat" (source exam status `released_not_sat`) |
 | Paper facts | totals and durations from the syllabus assessment table (`paper-facts.json`), in the runtime and `assessment-guides.ts` |
-| Candidate seal | `191db74b1cb400a1a095ee61cc3b3f033d47edaff6c1936e4d13f9f2e7351d22` (blanked-v1, recomputed from content) |
+| Candidate seal | `1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482` after crop revision v2 (first candidate `191db74b…`; blanked-v1, recomputed from content) |
 | Files | `src/data/production/a-level-maths-9709.json`, `src/data/private-index/a-level-maths-9709.json`, `src/data/a-level-maths-9709-taxonomy.json` |
 
 Topics are the official section titles; the paper tab equals the paper number, and a paper tab lists that paper's sections in syllabus order.
@@ -51,6 +51,23 @@ The owner approved the R2 upload in this session ("Yes, upload"). That approval 
 | Runtime | `91005b99f339c7515d57bc550ad3ec902bbb9fb960866b6cce2f96b663c3a9c3` |
 
 The catalog entry **keeps `pendingStorage: true`**, so the bank is still hidden and unsellable. The release test reconstructs the candidate from the finalized runtime and checks it reproduces the pinned seal.
+
+## Crop revision v2 (15–17 November 2026)
+The explanations session found maths glyphs missing from some question crops.
+- **Cause:** `segment.py`'s barcode test painted out any small block made mostly of non-ASCII glyphs.
+- **Affected:** 26 masks in 23 question crops, covering 20 questions. The masks erased ∞, ∫ with its limits, modulus bars and en-dashes. No mark-scheme crops were affected.
+- **Fix:** made in the content workspace at commit `8e5f3a7`. Barcode masks now need barcode width, and the audit rejects any non-furniture mask.
+  - The 23 crops were re-rendered under new `.v2.webp` names. The other 6,475 are byte-identical.
+  - The 20 questions were re-transcribed, which corrected the text of 15 rows.
+  - Labels and marks are unchanged.
+- **App side:**
+  - The generator now pins `8e5f3a7`, including `crop-revisions.json` and `transcript-overrides.json`.
+  - The new candidate is `1b09ae09…`. Exactly 20 questions changed, and only in their question crops and text.
+  - The storage prefix keeps its first-candidate name.
+- **Upload:** owner-approved, create-only, run in the coordinating session. It added only the 23 new keys; 6,473 objects were already verified.
+  - Receipt: 6,496 of 6,496 verified, 0 failed, 0 pre-existing. It lists the 23 superseded keys, which stay in the bucket unreferenced.
+  - The upload script accepts a superseded original in its log only when its `.v2.webp` replacement is in the manifest.
+- **Re-finalized:** runtime `8d7493bc…`, still hidden.
 
 ## Calculator policy
 `calculatorAllowed("a-level-maths-9709", …)` is true for all six papers. The source is syllabus section 4, "Calculators", which is identical in the 2020–22, 2023–25 and 2026–27 syllabuses: a calculator with standard scientific functions in all examinations; graphical and symbolic-algebra calculators are not permitted.

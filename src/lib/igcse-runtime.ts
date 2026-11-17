@@ -192,7 +192,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-computer-science-0478": "f3e6b8015de192d9c723d7b825a4f29e58c88568b608bf5c6abaafcd493c546b",
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
-  "a-level-maths-9709": "191db74b1cb400a1a095ee61cc3b3f033d47edaff6c1936e4d13f9f2e7351d22",
+  "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -204,7 +204,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-computer-science-0478": "f3e6b8015de192d9c723d7b825a4f29e58c88568b608bf5c6abaafcd493c546b",
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
-  "a-level-maths-9709": "191db74b1cb400a1a095ee61cc3b3f033d47edaff6c1936e4d13f9f2e7351d22",
+  "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
 };
 
 function canonicalSha256(value: unknown) {

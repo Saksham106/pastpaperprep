@@ -166,6 +166,8 @@ declare const data: {
       sourceManifest: string;
       acquisitionManifest: string;
       heldQuestions: string;
+      cropRevisions: string;
+      transcriptOverrides: string;
       blindResults: string;
     };
     sourceCandidateSha256: string;

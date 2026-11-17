@@ -84,13 +84,19 @@ async function main() {
     }
   }
   const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
+  // A crop revision replaces a verified key with a new `<stem>.v2.webp` key (the original stays in the bucket, unreferenced).
+  // Only such superseded originals may sit in the log outside the manifest; anything else still fails closed.
+  const supersededBy = (key) => key.endsWith(".webp") && !key.endsWith(".v2.webp") ? byKey.get(`${key.slice(0, -5)}.v2.webp`) : undefined;
+  const superseded = new Set();
   for (const [key, row] of done) {
     const asset = byKey.get(key);
+    if (!asset && supersededBy(key) && row.status === "verified") { superseded.add(key); continue; }
     if (!asset || row.sha256 !== asset.sha256 || row.bytes !== asset.size || row.status !== "verified") throw new Error(`log line does not match manifest: ${key}`);
   }
+  for (const key of superseded) done.delete(key);
   const limit = process.argv.includes("--limit") ? Number(process.argv[process.argv.indexOf("--limit") + 1]) : Infinity;
   const pending = manifest.assets.filter((asset) => !done.has(asset.objectKey)).slice(0, limit);
-  console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, pending: pending.length }));
+  console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, superseded: superseded.size, pending: pending.length }));
 
   const call = wrangler();
   const dir = mkdtempSync(path.join(tmpdir(), `${BANK}-r2-`));
@@ -126,7 +132,7 @@ async function main() {
 
   if (Number.isFinite(limit)) { console.log(JSON.stringify({ verified, total: manifest.assets.length, stoppedAtLimit: limit })); return; }
   const rows = readFileSync(LOG_PATH, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
-  const keys = [...new Set(rows.map((row) => row.key))].sort();
+  const keys = [...new Set(rows.map((row) => row.key))].filter((key) => byKey.has(key)).sort();
   if (keys.length !== manifest.assets.length || manifest.assets.some((asset) => !keys.includes(asset.objectKey))) throw new Error("log does not cover the manifest");
   writeFileSync(receiptPath, `${JSON.stringify({
     schemaVersion: "igcse-upload-receipt-v1",
@@ -135,7 +141,7 @@ async function main() {
     assetManifestSha256: manifestSha256(manifest),
     completed: keys,
     failed: [],
-    readbackProvenance: { method: "wrangler-oauth create-only get/put/get", log: path.relative(repo, LOG_PATH), logSha256: sha256(readFileSync(LOG_PATH)), existedBefore: rows.filter((row) => row.existedBefore).length },
+    readbackProvenance: { method: "wrangler-oauth create-only get/put/get", log: path.relative(repo, LOG_PATH), logSha256: sha256(readFileSync(LOG_PATH)), existedBefore: rows.filter((row) => row.existedBefore).length, supersededKeys: [...superseded].sort() },
   }, null, 2)}\n`);
   console.log(JSON.stringify({ verified: keys.length, receipt: path.relative(repo, receiptPath) }));
 }
