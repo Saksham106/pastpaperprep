@@ -598,7 +598,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     title: "PastPaperPrep vs Save My Exams: Price and Features",
     description: "Compare PastPaperPrep and Save My Exams on pricing, real past-paper practice, notes, videos, subject coverage, and the best use for each.",
     eyebrow: "Revision platform comparison",
-    answer: "Choose PastPaperPrep for free whole papers without signup and targeted practice from real Cambridge IGCSE and IB questions. Every question also has a worked explanation. Choose Save My Exams if you also want a broad written revision-notes library, exam-style topic questions and plan-dependent feedback tools. Neither every question nor every subject has a PastPaperPrep explanation.",
+    answer: "Choose PastPaperPrep for free whole papers without signup and targeted practice from real Cambridge IGCSE and IB questions. Every question also has a worked explanation. Choose Save My Exams if you also want a broad written revision-notes library, exam-style topic questions and plan-dependent feedback tools.",
     publishedAt: "2026-08-30",
     updatedAt: "2026-11-08",
     readingMinutes: 6,
@@ -610,7 +610,7 @@ export const ALL_ARTICLES: readonly Article[] = [
         { label: "Multi-bank pricing", pastPaperPrep: "$10 monthly for two banks; $25 monthly for All Access", competitor: "One membership across available subjects; tools differ between Essential and Premium" },
         { label: "Free access", pastPaperPrep: "Whole papers free without signup; topical guest sample and free-account selection are separate", competitor: "Free account with resource limits and available past-paper downloads; Premium trial has separate terms" },
         { label: "Core strength", pastPaperPrep: "Granular real-question filtering and PDF practice sets", competitor: "Study guides and exam practice across many subjects" },
-        { label: "Learning content", pastPaperPrep: "Official mark schemes, plus a worked explanation on every question", competitor: "Revision notes, exam-style questions and model answers; feedback tools depend on course and plan" },
+        { label: "Learning content", pastPaperPrep: "Official mark schemes, plus a worked explanation on every IGCSE and IB question", competitor: "Revision notes, exam-style questions and model answers; feedback tools depend on course and plan" },
         { label: "Subject breadth", pastPaperPrep: "Supported Cambridge IGCSE Maths, sciences and Economics; IB Maths, sciences and Economics", competitor: "Maths plus sciences, humanities, English and more" },
       ],
     },
@@ -618,7 +618,7 @@ export const ALL_ARTICLES: readonly Article[] = [
       {
         heading: "The short verdict",
         paragraphs: [
-          "PastPaperPrep starts with real-paper practice. Open a free whole paper and matching mark scheme, then use the relevant topical bank to retest a weak skill. Every question has a worked explanation to review your method. For a new concept, a teacher, textbook or revision-notes resource may still be the right starting point.",
+          "PastPaperPrep starts with real-paper practice. Open a free whole paper and matching mark scheme, then use the relevant topical bank to retest a weak skill. Every IGCSE and IB question has a worked explanation to review your method. For a new concept, a teacher, textbook or revision-notes resource may still be the right starting point.",
           "Save My Exams is a broader revision library. Its subject pages list syllabus-specific notes, exam-style questions, model answers and other study tools. The current Free, Essential and Premium plans give different levels of access, and feedback tools such as Smart Mark depend on course availability.",
         ],
       },
