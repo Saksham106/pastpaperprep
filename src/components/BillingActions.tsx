@@ -7,6 +7,9 @@ import type { ProductId } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { getCatalogBank } from "@/lib/catalog";
 import { trackProductEvent } from "@/lib/product-analytics";
+import { bankGroupsByBoard, splitByBoard, type BankGroup } from "@/lib/bank-groups";
+import { qualificationIdOf } from "@/lib/qualifications";
+import { useRememberedBoard } from "@/lib/remembered-board";
 import { checkoutErrorCopy, copyForCheckoutError, isCheckoutErrorCode, NETWORK_ERROR_COPY, type CheckoutErrorCopy } from "@/lib/checkout-errors";
 
 type Navigate = (url: string) => void;
@@ -45,19 +48,8 @@ function CheckoutErrorNotice({ error, navigate }: { error: CheckoutErrorCopy; na
   );
 }
 
-type BankGroup = {
-  label: string;
-  banks: readonly Bank[];
-};
-
-function getBankGroups(banks: readonly Bank[]): readonly BankGroup[] {
-  return [
-    { label: "Cambridge", banks: banks.filter((bank) => bank.qualification === "Cambridge IGCSE") },
-    { label: "IB Mathematics", banks: banks.filter((bank) => bank.qualification === "International Baccalaureate" && bank.subject.startsWith("Mathematics")) },
-    { label: "IB Sciences", banks: banks.filter((bank) => !bank.subject.startsWith("Mathematics") && !bank.subject.startsWith("Computer Science") && bank.qualification === "International Baccalaureate") },
-    { label: "IB Computer Science", banks: banks.filter((bank) => bank.subject.startsWith("Computer Science") && bank.qualification === "International Baccalaureate") },
-    { label: "Cambridge A Level", banks: banks.filter((bank) => bank.qualification === "Cambridge A Level") },
-  ].filter((group) => group.banks.length > 0);
+function getBankGroups(banks: readonly Bank[]): readonly BankGroup<Bank>[] {
+  return bankGroupsByBoard(banks, (bank) => ({ board: qualificationIdOf(bank.qualification), subject: bank.subject }));
 }
 
 function bankProductForSlug(slug: BankSlug): ProductId | undefined {
@@ -386,6 +378,8 @@ export function CustomBundleCheckout({
 }) {
   const selectableBanks = availableBanks.filter((bank) => mode !== "single" || Boolean(bankProductForSlug(bank.slug)));
   const [acknowledged, setAcknowledged] = useState(false);
+  const rememberedBoard = useRememberedBoard();
+  const [otherBoardsOpen, setOtherBoardsOpen] = useState(false);
   const [selectedBankIds, setSelectedBankIds] = useState<BankSlug[]>(() => {
     const initial = [...initialBankIds];
     const initialSingleBank = initial[0];
@@ -405,7 +399,9 @@ export function CustomBundleCheckout({
   const selectedBankName = availableBanks.find((bank) => bank.slug === selectedBankIds[0])?.shortName;
   const singleProductId = selectedBankIds[0] ? bankProductForSlug(selectedBankIds[0]) : undefined;
   const canCheckout = mode === "single" ? quantity === 1 && Boolean(singleProductId) : quantity >= 2;
-  const bankGroups = getBankGroups(selectableBanks);
+  // The remembered board's groups lead; other boards fold beneath, opening when they hold a selected bank.
+  const { first: leadGroups, others: otherGroups } = splitByBoard(getBankGroups(selectableBanks), rememberedBoard);
+  const othersHoldSelection = otherGroups.some((group) => group.banks.some((bank) => selectedBankIds.includes(bank.slug)));
   const selectionSummary = mode === "single"
     ? selectedBankName ?? "Choose a bank"
     : quantity === 0 ? "None selected" : `${quantity} selected`;
@@ -433,6 +429,26 @@ export function CustomBundleCheckout({
         ? "Pick 1 more bank"
         : null;
 
+  const renderGroup = (group: BankGroup<Bank>) => (
+    <section className="custom-bank-group" key={group.label} aria-labelledby={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>
+      <h3 id={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>{group.label}</h3>
+      <div className="custom-bank-group-options">
+        {group.banks.map((bank) => (
+          <label data-bank-id={bank.slug} key={bank.slug}>
+            <input
+              type={mode === "single" ? "radio" : "checkbox"}
+              name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
+              checked={selectedBankIds.includes(bank.slug)}
+              disabled={mode === "builder" && hasPaidAccess && selectedBankIds.length >= 5 && !selectedBankIds.includes(bank.slug)}
+              onChange={() => toggleBank(bank.slug)}
+            />
+            <span>{bank.shortName}</span>
+          </label>
+        ))}
+      </div>
+    </section>
+  );
+
   return (
     <div className="plan-checkout custom-bundle-checkout">
       <details className="custom-bank-disclosure">
@@ -444,25 +460,13 @@ export function CustomBundleCheckout({
         <fieldset className="custom-bank-picker">
           <legend className="sr-only">{mode === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend>
           <div className="custom-bank-groups">
-            {bankGroups.map((group) => (
-              <section className="custom-bank-group" key={group.label} aria-labelledby={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>
-                <h3 id={`bank-group-${mode}-${group.label.toLowerCase().replaceAll(" ", "-")}`}>{group.label}</h3>
-                <div className="custom-bank-group-options">
-                  {group.banks.map((bank) => (
-                    <label data-bank-id={bank.slug} key={bank.slug}>
-                      <input
-                        type={mode === "single" ? "radio" : "checkbox"}
-                        name={mode === "single" ? "one-bank" : `custom-bank-${bank.slug}`}
-                        checked={selectedBankIds.includes(bank.slug)}
-                        disabled={mode === "builder" && hasPaidAccess && selectedBankIds.length >= 5 && !selectedBankIds.includes(bank.slug)}
-                        onChange={() => toggleBank(bank.slug)}
-                      />
-                      <span>{bank.shortName}</span>
-                    </label>
-                  ))}
-                </div>
-              </section>
-            ))}
+            {leadGroups.map(renderGroup)}
+            {otherGroups.length ? (
+              <details className="custom-bank-other-boards" open={otherBoardsOpen || othersHoldSelection} onToggle={(event) => setOtherBoardsOpen(event.currentTarget.open)}>
+                <summary>Other boards</summary>
+                {otherGroups.map(renderGroup)}
+              </details>
+            ) : null}
           </div>
         </fieldset>
       </details>

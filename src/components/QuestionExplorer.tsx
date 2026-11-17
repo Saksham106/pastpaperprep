@@ -15,6 +15,7 @@ import { PeriodicTableButton } from "@/components/PeriodicTableButton";
 import { FormulaListButton } from "@/components/FormulaListButton";
 import { hasPeriodicTable } from "@/lib/periodic-table";
 import { isNotSatSeries } from "@/lib/series-notes";
+import { rememberBoardOfBank } from "@/lib/remembered-board";
 import { MAX_PDF_QUESTIONS } from "@/lib/export-limits";
 import { fetchExplanation } from "@/lib/explanation-client";
 import type { Explanation } from "@/lib/explanation-format";
@@ -910,6 +911,9 @@ access: ExplorerAccess;
     const release = trapDialogFocus(signinPromptRef.current, () => setSigninPrompt(null));
     return () => { release(); trigger?.focus(); };
   }, [signinPrompt]);
+
+  // Opening a bank makes its board the remembered one, so home, notes and pricing open on it next time.
+  useEffect(() => { if (hydrateFromLocation && bank) rememberBoardOfBank(bank); }, [bank, hydrateFromLocation]);
 
   useEffect(() => {
     const questionId = new URLSearchParams(window.location.search).get("save");

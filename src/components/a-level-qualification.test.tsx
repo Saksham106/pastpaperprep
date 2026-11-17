@@ -61,14 +61,19 @@ describe("Cambridge A Level, once a bank is displayed", () => {
     expect(screen.getByRole("link", { name: "Cambridge A Level hub" })).toHaveAttribute("href", "/cambridge-a-level");
   });
 
-  it("shows an A Level tab after IB on the home page and in notes", () => {
+  it("orders the home tabs IGCSE · A Level · IB with full board names for screen readers", () => {
     previewEnv();
     render(<MarketingHome environment={PREVIEW} />);
-    const tabs = screen.getAllByRole("tab").map((tab) => tab.textContent);
-    expect(tabs).toEqual(["Cambridge IGCSE", "IB Diploma", "Cambridge A Level"]);
-    const banks = getCatalogRuntimeBanks(PREVIEW);
-    render(<NotesHome banks={banks} />);
-    expect(screen.getAllByRole("tab", { name: "Cambridge A Level" }).length).toBeGreaterThan(0);
+    const tabs = screen.getAllByRole("tab");
+    expect(tabs.map((tab) => tab.textContent)).toEqual(["IGCSE", "A Level", "IB"]);
+    expect(tabs.map((tab) => tab.getAttribute("aria-label"))).toEqual(["Cambridge IGCSE", "Cambridge A Level", "IB Diploma"]);
+  });
+
+  it("leaves A Level off the notes page until it has notes: no tab of Coming soon rows", () => {
+    previewEnv();
+    render(<NotesHome banks={getCatalogRuntimeBanks(PREVIEW)} />);
+    expect(screen.queryByRole("tab", { name: "Cambridge A Level" })).toBeNull();
+    expect(screen.getAllByRole("tab").map((tab) => tab.textContent)).toEqual(["IGCSE", "IB"]);
   });
 
   it("puts A Level on the dashboard when the plan includes it", () => {

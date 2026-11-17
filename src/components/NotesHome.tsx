@@ -39,7 +39,8 @@ export function NotesHome({ banks }: { banks: readonly Bank[] }) {
       <QualificationTabs items={[
         ...(cambridge.length ? [{ id: "notes-igcse", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <NotesCards banks={cambridge} /> }] : []),
         ...(ib.length ? [{ id: "notes-ib", label: "IB Diploma", qualification: "ib" as const, panel: <NotesCards banks={ib} /> }] : []),
-        ...(aLevel.length ? [{ id: "notes-a-level", label: "Cambridge A Level", qualification: "a-level" as const, panel: <NotesCards banks={aLevel} /> }] : []),
+        // A board appears here once it has notes: no tab of "Coming soon" rows.
+        ...(notesRows(aLevel).some((row) => row.notes) ? [{ id: "notes-a-level", label: "Cambridge A Level", qualification: "a-level" as const, panel: <NotesCards banks={aLevel} /> }] : []),
       ]} />
     </div>
   );

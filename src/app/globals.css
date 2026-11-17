@@ -887,6 +887,13 @@ main { min-height: 72vh; }
 .custom-bank-group label:focus-within { outline: 2px solid var(--cobalt); outline-offset: 1px; }
 .custom-bank-group label span { min-width: 0; }
 .custom-bank-group input { width: 15px; height: 15px; margin: 0; flex: 0 0 auto; accent-color: var(--cobalt); }
+/* The remembered board's groups lead; other boards fold under one quiet row and stay selectable. */
+.custom-bank-other-boards { display: grid; gap: 7px; }
+.custom-bank-other-boards > summary { min-height: 40px; padding: 0 8px; display: flex; align-items: center; gap: 6px; color: var(--muted); font: 800 .66rem/1.2 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; list-style: none; cursor: pointer; border: 1px dashed var(--line-strong); border-radius: 8px; }
+.custom-bank-other-boards > summary::-webkit-details-marker { display: none; }
+.custom-bank-other-boards > summary::before { content: "+"; font-size: .9rem; }
+.custom-bank-other-boards[open] > summary::before { content: "−"; }
+.custom-bank-other-boards > summary:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 1px; }
 .custom-bundle-selection-note { margin: 0; color: var(--muted); font-size: .78rem; }
 .plan-selector { position: relative; display: grid; gap: 6px; color: var(--muted); font-size: .82rem; }
 .plan-selector:has(.plan-select-menu) { z-index: 20; }

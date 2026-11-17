@@ -3,7 +3,8 @@
  * against "Cambridge IGCSE" / "IB Diploma", so a new board is one entry here plus its banks.
  * Pure and client-safe: no catalog import, so catalog.ts and client components can both use it.
  */
-export const QUALIFICATION_IDS = ["igcse", "ib", "a-level"] as const;
+/** Display order everywhere boards are listed: Cambridge students move from IGCSE to A Level. */
+export const QUALIFICATION_IDS = ["igcse", "a-level", "ib"] as const;
 export type QualificationId = (typeof QUALIFICATION_IDS)[number];
 
 /** The catalog's qualification label (`CatalogBank.qualification`). */

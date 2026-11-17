@@ -4,6 +4,9 @@ import Image from "next/image";
 import { BookOpen, CaretDown, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import { getCatalogBank } from "@/lib/catalog";
+import { bankGroupsByBoard, splitByBoard } from "@/lib/bank-groups";
+import { qualificationIdOf } from "@/lib/qualifications";
+import { useRememberedBoard } from "@/lib/remembered-board";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
 
 type Bank = { slug: string; name: string };
@@ -53,6 +56,8 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [pendingRemoval, setPendingRemoval] = useState<string | null>(null);
+  const rememberedBoard = useRememberedBoard();
+  const [otherBoardsOpen, setOtherBoardsOpen] = useState(false);
   const removalTrigger = useRef<HTMLInputElement | null>(null);
   const removalDialog = useRef<HTMLDialogElement | null>(null);
   const keepBankButton = useRef<HTMLButtonElement | null>(null);
@@ -200,14 +205,11 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   }
 
   if (subscription.bankSelection.kind === "unknown" || !bankOptions.length) return null;
-  const bankGroups = [
-    { label: "Cambridge", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "Cambridge IGCSE") },
-    { label: "IB Mathematics", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && getCatalogBank(bank.slug)?.subject.startsWith("Mathematics")) },
-    { label: "IB Sciences", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && !getCatalogBank(bank.slug)?.subject.startsWith("Mathematics") && getCatalogBank(bank.slug)?.subject !== "Computer Science") },
-    { label: "IB Computer Science", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "IB Diploma" && getCatalogBank(bank.slug)?.subject === "Computer Science") },
-    { label: "Cambridge A Level", banks: bankOptions.filter((bank) => getCatalogBank(bank.slug)?.qualification === "Cambridge A Level") },
-    { label: "Other banks", banks: bankOptions.filter((bank) => !getCatalogBank(bank.slug)) },
-  ].filter((group) => group.banks.length > 0);
+  // The remembered board's groups lead; other boards fold beneath, opening when they hold a picked or current bank.
+  const { first: leadGroups, others: otherGroups } = splitByBoard(bankGroupsByBoard(bankOptions, (bank) => {
+    const entry = getCatalogBank(bank.slug);
+    return { board: entry ? qualificationIdOf(entry.qualification) : null, subject: entry?.subject ?? "" };
+  }), rememberedBoard);
   return <div className="account-plan-editor">
     {notice ? <p role="status" className="account-editor-note">{notice}</p> : null}
     {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
@@ -254,7 +256,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
               {ownedSingle ? <div className="custom-bank-disclosure account-owned-bank"><span>Your bank</span><span className="custom-bank-disclosure-value">{bankOptions.find((bank) => bank.slug === currentIds[0])?.name ?? currentIds[0]}</span></div>
                 : option !== "all" ? <details ref={option === "builder" ? builderDisclosure : undefined} className="custom-bank-disclosure"><summary><span>{option === "single" ? "Choose question bank" : "Choose your banks"}</span><span className="custom-bank-disclosure-value">{option === "single" ? active ? bankOptions.find((bank) => bank.slug === selected[0])?.name ?? "Choose a bank" : "Choose a bank" : pickerIds.length ? `${pickerIds.length} selected` : "None selected"}</span><CaretDown aria-hidden="true" weight="bold" /></summary>
                 <fieldset className="custom-bank-picker" disabled={busy || subscription.cancelAtPeriodEnd}><legend className="sr-only">{option === "single" ? "Choose one question bank" : "Choose the banks you need"}</legend><div className="custom-bank-groups">
-                  {bankGroups.map((group) => <section className="custom-bank-group" key={`${option}-${group.label}`} aria-label={group.label}><h3>{group.label}</h3><div className="custom-bank-group-options">{group.banks.map((bank) => <label key={bank.slug} data-bank-id={bank.slug}><input type={option === "single" ? "radio" : "checkbox"} name={option === "single" ? "account-one-bank" : `account-bank-${bank.slug}`} checked={option === "single" ? active && selected.includes(bank.slug) : pickerIds.includes(bank.slug)} disabled={option === "builder" && pickerIds.length >= 5 && !pickerIds.includes(bank.slug)} onChange={(event) => option === "single" ? selectSingle(bank.slug) : toggle(bank.slug, event.currentTarget)} /><span>{bank.name}</span>{option === "builder" && currentIds.includes(bank.slug) ? <small className="account-bank-current-tag" aria-hidden="true">Current</small> : null}</label>)}</div></section>)}
+                  {(() => { const renderGroup = (group: (typeof leadGroups)[number]) => <section className="custom-bank-group" key={`${option}-${group.label}`} aria-label={group.label}><h3>{group.label}</h3><div className="custom-bank-group-options">{group.banks.map((bank) => <label key={bank.slug} data-bank-id={bank.slug}><input type={option === "single" ? "radio" : "checkbox"} name={option === "single" ? "account-one-bank" : `account-bank-${bank.slug}`} checked={option === "single" ? active && selected.includes(bank.slug) : pickerIds.includes(bank.slug)} disabled={option === "builder" && pickerIds.length >= 5 && !pickerIds.includes(bank.slug)} onChange={(event) => option === "single" ? selectSingle(bank.slug) : toggle(bank.slug, event.currentTarget)} /><span>{bank.name}</span>{option === "builder" && currentIds.includes(bank.slug) ? <small className="account-bank-current-tag" aria-hidden="true">Current</small> : null}</label>)}</div></section>; const holdsPick = otherGroups.some((group) => group.banks.some((bank) => pickerIds.includes(bank.slug) || currentIds.includes(bank.slug))); return <>{leadGroups.map(renderGroup)}{otherGroups.length ? <details className="custom-bank-other-boards" open={otherBoardsOpen || holdsPick} onToggle={(event) => setOtherBoardsOpen(event.currentTarget.open)}><summary>Other boards</summary>{otherGroups.map(renderGroup)}</details> : null}</>; })()}
                 </div></fieldset></details> : null}
               {option === "builder" && pendingRemoval ? <dialog ref={removalDialog} className="account-owned-removal-confirm" role="alertdialog" aria-modal="true" aria-labelledby="account-owned-removal-title" aria-describedby="account-owned-removal-description" onCancel={(event) => { event.preventDefault(); dismissRemoval(); }} onKeyDown={(event) => { if (event.key === "Escape") { event.stopPropagation(); dismissRemoval(); } }}>
                 <h3 id="account-owned-removal-title">Remove {bankOptions.find((bank) => bank.slug === pendingRemoval)?.name ?? pendingRemoval} at renewal?</h3>

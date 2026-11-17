@@ -84,12 +84,7 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
           {physicsNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={physicsNotesHref}>Notes: IB Physics course notes</Link> with worked examples and checks for every topic.</p> : null}
           <p>Comparing revision platforms? Read <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link> or our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
         </section>
-      ) : qualification === "Cambridge A Level" ? (
-        <section className="landing-method" aria-labelledby="a-level-resources-heading">
-          <div><Target aria-hidden="true" /><h2 id="a-level-resources-heading">Practise by topic</h2></div>
-          <p>Every question comes with its mark scheme, so you can mark your own work as you go.</p>
-        </section>
-      ) : (
+      ) : qualification === "Cambridge A Level" ? null : (
         <section className="landing-method" aria-labelledby="igcse-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="igcse-resources-heading">Choose a free past-paper archive</h2></div>
           {notesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={notesHref}>Notes: IGCSE Maths 0580 course notes</Link> with worked examples and checks for every topic.</p> : null}
