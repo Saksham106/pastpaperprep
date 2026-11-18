@@ -16,6 +16,7 @@ import {
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { A_LEVEL_MATHS_9709, MATHS_9709_PAPERS, MATHS_9709_SECTION_ORDER } from "@/lib/a-level-9709";
+import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_TOPIC_ORDER } from "@/lib/a-level-9702";
 import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -166,6 +167,11 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   if (isComputerScienceBank(bank)) return [...COMPUTER_SCIENCE_TOPIC_ORDER];
   if (isIbComputerScienceBank(bank)) return ibComputerScienceTopics(bank!).map((topic) => topic.label);
   // 9709: syllabus order. The explorer passes only the selected paper's questions, so a paper tab lists that paper's sections.
+  // 9702: topics 1-25 in syllabus order, then the named earlier-syllabus topics (2020-2021 papers) at the end.
+  if (bank === A_LEVEL_PHYSICS_9702) {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    return [...PHYSICS_9702_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !PHYSICS_9702_TOPIC_ORDER.includes(topic)).sort()];
+  }
   if (bank === A_LEVEL_MATHS_9709) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     // One paper (a paper tab): that paper's own section order. Several papers: first appearance across Papers 1-6.

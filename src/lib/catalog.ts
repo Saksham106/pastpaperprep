@@ -3,7 +3,7 @@ import { BOARD_SUBJECT_ORDER, qualificationInfo, type QualificationLabel } from 
 
 export type Qualification = QualificationLabel;
 export type DeliveryMode = "hosted" | "local-preview";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702";
 
 export type CatalogBank = {
   slug: BankSlug;
@@ -29,7 +29,8 @@ export type CatalogBank = {
 
 const bank = (entry: Omit<CatalogBank, "route">): CatalogBank => ({
   ...entry,
-  bundleProductId: entry.bundleProductId ?? (entry.slug.startsWith("igcse") ? "bundle_igcse" : entry.subject.startsWith("Mathematics AA") ? "bundle_ib_aa" : entry.subject.startsWith("Mathematics AI") ? "bundle_ib_ai" : entry.subject === "Chemistry" ? "bundle_ib_chemistry" : entry.subject === "Physics" ? "bundle_ib_physics" : entry.subject === "Biology" ? "bundle_ib_biology" : undefined),
+  // Subject-named pair bundles are IB products: an A Level Physics bank must never inherit bundle_ib_physics.
+  bundleProductId: entry.bundleProductId ?? (entry.slug.startsWith("igcse") ? "bundle_igcse" : entry.qualification !== "IB Diploma" ? undefined : entry.subject.startsWith("Mathematics AA") ? "bundle_ib_aa" : entry.subject.startsWith("Mathematics AI") ? "bundle_ib_ai" : entry.subject === "Chemistry" ? "bundle_ib_chemistry" : entry.subject === "Physics" ? "bundle_ib_physics" : entry.subject === "Biology" ? "bundle_ib_biology" : undefined),
   route: `/banks/${entry.slug}`,
 });
 
@@ -60,6 +61,9 @@ export const BANK_CATALOG = [
   bank({ slug: "ib-economics-hl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Higher Level", shortName: "IB Economics HL", syllabusCode: "Economics", level: "HL", questionCount: 128, paperCount: 49, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_hl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
   bank({ slug: "ib-economics-sl", qualification: "IB Diploma", subject: "Economics", title: "IB Economics Standard Level", shortName: "IB Economics SL", syllabusCode: "Economics", level: "SL", questionCount: 104, paperCount: 38, years: "2021-2026", access: "paid-bank", productId: "bank_ib_economics_sl", bundleProductId: "bundle_ib_economics", release: "gated", delivery: "local-preview", localPreview: true }),
   // Cambridge International AS & A Level Mathematics 9709 (2020 syllabus onward): one bank with paper tabs.
+  // Cambridge International AS & A Level Physics 9702: Papers 1 (multiple choice), 2 and 4, with paper tabs like 9709.
+  // Hidden (pendingStorage) until the owner-approved R2 upload is read back and the runtime is finalized.
+  bank({ slug: "a-level-physics-9702", qualification: "Cambridge A Level", subject: "Physics", title: "Physics 9702", shortName: "Physics 9702", syllabusCode: "9702", level: "AS & A Level", questionCount: 2627, paperCount: 132, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_physics_9702", release: "gated", delivery: "hosted", pendingStorage: true }),
   // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: served under the shared release
   // gate like the other private-storage banks (switched on 2026-11-18).
   bank({ slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", shortName: "Mathematics 9709", syllabusCode: "9709", level: "AS & A Level", questionCount: 2118, paperCount: 256, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_maths_9709", release: "gated", delivery: "hosted" }),

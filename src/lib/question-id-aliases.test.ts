@@ -25,7 +25,8 @@ describe('retired question id aliases', () => {
   });
 
   it('covers exactly the retired 2026 donated ids and the 9709 duplicate variants, one to one, onto live questions', async () => {
-    expect(Object.keys(banks).sort()).toEqual(['a-level-maths-9709', 'ib-hl', 'ib-sl']);
+    expect(Object.keys(banks).sort()).toEqual(['a-level-maths-9709', 'a-level-physics-9702', 'ib-hl', 'ib-sl']);
+    expect(Object.keys(banks['a-level-physics-9702'])).toHaveLength(184);
     expect(Object.keys(banks['ib-hl'])).toHaveLength(26);
     expect(Object.keys(banks['ib-sl'])).toHaveLength(36);
     expect(Object.keys(banks['a-level-maths-9709'])).toHaveLength(149);

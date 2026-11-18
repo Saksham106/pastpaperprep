@@ -145,7 +145,13 @@ describe("A Level Mathematics 9709 billing", () => {
     const migrations = readdirSync(join(ROOT, "supabase/migrations")).filter((file) => file.endsWith(".sql")).sort();
     const versions = migrations.map((file) => file.slice(0, 14));
     expect(new Set(versions).size).toBe(versions.length);
-    expect(migrations.at(-1)).toBe(name);
+    // A later bank release may redefine these objects only by carrying 9709 forward in every list.
+    for (const later of migrations.filter((file) => file > name)) {
+      const body = readFileSync(join(ROOT, "supabase/migrations", later), "utf8");
+      if (!/products_known_id|function public\.confirm_billing_checkout/.test(body)) continue;
+      expect(body.match(/'bank_a_level_maths_9709'/g)?.length, `${later} drops bank_a_level_maths_9709`).toBe(6);
+      expect(body.match(/'a-level-maths-9709'/g)?.length, `${later} drops a-level-maths-9709`).toBe(3);
+    }
     const migration = readFileSync(join(ROOT, "supabase/migrations", name), "utf8");
     const source = readFileSync(join(ROOT, "supabase/migrations/20261020020000_ib_computer_science_release.sql"), "utf8");
     expect(migration.startsWith("begin;")).toBe(true);

@@ -31,6 +31,7 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "ib-computer-science-sl": async () => (await import("@/data/production/ib-computer-science-sl.json")).default as RawBank,
   // Candidate runtime; the bank stays hidden (pendingStorage) until its crops are uploaded and it is finalized.
   "a-level-maths-9709": async () => (await import("@/data/production/a-level-maths-9709.json")).default as RawBank,
+  "a-level-physics-9702": async () => (await import("@/data/production/a-level-physics-9702.json")).default as RawBank,
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();

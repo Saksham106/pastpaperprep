@@ -19,6 +19,8 @@ import ibComputerScienceSl from "@/data/production/ib-computer-science-sl.json";
 import ibComputerScienceTaxonomy from "@/data/ib-computer-science-taxonomy.json";
 import aLevelMaths9709 from "@/data/production/a-level-maths-9709.json";
 import aLevelMaths9709Taxonomy from "@/data/a-level-maths-9709-taxonomy.json";
+import aLevelPhysics9702 from "@/data/production/a-level-physics-9702.json";
+import aLevelPhysics9702Taxonomy from "@/data/a-level-physics-9702-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
 type IGCSEArtifact = {
@@ -159,6 +161,7 @@ export const IGCSE_RUNTIME_COUNTS = {
   "ib-computer-science-hl": [506, 32],
   "ib-computer-science-sl": [391, 32],
   "a-level-maths-9709": [2118, 256],
+  "a-level-physics-9702": [2627, 132],
 } as const;
 const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-biology-0610": biology as IGCSEArtifact,
@@ -170,6 +173,7 @@ const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "ib-computer-science-hl": ibComputerScienceHl as IGCSEArtifact,
   "ib-computer-science-sl": ibComputerScienceSl as IGCSEArtifact,
   "a-level-maths-9709": aLevelMaths9709 as IGCSEArtifact,
+  "a-level-physics-9702": aLevelPhysics9702 as IGCSEArtifact,
 };
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-biology-0610": biologyTaxonomy,
@@ -181,6 +185,7 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "ib-computer-science-hl": ibComputerScienceTaxonomy,
   "ib-computer-science-sl": ibComputerScienceTaxonomy,
   "a-level-maths-9709": aLevelMaths9709Taxonomy,
+  "a-level-physics-9702": aLevelPhysics9702Taxonomy,
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -193,6 +198,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
   "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
+  "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -205,6 +211,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
   "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
+  "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
 };
 
 function canonicalSha256(value: unknown) {

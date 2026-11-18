@@ -66,6 +66,13 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482',
   },
+  // Cambridge International A Level Physics 9702: 2,627 rows (P1 multiple choice, P2, P4), one segmentation lane.
+  'a-level-physics-9702': {
+    prefix: 'a-level-physics-9702/releases/full2627-v1-625c919f2ca5',
+    sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_PHYSICS_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099',
+  },
 };
 
 export function sha256(value) {
@@ -196,7 +203,7 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
   // So does the A Level Maths 9709 source (assets/<paper>/questions|markschemes/<file>).
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
