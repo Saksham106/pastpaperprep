@@ -68,7 +68,7 @@ describe("canonical search metadata", () => {
   });
 
   it("gives the homepage and pricing page distinct canonical metadata", () => {
-    expect(homeMetadata.title).toEqual({ absolute: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep" });
+    expect(homeMetadata.title).toEqual({ absolute: "Free IGCSE, A Level & IB Past Papers by Topic | PastPaperPrep" });
     expect(homeMetadata.alternates?.canonical).toBe("/");
     expect(homeMetadata.openGraph).toMatchObject({
       url: "/",

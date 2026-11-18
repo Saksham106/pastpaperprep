@@ -27,8 +27,17 @@ export type QualificationInfo = {
   socialPreview: "igcse" | "ib";
 };
 
+/**
+ * Subject order within a board, where catalog order isn't the order students expect. Every list of a board's banks
+ * (hub cards, footer group, pricing pickers) follows it through `getCatalogBanksForDisplay`. A Level: Mathematics,
+ * Chemistry, Physics (owner, 2026-11-18). Subjects not listed keep catalog order after the listed ones.
+ */
+export const BOARD_SUBJECT_ORDER: Partial<Record<QualificationId, readonly string[]>> = {
+  "a-level": ["Mathematics", "Chemistry", "Physics"],
+};
+
 export const QUALIFICATIONS: Record<QualificationId, QualificationInfo> = {
-  igcse: { id: "igcse", label: "Cambridge IGCSE", runtimeLabel: "Cambridge IGCSE", shortLabel: "IGCSE", namePrefix: "IGCSE ", hubPath: "/cambridge-igcse", groupLabel: "Cambridge", socialPreview: "igcse" },
+  igcse: { id: "igcse", label: "Cambridge IGCSE", runtimeLabel: "Cambridge IGCSE", shortLabel: "IGCSE", namePrefix: "IGCSE ", hubPath: "/cambridge-igcse", groupLabel: "Cambridge IGCSE", socialPreview: "igcse" },
   ib: { id: "ib", label: "IB Diploma", runtimeLabel: "International Baccalaureate", shortLabel: "IB", namePrefix: "", hubPath: "/ib", groupLabel: "IB", socialPreview: "ib" },
   "a-level": { id: "a-level", label: "Cambridge A Level", runtimeLabel: "Cambridge A Level", shortLabel: "A Level", namePrefix: "A Level ", hubPath: "/cambridge-a-level", groupLabel: "Cambridge A Level", socialPreview: "igcse" },
 };

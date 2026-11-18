@@ -140,7 +140,7 @@ describe("home page", () => {
 
   it("describes Economics in homepage search metadata", () => {
     expect(JSON.stringify(metadata)).toContain("Economics");
-    expect(metadata.title).toEqual({ absolute: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep" });
+    expect(metadata.title).toEqual({ absolute: "Free IGCSE, A Level & IB Past Papers by Topic | PastPaperPrep" });
     expect(metadata.description?.length).toBeGreaterThanOrEqual(25);
     expect(metadata.description?.length).toBeLessThanOrEqual(160);
   });

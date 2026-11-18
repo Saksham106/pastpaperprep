@@ -1,4 +1,4 @@
-import type { QualificationId } from "@/lib/qualifications";
+import { QUALIFICATIONS, type QualificationId } from "@/lib/qualifications";
 
 /** A labelled group of banks in the "Choose your banks" picker, tagged with its board. */
 export type BankGroup<T> = { label: string; board: QualificationId | null; banks: readonly T[] };
@@ -13,8 +13,8 @@ export function bankGroupsByBoard<T>(banks: readonly T[], facts: (bank: T) => Ba
   const of = (test: (fact: BankFacts) => boolean) => banks.filter((bank) => test(facts(bank)));
   const ib = (fact: BankFacts) => fact.board === "ib";
   const groups: BankGroup<T>[] = [
-    { label: "Cambridge", board: "igcse", banks: of((fact) => fact.board === "igcse") },
-    { label: "Cambridge A Level", board: "a-level", banks: of((fact) => fact.board === "a-level") },
+    { label: QUALIFICATIONS.igcse.groupLabel, board: "igcse", banks: of((fact) => fact.board === "igcse") },
+    { label: QUALIFICATIONS["a-level"].groupLabel, board: "a-level", banks: of((fact) => fact.board === "a-level") },
     { label: "IB Mathematics", board: "ib", banks: of((fact) => ib(fact) && fact.subject.startsWith("Mathematics")) },
     { label: "IB Sciences", board: "ib", banks: of((fact) => ib(fact) && !fact.subject.startsWith("Mathematics") && !fact.subject.startsWith("Computer Science")) },
     { label: "IB Computer Science", board: "ib", banks: of((fact) => ib(fact) && fact.subject.startsWith("Computer Science")) },

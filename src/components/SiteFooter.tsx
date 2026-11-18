@@ -17,7 +17,7 @@ export function SiteFooter() {
   const hasALevel = banks.some((bank) => bank.qualification === "Cambridge A Level");
   const groups = new Map<string, [string, string][]>();
   for (const bank of banks) {
-    const group = bank.qualification === "Cambridge IGCSE" ? "Cambridge" : bank.qualification === "Cambridge A Level" ? QUALIFICATIONS["a-level"].groupLabel : bank.subject.startsWith("Mathematics") ? "IB Mathematics" : bank.subject === "Computer Science" ? "IB Computer Science" : "IB Sciences & Economics";
+    const group = bank.qualification === "Cambridge IGCSE" ? QUALIFICATIONS.igcse.groupLabel : bank.qualification === "Cambridge A Level" ? QUALIFICATIONS["a-level"].groupLabel : bank.subject.startsWith("Mathematics") ? "IB Mathematics" : bank.subject === "Computer Science" ? "IB Computer Science" : "IB Sciences & Economics";
     const links = groups.get(group) ?? [];
     const label = bank.title.replace(/ Higher Level$/, " HL").replace(/ Standard Level$/, " SL");
     links.push([bank.route, bank.qualification === "IB Diploma" ? label : qualifiedBankTitle({ qualification: bank.qualification, title: label })]);

@@ -306,7 +306,7 @@ describe("approved custom-bank pricing", () => {
     const groups = builder.querySelectorAll(".custom-bank-group");
 
     expect(groups).toHaveLength(3);
-    expect(within(builder).getByText("Cambridge")).toBeInTheDocument();
+    expect(within(builder).getByText("Cambridge IGCSE")).toBeInTheDocument();
     expect(within(builder).getByText("IB Mathematics")).toBeInTheDocument();
     expect(within(builder).getByText("IB Sciences")).toBeInTheDocument();
     expect(builder.querySelectorAll("[data-bank-id]")).toHaveLength(availableBanks.length);
@@ -320,7 +320,7 @@ describe("approved custom-bank pricing", () => {
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
     const groups = [...builder.querySelectorAll(".custom-bank-group")];
 
-    expect(groups.map((group) => group.querySelector("h3")?.textContent)).toEqual(["Cambridge", "IB Mathematics", "IB Sciences", "IB Computer Science"]);
+    expect(groups.map((group) => group.querySelector("h3")?.textContent)).toEqual(["Cambridge IGCSE", "IB Mathematics", "IB Sciences", "IB Computer Science"]);
     const own = groups.find((group) => group.querySelector("h3")?.textContent === "IB Computer Science")!;
     expect([...own.querySelectorAll("[data-bank-id]")].map((row) => row.getAttribute("data-bank-id"))).toEqual(["ib-computer-science-hl", "ib-computer-science-sl"]);
     expect(groups.find((group) => group.querySelector("h3")?.textContent === "IB Sciences")!.querySelector('[data-bank-id^="ib-computer-science"]')).toBeNull();

@@ -23,7 +23,7 @@ const sample = [
 describe("bank groups by board", () => {
   it("lists groups IGCSE · A Level · IB, dropping empty ones", () => {
     expect(bankGroupsByBoard(sample, facts).map((group) => [group.label, group.board])).toEqual([
-      ["Cambridge", "igcse"], ["Cambridge A Level", "a-level"], ["IB Mathematics", "ib"], ["IB Sciences", "ib"], ["IB Computer Science", "ib"],
+      ["Cambridge IGCSE", "igcse"], ["Cambridge A Level", "a-level"], ["IB Mathematics", "ib"], ["IB Sciences", "ib"], ["IB Computer Science", "ib"],
     ]);
   });
 
@@ -31,7 +31,7 @@ describe("bank groups by board", () => {
     const groups = bankGroupsByBoard(sample, facts);
     const ib = splitByBoard(groups, "ib");
     expect(ib.first.map((group) => group.label)).toEqual(["IB Mathematics", "IB Sciences", "IB Computer Science"]);
-    expect(ib.others.map((group) => group.label)).toEqual(["Cambridge", "Cambridge A Level"]);
+    expect(ib.others.map((group) => group.label)).toEqual(["Cambridge IGCSE", "Cambridge A Level"]);
     expect(splitByBoard(groups, null)).toEqual({ first: groups, others: [] });
     expect(splitByBoard(bankGroupsByBoard(sample.filter((bank) => bank.board !== "a-level"), facts), "a-level").others).toEqual([]);
   });
@@ -94,6 +94,6 @@ describe("Choose your banks: remembered board first", () => {
   it("shows every group in one list when no board is remembered", () => {
     render(<CustomBundleCheckout mode="builder" interval="monthly" authenticated={true} hasPaidAccess={false} availableBanks={BANKS} />);
     expect(otherBoards()).toBeNull();
-    expect([...document.querySelectorAll(".custom-bank-group h3")].map((heading) => heading.textContent)).toEqual(["Cambridge", "IB Mathematics", "IB Sciences"]);
+    expect([...document.querySelectorAll(".custom-bank-group h3")].map((heading) => heading.textContent)).toEqual(["Cambridge IGCSE", "IB Mathematics", "IB Sciences"]);
   });
 });

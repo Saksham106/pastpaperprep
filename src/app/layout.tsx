@@ -20,8 +20,8 @@ const mono = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight
 export const metadata: Metadata = {
   metadataBase: new URL("https://pastpaperprep.com"),
   applicationName: "PastPaperPrep",
-  title: { default: "PastPaperPrep | IGCSE & IB Maths, Sciences and Economics Past Papers", template: "%s | PastPaperPrep" },
-  description: "Practise Cambridge IGCSE and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics past-paper questions by topic, then build printable revision sets.",
+  title: { default: "PastPaperPrep | IGCSE, A Level & IB Maths, Sciences and Economics Past Papers", template: "%s | PastPaperPrep" },
+  description: "Practise Cambridge IGCSE, Cambridge A Level and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics past-paper questions by topic, then build printable revision sets.",
   keywords: [
     "IGCSE maths past papers",
     "IGCSE Biology past papers",
@@ -42,16 +42,16 @@ export const metadata: Metadata = {
   category: "education",
   openGraph: {
     siteName: "PastPaperPrep",
-    title: "PastPaperPrep | IGCSE & IB Maths, Sciences and Economics Past Papers",
-    description: "Topic-by-topic practice across Cambridge IGCSE and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.",
+    title: "PastPaperPrep | IGCSE, A Level & IB Maths, Sciences and Economics Past Papers",
+    description: "Topic-by-topic practice across Cambridge IGCSE, Cambridge A Level and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.",
     type: "website",
     locale: "en_US",
     ...socialPreview(),
   },
   twitter: {
     card: "summary_large_image",
-    title: "PastPaperPrep | IGCSE & IB Maths, Sciences and Economics Past Papers",
-    description: "Topic-by-topic practice across Cambridge IGCSE and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.",
+    title: "PastPaperPrep | IGCSE, A Level & IB Maths, Sciences and Economics Past Papers",
+    description: "Topic-by-topic practice across Cambridge IGCSE, Cambridge A Level and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.",
     images: [SOCIAL_IMAGE_URL],
   },
   verification: process.env.GOOGLE_SITE_VERIFICATION

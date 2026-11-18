@@ -35,7 +35,7 @@ describe("A Level 9709 paper tabs", () => {
   it("gives each paper its own route and opens on Pure 1", () => {
     expect([1, 2, 3, 4, 5, 6].map((paper) => deriveCourseRoute("a-level-maths-9709", paper))).toEqual(["pure-1", "pure-2", "pure-3", "mechanics", "ps-1", "ps-2"]);
     expect(defaultRouteSelection("a-level-maths-9709")).toBe("pure-1");
-    expect(routeConfigFor("a-level-maths-9709")?.options.map((option) => option.label)).toEqual(["Pure 1", "Pure 2", "Pure 3", "Mechanics", "P&S 1", "P&S 2"]);
+    expect(routeConfigFor("a-level-maths-9709")?.options.map((option) => option.label)).toEqual(["Pure 1", "Pure 2", "Pure 3", "Mechanics", "Stats 1", "Stats 2"]);
     expect(routeConfigFor("a-level-maths-9709")).toMatchObject({ allLabel: "All papers", remember: true, scopesTopics: true, hidesPaperFilter: true });
   });
 
@@ -51,7 +51,7 @@ describe("A Level 9709 paper tabs", () => {
     expect(parseRouteSelection("a-level-maths-9709", "core")).toBeUndefined();
     expect(parseRouteSelection("igcse", "pure-1")).toBeUndefined();
     expect(parseRouteSelection("ib-hl", "core")).toBeUndefined();
-    expect(routeLabel("a-level-maths-9709", "ps-2")).toBe("P&S 2");
+    expect(routeLabel("a-level-maths-9709", "ps-2")).toBe("Stats 2");
     expect(routePapers("a-level-maths-9709", "mechanics")).toEqual([4]);
     expect(routePapers("a-level-maths-9709", "all")).toBeUndefined();
   });

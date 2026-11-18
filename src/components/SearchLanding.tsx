@@ -214,6 +214,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
   const facts = kind === "topic"
     ? topicFacts({ bankName, topic: label, total: stats.total, free: stats.free, bankTotal: bank.questionCount, years: bank.years, papers: stats.breakdown, explanations })
     : paperFacts({ bankName, paper: label, total: stats.total, free: stats.free, years: bank.years, topics: stats.breakdown, explanations });
+  const topicQuote = topicTestimonial(bank.slug);
   return (
     <div className={`search-landing search-detail shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/banks/${bank.slug}#page` } }} />
@@ -227,7 +228,7 @@ export function SearchDetail({ bank, eyebrow, title, kind, label, canonicalPath,
       <QuickFacts id="detail-facts-heading" title={`${label}: quick facts`} facts={facts} />
       {kind === "topic" ? <BankWorkedExample bankSlug={bank.slug} topic={label} /> : null}
       {noteHref ? <p className="access-footnote">Revise first: <Link transitionTypes={PAGE_NAVIGATION} href={noteHref}>{label} revision notes</Link>.</p> : null}
-      {kind === "topic" && <Testimonial testimonial={topicTestimonial(bank.slug)} variant="inline" signedOutOnly />}
+      {kind === "topic" && topicQuote && <Testimonial testimonial={topicQuote} variant="inline" signedOutOnly />}
       {bank.slug === "igcse-chemistry-0620" && kind === "topic" && label === "Stoichiometry" && <p className="access-footnote">Need more revision context? Read our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-igcse-chemistry-0620-question-banks">IGCSE Chemistry 0620 question-bank guide</Link>.</p>}
       {related.length ? <nav className="detail-related" aria-label={`More ${bank.shortName} practice`}><h2>More {bank.shortName} {kind === "topic" ? "topics" : "papers"}</h2><div className="paper-link-grid">{related.map((item) => <Link transitionTypes={PAGE_NAVIGATION} key={item.href} href={item.href}>{kind === "topic" ? <Target aria-hidden="true" /> : <FileText aria-hidden="true" />}<span><strong>{item.label}</strong><small>{item.count.toLocaleString()} questions</small></span><ArrowRight weight="bold" /></Link>)}</div><Link transitionTypes={PAGE_NAVIGATION} className="text-button" href={`/syllabus/${bank.slug}`}>Read the {bank.shortName} syllabus guide <ArrowRight weight="bold" /></Link></nav> : null}
     </div>

@@ -25,8 +25,8 @@ export const MATHS_9709_PAPERS: readonly Maths9709Paper[] = [
   { paper: 2, route: "pure-2", label: "Pure 2", name: "Pure Mathematics 2", level: "AS", marks: 50, sections: ["Algebra", "Logarithmic and exponential functions", "Trigonometry", "Differentiation", "Integration", "Numerical solution of equations"] },
   { paper: 3, route: "pure-3", label: "Pure 3", name: "Pure Mathematics 3", level: "A2", marks: 75, sections: ["Algebra", "Logarithmic and exponential functions", "Trigonometry", "Differentiation", "Integration", "Numerical solution of equations", "Vectors", "Differential equations", "Complex numbers"] },
   { paper: 4, route: "mechanics", label: "Mechanics", name: "Mechanics", level: "AS", marks: 50, sections: ["Forces and equilibrium", "Kinematics of motion in a straight line", "Momentum", "Newton’s laws of motion", "Energy, work and power"] },
-  { paper: 5, route: "ps-1", label: "P&S 1", name: "Probability & Statistics 1", level: "AS", marks: 50, sections: ["Representation of data", "Permutations and combinations", "Probability", "Discrete random variables", "The normal distribution"] },
-  { paper: 6, route: "ps-2", label: "P&S 2", name: "Probability & Statistics 2", level: "A2", marks: 50, sections: ["The Poisson distribution", "Linear combinations of random variables", "Continuous random variables", "Sampling and estimation", "Hypothesis tests"] },
+  { paper: 5, route: "ps-1", label: "Stats 1", name: "Probability & Statistics 1", level: "AS", marks: 50, sections: ["Representation of data", "Permutations and combinations", "Probability", "Discrete random variables", "The normal distribution"] },
+  { paper: 6, route: "ps-2", label: "Stats 2", name: "Probability & Statistics 2", level: "A2", marks: 50, sections: ["The Poisson distribution", "Linear combinations of random variables", "Continuous random variables", "Sampling and estimation", "Hypothesis tests"] },
 ];
 
 /** Syllabus order for the "All papers" topic list: first appearance across Papers 1–6. */

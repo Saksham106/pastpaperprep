@@ -1,5 +1,5 @@
 import type { Bank } from "@/lib/banks";
-import { qualificationInfo, type QualificationLabel } from "@/lib/qualifications";
+import { BOARD_SUBJECT_ORDER, qualificationInfo, type QualificationLabel } from "@/lib/qualifications";
 
 export type Qualification = QualificationLabel;
 export type DeliveryMode = "hosted" | "local-preview";
@@ -87,7 +87,19 @@ export function isPendingStoragePreview(slug: string, environment: Record<string
 export function isCatalogLocalPreviewEnabled(bank: CatalogBank, environment: Record<string, string | undefined> = process.env) {
   return bank.delivery === "local-preview" && environment.NODE_ENV === "development" && isCatalogBankEnabled(bank, environment);
 }
-export function getCatalogBanksForDisplay(environment: Record<string, string | undefined> = process.env) { return BANK_CATALOG.filter((entry) => isCatalogBankEnabled(entry, environment)); }
+export function getCatalogBanksForDisplay(environment: Record<string, string | undefined> = process.env) { return inBoardSubjectOrder(BANK_CATALOG.filter((entry) => isCatalogBankEnabled(entry, environment))); }
+
+/** Reorders each board's banks into BOARD_SUBJECT_ORDER, within that board's own slots; other banks keep their places. */
+export function inBoardSubjectOrder<T extends { qualification: string; subject: string }>(banks: readonly T[]): T[] {
+  const result = [...banks];
+  for (const [board, subjects] of Object.entries(BOARD_SUBJECT_ORDER)) {
+    const slots = result.flatMap((bank, index) => (qualificationInfo(bank.qualification).id === board ? [index] : []));
+    const rank = (bank: T) => { const index = subjects!.indexOf(bank.subject); return index === -1 ? subjects!.length : index; };
+    const ordered = slots.map((index) => result[index]).sort((a, b) => rank(a) - rank(b));
+    slots.forEach((slot, i) => { result[slot] = ordered[i]; });
+  }
+  return result;
+}
 export function getCatalogBillingBanks(environment: Record<string, string | undefined> = process.env) { return getCatalogBanksForDisplay(environment).filter((entry) => isCatalogBankBillable(entry, environment)); }
 
 const SOURCE_BASE_URLS: Partial<Record<BankSlug, string>> = {

@@ -123,7 +123,7 @@ describe("SiteFooter", () => {
     expect(screen.getByRole("link", { name: /^IB Mathematics AA SL$/ })).toHaveAttribute("href", "/banks/ib-sl");
     expect(screen.getByRole("link", { name: /ib mathematics ai hl/i })).toHaveAttribute("href", "/banks/ib-ai-hl");
     expect(screen.getByRole("link", { name: /ib mathematics ai sl/i })).toHaveAttribute("href", "/banks/ib-ai-sl");
-    expect(screen.getByRole("heading", { name: "Cambridge" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Cambridge IGCSE" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "IB Mathematics" })).toBeInTheDocument();
     expect(screen.queryByRole("link", { name: /IB IB/i })).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Revision guides" })).toHaveAttribute("href", "/articles");

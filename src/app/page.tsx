@@ -7,12 +7,12 @@ import { socialPreview } from "@/lib/seo";
 import { COMING_SOON, recentNews } from "@/lib/updates";
 
 export const metadata: Metadata = {
-  title: { absolute: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep" },
-  description: "Free IGCSE & IB past papers and mark schemes. Practise Maths, science and Economics by topic, with worked explanations and printable sets.",
+  title: { absolute: "Free IGCSE, A Level & IB Past Papers by Topic | PastPaperPrep" },
+  description: "Free IGCSE, A Level & IB past papers and mark schemes. Practise Maths, science and Economics by topic, with worked explanations and printable sets.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Free IGCSE & IB Past Papers by Topic | PastPaperPrep",
-    description: "Free IGCSE & IB past papers and mark schemes. Practise Maths, science and Economics by topic, with worked explanations and printable sets.",
+    title: "Free IGCSE, A Level & IB Past Papers by Topic | PastPaperPrep",
+    description: "Free IGCSE, A Level & IB past papers and mark schemes. Practise Maths, science and Economics by topic, with worked explanations and printable sets.",
     url: "/",
     type: "website",
     ...socialPreview(),

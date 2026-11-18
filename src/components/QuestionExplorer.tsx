@@ -44,7 +44,8 @@ import { browserAccountId, trackProductEvent } from "@/lib/product-analytics";
 import { ANONYMOUS_FREE_QUESTION_LIMIT, getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
 import { Testimonial } from "@/components/Testimonial";
-import { PDF_TESTIMONIAL } from "@/lib/testimonials";
+import { PDF_TESTIMONIAL, testimonialForBank } from "@/lib/testimonials";
+import { qualificationIdOfSlug } from "@/lib/qualifications";
 import { FeedTeaserCard, FeedTimelineCard, PracticeMilestone, readFeedNudgeDismissed, trackUpgrade, useUpgradeView, writeFeedNudgeDismissed } from "@/components/UpgradeNudges";
 import { WorksheetEditCard } from "@/components/WorksheetEditCard";
 import { McqAnswerView } from "@/components/McqAnswerView";
@@ -428,6 +429,9 @@ access: ExplorerAccess;
   const routeScopesTopics = Boolean(routeConfig?.scopesTopics);
   const hidePaperFilter = Boolean(routeConfig?.hidesPaperFilter) && effectiveCourseRoute !== "all";
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
+  // Cambridge papers come in variants (values "Variant 1/2/3"); only IB has real time zones.
+  const zoneLabel = bank && qualificationIdOfSlug(bank) !== "ib" ? "Variant" : "Time zone";
+  const pdfQuote = testimonialForBank(bank, PDF_TESTIMONIAL);
   const calculatorFilter = (CALCULATOR_FILTER_BANKS as readonly string[]).includes(bank);
   const plansHref = plansHrefFor(resolvedAccess.authenticated);
   // Static bank pages render the anonymous view (free filter, free strip) so nothing shifts for
@@ -1478,7 +1482,7 @@ access: ExplorerAccess;
           <MagnifyingGlass aria-hidden="true" />
           <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
         </label>
-        {routeConfig && <fieldset className={`course-route-picker${routeConfig.options.length > 2 ? " is-paper-tabs" : ""}`} role="radiogroup" aria-label={routeConfig.name}>
+        {routeConfig && <fieldset className={`course-route-picker${routeConfig.options.length > 2 ? " is-paper-tabs" : ""}${routeConfig.options.length > 3 ? " is-wrapping-tabs" : ""}`} role="radiogroup" aria-label={routeConfig.name}>
           <legend className="sr-only">{routeConfig.name}</legend>
           <div className="course-route-options">
             {([
@@ -1523,7 +1527,7 @@ access: ExplorerAccess;
             <div className="secondary-filters-inner">
               <FilterGroup label="Sessions" filterKey="sessions" values={options.sessions} selected={filters.sessions ?? []} onToggle={toggle} />
               {isCambridge && <FilterGroup label="Components" filterKey="components" values={options.components} selected={filters.components ?? []} onToggle={toggle} />}
-              {isCambridge && <FilterGroup label="Time zone / variant" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
+              {isCambridge && <FilterGroup label={zoneLabel} filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
               {calculatorFilter && <FilterGroup label="Calculator" filterKey="calculator" values={["calculator", "non-calculator"]} selected={filters.calculator ?? []} onToggle={toggle} />}
               {options.granularLabels.length > 0 && <FilterGroup label="Granular labels" filterKey="granularLabels" values={options.granularLabels} selected={filters.granularLabels ?? []} onToggle={toggle} />}
               {bank === "ib-economics-hl" || bank === "ib-economics-sl" ? <>
@@ -1532,7 +1536,7 @@ access: ExplorerAccess;
               </> : null}
               {bank === "ib-hl" && <FilterGroup label="Course era" filterKey="courseEras" values={options.courseEras} selected={filters.courseEras ?? []} onToggle={toggle} />}
               {bank === "ib-hl" && <FilterGroup label="Paper 3 option" filterKey="options" values={options.options} selected={filters.options ?? []} onToggle={toggle} />}
-              {!isCambridge && <FilterGroup label="Time zone" filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
+              {!isCambridge && <FilterGroup label={zoneLabel} filterKey="zones" values={options.zones} selected={filters.zones ?? []} onToggle={toggle} />}
             </div>
           </div>
         </aside>
@@ -1593,7 +1597,7 @@ access: ExplorerAccess;
         </>}
       </section></div>}
       {signinPrompt && <div className="pdf-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setSigninPrompt(null); }}><section ref={signinPromptRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="signin-prompt-title"><button className="pdf-close" aria-label="Close" onClick={() => setSigninPrompt(null)}><X /></button><span className="access-upgrade-icon"><BookmarkSimple aria-hidden="true" weight="bold" /></span><h2 id="signin-prompt-title">{signinPrompt.reason === "save" ? "Save this question" : "Your saved questions"}</h2><p>Create a free account to save questions and come back to them anytime.</p><IntentPrefetchLink className="button primary" href={`/login?mode=sign-up&next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_up" })}>Create free account</IntentPrefetchLink><p className="signin-prompt-alt">Have an account? <IntentPrefetchLink href={`/login?next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_in" })}>Sign in</IntentPrefetchLink></p></section></div>}
-      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p><Testimonial testimonial={PDF_TESTIMONIAL} variant="inline" signedOutOnly /><IntentPrefetchLink className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</IntentPrefetchLink></section></div>}
+      {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p>{pdfQuote && <Testimonial testimonial={pdfQuote} variant="inline" signedOutOnly />}<IntentPrefetchLink className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</IntentPrefetchLink></section></div>}
       {hasPeriodicTable(bank) && <PeriodicTableButton variant="floating" source="bank" />}
       <FormulaListButton bank={bank} variant="floating" source="bank" />
     </section>

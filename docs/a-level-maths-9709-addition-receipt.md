@@ -86,6 +86,19 @@ The explanations session found maths glyphs missing from some question crops.
   - This session spot-checked 4 random 9709 crops from the public URL against the upload manifest; all matched.
 - **Switched on (2026-11-18):** `pendingStorage` is removed and 9709 is off `src/lib/held-banks.mjs`. It's served under the shared release gate, and its static bank index is published again.
 
+## Pre-launch polish (owner, 2026-11-18, "Yes, fix first")
+- **Subject order:** A Level is listed as Mathematics, Chemistry, Physics everywhere, from one source (`BOARD_SUBJECT_ORDER` in `qualifications.ts`, applied by `getCatalogBanksForDisplay`).
+- **Quotes:** A Level pages show no testimonial (every quote on file is from IGCSE or IB students) until there are A Level ones.
+- **Titles:**
+  - home title: "Free IGCSE, A Level & IB Past Papers by Topic";
+  - hub title: "Cambridge A Level Past Papers by Topic", now with its own link preview;
+  - the layout default title and descriptions now name A Level.
+- **Labels:**
+  - the IGCSE picker and footer group reads "Cambridge IGCSE";
+  - the 9709 tabs read Stats 1 / Stats 2;
+  - the variant filter reads "Variant" on every Cambridge bank ("Time zone" stays on IB).
+- **Phone tabs:** 9709's seven tabs wrap into a four-column grid at 760 px and below. The 3- and 4-tab pickers are unchanged.
+
 ## Still owner-gated
 1. **Production migration** `20261114000000_a_level_maths_9709_release.sql`. It must be applied **before this PR merges**: once 9709 is live, checkout for `bank_a_level_maths_9709` needs the `products` row and its `stripe_price_catalog` rows.
 2. **Stripe:** none needed. Single bank uses the shared single-bank prices; All Access and Lifetime cover every bank.
