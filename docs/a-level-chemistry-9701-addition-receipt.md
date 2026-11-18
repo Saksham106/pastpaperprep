@@ -46,14 +46,24 @@ Paper tabs: All papers · Multiple choice · AS structured · A Level structured
   - All 2,220 rows are now production/classified.
   - Seals: runtime `15334e95…`, manifest `82467b71…`, receipt `f4fac227…`. The candidate pin `1c9b6408…` is unchanged.
 
+## Free years in the public bucket (owner approval, 18 November 2026)
+- The 9701 content session copied the 2020–2021 crops to the public free bucket (`free.pastpaperprep.com/images/`).
+  - The list came from `listFreePublicAssets` at 2a34aa75: 619 free questions, **1,643 files**.
+  - It used the repo's unchanged `scripts/free-copy-worker` (allowlist, create-only). The Worker is deleted.
+- Results: 1,643/1,643 copied and 1,643/1,643 re-hashed from the public URL, 0 failures. Logs and receipt are in `research/ppp-tools/free-copy-alevel/9701-run/` (outside the repo).
+- This session re-checked:
+  - both logs list exactly the runtime's 2020–2021 crops;
+  - every hash and size equals the manifest;
+  - both log seals match the receipt;
+  - 2 random files fetched from free.pastpaperprep.com hash to their manifest values.
+
 ## Billing
 `bank_a_level_chemistry_9701` is sold on the shared single-bank prices, and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_chemistry`. Migration `20261118000000_a_level_chemistry_9701_release.sql` copies Physics's `20261117000000` definitions and adds the product and slug after 9702. It is **not applied**.
 
 ## Still owner-gated
-1. Free-year (2020–2021) crops to the public free bucket, before switch-on.
-2. Production migration `20261118000000`, after 9702's `20261117000000`.
-3. Switching the bank on (drop `pendingStorage`). Explanations are exempt by name until written.
-4. Merge, after #497 and never back-to-back with another build.
+1. Production migration `20261118000000`, after 9702's `20261117000000`.
+2. Switching the bank on (drop `pendingStorage`). Explanations are exempt by name until written.
+3. Merge, after #497 and never back-to-back with another build.
 
 ## Follow-up
 - A native A Level Periodic Table (one-decimal masses from the 9701 syllabus p. 91) for the in-app dock. Until then, the Data section link shows Cambridge's own page.
