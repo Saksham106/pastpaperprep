@@ -1,6 +1,6 @@
 # A Level Mathematics 9709: addition receipt (14 November 2026)
 
-The owner approved folding the real 9709 questions into this PR in chat ("Yes, fold in", relayed by the coordinating session). The crops are uploaded, the runtime is finalized and the bank is switched on (2026-11-18). Nothing is migrated or published: the catalog entry stays hidden (`pendingStorage: true`).
+The owner approved folding the real 9709 questions into this PR in chat ("Yes, fold in", relayed by the coordinating session). The crops are uploaded, the runtime is finalized and the bank is switched on (2026-11-18). Nothing is migrated; the products migration and the merge stay owner-gated (below).
 
 ## Source
 - Workspace: `cambridge-a-level-mathematics-9709-topic-practice` at commit 5c9254a (local git, clean). Receipts there: `docs/coverage-receipt.md`, `docs/classification-receipt.md`.
@@ -53,7 +53,7 @@ The owner approved the R2 upload in this session ("Yes, upload"). That approval 
 | Finalized content | `76268395f8bf77825b81b4170de3f182fa237eb36cafa94c593ad171c2e08674` |
 | Runtime | `91005b99f339c7515d57bc550ad3ec902bbb9fb960866b6cce2f96b663c3a9c3` |
 
-The catalog entry **keeps `pendingStorage: true`**, so the bank is still hidden and unsellable. The release test reconstructs the candidate from the finalized runtime and checks it reproduces the pinned seal.
+At finalize the catalog entry kept `pendingStorage: true` (hidden, unsellable); it was switched on 2026-11-18 (see below). The release test reconstructs the candidate from the finalized runtime and checks it reproduces the pinned seal.
 
 ## Crop revision v2 (15–17 November 2026)
 The explanations session found maths glyphs missing from some question crops.
