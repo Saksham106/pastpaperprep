@@ -32,13 +32,15 @@ describe("held (pendingStorage) banks", () => {
   });
 
   it("publishes no static index for a held bank outside the dev-only preview", () => {
-    expect(publishedIndexBanks(["igcse", "a-level-maths-9709"], PRODUCTION)).toEqual(["igcse"]);
-    expect(publishedIndexBanks(["igcse", "a-level-maths-9709"], {})).toEqual(["igcse"]);
-    expect(publishedIndexBanks(["igcse", "a-level-maths-9709"], PREVIEW)).toEqual(["igcse", "a-level-maths-9709"]);
+    const held = ["a-level-maths-9709"];
+    expect(publishedIndexBanks(["igcse", "a-level-maths-9709"], PRODUCTION, held)).toEqual(["igcse"]);
+    expect(publishedIndexBanks(["igcse", "a-level-maths-9709"], {}, held)).toEqual(["igcse"]);
+    expect(publishedIndexBanks(["igcse", "a-level-maths-9709"], PREVIEW, held)).toEqual(["igcse", "a-level-maths-9709"]);
     // The preview flag never applies to a production build.
     expect(isPendingBankPreview({ NODE_ENV: "production", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" })).toBe(false);
     expect(publishedBankSources(PRODUCTION).some(({ bank }) => HELD_BANKS.includes(bank))).toBe(false);
-    expect(publishedBankSources(PREVIEW).some(({ bank }) => bank === "a-level-maths-9709")).toBe(true);
+    // 9709 was switched on (2026-11-18): it is no longer held, so production publishes its index again.
+    expect(publishedBankSources(PRODUCTION).some(({ bank }) => bank === "a-level-maths-9709")).toBe(true);
   });
 
   it("publishes the index again once the bank is switched on (no longer held)", () => {

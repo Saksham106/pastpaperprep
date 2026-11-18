@@ -1,6 +1,6 @@
 # A Level Mathematics 9709: addition receipt (14 November 2026)
 
-The owner approved folding the real 9709 questions into this PR in chat ("Yes, fold in", relayed by the coordinating session). The crops are uploaded and the runtime is finalized. Nothing is migrated or published: the catalog entry stays hidden (`pendingStorage: true`).
+The owner approved folding the real 9709 questions into this PR in chat ("Yes, fold in", relayed by the coordinating session). The crops are uploaded, the runtime is finalized and the bank is switched on (2026-11-18). Nothing is migrated or published: the catalog entry stays hidden (`pendingStorage: true`).
 
 ## Source
 - Workspace: `cambridge-a-level-mathematics-9709-topic-practice` at commit 5c9254a (local git, clean). Receipts there: `docs/coverage-receipt.md`, `docs/classification-receipt.md`.
@@ -75,12 +75,22 @@ The explanations session found maths glyphs missing from some question crops.
 ## Calculator policy
 `calculatorAllowed("a-level-maths-9709", …)` is true for all six papers. The source is syllabus section 4, "Calculators", which is identical in the 2020–22, 2023–25 and 2026–27 syllabuses: a calculator with standard scientific functions in all examinations; graphical and symbolic-algebra calculators are not permitted.
 
+## Explanations and switch-on (17–18 November 2026)
+- **Explanations:** batch 1 from the explanations session (`feat/explanations-9709-batch1` @ `85acd6aa`) is merged: **1,218 of 2,118** questions explained.
+  - The explanations are in private R2 under `explanations/a-level-maths-9709/`, and the 362 free-year ones are also in the free bucket. The owner approved both in that session.
+  - `articles-explanation-coverage.test.ts` names 9709 as a partial-coverage bank (owner decision 2026-11-17). No article claims full A Level coverage.
+- **Free-year crops:**
+  - The 1,828 free-year question and mark-scheme crops (2020–2021, 636 questions, 20.5 MB) were copied to `pastpaperprep-free` under `images/<private path>`.
+  - The owner approved it in the coordinating session ("Yes, copy both"). It used the repo's `scripts/free-copy-worker` (allowlist, create-only `If-None-Match`, self-tested), and the Worker was deleted afterwards.
+  - Every copied path was re-fetched from `free.pastpaperprep.com` and re-hashed: 3,930 of 3,930 across 9709 and 9702 (the 362 explanations already existed). Receipt: `research/ppp-tools/free-copy-alevel/receipt.json`.
+  - This session spot-checked 4 random 9709 crops from the public URL against the upload manifest; all matched.
+- **Switched on (2026-11-18):** `pendingStorage` is removed and 9709 is off `src/lib/held-banks.mjs`. It's served under the shared release gate, and its static bank index is published again.
+
 ## Still owner-gated
-1. **Production migration** `20261114000000_a_level_maths_9709_release.sql`.
+1. **Production migration** `20261114000000_a_level_maths_9709_release.sql`. It must be applied **before this PR merges**: once 9709 is live, checkout for `bank_a_level_maths_9709` needs the `products` row and its `stripe_price_catalog` rows.
 2. **Stripe:** none needed. Single bank uses the shared single-bank prices; All Access and Lifetime cover every bank.
-3. **Switching the bank on:** drop `pendingStorage`. This re-arms the explanation-coverage test, which needs 2,118 explanations or a decision on the article copy.
-4. **Merge.**
-5. Decide the held question.
+3. **Merge**, not back-to-back with another build.
+4. Decide the held question `9709-2024-s-33-q11`.
 
 ## Existing banks unchanged
 For every other bank, raw and normalized rows were hashed on `origin/main` (cdb1fe2a) and on this branch. All 22 banks are identical (43,617 rows), and the bank-index manifest changes only the 9709 entry.

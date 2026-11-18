@@ -42,8 +42,10 @@ describe("home page", () => {
     expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("Practice by topicFull past papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
-    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(22);
-    expect(rows).toHaveLength(22);
+    // 23 with A Level Maths 9709 switched on (2026-11-18); held banks (Physics 9702 on its own PR) never appear.
+    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(23);
+    expect(rows).toHaveLength(23);
+    expect(rows.find((row) => row.dataset.bankSlug === "a-level-maths-9709")?.getAttribute("href")).toBe("/banks/a-level-maths-9709?free=1");
     expect(container.querySelectorAll("a a")).toHaveLength(0);
     for (const row of rows) {
       expect(row.getAttribute("href")).toMatch(/^\/banks\/[a-z0-9-]+(\?free=1)?$/);

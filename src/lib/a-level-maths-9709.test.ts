@@ -74,10 +74,11 @@ const stripeConfig = validateStripeConfig({
 });
 
 describe("A Level Mathematics 9709 catalog entry", () => {
-  it("is a hidden, gated, paid Cambridge A Level bank with no pair bundle", () => {
+  it("is a launched, gated, paid Cambridge A Level bank with no pair bundle", () => {
     expect(BANK_CATALOG.filter((entry) => entry.slug === slug)).toHaveLength(1);
     const entry = getCatalogBank(slug)!;
-    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", syllabusCode: "9709", years: "2020-2026", access: "paid-bank", productId: product, release: "gated", delivery: "hosted", pendingStorage: true });
+    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", syllabusCode: "9709", years: "2020-2026", access: "paid-bank", productId: product, release: "gated", delivery: "hosted" });
+    expect("pendingStorage" in entry).toBe(false);
     expect(entry.bundleProductId).toBeUndefined();
     expect(BANK_PRODUCTS[slug]).toBe(product);
     expect(qualificationOfBank(slug)).toBe("a-level");
@@ -86,50 +87,42 @@ describe("A Level Mathematics 9709 catalog entry", () => {
     expect(qualificationInfo(entry.qualification).hubPath).toBe("/cambridge-a-level");
   });
 
-  it("rides the shared gated release lane, finalized against a verified readback but still hidden", () => {
+  it("rides the shared gated release lane, finalized against a verified readback", () => {
     expect(isIGCSEReleaseBank(slug)).toBe(true);
     expect(IGCSE_RELEASE_BANK_CATALOG.some((entry) => entry.slug === slug)).toBe(false);
-    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(false);
+    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(true);
     expect(RELEASE_BANKS[slug]).toEqual({ prefix: "a-level-maths-9709/releases/full2118-v1-191db74b1cb4", sourceRootEnv: "PASTPAPERPREP_A_LEVEL_MATHS_SOURCE_ROOT", candidateSeal: "blanked-v1", originalCandidateRuntimeSha256: CANDIDATE });
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[slug]).toBe(`${RELEASE_BANKS[slug].prefix}/`);
     expect(inferredPdfDpiForBank(slug)).toBe(108);
-    // Finalized: the sealed release runtime loads; the catalog's pendingStorage still keeps the bank off the site.
+    // Finalized: the sealed release runtime loads under the release gate.
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(getIGCSERuntimeArtifact(slug, PRODUCTION).questions).toHaveLength(2118);
   });
 
-  it("is hidden and unsellable in production even with every release gate on", () => {
-    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getBank(slug, PRODUCTION)).toBeUndefined();
-    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toThrow("Bank is not available for checkout");
-    // The dev-only preview flag never applies outside `npm run dev`.
-    expect(getCatalogBanksForDisplay({ ...PRODUCTION, PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" }).some((entry) => entry.slug === slug)).toBe(false);
-  });
-
-  it("can be previewed locally with the dev-only pending-bank flag", () => {
-    expect(getCatalogBanksForDisplay(PREVIEW).some((entry) => entry.slug === slug)).toBe(true);
-    expect(getBank(slug, PREVIEW)?.qualification).toBe("Cambridge A Level");
-    // Only the dev preview reads the staged runtime directly; production never does, flag or not.
-    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(true);
-    expect(isPendingStoragePreview(slug, PRODUCTION)).toBe(false);
-    expect(isPendingStoragePreview(slug, { ...PRODUCTION, PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" })).toBe(false);
-    expect(isPendingStoragePreview("ib-computer-science-hl", PREVIEW)).toBe(false);
+  it("is shown and sellable with the shared release gates on, hidden with them off (switched on 2026-11-18)", () => {
+    const RELEASE_OFF = { NODE_ENV: "production" };
+    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getBank(slug, PRODUCTION)?.qualification).toBe("Cambridge A Level");
+    expect(getCatalogBanksForDisplay(RELEASE_OFF).some((entry) => entry.slug === slug)).toBe(false);
+    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, RELEASE_OFF)).toThrow("Bank is not available for checkout");
+    // No longer staged: never read through the pending-storage preview path.
+    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(false);
   });
 });
 
 describe("A Level Mathematics 9709 billing", () => {
   it("sells as a single bank at the generic single-bank price once displayed", () => {
     expect(PURCHASABLE_PRODUCTS).toContain(product);
-    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PREVIEW)).toMatchObject({ priceId: "price_single_monthly" });
-    expect(getBillingPlan(product, "annual", stripeConfig, undefined, PREVIEW)).toMatchObject({ priceId: "price_single_annual" });
+    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toMatchObject({ priceId: "price_single_monthly" });
+    expect(getBillingPlan(product, "annual", stripeConfig, undefined, PRODUCTION)).toMatchObject({ priceId: "price_single_annual" });
     expect(isStripePriceAllowedForProduct(product, stripeConfig.singleMonthlyPriceId, stripeConfig, "monthly")).toBe(true);
     expect(isStripePriceAllowedForProduct(product, stripeConfig.pairMonthlyPriceId, stripeConfig, "monthly")).toBe(false);
   });
 
   it("can be picked in Build Your Plan once displayed", () => {
-    expect(getCustomBundlePlan("monthly", [slug, "igcse"], stripeConfig, PREVIEW)).toMatchObject({ productId: "bundle_custom", quantity: 2, selectedBankIds: [slug, "igcse"].sort() });
-    expect(() => getCustomBundlePlan("monthly", [slug, "igcse"], stripeConfig, PRODUCTION)).toThrow("Bank is not available for checkout");
+    expect(getCustomBundlePlan("monthly", [slug, "igcse"], stripeConfig, PRODUCTION)).toMatchObject({ productId: "bundle_custom", quantity: 2, selectedBankIds: [slug, "igcse"].sort() });
+    expect(() => getCustomBundlePlan("monthly", [slug, "igcse"], stripeConfig, { NODE_ENV: "production" })).toThrow("Bank is not available for checkout");
   });
 
   it("is reached by its own product, All Access, Lifetime and a custom bundle, never by a pair bundle", () => {

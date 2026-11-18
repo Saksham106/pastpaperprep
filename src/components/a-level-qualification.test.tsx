@@ -17,11 +17,12 @@ import { socialPreview } from "@/lib/seo";
 
 vi.mock("@/components/SmartSearch", () => ({ SmartSearch: () => null }));
 
-const PREVIEW = { NODE_ENV: "development", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" };
-const previewEnv = () => { vi.stubEnv("NODE_ENV", "development"); vi.stubEnv("PASTPAPERPREP_PREVIEW_PENDING_BANKS", "true"); };
+// 9709 is switched on: it is displayed under the shared release gate, as in production.
+const PREVIEW = { PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
+const previewEnv = () => { vi.stubEnv("PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS", "true"); vi.stubEnv("PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED", "true"); };
 const aLevelBank = getCatalogBank("a-level-maths-9709")!;
 
-describe("Cambridge A Level, hidden by default", () => {
+describe("Cambridge A Level, without the release gate", () => {
   afterEach(() => vi.unstubAllEnvs());
 
   it("adds no A Level text to llms.txt, the footer, the home page or the sitemap", async () => {
