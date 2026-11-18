@@ -15,6 +15,7 @@ import { project0625Sections } from "../src/lib/igcse-0625-official.mjs";
 import { project0620Sections } from "../src/lib/igcse-0620-official.mjs";
 import { applyIbChemistryLabels } from "../src/lib/ib-chemistry-labels.mjs";
 import { calculatorAllowed } from "../src/lib/calculator-policy.mjs";
+import { publishedIndexBanks } from "../src/lib/held-banks.mjs";
 
 const root = join(import.meta.dirname, "..");
 const outputDirectory = join(root, "public", "bank-index");
@@ -239,6 +240,16 @@ const bankSources = [
     .map((bank) => ({ bank, directory: "production" })),
 ];
 const banks = bankSources.map(({ bank }) => bank);
+/**
+ * Held (pendingStorage) banks get no static index outside the dev-only preview, so a production build never
+ * publishes a staged bank's metadata; scripts/verify-held-bank-artifacts.mjs asserts it after `npm run build`.
+ * Stale files of every known bank, held or not, are still removed below.
+ * @param {Record<string, string | undefined>} [environment]
+ */
+export const publishedBankSources = (environment = process.env) => {
+  const published = new Set(publishedIndexBanks(banks, environment));
+  return bankSources.filter(({ bank }) => published.has(bank));
+};
 const forbiddenKeys = [
   "summary", "accessibleText", "searchText", "solution", "sourceQuestionUrl",
   "sourceMarkSchemeUrl", "questionImages", "markschemeImages", "questionAssetPaths",
@@ -411,7 +422,7 @@ export async function generateBankIndexes() {
     .map((file) => unlink(join(outputDirectory, file))));
 
   const manifest = {};
-  for (const { bank, directory } of bankSources) {
+  for (const { bank, directory } of publishedBankSources()) {
     const rawBank = JSON.parse(await readFile(join(root, "src", "data", directory, `${bank}.json`), "utf8"));
     const rawQuestions = rawBank.questions;
     const questions = rawQuestions.map((raw) => metadataFromRaw(raw, {

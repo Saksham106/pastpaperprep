@@ -21,7 +21,7 @@
       "9709-2024-s-33/questions/q11-17-2.webp"
     ]
   },
-  "nextStep": "Owner approval, then: WRANGLER=<bin> node scripts/upload-computer-science-wrangler.mjs --bank a-level-maths-9709 --concurrency 2 (uploads only the 23 new keys; create-only), then generate-igcse-release.mjs --finalize a-level-maths-9709.",
+  "nextStep": "Owner approval, then: WRANGLER=<bin> node scripts/upload-computer-science-wrangler.mjs --bank a-level-maths-9709 --concurrency 2 (uploads only the 23 new keys; absent check then unconditional put, not atomic create-only; future writes use research/ppp-tools/r2-upload-worker), then generate-igcse-release.mjs --finalize a-level-maths-9709.",
   "cropRevisionV2": {
     "sourceCommit": "8e5f3a7",
     "alreadyVerifiedInR2": 6473,

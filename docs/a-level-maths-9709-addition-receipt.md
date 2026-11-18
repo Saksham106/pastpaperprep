@@ -25,15 +25,18 @@ The owner approved folding the real 9709 questions into this PR in chat ("Yes, f
 Topics are the official section titles; the paper tab equals the paper number, and a paper tab lists that paper's sections in syllabus order.
 
 ## Storage (uploaded and read back, 14 November 2026)
-The owner approved the R2 upload in this session ("Yes, upload"). That approval covered only the 6,496 objects in the manifest, create-only.
+The owner approved the R2 upload in this session ("Yes, upload"). That approval covered only the 6,496 objects in the manifest, as new keys.
 - Prefix `a-level-maths-9709/releases/full2118-v1-191db74b1cb4/` in the private bucket `pastpaperprep-assets`.
 - Plan: `data/storage/a-level-maths-9709.manifest.json`, 6,496 WebP objects, 84,547,318 bytes.
 - Dry run: `data/storage/a-level-maths-9709.dry-run.json`. Every local file was re-hashed and matches the segmentation record.
 - Upload: `scripts/upload-computer-science-wrangler.mjs --bank a-level-maths-9709` with wrangler 4.152.0 (OAuth) and concurrency 2. For each object the script:
   1. checked the local SHA-256 and size;
   2. confirmed the key was absent with `get`;
-  3. uploaded it with `put`;
+  3. uploaded it with an **unconditional** `put` (Wrangler has no conditional put);
   4. read it back with `get` and compared the SHA-256 and size.
+- **Correction (owner review, 2026-11-18):** steps 2–3 are an absent check followed by an unconditional put, **not an atomic create-only write**. A concurrent writer between the two calls could have been overwritten. The read-back proves every stored object's bytes match the manifest; it does not prove create-only behaviour. No re-upload is needed on this evidence.
+  - The sealed receipt's `readbackProvenance.method` still reads "wrangler-oauth create-only get/put/get". It is pinned by the runtime's `storageReceiptSha256`, so it is left as written; this note supersedes that wording.
+  - The script now refuses a put unless `--allow-non-atomic-put` is passed, and new receipts say "not atomic create-only". New writes should use the Worker uploader (`research/ppp-tools/r2-upload-worker/`: atomic `If-None-Match: *` put, R2-checked SHA-256, read-back), as Physics 9702 did.
 - Results: **6,496 of 6,496 verified, 0 failed, 0 already present**, with no 429 failures.
   - Log: `docs/a-level-maths-9709-r2-upload-log.jsonl` (SHA `1f082223…`).
   - Receipt: `data/storage/a-level-maths-9709.receipt.json` (`verified_readback`).
@@ -64,7 +67,7 @@ The explanations session found maths glyphs missing from some question crops.
   - The generator now pins `8e5f3a7`, including `crop-revisions.json` and `transcript-overrides.json`.
   - The new candidate is `1b09ae09…`. Exactly 20 questions changed, and only in their question crops and text.
   - The storage prefix keeps its first-candidate name.
-- **Upload:** owner-approved, create-only, run in the coordinating session. It added only the 23 new keys; 6,473 objects were already verified.
+- **Upload:** owner-approved, run in the coordinating session with the same Wrangler script (absent check, then unconditional put, then read-back; not atomic create-only, see the correction above). It added only the 23 new keys; 6,473 objects were already verified.
   - Receipt: 6,496 of 6,496 verified, 0 failed, 0 pre-existing. It lists the 23 superseded keys, which stay in the bucket unreferenced.
   - The upload script accepts a superseded original in its log only when its `.v2.webp` replacement is in the manifest.
 - **Re-finalized:** runtime `8d7493bc…`, still hidden.
