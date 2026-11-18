@@ -1,6 +1,6 @@
 # A Level Chemistry 9701: addition receipt (18 November 2026)
 
-The owner approved the 9701 R2 upload in the 9701 content session. This branch adds the app side, with nothing uploaded, migrated or published. It holds the runtime candidate, the release-lane registration and the create-only upload plan, and the catalog entry stays hidden (`pendingStorage: true`). The branch is stacked on PR #497 (Physics 9702).
+The owner approved the 9701 R2 upload in the 9701 content session, which ran it against this branch's manifest. The crops are uploaded and read back and the runtime is finalized. Nothing is migrated or published, and the catalog entry stays hidden (`pendingStorage: true`). The branch is stacked on PR #497 (Physics 9702).
 
 ## Source
 - Workspace `cambridge-a-level-chemistry-9701-topic-practice` at commit 7023841 (local git, clean). Receipts there: `docs/coverage-receipt.md` (PASS), `docs/classification-receipt.md`, `docs/segmentation-receipt.md`, `docs/acquisition-receipt.md`; plan `research/a-level-scoping/PLAN-9701.md`.
@@ -28,21 +28,32 @@ The owner approved the 9701 R2 upload in the 9701 content session. This branch a
 
 Paper tabs: All papers · Multiple choice · AS structured · A Level structured. The bank opens on Multiple choice and the choice is remembered per browser, as in 9702.
 
-## Storage plan (not uploaded)
+## Storage (uploaded with owner approval, 18 November 2026)
 - Prefix `a-level-chemistry-9701/releases/full2220-v1-1c9b6408fce8/`, private bucket `pastpaperprep-assets`.
 - Plan: `data/storage/a-level-chemistry-9701.manifest.json`, **5,751 WebP objects, 59,839,372 bytes**. This is the 5,755 segmented crops minus the held question's 4.
 - Dry run: `data/storage/a-level-chemistry-9701.dry-run.json`. Every local file was re-hashed: 5,751/5,751 match the manifest and the segmentation record, 0 mismatches, 0 R2 writes.
-- Next (owner-approved in the content session): the create-only Worker upload, `research/ppp-tools/r2-upload-worker/upload.mjs --repo <this worktree> --bank a-level-chemistry-9701`. Then this branch checks the receipt and log and runs `generate-igcse-release.mjs --finalize a-level-chemistry-9701`.
+- The 9701 content session ran the upload through a temporary Cloudflare Worker (`ppp-asset-upload`, deleted afterwards; its URL returns 404). Tool: `research/ppp-tools/r2-upload-worker/`.
+  - Every put was create-only and SHA-256-checked by R2, then read back and re-hashed.
+- Results: **5,751 of 5,751 verified, 0 failed, 0 already present** (290 s).
+  - Log: `docs/a-level-chemistry-9701-r2-upload-log.jsonl`.
+  - Receipt: `data/storage/a-level-chemistry-9701.receipt.json` (`verified_readback`).
+- This session re-checked independently:
+  - the receipt covers exactly the manifest keys;
+  - every log row is `verified`, not pre-existing, and matches its manifest SHA-256 and size;
+  - the log and manifest seals hold;
+  - 3 random objects fetched from R2 with wrangler hash to their manifest values and sizes.
+- **Finalized:** `generate-igcse-release.mjs --finalize a-level-chemistry-9701`.
+  - All 2,220 rows are now production/classified.
+  - Seals: runtime `15334e95…`, manifest `82467b71…`, receipt `f4fac227…`. The candidate pin `1c9b6408…` is unchanged.
 
 ## Billing
 `bank_a_level_chemistry_9701` is sold on the shared single-bank prices, and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_chemistry`. Migration `20261118000000_a_level_chemistry_9701_release.sql` copies Physics's `20261117000000` definitions and adds the product and slug after 9702. It is **not applied**.
 
 ## Still owner-gated
-1. The R2 upload (approved; run from the content session), then read-back check and finalize here.
-2. Free-year (2020–2021) crops to the public free bucket, before switch-on.
-3. Production migration `20261118000000`, after 9702's `20261117000000`.
-4. Switching the bank on (drop `pendingStorage`). Explanations are exempt by name until written.
-5. Merge, after #497 and never back-to-back with another build.
+1. Free-year (2020–2021) crops to the public free bucket, before switch-on.
+2. Production migration `20261118000000`, after 9702's `20261117000000`.
+3. Switching the bank on (drop `pendingStorage`). Explanations are exempt by name until written.
+4. Merge, after #497 and never back-to-back with another build.
 
 ## Follow-up
 - A native A Level Periodic Table (one-decimal masses from the 9701 syllabus p. 91) for the in-app dock. Until then, the Data section link shows Cambridge's own page.
