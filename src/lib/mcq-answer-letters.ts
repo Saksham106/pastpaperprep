@@ -30,6 +30,8 @@ const MCQ_COMPONENTS: Partial<Record<BankSlug, (component: string) => boolean>> 
   "ib-physics-sl": (component) => component === "P1" || component === "P1A",
   // A Level Physics 9702: Paper 1 (components 11-14) is the multiple-choice paper.
   "a-level-physics-9702": (component) => /^1\d$/.test(component),
+  // A Level Chemistry 9701: likewise Paper 1 (components 11-14).
+  "a-level-chemistry-9701": (component) => /^1\d$/.test(component),
 };
 
 export const MCQ_ANSWER_BANKS = Object.keys(MCQ_COMPONENTS) as BankSlug[];

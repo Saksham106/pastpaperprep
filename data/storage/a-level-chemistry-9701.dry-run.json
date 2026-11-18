@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "a-level-chemistry-9701",
+  "date": "2026-11-18",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "a-level-chemistry-9701/releases/full2220-v1-1c9b6408fce8/",
+  "objects": 5751,
+  "bytes": 59839372,
+  "uniqueKeys": 5751,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 5751,
+  "sha256MatchesSegmentationRecord": 5751,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
+  "sourceCommit": "7023841",
+  "nextStep": "Owner approval in the session that runs it (given in the 9701 content session), then the create-only R2 Worker upload (research/ppp-tools/r2-upload-worker/upload.mjs) against data/storage/a-level-chemistry-9701.manifest.json, then generate-igcse-release.mjs --finalize a-level-chemistry-9701."
+}

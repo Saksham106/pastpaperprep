@@ -12,9 +12,13 @@
 // A Level Physics 9702: every paper in scope allows a calculator. All 147 question papers (Papers 1, 2 and 4,
 // 2020 to May/June 2026) print "You may use a calculator" on the cover, and the syllabus's mathematical
 // requirements expect candidates to use one (2025-2027 syllabus, section 6 "Mathematical requirements", p. 53).
+//
+// A Level Chemistry 9701: every paper in scope allows a calculator. All 147 question papers (Papers 1, 2 and 4,
+// 2020 to May/June 2026) print "You may use a calculator" on the cover (five with a font-shifted text layer, read
+// decoded), and the syllabus lists the calculator functions candidates need (2025-2027 syllabus, "Calculators").
 
 /** Banks whose questions carry a calculator status. */
-export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702"]);
+export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701"]);
 /** Banks where both values occur, so a calculator filter is useful. */
 export const CALCULATOR_FILTER_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl"]);
 
@@ -33,6 +37,7 @@ export function calculatorAllowed(bank, { paper, year }) {
     case "ib-ai-sl": return true;
     case "a-level-maths-9709": return true;
     case "a-level-physics-9702": return true;
+    case "a-level-chemistry-9701": return true;
     default: return null;
   }
 }

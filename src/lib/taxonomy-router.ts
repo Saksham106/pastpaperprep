@@ -17,6 +17,7 @@ import {
 import type { UnifiedQuestion } from "@/lib/questions";
 import { A_LEVEL_MATHS_9709, MATHS_9709_PAPERS, MATHS_9709_SECTION_ORDER } from "@/lib/a-level-9709";
 import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_TOPIC_ORDER } from "@/lib/a-level-9702";
+import { A_LEVEL_CHEMISTRY_9701, CHEMISTRY_9701_TOPIC_ORDER } from "@/lib/a-level-9701";
 import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -171,6 +172,11 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   if (bank === A_LEVEL_PHYSICS_9702) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     return [...PHYSICS_9702_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !PHYSICS_9702_TOPIC_ORDER.includes(topic)).sort()];
+  }
+  // 9701: topics 1-37 in syllabus order (AS 1-22, A Level 23-37), then the named earlier-syllabus topics.
+  if (bank === A_LEVEL_CHEMISTRY_9701) {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    return [...CHEMISTRY_9701_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !CHEMISTRY_9701_TOPIC_ORDER.includes(topic)).sort()];
   }
   if (bank === A_LEVEL_MATHS_9709) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));

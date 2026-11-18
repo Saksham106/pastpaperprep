@@ -16,6 +16,8 @@ export const PARTIAL_EXPLANATION_BANKS: Readonly<Record<string, string>> = {
   "a-level-maths-9709": "A Level Maths 9709 launches with explanation batch 1 only (owner decision 2026-11-17).",
   // Owner, 2026-11-17 (9702 plan): explanations are not a launch blocker; they come later if the bank is used.
   "a-level-physics-9702": "A Level Physics 9702 launches without explanations (owner decision 2026-11-17).",
+  // Owner decision carried into the 9701 plan (2026-11-18): the Physics rule applies to the sciences.
+  "a-level-chemistry-9701": "A Level Chemistry 9701 launches without explanations (owner decision 2026-11-17, carried into the 9701 plan).",
 };
 
 describe("article claim: every IGCSE and IB question has a worked explanation", () => {

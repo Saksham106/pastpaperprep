@@ -48,6 +48,6 @@ describe("calculator policy", () => {
 
   it("only offers a filter where both values occur", () => {
     expect(CALCULATOR_FILTER_BANKS).toEqual(["igcse", "igcse-additional", "ib-hl", "ib-sl"]);
-    expect(CALCULATOR_POLICY_BANKS).toEqual(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702"]);
+    expect(CALCULATOR_POLICY_BANKS).toEqual(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701"]);
   });
 });

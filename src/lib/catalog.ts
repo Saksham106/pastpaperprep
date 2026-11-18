@@ -3,7 +3,7 @@ import { BOARD_SUBJECT_ORDER, qualificationInfo, type QualificationLabel } from 
 
 export type Qualification = QualificationLabel;
 export type DeliveryMode = "hosted" | "local-preview";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701";
 
 export type CatalogBank = {
   slug: BankSlug;
@@ -64,6 +64,9 @@ export const BANK_CATALOG = [
   // Crops uploaded and read back, runtime finalized; held (pendingStorage) until the owner switches it on.
   bank({ slug: "a-level-physics-9702", qualification: "Cambridge A Level", subject: "Physics", title: "Physics 9702", shortName: "Physics 9702", syllabusCode: "9702", level: "AS & A Level", questionCount: 2627, paperCount: 132, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_physics_9702", release: "gated", delivery: "hosted", pendingStorage: true }),
   // Cambridge International AS & A Level Mathematics 9709 (2020 syllabus onward): one bank with paper tabs.
+  // Cambridge International AS & A Level Chemistry 9701: Papers 1 (multiple choice), 2 and 4, with paper tabs like 9702.
+  // Hidden (pendingStorage) until the owner-approved R2 upload is read back and the runtime is finalized.
+  bank({ slug: "a-level-chemistry-9701", qualification: "Cambridge A Level", subject: "Chemistry", title: "Chemistry 9701", shortName: "Chemistry 9701", syllabusCode: "9701", level: "AS & A Level", questionCount: 2220, paperCount: 123, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_chemistry_9701", release: "gated", delivery: "hosted", pendingStorage: true }),
   // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: served under the shared release
   // gate like the other private-storage banks (switched on 2026-11-18).
   bank({ slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", shortName: "Mathematics 9709", syllabusCode: "9709", level: "AS & A Level", questionCount: 2118, paperCount: 256, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_maths_9709", release: "gated", delivery: "hosted" }),
