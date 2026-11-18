@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
@@ -7,7 +8,8 @@ import privateIndex from "@/data/private-index/a-level-physics-9702.json";
 import aliases from "@/data/question-id-aliases.json";
 import manifestJson from "../../data/storage/a-level-physics-9702.manifest.json";
 import dryRun from "../../data/storage/a-level-physics-9702.dry-run.json";
-import { assertContentSealedCandidate, blankedCandidateSha256, RELEASE_BANKS, runtimeSha256 as releaseRuntimeSha256 } from "../../scripts/igcse-release.mjs";
+import receipt from "../../data/storage/a-level-physics-9702.receipt.json";
+import { assertContentSealedCandidate, blankedCandidateSha256, manifestSha256, RELEASE_BANKS, runtimeSha256 as releaseRuntimeSha256 } from "../../scripts/igcse-release.mjs";
 import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_EARLIER_TOPICS, PHYSICS_9702_TOPICS } from "@/lib/a-level-9702";
 import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay, getCatalogBillingBanks, isPendingStoragePreview } from "@/lib/catalog";
 import { getBank, isIGCSEReleaseBank, isPrivateBankIndexEnabled } from "@/lib/banks";
@@ -40,7 +42,28 @@ const entitlement = (product_id: string, selected_bank_ids?: string[]) => normal
 type RuntimeQuestion = { id: string; paperId: string; paper: number; year: number; session: string; examStatus: string; format: string; component: string; marks: number; maxMarks: number; aliasIds: string[]; primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; officialCodeRefs: string[]; era: string; answer?: string; answerProvenance?: { status: string; questionId: string; keyReads: { markSchemeText: string; renderedView: string } }; questionImages: string[]; markschemeImages: string[] };
 const runtime = runtimeJson as unknown as { questionCount: number; paperCount: number; years: string; assetVerification: string; questions: RuntimeQuestion[]; runtimeArtifact: { originalCandidateRuntimeSha256: string; runtimeSha256: string } };
 const taxonomy = taxonomyJson as { topics: Array<{ id: string; label: string; earlierSyllabus: boolean; questions: number; subtopics: Array<{ label: string }> }> };
-const manifest = manifestJson as { storageState: string; objectPrefix: string; originalCandidateRuntimeSha256: string; assets: Array<{ objectKey: string; size: number; contentType: string }> };
+/** Undo exactly what `generate-igcse-release.mjs --finalize` writes; the result must be the pinned candidate. */
+function reconstructCandidate(finalized: unknown) {
+  const candidate = JSON.parse(JSON.stringify(finalized));
+  for (const question of candidate.questions) {
+    question.publicationStatus = "authorized_production_candidate";
+    question.classificationReviewStatus = "candidate_not_approved";
+  }
+  candidate.releaseStatus = "authorized_production_candidate";
+  candidate.publicationStatus = "authorized_production_candidate";
+  candidate.assetVerification = "pending_upload";
+  const meta = candidate.runtimeArtifact;
+  meta.assetVerification = "pending_upload";
+  meta.publicationStatus = "authorized_production_candidate";
+  meta.assetManifestSha256 = null;
+  meta.storageReceiptSha256 = null;
+  delete meta.storageState;
+  delete meta.finalizedContentSha256;
+  meta.runtimeSha256 = null;
+  meta.runtimeSha256 = createHash("sha256").update(JSON.stringify(candidate)).digest("hex");
+  return candidate;
+}
+const manifest = manifestJson as { storageState: string; objectPrefix: string; originalCandidateRuntimeSha256: string; assets: Array<{ objectKey: string; sha256: string; size: number; contentType: string }> };
 const questions = normalizeBankQuestions(slug, runtimeJson.questions as unknown as Array<Record<string, unknown>>);
 const stripeConfig = validateStripeConfig({
   NEXT_PUBLIC_SITE_URL: "https://pastpaperprep.com", STRIPE_SECRET_KEY: "sk_test_example", STRIPE_WEBHOOK_SECRET: "whsec_example",
@@ -62,13 +85,13 @@ describe("A Level Physics 9702 catalog entry", () => {
     expect(SUBJECT_SLUGS[slug]).toBe(slug);
   });
 
-  it("rides the shared release lane as an unfinalized candidate, hidden in production", () => {
+  it("rides the shared release lane, finalized against a verified readback but still hidden", () => {
     expect(isIGCSEReleaseBank(slug)).toBe(true);
     expect(RELEASE_BANKS[slug]).toEqual({ prefix: "a-level-physics-9702/releases/full2627-v1-625c919f2ca5", sourceRootEnv: "PASTPAPERPREP_A_LEVEL_PHYSICS_SOURCE_ROOT", candidateSeal: "blanked-v1", originalCandidateRuntimeSha256: CANDIDATE });
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[slug]).toBe(`${RELEASE_BANKS[slug].prefix}/`);
     expect(inferredPdfDpiForBank(slug)).toBe(108);
-    expect(runtime.assetVerification).toBe("pending_upload");
-    expect(() => getIGCSERuntimeArtifact(slug, PRODUCTION)).toThrow();
+    expect(runtime.assetVerification).toBe("verified_readback");
+    expect(getIGCSERuntimeArtifact(slug, PRODUCTION).questions).toHaveLength(2627);
     expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
     expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
     expect(getBank(slug, PRODUCTION)).toBeUndefined();
@@ -126,9 +149,24 @@ describe("A Level Physics 9702 runtime", () => {
 
   it("is sealed to its pinned, content-derived candidate", () => {
     expect(runtime.runtimeArtifact.originalCandidateRuntimeSha256).toBe(CANDIDATE);
-    expect(blankedCandidateSha256(runtime)).toBe(CANDIDATE);
     expect(releaseRuntimeSha256(runtime)).toBe(runtime.runtimeArtifact.runtimeSha256);
-    expect(() => assertContentSealedCandidate(slug, runtime)).not.toThrow();
+    const candidate = reconstructCandidate(runtime);
+    expect(blankedCandidateSha256(candidate)).toBe(CANDIDATE);
+    expect(() => assertContentSealedCandidate(slug, candidate)).not.toThrow();
+  });
+
+  it("is finalized against a complete verified readback of exactly the manifest's crops", () => {
+    expect(receipt).toMatchObject({ bank: slug, storageState: "verified_readback", failed: [], assetManifestSha256: manifestSha256(manifest) });
+    expect([...receipt.completed].sort()).toEqual(manifest.assets.map((asset) => asset.objectKey).sort());
+    const logText = readFileSync(join(ROOT, receipt.readbackProvenance.log), "utf8");
+    expect(createHash("sha256").update(logText).digest("hex")).toBe(receipt.readbackProvenance.logSha256);
+    const log = logText.split("\n").filter(Boolean).map((line) => JSON.parse(line) as { key: string; sha256: string; bytes: number; status: string; existedBefore: boolean });
+    const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
+    expect(new Set(log.map((row) => row.key)).size).toBe(6056);
+    for (const row of log) expect(row.status === "verified" && !row.existedBefore && byKey.get(row.key)?.sha256 === row.sha256 && byKey.get(row.key)?.size === row.bytes, row.key).toBe(true);
+    const meta = runtimeJson.runtimeArtifact as unknown as Record<string, string>;
+    expect(meta.assetManifestSha256).toBe(manifestSha256(manifest));
+    expect(meta.storageReceiptSha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "data/storage/a-level-physics-9702.receipt.json"), "utf8")).digest("hex"));
   });
 
   it("serves every multiple-choice letter from the official key, read two ways, and none for structured rows", () => {

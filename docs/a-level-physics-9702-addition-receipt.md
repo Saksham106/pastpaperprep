@@ -1,6 +1,6 @@
 # A Level Physics 9702: addition receipt (17 November 2026)
 
-The owner asked for the Physics app PR on 2026-11-17 ("Yes, build Physics PR"). Nothing is uploaded, migrated or published: the catalog entry is hidden (`pendingStorage: true`) and the runtime is an unfinalized candidate. The branch is stacked on PR #496 (A Level board, 9709).
+The owner asked for the Physics app PR on 2026-11-17 ("Yes, build Physics PR"). The crops are uploaded and read back and the runtime is finalized; nothing is migrated or published, and the catalog entry stays hidden (`pendingStorage: true`). The branch is stacked on PR #496 (A Level board, 9709).
 
 ## Source
 - Workspace `cambridge-a-level-physics-9702-topic-practice` at commit 67b80c6 (local git, clean). Receipts there: `docs/coverage-receipt.md`, `docs/classification-receipt.md`, `docs/segmentation-receipt.md`; plan `research/a-level-scoping/PLAN-9702.md`.
@@ -23,19 +23,31 @@ The owner asked for the Physics app PR on 2026-11-17 ("Yes, build Physics PR"). 
 
 Paper tabs: All papers · Multiple choice · AS structured · A Level structured, opening on Multiple choice and remembered per browser (same mechanism as 9709).
 
-## Storage plan (not uploaded)
+## Storage (uploaded with owner approval, 17 November 2026)
+- The owner approved the upload directly in the coordinating session, which ran it through a temporary Cloudflare Worker (`ppp-asset-upload`, deleted afterwards).
+  - Every put was create-only (`If-None-Match: *`) and SHA-256-checked by R2, then read back and re-hashed.
+  - The Worker accepted only keys in this manifest. Tool: `research/ppp-tools/r2-upload-worker/`.
 - Prefix `a-level-physics-9702/releases/full2627-v1-625c919f2ca5/`, private bucket `pastpaperprep-assets`.
-- `data/storage/a-level-physics-9702.manifest.json`: **6,056 WebP objects, 57,224,250 bytes**, all new keys.
-- `data/storage/a-level-physics-9702.dry-run.json`: 0 R2 writes; every file re-hashed, 6,056/6,056 match the segmentation record.
+- Plan: `data/storage/a-level-physics-9702.manifest.json`, 6,056 WebP objects, 57,224,250 bytes. Dry run: `data/storage/a-level-physics-9702.dry-run.json`.
+- Results: **6,056 of 6,056 verified, 0 failed, 0 already present.**
+  - Log: `docs/a-level-physics-9702-r2-upload-log.jsonl`.
+  - Receipt: `data/storage/a-level-physics-9702.receipt.json` (`verified_readback`).
+- This session re-checked independently:
+  - the receipt covers exactly the manifest keys;
+  - every log row matches its manifest SHA-256 and size;
+  - the log and manifest seals hold;
+  - 3 random objects fetched from R2 with wrangler hash to their manifest values.
+- **Finalized:** `generate-igcse-release.mjs --finalize a-level-physics-9702`.
+  - All 2,627 rows are now production/classified.
+  - Seals: runtime `357c1f43…`, manifest `586a696c…`, receipt `a4fd8e4d…`. The candidate pin `625c919f…` is unchanged.
 
 ## Billing
 `bank_a_level_physics_9702`: single bank on the shared single-bank prices, Build Your Plan, All Access and Lifetime; no pair bundle. Migration `20261117000000_a_level_physics_9702_release.sql` copies the latest definitions (9709's migration) with the product and slug added; **not applied**. A catalog fix makes subject-named pair bundles IB-only, so A Level Physics never inherits `bundle_ib_physics`.
 
 ## Still owner-gated
-1. R2 upload of the 6,056 crops (ask the owner in the session that runs it), read-back receipt, then `generate-igcse-release.mjs --finalize a-level-physics-9702`.
-2. Production migration `20261117000000` (after 9709's `20261114000000`).
-3. Switching the bank on (drop `pendingStorage`); explanations are exempt by name until written.
-4. Merge, after #496 and never back-to-back with another build.
+1. Production migration `20261117000000` (after 9709's `20261114000000`).
+2. Switching the bank on (drop `pendingStorage`); explanations are exempt by name until written.
+3. Merge, after #496 and never back-to-back with another build.
 
 ## Existing banks unchanged
 Every other bank's raw and normalized rows were hashed on the #496 branch head (21eb0623) and on this branch: all 23 banks identical (45,735 rows, including A Level Maths 9709).
