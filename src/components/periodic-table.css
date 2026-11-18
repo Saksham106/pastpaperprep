@@ -47,3 +47,13 @@
   .periodic-table { min-width: 1010px; }
   .periodic-grid { grid-template-columns: repeat(18, minmax(54px, 1fr)); }
 }
+
+/* Two era-specific reference sheets (A Level Physics results that mix 2020-21 with 2022+ papers). */
+.formula-list-links { display: grid; justify-items: end; gap: 8px; }
+.formula-list-links.is-floating { position: fixed; right: 18px; bottom: 18px; z-index: 40; }
+.formula-list-links.is-floating .periodic-button { box-shadow: 0 10px 28px rgb(46 40 34 / .18); }
+.formula-list-links.is-inline { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+@media (max-width: 640px) {
+  .formula-list-links.is-floating { right: 12px; bottom: 12px; }
+  .formula-list-links .periodic-button { padding: 7px 12px; }
+}

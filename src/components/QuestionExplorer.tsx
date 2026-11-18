@@ -511,6 +511,7 @@ access: ExplorerAccess;
     ? sharedError || missingSharedCount ? [] : sharedSetQuestions
     : savedWorksheetView ? savedSetQuestions : filtered,
   [sharedSetView, sharedError, missingSharedCount, sharedSetQuestions, savedWorksheetView, savedSetQuestions, filtered]);
+  const resultYears = useMemo(() => [...new Set(resultQuestions.map((question) => question.year))], [resultQuestions]);
   const anonymous = !resolvedAccess.authenticated && !resolvedAccess.bankAccess;
   const matchingFreeCount = resultQuestions.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length;
   const accessResolved = locationHydrated && !bootstrapPending;
@@ -1599,7 +1600,8 @@ access: ExplorerAccess;
       {signinPrompt && <div className="pdf-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setSigninPrompt(null); }}><section ref={signinPromptRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="signin-prompt-title"><button className="pdf-close" aria-label="Close" onClick={() => setSigninPrompt(null)}><X /></button><span className="access-upgrade-icon"><BookmarkSimple aria-hidden="true" weight="bold" /></span><h2 id="signin-prompt-title">{signinPrompt.reason === "save" ? "Save this question" : "Your saved questions"}</h2><p>Create a free account to save questions and come back to them anytime.</p><IntentPrefetchLink className="button primary" href={`/login?mode=sign-up&next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_up" })}>Create free account</IntentPrefetchLink><p className="signin-prompt-alt">Have an account? <IntentPrefetchLink href={`/login?next=${encodeURIComponent(promptReturnPath)}`} onClick={() => trackProductEvent("study_signin_prompt_click", { bank: bank ?? "unknown", reason: signinPrompt.reason, action: "sign_in" })}>Sign in</IntentPrefetchLink></p></section></div>}
       {pdfUpgradeOpen && <div className="pdf-backdrop" role="presentation"><section ref={pdfUpgradeDialogRef} className="pdf-dialog access-upgrade-dialog" role="dialog" aria-modal="true" aria-labelledby="pdf-upgrade-title"><button className="pdf-close" aria-label="Close PDF access message" onClick={() => setPdfUpgradeOpen(false)}><X /></button><span className="access-upgrade-icon"><DownloadSimple aria-hidden="true" weight="bold" /></span><h2 id="pdf-upgrade-title">Saving PDFs needs paid access</h2><p>Save and download PDFs with paid access to this question bank.</p>{pdfQuote && <Testimonial testimonial={pdfQuote} variant="inline" signedOutOnly />}<IntentPrefetchLink className="button primary" href={upgradeLink("pdf_dialog")} onClick={() => { if (bank) trackUpgrade("click", bank, "pdf_dialog"); }}>{PLANS_LABEL}</IntentPrefetchLink></section></div>}
       {hasPeriodicTable(bank) && <PeriodicTableButton variant="floating" source="bank" />}
-      <FormulaListButton bank={bank} variant="floating" source="bank" />
+      {/* The sheet follows the eras of the questions listed: 2020-21 only, 2022+ only, or both, labelled. */}
+      <FormulaListButton bank={bank} years={resultYears} variant="floating" source="bank" />
     </section>
   );
 }

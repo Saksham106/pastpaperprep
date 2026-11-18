@@ -22,7 +22,7 @@ import { normalizeBankQuestions } from "@/lib/questions";
 import { getTopicOptions } from "@/lib/taxonomy-router";
 import { defaultRouteSelection, deriveCourseRoute, routeConfigFor } from "@/lib/course-route";
 import { isNotSatSeries } from "@/lib/series-notes";
-import { formulaListFor } from "@/lib/formula-lists";
+import { formulaListFor, formulaListsForYears } from "@/lib/formula-lists";
 import { buildMcqAnswerMap, isMcqRow } from "@/lib/mcq-answer-letters";
 import { calculatorAllowed, CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import { getIGCSERuntimeArtifact } from "@/lib/igcse-runtime";
@@ -31,6 +31,10 @@ import { inferredPdfDpiForBank } from "@/lib/pdf-export";
 import { currentQuestionId } from "@/lib/question-id-aliases";
 import { qualificationOfBank, SUBJECT_SLUGS } from "@/lib/past-paper-catalog";
 import { PARTIAL_EXPLANATION_BANKS } from "@/lib/articles-explanation-coverage.test";
+import { HELD_BANKS } from "@/lib/held-banks.mjs";
+import { publishedBankSources } from "../../scripts/generate-bank-index.mjs";
+import { findHeldBankArtifacts } from "../../scripts/verify-held-bank-artifacts.mjs";
+import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 
 const ROOT = process.cwd();
 const slug = A_LEVEL_PHYSICS_9702;
@@ -229,6 +233,19 @@ describe("A Level Physics 9702 runtime", () => {
     expect(formulaListFor(slug)?.url).toBe("https://www.cambridgeinternational.org/Images/664565-2025-2027-syllabus.pdf#page=58");
     expect(formulaListFor(slug, 2023)).toEqual(formulaListFor(slug));
     expect(formulaListFor(slug, 2021)).toMatchObject({ label: "Data and formulae (2020–21)", url: expect.stringContaining("9702_y21_sy.pdf#page=68") });
+    expect(formulaListsForYears(slug, [2020, 2021]).map((list) => list.label)).toEqual(["Data and formulae (2020–21)"]);
+    expect(formulaListsForYears(slug, [2023]).map((list) => list.label)).toEqual(["Data and formulae"]);
+    expect(formulaListsForYears(slug, [2021, 2024]).map((list) => list.label)).toEqual(["Data and formulae (2022+)", "Data and formulae (2020–21)"]);
+  });
+});
+
+describe("A Level Physics 9702 staging", () => {
+  it("is held: no production public/bank-index file or manifest entry while pendingStorage is on", async () => {
+    expect(HELD_BANKS).toContain(slug);
+    expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(false);
+    expect(publishedBankSources({ NODE_ENV: "production", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" }).some(({ bank }) => bank === slug)).toBe(false);
+    expect(Object.keys(PUBLIC_BANK_INDEX_FILES)).not.toContain(slug);
+    expect(await findHeldBankArtifacts(ROOT)).toEqual([]);
   });
 });
 
