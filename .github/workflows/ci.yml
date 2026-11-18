@@ -104,8 +104,8 @@ jobs:
           # Vercel builds with NODE_ENV=production; the IB Economics gate requires it.
           # Set here, not job-wide, so `npm ci` still installs devDependencies.
           NODE_ENV: production
-      # Every served bank has an asset manifest and search entries; staged (pending-storage) banks have
-      # neither; the bank index registry still lists the whole catalog.
+      # Every served bank has an asset manifest, search entries and a public bank index; staged (pending-storage,
+      # src/lib/held-banks.mjs) banks have none of these and are absent from the bank index registry.
       - name: Every served bank has an asset manifest and search entries
         run: npx tsx scripts/check-served-bank-coverage.mts
         env:
