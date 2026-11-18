@@ -24,7 +24,7 @@ for (const file of singleBank) {
   for (const line of readFileSync(file, "utf8").split("\n")) {
     if (!line.trim()) continue;
     const entry = JSON.parse(line);
-    const named = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(entry.label ?? "")?.[1];
+    const named = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse|a-level)[a-z0-9-]*)(?:\s|$)/.exec(entry.label ?? "")?.[1];
     if (named && named !== bank) throw new Error(`${file} is not single-bank: label names ${named}`);
     for (const r of entry.result?.results ?? []) if (!manifestIds.has(r.questionId)) throw new Error(`${file} has ${r.questionId}, not in ${bank}`);
   }
@@ -77,7 +77,7 @@ const fixed = new Map();
 const reverify = new Map();
 for (const { file, label, results } of events) {
   // Multi-bank workflows reuse question IDs. Never borrow another bank's verdict.
-  const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1] ?? (singleBank.has(file) ? bank : undefined);
+  const labelledBank = /^(?:generate|verify|fix|re-verify)\s+((?:ib|igcse|a-level)[a-z0-9-]*)(?:\s|$)/.exec(label)?.[1] ?? (singleBank.has(file) ? bank : undefined);
   if (labelledBank && labelledBank !== bank) continue;
   for (const r of results) {
     // Missing scope is not evidence. If both scopes exist they must agree.
