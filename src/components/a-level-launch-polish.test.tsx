@@ -89,3 +89,19 @@ describe("9709 explorer", () => {
     expect(screen.queryByRole("heading", { name: /Time zone/, hidden: true })).toBeNull();
   });
 });
+
+describe("Physics 9702 (held) under the same rules", () => {
+  it("lists Mathematics before Physics in the dev preview, though the catalog defines Physics first", async () => {
+    const { getCatalogBanksForDisplay } = await import("@/lib/catalog");
+    const preview = { NODE_ENV: "development", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
+    expect(getCatalogBanksForDisplay(preview).filter((bank) => bank.qualification === "Cambridge A Level").map((bank) => bank.slug)).toEqual(["a-level-maths-9709", "a-level-physics-9702"]);
+  });
+
+  it("keeps its four paper tabs in one row", () => {
+    const { container } = render(<QuestionExplorer questions={[]} bankSlug="a-level-physics-9702" access={{ authenticated: true, bankAccess: true, canExportPdf: true }} />);
+    const picker = container.querySelector(".course-route-picker")!;
+    expect(picker.querySelectorAll("label")).toHaveLength(4);
+    expect(picker.classList.contains("is-paper-tabs")).toBe(true);
+    expect(picker.classList.contains("is-wrapping-tabs")).toBe(false);
+  });
+});
