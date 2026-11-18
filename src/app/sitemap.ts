@@ -12,6 +12,7 @@ const SITE_URL = "https://pastpaperprep.com";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const manifests = await getLandingManifests();
   const pastPapers = await pastPaperSitemapPaths();
+  const hasALevel = getCatalogBanksForDisplay().some((bank) => bank.qualification === "Cambridge A Level");
   return [
     { url: SITE_URL },
     { url: `${SITE_URL}/pricing` },
@@ -23,6 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/updates` },
     { url: `${SITE_URL}/cambridge-igcse` },
     { url: `${SITE_URL}/ib` },
+    ...(hasALevel ? [{ url: `${SITE_URL}/cambridge-a-level` }] : []),
     ...ARTICLES.map(({ slug, updatedAt }) => ({
       url: `${SITE_URL}/articles/${slug}`,
       lastModified: updatedAt,

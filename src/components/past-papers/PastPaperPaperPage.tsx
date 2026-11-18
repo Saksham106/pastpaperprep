@@ -19,10 +19,11 @@ import { CopyWorkedAnswerLink, WorkedAnswerHashOpener } from './WorkedAnswerLink
 import shell from './PastPaperPages.module.css';
 import styles from './PastPaperPaperPage.module.css';
 
-const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' } } as const;
+const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' }, 'a-level': { name: 'Cambridge A Level', path: '/past-papers/a-level' } } as const;
 const sessionKey = (p: WholePaperSummary) => p.year * 10 + sessionRank(p.session);
 /** Short chip text: "42" for IGCSE, "P2 TZ1" for IB. */
-const shortName = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE' ? p.component : paperName(p).replace('Paper ', 'P');
+const isCambridge = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE' || p.qualification === 'Cambridge A Level';
+const shortName = (p: WholePaperSummary) => isCambridge(p) ? p.component : paperName(p).replace('Paper ', 'P');
 
 /** The same paper number in the nearest earlier or later session, preferring the same variant. */
 function neighbour(all: readonly WholePaperSummary[], p: WholePaperSummary, direction: 1 | -1): WholePaperSummary | undefined {
@@ -104,7 +105,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <span>{label}</span>
     </nav>
     <header className={styles.head}>
-      <p className={styles.eyebrow}>{p.qualification === 'Cambridge IGCSE' ? `Cambridge IGCSE · ${codes[0]}` : `IB Diploma · ${paperCourseTitle(bank, p)}`}</p>
+      <p className={styles.eyebrow}>{isCambridge(p) ? `${p.qualification} · ${codes[0]}` : `IB Diploma · ${paperCourseTitle(bank, p)}`}</p>
       <h1>{copy.h1}</h1>
       <ul className={styles.facts} aria-label="Paper facts">{facts.map(fact => <li key={fact}>{fact}</li>)}</ul>
     </header>

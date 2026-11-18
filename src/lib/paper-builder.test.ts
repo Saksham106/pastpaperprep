@@ -67,6 +67,15 @@ describe("generatePaper", () => {
     expect(() => generatePaper(pool, { ...core, bank: "ib-hl", targets: [{ paper: 1, amount: 1 }] })).toThrow(/Core.*Extended.*bank/i);
   });
 
+  it("keeps an A Level paper route to its own paper and rejects another bank's route values", () => {
+    const pool: PaperCandidate[] = [1, 2, 3, 4, 5, 6].map((paper) => ({ ...questions[0], paper, id: `p${paper}` }));
+    const pure3 = { bank: "a-level-maths-9709" as const, courseRoute: "pure-3", mode: "questions" as const, seed: 1 };
+    expect(generatePaper(pool, { ...pure3, targets: [{ paper: 3, amount: 1 }] }).questions.map((q) => q.paper)).toEqual([3]);
+    expect(() => generatePaper(pool, { ...pure3, targets: [{ paper: 2, amount: 1 }] })).toThrow("Pure 3 students cannot select Paper 2");
+    expect(() => generatePaper(pool, { ...pure3, courseRoute: "core", targets: [{ paper: 1, amount: 1 }] })).toThrow("Choose a valid course route");
+    expect(() => generatePaper(pool, { ...pure3, bank: "igcse", targets: [{ paper: 3, amount: 1 }] })).toThrow("Choose a valid course route");
+  });
+
   it("fails clearly rather than silently underfilling or returning an impossible marks mix", () => {
     expect(() => generatePaper(questions, { mode: "questions", targets: [{ paper: 1, amount: 4 }], seed: 1 })).toThrow(/Paper 1.*3 available/i);
     expect(() => generatePaper(questions, { mode: "marks", targets: [{ paper: 2, amount: 4 }], seed: 1 })).toThrow(/Paper 2.*exactly 4 marks/i);

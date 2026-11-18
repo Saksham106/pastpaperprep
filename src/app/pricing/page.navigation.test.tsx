@@ -29,7 +29,8 @@ describe("pricing for an existing customer", () => {
     expect(screen.getByRole("group", { name: "Billing period" })).toBeInTheDocument();
     expect(screen.queryByRole("heading", { name: /your current access/i })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /choose one bank/i })).not.toBeInTheDocument();
-    expect(mocks.trackProductEvent).toHaveBeenCalledWith("pricing_view", expect.objectContaining({ signedIn: true, hasPaidAccess: true }));
+    // pricing_view fires from a passive effect, which can flush just after the heading commits.
+    await waitFor(() => expect(mocks.trackProductEvent).toHaveBeenCalledWith("pricing_view", expect.objectContaining({ signedIn: true, hasPaidAccess: true })));
     expect(mocks.trackProductEvent.mock.calls.filter(([name]) => name === "pricing_view")).toHaveLength(1);
   });
 
@@ -46,7 +47,7 @@ describe("pricing for an existing customer", () => {
     expect(await screen.findByRole("heading", { name: /your current access/i })).toBeInTheDocument();
     expect(screen.getByText(/^Free$/)).toBeInTheDocument();
     expect(document.querySelector('[aria-label="PastPaperPrep plans"] #plan-builder')).toBeInTheDocument();
-    expect(mocks.trackProductEvent).toHaveBeenCalledWith("pricing_view", expect.objectContaining({ signedIn: true, hasPaidAccess: false }));
+    await waitFor(() => expect(mocks.trackProductEvent).toHaveBeenCalledWith("pricing_view", expect.objectContaining({ signedIn: true, hasPaidAccess: false })));
   });
 
   it("shows complimentary access as a grant without plan actions", async () => {

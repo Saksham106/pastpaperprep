@@ -7,7 +7,7 @@ import { trackProductEvent } from "@/lib/product-analytics";
 import { trackUpgrade } from "@/components/UpgradeNudges";
 import { UPGRADE_PRICE_MONTH } from "@/lib/upgrade-copy";
 import { Testimonial } from "@/components/Testimonial";
-import { SIGNUP_GATE_TESTIMONIAL } from "@/lib/testimonials";
+import { SIGNUP_GATE_TESTIMONIAL, testimonialForBank } from "@/lib/testimonials";
 
 const GATE_VIEW_KEY = "signup_gate:";
 
@@ -37,6 +37,7 @@ export function gateValueLine(remainingCount: number, bankFreeCount?: number, ba
 
 function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHref = "/pricing", plansLine = `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`, bankFreeCount, bankName, titleId }: GateMessageProps) {
   const eventProperties = { bank: bankSlug, limit: ANONYMOUS_FREE_QUESTION_LIMIT, remainingCount };
+  const gateQuote = testimonialForBank(bankSlug, SIGNUP_GATE_TESTIMONIAL);
 
   return (
     <div className="free-question-gate-copy">
@@ -45,7 +46,7 @@ function GateMessage({ bankSlug, remainingCount, signupHref, signinHref, plansHr
       <p className="free-question-gate-description">
         {gateValueLine(remainingCount, bankFreeCount, bankName)} {plansLine}
       </p>
-      <Testimonial testimonial={SIGNUP_GATE_TESTIMONIAL} variant="inline" />
+      {gateQuote && <Testimonial testimonial={gateQuote} variant="inline" />}
       <div className="free-question-gate-actions">
         <Link prefetch={false} className="button primary" href={signupHref} onClick={() => trackProductEvent("free_gate_signup_click", eventProperties)}>
           Create free account

@@ -1,7 +1,7 @@
 import type { PublicQuestionMetadata } from "@/lib/question-index";
 import type { BankSlug } from "@/lib/banks";
 import { isCleanMathsBank, mathsSubtopicMatches, mathsTopicMatches } from "@/lib/maths-picker";
-import { deriveCourseRoute, matchesCourseRoute, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
+import { deriveCourseRoute, matchesCourseRoute, parseRouteSelection, routeLabel, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 
 export type PaperCandidate = Pick<PublicQuestionMetadata, "id" | "number" | "paper" | "year" | "marks" | "primaryTopic" | "secondaryTopics"> & { subtopics?: string[]; calculator?: boolean | null };
 
@@ -87,10 +87,11 @@ export function generatePaper(questions: readonly PaperCandidate[], plan: PaperP
   if (mode !== "questions" && mode !== "marks") throw new Error("Choose questions or marks");
   if (!Number.isInteger(seed) || !targets.length || targets.some(({ paper, amount }) => !Number.isInteger(paper) || paper < 1 || !Number.isInteger(amount) || amount < 1)) throw new Error("Choose a positive target for at least one paper");
   if (new Set(targets.map(({ paper }) => paper)).size !== targets.length) throw new Error("Duplicate paper targets are not allowed");
-  if (courseRoute !== "all" && courseRoute !== "core" && courseRoute !== "extended") throw new Error("Choose a valid course route");
+  if (courseRoute !== "all" && courseRoute !== "core" && courseRoute !== "extended" && !parseRouteSelection(bank, courseRoute)) throw new Error("Choose a valid course route");
   if (courseRoute !== "all" && (!bank || !supportsCourseRoute(bank))) throw new Error("Core and Extended routes are not available for this bank");
+  if (courseRoute !== "all" && !parseRouteSelection(bank, courseRoute)) throw new Error("Choose a valid course route");
   if (courseRoute !== "all" && targets.some(({ paper }) => !matchesCourseRoute(deriveCourseRoute(bank!, paper), courseRoute))) {
-    throw new Error(`${courseRoute === "core" ? "Core" : "Extended"} students cannot select Paper ${targets.find(({ paper }) => !matchesCourseRoute(deriveCourseRoute(bank!, paper), courseRoute))!.paper}`);
+    throw new Error(`${routeLabel(bank, courseRoute)} students cannot select Paper ${targets.find(({ paper }) => !matchesCourseRoute(deriveCourseRoute(bank!, paper), courseRoute))!.paper}`);
   }
   if (yearFrom !== undefined && yearTo !== undefined && yearFrom > yearTo) throw new Error("The first year must not be after the last year");
   if (mode === "questions" && targets.reduce((sum, target) => sum + target.amount, 0) > 50) throw new Error("A worksheet can contain at most 50 questions");

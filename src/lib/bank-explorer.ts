@@ -1,5 +1,6 @@
 import { hasFreeTier, isPreviewQuestion } from "@/lib/access";
 import { isLocalEconomicsBank, isLocalEconomicsPreviewEnabled, type BankSlug } from "@/lib/banks";
+import { matchesCourseRoute } from "@/lib/course-route";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } from "@/lib/explorer-state";
 import { filterQuestions } from "@/lib/question-filter";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
@@ -27,7 +28,9 @@ export async function loadBankExplorer(slug: BankSlug, routePreset: ExplorerSear
     search: undefined,
     sort: initialState.sort,
   });
+  // Banks that open on one route (A Level paper tabs) pre-render that route's questions.
   const initialMatches = routeMatches
+    .filter((question) => matchesCourseRoute(question.syllabusRoute, initialState.courseRoute))
     .filter((question) => !initialState.freeOnly || isPreviewQuestion(slug, question.id))
     .filter(() => !initialState.savedOnly);
   const sourceById = new Map(allQuestions.map((question) => [question.id, question]));

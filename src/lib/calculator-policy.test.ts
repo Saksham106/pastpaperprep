@@ -21,6 +21,8 @@ describe("calculator policy", () => {
     expect(calculatorAllowed("ib-sl", { paper: 2, year: 2025 })).toBe(true);
     expect(calculatorAllowed("ib-ai-hl", { paper: 1, year: 2023 })).toBe(true);
     expect(calculatorAllowed("ib-ai-sl", { paper: 1, year: 2023 })).toBe(true);
+    // 9709: a scientific calculator in every paper, every year in scope (syllabus "Calculators").
+    for (const paper of [1, 2, 3, 4, 5, 6]) for (const year of [2020, 2026]) expect(calculatorAllowed("a-level-maths-9709", { paper, year })).toBe(true);
     expect(calculatorAllowed("igcse-chemistry-0620", { paper: 1, year: 2024 })).toBeNull();
     expect(calculatorAllowed("ib-economics-hl", { paper: 1, year: 2024 })).toBeNull();
   });
@@ -46,6 +48,6 @@ describe("calculator policy", () => {
 
   it("only offers a filter where both values occur", () => {
     expect(CALCULATOR_FILTER_BANKS).toEqual(["igcse", "igcse-additional", "ib-hl", "ib-sl"]);
-    expect(CALCULATOR_POLICY_BANKS).toEqual(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"]);
+    expect(CALCULATOR_POLICY_BANKS).toEqual(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709"]);
   });
 });

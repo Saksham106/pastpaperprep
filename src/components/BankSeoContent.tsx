@@ -11,7 +11,7 @@ function guideFor(bank: Bank) {
     };
   }
 
-  if (bank.slug === "igcse-additional") {
+  if (bank.slug === "igcse-additional" || bank.slug === "a-level-maths-9709") {
     return {
       href: "/articles/how-to-use-maths-past-papers-effectively",
       label: "Past paper revision method",

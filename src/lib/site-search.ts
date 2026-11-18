@@ -1,4 +1,5 @@
 import { matchPapers, parsePaperQuery, type PaperQuery } from "@/lib/past-paper-catalog";
+import type { QualificationId } from "@/lib/qualifications";
 import type { WholePaperSummary } from "@/lib/whole-paper-types";
 
 /**
@@ -14,7 +15,7 @@ export const SEARCH_INDEX_VERSION = 2;
 export type SearchSubject = {
   bank: string;
   name: string;
-  qualification: "igcse" | "ib";
+  qualification: QualificationId;
   practiceHref: string;
   questionCount: number;
   papersHref: string | null;
@@ -60,7 +61,10 @@ const STOPWORDS = new Set(["and", "of", "the"]);
 /** The words a subject answers to, for SearchSubject.terms. */
 export function subjectTerms(...names: string[]): string[] {
   const words = names.flatMap(name => name.toLowerCase().replace(/[()&,]/g, " ").split(/\s+/)).filter(word => word && !STOPWORDS.has(word));
-  return [...new Set(words.flatMap(word => [word, ...(SYNONYMS[word] ?? [])]))];
+  // "Cambridge A Level" is not IGCSE, so it skips the cambridge -> igcse synonym and gains "alevel".
+  const aLevel = names.some(name => /\ba level\b/i.test(name));
+  const terms = words.flatMap(word => [word, ...(aLevel && word === "cambridge" ? [] : SYNONYMS[word] ?? [])]);
+  return [...new Set(aLevel ? [...terms, "alevel", "a-level"] : terms)];
 }
 
 /** Words that describe a paper rather than a subject, so subject matching skips them. */

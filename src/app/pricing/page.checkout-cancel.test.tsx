@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { checkoutCancelUrl, lifetimeCheckoutCancelUrl } from "@/lib/stripe-checkout";
 import { pricingTestUrl, renderPricingPage, routeAccountRequestsToHandler, setSignedIn } from "./pricing-page-harness";
@@ -30,7 +30,8 @@ describe("pricing after a cancelled checkout", () => {
     const checked = [...builder.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked")].map((input) => input.closest("label")?.dataset.bankId);
     expect(checked.sort()).toEqual(["ib-hl", "ib-sl", "igcse"]);
     expect(screen.getByRole("button", { name: "Continue with 3 banks" })).toBeEnabled();
-    expect(mocks.trackProductEvent).toHaveBeenCalledWith("checkout_cancelled", {});
+    // Reported from the pricing mount effect, which can flush just after the awaited render commits.
+    await waitFor(() => expect(mocks.trackProductEvent).toHaveBeenCalledWith("checkout_cancelled", {}));
   });
 
   it("returns a single-bank buyer to that bank", async () => {

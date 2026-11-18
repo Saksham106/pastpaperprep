@@ -44,6 +44,7 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
   const banks = getCatalogRuntimeBanks(environment);
   const cambridgeBanks = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ibBanks = banks.filter((bank) => bank.qualification === "International Baccalaureate");
+  const aLevelBanks = banks.filter((bank) => bank.qualification === "Cambridge A Level");
   const totalQuestions = banks.reduce((total, bank) => total + bank.questionCount, 0);
   const years = bankYearFacts(SAMPLE_BANK);
   const hasFullPapers = Object.keys(papers).length > 0;
@@ -58,7 +59,7 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
         <div className={styles.fade} aria-hidden="true" />
       </div>
       <div className={styles.lede}>
-        <p className={styles.definition}>PastPaperPrep sorts real Cambridge IGCSE and IB past-paper questions by topic, with the mark scheme for every question.</p>
+        <p className={styles.definition}>PastPaperPrep sorts real Cambridge IGCSE{aLevelBanks.length > 0 ? ", A Level" : ""} and IB past-paper questions by topic, with the mark scheme for every question.</p>
         <SmartSearch />
         <p className={styles.heroLinks}><a href="#question-banks">All {banks.length} banks</a><span aria-hidden="true">·</span><IntentPrefetchLink href="/pricing">Plans</IntentPrefetchLink></p>
         <p className={styles.proof}><span><b>{roundedDown(totalQuestions)}</b> questions</span>{years && <span>Papers to <b>{years.latestYear}</b></span>}<span>Sorted by topic</span>{updated && <span>Updated <b><time dateTime={updated}>{formatUpdateDate(updated)}</time></b></span>}</p>
@@ -67,7 +68,7 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
 
     <section className={`shell ${styles.banks}`} id="question-banks" data-home-section="banks" aria-labelledby="question-banks-heading">
       <h2 className="sr-only" id="question-banks-heading">Question banks</h2>
-      <QualificationTabs modes={hasFullPapers ? PRACTICE_MODES : undefined} items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <SubjectCards banks={cambridgeBanks} papers={papers} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", qualification: "ib" as const, panel: <SubjectCards banks={ibBanks} papers={papers} /> }] : [])]} />
+      <QualificationTabs modes={hasFullPapers ? PRACTICE_MODES : undefined} items={[...(cambridgeBanks.length > 0 ? [{ id: "cambridge-catalog", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <SubjectCards banks={cambridgeBanks} papers={papers} /> }] : []), ...(ibBanks.length > 0 ? [{ id: "ib-catalog", label: "IB Diploma", qualification: "ib" as const, panel: <SubjectCards banks={ibBanks} papers={papers} /> }] : []), ...(aLevelBanks.length > 0 ? [{ id: "a-level-catalog", label: "Cambridge A Level", qualification: "a-level" as const, panel: <SubjectCards banks={aLevelBanks} papers={papers} /> }] : [])]} />
     </section>
 
     <section className={styles.proofBand} data-home-section="proof" aria-labelledby="proof-heading">

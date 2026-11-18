@@ -3,21 +3,29 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import styles from "./MarketingHome.module.css";
 import { onPracticeModeRequest, PRACTICE_MODE_KEY } from "@/lib/practice-mode";
+import { QUALIFICATION_IDS, QUALIFICATIONS, type QualificationId } from "@/lib/qualifications";
+import { QUALIFICATION_KEY, readRememberedBoard } from "@/lib/remembered-board";
 
 export { PRACTICE_MODE_KEY };
 
-export type Qualification = "igcse" | "ib";
+export type Qualification = QualificationId;
 export type QualificationTabItem = { id: string; label: string; panel: ReactNode; qualification?: Qualification };
 /** An optional switch (e.g. By topic / Full papers) before the tabs; the active id lands on the root's data-mode. */
 export type QualificationMode = { id: string; label: string; icon?: ReactNode };
 
 /** Remembered across pages and visits: the last qualification and practice mode a visitor chose. */
-export const QUALIFICATION_KEY = "ppp-qualification";
+export { QUALIFICATION_KEY };
 const read = (key: string) => { try { return window.localStorage.getItem(key); } catch { return null; } };
 const write = (key: string, value: string) => { try { window.localStorage.setItem(key, value); } catch { /* private mode */ } };
 
+/** Board tabs read IGCSE · A Level · IB everywhere; items without a board keep their place after them. */
+export function orderByBoard<T extends { qualification?: Qualification }>(items: readonly T[]): T[] {
+  const rank = (item: T) => item.qualification ? QUALIFICATION_IDS.indexOf(item.qualification) : QUALIFICATION_IDS.length;
+  return items.map((item, index) => ({ item, index })).sort((a, b) => rank(a.item) - rank(b.item) || a.index - b.index).map(({ item }) => item);
+}
+
 export function QualificationTabs({
-  items,
+  items: givenItems,
   ariaLabel = "Choose a qualification",
   className = "",
   modes,
@@ -30,6 +38,7 @@ export function QualificationTabs({
   /** Used when the visitor hasn't picked yet, e.g. the qualification their plan covers. */
   preferredQualification?: Qualification;
 }) {
+  const items = orderByBoard(givenItems);
   const [activeIndex, setActiveIndex] = useState(0);
   const [mode, setMode] = useState(modes?.[0]?.id);
   const tabsRef = useRef<Array<HTMLButtonElement | null>>([]);
@@ -38,8 +47,8 @@ export function QualificationTabs({
 
   // Restore after hydration so the server markup and the first client render agree.
   useEffect(() => {
-    const stored = read(QUALIFICATION_KEY);
-    const wanted = stored === "igcse" || stored === "ib" ? stored : preferredQualification;
+    const stored = readRememberedBoard();
+    const wanted = stored ?? preferredQualification;
     const index = items.findIndex((item) => item.qualification && item.qualification === wanted);
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-off restore from localStorage
     if (index >= 0) setActiveIndex(index);
@@ -84,7 +93,7 @@ export function QualificationTabs({
           }}>{m.icon}{m.label}</button>)}
       </div>}
       <div className={styles.qualificationTabs} role="tablist" aria-label={ariaLabel}>
-        {items.map((item, index) => <button className={styles.qualificationTab} key={item.id} id={`${item.id}-tab`} ref={(node) => { tabsRef.current[index] = node; }} type="button" role="tab" aria-selected={safeIndex === index} aria-controls={`${item.id}-panel`} tabIndex={safeIndex === index ? 0 : -1} onClick={() => select(index)} onKeyDown={(event) => onKeyDown(event, index)}>{item.label}</button>)}
+        {items.map((item, index) => <button className={styles.qualificationTab} key={item.id} id={`${item.id}-tab`} ref={(node) => { tabsRef.current[index] = node; }} type="button" role="tab" aria-selected={safeIndex === index} aria-controls={`${item.id}-panel`} tabIndex={safeIndex === index ? 0 : -1} onClick={() => select(index)} onKeyDown={(event) => onKeyDown(event, index)} aria-label={item.qualification ? QUALIFICATIONS[item.qualification].label : undefined}>{item.qualification ? QUALIFICATIONS[item.qualification].shortLabel : item.label}</button>)}
       </div>
     </div>
     {items.map((item, index) => <div className={styles.tabPanel} key={item.id} id={`${item.id}-panel`} role="tabpanel" aria-labelledby={`${item.id}-tab`} hidden={safeIndex !== index}>{item.panel}</div>)}

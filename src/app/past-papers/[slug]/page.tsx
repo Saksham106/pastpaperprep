@@ -3,12 +3,13 @@ import { notFound } from 'next/navigation';
 import { PastPaperHub } from '@/components/past-papers/PastPaperHub';
 import { PastPaperListPage } from '@/components/past-papers/PastPaperListPage';
 import { qualificationOfBank, type PastPaperQualification } from '@/lib/past-paper-catalog';
+import { isQualificationId } from '@/lib/qualifications';
 import { hubBanks, pastPaperParams, resolveSubject } from '@/lib/past-paper-pages';
 import { hubCopy, pastPaperMetadata, subjectCopy } from '@/lib/past-paper-seo';
 
 export const dynamicParams = false;
 export async function generateStaticParams() { return (await pastPaperParams()).slugs.map(slug => ({ slug })); }
-const qualification = (slug: string): PastPaperQualification | null => slug === 'igcse' || slug === 'ib' ? slug : null;
+const qualification = (slug: string): PastPaperQualification | null => isQualificationId(slug) ? slug : null;
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -23,9 +24,10 @@ export default async function PastPaperSlugPage({ params }: { params: Promise<{ 
   const { slug } = await params;
   const q = qualification(slug);
   if (q) {
+    const boards = [...new Set((await hubBanks()).map(b => b.qualification))];
     const banks = await hubBanks(q);
     if (!banks.length) notFound();
-    return <PastPaperHub banks={banks} qualification={q} />;
+    return <PastPaperHub banks={banks} qualification={q} boards={boards} />;
   }
   const subject = await resolveSubject(slug);
   if (!subject) notFound();

@@ -4,9 +4,13 @@
 // The raw 0606 data marks pre-2025 Paper 1 as non-calculator. Those papers allowed calculators
 // (29 of their questions say "do not use a calculator in this question"); only 2025+ Paper 1 is
 // non-calculator. The raw file is pinned by audit tests, so the correction is applied here.
+//
+// A Level Maths 9709: every paper allows a scientific calculator. Syllabus section 4, "Calculators", identical in
+// the 2020-2022, 2023-2025 and 2026-2027 syllabuses: candidates are expected to have a calculator with standard
+// 'scientific' functions in all the examinations; graphical and symbolic-algebra calculators are not permitted.
 
 /** Banks whose questions carry a calculator status. */
-export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"]);
+export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709"]);
 /** Banks where both values occur, so a calculator filter is useful. */
 export const CALCULATOR_FILTER_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl"]);
 
@@ -23,6 +27,7 @@ export function calculatorAllowed(bank, { paper, year }) {
     case "ib-sl": return paper !== 1;
     case "ib-ai-hl":
     case "ib-ai-sl": return true;
+    case "a-level-maths-9709": return true;
     default: return null;
   }
 }

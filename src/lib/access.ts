@@ -1,7 +1,7 @@
 import type { BankSlug, ProductionBankSlug } from "@/lib/banks";
 import { BANK_CATALOG } from "@/lib/catalog";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bank_igcse_computer_science_0478" | "bank_ib_computer_science_hl" | "bank_ib_computer_science_sl" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom" | "lifetime_all_access";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bank_igcse_computer_science_0478" | "bank_ib_computer_science_hl" | "bank_ib_computer_science_sl" | "bank_a_level_maths_9709" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom" | "lifetime_all_access";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -108,7 +108,7 @@ export const FREE_QUESTION_YEARS: Record<ProductionBankSlug, readonly number[]> 
  * assets are signed, while every other question, answer, and PDF stays gated.
  *
  * `PRIVATE_FREE_QUESTION_YEARS` — the documented older exam years per private bank
- * (IGCSE up to 2021, IB Computer Science up to 2020, IB Economics 2021).
+ * (IGCSE up to 2021, IB Computer Science up to 2020, IB Economics 2021, A Level Maths 2020–2021).
  * `PRIVATE_PREVIEW_QUESTION_IDS` — an explicit ID set, used only where a bank has no
  * usable year semantics. Both are authoritative, never inferred from the corpus.
  */
@@ -123,6 +123,8 @@ export const PRIVATE_FREE_QUESTION_YEARS: Partial<Record<BankSlug, readonly numb
   "ib-computer-science-sl": [2019, 2020],
   "ib-economics-hl": [2021],
   "ib-economics-sl": [2021],
+  // A Level Maths 9709: the 2020 syllabus's first two years, including the unsat May/June 2020 papers.
+  "a-level-maths-9709": [2020, 2021],
 };
 
 export const PRIVATE_PREVIEW_QUESTION_IDS: Partial<Record<BankSlug, readonly string[]>> = {};

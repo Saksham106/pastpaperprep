@@ -1,17 +1,22 @@
 #!/usr/bin/env node
 /**
- * Owner-approved, create-only upload of a Computer Science release's crops to the private R2 bucket
- * through the owner's logged-in Wrangler (OAuth; no keys are created, read or stored). One script for
- * IGCSE Computer Science 0478 and the two IB Computer Science banks; never run without the owner's approval.
+ * Owner-approved upload of a release's crops to the private R2 bucket through the owner's logged-in Wrangler
+ * (OAuth; no keys are created, read or stored); never run without the owner's approval.
  *
- *   WRANGLER=<binary> node scripts/upload-computer-science-wrangler.mjs [--bank <bank>] [--concurrency 4] [--limit N]
+ * NOT ATOMIC: Wrangler's `r2 object put` has no conditional (If-None-Match) option, so this script checks that a
+ * key is absent and then puts it unconditionally. A concurrent writer between the two calls could be overwritten;
+ * the read-back proves the stored bytes, not create-only behaviour. For new writes use the Worker uploader in
+ * research/ppp-tools/r2-upload-worker/ (atomic `If-None-Match: *` put, R2-checked SHA-256, read-back; same log
+ * rows and receipt). This path now refuses to put unless `--allow-non-atomic-put` is passed explicitly.
  *
- *   --bank   igcse-computer-science-0478 (default, the original behaviour), ib-computer-science-hl or
- *            ib-computer-science-sl. Each bank reads data/storage/<bank>.manifest.json, appends to
+ *   WRANGLER=<binary> node scripts/upload-computer-science-wrangler.mjs [--bank <bank>] [--concurrency 4] [--limit N] [--allow-non-atomic-put]
+ *
+ *   --bank   igcse-computer-science-0478 (default, the original behaviour), ib-computer-science-hl,
+ *            ib-computer-science-sl or a-level-maths-9709 (same lane; the file name is historical). Each bank reads data/storage/<bank>.manifest.json, appends to
  *            docs/<bank>-r2-upload-log.jsonl and writes data/storage/<bank>.receipt.json.
  *
  * Per object: check each local file against the manifest (SHA-256, size, key prefix); `get` must report
- * the key absent; `put` with image/webp and private immutable caching; `get` again and compare SHA-256
+ * the key absent; an unconditional `put` with image/webp and private immutable caching; `get` again and compare SHA-256
  * and size. Each verified object appends one line to the log (key, SHA-256, bytes, timestamp; no
  * secrets), so a rerun resumes. A key that already exists is never overwritten: it is accepted only if
  * its bytes match the manifest, otherwise the run stops. When every object is verified, the
@@ -25,11 +30,12 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { manifestSha256 } from "./igcse-release.mjs";
 
-const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl"];
+const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709"];
 const bankFlag = process.argv.indexOf("--bank");
 const BANK = bankFlag === -1 ? BANKS[0] : process.argv[bankFlag + 1];
 if (!BANKS.includes(BANK)) throw new Error(`--bank must be one of ${BANKS.join(", ")}`);
 const BUCKET = "pastpaperprep-assets";
+const ALLOW_NON_ATOMIC_PUT = process.argv.includes("--allow-non-atomic-put");
 const repo = path.resolve(import.meta.dirname, "..");
 const manifestPath = path.join(repo, "data/storage", `${BANK}.manifest.json`);
 const receiptPath = path.join(repo, "data/storage", `${BANK}.receipt.json`);
@@ -84,13 +90,19 @@ async function main() {
     }
   }
   const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
+  // A crop revision replaces a verified key with a new `<stem>.v2.webp` key (the original stays in the bucket, unreferenced).
+  // Only such superseded originals may sit in the log outside the manifest; anything else still fails closed.
+  const supersededBy = (key) => key.endsWith(".webp") && !key.endsWith(".v2.webp") ? byKey.get(`${key.slice(0, -5)}.v2.webp`) : undefined;
+  const superseded = new Set();
   for (const [key, row] of done) {
     const asset = byKey.get(key);
+    if (!asset && supersededBy(key) && row.status === "verified") { superseded.add(key); continue; }
     if (!asset || row.sha256 !== asset.sha256 || row.bytes !== asset.size || row.status !== "verified") throw new Error(`log line does not match manifest: ${key}`);
   }
+  for (const key of superseded) done.delete(key);
   const limit = process.argv.includes("--limit") ? Number(process.argv[process.argv.indexOf("--limit") + 1]) : Infinity;
   const pending = manifest.assets.filter((asset) => !done.has(asset.objectKey)).slice(0, limit);
-  console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, pending: pending.length }));
+  console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, superseded: superseded.size, pending: pending.length }));
 
   const call = wrangler();
   const dir = mkdtempSync(path.join(tmpdir(), `${BANK}-r2-`));
@@ -107,6 +119,7 @@ async function main() {
           if (sha256(before) !== asset.sha256 || before.length !== asset.size) throw new Error(`existing object differs; not overwriting: ${asset.objectKey}`);
           existedBefore = true;
         } else {
+          if (!ALLOW_NON_ATOMIC_PUT) throw new Error(`refusing a non-atomic put of ${asset.objectKey}: use research/ppp-tools/r2-upload-worker (If-None-Match: *) or pass --allow-non-atomic-put`);
           await call(["r2", "object", "put", `${BUCKET}/${asset.objectKey}`, "--file", asset.sourcePath,
             "--content-type", "image/webp", "--cache-control", "private, max-age=31536000, immutable", "--remote"]);
           const after = await get(call, dir, asset.objectKey);
@@ -126,7 +139,7 @@ async function main() {
 
   if (Number.isFinite(limit)) { console.log(JSON.stringify({ verified, total: manifest.assets.length, stoppedAtLimit: limit })); return; }
   const rows = readFileSync(LOG_PATH, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
-  const keys = [...new Set(rows.map((row) => row.key))].sort();
+  const keys = [...new Set(rows.map((row) => row.key))].filter((key) => byKey.has(key)).sort();
   if (keys.length !== manifest.assets.length || manifest.assets.some((asset) => !keys.includes(asset.objectKey))) throw new Error("log does not cover the manifest");
   writeFileSync(receiptPath, `${JSON.stringify({
     schemaVersion: "igcse-upload-receipt-v1",
@@ -135,7 +148,7 @@ async function main() {
     assetManifestSha256: manifestSha256(manifest),
     completed: keys,
     failed: [],
-    readbackProvenance: { method: "wrangler-oauth create-only get/put/get", log: path.relative(repo, LOG_PATH), logSha256: sha256(readFileSync(LOG_PATH)), existedBefore: rows.filter((row) => row.existedBefore).length },
+    readbackProvenance: { method: "wrangler-oauth absent-check get, unconditional put, read-back get (not atomic create-only)", log: path.relative(repo, LOG_PATH), logSha256: sha256(readFileSync(LOG_PATH)), existedBefore: rows.filter((row) => row.existedBefore).length, supersededKeys: [...superseded].sort() },
   }, null, 2)}\n`);
   console.log(JSON.stringify({ verified: keys.length, receipt: path.relative(repo, receiptPath) }));
 }

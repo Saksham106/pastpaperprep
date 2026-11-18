@@ -124,7 +124,7 @@ export function SmartSearch() {
         {sections.map(section => <div key={section} role="group" aria-label={section === "paper" ? "Papers" : section === "topic" ? "Topics" : "Subjects"} className={styles.group}>
           <p className={styles.groupLabel} aria-hidden="true">{section === "paper" ? "Papers" : section === "topic" ? "Topics" : "Subjects"}</p>
           {section === "paper" && results!.papers.map(p => <div key={p.id} className={styles.row} data-subject-tone={toneFor(p.bankSlug)}>
-            {link(p.href, "paper", styles.rowLink, <><span className={styles.tile}>{p.qualification === "Cambridge IGCSE" ? p.component : `P${p.paper.toUpperCase()}`}</span><span className={styles.main}><strong>{p.title}</strong><small>{p.detail}</small></span><span className={styles.cta}>Open paper</span></>)}
+            {link(p.href, "paper", styles.rowLink, <><span className={styles.tile}>{p.qualification !== "IB Diploma" ? p.component : `P${p.paper.toUpperCase()}`}</span><span className={styles.main}><strong>{p.title}</strong><small>{p.detail}</small></span><span className={styles.cta}>Open paper</span></>)}
           </div>)}
           {section === "topic" && results!.topics.map(t => { const subject = index!.subjects.find(s => s.bank === t.bank); return <div key={`${t.bank}:${t.label}`} className={styles.row} data-subject-tone={toneFor(t.bank)}>
             {link(t.href, "topic", styles.rowLink, <><span className={styles.tile} aria-hidden="true">#</span><span className={styles.main}><strong>{t.label}</strong><small>{subject?.name ?? ""} · {t.count.toLocaleString("en-US")} questions</small></span><span className={styles.cta}>Practise</span></>)}

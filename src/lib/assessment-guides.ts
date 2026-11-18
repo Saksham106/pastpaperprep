@@ -110,6 +110,20 @@ const GUIDES: Partial<Record<BankSlug, AssessmentGuide>> = {
   "igcse-chemistry-0620": scienceCambridge("Chemistry"),
   "igcse-physics-0625": scienceCambridge("Physics"),
   "igcse-coordinated-sciences-0654": scienceCambridge("Co-ordinated Sciences"),
+  // Durations and totals: the 2026–2027 syllabus assessment table (source workspace data/paper-facts.json).
+  "a-level-maths-9709": {
+    version: "2026–2027 syllabus",
+    summary: "Students sit specific papers. AS Level: Paper 1 with Paper 2, 4 or 5. A Level: Papers 1, 3, 4 and 5, or Papers 1, 3, 5 and 6.",
+    papers: [
+      { name: "Paper 1", format: "Pure Mathematics 1", duration: "1 hr 50 min", marks: "75" },
+      { name: "Paper 2", format: "Pure Mathematics 2 (AS only)", duration: "1 hr 15 min", marks: "50" },
+      { name: "Paper 3", format: "Pure Mathematics 3", duration: "1 hr 50 min", marks: "75" },
+      { name: "Paper 4", format: "Mechanics", duration: "1 hr 15 min", marks: "50" },
+      { name: "Paper 5", format: "Probability & Statistics 1", duration: "1 hr 15 min", marks: "50" },
+      { name: "Paper 6", format: "Probability & Statistics 2", duration: "1 hr 15 min", marks: "50" },
+    ],
+    caveat: "Papers 4 and 6 cannot be combined. Pure 2 counts towards AS Level only. The May/June 2020 papers were published but never sat.",
+  },
   "igcse-economics-0455": {
     version: "2026 syllabus",
     summary: "There is no Core or Extended route. Paper 1 checks broad knowledge through multiple choice; Paper 2 tests structured economic reasoning, calculations, data interpretation, analysis, and evaluation.",

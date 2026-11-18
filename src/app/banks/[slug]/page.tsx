@@ -34,7 +34,7 @@ function topicalCopy(slug: BankSlug, fallbackName: string) {
   const name = catalog ? subjectSearchName(catalog) : fallbackName;
   return {
     name,
-    // IB students search "question bank"; IGCSE students search "topical past papers".
+    // IB students search "question bank"; IGCSE and A Level students search "topical past papers".
     title: catalog?.qualification === "IB Diploma"
       ? fitTitle(`${name} Question Bank: Topical Past Papers`, `${name} Topical Past Papers`)
       : fitTitle(`${name} Topical Past Paper Questions`, `${name} Topical Past Papers`),
@@ -75,6 +75,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
   const updated = bankLastUpdated(slug);
   const fullPapers = await resolveSubject(subjectSlugForBank(slug));
   const catalogBank = getCatalogBanksForDisplay().find((entry) => entry.slug === slug);
+  const bankQuote = bankTestimonial(slug);
   const manifest = catalogBank ? await getLandingManifest(slug) : undefined;
   // Every syllabus topic, linking to its landing page where one exists and to the filtered bank otherwise.
   const landingTopics = new Map((manifest?.topics ?? []).map((topic) => [topic.label, topic]));
@@ -135,7 +136,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
               <IntentPrefetchLink className="button secondary bank-hero-build" data-signed-out-only href={buildPaperLoginPath(slug)}>Build a paper</IntentPrefetchLink>
             </div>
           </div>
-          <Testimonial testimonial={bankTestimonial(slug)} variant="inline" signedOutOnly />
+          {bankQuote && <Testimonial testimonial={bankQuote} variant="inline" signedOutOnly />}
         </div>
       </section>
       <div className="shell">

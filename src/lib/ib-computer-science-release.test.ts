@@ -353,13 +353,15 @@ describe("IB Computer Science shared tree and the two banks together", () => {
     expect(new Set(versions).size).toBe(versions.length);
     expect(migrations.filter((file) => file.startsWith("20261020020000"))).toEqual([name]);
     expect(migrations.filter((file) => file.slice(0, 14) > "20261020010000" && file < name)).toEqual([]);
-    // No later migration redefines the billing objects this one copied, so its copies stay the latest.
+    // A later migration may redefine the billing objects this one copied only by copying them forward
+    // with both IB Computer Science products and slugs intact (a later bank release does exactly that).
     for (const later of migrations.filter((file) => file > name)) {
       const body = readFileSync(join(ROOT, "supabase/migrations", later), "utf8");
-      for (const fn of ["is_valid_custom_bank_ids", "confirm_addon_billing_checkout", "confirm_billing_checkout", "apply_stripe_subscription_event"]) {
-        expect(body.includes(`function public.${fn}`), `${later} redefines ${fn}`).toBe(false);
-      }
-      expect(/products_known_id|stripe_price_catalog_product_id_check/.test(body), later).toBe(false);
+      const redefines = ["is_valid_custom_bank_ids", "confirm_addon_billing_checkout", "confirm_billing_checkout", "apply_stripe_subscription_event"].some((fn) => body.includes(`function public.${fn}`))
+        || /products_known_id|stripe_price_catalog_product_id_check/.test(body);
+      if (!redefines) continue;
+      for (const product of ["bank_ib_computer_science_hl", "bank_ib_computer_science_sl"]) expect(body.match(new RegExp(`'${product}'`, "g"))?.length, `${later} drops ${product}`).toBe(6);
+      for (const slug of ["ib-computer-science-hl", "ib-computer-science-sl"]) expect(body.match(new RegExp(`'${slug}'`, "g"))?.length, `${later} drops ${slug}`).toBe(3);
     }
     const migration = readFileSync(join(ROOT, "supabase/migrations", name), "utf8");
     expect(migration.startsWith("begin;")).toBe(true);

@@ -3,6 +3,8 @@
  * published with the person's permission. Quotes are verbatim: never edit wording without their sign-off,
  * and never add placeholder or invented entries (FTC fake-reviews rule, UK DMCC Act, CAP 3.45–3.47).
  */
+import { qualificationIdOfSlug, type QualificationId } from "@/lib/qualifications";
+
 export type Testimonial = { quote: string; name: string; detail: string };
 
 export const HOME_TESTIMONIALS: readonly Testimonial[] = [
@@ -37,8 +39,20 @@ const TOPIC_TESTIMONIAL: Testimonial = { quote: "Every question for that one sub
 export const SIGNUP_GATE_TESTIMONIAL: Testimonial = { quote: "The first 20 questions were enough to get me to sign up.", name: "Ryan H.", detail: "IB DP Year 2, Canada" };
 export const ABOUT_TESTIMONIAL: Testimonial = { quote: "I'm a full-time IGCSE tutor and I point every student here now.", name: "Amara Osei", detail: "IGCSE & IB Sciences Tutor, 6 yrs, Ghana" };
 
+/**
+ * Boards with no quotes from their own students yet. Their pages show no quote rather than another board's
+ * (owner, 2026-11-18: no IB quotes on A Level pages until there are A Level ones).
+ */
+const BOARDS_WITHOUT_QUOTES: readonly QualificationId[] = ["a-level"];
+
+/** `testimonial` on a bank's pages, or nothing when the bank's board has no quotes of its own yet. */
+export function testimonialForBank(slug: string | null | undefined, testimonial: Testimonial): Testimonial | undefined {
+  return slug && BOARDS_WITHOUT_QUOTES.includes(qualificationIdOfSlug(slug)) ? undefined : testimonial;
+}
+
 /** A bank's own quote when it has one; otherwise a general quote, picked stably from the slug so SSR and hydration agree. */
-export function bankTestimonial(slug: string): Testimonial {
+export function bankTestimonial(slug: string): Testimonial | undefined {
+  if (BOARDS_WITHOUT_QUOTES.includes(qualificationIdOfSlug(slug))) return undefined;
   const specific = BANK_SPECIFIC_TESTIMONIALS[slug];
   if (specific) return specific;
   const hash = [...slug].reduce((total, char) => total + char.charCodeAt(0), 0);
@@ -46,6 +60,6 @@ export function bankTestimonial(slug: string): Testimonial {
 }
 
 /** Biology 0610 topic pages carry Carlos's topic-search quote; every other topic page uses the general one. */
-export function topicTestimonial(bankSlug: string): Testimonial {
-  return bankSlug === "igcse-biology-0610" ? BIOLOGY_TOPIC_TESTIMONIAL : TOPIC_TESTIMONIAL;
+export function topicTestimonial(bankSlug: string): Testimonial | undefined {
+  return testimonialForBank(bankSlug, bankSlug === "igcse-biology-0610" ? BIOLOGY_TOPIC_TESTIMONIAL : TOPIC_TESTIMONIAL);
 }

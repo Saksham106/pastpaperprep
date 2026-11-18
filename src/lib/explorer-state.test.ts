@@ -144,3 +144,43 @@ describe("route presets", () => {
     });
   });
 });
+
+describe("A Level 9709 paper tabs in the URL", () => {
+  const bank = "a-level-maths-9709";
+  const base = { search: "", sort: "paper" as const, filters: {}, freeOnly: false, savedOnly: false, visible: 24 };
+
+  it("opens on Pure 1, or the remembered tab, when the URL names none", () => {
+    expect(parseExplorerState({}, { bank }).courseRoute).toBe("pure-1");
+    expect(parseExplorerState({}, { bank, rememberedRoute: "ps-2" }).courseRoute).toBe("ps-2");
+    expect(parseExplorerState({}, { bank, rememberedRoute: "core" }).courseRoute).toBe("pure-1");
+  });
+
+  it("lets an explicit route win, including All papers", () => {
+    expect(parseExplorerState({ route: "all" }, { bank, rememberedRoute: "ps-2" }).courseRoute).toBe("all");
+    expect(parseExplorerState({ route: "mechanics" }, { bank }).courseRoute).toBe("mechanics");
+    expect(parseExplorerState({ route: "core" }, { bank }).courseRoute).toBe("pure-1");
+  });
+
+  it("follows a one-paper link to that tab and opens other filtered links on All papers", () => {
+    expect(parseExplorerState({ paper: "3" }, { bank, rememberedRoute: "pure-1" }).courseRoute).toBe("pure-3");
+    expect(parseExplorerState({ paper: ["5", "6"] }, { bank }).courseRoute).toBe("all");
+    // A topic link (search, topic pages) must not land on a paper without that topic.
+    expect(parseExplorerState({ topic: "Vectors" }, { bank, rememberedRoute: "pure-1" }).courseRoute).toBe("all");
+    expect(parseExplorerState({ q: "moments" }, { bank }).courseRoute).toBe("all");
+  });
+
+  it("always writes the tab for 9709, so a reload keeps the student's paper", () => {
+    expect(serializeExplorerState({ ...base, courseRoute: "pure-1" }, { bank }).toString()).toBe("route=pure-1");
+    expect(serializeExplorerState({ ...base, courseRoute: "all" }, { bank }).toString()).toBe("route=all");
+    const reloaded = parseExplorerState(Object.fromEntries(serializeExplorerState({ ...base, courseRoute: "pure-1", filters: { topics: ["Quadratics"] } }, { bank })), { bank });
+    expect(reloaded.courseRoute).toBe("pure-1");
+  });
+
+  it("leaves Core/Extended URLs unchanged", () => {
+    expect(parseExplorerState({}, { bank: "igcse" }).courseRoute).toBe("all");
+    expect(parseExplorerState({ topic: "Number" }, { bank: "igcse", rememberedRoute: "core" }).courseRoute).toBe("all");
+    expect(parseExplorerState({ route: "core" }, { bank: "igcse" }).courseRoute).toBe("core");
+    expect(serializeExplorerState({ ...base, courseRoute: "all" }, { bank: "igcse" }).toString()).toBe("");
+    expect(serializeExplorerState({ ...base, courseRoute: "extended" }, { bank: "igcse" }).toString()).toBe("route=extended");
+  });
+});

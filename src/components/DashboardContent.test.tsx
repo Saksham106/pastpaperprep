@@ -87,7 +87,9 @@ describe("DashboardContent", () => {
     render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={[...BANKS, ...IGCSE_RELEASE_BANK_CATALOG]} />);
 
     const tabs = screen.getAllByRole("tab");
-    expect(tabs.map((tab) => tab.textContent)).toEqual(["Cambridge IGCSE", "IB Diploma"]);
+    // Short labels on screen; the full board name is each tab's accessible name.
+    expect(tabs.map((tab) => tab.textContent)).toEqual(["IGCSE", "IB"]);
+    expect(tabs.map((tab) => tab.getAttribute("aria-label"))).toEqual(["Cambridge IGCSE", "IB Diploma"]);
     expect(tabs[0]).toHaveAttribute("aria-selected", "true");
     expect(document.querySelector("#ib-diploma-panel")).toHaveAttribute("hidden");
 
@@ -148,7 +150,7 @@ describe("DashboardContent", () => {
 
   it("only exposes qualifications that have available banks", () => {
     render(<DashboardContent authenticated={false} accessibleBanks={[]} availableBanks={BANKS.filter((bank) => bank.qualification === "Cambridge IGCSE")} />);
-    expect(screen.getAllByRole("tab").map((tab) => tab.textContent)).toEqual(["Cambridge IGCSE"]);
+    expect(screen.getAllByRole("tab").map((tab) => tab.textContent)).toEqual(["IGCSE"]);
     expect(screen.queryByRole("tab", { name: "IB Diploma" })).not.toBeInTheDocument();
   });
 

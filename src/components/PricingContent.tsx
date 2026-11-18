@@ -350,9 +350,11 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             </div>
             <p>{hasPaidAccess ? "See what is available across the catalogue." : "See the real coverage behind each choice before you pay."}</p>
           </div>
+          {/* Tagged with their board so the remembered board (home, notes, bank visits) opens first. */}
           <QualificationTabs className="pricing-qualification-tabs" items={[
-            { id: "pricing-cambridge", label: "Cambridge IGCSE", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
-            { id: "pricing-ib", label: "IB Diploma", panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "International Baccalaureate")} /> },
+            { id: "pricing-cambridge", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
+            { id: "pricing-ib", label: "IB Diploma", qualification: "ib" as const, panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "International Baccalaureate")} /> },
+            { id: "pricing-a-level", label: "Cambridge A Level", qualification: "a-level" as const, panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge A Level")} /> },
           ].filter((item) => item.panel.props.banks.length > 0)} />
         </section>
 

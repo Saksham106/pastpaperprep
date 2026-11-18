@@ -7,7 +7,7 @@
     "predev": "npm run generate:bank-index && npm run generate:asset-manifest && npm run generate:free-asset-index && NODE_ENV=development npm run generate:search-index",
     "build": "node scripts/next-build.mjs",
     "prebuild": "npm run generate:bank-index && npm run generate:asset-manifest && npm run generate:free-asset-index && npm run generate:free-explanations && NODE_ENV=production npm run generate:search-index",
-    "postbuild": "node scripts/verify-private-sourcemaps.mjs",
+    "postbuild": "node scripts/verify-private-sourcemaps.mjs && node scripts/verify-held-bank-artifacts.mjs",
     "generate:bank-index": "node scripts/generate-bank-index.mjs",
     "generate:asset-manifest": "tsx scripts/generate-asset-manifest.mts",
     "generate:free-asset-index": "tsx scripts/generate-free-asset-index.mts",

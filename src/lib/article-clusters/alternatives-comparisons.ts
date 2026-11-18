@@ -162,7 +162,7 @@ export const ALTERNATIVES_COMPARISONS = [
         paragraphs: [
           "PastPaperPrep now lists live banks across Cambridge IGCSE Mathematics, Additional Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, Economics and Computer Science, plus IB Maths, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. Its paid value is not a claim that free PDFs are unavailable. It is the time saved by filtering the bank by course, topic, paper, year, marks, and other available metadata, then building a custom printable set from real questions.",
           "The current pricing structure is one bank at $6 per month or $48 per year; two to five banks start at $10 per month for two, plus $4 per additional bank, or $84 per year for two, plus $36 per additional bank; six or more banks are $25 per month or $216 per year. Complete older exam years can be practised free. Prices and access can change, so confirm the live pricing page before purchase.",
-          "PastPaperPrep is useful both for a free full paper and for repairing a known weak topic without hunting through PDF folders. Every question has a worked explanation, but it is not a full lesson library across all subjects.",
+          "PastPaperPrep is useful both for a free full paper and for repairing a known weak topic without hunting through PDF folders. Every IGCSE and IB question has a worked explanation, but it is not a full lesson library across all subjects.",
         ],
       },
       {
@@ -244,7 +244,7 @@ export const ALTERNATIVES_COMPARISONS = [
         paragraphs: [
           "PastPaperPrep currently covers live banks: Cambridge IGCSE Mathematics, Additional Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, Economics and Computer Science, plus IB Mathematics, Chemistry, Physics, Biology, Computer Science and Economics at HL and SL. Its proposition is narrower than PMT’s overall resource catalogue, but deeper for the supported banks: questions can be narrowed by course, topic, year, paper, marks, and other available metadata, then selected into a printable set.",
           "That matters when a full paper gives you a diagnosis but not enough repetition. You can practise the same weak skill across several real questions, review the mark scheme or answer, and later remove the topic label in a mixed set. The value is speed and consistency. A learner who only needs two papers a month may not recover the subscription cost in saved time; a tutor or busy student assembling repeated targeted sets may.",
-          "Every PastPaperPrep question has a worked explanation to help you review it. They are separate from the official mark scheme and do not form a full teaching course. PMT’s notes and other teaching resources can still help when you need to learn the method.",
+          "Every IGCSE and IB question on PastPaperPrep has a worked explanation to help you review it. They are separate from the official mark scheme and do not form a full teaching course. PMT’s notes and other teaching resources can still help when you need to learn the method.",
         ],
       },
       {

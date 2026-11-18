@@ -2,6 +2,7 @@ import { isEconomicsProductionEnabled, isIGCSEReleaseBank, isIGCSEReleaseEnabled
 import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import { getEconomicsRuntimeArtifact } from "@/lib/economics-runtime";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
+import { isPendingStoragePreview } from "@/lib/catalog";
 
 type RawBank = { questions: Array<Record<string, unknown>> };
 
@@ -28,6 +29,8 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "igcse-computer-science-0478": async () => (await import("@/data/production/igcse-computer-science-0478.json")).default as RawBank,
   "ib-computer-science-hl": async () => (await import("@/data/production/ib-computer-science-hl.json")).default as RawBank,
   "ib-computer-science-sl": async () => (await import("@/data/production/ib-computer-science-sl.json")).default as RawBank,
+  // Candidate runtime; the bank stays hidden (pendingStorage) until its crops are uploaded and it is finalized.
+  "a-level-maths-9709": async () => (await import("@/data/production/a-level-maths-9709.json")).default as RawBank,
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();
@@ -52,7 +55,7 @@ export function loadBankQuestionMap(slug: BankSlug): Promise<ReadonlyMap<string,
 /** The bank's source rows for this environment, before normalization (server-only fields intact). */
 export function loadBankRawQuestions(slug: BankSlug): Promise<ReadonlyArray<Record<string, unknown>>> {
   const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
-  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
+  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled() && !isPendingStoragePreview(slug);
   return (productionEconomics
     ? Promise.resolve(getEconomicsRuntimeArtifact(slug) as unknown as RawBank)
     : productionIGCSE
@@ -63,7 +66,7 @@ export function loadBankRawQuestions(slug: BankSlug): Promise<ReadonlyArray<Reco
 
 export function loadBankQuestions(slug: BankSlug): Promise<UnifiedQuestion[]> {
   const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
-  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled();
+  const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled() && !isPendingStoragePreview(slug);
   const production = productionEconomics || productionIGCSE;
   const cacheKey = bankRuntimeCacheKey(slug);
   const cached = cache.get(cacheKey);

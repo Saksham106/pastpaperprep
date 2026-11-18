@@ -24,10 +24,11 @@ describe('retired question id aliases', () => {
     expect(retiredQuestionIds('ib-hl', '2025-may-tz1-p1-q1')).toEqual([]);
   });
 
-  it('covers exactly the retired 2026 donated ids, one to one, onto live questions', async () => {
-    expect(Object.keys(banks).sort()).toEqual(['ib-hl', 'ib-sl']);
+  it('covers exactly the retired 2026 donated ids and the 9709 duplicate variants, one to one, onto live questions', async () => {
+    expect(Object.keys(banks).sort()).toEqual(['a-level-maths-9709', 'ib-hl', 'ib-sl']);
     expect(Object.keys(banks['ib-hl'])).toHaveLength(26);
     expect(Object.keys(banks['ib-sl'])).toHaveLength(36);
+    expect(Object.keys(banks['a-level-maths-9709'])).toHaveLength(149);
     for (const [bank, map] of Object.entries(banks)) {
       const live = await loadBankQuestionMap(bank as BankSlug);
       expect(new Set(Object.values(map)).size).toBe(Object.keys(map).length);

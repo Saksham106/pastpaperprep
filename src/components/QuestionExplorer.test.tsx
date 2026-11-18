@@ -1009,10 +1009,10 @@ describe("QuestionExplorer", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
     expect(screen.getByRole("group", { name: /components/i })).toBeInTheDocument();
-    expect(screen.getByRole("group", { name: /time zone \/ variant/i })).toBeInTheDocument();
-    expect(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 1" })).toBeInTheDocument();
-    expect(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 2" })).toBeInTheDocument();
-    expect(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 3" })).toBeInTheDocument();
+    expect(screen.getByRole("group", { name: /^variant$/i })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Variant: Variant 1" })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Variant: Variant 2" })).toBeInTheDocument();
+    expect(screen.getByRole("checkbox", { name: "Variant: Variant 3" })).toBeInTheDocument();
     expect(screen.getByRole("group", { name: /calculator/i })).toBeInTheDocument();
     expect(screen.queryByRole("group", { name: /course/i })).not.toBeInTheDocument();
   });
@@ -1052,7 +1052,7 @@ describe("QuestionExplorer", () => {
     render(<QuestionExplorer questions={questions} access={fullAccess} />);
 
     fireEvent.click(screen.getByRole("button", { name: /more filters/i }));
-    fireEvent.click(screen.getByRole("checkbox", { name: "Time zone / variant: Variant 1" }));
+    fireEvent.click(screen.getByRole("checkbox", { name: "Variant: Variant 1" }));
 
     await waitFor(() => expect(window.location.search).toContain("zone=Variant+1"));
     expect(screen.getByRole("button", { name: "Variant 1" })).toBeInTheDocument();
