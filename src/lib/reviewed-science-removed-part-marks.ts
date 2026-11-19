@@ -20,7 +20,7 @@ export function removedPartEntry(bank: string, questionId: string): RemovedPartE
 }
 
 /** Fails closed unless the printed total minus the removed parts is exactly the assessable marks. */
-export function assertRemovedPartEntry(bank: string, questionId: string, entry: RemovedPartEntry): void {
+export function assertRemovedPartEntry(bank: string, questionId: string, entry: Pick<RemovedPartEntry, "old" | "printedTotal" | "assessableMarks" | "removedParts">): void {
   const removed = entry.removedParts.reduce((sum, part) => sum + part.marks, 0);
   if (!entry.removedParts.length || !entry.removedParts.every((part) => Number.isInteger(part.marks) && part.marks > 0) ||
     !Number.isInteger(entry.assessableMarks) || entry.assessableMarks <= 0 || entry.printedTotal - removed !== entry.assessableMarks ||
