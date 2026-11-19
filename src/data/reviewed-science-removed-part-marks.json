@@ -1,16 +1,101 @@
 {
- "schema": "reviewed-science-removed-part-marks-v1",
- "decision": "Owner decision 2026-10-19: serve the printed question total when the exam board removed a part but kept the printed [Total], as for 0610-2026-s-43-q5. Supersedes the #140 choice to leave the total null; the sealed 0620 runtime keeps its null.",
+ "schema": "reviewed-science-removed-part-marks-v2",
+ "decision": "Owner decision 2026-11-19 (\"Yes, scoreable everywhere\", review of PR #498): when the exam board removes a part from a question, serve the marks students can actually score: the printed total minus the removed parts, as awarded by the official mark scheme. The printed total is kept here as provenance. Supersedes the 2026-10-19 decision to serve the printed total (docs/igcse-science-removed-part-marks.md). Sealed runtimes are unchanged; the loader and every projection apply this file.",
  "entries": {
+  "igcse-biology-0610": {
+   "0610-2026-s-43-q5": {
+    "old": 15,
+    "printedTotal": 15,
+    "assessableMarks": 12,
+    "removedParts": [
+     {
+      "part": "5(a)",
+      "marks": 3
+     }
+    ],
+    "questionPdfSha256": "9b16019d6cfc4979ce534f689b4fc21fea73c655a8352e243d45314b5f1dbab5",
+    "markSchemePdfSha256": "b2d2ff3d5a93c1f45d3556cb6f0dd12a30c957a351309cbb11ba8fa55117df4d",
+    "markSchemePages": [
+     13,
+     14
+    ],
+    "evidence": "QP p16 prints 5(a) [3] and p19 prints [Total: 15]; MS p13 says 'Due to an issue with question 5(a), the question has been removed from the question paper' and awards 5(b)(i) 3 + 5(b)(ii) 1 (p13) + 5(c)(i) 3 + 5(c)(ii) 5 (p14) = 12. The runtime's paper exception records the same (ms_marks_column_sum 12, withdrawn_part 5(a)). PDFs: the source workspace's research/extension-2026/review-staging copies."
+   }
+  },
   "igcse-chemistry-0620": {
    "0620-2026-m-32-q3": {
     "old": null,
-    "new": 14,
-    "removedPart": "3(d)(iv)",
+    "printedTotal": 14,
     "assessableMarks": 13,
+    "removedParts": [
+     {
+      "part": "3(d)(iv)",
+      "marks": 1
+     }
+    ],
     "questionPdfSha256": "6f96e8fbca4390d6a5a110ea8a313862eea0964d4d667cee8ef1ece855632fde",
     "markSchemePdfSha256": "4483db801d6478eade58ba4b52303bf119b43db390dda3888ef4f6ad3265a315",
-    "evidence": "QP p7 prints [Total: 14] and states 3(d)(iv) 'has been removed from the question paper' (no bracket); MS p9 says the same for 3(d)(iv) and awards 1+2+2+1+2+1+1+3 = 13 for the remaining parts; the paper totals 80 with 14."
+    "markSchemePages": [
+     9
+    ],
+    "evidence": "QP p7 prints [Total: 14] and states 3(d)(iv) 'has been removed from the question paper' (no bracket); MS p9 says the same for 3(d)(iv) and awards 1+2+2+1+2+1+1+3 = 13 for the remaining parts; the printed paper total of 80 includes the removed mark."
+   }
+  },
+  "igcse-coordinated-sciences-0654": {
+   "0654-2022-summer-43-q11": {
+    "old": 11,
+    "printedTotal": 11,
+    "assessableMarks": 7,
+    "removedParts": [
+     {
+      "part": "11(b)(ii)",
+      "marks": 4
+     }
+    ],
+    "questionPdfSha256": "3248ed22a84482995f2afb8c685812685359399b192cb59d34e1b5ab5049deef",
+    "markSchemePdfSha256": "567a77d11a929f287ec76fb8b4616db56abc1ea8f86667ca03906ed49942d803",
+    "markSchemePages": [
+     13,
+     14
+    ],
+    "evidence": "QP pp26-28 prints (a) [2], (b)(i) [1], (b)(ii) [4] (p26), (c) [2] (p27), (d) [2] and [Total: 11] (p28); MS p13 says 'Due to an issue with question 11(b)(ii), the question has been removed from the question paper' and awards 11(a) 2 + 11(b)(i) 1 (p13) + 11(c) 2 + 11(d) 2 (p14) = 7."
+   }
+  },
+  "a-level-chemistry-9701": {
+   "9701-2025-w-21-q1": {
+    "old": 20,
+    "printedTotal": 20,
+    "assessableMarks": 18,
+    "removedParts": [
+     {
+      "part": "1(c)(iii)",
+      "marks": 2
+     }
+    ],
+    "questionPdfSha256": "5714fbc7eb1a8419a7cdeb827ffb44349d694deb50eab033f735bf0c3be27053",
+    "markSchemePdfSha256": "5e58d31b5086f9b5dc948e074a0adbe155f05c34bc48858015a6eb4c262b0059",
+    "markSchemePages": [
+     7,
+     8
+    ],
+    "evidence": "QP part brackets sum to the printed [Total: 20] and exceed the MS row totals by exactly [2], the removed part; MS pp7-8 says 'Due to an issue with question 1(c)(iii), the question has been removed from the question paper.' and awards N/A; the remaining MS rows award 1 + 1 + 1 + 1 + 1 + 1 + 1 + 1 + 2 + 1 + 1 + 4 + 2 = 18. Derived by scripts/generate-a-level-chemistry-9701-runtime.mjs from the source segmentation (SHA d5dd1d8d2b34)."
+   },
+   "9701-2025-w-22-q1": {
+    "old": 10,
+    "printedTotal": 10,
+    "assessableMarks": 8,
+    "removedParts": [
+     {
+      "part": "1(c)(iii)",
+      "marks": 2
+     }
+    ],
+    "questionPdfSha256": "ef853c40beacdd8bb12bd59eca7015d08d837100c200866d00cb5bd2acc785c9",
+    "markSchemePdfSha256": "33a46dad780ffd1de069a89bf6b89ca78a38ac5b5236f03d3f56ae3916d288d3",
+    "markSchemePages": [
+     7
+    ],
+    "evidence": "QP part brackets sum to the printed [Total: 10] and exceed the MS row totals by exactly [2], the removed part; MS p7 says 'Due to an issue with question 1(c)(iii), the question has been removed from the question paper.' and awards N/A; the remaining MS rows award 1 + 1 + 2 + 1 + 1 + 1 + 1 = 8. Derived by scripts/generate-a-level-chemistry-9701-runtime.mjs from the source segmentation (SHA d5dd1d8d2b34)."
    }
   }
  }

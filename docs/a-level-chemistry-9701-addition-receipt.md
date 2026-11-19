@@ -18,7 +18,7 @@ The owner approved the 9701 R2 upload in the 9701 content session, which ran it 
 | Topic labels | The syllabus reuses 13 AS titles for A Level topics (for example 5 and 23 are both "Chemical energetics"). Those A Level topics say "(A Level)" because the app keys topics by label. |
 | MCQ letters | 1,720 official keys, each read two ways in the source and equal. Served as `answer` + official `answerProvenance` (Paper 1 components 11–14). |
 | Section B | 2020–2021 Paper 1 items 31–40 (120 items): the first question crop is the shared key box, so it renders above the item. It is also named in `sharedStimulusImages`. |
-| Withdrawn part | w25 P21 and P22 Q1: Cambridge withdrew 1(c)(iii). The rows keep their printed marks and list `removedParts`, and the MS row says the part was removed. |
+| Withdrawn part | w25 P21 and P22 Q1: Cambridge withdrew 1(c)(iii). The sealed rows keep their printed marks (20, 10) and list `removedParts`. Following the owner's 2026-11-19 decision (review of #498), they serve the marks students can score, **18 and 8**. The generator derives these from the MS rows into `reviewed-science-removed-part-marks.json`; see `docs/igcse-science-removed-part-marks.md`. |
 | Free | 2020–2021: 619 questions |
 | Not sat | May/June 2020: 154 questions |
 | Durations | `paperFacts`: Paper 1 is 75 min, or 60 min for 2020–2021 (`durationMinutesByEra`). Paper 2 is 75 min and Paper 4 is 120 min. The course guide says the same. |

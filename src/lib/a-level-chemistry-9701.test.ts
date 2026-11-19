@@ -35,6 +35,10 @@ import { PARTIAL_EXPLANATION_BANKS } from "@/lib/articles-explanation-coverage.t
 import { HELD_BANKS } from "@/lib/held-banks.mjs";
 import { publishedBankSources } from "../../scripts/generate-bank-index.mjs";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
+import removedPartMarksFile from "@/data/reviewed-science-removed-part-marks.json";
+import { toPublicQuestionMetadata } from "@/lib/question-index";
+import { generatePaper } from "@/lib/paper-builder";
+import { pdfCoverSummary } from "@/lib/pdf-labels";
 
 const ROOT = process.cwd();
 const slug = A_LEVEL_CHEMISTRY_9701;
@@ -207,6 +211,25 @@ describe("A Level Chemistry 9701 runtime", () => {
   it("keeps the w25 Paper 21/22 Q1 rows with Cambridge's withdrawn part listed", () => {
     const withdrawn = runtime.questions.filter((question) => question.removedParts);
     expect(withdrawn.map((question) => [question.id, question.removedParts])).toEqual([["9701-2025-w-21-q1", ["1(c)(iii)"]], ["9701-2025-w-22-q1", ["1(c)(iii)"]]]);
+  });
+
+  it("serves the marks students can score for those rows (18 and 8), in the index, the exact-marks builder and the PDF cover", () => {
+    // The sealed rows keep the printed totals; the generator-derived overlay carries the mark-scheme value.
+    const overlay = (removedPartMarksFile.entries as unknown as Record<string, Record<string, { printedTotal: number; assessableMarks: number; markSchemePages: number[] }>>)[slug];
+    expect(Object.fromEntries(Object.entries(overlay).map(([id, entry]) => [id, [entry.printedTotal, entry.assessableMarks, entry.markSchemePages]]))).toEqual({ "9701-2025-w-21-q1": [20, 18, [7, 8]], "9701-2025-w-22-q1": [10, 8, [7]] });
+    for (const [id, printed, assessable] of [["9701-2025-w-21-q1", 20, 18], ["9701-2025-w-22-q1", 10, 8]] as const) {
+      expect(runtime.questions.find((question) => question.id === id)?.marks).toBe(printed);
+      const question = questions.find((candidate) => candidate.id === id)!;
+      expect(question.marks).toBe(assessable);
+      const metadata = toPublicQuestionMetadata(question);
+      expect(metadata.marks).toBe(assessable);
+      const pool = [{ ...metadata, subtopics: [...metadata.subtopics] }];
+      expect(generatePaper(pool, { mode: "marks", targets: [{ paper: 2, amount: assessable }], seed: 1, bank: slug })).toMatchObject({ totalMarks: assessable, questions: [{ id }] });
+      expect(() => generatePaper(pool, { mode: "marks", targets: [{ paper: 2, amount: printed }], seed: 1, bank: slug })).toThrow(/exactly/);
+      const summary = pdfCoverSummary([{ ...question, bankSlug: slug }], slug, "both");
+      expect(summary.totalMarks).toBe(assessable);
+      expect(summary.meta).toContain(`${assessable} marks`);
+    }
   });
 
   it("serves every multiple-choice letter from the official key, read two ways, and none for structured rows", () => {

@@ -18,6 +18,8 @@
  *   - 2020-2021 Paper 1 items 31-40 (Section B, multiple completion): the first question crop is the shared Section B
  *     key box (`shared_stimulus`), so it renders above the item. Asserted for exactly those 120 items.
  *   - w25 Papers 21/22 Q1: Cambridge withdrew Q1(c)(iii); the row keeps its printed marks and lists `removedParts`.
+ *     The marks students can score (owner decision 2026-11-19) are derived here from the mark-scheme rows and written
+ *     to src/data/reviewed-science-removed-part-marks.json, which the loader applies; the sealed runtime stays as printed.
  *   - A Level topics 23-37 that reuse an AS topic's title (e.g. "Chemical energetics") get " (A Level)" so every topic
  *     label is unique; the app keys topics by label.
  *
@@ -56,9 +58,13 @@ export const EXPECTED = {
   rows: 2220, segmented: 2221, papers: 123, aliases: 381, byPaper: { 1: 1720, 2: 201, 4: 299 }, topics: 37, earlierTopics: 9,
   freeRows: 619, notSatRows: 154, years: "2020-2026", sourcePapers: 147, sharedStimulusItems: 120,
   removedParts: { "9701-2025-w-21-q1": ["1(c)(iii)"], "9701-2025-w-22-q1": ["1(c)(iii)"] },
+  assessableMarks: { "9701-2025-w-21-q1": 18, "9701-2025-w-22-q1": 8 },
 };
 export const TAXONOMY_OUTPUT = "src/data/a-level-chemistry-9701-taxonomy.json";
 export const ALIASES_OUTPUT = "src/data/question-id-aliases.json";
+export const REMOVED_PART_MARKS_OUTPUT = "src/data/reviewed-science-removed-part-marks.json";
+/** The candidate seal pinned in the release lane; the overlay is only written from a build that reproduces it. */
+export const PINNED_CANDIDATE = "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4";
 export const ALIAS_NOTE_9701 = "A Level Chemistry 9701: a variant that reprints another variant of the same series maps to the canonical question, from the source workspace's frozen canonical manifest.";
 const SESSION_LABELS = { february_march: "March", may_june: "June", october_november: "November" };
 const SERIES_CODES = { february_march: "m", may_june: "s", october_november: "w" };
@@ -132,6 +138,56 @@ function runtimeAsset(kind, asset, paperId) {
   const match = /^assets\/(9701-20\d{2}-[msw]-\d{2})\/(questions|markschemes)\/(q\d+-\d+-\d+(?:\.v\d+)?\.webp)$/.exec(asset.path);
   if (!match || match[2] !== kind || match[1] !== paperId) throw new Error(`Unexpected 9701 ${kind} asset path: ${asset.path}`);
   return `${kind}/${match[1]}/${match[3]}`;
+}
+
+/** Multiset difference a - b of two lists of numbers. */
+function minus(a, b) {
+  const rest = [...a];
+  for (const value of b) {
+    const index = rest.indexOf(value);
+    if (index === -1) return null;
+    rest.splice(index, 1);
+  }
+  return rest;
+}
+
+/**
+ * Reviewed removed-part entries for rows whose part Cambridge removed, derived from the mark scheme: the MS row for the
+ * part says it was removed and awards N/A, the remaining MS rows sum to the assessable marks, and the QP brackets minus
+ * the MS row totals leave exactly the removed part's marks. Fails closed on any disagreement.
+ */
+export function removedPartEntries(papers) {
+  const entries = {};
+  for (const paper of papers) for (const question of paper.questions) {
+    if (!question.removed_parts.length) continue;
+    if (question.removed_parts.length !== 1 || question.marks_status !== "official_part_removed") throw new Error(`9701 ${question.id} removed parts ${JSON.stringify(question.removed_parts)}`);
+    const [part] = question.removed_parts;
+    const notice = `Due to an issue with question ${part}, the question has been removed from the question paper.`;
+    const at = question.ms_text.indexOf(notice);
+    if (at === -1 || !/^\s*N\/A\b/.test(question.ms_text.slice(at + notice.length))) throw new Error(`9701 ${question.id} MS does not mark ${part} removed (N/A)`);
+    const bracketSum = question.qp_mark_brackets.reduce((sum, marks) => sum + marks, 0);
+    const msSum = question.ms_printed_totals.reduce((sum, marks) => sum + marks, 0);
+    const removed = minus(question.qp_mark_brackets, question.ms_printed_totals);
+    if (bracketSum !== question.marks || msSum !== question.ms_marks || !removed || removed.length !== 1 || question.marks - removed[0] !== question.ms_marks || !(question.ms_marks > 0)) {
+      throw new Error(`9701 ${question.id} removed-part marks do not reconcile (printed ${question.marks}, MS ${question.ms_marks})`);
+    }
+    const pages = [...new Set(question.markscheme_images.map((asset) => asset.page))].sort((a, b) => a - b);
+    entries[question.id] = {
+      old: question.marks,
+      printedTotal: question.marks,
+      assessableMarks: question.ms_marks,
+      removedParts: [{ part, marks: removed[0] }],
+      questionPdfSha256: paper.qp_sha256,
+      markSchemePdfSha256: paper.ms_sha256,
+      markSchemePages: pages,
+      evidence: `QP part brackets sum to the printed [Total: ${question.marks}] and exceed the MS row totals by exactly [${removed[0]}], the removed part; MS ${pages.length > 1 ? `pp${pages[0]}-${pages.at(-1)}` : `p${pages[0]}`} says '${notice}' and awards N/A; the remaining MS rows award ${question.ms_printed_totals.join(" + ")} = ${question.ms_marks}. Derived by scripts/generate-a-level-chemistry-9701-runtime.mjs from the source segmentation (SHA ${SOURCE_SHA256.segmentation.slice(0, 12)}).`,
+    };
+  }
+  return entries;
+}
+
+export function withRemovedPartEntries(file, entries) {
+  return { ...file, entries: { ...file.entries, [BANK]: entries } };
 }
 
 export function seal(artifact) {
@@ -318,6 +374,8 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   if (questions.filter((question) => question.examStatus === "released_not_sat").length !== EXPECTED.notSatRows) throw new Error("9701 not-sat count drifted");
   if (sharedStimulusItems !== EXPECTED.sharedStimulusItems) throw new Error(`9701 Section B items ${sharedStimulusItems}`);
   if (used.size !== EXPECTED.topics + EXPECTED.earlierTopics) throw new Error(`9701 topics used ${used.size}`);
+  const removedParts = removedPartEntries(segmentation.papers);
+  if (JSON.stringify(Object.fromEntries(Object.entries(removedParts).map(([id, entry]) => [id, entry.assessableMarks]))) !== JSON.stringify(EXPECTED.assessableMarks)) throw new Error("9701 assessable marks drifted");
   const unusedEarlier = sourceTaxonomy.earlier_syllabus_topics.filter((entry) => !used.has(entry.id)).map((entry) => entry.code).sort();
   if (JSON.stringify(unusedEarlier) !== JSON.stringify([...finalLabels.dropped_empty_earlier_syllabus_topics].sort())) throw new Error("9701 unused earlier-syllabus topics differ from the source's dropped list");
 
@@ -372,7 +430,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   };
   const seals = seal(artifact);
   return {
-    artifact, serialized: `${JSON.stringify(artifact, null, 2)}\n`, seals, taxonomy, taxonomySerialized, aliases,
+    artifact, serialized: `${JSON.stringify(artifact, null, 2)}\n`, seals, taxonomy, taxonomySerialized, aliases, removedParts,
     report: {
       status: "PASS", bank: BANK, rows: questions.length, papers: papers.size, years: yearRange, aliases: Object.keys(aliases).length,
       byPaper: EXPECTED.byPaper, freeRows: EXPECTED.freeRows, notSatRows: EXPECTED.notSatRows, held: HELD, sharedStimulusItems,
@@ -398,6 +456,11 @@ export function withBankAliases(file, aliases) {
   return { ...file, note, banks: { ...file.banks, [BANK]: aliases } };
 }
 
+async function writeRemovedPartMarks(repo, entries) {
+  const file = path.join(repo, REMOVED_PART_MARKS_OUTPUT);
+  await writeFile(file, `${JSON.stringify(withRemovedPartEntries(JSON.parse(await readFile(file, "utf8")), entries), null, 1)}\n`);
+}
+
 export async function writeRuntime({ repo = path.resolve(import.meta.dirname, ".."), sourceRoot = sourceRootPath() } = {}) {
   const built = await buildRuntime({ sourceRoot });
   await writeFile(path.join(repo, TAXONOMY_OUTPUT), built.taxonomySerialized);
@@ -409,11 +472,19 @@ export async function writeRuntime({ repo = path.resolve(import.meta.dirname, ".
   const aliasPath = path.join(repo, ALIASES_OUTPUT);
   const aliasFile = JSON.parse(await readFile(aliasPath, "utf8"));
   await writeFile(aliasPath, `${JSON.stringify(withBankAliases(aliasFile, built.aliases), null, 1)}\n`);
+  await writeRemovedPartMarks(repo, built.removedParts);
   return { ...built, output, privateIndex };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(import.meta.filename)) {
-  if (process.argv.includes("--print-blind-pin")) {
+  if (process.argv.includes("--write-removed-part-marks")) {
+    // After finalization the committed runtime is no longer the candidate, so write only the overlay block, and only
+    // from a build that reproduces the pinned candidate seal.
+    const built = await buildRuntime();
+    if (built.seals.candidate !== PINNED_CANDIDATE) throw new Error(`9701 candidate ${built.seals.candidate} != pinned ${PINNED_CANDIDATE}`);
+    await writeRemovedPartMarks(path.resolve(import.meta.dirname, ".."), built.removedParts);
+    console.log(JSON.stringify(built.removedParts, null, 2));
+  } else if (process.argv.includes("--print-blind-pin")) {
     console.log((await blindTranscripts(sourceRootPath())).pin);
   } else {
     const result = await writeRuntime();
