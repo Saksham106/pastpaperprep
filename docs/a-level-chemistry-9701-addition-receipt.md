@@ -60,10 +60,12 @@ Paper tabs: All papers · Multiple choice · AS structured · A Level structured
 ## Billing
 `bank_a_level_chemistry_9701` is sold on the shared single-bank prices, and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_chemistry`. Migration `20261118000000_a_level_chemistry_9701_release.sql` copies Physics's `20261117000000` definitions and adds the product and slug after 9702. It is **not applied**.
 
+## Switch-on (2026-11-19, in #498)
+The owner approved launching Physics and Chemistry together ("looks good launch together"), relayed by the coordinating session. #498 drops `pendingStorage` for both and empties `src/lib/held-banks.mjs`, so production publishes their static index, search entries and asset manifests like 9709's. Explanations stay exempt by name.
+
 ## Still owner-gated
-1. Production migration `20261118000000`, after 9702's `20261117000000`.
-2. Switching the bank on (drop `pendingStorage`). Explanations are exempt by name until written.
-3. Merge, after #497 and never back-to-back with another build.
+1. Production migration `20261118000000`, after 9702's `20261117000000`, before the merge.
+2. Merge #498 (Physics and Chemistry in one build), never back-to-back with another build.
 
 ## Follow-up
 - A native A Level Periodic Table (one-decimal masses from the 9701 syllabus p. 91) for the in-app dock. Until then, the Data section link shows Cambridge's own page.

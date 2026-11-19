@@ -44,10 +44,12 @@ Paper tabs: All papers · Multiple choice · AS structured · A Level structured
 ## Billing
 `bank_a_level_physics_9702`: single bank on the shared single-bank prices, Build Your Plan, All Access and Lifetime; no pair bundle. Migration `20261117000000_a_level_physics_9702_release.sql` copies the latest definitions (9709's migration) with the product and slug added; **not applied**. A catalog fix makes subject-named pair bundles IB-only, so A Level Physics never inherits `bundle_ib_physics`.
 
+## Switch-on (2026-11-19, in #498)
+The owner approved launching Physics and Chemistry together ("looks good launch together"), relayed by the coordinating session. #498 drops `pendingStorage` for both and empties `src/lib/held-banks.mjs`, so production publishes their static index, search entries and asset manifests like 9709's. Explanations stay exempt by name.
+
 ## Still owner-gated
-1. Production migration `20261117000000` (after 9709's `20261114000000`).
-2. Switching the bank on (drop `pendingStorage`); explanations are exempt by name until written.
-3. Merge, after #496 and never back-to-back with another build.
+1. Production migration `20261117000000` (after 9709's `20261114000000`), before the merge.
+2. Merge #498 (Physics and Chemistry in one build), never back-to-back with another build.
 
 ## Existing banks unchanged
 Every other bank's raw and normalized rows were hashed on the #496 branch head (21eb0623) and on this branch: all 23 banks identical (45,735 rows, including A Level Maths 9709).

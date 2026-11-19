@@ -79,39 +79,42 @@ const stripeConfig = validateStripeConfig({
 });
 
 describe("A Level Physics 9702 catalog entry", () => {
-  it("is a hidden, gated, paid Cambridge A Level bank with no pair bundle", () => {
+  it("is a launched, gated, paid Cambridge A Level bank with no pair bundle", () => {
     expect(BANK_CATALOG.filter((entry) => entry.slug === slug)).toHaveLength(1);
     const entry = getCatalogBank(slug)!;
-    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Physics", title: "Physics 9702", syllabusCode: "9702", questionCount: 2627, paperCount: 132, years: "2020-2026", productId: product, release: "gated", delivery: "hosted", pendingStorage: true });
+    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Physics", title: "Physics 9702", syllabusCode: "9702", questionCount: 2627, paperCount: 132, years: "2020-2026", productId: product, release: "gated", delivery: "hosted" });
+    expect("pendingStorage" in entry).toBe(false);
     expect(entry.bundleProductId).toBeUndefined();
     expect(BANK_PRODUCTS[slug]).toBe(product);
     expect(qualificationOfBank(slug)).toBe("a-level");
     expect(SUBJECT_SLUGS[slug]).toBe(slug);
   });
 
-  it("rides the shared release lane, finalized against a verified readback but still hidden", () => {
+  it("rides the shared release lane, finalized against a verified readback, and is served (switched on 2026-11-19)", () => {
     expect(isIGCSEReleaseBank(slug)).toBe(true);
     expect(RELEASE_BANKS[slug]).toEqual({ prefix: "a-level-physics-9702/releases/full2627-v1-625c919f2ca5", sourceRootEnv: "PASTPAPERPREP_A_LEVEL_PHYSICS_SOURCE_ROOT", candidateSeal: "blanked-v1", originalCandidateRuntimeSha256: CANDIDATE });
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[slug]).toBe(`${RELEASE_BANKS[slug].prefix}/`);
     expect(inferredPdfDpiForBank(slug)).toBe(108);
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(getIGCSERuntimeArtifact(slug, PRODUCTION).questions).toHaveLength(2627);
-    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getBank(slug, PRODUCTION)).toBeUndefined();
-    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(false);
-    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(true);
+    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getCatalogBanksForDisplay({ NODE_ENV: "production" }).some((entry) => entry.slug === slug)).toBe(false);
+    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getBank(slug, PRODUCTION)?.qualification).toBe("Cambridge A Level");
+    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(true);
+    // No longer staged: never read through the pending-storage preview path.
+    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(false);
     expect(isPendingStoragePreview(slug, { ...PRODUCTION, PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" })).toBe(false);
   });
 });
 
 describe("A Level Physics 9702 billing", () => {
-  it("sells as a single bank at the shared single-bank price and joins Build Your Plan once displayed", () => {
+  it("sells as a single bank at the shared single-bank price and joins Build Your Plan", () => {
     expect(PURCHASABLE_PRODUCTS).toContain(product);
-    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PREVIEW)).toMatchObject({ priceId: "price_single_monthly" });
-    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toThrow("Bank is not available for checkout");
+    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toMatchObject({ priceId: "price_single_monthly" });
+    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, { NODE_ENV: "production" })).toThrow("Bank is not available for checkout");
     expect(isStripePriceAllowedForProduct(product, stripeConfig.singleAnnualPriceId, stripeConfig, "annual")).toBe(true);
-    expect(getCustomBundlePlan("monthly", [slug, "a-level-maths-9709"], stripeConfig, PREVIEW)).toMatchObject({ productId: "bundle_custom", quantity: 2 });
+    expect(getCustomBundlePlan("monthly", [slug, "a-level-maths-9709"], stripeConfig, PRODUCTION)).toMatchObject({ productId: "bundle_custom", quantity: 2 });
   });
 
   it("is reached by its own product, All Access, Lifetime and a custom bundle, never by a pair bundle", () => {
@@ -245,12 +248,11 @@ describe("A Level Physics 9702 runtime", () => {
   });
 });
 
-describe("A Level Physics 9702 staging", () => {
-  it("is held: no production public/bank-index file or manifest entry while pendingStorage is on", async () => {
-    expect(HELD_BANKS).toContain(slug);
-    expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(false);
-    expect(publishedBankSources({ NODE_ENV: "production", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" }).some(({ bank }) => bank === slug)).toBe(false);
-    expect(Object.keys(PUBLIC_BANK_INDEX_FILES)).not.toContain(slug);
+describe("A Level Physics 9702 publishing", () => {
+  it("is no longer held: production publishes its static index and manifest entry, like 9709", async () => {
+    expect(HELD_BANKS).not.toContain(slug);
+    expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(true);
+    expect(PUBLIC_BANK_INDEX_FILES[slug as keyof typeof PUBLIC_BANK_INDEX_FILES]).toMatch(/^a-level-physics-9702\.v1-[a-f0-9]{12}\.json$/);
     expect(await findHeldBankArtifacts(ROOT)).toEqual([]);
   });
 });

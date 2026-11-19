@@ -90,10 +90,10 @@ describe("9709 explorer", () => {
   });
 });
 
-describe("Physics 9702 (held) under the same rules", () => {
-  it("lists Mathematics, Chemistry, Physics in the dev preview, whatever the catalog order", async () => {
+describe("Physics 9702 under the same rules", () => {
+  it("lists Mathematics, Chemistry, Physics, whatever the catalog order", async () => {
     const { getCatalogBanksForDisplay } = await import("@/lib/catalog");
-    const preview = { NODE_ENV: "development", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
+    const preview = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
     expect(getCatalogBanksForDisplay(preview).filter((bank) => bank.qualification === "Cambridge A Level").map((bank) => bank.slug)).toEqual(["a-level-maths-9709", "a-level-chemistry-9701", "a-level-physics-9702"]);
   });
 
@@ -106,7 +106,7 @@ describe("Physics 9702 (held) under the same rules", () => {
   });
 });
 
-describe("Chemistry 9701 (held) under the same rules", () => {
+describe("Chemistry 9701 under the same rules", () => {
   it("keeps its four paper tabs in one row", () => {
     const { container } = render(<QuestionExplorer questions={[]} bankSlug="a-level-chemistry-9701" access={{ authenticated: true, bankAccess: true, canExportPdf: true }} />);
     const picker = container.querySelector(".course-route-picker")!;

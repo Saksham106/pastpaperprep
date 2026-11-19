@@ -42,10 +42,10 @@ describe("home page", () => {
     expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("Practice by topicFull past papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
-    // 23 with A Level Maths 9709 switched on (2026-11-18); held banks (Physics 9702 on its own PR) never appear.
-    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(23);
-    expect(rows).toHaveLength(23);
-    expect(rows.find((row) => row.dataset.bankSlug === "a-level-maths-9709")?.getAttribute("href")).toBe("/banks/a-level-maths-9709?free=1");
+    // 25 with A Level Physics 9702 and Chemistry 9701 switched on (2026-11-19), after Maths 9709 (2026-11-18).
+    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(25);
+    expect(rows).toHaveLength(25);
+    for (const slug of ["a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701"]) expect(rows.find((row) => row.dataset.bankSlug === slug)?.getAttribute("href")).toBe(`/banks/${slug}?free=1`);
     expect(container.querySelectorAll("a a")).toHaveLength(0);
     for (const row of rows) {
       expect(row.getAttribute("href")).toMatch(/^\/banks\/[a-z0-9-]+(\?free=1)?$/);
