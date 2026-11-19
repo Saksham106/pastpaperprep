@@ -1,6 +1,6 @@
 # A Level Biology 9700: addition receipt (19 November 2026)
 
-The owner asked for the Biology PR ("go ahead and build the biology pr") and approved the 9700 R2 upload in the 9700 content session. This branch adds the app side, with nothing uploaded, migrated or published. It holds the runtime candidate, the release-lane registration and the create-only upload plan, and the catalog entry stays hidden (`pendingStorage: true`, listed in `src/lib/held-banks.mjs`). It is built on `main` at 0d6777a8 (#498), the same way Chemistry 9701 was added there.
+The owner asked for the Biology PR ("go ahead and build the biology pr") and approved the 9700 R2 upload in the 9700 content session, which ran it against this branch's manifest. The crops are uploaded and read back and the runtime is finalized. Nothing is migrated or published, and the catalog entry stays hidden (`pendingStorage: true`, listed in `src/lib/held-banks.mjs`). It is built on `main` at 0d6777a8 (#498), the same way Chemistry 9701 was added there.
 
 ## Source
 - Workspace `cambridge-a-level-biology-9700-topic-practice` at commit 314703b (local git, clean; HEAD 3407615 only edits `PAUSED.md`). Receipts there: `docs/coverage-receipt.md` (PASS, byte-identical rebuild including all 7,006 crops), `docs/classification-receipt.md`, `docs/segmentation-receipt.md`, `docs/acquisition-receipt.md`.
@@ -29,17 +29,30 @@ The owner asked for the Biology PR ("go ahead and build the biology pr") and app
 
 Paper tabs: All papers · Multiple choice · AS structured · A Level structured. The bank opens on Multiple choice and the choice is remembered per browser, as in 9701 and 9702. A Level subjects are listed Mathematics, Chemistry, Physics, Biology.
 
-## Storage plan (not uploaded)
+## Storage (uploaded with owner approval, 19 November 2026)
 - Prefix `a-level-biology-9700/releases/full2680-v1-102ff947f0aa/`, private bucket `pastpaperprep-assets`.
 - Plan: `data/storage/a-level-biology-9700.manifest.json`, **6,994 WebP objects, 122,994,092 bytes**. This is the 7,006 segmented crops minus the 12 of the held question and the 3 discounted items.
 - Dry run: `data/storage/a-level-biology-9700.dry-run.json`. Every local file was re-hashed: 6,994/6,994 match the manifest and the segmentation record, 0 mismatches, 0 R2 writes.
-- Next (owner-approved in the content session): the create-only Worker upload, `research/ppp-tools/r2-upload-worker/upload.mjs --repo <this worktree> --bank a-level-biology-9700`, and the free-year copy (1,968 crops for the 763 free questions). Then this branch checks the receipt and log and runs `generate-igcse-release.mjs --finalize a-level-biology-9700`.
+- The 9700 content session checked every manifest entry against its local crops (0 mismatches), then ran the upload through a temporary Cloudflare Worker (`ppp-asset-upload`, deleted afterwards; its URL returns 404). Tool: `research/ppp-tools/r2-upload-worker/`.
+  - Every put was create-only and SHA-256-checked by R2, then read back and re-hashed. One transient edge 404 on the fresh workers.dev URL after 14 objects; the upload resumed from the log.
+- Results: **6,994 of 6,994 verified, 0 failed, 0 already present**.
+  - Log: `docs/a-level-biology-9700-r2-upload-log.jsonl` (`5fcd8721…`).
+  - Receipt: `data/storage/a-level-biology-9700.receipt.json` (`verified_readback`, `60bb70f9…`).
+- This session re-checked independently:
+  - the receipt covers exactly the manifest keys, with no failures;
+  - every log row is `verified`, not pre-existing, and matches its manifest SHA-256 and size;
+  - the log and manifest seals hold;
+  - 3 random objects fetched from R2 with wrangler hash to their manifest values and sizes.
+- **Finalized:** `generate-igcse-release.mjs --finalize a-level-biology-9700`.
+  - All 2,680 rows are now production/classified.
+  - Seals: runtime `a927e851…`, manifest `e35de697…`, receipt `60bb70f9…`. The candidate pin `102ff947…` is unchanged, and the release test reconstructs it from the finalized runtime.
+- Free-year copy (1,968 crops for the 763 free 2020–2021 questions, to `pastpaperprep-free`): run by the content session from this finalized branch; not yet done at this commit.
 
 ## Billing
 `bank_a_level_biology_9700` is sold on the shared single-bank prices, and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_biology`. Migration `20261119000000_a_level_biology_9700_release.sql` copies Chemistry's `20261118000000` definitions verbatim (a test checks this) and adds the product and slug after 9701. It is **not applied**.
 
 ## Still owner-gated
-1. The R2 upload and the free-year copy (approved; run from the content session), then read-back check and finalize here.
+1. Free-year (2020–2021) crops to the public free bucket, before switch-on (approved; run from the content session).
 2. Production migration `20261119000000`.
 3. Switching the bank on (drop `pendingStorage`, empty `held-banks.mjs`). Explanations are exempt by name until written.
 4. Merge, never back-to-back with another build.
