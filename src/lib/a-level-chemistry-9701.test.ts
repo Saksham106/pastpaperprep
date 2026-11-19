@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
+import { CHEMISTRY_9701_SUBTOPICS } from "@/lib/a-level-9701";
+import { publicMetadataToQuestion, type PublicQuestionMetadata } from "@/lib/question-index";
 import runtimeJson from "@/data/production/a-level-chemistry-9701.json";
 import taxonomyJson from "@/data/a-level-chemistry-9701-taxonomy.json";
 import privateIndex from "@/data/private-index/a-level-chemistry-9701.json";
@@ -19,7 +21,7 @@ import { getBillingPlan, isStripePriceAllowedForProduct, validateStripeConfig } 
 import { getCustomBundlePlan } from "@/lib/custom-bundles";
 import { PURCHASABLE_PRODUCTS } from "@/lib/pricing-intent";
 import { normalizeBankQuestions } from "@/lib/questions";
-import { getTopicOptions } from "@/lib/taxonomy-router";
+import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { defaultRouteSelection, deriveCourseRoute, routeConfigFor } from "@/lib/course-route";
 import { isNotSatSeries } from "@/lib/series-notes";
 import { formulaListFor, formulaListsForYears } from "@/lib/formula-lists";
@@ -33,7 +35,7 @@ import { currentQuestionId } from "@/lib/question-id-aliases";
 import { qualificationOfBank, SUBJECT_SLUGS } from "@/lib/past-paper-catalog";
 import { PARTIAL_EXPLANATION_BANKS } from "@/lib/articles-explanation-coverage.test";
 import { HELD_BANKS } from "@/lib/held-banks.mjs";
-import { publishedBankSources } from "../../scripts/generate-bank-index.mjs";
+import { metadataFromRaw, publishedBankSources } from "../../scripts/generate-bank-index.mjs";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import removedPartMarksFile from "@/data/reviewed-science-removed-part-marks.json";
 import { toPublicQuestionMetadata } from "@/lib/question-index";
@@ -327,4 +329,30 @@ describe("A Level Chemistry 9701 storage plan", () => {
     const serialized = JSON.stringify(privateIndex);
     for (const field of ["accessibleText", "answer", "questionImages", "sourceQuestionUrl"]) expect(serialized).not.toContain(`"${field}"`);
   });
+});
+
+describe("a-level-chemistry-9701 subtopic picker (owner review of #499: a topic's own sections were hidden)", () => {
+  const raws = (runtimeJson.questions as unknown as Array<Record<string, unknown>>);
+  const normalized = normalizeBankQuestions("a-level-chemistry-9701", raws);
+  const hydrated = raws.map((raw) => publicMetadataToQuestion(metadataFromRaw(raw, { bank: "a-level-chemistry-9701" }) as PublicQuestionMetadata, "a-level-chemistry-9701"));
+
+  it("keeps the section map equal to the bank taxonomy", () => {
+    const fromTaxonomy = Object.fromEntries((taxonomyJson as { topics: Array<{ label: string; earlierSyllabus: boolean; subtopics: Array<{ label: string }> }> }).topics.filter((topic) => !topic.earlierSyllabus).map((topic) => [topic.label, topic.subtopics.map((subtopic) => subtopic.label)]));
+    expect(CHEMISTRY_9701_SUBTOPICS).toEqual(fromTaxonomy);
+  });
+
+  for (const [label, rows] of [["normalized", normalized], ["hydrated from bank-index metadata", hydrated]] as const) {
+    it(`lists a topic's own sections first on every paper tab (${label})`, () => {
+      for (const paper of [1, 2, 4]) {
+        const tab = rows.filter((question) => question.paper === paper);
+        for (const topic of getTopicOptions(tab)) {
+          const groups = getSubtopicGroups(tab, [topic], []);
+          for (const subtopic of groups.relevant) expect(CHEMISTRY_9701_SUBTOPICS[topic], `${paper} ${topic}`).toContain(subtopic);
+          // Every section that a question in this tab is labelled with under this primary topic is listed.
+          const own = new Set(tab.filter((question) => question.primaryTopic === topic).flatMap((question) => question.subtopics));
+          for (const subtopic of own) expect(groups.relevant, `${paper} ${topic}`).toContain(subtopic);
+        }
+      }
+    });
+  }
 });

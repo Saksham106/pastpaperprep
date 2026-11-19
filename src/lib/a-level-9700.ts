@@ -53,3 +53,30 @@ export const BIOLOGY_9700_EARLIER_TOPICS: readonly string[] = [
 ];
 
 export const BIOLOGY_9700_TOPIC_ORDER: readonly string[] = [...BIOLOGY_9700_TOPICS, ...BIOLOGY_9700_EARLIER_TOPICS];
+
+/**
+ * Each current topic's subtopic sections, in syllabus order (2025-2027 syllabus; source taxonomy.json). The subtopic
+ * picker shows these under the selected topic. Earlier-syllabus topics have no sections. The test keeps this equal to
+ * src/data/a-level-biology-9700-taxonomy.json.
+ */
+export const BIOLOGY_9700_SUBTOPICS: Readonly<Record<string, readonly string[]>> = {
+  "Cell structure": ["The microscope in cell studies", "Cells as the basic units of living organisms"],
+  "Biological molecules": ["Testing for biological molecules", "Carbohydrates and lipids", "Proteins", "Water"],
+  "Enzymes": ["Mode of action of enzymes", "Factors that affect enzyme action"],
+  "Cell membranes and transport": ["Fluid mosaic membranes", "Movement into and out of cells"],
+  "The mitotic cell cycle": ["Replication and division of nuclei and cells", "Chromosome behaviour in mitosis"],
+  "Nucleic acids and protein synthesis": ["Structure of nucleic acids and replication of DNA", "Protein synthesis"],
+  "Transport in plants": ["Structure of transport tissues", "Transport mechanisms"],
+  "Transport in mammals": ["The circulatory system", "Transport of oxygen and carbon dioxide", "The heart"],
+  "Gas exchange": ["The gas exchange system"],
+  "Infectious diseases": ["Infectious diseases", "Antibiotics"],
+  "Immunity": ["The immune system", "Antibodies and vaccination"],
+  "Energy and respiration": ["Energy", "Respiration"],
+  "Photosynthesis": ["Photosynthesis as an energy transfer process", "Investigation of limiting factors"],
+  "Homeostasis": ["Homeostasis in mammals", "Homeostasis in plants"],
+  "Control and coordination": ["Control and coordination in mammals", "Control and coordination in plants"],
+  "Inheritance": ["Passage of information from parents to offspring", "The roles of genes in determining the phenotype", "Gene control"],
+  "Selection and evolution": ["Variation", "Natural and artificial selection", "Evolution"],
+  "Classification, biodiversity and conservation": ["Classification", "Biodiversity", "Conservation"],
+  "Genetic technology": ["Principles of genetic technology", "Genetic technology applied to medicine", "Genetically modified organisms in agriculture"],
+};

@@ -10,7 +10,7 @@ import manifestJson from "../../data/storage/a-level-biology-9700.manifest.json"
 import dryRun from "../../data/storage/a-level-biology-9700.dry-run.json";
 import receipt from "../../data/storage/a-level-biology-9700.receipt.json";
 import { assertContentSealedCandidate, blankedCandidateSha256, manifestSha256, RELEASE_BANKS, runtimeSha256 as releaseRuntimeSha256 } from "../../scripts/igcse-release.mjs";
-import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_EARLIER_TOPICS, BIOLOGY_9700_TOPICS } from "@/lib/a-level-9700";
+import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_EARLIER_TOPICS, BIOLOGY_9700_SUBTOPICS, BIOLOGY_9700_TOPICS } from "@/lib/a-level-9700";
 import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay, getCatalogBillingBanks, isPendingStoragePreview } from "@/lib/catalog";
 import { getBank, isIGCSEReleaseBank, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { BANK_PRODUCTS, bankEntryHref, hasBankAccess, hasFreeTier, isPreviewQuestion } from "@/lib/access";
@@ -19,7 +19,9 @@ import { getBillingPlan, isStripePriceAllowedForProduct, validateStripeConfig } 
 import { getCustomBundlePlan } from "@/lib/custom-bundles";
 import { PURCHASABLE_PRODUCTS } from "@/lib/pricing-intent";
 import { normalizeBankQuestions } from "@/lib/questions";
-import { getTopicOptions } from "@/lib/taxonomy-router";
+import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
+import { filterQuestions } from "@/lib/question-filter";
+import { publicMetadataToQuestion, type PublicQuestionMetadata } from "@/lib/question-index";
 import { defaultRouteSelection, deriveCourseRoute, routeConfigFor } from "@/lib/course-route";
 import { isNotSatSeries } from "@/lib/series-notes";
 import { formulaListFor, formulaListsForYears } from "@/lib/formula-lists";
@@ -33,7 +35,7 @@ import { currentQuestionId } from "@/lib/question-id-aliases";
 import { qualificationOfBank, SUBJECT_SLUGS } from "@/lib/past-paper-catalog";
 import { PARTIAL_EXPLANATION_BANKS } from "@/lib/articles-explanation-coverage.test";
 import { HELD_BANKS } from "@/lib/held-banks.mjs";
-import { publishedBankSources } from "../../scripts/generate-bank-index.mjs";
+import { metadataFromRaw, publishedBankSources } from "../../scripts/generate-bank-index.mjs";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { BOARD_SUBJECT_ORDER } from "@/lib/qualifications";
 import removedPartMarks from "@/data/reviewed-science-removed-part-marks.json";
@@ -73,6 +75,8 @@ function reconstructCandidate(finalized: unknown) {
   return candidate;
 }
 const questions = normalizeBankQuestions(slug, runtimeJson.questions as unknown as Array<Record<string, unknown>>);
+/** The explorer's rows after metadata hydration: bank-index metadata built from the runtime, then rehydrated. */
+const hydrated = (runtimeJson.questions as unknown as Array<Record<string, unknown>>).map((raw) => publicMetadataToQuestion(metadataFromRaw(raw, { bank: slug }) as PublicQuestionMetadata, slug));
 const stripeConfig = validateStripeConfig({
   NEXT_PUBLIC_SITE_URL: "https://pastpaperprep.com", STRIPE_SECRET_KEY: "sk_test_example", STRIPE_WEBHOOK_SECRET: "whsec_example",
   STRIPE_FOUNDING_MONTHLY_PRICE_ID: "price_founding_monthly", STRIPE_FOUNDING_ANNUAL_PRICE_ID: "price_founding_annual",
@@ -300,6 +304,34 @@ describe("A Level Biology 9700 runtime", () => {
     expect(formulaListFor(slug, 2020)).toBeUndefined();
     expect(formulaListsForYears(slug, [2021, 2024])).toEqual([]);
   });
+});
+
+describe("A Level Biology 9700 subtopic picker", () => {
+  it("keeps the section map equal to the bank taxonomy", () => {
+    const fromTaxonomy = Object.fromEntries((taxonomyJson as { topics: Array<{ label: string; earlierSyllabus: boolean; subtopics: Array<{ label: string }> }> }).topics.filter((topic) => !topic.earlierSyllabus).map((topic) => [topic.label, topic.subtopics.map((subtopic) => subtopic.label)]));
+    expect(BIOLOGY_9700_SUBTOPICS).toEqual(fromTaxonomy);
+  });
+
+  for (const [label, rows] of [["normalized", questions], ["hydrated from bank-index metadata", hydrated]] as const) {
+    it(`shows each current topic's own sections on every paper tab (${label})`, () => {
+      for (const paper of [1, 2, 4]) {
+        const tab = rows.filter((question) => question.paper === paper);
+        for (const topic of getTopicOptions(tab)) {
+          const groups = getSubtopicGroups(tab, [topic], []);
+          if (topic.endsWith("(earlier syllabus)")) { expect(groups.relevant, `${paper} ${topic}`).toEqual([]); continue; }
+          expect(groups.relevant.length, `${paper} ${topic}`).toBeGreaterThan(0);
+          for (const subtopic of groups.relevant) expect(BIOLOGY_9700_SUBTOPICS[topic], `${paper} ${topic}`).toContain(subtopic);
+        }
+      }
+      // AS structured -> Cell membranes and transport lists both of its sections, not behind "Show other subtopics".
+      const p2 = rows.filter((question) => question.paper === 2);
+      expect(getSubtopicGroups(p2, ["Cell membranes and transport"], []).relevant).toEqual(["Fluid mosaic membranes", "Movement into and out of cells"]);
+      // With no topic chosen, every section present is listed in syllabus order.
+      const order = Object.values(BIOLOGY_9700_SUBTOPICS).flat();
+      const all = getSubtopicGroups(rows, [], []).all;
+      expect(all).toEqual(order.filter((subtopic) => all.includes(subtopic)));
+    });
+  }
 });
 
 describe("A Level Biology 9700 storage plan", () => {

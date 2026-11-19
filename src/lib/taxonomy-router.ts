@@ -16,9 +16,9 @@ import {
 } from "@/lib/taxonomy";
 import type { UnifiedQuestion } from "@/lib/questions";
 import { A_LEVEL_MATHS_9709, MATHS_9709_PAPERS, MATHS_9709_SECTION_ORDER } from "@/lib/a-level-9709";
-import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_TOPIC_ORDER } from "@/lib/a-level-9702";
-import { A_LEVEL_CHEMISTRY_9701, CHEMISTRY_9701_TOPIC_ORDER } from "@/lib/a-level-9701";
-import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_TOPIC_ORDER } from "@/lib/a-level-9700";
+import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_SUBTOPICS, PHYSICS_9702_TOPIC_ORDER } from "@/lib/a-level-9702";
+import { A_LEVEL_CHEMISTRY_9701, CHEMISTRY_9701_SUBTOPICS, CHEMISTRY_9701_TOPIC_ORDER } from "@/lib/a-level-9701";
+import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_SUBTOPICS, BIOLOGY_9700_TOPIC_ORDER } from "@/lib/a-level-9700";
 import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -199,12 +199,33 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   return [...ordered, ...remaining];
 }
 
+/**
+ * Cambridge A Level banks whose subtopics are syllabus sections under one topic each (topic label -> its sections, in
+ * syllabus order). The picker lists every section present in syllabus order, and a selected topic's own sections first.
+ */
+const A_LEVEL_SECTIONS: Partial<Record<string, Readonly<Record<string, readonly string[]>>>> = {
+  [A_LEVEL_PHYSICS_9702]: PHYSICS_9702_SUBTOPICS,
+  [A_LEVEL_CHEMISTRY_9701]: CHEMISTRY_9701_SUBTOPICS,
+  [A_LEVEL_BIOLOGY_9700]: BIOLOGY_9700_SUBTOPICS,
+};
+
+function aLevelSubtopicGroups(sections: Readonly<Record<string, readonly string[]>>, questions: UnifiedQuestion[], selectedTopics: string[], selectedSubtopics: string[]) {
+  const available = new Set(questions.flatMap((question) => question.subtopics));
+  const ordered = Object.values(sections).flat();
+  const all = [...new Set([...ordered.filter((label) => available.has(label)), ...[...available].filter((label) => !ordered.includes(label)).sort()])];
+  const relevant = selectedTopics.length ? [...new Set(selectedTopics.flatMap((topic) => sections[topic] ?? []).filter((label) => available.has(label)))] : all;
+  const relevantSet = new Set(relevant);
+  return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
+}
+
 export function getSubtopicGroups(
   questions: UnifiedQuestion[],
   selectedTopics: string[],
   selectedSubtopics: string[],
 ): { all: string[]; relevant: string[]; other: string[]; selectedOutsideContext: string[] } {
   const bank = questions[0]?.bankSlug;
+  const aLevelSections = bank ? A_LEVEL_SECTIONS[bank] : undefined;
+  if (aLevelSections) return aLevelSubtopicGroups(aLevelSections, questions, selectedTopics, selectedSubtopics);
   if (bank === "igcse") {
     // Keep 0580's picker cleanup outside the sealed shared taxonomy source:
     // archived production audits bind its exact bytes for other banks.
