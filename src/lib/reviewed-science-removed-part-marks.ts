@@ -6,6 +6,10 @@ export type RemovedPartEntry = {
   printedTotal: number;
   assessableMarks: number;
   removedParts: { part: string; marks: number }[];
+  questionPdfSha256: string;
+  markSchemePdfSha256: string;
+  markSchemePages: number[];
+  evidence: string;
 };
 const banks = repairs.entries as Partial<Record<string, Record<string, RemovedPartEntry>>>;
 
