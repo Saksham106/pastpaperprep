@@ -46,16 +46,25 @@ Paper tabs: All papers · Multiple choice · AS structured · A Level structured
 - **Finalized:** `generate-igcse-release.mjs --finalize a-level-biology-9700`.
   - All 2,680 rows are now production/classified.
   - Seals: runtime `a927e851…`, manifest `e35de697…`, receipt `60bb70f9…`. The candidate pin `102ff947…` is unchanged, and the release test reconstructs it from the finalized runtime.
-- Free-year copy (1,968 crops for the 763 free 2020–2021 questions, to `pastpaperprep-free`): run by the content session from this finalized branch; not yet done at this commit.
+
+## Free years in the public bucket (owner approval, 19 November 2026)
+- The 9700 content session copied the 2020–2021 crops to the public free bucket (`free.pastpaperprep.com/images/`).
+  - The list came from `listFreePublicAssets` on this finalized branch: 763 free questions, **1,968 files**.
+  - It used the repo's unchanged `scripts/free-copy-worker` (allowlist, create-only). The Worker is deleted.
+- Results: 1,968/1,968 copied and 1,968/1,968 re-hashed from the public URL, 0 failures. Logs and receipt: `docs/a-level-biology-9700-free-copy/`.
+- This session re-checked:
+  - both logs list exactly the runtime's 2020–2021 crops;
+  - every hash and size equals the manifest;
+  - both log seals match the receipt;
+  - 2 random files fetched from free.pastpaperprep.com hash to their manifest values.
 
 ## Billing
 `bank_a_level_biology_9700` is sold on the shared single-bank prices, and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_biology`. Migration `20261119000000_a_level_biology_9700_release.sql` copies Chemistry's `20261118000000` definitions verbatim (a test checks this) and adds the product and slug after 9701. It is **not applied**.
 
 ## Still owner-gated
-1. Free-year (2020–2021) crops to the public free bucket, before switch-on (approved; run from the content session).
-2. Production migration `20261119000000`.
-3. Switching the bank on (drop `pendingStorage`, empty `held-banks.mjs`). Explanations are exempt by name until written.
-4. Merge, never back-to-back with another build.
+1. Production migration `20261119000000`.
+2. Switching the bank on (drop `pendingStorage`, empty `held-banks.mjs`). Explanations are exempt by name until written.
+3. Merge, never back-to-back with another build.
 
 ## Existing banks unchanged
 Against `main` at 0d6777a8, nothing under `src/data`, `public` or `data` changed except the new 9700 files and the added `a-level-biology-9700` block (and its sentence in `note`) in `question-id-aliases.json`. All 20 other `src/data/production` runtimes are byte-identical, every other bank's alias map is identical, and `src/lib/bank-index-manifest.ts` is unchanged (9700 is held, so no static index is published for it).
