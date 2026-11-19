@@ -11,7 +11,7 @@ function guideFor(bank: Bank) {
     };
   }
 
-  if (bank.slug === "igcse-additional" || bank.slug === "a-level-maths-9709" || bank.slug === "a-level-physics-9702" || bank.slug === "a-level-chemistry-9701") {
+  if (bank.slug === "igcse-additional" || bank.slug === "a-level-maths-9709" || bank.slug === "a-level-physics-9702" || bank.slug === "a-level-chemistry-9701" || bank.slug === "a-level-biology-9700") {
     return {
       href: "/articles/how-to-use-maths-past-papers-effectively",
       label: "Past paper revision method",

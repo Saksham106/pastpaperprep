@@ -147,6 +147,19 @@ const GUIDES: Partial<Record<BankSlug, AssessmentGuide>> = {
     ],
     caveat: "Papers 3 (practical) and 5 (planning) are not in the bank. 2020–2021 papers follow the earlier syllabus; removed content sits under its own earlier-syllabus topics. The May/June 2020 papers were published but never sat.",
   },
+  // Durations, totals and weightings: the 2025–2027 syllabus assessment overview, p. 10 (source workspace data/paper-facts.json).
+  // Paper 1 was 1 hour in 2020–2021 (2019–2021 syllabus and those question paper covers). In 2020–2021 Paper 4, Section B was a
+  // choice of two 15-mark essays; candidates answered one.
+  "a-level-biology-9700": {
+    version: "2025–2027 syllabus",
+    summary: "AS Level is Papers 1, 2 and 3. A Level adds Papers 4 and 5. This bank holds Papers 1, 2 and 4.",
+    papers: [
+      { name: "Paper 1", format: "Multiple choice (AS content)", duration: "1 hr 15 min (1 hr in 2020–21)", marks: "40", weighting: "31% of AS, 15.5% of A Level" },
+      { name: "Paper 2", format: "AS structured questions", duration: "1 hr 15 min", marks: "60", weighting: "46% of AS, 23% of A Level" },
+      { name: "Paper 4", format: "A Level structured questions", duration: "2 hr", marks: "100", weighting: "38.5% of A Level" },
+    ],
+    caveat: "Papers 3 (practical) and 5 (planning) are not in the bank. 2020–2021 papers follow the earlier syllabus; removed content sits under its own earlier-syllabus topics. In 2020–2021 Paper 4, candidates answered one of the two Section B essays (Q9 or Q10). The May/June 2020 papers were published but never sat.",
+  },
   "igcse-economics-0455": {
     version: "2026 syllabus",
     summary: "There is no Core or Extended route. Paper 1 checks broad knowledge through multiple choice; Paper 2 tests structured economic reasoning, calculations, data interpretation, analysis, and evaluation.",

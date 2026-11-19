@@ -32,6 +32,8 @@ const MCQ_COMPONENTS: Partial<Record<BankSlug, (component: string) => boolean>> 
   "a-level-physics-9702": (component) => /^1\d$/.test(component),
   // A Level Chemistry 9701: likewise Paper 1 (components 11-14).
   "a-level-chemistry-9701": (component) => /^1\d$/.test(component),
+  // A Level Biology 9700: likewise Paper 1 (components 11-14).
+  "a-level-biology-9700": (component) => /^1\d$/.test(component),
 };
 
 export const MCQ_ANSWER_BANKS = Object.keys(MCQ_COMPONENTS) as BankSlug[];

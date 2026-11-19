@@ -1,0 +1,529 @@
+{
+  "artifact": "a_level_biology_9700_student_taxonomy",
+  "version": "biology9700_syllabus_taxonomy@1",
+  "qualification": "9700",
+  "note": "Topics 1-19 of the 2022 revision in syllabus order (AS 1-11, A Level 12-19), then the content it removed as named earlier-syllabus topics (2020-2021 papers only; the 2 with no question are left out). Each paper is its own tab; P1/P2 carry AS topics, P4 any topic.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "c70fb5b1c91aebff826fee62b7d9630c2f8ebf2429cd89258040c07947aea3a4",
+  "topics": [
+    {
+      "id": "9700:2022:1",
+      "code": "1",
+      "label": "Cell structure",
+      "syllabusTitle": "Cell structure",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 357,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "The microscope in cell studies"
+        },
+        {
+          "code": "1.2",
+          "label": "Cells as the basic units of living organisms"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:2",
+      "code": "2",
+      "label": "Biological molecules",
+      "syllabusTitle": "Biological molecules",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 375,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Testing for biological molecules"
+        },
+        {
+          "code": "2.2",
+          "label": "Carbohydrates and lipids"
+        },
+        {
+          "code": "2.3",
+          "label": "Proteins"
+        },
+        {
+          "code": "2.4",
+          "label": "Water"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:3",
+      "code": "3",
+      "label": "Enzymes",
+      "syllabusTitle": "Enzymes",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 184,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Mode of action of enzymes"
+        },
+        {
+          "code": "3.2",
+          "label": "Factors that affect enzyme action"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:4",
+      "code": "4",
+      "label": "Cell membranes and transport",
+      "syllabusTitle": "Cell membranes and transport",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 249,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Fluid mosaic membranes"
+        },
+        {
+          "code": "4.2",
+          "label": "Movement into and out of cells"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:5",
+      "code": "5",
+      "label": "The mitotic cell cycle",
+      "syllabusTitle": "The mitotic cell cycle",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 207,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Replication and division of nuclei and cells"
+        },
+        {
+          "code": "5.2",
+          "label": "Chromosome behaviour in mitosis"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:6",
+      "code": "6",
+      "label": "Nucleic acids and protein synthesis",
+      "syllabusTitle": "Nucleic acids and protein synthesis",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 253,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Structure of nucleic acids and replication of DNA"
+        },
+        {
+          "code": "6.2",
+          "label": "Protein synthesis"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:7",
+      "code": "7",
+      "label": "Transport in plants",
+      "syllabusTitle": "Transport in plants",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 241,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Structure of transport tissues"
+        },
+        {
+          "code": "7.2",
+          "label": "Transport mechanisms"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:8",
+      "code": "8",
+      "label": "Transport in mammals",
+      "syllabusTitle": "Transport in mammals",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 280,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "The circulatory system"
+        },
+        {
+          "code": "8.2",
+          "label": "Transport of oxygen and carbon dioxide"
+        },
+        {
+          "code": "8.3",
+          "label": "The heart"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:9",
+      "code": "9",
+      "label": "Gas exchange",
+      "syllabusTitle": "Gas exchange",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 134,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "The gas exchange system"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:10",
+      "code": "10",
+      "label": "Infectious diseases",
+      "syllabusTitle": "Infectious diseases",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 143,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "Infectious diseases"
+        },
+        {
+          "code": "10.2",
+          "label": "Antibiotics"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:11",
+      "code": "11",
+      "label": "Immunity",
+      "syllabusTitle": "Immunity",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 170,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "The immune system"
+        },
+        {
+          "code": "11.2",
+          "label": "Antibodies and vaccination"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:12",
+      "code": "12",
+      "label": "Energy and respiration",
+      "syllabusTitle": "Energy and respiration",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 61,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Energy"
+        },
+        {
+          "code": "12.2",
+          "label": "Respiration"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:13",
+      "code": "13",
+      "label": "Photosynthesis",
+      "syllabusTitle": "Photosynthesis",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 44,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Photosynthesis as an energy transfer process"
+        },
+        {
+          "code": "13.2",
+          "label": "Investigation of limiting factors"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:14",
+      "code": "14",
+      "label": "Homeostasis",
+      "syllabusTitle": "Homeostasis",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 71,
+      "subtopics": [
+        {
+          "code": "14.1",
+          "label": "Homeostasis in mammals"
+        },
+        {
+          "code": "14.2",
+          "label": "Homeostasis in plants"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:15",
+      "code": "15",
+      "label": "Control and coordination",
+      "syllabusTitle": "Control and coordination",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 71,
+      "subtopics": [
+        {
+          "code": "15.1",
+          "label": "Control and coordination in mammals"
+        },
+        {
+          "code": "15.2",
+          "label": "Control and coordination in plants"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:16",
+      "code": "16",
+      "label": "Inheritance",
+      "syllabusTitle": "Inheritance",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 85,
+      "subtopics": [
+        {
+          "code": "16.1",
+          "label": "Passage of information from parents to offspring"
+        },
+        {
+          "code": "16.2",
+          "label": "The roles of genes in determining the phenotype"
+        },
+        {
+          "code": "16.3",
+          "label": "Gene control"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:17",
+      "code": "17",
+      "label": "Selection and evolution",
+      "syllabusTitle": "Selection and evolution",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 77,
+      "subtopics": [
+        {
+          "code": "17.1",
+          "label": "Variation"
+        },
+        {
+          "code": "17.2",
+          "label": "Natural and artificial selection"
+        },
+        {
+          "code": "17.3",
+          "label": "Evolution"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:18",
+      "code": "18",
+      "label": "Classification, biodiversity and conservation",
+      "syllabusTitle": "Classification, biodiversity and conservation",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 63,
+      "subtopics": [
+        {
+          "code": "18.1",
+          "label": "Classification"
+        },
+        {
+          "code": "18.2",
+          "label": "Biodiversity"
+        },
+        {
+          "code": "18.3",
+          "label": "Conservation"
+        }
+      ]
+    },
+    {
+      "id": "9700:2022:19",
+      "code": "19",
+      "label": "Genetic technology",
+      "syllabusTitle": "Genetic technology",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 79,
+      "subtopics": [
+        {
+          "code": "19.1",
+          "label": "Principles of genetic technology"
+        },
+        {
+          "code": "19.2",
+          "label": "Genetic technology applied to medicine"
+        },
+        {
+          "code": "19.3",
+          "label": "Genetically modified organisms in agriculture"
+        }
+      ]
+    },
+    {
+      "id": "9700:2019:smoking",
+      "code": "E-smoking",
+      "label": "Smoking (earlier syllabus)",
+      "syllabusTitle": "Smoking (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 20,
+      "subtopics": []
+    },
+    {
+      "id": "9700:2019:global-patterns-of-infectious-disease",
+      "code": "E-global-patterns-of-infectious-disease",
+      "label": "Global patterns of infectious disease (earlier syllabus)",
+      "syllabusTitle": "Global patterns of infectious disease (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 5,
+      "subtopics": []
+    },
+    {
+      "id": "9700:2019:blood-cell-counts-and-autoimmune-disease",
+      "code": "E-blood-cell-counts-and-autoimmune-disease",
+      "label": "Blood cell counts and autoimmune disease (earlier syllabus)",
+      "syllabusTitle": "Blood cell counts and autoimmune disease (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 20,
+      "subtopics": []
+    },
+    {
+      "id": "9700:2019:transpiration-investigations",
+      "code": "E-transpiration-investigations",
+      "label": "Transpiration investigations (earlier syllabus)",
+      "syllabusTitle": "Transpiration investigations (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 6,
+      "subtopics": []
+    },
+    {
+      "id": "9700:2019:c4-photosynthesis-and-glasshouse-crop-yields",
+      "code": "E-c4-photosynthesis-and-glasshouse-crop-yields",
+      "label": "C4 photosynthesis and glasshouse crop yields (earlier syllabus)",
+      "syllabusTitle": "C4 photosynthesis and glasshouse crop yields (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 4,
+      "subtopics": []
+    },
+    {
+      "id": "9700:2019:synapse-roles-in-the-nervous-system",
+      "code": "E-synapse-roles-in-the-nervous-system",
+      "label": "Synapse roles in the nervous system (earlier syllabus)",
+      "syllabusTitle": "Synapse roles in the nervous system (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9700:2019:isolating-mechanisms-in-speciation",
+      "code": "E-isolating-mechanisms-in-speciation",
+      "label": "Isolating mechanisms in speciation (earlier syllabus)",
+      "syllabusTitle": "Isolating mechanisms in speciation (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 2,
+      "subtopics": []
+    },
+    {
+      "id": "9700:2019:forensic-use-of-pcr-and-dna-testing",
+      "code": "E-forensic-use-of-pcr-and-dna-testing",
+      "label": "Forensic use of PCR and DNA testing (earlier syllabus)",
+      "syllabusTitle": "Forensic use of PCR and DNA testing (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    }
+  ]
+}

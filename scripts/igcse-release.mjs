@@ -80,6 +80,14 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4',
   },
+  // Cambridge International A Level Biology 9700: 2,680 rows (P1 multiple choice, P2, P4), one segmentation lane; 9700-2025-s-44-q2 held,
+  // 3 discounted MCQ items excluded.
+  'a-level-biology-9700': {
+    prefix: 'a-level-biology-9700/releases/full2680-v1-102ff947f0aa',
+    sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_BIOLOGY_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '102ff947f0aa8db777cc049e663c5d348dbf498a2ee2115e617ce3f59b63df8a',
+  },
 };
 
 export function sha256(value) {
@@ -209,8 +217,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
-  // So do the A Level Maths 9709, Physics 9702 and Chemistry 9701 sources (assets/<paper>/questions|markschemes/<file>).
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  // So do the A Level Maths 9709, Physics 9702, Chemistry 9701 and Biology 9700 sources (assets/<paper>/questions|markschemes/<file>).
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

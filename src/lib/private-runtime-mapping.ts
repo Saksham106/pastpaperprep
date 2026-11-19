@@ -15,6 +15,7 @@ export const PRIVATE_RUNTIME_OBJECT_PREFIXES: Partial<Record<BankSlug, string>> 
   "a-level-maths-9709": "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/",
   "a-level-physics-9702": "a-level-physics-9702/releases/full2627-v1-625c919f2ca5/",
   "a-level-chemistry-9701": "a-level-chemistry-9701/releases/full2220-v1-1c9b6408fce8/",
+  "a-level-biology-9700": "a-level-biology-9700/releases/full2680-v1-102ff947f0aa/",
 };
 
 export function getPrivateBankObjectPrefix(bank: BankSlug): string {
