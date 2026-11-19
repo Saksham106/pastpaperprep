@@ -1,0 +1,959 @@
+{
+  "artifact": "a_level_chemistry_9701_student_taxonomy",
+  "version": "chemistry9701_syllabus_taxonomy@1",
+  "qualification": "9701",
+  "note": "Topics 1-37 of the 2022 revision in syllabus order (AS 1-22, A Level 23-37; A Level topics that share an AS title say \"(A Level)\"), then the content it removed as named earlier-syllabus topics (2020-2021 papers only; the 3 with no question are left out). Each paper is its own tab; P1/P2 carry AS topics, P4 any topic.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "ff38a254b79d3d769c41f394c6bcd11f697eba0a39959e4cf32c7dc9a7b09b47",
+  "topics": [
+    {
+      "id": "9701:2022:1",
+      "code": "1",
+      "label": "Atomic structure",
+      "syllabusTitle": "Atomic structure",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 136,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Particles in the atom and atomic radius"
+        },
+        {
+          "code": "1.2",
+          "label": "Isotopes"
+        },
+        {
+          "code": "1.3",
+          "label": "Electrons, energy levels and atomic orbitals"
+        },
+        {
+          "code": "1.4",
+          "label": "Ionisation energy"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:2",
+      "code": "2",
+      "label": "Atoms, molecules and stoichiometry",
+      "syllabusTitle": "Atoms, molecules and stoichiometry",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 181,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Relative masses of atoms and molecules"
+        },
+        {
+          "code": "2.2",
+          "label": "The mole and the Avogadro constant"
+        },
+        {
+          "code": "2.3",
+          "label": "Formulas"
+        },
+        {
+          "code": "2.4",
+          "label": "Reacting masses and volumes (of solutions and gases)"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:3",
+      "code": "3",
+      "label": "Chemical bonding",
+      "syllabusTitle": "Chemical bonding",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 172,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Electronegativity and bonding"
+        },
+        {
+          "code": "3.2",
+          "label": "Ionic bonding"
+        },
+        {
+          "code": "3.3",
+          "label": "Metallic bonding"
+        },
+        {
+          "code": "3.4",
+          "label": "Covalent bonding and coordinate (dative covalent) bonding"
+        },
+        {
+          "code": "3.5",
+          "label": "Shapes of molecules"
+        },
+        {
+          "code": "3.6",
+          "label": "Intermolecular forces, electronegativity and bond properties"
+        },
+        {
+          "code": "3.7",
+          "label": "Dot-and-cross diagrams"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:4",
+      "code": "4",
+      "label": "States of matter",
+      "syllabusTitle": "States of matter",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 89,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "The gaseous state: ideal and real gases and pV = nRT"
+        },
+        {
+          "code": "4.2",
+          "label": "Bonding and structure"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:5",
+      "code": "5",
+      "label": "Chemical energetics",
+      "syllabusTitle": "Chemical energetics",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 121,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Enthalpy change, ΔH"
+        },
+        {
+          "code": "5.2",
+          "label": "Hess’s law"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:6",
+      "code": "6",
+      "label": "Electrochemistry",
+      "syllabusTitle": "Electrochemistry",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 113,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Redox processes: electron transfer and changes in oxidation number (oxidation state)"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:7",
+      "code": "7",
+      "label": "Equilibria",
+      "syllabusTitle": "Equilibria",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 131,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Chemical equilibria: reversible reactions, dynamic equilibrium"
+        },
+        {
+          "code": "7.2",
+          "label": "Brønsted–Lowry theory of acids and bases"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:8",
+      "code": "8",
+      "label": "Reaction kinetics",
+      "syllabusTitle": "Reaction kinetics",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 95,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Rate of reaction"
+        },
+        {
+          "code": "8.2",
+          "label": "Effect of temperature on reaction rates and the concept of activation energy"
+        },
+        {
+          "code": "8.3",
+          "label": "Homogeneous and heterogeneous catalysts"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:9",
+      "code": "9",
+      "label": "The Periodic Table: chemical periodicity",
+      "syllabusTitle": "The Periodic Table: chemical periodicity",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 149,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Periodicity of physical properties of the elements in Period 3"
+        },
+        {
+          "code": "9.2",
+          "label": "Periodicity of chemical properties of the elements in Period 3"
+        },
+        {
+          "code": "9.3",
+          "label": "Chemical periodicity of other elements"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:10",
+      "code": "10",
+      "label": "Group 2",
+      "syllabusTitle": "Group 2",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 119,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "\u0007Similarities and trends in the properties of the Group 2 metals, magnesium to barium, and their compounds"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:11",
+      "code": "11",
+      "label": "Group 17",
+      "syllabusTitle": "Group 17",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 115,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "\u0007Physical properties of the Group 17 elements"
+        },
+        {
+          "code": "11.2",
+          "label": "The chemical properties of the halogen elements and the hydrogen halides"
+        },
+        {
+          "code": "11.3",
+          "label": "Some reactions of the halide ions"
+        },
+        {
+          "code": "11.4",
+          "label": "The reactions of chlorine"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:12",
+      "code": "12",
+      "label": "Nitrogen and sulfur",
+      "syllabusTitle": "Nitrogen and sulfur",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 77,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "\u0007Nitrogen and sulfur"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:13",
+      "code": "13",
+      "label": "An introduction to AS Level organic chemistry",
+      "syllabusTitle": "An introduction to AS Level organic chemistry",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 221,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Formulas, functional groups and the naming of organic compounds"
+        },
+        {
+          "code": "13.2",
+          "label": "Characteristic organic reactions"
+        },
+        {
+          "code": "13.3",
+          "label": "Shapes of organic molecules; σ and π bonds"
+        },
+        {
+          "code": "13.4",
+          "label": "Isomerism: structural isomerism and stereoisomerism"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:14",
+      "code": "14",
+      "label": "Hydrocarbons",
+      "syllabusTitle": "Hydrocarbons",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 135,
+      "subtopics": [
+        {
+          "code": "14.1",
+          "label": "Alkanes"
+        },
+        {
+          "code": "14.2",
+          "label": "Alkenes"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:15",
+      "code": "15",
+      "label": "Halogen compounds",
+      "syllabusTitle": "Halogen compounds",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 99,
+      "subtopics": [
+        {
+          "code": "15.1",
+          "label": "Halogenoalkanes"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:16",
+      "code": "16",
+      "label": "Hydroxy compounds",
+      "syllabusTitle": "Hydroxy compounds",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 119,
+      "subtopics": [
+        {
+          "code": "16.1",
+          "label": "Alcohols"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:17",
+      "code": "17",
+      "label": "Carbonyl compounds",
+      "syllabusTitle": "Carbonyl compounds",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 126,
+      "subtopics": [
+        {
+          "code": "17.1",
+          "label": "Aldehydes and ketones"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:18",
+      "code": "18",
+      "label": "Carboxylic acids and derivatives",
+      "syllabusTitle": "Carboxylic acids and derivatives",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 110,
+      "subtopics": [
+        {
+          "code": "18.1",
+          "label": "Carboxylic acids"
+        },
+        {
+          "code": "18.2",
+          "label": "Esters"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:19",
+      "code": "19",
+      "label": "Nitrogen compounds",
+      "syllabusTitle": "Nitrogen compounds",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 24,
+      "subtopics": [
+        {
+          "code": "19.1",
+          "label": "Primary amines"
+        },
+        {
+          "code": "19.2",
+          "label": "Nitriles and hydroxynitriles"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:20",
+      "code": "20",
+      "label": "Polymerisation",
+      "syllabusTitle": "Polymerisation",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 40,
+      "subtopics": [
+        {
+          "code": "20.1",
+          "label": "Addition polymerisation"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:21",
+      "code": "21",
+      "label": "Organic synthesis",
+      "syllabusTitle": "Organic synthesis",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 53,
+      "subtopics": [
+        {
+          "code": "21.1",
+          "label": "Organic synthesis"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:22",
+      "code": "22",
+      "label": "Analytical techniques",
+      "syllabusTitle": "Analytical techniques",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 96,
+      "subtopics": [
+        {
+          "code": "22.1",
+          "label": "Infrared spectroscopy"
+        },
+        {
+          "code": "22.2",
+          "label": "Mass spectrometry"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:23",
+      "code": "23",
+      "label": "Chemical energetics (A Level)",
+      "syllabusTitle": "Chemical energetics",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 54,
+      "subtopics": [
+        {
+          "code": "23.1",
+          "label": "Lattice energy and Born-Haber cycles"
+        },
+        {
+          "code": "23.2",
+          "label": "Enthalpies of solution and hydration"
+        },
+        {
+          "code": "23.3",
+          "label": "Entropy change, ΔS"
+        },
+        {
+          "code": "23.4",
+          "label": "Gibbs free energy change, ΔG"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:24",
+      "code": "24",
+      "label": "Electrochemistry (A Level)",
+      "syllabusTitle": "Electrochemistry",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 46,
+      "subtopics": [
+        {
+          "code": "24.1",
+          "label": "Electrolysis"
+        },
+        {
+          "code": "24.2",
+          "label": "Standard electrode potentials E⦵, standard cell potentials E⦵cell and the Nernst equation"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:25",
+      "code": "25",
+      "label": "Equilibria (A Level)",
+      "syllabusTitle": "Equilibria",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 55,
+      "subtopics": [
+        {
+          "code": "25.1",
+          "label": "Acids and bases"
+        },
+        {
+          "code": "25.2",
+          "label": "Partition coefficients"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:26",
+      "code": "26",
+      "label": "Reaction kinetics (A Level)",
+      "syllabusTitle": "Reaction kinetics",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 38,
+      "subtopics": [
+        {
+          "code": "26.1",
+          "label": "Simple rate equations, orders of reaction and rate constants"
+        },
+        {
+          "code": "26.2",
+          "label": "Homogeneous and heterogeneous catalysts"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:27",
+      "code": "27",
+      "label": "Group 2 (A Level)",
+      "syllabusTitle": "Group 2",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 37,
+      "subtopics": [
+        {
+          "code": "27.1",
+          "label": "\u0007Similarities and trends in the properties of the Group 2 metals, magnesium to barium, and their compounds"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:28",
+      "code": "28",
+      "label": "Chemistry of transition elements",
+      "syllabusTitle": "Chemistry of transition elements",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 77,
+      "subtopics": [
+        {
+          "code": "28.1",
+          "label": "\u0007General physical and chemical properties of the first row of transition elements, titanium to copper"
+        },
+        {
+          "code": "28.2",
+          "label": "\u0007General characteristic chemical properties of the first set of transition elements, titanium to copper"
+        },
+        {
+          "code": "28.3",
+          "label": "Colour of complexes"
+        },
+        {
+          "code": "28.4",
+          "label": "Stereoisomerism in transition element complexes"
+        },
+        {
+          "code": "28.5",
+          "label": "Stability constants, Kstab"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:29",
+      "code": "29",
+      "label": "An introduction to A Level organic chemistry",
+      "syllabusTitle": "An introduction to A Level organic chemistry",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 23,
+      "subtopics": [
+        {
+          "code": "29.1",
+          "label": "Formulas, functional groups and the naming of organic compounds"
+        },
+        {
+          "code": "29.2",
+          "label": "Characteristic organic reactions"
+        },
+        {
+          "code": "29.3",
+          "label": "Shapes of aromatic organic molecules; σ and π bonds"
+        },
+        {
+          "code": "29.4",
+          "label": "Isomerism: optical"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:30",
+      "code": "30",
+      "label": "Hydrocarbons (A Level)",
+      "syllabusTitle": "Hydrocarbons",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 35,
+      "subtopics": [
+        {
+          "code": "30.1",
+          "label": "Arenes"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:31",
+      "code": "31",
+      "label": "Halogen compounds (A Level)",
+      "syllabusTitle": "Halogen compounds",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 5,
+      "subtopics": [
+        {
+          "code": "31.1",
+          "label": "Halogen compounds"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:32",
+      "code": "32",
+      "label": "Hydroxy compounds (A Level)",
+      "syllabusTitle": "Hydroxy compounds",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 14,
+      "subtopics": [
+        {
+          "code": "32.1",
+          "label": "Alcohols"
+        },
+        {
+          "code": "32.2",
+          "label": "Phenol"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:33",
+      "code": "33",
+      "label": "Carboxylic acids and derivatives (A Level)",
+      "syllabusTitle": "Carboxylic acids and derivatives",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 44,
+      "subtopics": [
+        {
+          "code": "33.1",
+          "label": "Carboxylic acids"
+        },
+        {
+          "code": "33.2",
+          "label": "Esters"
+        },
+        {
+          "code": "33.3",
+          "label": "Acyl chlorides"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:34",
+      "code": "34",
+      "label": "Nitrogen compounds (A Level)",
+      "syllabusTitle": "Nitrogen compounds",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 53,
+      "subtopics": [
+        {
+          "code": "34.1",
+          "label": "Primary and secondary amines"
+        },
+        {
+          "code": "34.2",
+          "label": "Phenylamine and azo compounds"
+        },
+        {
+          "code": "34.3",
+          "label": "Amides"
+        },
+        {
+          "code": "34.4",
+          "label": "Amino acids"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:35",
+      "code": "35",
+      "label": "Polymerisation (A Level)",
+      "syllabusTitle": "Polymerisation",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 24,
+      "subtopics": [
+        {
+          "code": "35.1",
+          "label": "Condensation polymerisation"
+        },
+        {
+          "code": "35.2",
+          "label": "Predicting the type of polymerisation"
+        },
+        {
+          "code": "35.3",
+          "label": "Degradable polymers"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:36",
+      "code": "36",
+      "label": "Organic synthesis (A Level)",
+      "syllabusTitle": "Organic synthesis",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 25,
+      "subtopics": [
+        {
+          "code": "36.1",
+          "label": "Organic synthesis"
+        }
+      ]
+    },
+    {
+      "id": "9701:2022:37",
+      "code": "37",
+      "label": "Analytical techniques (A Level)",
+      "syllabusTitle": "Analytical techniques",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 43,
+      "subtopics": [
+        {
+          "code": "37.1",
+          "label": "Thin-layer chromatography"
+        },
+        {
+          "code": "37.2",
+          "label": "Gas / liquid chromatography"
+        },
+        {
+          "code": "37.3",
+          "label": "Carbon-13 NMR spectroscopy"
+        },
+        {
+          "code": "37.4",
+          "label": "Proton (1H) NMR spectroscopy"
+        }
+      ]
+    },
+    {
+      "id": "9701:2019:real-gases-liquid-state-and-recycling",
+      "code": "E-real-gases-liquid-state-and-recycling",
+      "label": "Real gases, liquid state and recycling (earlier syllabus)",
+      "syllabusTitle": "Real gases, liquid state and recycling (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 9,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:enzymes-as-biological-catalysts",
+      "code": "E-enzymes-as-biological-catalysts",
+      "label": "Enzymes as biological catalysts (earlier syllabus)",
+      "syllabusTitle": "Enzymes as biological catalysts (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 3,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:applied-inorganic-chemistry-ceramics-group-2-and-halogen-uses",
+      "code": "E-applied-inorganic-chemistry-ceramics-group-2-and-halogen-uses",
+      "label": "Applied inorganic chemistry: ceramics, Group 2 and halogen uses (earlier syllabus)",
+      "syllabusTitle": "Applied inorganic chemistry: ceramics, Group 2 and halogen uses (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 2,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:nitrogen-and-sulfur-in-agriculture-and-pollution",
+      "code": "E-nitrogen-and-sulfur-in-agriculture-and-pollution",
+      "label": "Nitrogen and sulfur in agriculture and pollution (earlier syllabus)",
+      "syllabusTitle": "Nitrogen and sulfur in agriculture and pollution (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 3,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:fluoroalkanes-cfcs-and-the-ozone-layer",
+      "code": "E-fluoroalkanes-cfcs-and-the-ozone-layer",
+      "label": "Fluoroalkanes, CFCs and the ozone layer (earlier syllabus)",
+      "syllabusTitle": "Fluoroalkanes, CFCs and the ozone layer (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 3,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:commercial-uses-of-esters",
+      "code": "E-commercial-uses-of-esters",
+      "label": "Commercial uses of esters (earlier syllabus)",
+      "syllabusTitle": "Commercial uses of esters (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:cisplatin-anticancer-drug",
+      "code": "E-cisplatin-anticancer-drug",
+      "label": "Cisplatin anticancer drug (earlier syllabus)",
+      "syllabusTitle": "Cisplatin anticancer drug (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:polymer-properties-adhesives-and-conducting-polymers",
+      "code": "E-polymer-properties-adhesives-and-conducting-polymers",
+      "label": "Polymer properties, adhesives and conducting polymers (earlier syllabus)",
+      "syllabusTitle": "Polymer properties, adhesives and conducting polymers (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9701:2019:proteins-and-dna-structure-and-hydrolysis",
+      "code": "E-proteins-and-dna-structure-and-hydrolysis",
+      "label": "Proteins and DNA: structure and hydrolysis (earlier syllabus)",
+      "syllabusTitle": "Proteins and DNA: structure and hydrolysis (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    }
+  ]
+}

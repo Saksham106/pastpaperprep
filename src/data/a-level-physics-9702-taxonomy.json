@@ -1,0 +1,713 @@
+{
+  "artifact": "a_level_physics_9702_student_taxonomy",
+  "version": "physics9702_syllabus_taxonomy@1",
+  "qualification": "9702",
+  "note": "Topics 1-25 of the 2022 revision in syllabus order, then the content it removed as named earlier-syllabus topics (2020-2021 papers only). Each paper is its own tab; P1/P2 carry AS topics, P4 any topic.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "51de6bbc0fbabade153a568a16f4bbd88e3d8e04a0402433b500fe5992424f42",
+  "topics": [
+    {
+      "id": "9702:2022:1",
+      "code": "1",
+      "label": "Physical quantities and units",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 231,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Physical quantities"
+        },
+        {
+          "code": "1.2",
+          "label": "SI units"
+        },
+        {
+          "code": "1.3",
+          "label": "Errors and uncertainties"
+        },
+        {
+          "code": "1.4",
+          "label": "Scalars and vectors"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:2",
+      "code": "2",
+      "label": "Kinematics",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 171,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Equations of motion"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:3",
+      "code": "3",
+      "label": "Dynamics",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 263,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Momentum and Newton’s laws of motion"
+        },
+        {
+          "code": "3.2",
+          "label": "Non-uniform motion"
+        },
+        {
+          "code": "3.3",
+          "label": "Linear momentum and its conservation"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:4",
+      "code": "4",
+      "label": "Forces, density and pressure",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 258,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Turning effects of forces"
+        },
+        {
+          "code": "4.2",
+          "label": "Equilibrium of forces"
+        },
+        {
+          "code": "4.3",
+          "label": "Density and pressure"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:5",
+      "code": "5",
+      "label": "Work, energy and power",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 236,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Energy conservation"
+        },
+        {
+          "code": "5.2",
+          "label": "Gravitational potential energy and kinetic energy"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:6",
+      "code": "6",
+      "label": "Deformation of solids",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 173,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Stress and strain"
+        },
+        {
+          "code": "6.2",
+          "label": "Elastic and plastic behaviour"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:7",
+      "code": "7",
+      "label": "Waves",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 280,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Progressive waves"
+        },
+        {
+          "code": "7.2",
+          "label": "Transverse and longitudinal waves"
+        },
+        {
+          "code": "7.3",
+          "label": "Doppler effect for sound waves"
+        },
+        {
+          "code": "7.4",
+          "label": "Electromagnetic spectrum"
+        },
+        {
+          "code": "7.5",
+          "label": "Polarisation"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:8",
+      "code": "8",
+      "label": "Superposition",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 256,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Stationary waves"
+        },
+        {
+          "code": "8.2",
+          "label": "Diffraction"
+        },
+        {
+          "code": "8.3",
+          "label": "Interference"
+        },
+        {
+          "code": "8.4",
+          "label": "The diffraction grating"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:9",
+      "code": "9",
+      "label": "Electricity",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 230,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Electric current"
+        },
+        {
+          "code": "9.2",
+          "label": "Potential difference and power"
+        },
+        {
+          "code": "9.3",
+          "label": "Resistance and resistivity"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:10",
+      "code": "10",
+      "label": "D.C. circuits",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 227,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "Practical circuits"
+        },
+        {
+          "code": "10.2",
+          "label": "Kirchhoff’s laws"
+        },
+        {
+          "code": "10.3",
+          "label": "Potential dividers"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:11",
+      "code": "11",
+      "label": "Particle physics",
+      "level": "AS",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 190,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "Atoms, nuclei and radiation"
+        },
+        {
+          "code": "11.2",
+          "label": "Fundamental particles"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:12",
+      "code": "12",
+      "label": "Motion in a circle",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 25,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Kinematics of uniform circular motion"
+        },
+        {
+          "code": "12.2",
+          "label": "Centripetal acceleration"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:13",
+      "code": "13",
+      "label": "Gravitational fields",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 34,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Gravitational field"
+        },
+        {
+          "code": "13.2",
+          "label": "Gravitational force between point masses"
+        },
+        {
+          "code": "13.3",
+          "label": "Gravitational field of a point mass"
+        },
+        {
+          "code": "13.4",
+          "label": "Gravitational potential"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:14",
+      "code": "14",
+      "label": "Temperature",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 25,
+      "subtopics": [
+        {
+          "code": "14.1",
+          "label": "Thermal equilibrium"
+        },
+        {
+          "code": "14.2",
+          "label": "Temperature scales"
+        },
+        {
+          "code": "14.3",
+          "label": "Specific heat capacity and specific latent heat"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:15",
+      "code": "15",
+      "label": "Ideal gases",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 35,
+      "subtopics": [
+        {
+          "code": "15.1",
+          "label": "The mole"
+        },
+        {
+          "code": "15.2",
+          "label": "Equation of state"
+        },
+        {
+          "code": "15.3",
+          "label": "Kinetic theory of gases"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:16",
+      "code": "16",
+      "label": "Thermodynamics",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 38,
+      "subtopics": [
+        {
+          "code": "16.1",
+          "label": "Internal energy"
+        },
+        {
+          "code": "16.2",
+          "label": "The first law of thermodynamics"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:17",
+      "code": "17",
+      "label": "Oscillations",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 35,
+      "subtopics": [
+        {
+          "code": "17.1",
+          "label": "Simple harmonic oscillations"
+        },
+        {
+          "code": "17.2",
+          "label": "Energy in simple harmonic motion"
+        },
+        {
+          "code": "17.3",
+          "label": "Damped and forced oscillations, resonance"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:18",
+      "code": "18",
+      "label": "Electric fields",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 78,
+      "subtopics": [
+        {
+          "code": "18.1",
+          "label": "Electric fields and field lines"
+        },
+        {
+          "code": "18.2",
+          "label": "Uniform electric fields"
+        },
+        {
+          "code": "18.3",
+          "label": "Electric force between point charges"
+        },
+        {
+          "code": "18.4",
+          "label": "Electric field of a point charge"
+        },
+        {
+          "code": "18.5",
+          "label": "Electric potential"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:19",
+      "code": "19",
+      "label": "Capacitance",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 33,
+      "subtopics": [
+        {
+          "code": "19.1",
+          "label": "Capacitors and capacitance"
+        },
+        {
+          "code": "19.2",
+          "label": "Energy stored in a capacitor"
+        },
+        {
+          "code": "19.3",
+          "label": "Discharging a capacitor"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:20",
+      "code": "20",
+      "label": "Magnetic fields",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 51,
+      "subtopics": [
+        {
+          "code": "20.1",
+          "label": "Concept of a magnetic field"
+        },
+        {
+          "code": "20.2",
+          "label": "Force on a current-carrying conductor"
+        },
+        {
+          "code": "20.3",
+          "label": "Force on a moving charge"
+        },
+        {
+          "code": "20.4",
+          "label": "Magnetic fields due to currents"
+        },
+        {
+          "code": "20.5",
+          "label": "Electromagnetic induction"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:21",
+      "code": "21",
+      "label": "Alternating currents",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 28,
+      "subtopics": [
+        {
+          "code": "21.1",
+          "label": "Characteristics of alternating currents"
+        },
+        {
+          "code": "21.2",
+          "label": "Rectification and smoothing"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:22",
+      "code": "22",
+      "label": "Quantum physics",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 39,
+      "subtopics": [
+        {
+          "code": "22.1",
+          "label": "Energy and momentum of a photon"
+        },
+        {
+          "code": "22.2",
+          "label": "Photoelectric effect"
+        },
+        {
+          "code": "22.3",
+          "label": "Wave-particle duality"
+        },
+        {
+          "code": "22.4",
+          "label": "Energy levels in atoms and line spectra"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:23",
+      "code": "23",
+      "label": "Nuclear physics",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 34,
+      "subtopics": [
+        {
+          "code": "23.1",
+          "label": "Mass defect and nuclear binding energy"
+        },
+        {
+          "code": "23.2",
+          "label": "Radioactive decay"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:24",
+      "code": "24",
+      "label": "Medical physics",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 40,
+      "subtopics": [
+        {
+          "code": "24.1",
+          "label": "Production and use of ultrasound"
+        },
+        {
+          "code": "24.2",
+          "label": "Production and use of X-rays"
+        },
+        {
+          "code": "24.3",
+          "label": "PET scanning"
+        }
+      ]
+    },
+    {
+      "id": "9702:2022:25",
+      "code": "25",
+      "label": "Astronomy and cosmology",
+      "level": "A Level",
+      "era": "2022",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 25,
+      "subtopics": [
+        {
+          "code": "25.1",
+          "label": "Standard candles"
+        },
+        {
+          "code": "25.2",
+          "label": "Stellar radii"
+        },
+        {
+          "code": "25.3",
+          "label": "Hubble’s law and the Big Bang theory"
+        }
+      ]
+    },
+    {
+      "id": "9702:2019:measurement-techniques",
+      "code": "E-measurement-techniques",
+      "label": "Measurement techniques (earlier syllabus)",
+      "level": "AS",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 7,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:kinetic-model-of-matter",
+      "code": "E-kinetic-model-of-matter",
+      "label": "Kinetic model of matter (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:communication",
+      "code": "E-communication",
+      "label": "Communication (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 10,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:strain-gauges",
+      "code": "E-strain-gauges",
+      "label": "Strain gauges (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:electronics",
+      "code": "E-electronics",
+      "label": "Electronics (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 9,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:current-balance-and-e-m",
+      "code": "E-current-balance-and-e-m",
+      "label": "Current balance and e/m for electrons (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:nmri",
+      "code": "E-nmri",
+      "label": "Nuclear magnetic resonance imaging (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 1,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:transformers-and-transmission",
+      "code": "E-transformers-and-transmission",
+      "label": "Transformers and power transmission (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 4,
+      "subtopics": []
+    },
+    {
+      "id": "9702:2019:band-theory",
+      "code": "E-band-theory",
+      "label": "Band theory (earlier syllabus)",
+      "level": "A Level",
+      "era": "2019",
+      "earlierSyllabus": true,
+      "official": true,
+      "questions": 2,
+      "subtopics": []
+    }
+  ]
+}

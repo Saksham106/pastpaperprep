@@ -98,8 +98,10 @@ function printedMarks(bank, raw, marks) {
   // Same projection as src/lib/reviewed-science-removed-part-marks.ts.
   const removed = removedPartMarks[bank]?.[raw.id];
   if (removed) {
-    if (marks !== removed.old) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${raw.id}`);
-    return removed.new;
+    // Owner decision 2026-11-19: the marks students can score (printed total minus the removed parts).
+    const removedMarks = removed.removedParts.reduce((sum, part) => sum + part.marks, 0);
+    if (marks !== removed.old || removed.printedTotal - removedMarks !== removed.assessableMarks || !(removed.assessableMarks > 0)) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${raw.id}`);
+    return removed.assessableMarks;
   }
   // Same projection as src/lib/reviewed-0580-question-splits.ts.
   const split0580 = bank === questionSplits0580.bank ? questionSplits0580.entries[raw.id] : undefined;
@@ -236,7 +238,7 @@ const biologyPrimaryTopic = (record, raw) => record.primary?.parentTopic ?? raw.
 const bankSources = [
   ...["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"]
     .map((bank) => ({ bank, directory: "raw" })),
-  ...["ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654", "igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709"]
+  ...["ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654", "igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701"]
     .map((bank) => ({ bank, directory: "production" })),
 ];
 const banks = bankSources.map(({ bank }) => bank);

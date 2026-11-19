@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "a-level-physics-9702",
+  "date": "2026-11-17",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "a-level-physics-9702/releases/full2627-v1-625c919f2ca5/",
+  "objects": 6056,
+  "bytes": 57224250,
+  "uniqueKeys": 6056,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 6056,
+  "sha256MatchesSegmentationRecord": 6056,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
+  "sourceCommit": "67b80c6",
+  "nextStep": "Owner approval in the session that runs it, then: WRANGLER=<bin> node scripts/upload-computer-science-wrangler.mjs --bank a-level-physics-9702 --concurrency 2 (create-only: absent check, put, read-back SHA-256 and size per object), then generate-igcse-release.mjs --finalize a-level-physics-9702."
+}

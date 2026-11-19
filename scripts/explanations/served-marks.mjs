@@ -1,7 +1,7 @@
 // The marks students are served for a question: the raw runtime marks projected through the same reviewed overlays,
 // in the same order, as `marks` in normalizeQuestion (src/lib/questions.ts):
 //   historical Biology crops -> Biology printed marks -> 0606 split -> removed parts -> IB boundaries -> 0580 split.
-// Used by prepare-batch (the writer's task) and publish (the validator), so both see the printed total.
+// Used by prepare-batch (the writer's task) and publish (the validator), so both see the served total.
 // src/lib/explanations-served-marks.test.ts checks this projection against the runtime loader for every bank.
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -23,12 +23,19 @@ function step(entry, marks, what, bank, id) {
   return entry.new;
 }
 
+// Owner decision 2026-11-19: a question with a removed part serves the marks students can score.
+function removedPartStep(entry, bank, id) {
+  const removed = entry.removedParts.reduce((sum, part) => sum + part.marks, 0);
+  if (entry.printedTotal - removed !== entry.assessableMarks) throw new Error(`Reviewed removed-part marks disagree with ${bank}:${id}`);
+  return { old: entry.old, new: entry.assessableMarks };
+}
+
 export function servedMarks(bank, id, rawMarks) {
   let marks = typeof rawMarks === "number" ? rawMarks : null;
   marks = step(bank === HISTORICAL.bank && has(HISTORICAL.entries, id) ? HISTORICAL.entries[id].marks : null, marks, "historical marks repair", bank, id);
   marks = step(bank === PRINTED.bank && has(PRINTED.entries, id) ? PRINTED.entries[id] : null, marks, "printed marks repair", bank, id);
   marks = step(bank === SPLITS_0606.bank && has(SPLITS_0606.entries, id) ? SPLITS_0606.entries[id].marks : null, marks, "0606 question split", bank, id);
-  marks = step(has(REMOVED_PARTS[bank], id) ? REMOVED_PARTS[bank][id] : null, marks, "removed-part marks", bank, id);
+  marks = step(has(REMOVED_PARTS[bank], id) ? removedPartStep(REMOVED_PARTS[bank][id], bank, id) : null, marks, "removed-part marks", bank, id);
   const boundaries = IB_BOUNDARIES.filter((banks) => has(banks[bank], id));
   if (boundaries.length > 1) throw new Error(`Two reviewed IB question boundaries for ${bank}:${id}`);
   marks = step(boundaries[0]?.[bank][id].marks, marks, "IB question boundary", bank, id);

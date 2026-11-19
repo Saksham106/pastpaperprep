@@ -48,6 +48,8 @@ const CAMBRIDGE_OFFICIAL_PAGES: Partial<Record<BankSlug, string>> = {
   "igcse-physics-0625": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-physics-0625/",
   "igcse-coordinated-sciences-0654": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-sciences-co-ordinated-double-0654/",
   "a-level-maths-9709": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-mathematics-9709/",
+  "a-level-physics-9702": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-physics-9702/",
+  "a-level-chemistry-9701": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-chemistry-9701/",
 };
 
 const COURSE_OVERVIEWS: Record<string, string> = {

@@ -1,5 +1,7 @@
 import type { BankSlug } from "@/lib/banks";
 import { A_LEVEL_MATHS_9709, MATHS_9709_PAPERS } from "@/lib/a-level-9709";
+import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_PAPERS } from "@/lib/a-level-9702";
+import { A_LEVEL_CHEMISTRY_9701, CHEMISTRY_9701_PAPERS } from "@/lib/a-level-9701";
 
 /**
  * Per-bank route options: the top-level scope a student picks before topics and filters.
@@ -61,6 +63,30 @@ const MATHS_9709_TABS: BankRouteConfig = {
   hidesPaperFilter: true,
 };
 
+/** 9702: every candidate sits Paper 1 (multiple choice) and Paper 2; A Level adds Paper 4. */
+const PHYSICS_9702_TABS: BankRouteConfig = {
+  name: "Paper",
+  allLabel: "All papers",
+  allDetail: "Papers 1, 2 & 4",
+  options: PHYSICS_9702_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
+  defaultSelection: "multiple-choice",
+  remember: true,
+  scopesTopics: true,
+  hidesPaperFilter: true,
+};
+
+/** 9701: the same paper structure as 9702. */
+const CHEMISTRY_9701_TABS: BankRouteConfig = {
+  name: "Paper",
+  allLabel: "All papers",
+  allDetail: "Papers 1, 2 & 4",
+  options: CHEMISTRY_9701_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
+  defaultSelection: "multiple-choice",
+  remember: true,
+  scopesTopics: true,
+  hidesPaperFilter: true,
+};
+
 const ROUTE_CONFIGS: Partial<Record<BankSlug, BankRouteConfig>> = {
   igcse: CORE_EXTENDED,
   "igcse-biology-0610": CORE_EXTENDED,
@@ -68,6 +94,8 @@ const ROUTE_CONFIGS: Partial<Record<BankSlug, BankRouteConfig>> = {
   "igcse-physics-0625": CORE_EXTENDED,
   "igcse-coordinated-sciences-0654": CORE_EXTENDED,
   [A_LEVEL_MATHS_9709]: MATHS_9709_TABS,
+  [A_LEVEL_PHYSICS_9702]: PHYSICS_9702_TABS,
+  [A_LEVEL_CHEMISTRY_9701]: CHEMISTRY_9701_TABS,
 };
 
 export function routeConfigFor(bank: string | undefined): BankRouteConfig | undefined {

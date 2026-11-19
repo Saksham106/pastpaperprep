@@ -6,6 +6,7 @@ import { BANK_CATALOG, type BankSlug } from './catalog';
 import { paperSlug, subjectSlugForBank } from './past-paper-catalog';
 import { approvedPapers, paperMappingDigest, paperObjectUrl, paperObjectsDigest, validPublicReadback } from './whole-paper-public';
 import type { WholePaperManifest, WholePaperBankSummary, WholePaperSummary, WholePaperDetail } from './whole-paper-types';
+import { assessableArchiveQuestion } from './reviewed-science-removed-part-marks';
 
 export function wholePaperPreviewEnabled() { return process.env.NODE_ENV === 'development' && process.env.LOCAL_PAPER_PREVIEW === 'true'; }
 const SAFE_ID = /^[a-z0-9][a-z0-9-]{0,159}$/;
@@ -41,6 +42,21 @@ function validManifest(value: unknown, slug: string): value is WholePaperManifes
   }
   return c.reports === reports && c.held === value.papers.length - reports;
 }
+/**
+ * Questions whose part the exam board removed list the marks students can score, and the paper maximum drops by the
+ * removed marks (owner decision 2026-11-19, docs/igcse-science-removed-part-marks.md). Applied after validation.
+ */
+export function withAssessableMarks(manifest: WholePaperManifest, slug: string): WholePaperManifest {
+  let changed = false;
+  const papers = manifest.papers.map((paper) => {
+    let removed = 0;
+    const questions = paper.questions.map((question) => { const result = assessableArchiveQuestion(slug, question); removed += result.removed; return result.question; });
+    if (!removed) return paper;
+    changed = true;
+    return { ...paper, questions, summary: { ...paper.summary, maxMarks: paper.summary.maxMarks === null ? null : paper.summary.maxMarks - removed } };
+  });
+  return changed ? { ...manifest, papers } : manifest;
+}
 /** Static generation renders ~2,700 pages from 19 manifests, so each validated manifest is parsed once.
  * The key includes the file's identity and mtime, so a rebuilt or replaced manifest is always re-read. */
 const MANIFESTS = new Map<string, { stamp: string; manifest: WholePaperManifest }>();
@@ -54,8 +70,9 @@ function readManifest(slug: string): WholePaperManifest | null {
     if (cached?.stamp === stamp) return cached.manifest;
     const value: unknown = JSON.parse(checkedRead(path, 16 * 1024 * 1024).toString('utf8'));
     if (!validManifest(value, slug)) return null;
-    MANIFESTS.set(path, { stamp, manifest: value });
-    return value;
+    const manifest = withAssessableMarks(value, slug);
+    MANIFESTS.set(path, { stamp, manifest });
+    return manifest;
   } catch { return null; }
 }
 export function getWholePaperSummaries(slug: string): WholePaperSummary[] { return readManifest(slug)?.papers.map(p => p.summary) ?? []; }
