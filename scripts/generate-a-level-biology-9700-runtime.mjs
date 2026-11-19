@@ -1,19 +1,22 @@
 #!/usr/bin/env node
 /**
  * Build the Cambridge International AS & A Level Biology 9700 candidate runtime from the pinned source workspace
- * (cambridge-a-level-biology-9700-topic-practice, commit 314703b). Every input is SHA-256 pinned; any drift fails closed.
+ * (cambridge-a-level-biology-9700-topic-practice, commit 1c68c4d; data as at 314703b plus the reviewed secondary-subtopic overlay). Every input is SHA-256 pinned; any drift fails closed.
  *
  *   data/segmentation/full/segmentation.json   2,684 canonical questions in 141 canonical papers (P1, P2, P4)
  *   data/classification/final-labels.json      2,680 labels: primary topic, primary_subtopic, secondaries
  *   data/taxonomy/taxonomy.json                topics 1-19 (9700:2022:<n>) and 10 earlier-syllabus topics (8 used)
  *   data/canonical-manifest.json               canonical ids, exam status, alias ids, MCQ keys, choice groups
  *   data/held-questions.json                   one held question (9700-2025-s-44-q2: Fig. 2.1 removed for copyright)
- *   data/crop-revisions.json                   empty at 314703b (asserted)
+ *   data/crop-revisions.json                   empty (asserted)
  *   data/paper-facts.json                      totals and durations from the syllabus assessment overview; Paper 1
  *                                              was 60 minutes in 2020-2021 and 75 from 2022 (duration_minutes_by_era)
  *   data/source-manifest.json + acquisition-manifest.json   kept, identity-checked source files
  *   data/classification/blind-results/*.json   blind-pass transcriptions, used as accessible text
  *   data/classification/transcript-corrections.json   5 transcripts that wrote α/β as "a-"/"b-"; applied here
+ *   data/classification/secondary-subtopics.json      reviewed overlay (owner review of PR #499): the subtopic sections
+ *                                              each current secondary topic materially assesses, and any further
+ *                                              section of the primary topic, with mark evidence
  *
  * Biology specifics carried into the rows:
  *   - Three multiple-choice items Cambridge discounted ("Question discounted", no key) are excluded from practice:
@@ -21,6 +24,9 @@
  *   - 2020-2021 Paper 4 Section B is an essay choice: Q9 and Q10 (15 marks each), candidates answer one. Both are
  *     served as normal questions and carry `choiceGroup: "section_b_answer_one"` (24 rows, asserted).
  *   - No structured part was withdrawn, so there are no removedParts and no scoreable-marks overlay entries.
+ *   - Subtopics: the primary subtopic first, then the reviewed further sections in syllabus order (`subtopics`,
+ *     `detailedSubtopics`); the further sections alone are `secondarySubtopics`. Every current secondary topic has at
+ *     least one section; earlier-syllabus topics have none.
  *
  * Multiple-choice rows carry the official key, read two independent ways in the source (mark-scheme text and
  * rendered view; both must agree), as `answer` with official `answerProvenance`, the release-runtime contract
@@ -38,7 +44,7 @@ export const BANK = "a-level-biology-9700";
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/cambridge-a-level-biology-9700-topic-practice";
-export const SOURCE_COMMIT = "314703b";
+export const SOURCE_COMMIT = "1c68c4d";
 export const SOURCE_SHA256 = {
   segmentation: "5fd427d072629603e3b340b3c98812f9b25e994120b607a17775fdaea3d8f9b7",
   labels: "e7807343676b4cca97d6ae3e45fc58bacce7556590bd9fc31d08e5e3f567729c",
@@ -50,6 +56,7 @@ export const SOURCE_SHA256 = {
   heldQuestions: "730e7e21e8892d7f712a6dccfff468455e0c7fbceb05c78fa5b807fddf7be407",
   cropRevisions: "06a2c300f9be42b1a9602180c547a9a0598f82c531da87bbcebe34c0b19c48f5",
   transcriptCorrections: "b66821cfb32c03e876475b3bc16195f2583f308392b9e98b051a843af195adc8",
+  secondarySubtopics: "2057e9bf6273a7f536befc296f7ca798de15cbfbf49906b786356aabb86f0cda",
   /** SHA-256 over the sorted "<file> <sha256>" lines of every top-level blind-results/*.json file. */
   blindResults: "5c0681cd6fe56ba20b06bae86de49560c9320bc0f7e2758840a1e6c233ff0d25",
 };
@@ -178,6 +185,37 @@ export function seal(artifact) {
   return { candidate, runtime: artifact.runtimeArtifact.runtimeSha256 };
 }
 
+/**
+ * The reviewed further sections of one question, in syllabus order: at least one for every current secondary topic,
+ * optionally more of the primary topic (never its primary subtopic again), none for earlier-syllabus topics, and only
+ * under the question's own topics. Fails closed on any other shape.
+ */
+export function furtherSections(id, label, entry, subtopicsByCode, topicsByCode) {
+  const allowed = new Set([label.primary, ...label.secondaries]);
+  for (const code of Object.keys(entry)) if (!allowed.has(code)) throw new Error(`9700 ${id} overlay names topic ${code}, which is not its primary or a secondary`);
+  const codes = [];
+  for (const code of [label.primary, ...label.secondaries]) {
+    const topic = topicsByCode.get(code);
+    const sections = entry[code]?.subtopics;
+    if (topic.era === "2019") {
+      if (sections !== undefined) throw new Error(`9700 ${id} overlay gives sections to earlier-syllabus topic ${code}`);
+      continue;
+    }
+    if (sections === undefined) {
+      if (code !== label.primary) throw new Error(`9700 ${id} secondary topic ${code} has no reviewed section`);
+      continue;
+    }
+    if (!Array.isArray(sections) || !sections.length || new Set(sections).size !== sections.length || typeof entry[code].evidence !== "string" || !entry[code].evidence.trim()) throw new Error(`9700 ${id} overlay entry for ${code} is malformed`);
+    for (const section of sections) {
+      if (subtopicsByCode.get(section)?.topic !== code) throw new Error(`9700 ${id} section ${section} is not under topic ${code}`);
+      if (code === label.primary && section === label.primary_subtopic) throw new Error(`9700 ${id} overlay repeats the primary subtopic ${section}`);
+    }
+    codes.push(...sections);
+  }
+  const order = [...subtopicsByCode.keys()];
+  return [...new Set(codes)].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+}
+
 export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const segmentation = await pinned(sourceRoot, "data/segmentation/full/segmentation.json", SOURCE_SHA256.segmentation);
   const finalLabels = await pinned(sourceRoot, "data/classification/final-labels.json", SOURCE_SHA256.labels);
@@ -189,6 +227,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const held = await pinned(sourceRoot, "data/held-questions.json", SOURCE_SHA256.heldQuestions);
   const cropRevisions = await pinned(sourceRoot, "data/crop-revisions.json", SOURCE_SHA256.cropRevisions);
   const corrections = await pinned(sourceRoot, "data/classification/transcript-corrections.json", SOURCE_SHA256.transcriptCorrections);
+  const sectionOverlay = await pinned(sourceRoot, "data/classification/secondary-subtopics.json", SOURCE_SHA256.secondarySubtopics);
   const blind = await blindTranscripts(sourceRoot);
   if (blind.pin !== SOURCE_SHA256.blindResults) throw new Error(`9700 blind results ${blind.pin} != pinned ${SOURCE_SHA256.blindResults}`);
   if (Object.keys(corrections.rows).length !== EXPECTED.transcriptCorrections) throw new Error("9700 transcript corrections drifted");
@@ -222,6 +261,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const questions = [];
   const used = new Map();
   const skipped = [];
+  const overlayRowsUsed = new Set();
   let choiceGroupRows = 0;
   for (const { paper, question } of sourceQuestions) {
     const entry = canonicalById.get(question.id);
@@ -258,12 +298,16 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
       if (topic.era === "2019" && question.year > 2021) throw new Error(`9700 ${question.id} carries an earlier-syllabus topic after 2021`);
       return topic;
     });
-    let subtopics = [];
+    let primarySubtopic = [];
     if (label.primary_subtopic !== null) {
       const subtopic = subtopicsByCode.get(label.primary_subtopic);
       if (!subtopic || subtopic.topic !== label.primary) throw new Error(`9700 ${question.id} subtopic ${label.primary_subtopic} is not under ${label.primary}`);
-      subtopics = [subtopic.title];
+      primarySubtopic = [subtopic.title];
     } else if (resolved[0].era !== "2019") throw new Error(`9700 ${question.id} has no subtopic under a current topic`);
+    const furtherCodes = furtherSections(question.id, label, sectionOverlay.rows[question.id] ?? {}, subtopicsByCode, topicsByCode);
+    overlayRowsUsed.add(question.id);
+    const furtherSubtopics = furtherCodes.map((code) => subtopicsByCode.get(code).title).filter((title) => !primarySubtopic.includes(title));
+    const subtopics = [...primarySubtopic, ...furtherSubtopics];
     const session = SESSION_LABELS[question.session];
     if (!session || SERIES_CODES[question.session] !== entry.series_code) throw new Error(`9700 ${question.id} session ${question.session}`);
     const component = paper.paper_id.split("-")[3];
@@ -304,7 +348,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
       secondaryTopicIds: secondaries.map((topic) => topic.id),
       subtopics,
       detailedSubtopics: subtopics,
-      secondarySubtopics: [],
+      secondarySubtopics: furtherSubtopics,
       skills: [],
       assessmentObjectives: [],
       marks: question.marks,
@@ -332,6 +376,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
         primaryCode: label.primary,
         primarySubtopic: label.primary_subtopic,
         secondaryCodes: [...label.secondaries],
+        furtherSubtopicCodes: furtherCodes,
         markAllocation: label.mark_allocation,
         taxonomyPath: TAXONOMY_OUTPUT,
       },
@@ -340,6 +385,8 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
     });
   }
 
+  const strayOverlayRows = Object.keys(sectionOverlay.rows).filter((id) => !overlayRowsUsed.has(id));
+  if (strayOverlayRows.length) throw new Error(`9700 secondary-subtopic overlay rows for questions not in the release: ${strayOverlayRows.join(", ")}`);
   if (JSON.stringify(skipped.sort()) !== JSON.stringify([...HELD, ...EXCLUDED].sort())) throw new Error(`9700 skipped ${skipped.join(", ")}`);
   if (questions.length !== EXPECTED.rows || new Set(questions.map((question) => question.id)).size !== EXPECTED.rows) throw new Error(`9700 rows ${questions.length}`);
   for (const [paper, count] of Object.entries(EXPECTED.byPaper)) if (questions.filter((question) => question.paper === Number(paper)).length !== count) throw new Error(`9700 Paper ${paper} count drifted`);

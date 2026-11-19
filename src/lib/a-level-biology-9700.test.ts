@@ -43,13 +43,13 @@ import removedPartMarks from "@/data/reviewed-science-removed-part-marks.json";
 const ROOT = process.cwd();
 const slug = A_LEVEL_BIOLOGY_9700;
 const product = "bank_a_level_biology_9700";
-const CANDIDATE = "102ff947f0aa8db777cc049e663c5d348dbf498a2ee2115e617ce3f59b63df8a";
+const CANDIDATE = "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d";
 const PREFIX = "a-level-biology-9700/releases/full2680-v1-102ff947f0aa";
 const EXCLUDED = ["9700-2021-w-13-q7", "9700-2023-w-11-q27", "9700-2023-w-11-q35"];
 const PRODUCTION = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
 const PREVIEW = { NODE_ENV: "development", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
 const entitlement = (product_id: string, selected_bank_ids?: string[]) => normalizeEntitlements([{ product_id, status: "active", starts_at: "2026-01-01T00:00:00Z", expires_at: null, ...(selected_bank_ids ? { selected_bank_ids } : {}) }]);
-type RuntimeQuestion = { id: string; paperId: string; number: number; paper: number; year: number; session: string; examStatus: string; format: string; component: string; marks: number; maxMarks: number; aliasIds: string[]; primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; choiceGroup?: string; removedParts?: string[]; sharedStimulusImages?: string[]; accessibleText: string; answer?: string; answerProvenance?: { status: string; questionId: string; keyReads: { markSchemeText: string; renderedView: string } }; questionImages: string[]; markschemeImages: string[] };
+type RuntimeQuestion = { id: string; paperId: string; number: number; paper: number; year: number; session: string; examStatus: string; format: string; component: string; marks: number; maxMarks: number; aliasIds: string[]; primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; secondarySubtopics: string[]; classificationProvenance: { primarySubtopic: string | null; furtherSubtopicCodes: string[]; secondaryCodes: string[] }; choiceGroup?: string; removedParts?: string[]; sharedStimulusImages?: string[]; accessibleText: string; answer?: string; answerProvenance?: { status: string; questionId: string; keyReads: { markSchemeText: string; renderedView: string } }; questionImages: string[]; markschemeImages: string[] };
 const runtime = runtimeJson as unknown as { questionCount: number; paperCount: number; years: string; assetVerification: string; heldQuestionIds: string[]; excludedQuestionIds: string[]; paperFacts: Record<string, { durationMinutes: number; durationMinutesByEra?: Record<string, number>; totalMarks: number }>; questions: RuntimeQuestion[]; runtimeArtifact: { originalCandidateRuntimeSha256: string; runtimeSha256: string } };
 const taxonomy = taxonomyJson as { topics: Array<{ id: string; label: string; earlierSyllabus: boolean; questions: number }> };
 const manifest = manifestJson as { storageState: string; objectPrefix: string; originalCandidateRuntimeSha256: string; assets: Array<{ objectKey: string; sha256: string; size: number; contentType: string }> };
@@ -265,7 +265,9 @@ describe("A Level Biology 9700 runtime", () => {
     expect(all).not.toContain("Other");
     for (const question of runtime.questions) {
       if ([question.primaryTopic, ...question.secondaryTopics].some((topic) => topic.endsWith("(earlier syllabus)"))) expect(question.year, question.id).toBeLessThanOrEqual(2021);
-      if (!question.primaryTopic.endsWith("(earlier syllabus)")) expect(question.subtopics, question.id).toHaveLength(1);
+      // The primary subtopic first, then the reviewed further sections (secondarySubtopics).
+      const primaryCount = question.primaryTopic.endsWith("(earlier syllabus)") ? 0 : 1;
+      expect(question.subtopics.slice(primaryCount), question.id).toEqual(question.secondarySubtopics);
     }
   });
 
@@ -330,6 +332,42 @@ describe("A Level Biology 9700 subtopic picker", () => {
       const order = Object.values(BIOLOGY_9700_SUBTOPICS).flat();
       const all = getSubtopicGroups(rows, [], []).all;
       expect(all).toEqual(order.filter((subtopic) => all.includes(subtopic)));
+    });
+  }
+});
+
+describe("A Level Biology 9700 secondary sections (owner review of #499)", () => {
+  const sectionTopic = new Map(Object.entries(BIOLOGY_9700_SUBTOPICS).flatMap(([topic, sections]) => sections.map((section) => [section, topic] as const)));
+
+  it("gives every current secondary topic at least one reviewed section, and only sections of the question's own topics", () => {
+    let pairs = 0;
+    for (const question of runtime.questions) {
+      const topics = new Set([question.primaryTopic, ...question.secondaryTopics]);
+      for (const section of question.secondarySubtopics) expect(topics.has(sectionTopic.get(section)!), `${question.id} ${section}`).toBe(true);
+      expect(new Set(question.subtopics).size, question.id).toBe(question.subtopics.length);
+      for (const topic of question.secondaryTopics) {
+        if (topic.endsWith("(earlier syllabus)")) continue;
+        pairs += 1;
+        expect(question.secondarySubtopics.some((section) => sectionTopic.get(section) === topic), `${question.id} ${topic}`).toBe(true);
+      }
+    }
+    expect(pairs).toBe(501);
+    expect(runtime.questions.filter((question) => question.secondarySubtopics.length)).toHaveLength(500);
+    expect((runtimeJson.runtimeArtifact as unknown as { sourceSha256: Record<string, string> }).sourceSha256.secondarySubtopics).toBe("2057e9bf6273a7f536befc296f7ca798de15cbfbf49906b786356aabb86f0cda");
+  });
+
+  for (const [label, rows] of [["normalized", questions], ["hydrated from bank-index metadata", hydrated]] as const) {
+    it(`finds 9700-2025-s-22-q1 under Movement into and out of cells, which its (d)(ii) assesses for 4 marks (${label})`, () => {
+      const p2 = rows.filter((question) => question.paper === 2);
+      const ids = (filters: Parameters<typeof filterQuestions>[1]) => filterQuestions(p2, filters).map((question) => question.id);
+      expect(ids({ topics: ["Cell membranes and transport"], subtopics: ["Movement into and out of cells"] })).toContain("9700-2025-s-22-q1");
+      expect(ids({ subtopics: ["Movement into and out of cells"] })).toContain("9700-2025-s-22-q1");
+      expect(ids({ subtopics: ["Transport mechanisms"] })).toContain("9700-2025-s-22-q1");
+      // Its primary section still finds it, and an unassessed section of a secondary topic does not.
+      expect(ids({ subtopics: ["Cells as the basic units of living organisms"] })).toContain("9700-2025-s-22-q1");
+      expect(ids({ subtopics: ["Fluid mosaic membranes"] })).not.toContain("9700-2025-s-22-q1");
+      // Main-topic-only still hides it under a topic it only partly covers.
+      expect(ids({ topics: ["Cell membranes and transport"], subtopics: ["Movement into and out of cells"], mainTopicOnly: true })).not.toContain("9700-2025-s-22-q1");
     });
   }
 });

@@ -68,7 +68,7 @@ declare const data: {
     secondaryTopicIds: Array<string>;
     subtopics: Array<string>;
     detailedSubtopics: Array<string>;
-    secondarySubtopics: never[];
+    secondarySubtopics: Array<string>;
     skills: never[];
     assessmentObjectives: never[];
     marks: number;
@@ -106,6 +106,7 @@ declare const data: {
       primaryCode: string;
       primarySubtopic: string | null;
       secondaryCodes: Array<string>;
+      furtherSubtopicCodes: Array<string>;
       markAllocation: {
         "1"?: number;
         "2"?: number;
@@ -158,6 +159,7 @@ declare const data: {
       heldQuestions: string;
       cropRevisions: string;
       transcriptCorrections: string;
+      secondarySubtopics: string;
       blindResults: string;
     };
     sourceCandidateSha256: string;

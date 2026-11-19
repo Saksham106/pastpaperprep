@@ -3,9 +3,9 @@
 The owner asked for the Biology PR ("go ahead and build the biology pr") and approved the 9700 R2 upload in the 9700 content session, which ran it against this branch's manifest. The crops are uploaded and read back and the runtime is finalized. Nothing is migrated or published, and the catalog entry stays hidden (`pendingStorage: true`, listed in `src/lib/held-banks.mjs`). It is built on `main` at 0d6777a8 (#498), the same way Chemistry 9701 was added there.
 
 ## Source
-- Workspace `cambridge-a-level-biology-9700-topic-practice` at commit 314703b (local git, clean; HEAD 3407615 only edits `PAUSED.md`). Receipts there: `docs/coverage-receipt.md` (PASS, byte-identical rebuild including all 7,006 crops), `docs/classification-receipt.md`, `docs/segmentation-receipt.md`, `docs/acquisition-receipt.md`.
+- Workspace `cambridge-a-level-biology-9700-topic-practice` at commit 1c68c4d: the 314703b data plus the reviewed secondary-subtopic overlay (see below); commits in between only record the upload and free copy. Receipts there: `docs/coverage-receipt.md` (PASS, byte-identical rebuild including all 7,006 crops), `docs/classification-receipt.md`, `docs/segmentation-receipt.md`, `docs/acquisition-receipt.md`.
 - Generator `scripts/generate-a-level-biology-9700-runtime.mjs`: SHA-pinned inputs, fail-closed checks, deterministic (two runs, same seals).
-  - Inputs: segmentation, final labels, taxonomy, canonical manifest, paper facts, source and acquisition manifests, held questions (exactly `9700-2025-s-44-q2`), crop revisions (asserted empty), transcript corrections, and the 85 blind-results files pinned together (`5c0681cd…`).
+  - Inputs: segmentation, final labels, taxonomy, canonical manifest, paper facts, source and acquisition manifests, held questions (exactly `9700-2025-s-44-q2`), crop revisions (asserted empty), transcript corrections, the secondary-subtopic overlay (`2057e9bf…`), and the 85 blind-results files pinned together (`5c0681cd…`).
 - Papers: 147 sourced, 141 canonical. The 60 alias question ids (6 alias papers: P43 = P41 in every Oct/Nov 2020–2025) resolve through `src/data/question-id-aliases.json`.
 
 ## Runtime
@@ -25,7 +25,8 @@ The owner asked for the Biology PR ("go ahead and build the biology pr") and app
 | Durations | `paperFacts`: Paper 1 is 75 min, or 60 min for 2020–2021 (`durationMinutesByEra`). Paper 2 is 75 min and Paper 4 is 120 min. The course guide says the same, with the 2025–2027 syllabus weightings (p. 10). |
 | Calculator | Allowed on every paper. All 147 QP covers print "You may use a calculator" (text layer, checked 2026-11-19). |
 | Reference sheet | **None, unlike 9701/9702.** 9700 papers have no data page outside the questions: when a formula is needed (Lincoln index, Simpson's index, Hardy–Weinberg, RQ, stomatal index), the question prints it, so the crop already holds it. The syllabus says the same ("When needed, candidates will be provided with this information", 2025–2027 p. 65). The Periodic Table button stays off. |
-| Candidate seal | `102ff947f0aa8db777cc049e663c5d348dbf498a2ee2115e617ce3f59b63df8a` (blanked-v1) |
+| Subtopics | The primary subtopic first, then the reviewed further sections (`secondarySubtopics`) in syllabus order: every current secondary topic has at least one (501 pairs), plus materially assessed further sections of the primary topic on 242 structured questions. 500 rows carry 772 further sections. See "Review fixes". |
+| Candidate seal | `71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d` (blanked-v1); the first candidate was `102ff947…`, which names the storage prefix |
 
 Paper tabs: All papers · Multiple choice · AS structured · A Level structured. The bank opens on Multiple choice and the choice is remembered per browser, as in 9701 and 9702. A Level subjects are listed Mathematics, Chemistry, Physics, Biology.
 
@@ -45,7 +46,7 @@ Paper tabs: All papers · Multiple choice · AS structured · A Level structured
   - 3 random objects fetched from R2 with wrangler hash to their manifest values and sizes.
 - **Finalized:** `generate-igcse-release.mjs --finalize a-level-biology-9700`.
   - All 2,680 rows are now production/classified.
-  - Seals: runtime `a927e851…`, manifest `e35de697…`, receipt `60bb70f9…`. The candidate pin `102ff947…` is unchanged, and the release test reconstructs it from the finalized runtime.
+  - Seals at first finalize: runtime `a927e851…`, manifest `e35de697…`, receipt `60bb70f9…`, against candidate `102ff947…`. Re-finalized after the review fixes; see below. The release test reconstructs the current candidate from the finalized runtime.
 
 ## Free years in the public bucket (owner approval, 19 November 2026)
 - The 9700 content session copied the 2020–2021 crops to the public free bucket (`free.pastpaperprep.com/images/`).
@@ -57,6 +58,20 @@ Paper tabs: All papers · Multiple choice · AS structured · A Level structured
   - every hash and size equals the manifest;
   - both log seals match the receipt;
   - 2 random files fetched from free.pastpaperprep.com hash to their manifest values.
+
+## Review fixes (owner review of #499, 19 November 2026)
+- **Subtopic picker.** Selecting a topic hid its own subtopics: grouping fell through to the legacy helper, which defaults to the IB Maths SL taxonomy. Live Physics 9702 and Chemistry 9701 had the same fault (no topic showed its own sections), and the owner asked to fix both here.
+  - `taxonomy-router` now has one A Level branch that maps each topic to its syllabus sections (`BIOLOGY_9700_SUBTOPICS`, `CHEMISTRY_9701_SUBTOPICS`, `PHYSICS_9702_SUBTOPICS`, each tested equal to its bank taxonomy).
+  - Tested on every paper tab, on normalized rows and on rows rehydrated from bank-index metadata.
+- **Secondary sections.** The filter missed questions that award marks in a secondary topic's section (`9700-2025-s-22-q1`: (d)(ii), 4 marks in 4.2 "Movement into and out of cells").
+  - The 9700 content session built a reviewed overlay at 1c68c4d (`data/classification/secondary-subtopics.json`, `2057e9bf…`; receipt `docs/secondary-subtopics-receipt.md` there): 501/501 current secondary pairs, with primary-topic extras on 242 structured questions.
+  - Method: two independent reads (98.1% / 97.4% agreement), 146 rows adjudicated, and a 50-row blind audit (40/41 and 49/50 exact; both differences checked and kept).
+  - Rule: a section is listed only when the mark scheme gives marks for it. Every section of a topic may be listed only when each earns ≥ 2 marks (≥ 1 on a question worth ≤ 3); the content session recorded this as the owner's decision in its session.
+  - The generator pins the overlay and fails closed: every current secondary topic needs a section, only the question's own topics are allowed, and the primary subtopic is never repeated.
+  - Labels and crops are unchanged. As for CS 0478 (`561a9ee3`), the candidate was re-pinned and the runtime re-finalized from the unchanged upload log.
+    - The manifest's asset list (keys, SHA-256, sizes) is identical, and the storage prefix keeps the first candidate's name. Only the manifest's `originalCandidateRuntimeSha256`/`contentSha256` and the receipt's `assetManifestSha256` changed.
+    - New seals: runtime `8f705c91…`, manifest `5cc8fcf7…`, receipt `5a514f10…`.
+    - The dry-run file still records the first candidate it ran against.
 
 ## Billing
 `bank_a_level_biology_9700` is sold on the shared single-bank prices, and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_biology`. Migration `20261119000000_a_level_biology_9700_release.sql` copies Chemistry's `20261118000000` definitions verbatim (a test checks this) and adds the product and slug after 9701. It is **not applied**.

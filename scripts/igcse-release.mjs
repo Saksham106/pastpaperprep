@@ -81,12 +81,13 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: '1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4',
   },
   // Cambridge International A Level Biology 9700: 2,680 rows (P1 multiple choice, P2, P4), one segmentation lane; 9700-2025-s-44-q2 held,
-  // 3 discounted MCQ items excluded.
+  // 3 discounted MCQ items excluded. The prefix is named for the first candidate (102ff947...); the reviewed secondary-subtopic
+  // overlay (#499 review) changed labels only, so the byte-identical verified crops stay under it.
   'a-level-biology-9700': {
     prefix: 'a-level-biology-9700/releases/full2680-v1-102ff947f0aa',
     sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_BIOLOGY_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '102ff947f0aa8db777cc049e663c5d348dbf498a2ee2115e617ce3f59b63df8a',
+    originalCandidateRuntimeSha256: '71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d',
   },
 };
 

@@ -210,7 +210,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
-  "a-level-biology-9700": "102ff947f0aa8db777cc049e663c5d348dbf498a2ee2115e617ce3f59b63df8a",
+  "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -225,7 +225,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
-  "a-level-biology-9700": "102ff947f0aa8db777cc049e663c5d348dbf498a2ee2115e617ce3f59b63df8a",
+  "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
 };
 
 function canonicalSha256(value: unknown) {
