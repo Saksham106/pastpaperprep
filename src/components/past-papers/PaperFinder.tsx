@@ -3,7 +3,7 @@
 import { useEffect, useId, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
-import { matchPapers, paperHref, paperName, parsePaperQuery, shortSession } from '@/lib/past-paper-catalog';
+import { matchPapers, paperHref, paperName, parsePaperQuery, shortSession, slashCode } from '@/lib/past-paper-catalog';
 import { trackProductEvent } from '@/lib/product-analytics';
 import type { WholePaperSummary } from '@/lib/whole-paper-types';
 import styles from './PaperFinder.module.css';
@@ -23,6 +23,12 @@ function subjectsFor(subjects: readonly FinderSubject[], q: string): Option[] {
     s.code === query.code && paperDetails ? { href: `${s.href}?q=${encodeURIComponent(q.trim())}`, label: s.name, detail: `Find ${q.trim()}` } : { href: s.href, label: s.name });
 }
 
+/** The example code shown in the box: the subject's own newest May/June Paper 1 for A Level, else the IGCSE classic. */
+export function exampleCode(papers: readonly WholePaperSummary[]): string {
+  const aLevel = papers.filter(p => p.qualification === 'Cambridge A Level' && p.sessionCode === 's').sort((a, b) => b.year - a.year || a.component.localeCompare(b.component));
+  return (aLevel[0] && slashCode(aLevel[0])) ?? '0580/42/M/J/24';
+}
+
 /** Search box for a subject or a paper code. Suggestions are plain links; Enter opens the highlighted one. */
 export function PaperFinder(props: Props) {
   const router = useRouter();
@@ -37,6 +43,7 @@ export function PaperFinder(props: Props) {
     if (handed) { setQ(handed.slice(0, 120)); setOpen(true); }
   }, []);
   const ready = open && q.trim().length >= 2;
+  const example = props.mode === 'papers' ? exampleCode(props.papers) : '0580/42/M/J/24';
   const options = !ready ? [] : props.mode === 'papers' ? papersFor(props.papers, q) : subjectsFor(props.subjects, q);
   const current = Math.min(active, Math.max(options.length - 1, 0));
   const optionId = (i: number) => `${id}-option-${i}`;
@@ -51,7 +58,7 @@ export function PaperFinder(props: Props) {
         role="combobox" aria-label="Find a paper" aria-expanded={options.length > 0} aria-controls={`${id}-list`} aria-autocomplete="list"
         aria-activedescendant={options.length ? optionId(current) : undefined}
         type="search" autoComplete="off" spellCheck={false} maxLength={120} value={q}
-        placeholder={props.mode === 'papers' ? 'Paper code, e.g. 0580/42/M/J/24' : 'Subject or paper code'}
+        placeholder={props.mode === 'papers' ? `Paper code, e.g. ${example}` : 'Subject or paper code'}
         onChange={event => { setQ(event.target.value); setActive(0); setOpen(true); }}
         onFocus={() => setOpen(true)} onBlur={() => setOpen(false)}
         onKeyDown={event => {
@@ -68,7 +75,7 @@ export function PaperFinder(props: Props) {
           <span>{option.label}</span>{option.detail && <small>{option.detail}</small>}
         </a>)}
       </div>
-      {ready && !options.length && <p className={styles.empty}>{props.mode === 'papers' ? 'No paper matches. Try 0580/42/M/J/24.' : 'No match. Try a subject or 0580/42/M/J/24.'}</p>}
+      {ready && !options.length && <p className={styles.empty}>{props.mode === 'papers' ? `No paper matches. Try ${example}.` : `No match. Try a subject or ${example}.`}</p>}
     </div>
   </div>;
 }

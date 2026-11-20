@@ -17,12 +17,18 @@ describe('paper question links', () => {
   });
 
   it('matches every archived question list to its paper key', () => {
-    let checked = 0;
+    let checked = 0, reprinted = 0;
+    // A Level reprints a variant's questions in another variant of the same series; the bank keeps them once, under
+    // the canonical variant's ids (build-whole-paper-archives reprintQuestionIds), so those rows keep that key.
+    const series = (key: string) => /^(\d{4}-\d{4}-[msw]-\d)\d$/.exec(key)?.[1];
     for (const m of manifests) for (const p of m.papers) for (const q of p.questions) {
-      expect(questionPaperKey(q.id), `${m.bankSlug} ${p.summary.id}`).toBe(archivePaperKey(m.bankSlug, p.summary.id));
+      const own = archivePaperKey(m.bankSlug, p.summary.id), key = questionPaperKey(q.id);
+      if (key !== own && m.bankSlug.startsWith('a-level-') && series(key) !== undefined && series(key) === series(own)) reprinted++;
+      else expect(key, `${m.bankSlug} ${p.summary.id}`).toBe(own);
       checked++;
     }
     expect(checked).toBeGreaterThan(30_000);
+    expect(reprinted).toBeGreaterThan(0);
   });
 
   it('links a card to its paper at the question, and nothing for unknown papers', () => {

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PaperFinder } from './PaperFinder';
+import { PaperFinder, exampleCode } from './PaperFinder';
 import { IGCSE_PAPERS } from './fixtures';
 
 const router = vi.hoisted(() => ({ push: vi.fn() }));
@@ -13,6 +13,13 @@ beforeEach(() => { vi.clearAllMocks(); window.history.replaceState(null, '', '/'
 afterEach(() => cleanup());
 
 describe('PaperFinder on a subject page', () => {
+  it('shows an A Level subject its own newest May/June code as the example', () => {
+    const base = IGCSE_PAPERS[0];
+    const aLevel = [2025, 2026].flatMap(year => ['12', '42'].map(component => ({ ...base, qualification: 'Cambridge A Level', syllabusCode: '9709', bankSlug: 'a-level-maths-9709' as const, year, session: 'May/June', sessionCode: 's', component, paper: component[0], variant: component[1] })));
+    expect(exampleCode(aLevel)).toBe('9709/12/M/J/26');
+    expect(exampleCode(IGCSE_PAPERS)).toBe('0580/42/M/J/24');
+  });
+
   it('suggests the exact paper for a Cambridge code and opens it on Enter', async () => {
     render(<PaperFinder mode="papers" papers={IGCSE_PAPERS} />);
     const box = screen.getByRole('combobox', { name: 'Find a paper' });

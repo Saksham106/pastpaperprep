@@ -1,0 +1,870 @@
+{
+ "schema": "a-level-clean-sources-v1",
+ "reason": "The bestexamhelp.com copies of every 2020 Feb/March and May/June A Level QP and MS carry a cover stamp. These clean copies of the same files are what the archive binds and publishes. Each one: no host stamp on scan, same page count, identical page text once the stamp is ignored, 0 differing pixels on pages 2+, the same producer and the same creation time as the stamped file, and no later modification. Evidence: research/stamp-scan-a-level-2026-11/results.json.",
+ "sources": [
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-m-12",
+   "role": "markscheme",
+   "stampedSha256": "5f0fc48bf8ce0f414a4287fe9cc6553937bc40ce5bf5ca7cce9349e67e076c6a",
+   "cleanSha256": "fb3d46e81ad222f828371de2f3d155f2bd5d0f221326df5888b197db8b86ce54",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_m20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-m-12",
+   "role": "question",
+   "stampedSha256": "18a45b4df5c020f35436c491ee6df19879f72b13a67b3209194acbfc6fa711e6",
+   "cleanSha256": "fd72c00c5e70610c86aab9bfa9af3cac2b44c2627e3a773421979c8488952e49",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_m20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-m-22",
+   "role": "markscheme",
+   "stampedSha256": "07cf4d17c2250438e9477c1ef90bc01c75cfd9248436aaac3288f53cde07b593",
+   "cleanSha256": "bf54bd7388e59d743c77b55d69e2f310dc09cf1bb87e99f1724bf9185c53f260",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_m20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-m-22",
+   "role": "question",
+   "stampedSha256": "eb4213a2690e64015b36cb29b3a9e93dbe22242413a1bb28ee395a7599f3a8bd",
+   "cleanSha256": "966ce6e85a38f9cc256b1a0f126484d7aca2a33337db9ebb8a519dd530889228",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_m20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-m-42",
+   "role": "markscheme",
+   "stampedSha256": "95d21a5725f8dc5acc344f2d47500979a25ae7b1ea44aaa91f7304b79c52ce61",
+   "cleanSha256": "38f623c00a13d44ed3fd4d920594c2167b5364798c239077e1e46b88d3c36c7c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_m20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-m-42",
+   "role": "question",
+   "stampedSha256": "41d3dd51194a395e4f5171542eb48c022c2ed65e93442d5069caf5a2a8006fcf",
+   "cleanSha256": "b645081edc60861e9b478f56f430e0b91c2847a1eeacefeef6cd092ea4d6110c",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/chemistry-9701/2020-march/9701_m20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-11",
+   "role": "markscheme",
+   "stampedSha256": "4b9812ad0a18cd496a73b44811f724bbfd650e60d2e78d155d562f4db2c87ad9",
+   "cleanSha256": "f0c95fae35d7735ebcc8be1ee74f64e77593c4b2661152f9f3c9c65ec316931b",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_ms_11.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-11",
+   "role": "question",
+   "stampedSha256": "d56ec31ccfe867af8b8bc39d6fb9c988cbb6ee47c99be985ed61d81e7c7dc0d8",
+   "cleanSha256": "b3623bc3c409fd77a662ea0f8864a52299266ce43163055aab2e5b147c0ad1c6",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_11.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-12",
+   "role": "markscheme",
+   "stampedSha256": "eb713a3c97f7c20941efd3750ce1c4ae42db0403c0a4f779e40b1b266b028cad",
+   "cleanSha256": "092fde4781fa2d70674b3130f58cbdaa53a3f88d2a36ae4d683223e14cf7760f",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-12",
+   "role": "question",
+   "stampedSha256": "4de59a15cdbf51a2a343f192d8374defa71cd57fe57f7c9af431597c04a7fae9",
+   "cleanSha256": "dd5bf4de1b4b6d1ef4011fe1c1dd2a115a90d241fd0733465ff9b1890b920130",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-13",
+   "role": "markscheme",
+   "stampedSha256": "c3ce8f069e809ca707c4b3c7c376b67f54524700bfb6561dcd8f640d8a1f0d05",
+   "cleanSha256": "28e9a21a7cf9f3afa0b1fdf2659d894d66a378597a41ada52819695bd7e637d2",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_ms_13.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-13",
+   "role": "question",
+   "stampedSha256": "3c470d10e5309fdb6b02453f43fdfd9d6861086a45c23cb9da9404d81bbe8994",
+   "cleanSha256": "d57838f067e29e1d6b7080c77c628fcaa99095f9034bbd94c71403b15fe8a9dd",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_13.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-21",
+   "role": "markscheme",
+   "stampedSha256": "397487bf94efb982bc2cda5948522d82447ba033ecb158cc367da45e9b03a742",
+   "cleanSha256": "41d3d173362e416749af92f23e8e354a6c763eff316c73f54304ff1ff135c838",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_ms_21.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-21",
+   "role": "question",
+   "stampedSha256": "0c8243b76f3822975a441713958fe1b4331d63a6b8ada1ad129aa51cfdf14202",
+   "cleanSha256": "14402e20d6ce16065c296b01bc050c9254085642feb92c33d2efcf1354c365f3",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_21.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-22",
+   "role": "markscheme",
+   "stampedSha256": "c20455a6928c4b8dac4f19996a3d9a4a2624d759cd1b7b061bd5fbd0084a4180",
+   "cleanSha256": "24ca994beac8603e406cc9600c06de5a40b258a38396e3db4158c338adb7d184",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/chemistry-9701/2020-may-june/9701_s20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-22",
+   "role": "question",
+   "stampedSha256": "b1a521928273896d1a64cc3df307939f85d228408484e073ce7d3a932cdc09c7",
+   "cleanSha256": "630b2d0c535a722c20dd7198a1c10d2811164ae01d5764b0deed2d451e8407ea",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-23",
+   "role": "markscheme",
+   "stampedSha256": "ff66c043de5e5b180a6d6707b08143dc96cb54c062cbfcf11e90dc6e39789d86",
+   "cleanSha256": "c34c29d46d4488f563e9e2c4d550a71e0c6edc111f24d31e386d1f732cda7387",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_ms_23.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-23",
+   "role": "question",
+   "stampedSha256": "6fef2e20dfadd01d9a2e04ea288050b34d07dceb2d65722cc5c3baa31f2328f1",
+   "cleanSha256": "3e5bb040a83933f84230e8593c2dfbd5c8897887a70a2fa5a64810f6fa6605a2",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_23.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-41",
+   "role": "markscheme",
+   "stampedSha256": "754252f97e95e4d875e7ad3f4365d0c612526d825f48c7f6d3ec83fec12888bd",
+   "cleanSha256": "453ed4336fa74036471763737a675ecf893dcb15daae1a46f798c432c863e3db",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/chemistry-9701/2020-may-june/9701_s20_ms_41.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-41",
+   "role": "question",
+   "stampedSha256": "4fdfa6e423973e76aa81a073d55616515c3592a8fcb65f9aed06883d5cad56fa",
+   "cleanSha256": "74a5396204621544aebab4d16a1e2261f438e779934377b2556dcdd40071d841",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_41.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-42",
+   "role": "markscheme",
+   "stampedSha256": "3c2c140b6cff23b5a9d7ac886ecb5f2f8feb282283ba59cd0fcbbc1828c3771b",
+   "cleanSha256": "ec16d71176cb41ac733a58ce599aec0f8e229b263bd988c63e036e3fa4212e4f",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-42",
+   "role": "question",
+   "stampedSha256": "976542d23094559e4ac0e3b2b9c44f5670349d5d96c8944739ea2b2b7fa135b0",
+   "cleanSha256": "bb99560aaf0744ceec82031dc0cb0370240092877a9b18f5baaf06fed0a01d3c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-43",
+   "role": "markscheme",
+   "stampedSha256": "7804b600e64b320fb612806fefc53baec1ac5f8abaffa5f5c4f344a1799101ef",
+   "cleanSha256": "bbcdd2d9e8df0f616e2286074d5dd466d96ffe160e19d0a9dc705949e77a415a",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/chemistry-9701/2020-may-june/9701_s20_ms_43.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-chemistry-9701",
+   "paper": "9701-2020-s-43",
+   "role": "question",
+   "stampedSha256": "aa59513db00ce02c2878457fee5ff77081e2cf471b133ed68ed72fab18068714",
+   "cleanSha256": "4032c5c68c94b5d503565b4b57cc27c7586aa6d09bfb76f778930eff80f24032",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9701_s20_qp_43.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-m-12",
+   "role": "markscheme",
+   "stampedSha256": "31d38ba8c53dc6904b91a968225b71131de30daa01968b185c29291b7eb05cdb",
+   "cleanSha256": "19df296867a86422071a1c46bc439e5d5c4c0907000dd39937e02ca4fd2c15a9",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_m20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-m-12",
+   "role": "question",
+   "stampedSha256": "afcc25768762b635c888851f55e252112bc316492f8c139d0b2819732020b2a2",
+   "cleanSha256": "31de7cf0badb41c9956ffa05dce551f0dc277f1cec694a2fe672d44225473dbb",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_m20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-m-22",
+   "role": "markscheme",
+   "stampedSha256": "9a5e715ce8b5e035ba57f79a8bb176ad91494918e74c5487d370b8335de0b4d6",
+   "cleanSha256": "7ef20c7078442e09932aa26828139bdc29d9179aa624c20c313aef83a29d817f",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_m20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-m-22",
+   "role": "question",
+   "stampedSha256": "a5d8df2b402475e3234713a660520fecd175db88f3861db91e8e7472d3459e6e",
+   "cleanSha256": "eaa8c55cc36aed22c0ddf9f803cfe50d444d980f18d3fe833392aefb6f9acde0",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_m20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-m-42",
+   "role": "markscheme",
+   "stampedSha256": "0247603ed4d28754f2d89f9a70e764354410095e6ff406051a758ecc86e49934",
+   "cleanSha256": "97f912392417f9c9ffc3a60c6c878bef2af35aa3f465cb4cddcb3ddca4fe72c4",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_m20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-m-42",
+   "role": "question",
+   "stampedSha256": "1fc08eedbbcf0a5995ddd70811b42fb190d167db5eeb9e2921729d053dde5615",
+   "cleanSha256": "e70eaa77348fe212fd6d8a43be56b8dac498ee709d05a8200e97d275d7c211ad",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_m20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-11",
+   "role": "markscheme",
+   "stampedSha256": "ef22de1efe7499735d51e5fce1d5e6ea8d31edf67b97675f70e7934c5ccbed5d",
+   "cleanSha256": "b69fcaf33aff880a8f83d0a2d380ace6cbb19a8e55fce4e67c65cd1259c34311",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_11.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-11",
+   "role": "question",
+   "stampedSha256": "1cba489baaf8506de5b976b8014e11c26f752c3ec0b78014cbe95bdb69bf5f59",
+   "cleanSha256": "a4f218e2799566b389c474b9bbc0033c5b30a4ceddb8e28be5e9c246aa51a2b8",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_11.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-12",
+   "role": "markscheme",
+   "stampedSha256": "87f99d46673c5fc56326859974c6106d7e9edfff4587433bf488e2abb3071683",
+   "cleanSha256": "6ef916dc51235f43cba1a4a4713202f565c104a862e1b8263874cc294ef421bf",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_12.pdf",
+   "producer": "Adobe PDF Library 20.9.95"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-12",
+   "role": "question",
+   "stampedSha256": "27063d9a393063780a853b902e9d21c3aca28930caea7c996afb1401090fa202",
+   "cleanSha256": "39cc724d260c0f6f72f32243fab70f8e50377970260cf5ef0686c1ebf874103c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-13",
+   "role": "markscheme",
+   "stampedSha256": "a6741423e77eeeeb962ceea6cbb46b431050a4406d7b591ed1aa56a69ca6d10b",
+   "cleanSha256": "5ba86615ff92afdcd775c7ffc460c794aa2c275c4453ff138a52469e2cd591ff",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_13.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-13",
+   "role": "question",
+   "stampedSha256": "5cabb8f3b9d39e085f38ae58053c03f43fb2f1915bfc392ea507cd2b50f71c04",
+   "cleanSha256": "5bc64eef93f3aca515c2138c95761c2f7b1dd8552c6d5b8125b53d308c210bd0",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_13.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-21",
+   "role": "markscheme",
+   "stampedSha256": "8678518daf59a41133a50050efb60467475c6da5ce9ed8444ba1557529b0a56c",
+   "cleanSha256": "e0eff4f9da412ef0d38ef884862bd68893a07e185690db48437dbacb88e6fa15",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_21.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-21",
+   "role": "question",
+   "stampedSha256": "2590504f8bd4867443a41c2c8be5dc7a89de0cf9799b4ea06dc409c590a85d25",
+   "cleanSha256": "0d147c7a94d47e6031af11d3493039b7dc3494d569cb7b82b176e0d1c712a3c5",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_21.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-22",
+   "role": "markscheme",
+   "stampedSha256": "e2681da1368ce238a68b35029b2f324a569dee2ff44f54fc5f3486418fe29dc3",
+   "cleanSha256": "46788fe6e2c7fd775a0565a624b9a09fd70cc1866f5679d435bc0be9afc49fff",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-22",
+   "role": "question",
+   "stampedSha256": "b99e3759c3e6375c7ccbf90ddc01a5fe520e9a0d202bd0b5dac5a8a68bf331f7",
+   "cleanSha256": "eb7600b15093c31a43721a22e1be0d50107ef56b82aeca224232882a6fe3d71e",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-23",
+   "role": "markscheme",
+   "stampedSha256": "5c9e2997a681fe0ad01a42f3026b86a9fea0a3ced3baf6e9a03c01b69b425e6d",
+   "cleanSha256": "0805b3ca06bd10181abfd304ecabf33e4f638b32a22c753cc1b13b8c447102d8",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_23.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-23",
+   "role": "question",
+   "stampedSha256": "d9d7393ae0b610e9803472f625b852101285e3988ea025c994a3bea73e6f6915",
+   "cleanSha256": "29589402989d48a400f59c4db44623b4cfd1577c666b25b7c257ea2f7a18796e",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_23.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-41",
+   "role": "markscheme",
+   "stampedSha256": "ce7fa241ff9941ec778a3faf1435c1ed87c165f1609eb1d596544cbae3f60351",
+   "cleanSha256": "920f7cda9b4d50dbfb213a2dd9e9367606b909c56e66a0d2d644f26861750a06",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_41.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-41",
+   "role": "question",
+   "stampedSha256": "ee383d0d6ee5874195fb08ebc33f58954ff178ca7649e94ae0a0f4881b2b257f",
+   "cleanSha256": "69d3d9962396a601855685f3f8489f5a2b993adde4c4c33b54f43175bff6cc44",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_41.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-42",
+   "role": "markscheme",
+   "stampedSha256": "6c82174f2470c5edff5e423d94c784ada4ccef7af579139f9a6ca0a86dff6617",
+   "cleanSha256": "062ec79de3d07adf9a5889296cc7656de39a10aaf2f7e942a0a2374027da8c53",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-42",
+   "role": "question",
+   "stampedSha256": "258435e322436385b061c8e00d4ec08ffbf1c8b39dd9a71f278188315cc08bf5",
+   "cleanSha256": "6eacf5dd8ae53c06bfb2f7402407e5146146af2acaff8bf4094b57bd2f2c0b2a",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-43",
+   "role": "markscheme",
+   "stampedSha256": "e93e1512043881baf138a42ab65534965ca8c4c759d84c739a993cde67995a26",
+   "cleanSha256": "a81f5259a99160a2283555558be37521162fd9cd4d80339ad4583a8b9edadbf0",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_ms_43.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-physics-9702",
+   "paper": "9702-2020-s-43",
+   "role": "question",
+   "stampedSha256": "02ccd21b4ff7d6b69683d4b537fedb3248ea7418739a13bdc5526dea14657c1f",
+   "cleanSha256": "5658023c3abe68ae0824cb91661875a8a9e913cf3562ad52cdfdde8d77e0359c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_43.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-12",
+   "role": "markscheme",
+   "stampedSha256": "fb8b49d49ee33caea4baa2c5076e3332b8512473201baef72705617a0986c6a0",
+   "cleanSha256": "ff0ea1329da44cdf0407ad9460d390c1af95d44be82e37ae9edaf1371f23dea2",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-march/9709_m20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-12",
+   "role": "question",
+   "stampedSha256": "549699bce2f9a44f30d3ef75748c8c375120a7521d2841633b86611c5a9493c0",
+   "cleanSha256": "2388de95188d17420ca1c344a94ada2f121ed3bbbc39c9063292e462f17b001e",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_m20_qp_12.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-22",
+   "role": "markscheme",
+   "stampedSha256": "a377924bea28e950fde6d8dd737d04e100f8acc750ad98a3c0bc3b2b29a88073",
+   "cleanSha256": "5c9b39f7c5ef60d2759c3929d910472a84c1a9e094ed6f8e8767b69de3ca8948",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-march/9709_m20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-22",
+   "role": "question",
+   "stampedSha256": "8c82aeb2a12a3d2ad498f3547b9ed5f688eb5f7d8eeff24ada24e450c9df7722",
+   "cleanSha256": "12fd283373a43587bb556ad5abd39035067cb46bb10808237c51c58535f0f677",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_m20_qp_22.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-32",
+   "role": "markscheme",
+   "stampedSha256": "0b0d15f7030f37ad31cfcdb93e94282724f6f4c3080a5e4257cd40f292218b00",
+   "cleanSha256": "abd19ed5cb492fe5473c22a683c7934556ea6a1c6770896f29cb84790dfc6ce6",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-march/9709_m20_ms_32.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-32",
+   "role": "question",
+   "stampedSha256": "5f262da14d2feedaf3614044545bddf729fc27ae0811263a2edc5df1a00ed8e3",
+   "cleanSha256": "2d44209d1c594fe34e1e2aed46dfe7ef38a88362fe2c24f320293a30741bc6db",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_m20_qp_32.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-42",
+   "role": "markscheme",
+   "stampedSha256": "d1fcf78e6dfbb9d97a980608dfcbd4d16237703375537e7781fe671a8a533bc9",
+   "cleanSha256": "d5adae464d1f5490ea6c552a55e6f32e3427ed3f9bc9196f8ce810303e8424e5",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-march/9709_m20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-42",
+   "role": "question",
+   "stampedSha256": "ae0ab40e4a6c3e645a54f3114b6859c7c4e8e8064137b44ff9e26b0124e3d6e4",
+   "cleanSha256": "b4c3b3801d7add7e51c4f817b79c1c258c01e2fdacc828a23b790954756c18b4",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_m20_qp_42.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-52",
+   "role": "markscheme",
+   "stampedSha256": "6164593492dc6c489530108cbabbc106b49a3e49b545b9d5a40785503dd9e1ee",
+   "cleanSha256": "d9c5d009f0a0262b0777149ac55b08bfa8ba5a2d9b3d5fedde290afe44e11cc1",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-march/9709_m20_ms_52.pdf",
+   "producer": "Adobe PDF Library 20.6.74"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-52",
+   "role": "question",
+   "stampedSha256": "ed77325c0d355b787d9aab89c2487f3c372c00053de432f18cb55a1c81ddef7b",
+   "cleanSha256": "73d3eeb02c73e39944d5e49117f60c84c66e014252430f4ff4e13874560355fa",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_m20_qp_52.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-62",
+   "role": "markscheme",
+   "stampedSha256": "5150c283dd848c2e85ca3dd402565d9ee88bf080f2f2f20253b5a58ad09c4f97",
+   "cleanSha256": "6e28aa2e7f966ee9ab22535a8c04077a95d29b3dbfb4af86bd799d050ca681ed",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-march/9709_m20_ms_62.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-m-62",
+   "role": "question",
+   "stampedSha256": "d7f5af1a0941471b96c514c5ab553e63a7a411dcdb9a56aec7c98b80a37e48aa",
+   "cleanSha256": "6ec38ac86c71081fe048cc66afd3b14057d71274c48a781c0ca9330f0a3368ad",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_m20_qp_62.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-11",
+   "role": "markscheme",
+   "stampedSha256": "5adfb7c1278ccf9b5ce95717d249f69c369389c393b573752d92694e76facb04",
+   "cleanSha256": "2ecb53f4ae91fe08730d205bd18aa2d7d4a1261cc135631c2c30aef448cc22f0",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_11.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-11",
+   "role": "question",
+   "stampedSha256": "6b867bc6ca31f85d4121125ed580c084665d4f886dff057e7bf344e2578a691f",
+   "cleanSha256": "6ffe77cff0adde3164d5e568248ffaa61b23b5629691e2f7833d8bd973f03209",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_11.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-12",
+   "role": "markscheme",
+   "stampedSha256": "413f4afb945444995529e2519019c1a7e3bb9959e06389c90c2e4b75cd56ab7d",
+   "cleanSha256": "32f219eea6de5ef10c5d88b11208b87cc0f8008284d78ba336982445d4853e7a",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-12",
+   "role": "question",
+   "stampedSha256": "20148bef89fc1a9ab07a62e594dafee639a29738d3a6532d6c11bd690175cc59",
+   "cleanSha256": "8af6b4a3218387ed4a0a78c33b38645f4d109af27b3570db1d14153f974b55ad",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_12.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-13",
+   "role": "markscheme",
+   "stampedSha256": "0ac7cf7ec54a3a99219b489a1a7446b92ab4e4cf867f7b75ee38e067fa155842",
+   "cleanSha256": "85f9413340f23dbb964f1cb218c6d516121666af4cdff03381d2160a38dc9ee6",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_13.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-13",
+   "role": "question",
+   "stampedSha256": "ac120e6e014c39d8c350a14166894053bcdd883e8d21ec2e3dd2975f999debc4",
+   "cleanSha256": "0718ecce45ff73c771c89bff5297831b184ac4910f1d28bb565399fc8795322a",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_13.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-21",
+   "role": "markscheme",
+   "stampedSha256": "5644512a07f5ee940912f9ec70428a9cb533951bed754d9ba5796425ecf6197d",
+   "cleanSha256": "2a0d575a4c431e81b341faadd774d18b90c455cc840d2de907ddb245821b1eea",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_21.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-21",
+   "role": "question",
+   "stampedSha256": "30766b8436ebe9bdc57145e67b73bf8d1de1f27c4f22ebed22f3db7fb91e689e",
+   "cleanSha256": "61fa9a77ab1e67ea8cefc2b4fcba258b148a5f39cfbf595652ae2470c0ee8f04",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_21.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-22",
+   "role": "markscheme",
+   "stampedSha256": "3704dce464b7388eed6b185329e89006ed7258250259e8bbd29ac0dca51b7409",
+   "cleanSha256": "00f1239ae1aa4215490899711b3af22e1755ed6acf0351ef79cc44648ca82a01",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-22",
+   "role": "question",
+   "stampedSha256": "ebf21aae87c7c2ab739bbffe3110eabefea1e39464e34dd2c95d8cdfddb24b42",
+   "cleanSha256": "2bca223eab16dfab7fee9044e2b18b463f1facab0f2d3c8f8819a19ccddc9662",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_22.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-23",
+   "role": "markscheme",
+   "stampedSha256": "8c20742f50d0072f3d75fb18c5b3dcb405fcaaf912d40bb778cc5bf06d4b25c7",
+   "cleanSha256": "d1146021a9179a1ff3dc2d4bc96c8bc6c1f3e53ae5c2bd701fb54d0d27f049d8",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_23.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-23",
+   "role": "question",
+   "stampedSha256": "4fb6cd8a3c4e5bfcfb81ebc0427405c3330b9ec69ca691f56d24b22249f2ebd0",
+   "cleanSha256": "28769105393abceef9ab030068fb9642d964b9dec2f37df185e1c52cf83f5dc3",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_23.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-31",
+   "role": "markscheme",
+   "stampedSha256": "08b74fad1687b67b28fdf3956fd9b84c955c5fc9fd7bb6b3e30f25c1d355c439",
+   "cleanSha256": "65833dec8bb7c5569425e3afcb92087ced9d060dc32d7a98f198b3effc79ec5b",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_31.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-31",
+   "role": "question",
+   "stampedSha256": "88d5c5a19b4f4ed1e334a6900cf922b925ac0a1c7e139429b240897ed9194500",
+   "cleanSha256": "4e9b97c2dbe5155097ed069239fc0cc8ed81bfdc062e3e2174b361b22cc307fb",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_31.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-32",
+   "role": "markscheme",
+   "stampedSha256": "dcf2964e10f35abb73125ae9d471b03dc2fce85904b0a7bd8dce9997d9daec08",
+   "cleanSha256": "e42e926812400e79d3536acdfb7470395530599a1ca87d64f38f05317da07e6f",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_32.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-32",
+   "role": "question",
+   "stampedSha256": "287833bb374b44f5e32be9feac6654ccdf7498e33c9af02b6e60ed158d37256e",
+   "cleanSha256": "a240a24c7cb2fb053882c870ab86f0953ba54f91a833b6d753f015481a47a7c0",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_32.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-33",
+   "role": "markscheme",
+   "stampedSha256": "23f532c68c50d895adbfd79f7540d359904bc9bb07eadebbae41d429720cc743",
+   "cleanSha256": "127a8045fc3e2028c2391ab12dd937de7b6f623d78d3222190f44a3c0d11bdfb",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_33.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-33",
+   "role": "question",
+   "stampedSha256": "7d48fbc40f25386d5ccd3df2d51ae7af138565c81a632ca5fe531dd49958e4ed",
+   "cleanSha256": "73645522db8fd656322c5d0406fbd85ce2af1d7e866a38dda74262a4cb413f69",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_33.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-41",
+   "role": "markscheme",
+   "stampedSha256": "17fffdf8fd1d883d22a8eca8119e0e16646c044e7d792369c8689af48392175c",
+   "cleanSha256": "41450a56044e5e47856ee6ca688aae4359b4c578387ec16079416e2d5f0e3180",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_41.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-41",
+   "role": "question",
+   "stampedSha256": "a6cc176727bcc4d51d2df3e3fd2aaa9a1adb28625dd3fdbfb2406c8483283cfc",
+   "cleanSha256": "3e932e6d07f4d377c2f70fb1c0c5cf2ad1dff250c5e24edd3c15381dabd45e18",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_41.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-42",
+   "role": "markscheme",
+   "stampedSha256": "984b6eaa5799cbeb4d096de2685f84e117f915928ca9706bbc6c56f5e251fb55",
+   "cleanSha256": "c14f8a688ec814f3609ebd5e33a373d78c8da6907a7a9069daccc2bb888af13a",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-42",
+   "role": "question",
+   "stampedSha256": "d15f10978106c4e5db50be2ea6ad69cf90cf10437de96c375dbd6b655311fe03",
+   "cleanSha256": "edaaea4cc557b47fb1fe89800ec0adb4e505aee2a5af2fb9074f312ab05ae688",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_42.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-43",
+   "role": "markscheme",
+   "stampedSha256": "5e3bfb59aa4efc584c03348d1c37b3c88d74d838434ec785aac15273cfb2293c",
+   "cleanSha256": "8f37172e9d8d9243e1309574d1ee2aef292fd76aed79578f57070dbf2d653563",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_43.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-43",
+   "role": "question",
+   "stampedSha256": "4fc61959a2092d99ceab78c0d3d5ca5fd35678f1fae2e547852b4da6398da095",
+   "cleanSha256": "14234bb04ed6f289e1e274783d063a80360397b982f9e7c696b2ce2075548f92",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_43.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-51",
+   "role": "markscheme",
+   "stampedSha256": "4d25968edb39acf66b22861fb1c14ddc813a9d0988df2c60a17b32c4ba90a2c0",
+   "cleanSha256": "a39c61fc7af676c8e3b03760335f8a681747758803988707940cdec8c8626457",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_51.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-51",
+   "role": "question",
+   "stampedSha256": "0c8472463ac7d92360e3c8c4c43fc504c5f6677075c6636ba4da2acb9d254155",
+   "cleanSha256": "b483dd7b30ceeae1faea2dac58164bcfd0f1846bdaeb16f1fdcba2d808f42ec8",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_51.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-52",
+   "role": "markscheme",
+   "stampedSha256": "263b7ad5be5a65a3af66bd68ce1f86014aced19eaf57c6f5e7b7d0152513a94a",
+   "cleanSha256": "a975709e7fc408c5c978af8f0ffd9228153e559b94b2500b7f8822622e39e7b3",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_52.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-52",
+   "role": "question",
+   "stampedSha256": "f3597c6e1b7f4160ec466372e0acaf64bcbadff55c2cbb161c2aac2b08b56d06",
+   "cleanSha256": "64aac64a34e0ba337945f116ff108436eee4d7e26fa251d0f2c968d1ccfedecf",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_52.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-53",
+   "role": "markscheme",
+   "stampedSha256": "17373f527f05658fd08cda711c26a81a805113799017c76e4323ee581eea84c3",
+   "cleanSha256": "36b31bc45aed347c1fa7f1e3722d15d3e91493b2e44a01870e729a02025deb4f",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_53.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-53",
+   "role": "question",
+   "stampedSha256": "a5c3dd2c92eb8bc80ae5c54cb54b77d07a32ce7141cd5188173452008a4e1539",
+   "cleanSha256": "68b7cf8df1b092e0751bafd1c50f0abf4dcc93fcd03047406917b5182c312c16",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_53.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-61",
+   "role": "markscheme",
+   "stampedSha256": "6d0fb8c35d2e09230affc7dd58b045bc8366f4d79fd85dc4aa389cdf45987d37",
+   "cleanSha256": "d14723cc7950dfe5a38035cb92054186895c2283bb3c8d47aa06ac7cf9be2758",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_61.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-61",
+   "role": "question",
+   "stampedSha256": "0847365639d92b1a11e88106e89d6a0555fb2550f66d69ba193ec5d06ae42be9",
+   "cleanSha256": "05fa52f4ec4c2fa26b30e50252931585fe59579cdc6a828db31cb9c2acb2896f",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_61.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-62",
+   "role": "markscheme",
+   "stampedSha256": "3a1f447edb3442db8b70889c719d95b72160a0b938baf833bc5874dd8abc1ae1",
+   "cleanSha256": "55781d24e64a62b2624e82f5802ed77ec684688fe618790172a04dbfd542c0c3",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_62.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-62",
+   "role": "question",
+   "stampedSha256": "d26dbec367dda40d05f13c9597386813075acdc8003b43e1d93c73b8b3368f53",
+   "cleanSha256": "8e2c57900a770d6783784e6812f80f2fc4f930cec968b1c265f68bbe5703f5df",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_62.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-63",
+   "role": "markscheme",
+   "stampedSha256": "820d3c9329110121459fae9ca41cf65653678aa074b89689a59a1ab6662d31dd",
+   "cleanSha256": "4a24ced8feb1913aee2eb46a1a53638ed2bdb55984f2bbe8bacda0c80fb27200",
+   "sourceUrl": "https://pastpapers.co/api/file/caie/a-level/mathematics-9709/2020-may-june/9709_s20_ms_63.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-maths-9709",
+   "paper": "9709-2020-s-63",
+   "role": "question",
+   "stampedSha256": "39982c42fa97038b14e8fa5fd193f08a97124de4247b2043797179885562c3e0",
+   "cleanSha256": "de9c93a6b0f445bca3555fede1014e46defdea6729902c3ec9907a6267236a5e",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_63.pdf",
+   "producer": "GPL Ghostscript 9.19"
+  }
+ ]
+}
