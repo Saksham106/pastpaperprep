@@ -13,6 +13,7 @@ import type { Explanation } from './explanation-format';
 import { freeExplanations } from './free-explanations';
 import { paperIndexing, type PaperIndexing } from './past-paper-indexing';
 import { completeInventory } from './past-paper-insights';
+import reprintAliases from '@/data/reprint-question-aliases.json';
 
 /** Resolves public /past-papers URLs for pages, static params and the sitemap.
  * Everything is empty while the archive gate is closed, so no page is built or linked. */
@@ -137,13 +138,23 @@ function bankIndexQuestions(slug: BankSlug): IndexQuestion[] {
   return questions;
 }
 
+const REPRINTS = (reprintAliases as unknown as { banks: Partial<Record<string, Record<string, [number, string][]>>> }).banks;
 /** The paper's questions with topics. Papers held from self-marking carry no list in the archive,
- * so theirs comes from the bank questions cut from the same paper (no page: their printed layout is unreconciled). */
+ * so theirs comes from the bank questions cut from the same paper (no page: their printed layout is unreconciled).
+ * A reprinted variant (A Level) also gets the canonical rows whose exact runtime aliases name it, under its own
+ * printed numbers; rows the bank holds back stay missing, so a partial list never reads as the whole paper. */
 export function paperQuestions(slug: BankSlug, detail: WholePaperDetail): PaperQuestion[] {
   if (detail.questions.length) return archiveQuestions(detail);
   const key = archivePaperKey(slug, detail.summary.id);
-  return bankIndexQuestions(slug)
-    .filter(q => questionPaperKey(q.id) === key)
+  const index = bankIndexQuestions(slug);
+  const byId = new Map(index.map(q => [q.id, q]));
+  const own = index.filter(q => questionPaperKey(q.id) === key).map(q => ({ q, number: q.number }));
+  const taken = new Set(own.map(row => row.number));
+  const reprinted = (REPRINTS[slug]?.[key] ?? []).flatMap(([number, id]) => {
+    const q = byId.get(id);
+    return q && !taken.has(number) ? [{ q, number }] : [];
+  });
+  return [...own, ...reprinted]
     .sort((a, b) => a.number - b.number)
-    .map(q => ({ id: q.id, number: q.number, marks: q.marks, topics: [...new Set([q.primaryTopic, ...q.secondaryTopics].filter(Boolean))] }));
+    .map(({ q, number }) => ({ id: q.id, number, marks: q.marks, topics: [...new Set([q.primaryTopic, ...q.secondaryTopics].filter(Boolean))] }));
 }

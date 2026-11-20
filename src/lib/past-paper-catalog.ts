@@ -171,7 +171,7 @@ const SESSION_WORDS: [string, NonNullable<PaperQuery['session']>][] = [
   ['oct(?:ober)?|nov(?:ember)?|winter|o\\/n|on(?=\\s*\\d{2}\\b)', 'oct-nov'],
 ];
 
-/** Reads paper codes the ways students type them: 0580/42/M/J/24, 0580_s24_qp_42, "s24 p42", "june 24 42", "may 2024 paper 1 tz2".
+/** Reads paper codes the ways students type them: 0580/42/M/J/24, 9709_s24_qp_12, 0580_s24_qp_42, "s24 p42", "june 24 42", "may 2024 paper 1 tz2".
  * Anything left over that looks like a number means the code wasn't understood, so it matches nothing rather than the wrong paper. */
 export function parsePaperQuery(input: string): PaperQuery {
   let q = input.toLowerCase().replace(/\s+/g, ' ').trim().slice(0, 120);
@@ -185,7 +185,8 @@ export function parsePaperQuery(input: string): PaperQuery {
     .replace(/\b(may)\s*\/\s*(jun(?:e)?)\b/g, '$1 $2')
     .replace(/\b(oct(?:ober)?)\s*\/\s*(nov(?:ember)?)\b/g, '$1 $2');
   const take = (re: RegExp) => { const m = re.exec(q); if (m) q = q.replace(m[0], ' '); return m; };
-  const code = take(/\b(0\d{3})\b/); if (code) out.code = code[1];
+  // Cambridge syllabus codes: IGCSE 0xxx, A Level 9xxx.
+  const code = take(/\b([09]\d{3})\b/); if (code) out.code = code[1];
   const year = take(/\b(20\d{2})\b/); if (year) out.year = Number(year[1]);
   const short = out.year ? null : take(/\b([msw])(\d{2})\b/);
   if (short) { out.year = 2000 + Number(short[2]); out.session = SESSION_LETTER[short[1] as 'm' | 's' | 'w']; }
@@ -197,7 +198,8 @@ export function parsePaperQuery(input: string): PaperQuery {
     q = q.replace(new RegExp(`(?:^|\\s)(?:${words})(?=\\s|$)`, 'g'), ' ');
   }
   const tz = take(/\btz\s*([0-3])\b/); if (tz) out.tz = `tz${tz[1]}`;
-  const component = take(/\b(?:paper|p)?\s*([1-6][1-3])\b/); if (component) { out.component = component[1]; out.paper = component[1][0]; }
+  // A Level Physics and Chemistry add a fourth variant (14, 24, 44) from May/June 2025.
+  const component = take(/\b(?:paper|p)?\s*([1-6][1-4])\b/); if (component) { out.component = component[1]; out.paper = component[1][0]; }
   const paper = out.paper ? null : take(/\b(?:paper|p)\s*(\d[ab]?)\b/); if (paper) out.paper = paper[1];
   for (const [slug, label] of Object.entries(OPTION_LABELS)) {
     if (take(new RegExp(`\\b(?:${slug.split('-').join('[\\s-]+')}|${label.toLowerCase()})\\b`))) {

@@ -48,7 +48,7 @@ export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[
       {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
       <div className={styles.hubFind}>
         <ScopeSwitch scopes={scopes.map(([label, href]) => ({ label, href }))} current={scopes.findIndex(([, , scope]) => scope === qualification)} />
-        <PaperFinder mode="subjects" subjects={banks.map(b => ({ name: b.name, code: /\b(0\d{3})$/.exec(b.name)?.[1] ?? '', href: `/past-papers/${b.subjectSlug}` }))} />
+        <PaperFinder mode="subjects" subjects={banks.map(b => ({ name: b.name, code: /\b([09]\d{3})$/.exec(b.name)?.[1] ?? '', href: `/past-papers/${b.subjectSlug}` }))} />
       </div>
     </header>
     <div className={styles.subjectGrid}>{GROUPS.map(([tone, name]) => {

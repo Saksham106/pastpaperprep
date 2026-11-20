@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseIdentity, parseHeader, extractQuestionBlocks, findCover, adaptChemistryCheckpoint, extractPdf, EXTRACTOR_VERSION, extractorVersionFor, markRuleForBank, sha256 } from './whole-paper-extraction.mjs';
+import { parseIdentity, parseHeader, extractQuestionBlocks, findCover, adaptChemistryCheckpoint, extractPdf, EXTRACTOR_VERSION, extractorVersionFor, markRuleForBank, startRuleForBank, sha256 } from './whole-paper-extraction.mjs';
 import { BANK_CATALOG } from '../src/lib/catalog';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -47,6 +47,20 @@ it('gates the mark-column rule to Computer Science 0478 so other manifests keep 
   expect(BANK_CATALOG.map(bank=>bank.slug).filter(slug=>markRuleForBank(slug)!=='text')).toEqual(['igcse-computer-science-0478']);
   expect(extractorVersionFor('text')).toBe(EXTRACTOR_VERSION);
   expect(extractorVersionFor('right-margin')).not.toBe(EXTRACTOR_VERSION);
+});
+it('gates margin starts to the Cambridge A Level banks so other manifests keep their extractor version',()=>{
+  expect(BANK_CATALOG.map(bank=>bank.slug).filter(slug=>startRuleForBank(slug)==='margin').every(slug=>slug.startsWith('a-level-'))).toBe(true);
+  expect(startRuleForBank('a-level-maths-9709')).toBe('margin');
+  expect(startRuleForBank('igcse-chemistry-0620')).toBe('strict');
+  expect(extractorVersionFor('text','strict')).toBe(EXTRACTOR_VERSION);
+  expect(extractorVersionFor('text','margin')).not.toBe(EXTRACTOR_VERSION);
+});
+it('margin starts keep A Level questions that open with a diagram or a shifted-glyph word, in sequence only',()=>{
+  const font=(str:string,x:number,y:number,fontName:string)=>({str,x,y,fontName});
+  // Q1 opens with a diagram (nothing on its line) in the font Q2's strict start uses; Q3's first word is shifted-glyph text.
+  const pages=[[font('1',49,767,'B'),item('v (m s',117,755),item('[4]',530,600)],[font('2',49,767,'B'),item('A van of mass',73,767),item('[3]',530,600),font('7',49,500,'B'),item('[9]',530,400)],[font('3',49,767,'C'),item(':KLFK DVVXPS',72,767),item('[2]',530,600)]];
+  expect(extractQuestionBlocks(pages,'igcse').map(q=>q.number)).toEqual([]);
+  expect(extractQuestionBlocks(pages,'igcse','text','margin').map(q=>[q.number,q.maxMarks])).toEqual([[1,4],[2,12],[3,2]]);
 });
 it('keeps diagram-only numbered starts when their printed heading font matches',()=>{
   const blocks=extractQuestionBlocks([[{...item('1',45,700),fontName:'Bold'},item('Explain.',80,700),item('[Total: 2]',450,650)],[{...item('2',45,700),fontName:'Bold'},item('[Total: 3]',450,500)]],'igcse');

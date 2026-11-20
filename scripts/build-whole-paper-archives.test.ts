@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs/promises';
 import { expect, it } from 'vitest';
 import path from 'node:path';
-import { assemblePaper, validateInventory, runtimeRelativeFile, parseCli, buildWholePaperArchives, loadReportHolds, REPORT_HOLDS_FILE, loadMcqKeyReviews, MCQ_KEY_REVIEWS_FILE } from './build-whole-paper-archives.mjs';
+import { assemblePaper, validateInventory, runtimeRelativeFile, parseCli, buildWholePaperArchives, loadReportHolds, REPORT_HOLDS_FILE, loadMcqKeyReviews, MCQ_KEY_REVIEWS_FILE, reprintRows, cambridgeFamily } from './build-whole-paper-archives.mjs';
 import type { ExtractedDocument } from './whole-paper-extraction.mjs';
 it('accepts repeatable inventories and rejects unknown or missing CLI arguments',()=>{
   expect(parseCli(['--inventory','one.json','--inventory','two.json','--bank',bank.slug])).toEqual({inventoryFiles:['one.json','two.json'],bank:bank.slug});
@@ -230,6 +230,23 @@ it('rejects duplicate pair IDs, duplicate persisted qids and nonabsolute origina
   expect(()=>validateInventory({banks:[{...bank,pairs:[pair,pair]}]})).toThrow(/Duplicate/);
   expect(()=>validateInventory({banks:[{...bank,pairs:[{...pair,runtimeQuestionIds:[rows[0].id,rows[0].id]}]}]})).toThrow(/Duplicate/);
   expect(()=>validateInventory({banks:[{...bank,pairs:[{...pair,questionPath:'relative.pdf'}]}]})).toThrow(/absolute/);
+});
+it('lets a reprinted variant reuse the canonical rows its runtime aliases name, and nothing else',()=>{
+  const aliases=new Map([['9709-2020-s-22-q1',['9709-2020-s-23-q1']],['9709-2020-s-22-q2',['9709-2020-s-23-q2']],['9709-2020-s-21-q1',[]]]);
+  expect([...reprintRows('9709-2020-s-23',aliases)]).toEqual([['9709-2020-s-22-q1',1],['9709-2020-s-22-q2',2]]);
+  expect(reprintRows('9709-2020-s-22',aliases).size).toBe(0);
+  const canonical={...pair,id:'0620-2023-w-41',runtimePaperId:'0620-2023-w-41',questionPath:'/original/q41.pdf',markschemePath:'/original/m41.pdf'};
+  const reprint={...pair,id:'0620-2023-w-43',runtimePaperId:null,questionPath:'/original/q43.pdf',markschemePath:'/original/m43.pdf'};
+  // The same qid in two pairs is a duplicate unless the second pair declares it as a reprint.
+  expect(()=>validateInventory({banks:[{...bank,pairs:[canonical,reprint]}]})).toThrow(/Duplicate qid/);
+  expect(()=>validateInventory({banks:[{...bank,pairs:[canonical,{...reprint,reprintQuestionIds:reprint.runtimeQuestionIds}]}]})).not.toThrow();
+  expect(()=>validateInventory({banks:[{...bank,pairs:[canonical,{...reprint,reprintQuestionIds:['0620-2023-w-41-q9']}]}]})).toThrow(/Reprint qids/);
+});
+it('reads Cambridge IGCSE and A Level papers with the Cambridge cover and layout rules',()=>{
+  expect(cambridgeFamily('igcse-chemistry-0620')).toBe(true);
+  expect(cambridgeFamily('a-level-maths-9709')).toBe(true);
+  expect(cambridgeFamily('ib-chemistry-hl')).toBe(false);
+  expect(runtimeRelativeFile('a-level-physics-9702')).toBe('src/data/production/a-level-physics-9702.json');
 });
 it('traces the deployed loader cohort rather than candidate or production IB science artifacts',()=>{
   expect(runtimeRelativeFile('ib-chemistry-hl')).toBe('src/data/raw/ib-chemistry-hl.json');

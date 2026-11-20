@@ -34,13 +34,27 @@ export type MarkRule = 'text' | 'right-margin';
 export const MARK_COLUMN_MIN_RIGHT = 520, MARK_COLUMN_MIN_Y = 40;
 export const RIGHT_MARGIN_MARK_BANKS: ReadonlySet<string> = new Set(['igcse-computer-science-0478']);
 export const markRuleForBank = (slug: string): MarkRule => RIGHT_MARGIN_MARK_BANKS.has(slug) ? 'right-margin' : 'text';
-export const extractorVersionFor = (rule: MarkRule) => rule==='text' ? EXTRACTOR_VERSION : `${EXTRACTOR_VERSION}+right-margin-marks`;
-export function extractQuestionBlocks(pages: GeometryItem[][], family: Identity['family'], markRule: MarkRule = 'text'): PrintedQuestion[] {
+/**
+ * How a printed question number is recognised. 'strict' needs a word starting on the number's own line (or the
+ * font of an earlier start). 'margin' (Cambridge A Level) also accepts an in-sequence margin number whose line holds
+ * any text, or whose font is one that strict starts use anywhere in the paper: A Level questions can open with a
+ * diagram (9709) or a shifted-glyph word such as ":KLFK" (9701 MCQ), which the strict rule misses, and fonts change
+ * per page. Gated per bank (MARGIN_START_BANKS) so other banks' manifests stay byte-identical.
+ */
+export type StartRule = 'strict' | 'margin';
+export const MARGIN_START_BANKS: ReadonlySet<string> = new Set(['a-level-maths-9709', 'a-level-physics-9702', 'a-level-chemistry-9701', 'a-level-biology-9700', 'a-level-economics-9708']);
+export const startRuleForBank = (slug: string): StartRule => MARGIN_START_BANKS.has(slug) ? 'margin' : 'strict';
+export const extractorVersionFor = (rule: MarkRule, startRule: StartRule = 'strict') => `${EXTRACTOR_VERSION}${rule==='text'?'':'+right-margin-marks'}${startRule==='strict'?'':'+margin-starts'}`;
+export function extractQuestionBlocks(pages: GeometryItem[][], family: Identity['family'], markRule: MarkRule = 'text', startRule: StartRule = 'strict'): PrintedQuestion[] {
   const blocks: (Omit<PrintedQuestion,'maxMarks'>&{margin:string})[] = [];
   let headingFont:string|undefined;
+  const margin=(item:GeometryItem)=>/^\d{1,2}\.?$/.test(item.str) && item.x>=(family==='igcse'?40:25) && item.x<=(family==='igcse'?60:75) && item.y>80 && item.y<790;
+  const wordOnLine=(item:GeometryItem,items:GeometryItem[])=>items.some(next=>Math.abs(next.y-item.y)<2 && next.x>70 && /^[A-Za-z(\[]/.test(next.str));
+  const strictFonts=new Set(startRule==='margin'?pages.flatMap(items=>items.filter(item=>margin(item)&&wordOnLine(item,items)).map(item=>item.fontName)).filter((font):font is string=>Boolean(font)):[]);
   for (const [index,items] of pages.entries()) for (const item of items) {
     const number=Number(item.str.replace(/\.$/,''));
-    const start=/^\d{1,2}\.?$/.test(item.str) && item.x>=(family==='igcse'?40:25) && item.x<=(family==='igcse'?60:75) && item.y>80 && item.y<790 && number===blocks.length+1 && (items.some(next=>Math.abs(next.y-item.y)<2 && next.x>70 && /^[A-Za-z(\[]/.test(next.str)) || (headingFont!==undefined&&item.fontName===headingFont));
+    const relaxed=startRule==='margin' && (items.some(next=>next!==item && Math.abs(next.y-item.y)<2 && next.x>70 && next.str.trim().length>0) || (item.fontName!==undefined&&strictFonts.has(item.fontName)));
+    const start=margin(item) && number===blocks.length+1 && (wordOnLine(item,items) || (headingFont!==undefined&&item.fontName===headingFont) || relaxed);
     if(start) {headingFont??=item.fontName;blocks.push({number,page:index+2,text:'',margin:''});}
     if(blocks.length && item.y<790 && item.y>45) blocks[blocks.length-1].text+=' '+item.str;
     if(blocks.length && item.y<790 && item.y>MARK_COLUMN_MIN_Y && item.x+(item.width??0)>=MARK_COLUMN_MIN_RIGHT) blocks[blocks.length-1].margin+=' '+item.str;
@@ -59,10 +73,10 @@ export function adaptChemistryCheckpoint(input:unknown,hash:string,byteCount:num
   if(!old.questions.every((q,i)=>q.number===i+1&&Number.isSafeInteger(q.page)&&q.page>=2&&q.page<=old.pageCount&&typeof q.text==='string'&&q.maxMarks===sourceQuestionMarks(q.text)))return null;
   return {sha256:hash,bytes:byteCount,pages:old.pageCount,text:old.pages,questions:old.questions};
 }
-export async function extractPdf(filename: string, family: Identity['family'], cacheDirectory: string,legacyChemistryCache?:string,markRule:MarkRule='text'): Promise<ExtractedDocument> {
-  const bytes=await fs.readFile(filename), hash=sha256(bytes), version=extractorVersionFor(markRule);
+export async function extractPdf(filename: string, family: Identity['family'], cacheDirectory: string,legacyChemistryCache?:string,markRule:MarkRule='text',startRule:StartRule='strict'): Promise<ExtractedDocument> {
+  const bytes=await fs.readFile(filename), hash=sha256(bytes), version=extractorVersionFor(markRule,startRule);
   if(!bytes.subarray(0,5).equals(Buffer.from('%PDF-')))throw new Error(`Invalid PDF header: ${filename} sha256=${hash}`);
-  const cache=path.join(cacheDirectory,`${hash}-${EXTRACTOR_VERSION}-${family}${markRule==='text'?'':`-${markRule}`}.json`);
+  const cache=path.join(cacheDirectory,`${hash}-${EXTRACTOR_VERSION}-${family}${markRule==='text'?'':`-${markRule}`}${startRule==='strict'?'':`-${startRule}`}.json`);
   try {const cached=JSON.parse(await fs.readFile(cache,'utf8'));if(cached.sha256===hash&&cached.version===version&&cached.bytes===bytes.length)return cached;} catch(error) {if((error as NodeJS.ErrnoException).code!=='ENOENT' && !(error instanceof SyntaxError))throw error;}
   if(legacyChemistryCache&&markRule==='text'&&family==='igcse'&&/^0620-\d{4}-[msw]-[3-6]\d-question\.pdf$/.test(path.basename(filename))) {
     try {
@@ -83,7 +97,7 @@ export async function extractPdf(filename: string, family: Identity['family'], c
       if(p>1)geometry.push(decoded);
       page.cleanup();
     }
-    const result={sha256:hash,bytes:bytes.length,pages:document.numPages,text,questions:extractQuestionBlocks(geometry,family,markRule)};
+    const result={sha256:hash,bytes:bytes.length,pages:document.numPages,text,questions:extractQuestionBlocks(geometry,family,markRule,startRule)};
     await atomicJson(cache,{version,...result});
     return result;
   } finally {await document.destroy();}

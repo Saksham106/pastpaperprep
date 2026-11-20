@@ -6,7 +6,7 @@ import { normalizeBankQuestions, type UnifiedQuestion } from '../src/lib/questio
 import type { WholePaperEntry, WholePaperManifest, WholePaperLocalBindings } from '../src/lib/whole-paper-types';
 import { existsSync } from 'node:fs';
 import { ASSESSMENT_STRUCTURE_FILE, assessmentFor, loadAssessmentStructure, type AssessmentStructure } from './assessment-structure.mjs';
-import { EXTRACTOR_VERSION, sha256, parseIdentity, findCover, extractPdf, atomicJson, markRuleForBank, extractorVersionFor, type ExtractedDocument } from './whole-paper-extraction.mjs';
+import { EXTRACTOR_VERSION, sha256, parseIdentity, findCover, extractPdf, atomicJson, markRuleForBank, startRuleForBank, extractorVersionFor, type ExtractedDocument } from './whole-paper-extraction.mjs';
 
 export type BuildOptions={inventoryFiles:string[];identityReviewFiles?:string[];bank?:string;root?:string;outputRoot?:string};
 type IdentityReview={bankSlug:string;paperId:string;questionSha256:string;markschemeSha256:string;verdict:'valid-pair';visualEvidence:{document:'question'|'markscheme';sourcePdfSha256:string;page:number;imagePath:string;imageSha256:string}[];[key:string]:unknown};
@@ -137,6 +137,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
     if(rawIds.some((id:unknown)=>typeof id!=='string'||!id)||new Set(rawIds).size!==rawIds.length)throw new Error(`Invalid or duplicate runtime qids: ${bank.slug}`);
     const normalized=normalizeBankQuestions(bank.slug,runtime.questions,{economicsAssetMode:'private',applyReviewedBlankPages:bank.slug.startsWith('igcse')});
     const byId=new Map(normalized.map(q=>[q.id,q]));
+    const aliasesById=new Map<string,string[]>(runtime.questions.map((q:{id:string;aliasIds?:unknown})=>[q.id,Array.isArray(q.aliasIds)?q.aliasIds.filter((a):a is string=>typeof a==='string'):[]]));
     const papers:WholePaperEntry[]=[],details:unknown[]=[],sourceDocuments:unknown[]=[],failures:{id:string;error:string}[]=[];
     let attempted=0;
     const bankBindings:WholePaperLocalBindings['documents']=[];
@@ -144,14 +145,17 @@ export async function buildWholePaperArchives(options:BuildOptions) {
     for(const pair of [...bank.pairs].sort((a,b)=>a.id.localeCompare(b.id))) {
       attempted++;
       try {
-      const family=bank.slug.startsWith('igcse')?'igcse':'ib';
-      const qp=await extractPdf(pair.questionPath,family,path.join(privateRoot,'text-cache'),path.join(root,'private/chemistry-paper-archive/checkpoints'),markRuleForBank(bank.slug));
+      const family=cambridgeFamily(bank.slug)?'igcse':'ib';
+      const qp=await extractPdf(pair.questionPath,family,path.join(privateRoot,'text-cache'),path.join(root,'private/chemistry-paper-archive/checkpoints'),markRuleForBank(bank.slug),startRuleForBank(bank.slug));
       const ms=await extractPdf(pair.markschemePath,family,path.join(privateRoot,'text-cache'));
       sourceDocuments.push({id:pair.id,question:{path:pair.questionPath,sha256:qp.sha256,bytes:qp.bytes,pages:qp.pages},markscheme:{path:pair.markschemePath,sha256:ms.sha256,bytes:ms.bytes,pages:ms.pages}});
       // IB Computer Science Paper 2 ids carry the option before the number (…-p2-tz0-optA-q3).
-      const actualIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'').replace(/^(ib-cs-.*-p2-tz\d)-opt[A-D]$/,'$1')===pair.runtimePaperId).map(q=>q.id).sort();
+      const ownIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'').replace(/^(ib-cs-.*-p2-tz\d)-opt[A-D]$/,'$1')===pair.runtimePaperId).map(q=>q.id);
+      const reprintIds=reprintRows(pair.id,aliasesById);
+      if(JSON.stringify([...reprintIds.keys()].sort())!==JSON.stringify([...(pair.reprintQuestionIds??[])].sort()))throw new Error(`Inventory reprint qids differ from runtime aliases of ${pair.id}`);
+      const actualIds=[...ownIds,...reprintIds.keys()].sort();
       if(JSON.stringify(actualIds)!==JSON.stringify([...pair.runtimeQuestionIds].sort()))throw new Error(`Inventory qids differ from exact runtime paper ${pair.runtimePaperId}`);
-      const rows=pair.runtimeQuestionIds.map(id=>{const q=byId.get(id);if(!q)throw new Error(`Missing exact runtime qid ${id}`);return q;});
+      const rows=pair.runtimeQuestionIds.map(id=>{const q=byId.get(id);if(!q)throw new Error(`Missing exact runtime qid ${id}`);if(reprintIds.has(id)&&reprintIds.get(id)!==q.number)throw new Error(`Reprint ${pair.id} renumbers ${id}`);return q;});
       const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])),reportHolds.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.has(JSON.stringify([bank.slug,pair.id]))?await loadReviewedRuntimeLetters(root,bank.slug,pair.runtimePaperId):undefined,assessment);
       details.push({id:pair.id,runtimePaperId:pair.runtimePaperId,sourceMetadata:pair.metadata??null,inventoryRecord:pair,questionPath:pair.questionPath,markschemePath:pair.markschemePath,documents:assembled.entry.documents,reportReason:assembled.entry.summary.reportReason??null,corrections:assembled.corrections,evidence:assembled.evidence});
       if(!assembled.evidence.identityValid)throw new Error(`${assembled.entry.summary.reportReason} Not promoted to public manifest.`);
@@ -188,7 +192,27 @@ export async function buildWholePaperArchives(options:BuildOptions) {
   return manifests;
 }
 export const GENERATOR_VERSION='whole-paper-manifest-v3';
-export type InventoryPair={id:string;runtimePaperId:string|null;questionPath:string;markschemePath:string;runtimeQuestionIds:string[];metadata?:{sourceIdentity?:string;[key:string]:unknown}};
+/**
+ * `reprintQuestionIds`: questions of this paper that the bank keeps once, under another variant of the same series
+ * (Cambridge A Level reprints a variant's questions; the runtime lists the reprint as that row's aliasIds). They must
+ * equal exactly the runtime rows whose aliasIds name this paper, with the same printed number, and are the only qids
+ * allowed in two pairs.
+ */
+export type InventoryPair={id:string;runtimePaperId:string|null;questionPath:string;markschemePath:string;runtimeQuestionIds:string[];reprintQuestionIds?:string[];metadata?:{sourceIdentity?:string;[key:string]:unknown}};
+/** Cambridge papers (IGCSE and A Level) share cover format, ids and question layout. */
+export function cambridgeFamily(slug:string) {
+  const qualification=getCatalogBank(slug)?.qualification;
+  return qualification==='Cambridge IGCSE'||qualification==='Cambridge A Level';
+}
+/** Runtime rows printed again in paper `paperId`, by qid, with the printed number of the reprint. */
+export function reprintRows(paperId:string,aliasesById:ReadonlyMap<string,readonly string[]>) {
+  const rows=new Map<string,number>();
+  for(const [id,aliases] of aliasesById)for(const alias of aliases) {
+    const match=/^(.*)-q(\d+)$/.exec(alias);
+    if(match&&match[1]===paperId){if(rows.has(id))throw new Error(`Runtime row ${id} aliases ${paperId} twice`);rows.set(id,Number(match[2]));}
+  }
+  return rows;
+}
 export type InventoryBank={slug:BankSlug;runtimeFile:string;pairs:InventoryPair[];unpaired:unknown[];runtimeWithoutPair:unknown[];notes:unknown[]};
 export type Inventory={banks:InventoryBank[]};
 export function validateInventory(input:unknown): asserts input is Inventory {
@@ -206,14 +230,16 @@ export function validateInventory(input:unknown): asserts input is Inventory {
       if(ids.has(pair.id)||(pair.runtimePaperId!==null&&runtimePapers.has(pair.runtimePaperId)))throw new Error(`Duplicate paper ${pair.id}`);ids.add(pair.id);if(pair.runtimePaperId!==null)runtimePapers.add(pair.runtimePaperId);
       for(const name of ['questionPath','markschemePath'] as const){if(typeof pair[name]!=='string'||!path.isAbsolute(pair[name]))throw new Error('Original paths must be absolute');if(/[\\:%?#]/.test(path.basename(pair[name])))throw new Error('Original filename is not safe for local bindings');if(sources.has(pair[name]))throw new Error(`Duplicate source ${pair[name]}`);sources.add(pair[name]);}
       if(!Array.isArray(pair.runtimeQuestionIds))throw new Error('runtimeQuestionIds array required');
-      for(const id of pair.runtimeQuestionIds){if(typeof id!=='string'||!id)throw new Error('Persisted qid must be a nonempty string');if(qids.has(id))throw new Error(`Duplicate qid ${id}`);qids.add(id);}
+      const reprints=pair.reprintQuestionIds??[];
+      if(!Array.isArray(reprints)||!reprints.every(id=>pair.runtimeQuestionIds.includes(id))||new Set(reprints).size!==reprints.length)throw new Error(`Reprint qids must be listed runtime qids: ${pair.id}`);
+      for(const id of pair.runtimeQuestionIds){if(typeof id!=='string'||!id)throw new Error('Persisted qid must be a nonempty string');if(reprints.includes(id))continue;if(qids.has(id))throw new Error(`Duplicate qid ${id}`);qids.add(id);}
     }
   }
 }
 /** Mirrors the production choice in question-loader, not candidate inventories. */
 export function runtimeRelativeFile(slug:string) {
   if(!getCatalogBank(slug))throw new Error(`Unknown bank ${slug}`);
-  const cohort=slug.startsWith('igcse-')&&slug!=='igcse-additional'||slug.startsWith('ib-economics-')||slug.startsWith('ib-computer-science-')?'production':'raw';
+  const cohort=slug.startsWith('igcse-')&&slug!=='igcse-additional'||slug.startsWith('ib-economics-')||slug.startsWith('ib-computer-science-')||slug.startsWith('a-level-')?'production':'raw';
   return `src/data/${cohort}/${slug}.json`;
 }
 /**
@@ -260,7 +286,8 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const official=assessment?assessmentFor(assessment,{id:pair.id,bankSlug:bank.slug,year:identity.year,component:identity.component,route}):null;
   const maxMarks=official?official.maxMarks:qCover.identityValid?qCover.maxMarks??(mCover.identityValid?mCover.maxMarks:null):null;
   const sorted=[...rows].sort((a,b)=>a.number-b.number||a.id.localeCompare(b.id));
-  const mcqLayout=/Multiple\s+Choice|For each question,?\s*choose the answer/i.test(qFound.text);
+  // 9701 covers can carry the cover words in the shifted-glyph font ("0XOWLSOH &KRLFH" is "Multiple Choice" shifted by 29).
+  const mcqLayout=/Multiple\s+Choice|For each question,?\s*choose the answer|0XOWLSOH\s+&KRLFH/i.test(qFound.text);
   const textOrderNumbers=[...ms.text.join(' ').matchAll(/\b(\d{1,2})\.?\s+([A-D])\b/g)].map(match=>Number(match[1]));
   const answerNumbers=new Set([...textOrderNumbers,...reviewedKeyNumbers]);
   const keyedMcq=qp.questions.length>0&&qp.questions.length===maxMarks&&qp.questions.every(q=>answerNumbers.has(q.number))&&sorted.every(q=>q.marks===1);
@@ -281,7 +308,7 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const questions=!reportReason?sorted.map((q,i)=>{const source=printed[i];if(q.marks!==source.maxMarks)corrections.push({id:q.id,from:q.marks,to:source.maxMarks,questionPage:source.page});return {id:q.id,number:q.number,maxMarks:source.maxMarks,topics:topics[i],questionPage:source.page};}):[];
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});
   const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:official?official.durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:optionalChoiceQuestionCount(bank.slug,Boolean(qCover.optionalChoice||mCover.optionalChoice),sorted.length,printed.length),reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
-  const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,extractorVersionFor(markRuleForBank(slug)),qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
+  const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,extractorVersionFor(markRuleForBank(slug),startRuleForBank(slug)),qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
   return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,reportHold:reportHold??null,mcqKeyReview:mcqKeyReview??null,textOrderMissingKeys:reviewedKeyNumbers.filter(n=>!textOrderNumbers.includes(n)),subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
