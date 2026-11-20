@@ -71,7 +71,7 @@ export async function resolveEntry(slug: string, entry: string): Promise<YearVie
   if (!detail) return null;
   const questions = paperQuestions(bank.slug, detail);
   const workedAnswers = paperWorkedAnswers(bank.slug, questions);
-  return { kind: 'paper', bank, detail, all, practice, questions, complete: completeInventory(detail.summary, questions), workedAnswers, indexing: indexingFor(detail.summary, all, workedAnswers) };
+  return { kind: 'paper', bank, detail, all, practice, questions, complete: completeInventory(detail.summary, questions), workedAnswers, indexing: indexingFor(bank.slug, detail.summary, all, workedAnswers) };
 }
 
 const latestYear = (papers: readonly WholePaperSummary[]) => Math.max(...papers.map(p => p.year));
@@ -82,9 +82,9 @@ function paperWorkedAnswers(slug: BankSlug, questions: readonly PaperQuestion[])
 }
 
 /** Coverage is measured against the archive's whole-paper question count, not the (possibly partial) list we hold. */
-function indexingFor(p: WholePaperSummary, all: readonly WholePaperSummary[], workedAnswers: readonly WorkedAnswer[]): PaperIndexing {
+function indexingFor(slug: BankSlug, p: WholePaperSummary, all: readonly WholePaperSummary[], workedAnswers: readonly WorkedAnswer[]): PaperIndexing {
   const answered = new Set(workedAnswers.map(w => w.number)).size;
-  return paperIndexing({ year: p.year, latestYear: latestYear(all), questionCount: p.questionCount > 0 ? p.questionCount : null, workedAnswers: answered });
+  return paperIndexing({ year: p.year, latestYear: latestYear(all), questionCount: p.questionCount > 0 ? p.questionCount : null, workedAnswers: answered, qualification: qualificationOfBank(slug) });
 }
 
 /** Where an unknown entry under a real subject should go: the paper's real URL, else that year's or the subject's list. */
@@ -119,7 +119,7 @@ export async function pastPaperSitemapPaths(): Promise<string[]> {
     const indexedPapers = papers.filter(p => {
       const detail = findWholePaperBySlug(bank.slug, paperSlug(p));
       if (!detail) return false;
-      return indexingFor(p, papers, paperWorkedAnswers(bank.slug, paperQuestions(bank.slug, detail))).indexed;
+      return indexingFor(bank.slug, p, papers, paperWorkedAnswers(bank.slug, paperQuestions(bank.slug, detail))).indexed;
     });
     return [`/past-papers/${subject}`, ...numbers.map(n => `/past-papers/${subject}/${n}`), ...indexedPapers.map(p => `/past-papers/${subject}/${paperSlug(p)}`)];
   })];

@@ -23,6 +23,12 @@ describe('paperIndexing', () => {
     expect(paperIndexing({ year: 2025, latestYear: 2026, questionCount: 40, workedAnswers: 0 }).indexed).toBe(false);
     expect(paperIndexing({ year: 2025, latestYear: 2026, questionCount: 0, workedAnswers: 0 }).indexed).toBe(false);
   });
+  it('holds back A Level latest-year pages until worked answers qualify them', () => {
+    expect(paperIndexing({ year: 2026, latestYear: 2026, questionCount: 10, workedAnswers: 0, qualification: 'a-level' }).indexed).toBe(false);
+    expect(paperIndexing({ year: 2021, latestYear: 2026, questionCount: 10, workedAnswers: 10, qualification: 'a-level' })).toEqual({ indexed: true, reason: 'worked-answers' });
+    expect(paperIndexing({ year: 2026, latestYear: 2026, questionCount: 10, workedAnswers: 0, qualification: 'igcse' })).toEqual({ indexed: true, reason: 'latest-year' });
+    expect(paperIndexing({ year: 2026, latestYear: 2026, questionCount: 10, workedAnswers: 0, qualification: 'ib' })).toEqual({ indexed: true, reason: 'latest-year' });
+  });
 });
 
 describe('topic weights', () => {

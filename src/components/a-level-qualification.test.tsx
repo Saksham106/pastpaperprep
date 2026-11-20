@@ -26,11 +26,13 @@ describe("Cambridge A Level, without the release gate", () => {
   afterEach(() => vi.unstubAllEnvs());
 
   it("adds no A Level text to llms.txt, the footer, the home page or the sitemap", async () => {
-    const text = await (await llms()).text();
+    // The A Level guides (articles, 2026-11-20) are static editorial pages published after launch; the gate
+    // covers everything generated from the catalogue.
+    const text = (await (await llms()).text()).replace(/## Guides[\s\S]*?(?=\n## )/, "");
     expect(text).not.toMatch(/A Level|9709/);
     render(<SiteFooter />);
     expect(screen.queryByText(/A Level/)).not.toBeInTheDocument();
-    expect((await sitemap()).some((entry) => entry.url.includes("a-level"))).toBe(false);
+    expect((await sitemap()).some((entry) => entry.url.includes("a-level") && !entry.url.includes("/articles/"))).toBe(false);
   });
 
   it("keeps A Level off the home page and the notes tabs", () => {

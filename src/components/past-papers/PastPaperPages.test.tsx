@@ -20,7 +20,7 @@ const ldTypes = (container: HTMLElement) => [...container.querySelectorAll('scri
 describe('PastPaperHub', () => {
   it('groups subjects into pastel cards that open each subject page', () => {
     const { container } = render(<PastPaperHub banks={hubBanks} />);
-    expect(screen.getByRole('heading', { level: 1, name: 'Free IGCSE & IB past papers' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Free IGCSE, A Level & IB past papers' })).toBeInTheDocument();
     const maths = screen.getByRole('region', { name: 'Mathematics' });
     expect(within(maths).getByRole('link', { name: /IGCSE Maths 0580\s*216 papers/ })).toHaveAttribute('href', '/past-papers/igcse-maths-0580');
     expect(within(maths).getByRole('link', { name: /IB Math AA HL/ })).toHaveAttribute('href', '/past-papers/ib-math-aa-hl');

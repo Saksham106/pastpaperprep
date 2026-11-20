@@ -17,8 +17,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(52);
-    expect(ARTICLES).toHaveLength(49);
+    expect(ALL_ARTICLES).toHaveLength(57);
+    expect(ARTICLES).toHaveLength(54);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -40,6 +40,11 @@ describe("article library", () => {
 
   it("keeps the commercial cluster behind an explicit release matrix", () => {
     const releaseMatrix = [
+      ["igcse-to-a-level-guide", "2026-11-20", "2026-11-20", false],
+      ["a-level-maths-9709-paper-routes", "2026-11-20", "2026-11-20", false],
+      ["a-level-maths-9709-pure-1-topics", "2026-11-20", "2026-11-20", false],
+      ["a-level-physics-9702-paper-2-vs-paper-4", "2026-11-20", "2026-11-20", false],
+      ["a-level-economics-9708-essay-technique", "2026-11-20", "2026-11-20", false],
       ["ib-physics-data-booklet-guide", "2026-10-16", "2026-11-08", false],
       ["ib-chemistry-data-booklet-guide", "2026-10-16", "2026-11-08", false],
       ["ib-math-aa-formula-booklet-guide", "2026-10-16", "2026-11-08", false],
@@ -80,8 +85,8 @@ describe("article library", () => {
       ["best-physics-and-maths-tutor-alternatives", "2026-11-08", "2026-11-08", false],
     ] as const;
 
-    expect(ALL_ARTICLES).toHaveLength(52);
-    expect(ARTICLES).toHaveLength(49);
+    expect(ALL_ARTICLES).toHaveLength(57);
+    expect(ARTICLES).toHaveLength(54);
     expect(ALL_ARTICLES.filter(({ draft }) => draft)).toHaveLength(3);
 
     for (const [slug, publishedAt, updatedAt, draft] of releaseMatrix) {
@@ -207,9 +212,14 @@ describe("article library", () => {
   });
 
   it("ships an intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(49);
+    expect(ARTICLES).toHaveLength(54);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "igcse-to-a-level-guide",
+      "a-level-maths-9709-paper-routes",
+      "a-level-maths-9709-pure-1-topics",
+      "a-level-physics-9702-paper-2-vs-paper-4",
+      "a-level-economics-9708-essay-technique",
       "best-igcse-additional-maths-0606-resources",
       "best-igcse-computer-science-0478-resources",
       "best-ib-economics-resources",
@@ -336,7 +346,7 @@ describe("article library", () => {
   it("keeps every internal article and bank link on a registered route", () => {
     const bankRoutes = new Set(BANK_CATALOG.map(({ slug }) => `/banks/${slug}`));
     const syllabusRoutes = new Set(BANK_CATALOG.map(({ slug }) => `/syllabus/${slug}`));
-    const searchHubRoutes = new Set(["/cambridge-igcse", "/ib"]);
+    const searchHubRoutes = new Set(["/cambridge-igcse", "/ib", "/cambridge-a-level"]);
     const articleRoutes = new Set(ALL_ARTICLES.map(({ slug }) => `/articles/${slug}`));
 
     for (const article of ALL_ARTICLES) {

@@ -16,7 +16,8 @@ import { BankWorkedExample } from "@/components/BankWorkedExample";
 import { notesSubjectForBank, getNoteTopic } from "@/lib/revision-notes";
 import { getGradeThresholds } from "@/lib/grade-thresholds";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
-import { qualificationInfo } from "@/lib/qualifications";
+import { qualificationInfo, qualifiedBankTitle } from "@/lib/qualifications";
+import { aLevelSuccessors, igcsePredecessors, IGCSE_TO_A_LEVEL_ARTICLE } from "@/lib/next-step-banks";
 import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
 import { paperFacts, topicFacts } from "@/lib/quick-facts";
 import { hasPublishedExplanations } from "@/lib/explanations";
@@ -64,6 +65,10 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
   const banks = getCatalogBanksForDisplay().filter((bank) => bank.qualification === qualification);
   const path = qualificationInfo(qualification).hubPath;
   const updated = lastUpdated(banks.flatMap((bank) => [`/banks/${bank.slug}`, `/past-papers/${subjectSlugForBank(bank.slug)}`]));
+  const igcseRoutes = qualification === "Cambridge A Level" ? banks.flatMap((to) => {
+    const from = igcsePredecessors(to.slug).filter((bank) => bank.slug !== "igcse-coordinated-sciences-0654" && bank.slug !== "igcse-additional").map((bank) => bank.shortName);
+    return from.length ? [{ to, from: from.join(" or ") }] : [];
+  }) : [];
   return (
     <div className="search-hub shell public-editorial">
       <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${path}`, ...(updated ? { dateModified: updated } : {}), mainEntity: banks.map((bank) => ({ "@type": "Course", name: bank.title, url: `${SITE_URL}/syllabus/${bank.slug}` })) }} />
@@ -84,7 +89,13 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
           {physicsNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={physicsNotesHref}>Notes: IB Physics course notes</Link> with worked examples and checks for every topic.</p> : null}
           <p>Comparing revision platforms? Read <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link> or our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
         </section>
-      ) : qualification === "Cambridge A Level" ? null : (
+      ) : qualification === "Cambridge A Level" ? (
+        <section className="landing-method" aria-labelledby="a-level-resources-heading">
+          <div><Target aria-hidden="true" /><h2 id="a-level-resources-heading">Practise the papers you will sit</h2></div>
+          <p>Each bank is split by paper, the way Cambridge sets them, so Pure 1 practice shows only Pure 1 questions. Questions from 2020 and 2021 are free to practise, and every <Link transitionTypes={PAGE_NAVIGATION} href="/past-papers/a-level">full A Level past paper and mark scheme</Link> is free to read.</p>
+          <p>Coming from IGCSE? {igcseRoutes.map((route, index) => <span key={route.to.slug}>{index > 0 ? ", " : null}{route.from} leads to <Link transitionTypes={PAGE_NAVIGATION} href={`/syllabus/${route.to.slug}`}>{qualifiedBankTitle(route.to)}</Link></span>)}. Read <Link transitionTypes={PAGE_NAVIGATION} href={IGCSE_TO_A_LEVEL_ARTICLE}>what changes from IGCSE to A Level</Link>, <Link transitionTypes={PAGE_NAVIGATION} href="/articles/a-level-maths-9709-paper-routes">which 9709 Maths papers to sit</Link> and <Link transitionTypes={PAGE_NAVIGATION} href="/articles/a-level-physics-9702-paper-2-vs-paper-4">9702 Physics Paper 2 vs Paper 4</Link>.</p>
+        </section>
+      ) : (
         <section className="landing-method" aria-labelledby="igcse-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="igcse-resources-heading">Choose a free past-paper archive</h2></div>
           {notesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={notesHref}>Notes: IGCSE Maths 0580 course notes</Link> with worked examples and checks for every topic.</p> : null}
@@ -125,6 +136,8 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   const notesSubject = notesSubjectForBank(bank.slug);
   const subjectSlug = subjectSlugForBank(bank.slug);
   const canonicalPath = `/syllabus/${bank.slug}`;
+  const hubPath = qualificationInfo(bank.qualification).hubPath;
+  const successors = aLevelSuccessors(bank.slug);
   const guide = assessmentGuideFor(bank);
   const groupedPapers = assessmentGroups(guide.papers);
   const maxTopicCount = Math.max(1, ...manifest.syllabusTopics.map((topic) => topic.count));
@@ -132,8 +145,15 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   const landingSlugs = new Set(manifest.topics.map((topic) => topic.slug));
   return (
     <div className={`search-landing shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@id": `${SITE_URL}/${bank.qualification === "IB Diploma" ? "ib" : "cambridge-igcse"}#page` } }} />
-      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.qualification, href: qualificationInfo(bank.qualification).hubPath }, { label: bank.shortName }]} />
+      <JsonLd data={{ "@context": "https://schema.org", "@graph": [
+        { "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@type": "CollectionPage", url: `${SITE_URL}${hubPath}` }, about: { "@type": "Course", name: bank.title, educationalLevel: bank.qualification } },
+        { "@type": "BreadcrumbList", itemListElement: [
+          { "@type": "ListItem", position: 1, name: "PastPaperPrep", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: bank.qualification, item: `${SITE_URL}${hubPath}` },
+          { "@type": "ListItem", position: 3, name: bank.shortName, item: `${SITE_URL}${canonicalPath}` },
+        ] },
+      ] }} />
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: bank.qualification, href: hubPath }, { label: bank.shortName }]} />
       <header className="landing-hero">
         <div className="landing-hero-copy"><p className="eyebrow">Syllabus and practice guide</p><h1>{bank.qualification === "Cambridge IGCSE" ? `Cambridge IGCSE ${bank.title}` : bank.qualification === "Cambridge A Level" ? `Cambridge A Level ${bank.title}` : bank.title} syllabus, topics, and past-paper practice</h1><p className="lead">A clear map of what the course covers, how it is assessed, and where real archive practice fits.</p></div>
         <ArchiveStats bank={bank} manifest={manifest} />
@@ -195,9 +215,10 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
           {getGradeThresholds(subjectSlug) ? <Link transitionTypes={PAGE_NAVIGATION} href={`/grade-thresholds/${subjectSlug}`}>Grade thresholds</Link> : null}
           {bank.qualification === "IB Diploma"
             ? <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link>
-            : bank.qualification === "Cambridge A Level" ? null
+            : bank.qualification === "Cambridge A Level" ? <Link transitionTypes={PAGE_NAVIGATION} href={IGCSE_TO_A_LEVEL_ARTICLE}>Moving up from IGCSE</Link>
             : <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">Compare free IGCSE archives</Link>}
         </nav>
+        {successors.length > 0 && <p className="access-footnote">Next step after {bank.shortName}: {successors.map((next, index) => <span key={next.slug}>{index > 0 ? (index === successors.length - 1 ? " or " : ", ") : null}<Link transitionTypes={PAGE_NAVIGATION} href={`/syllabus/${next.slug}`}>{qualifiedBankTitle(next)}</Link></span>)}. See <Link transitionTypes={PAGE_NAVIGATION} href={IGCSE_TO_A_LEVEL_ARTICLE}>what changes at A Level</Link>.</p>}
         <p className="official-source"><a href={officialQualificationSource(bank)} target="_blank" rel="noreferrer">Read the official {bank.qualification} course source <ArrowRight weight="bold" /></a></p>
       </section>
     </div>

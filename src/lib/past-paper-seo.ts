@@ -52,13 +52,13 @@ export function formatDuration(minutes: number): string {
 }
 
 const HUB: Record<'all' | PastPaperQualification, Pick<PageCopy, 'title' | 'h1'>> = {
-  all: { title: 'Free IGCSE & IB Past Papers with Mark Schemes', h1: 'Free IGCSE & IB past papers' },
+  all: { title: 'Free IGCSE, A Level & IB Past Papers with Mark Schemes', h1: 'Free IGCSE, A Level & IB past papers' },
   igcse: { title: 'Cambridge IGCSE Past Papers with Mark Schemes', h1: 'Cambridge IGCSE past papers' },
   ib: { title: 'IB Past Papers with Markschemes', h1: 'IB past papers' },
   'a-level': { title: 'Cambridge A Level Past Papers with Mark Schemes', h1: 'Cambridge A Level past papers' },
 };
 export function hubCopy(paperCount: number, qualification?: PastPaperQualification): PageCopy {
-  const scope = qualification === 'igcse' ? 'Cambridge IGCSE' : qualification === 'ib' ? 'IB Diploma' : qualification === 'a-level' ? 'Cambridge A Level' : 'Cambridge IGCSE and IB';
+  const scope = qualification === 'igcse' ? 'Cambridge IGCSE' : qualification === 'ib' ? 'IB Diploma' : qualification === 'a-level' ? 'Cambridge A Level' : 'Cambridge IGCSE, A Level and IB';
   return { ...HUB[qualification ?? 'all'], description: `${paperCount.toLocaleString('en-US')} ${scope} past papers with mark schemes. Time them, mark them and see which topics to fix. Free, no sign-up.`, answer: 'Every paper with its mark scheme. Time it, mark it, see what to fix.' };
 }
 

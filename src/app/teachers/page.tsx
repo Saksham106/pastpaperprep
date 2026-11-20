@@ -8,7 +8,7 @@ import { socialPreview } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "For teachers: free past papers and worked answers to share",
-  description: "Free Cambridge IGCSE and IB past papers with mark schemes, worked answers, topic breakdowns and grade thresholds that students open without signing up.",
+  description: "Free Cambridge IGCSE, A Level and IB past papers with mark schemes, worked answers, topic breakdowns and grade thresholds that students open without signing up.",
   alternates: { canonical: "/teachers" },
   openGraph: { url: "/teachers", ...socialPreview() },
 };

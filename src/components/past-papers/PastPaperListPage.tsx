@@ -9,6 +9,7 @@ import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, paperNumberCopy, subject
 import { PaperLibraryTools } from './PaperLibraryTools';
 import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
+import { aLevelSuccessors } from '@/lib/next-step-banks';
 import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import { paperNumberThresholds, topicFrequency } from '@/lib/past-paper-insights';
 import styles from './PastPaperPages.module.css';
@@ -95,6 +96,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
     {view.practice && <Link className={styles.practice} href={`/banks/${bank.slug}`}>Practise {name} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {getGradeThresholds(subject) && <Link className={styles.practice} href={`/grade-thresholds/${subject}`}>{name} grade thresholds <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {getNotesSubject(subject) && <Link className={styles.practice} href={`/revision-notes/${subject}`}>{name} revision notes <ArrowRight aria-hidden="true" weight="bold" /></Link>}
+    {view.kind === 'subject' && aLevelSuccessors(bank.slug).map(next => <Link key={next.slug} className={styles.practice} href={`/past-papers/${subjectSlugForBank(next.slug)}`}>Next step: {subjectSearchName(next)} past papers <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
     {faq.length > 0 && <section className={styles.faq} aria-labelledby="past-paper-faq">
       <h2 id="past-paper-faq">Questions</h2>
       {faq.map(item => <details key={item.q}><summary>{item.q}<CaretDown aria-hidden="true" /></summary><p>{item.a}</p></details>)}

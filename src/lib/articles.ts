@@ -10,6 +10,7 @@ import { FREE_PAPERS_EXPLANATIONS } from "@/lib/article-clusters/free-papers-exp
 import { freeAccessSection } from "@/lib/article-clusters/free-access-section";
 import { IB_BOOKLET_GUIDES } from "@/lib/article-clusters/ib-booklets";
 import { SUBJECT_GAP_GUIDES } from "@/lib/article-clusters/subject-gaps-2026-11";
+import { A_LEVEL_GUIDES } from "@/lib/article-clusters/a-level-guides-2026-11";
 
 export type ArticleSection = {
   heading: string;
@@ -56,7 +57,7 @@ export type ArticlePracticeLink = { href: string; label: string };
 /** Structured index metadata for one article: difficulty, exam, and real practice deep links. */
 export type ArticleIndexDetail = {
   difficulty: ArticleDifficulty;
-  exam: "Cambridge IGCSE" | "IB Diploma";
+  exam: "Cambridge IGCSE" | "Cambridge A Level" | "IB Diploma";
   practiceLinks: readonly ArticlePracticeLink[];
 };
 
@@ -67,6 +68,26 @@ export type ArticleIndexDetail = {
  * never invents a route, an article count, or a topic.
  */
 export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>> = {
+  "igcse-to-a-level-guide": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709?topic=Functions", label: "A Level Maths 9709: Functions" },
+    { href: "/banks/a-level-physics-9702?topic=Kinematics", label: "A Level Physics 9702: Kinematics" },
+  ] },
+  "a-level-maths-9709-paper-routes": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709?topic=Quadratics", label: "A Level Maths 9709: Quadratics" },
+    { href: "/banks/a-level-maths-9709?topic=Series", label: "A Level Maths 9709: Series" },
+  ] },
+  "a-level-maths-9709-pure-1-topics": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709?topic=Series", label: "A Level Maths 9709: Series" },
+    { href: "/banks/a-level-maths-9709?topic=Differentiation", label: "A Level Maths 9709: Differentiation" },
+  ] },
+  "a-level-physics-9702-paper-2-vs-paper-4": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-physics-9702?topic=Dynamics", label: "A Level Physics 9702: Dynamics" },
+    { href: "/banks/a-level-physics-9702?topic=D.C.%20circuits", label: "A Level Physics 9702: D.C. circuits" },
+  ] },
+  "a-level-economics-9708-essay-technique": { difficulty: "Advanced", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy", label: "A Level Economics 9708: The price system and the microeconomy" },
+    { href: "/banks/a-level-economics-9708?topic=The%20macroeconomy", label: "A Level Economics 9708: The macroeconomy" },
+  ] },
   "best-igcse-additional-maths-0606-resources": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
     { href: "/banks/igcse-additional?topic=Calculus", label: "Additional Maths 0606: Calculus" },
     { href: "/banks/igcse-additional?topic=Trigonometry", label: "Additional Maths 0606: Trigonometry" },
@@ -1248,6 +1269,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   ...FREE_PAPERS_EXPLANATIONS,
   ...IB_BOOKLET_GUIDES,
   ...SUBJECT_GAP_GUIDES,
+  ...A_LEVEL_GUIDES,
 ] as const;
 
 export const ARTICLES: readonly Article[] = ALL_ARTICLES

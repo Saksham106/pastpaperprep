@@ -38,7 +38,7 @@ export function ArticlesIndex() {
         <header className="articles-hero">
           <p className="eyebrow">PastPaperPrep articles</p>
           <h1>Past paper practice guides</h1>
-          <p>Clear methods and honest resource comparisons for Cambridge IGCSE and IB Maths, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.</p>
+          <p>Clear methods and honest resource comparisons for Cambridge IGCSE, A Level and IB Maths, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.</p>
         </header>
 
         <section className="article-library" aria-label="Revision guides">
