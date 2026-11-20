@@ -45,3 +45,9 @@ export const glossaryMeta = (course: Course) =>
 
 export const commandTermsMeta = (course: Course) =>
   courseMeta(`${course.name} Command Terms Explained`, `What each ${course.copy.board} command term asks you to do in ${course.name} exams.`, `/revision-notes/${course.slug}/command-terms`);
+
+/** BreadcrumbList JSON-LD for notes pages: Notes › course › topic › lesson, matching the visible crumbs. */
+export function notesBreadcrumb(items: readonly { name: string; path: string }[]): Record<string, unknown> {
+  const all = [{ name: "Revision notes", path: "/revision-notes" }, ...items];
+  return { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: all.map((item, i) => ({ "@type": "ListItem", position: i + 1, name: item.name, item: `${SITE_URL}${item.path}` })) };
+}

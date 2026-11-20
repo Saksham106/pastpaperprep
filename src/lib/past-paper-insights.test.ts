@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { paperIndexing } from './past-paper-indexing';
+import { paperIndexing, yearIndexed } from './past-paper-indexing';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { completeInventory, mainTopic, paperThreshold, paperTopicMarks, thresholdSeries, topicFrequency } from './past-paper-insights';
@@ -11,23 +11,22 @@ const q = (number: number, marks: number | null, ...topics: string[]) => ({ id: 
 
 describe('paperIndexing', () => {
   it('indexes free papers whose worked answers cover at least 80% of questions', () => {
-    expect(paperIndexing({ year: 2019, latestYear: 2026, questionCount: 10, workedAnswers: 8 })).toEqual({ indexed: true, reason: 'worked-answers' });
-    expect(paperIndexing({ year: 2019, latestYear: 2026, questionCount: 10, workedAnswers: 7 })).toEqual({ indexed: false, reason: null });
+    expect(paperIndexing({ questionCount: 10, workedAnswers: 8 })).toEqual({ indexed: true, reason: 'worked-answers' });
+    expect(paperIndexing({ questionCount: 10, workedAnswers: 7 })).toEqual({ indexed: false, reason: null });
   });
   it('never qualifies on worked answers when the whole-paper count is unknown', () => {
-    expect(paperIndexing({ year: 2019, latestYear: 2026, questionCount: null, workedAnswers: 28 }).indexed).toBe(false);
-    expect(paperIndexing({ year: 2019, latestYear: 2026, questionCount: 40, workedAnswers: 28 }).indexed).toBe(false);
+    expect(paperIndexing({ questionCount: null, workedAnswers: 28 }).indexed).toBe(false);
+    expect(paperIndexing({ questionCount: 40, workedAnswers: 28 }).indexed).toBe(false);
   });
-  it('indexes the latest exam year and nothing else without worked answers', () => {
-    expect(paperIndexing({ year: 2026, latestYear: 2026, questionCount: 0, workedAnswers: 0 })).toEqual({ indexed: true, reason: 'latest-year' });
-    expect(paperIndexing({ year: 2025, latestYear: 2026, questionCount: 40, workedAnswers: 0 }).indexed).toBe(false);
-    expect(paperIndexing({ year: 2025, latestYear: 2026, questionCount: 0, workedAnswers: 0 }).indexed).toBe(false);
+  it('indexes a demand-listed paper only with a printed preview of at least two worked answers', () => {
+    expect(paperIndexing({ questionCount: 40, workedAnswers: 0, demand: true, previewAnswers: 3 })).toEqual({ indexed: true, reason: 'demand' });
+    expect(paperIndexing({ questionCount: 40, workedAnswers: 0, demand: true, previewAnswers: 1 }).indexed).toBe(false);
+    expect(paperIndexing({ questionCount: 40, workedAnswers: 0, demand: false, previewAnswers: 3 }).indexed).toBe(false);
   });
-  it('holds back A Level latest-year pages until worked answers qualify them', () => {
-    expect(paperIndexing({ year: 2026, latestYear: 2026, questionCount: 10, workedAnswers: 0, qualification: 'a-level' }).indexed).toBe(false);
-    expect(paperIndexing({ year: 2021, latestYear: 2026, questionCount: 10, workedAnswers: 10, qualification: 'a-level' })).toEqual({ indexed: true, reason: 'worked-answers' });
-    expect(paperIndexing({ year: 2026, latestYear: 2026, questionCount: 10, workedAnswers: 0, qualification: 'igcse' })).toEqual({ indexed: true, reason: 'latest-year' });
-    expect(paperIndexing({ year: 2026, latestYear: 2026, questionCount: 10, workedAnswers: 0, qualification: 'ib' })).toEqual({ indexed: true, reason: 'latest-year' });
+  it('no longer indexes a paper just for being from the latest year; its year list stands in', () => {
+    expect(paperIndexing({ questionCount: 40, workedAnswers: 0 }).indexed).toBe(false);
+    expect(yearIndexed(2026, 2026)).toBe(true);
+    expect(yearIndexed(2025, 2026)).toBe(false);
   });
 });
 

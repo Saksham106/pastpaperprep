@@ -103,7 +103,7 @@ export function yearCopy(bank: CatalogBank, year: number, papers: readonly Whole
   return {
     title: fitTitle(`${name} Past Papers ${year} & Mark Schemes`, `${name} Past Papers ${year}`),
     h1: `${name} past papers ${year}`,
-    description: `${name} past papers from ${year}: ${sessions}, with ${scheme(bank)}s. Free, no sign-up.`,
+    description: `${name} past papers from ${year}: ${sessions}. Every paper and variant by its code, with ${scheme(bank)}s, timings and marks. Free, no sign-up.`,
     answer: `${n} ${fullName(bank)} past ${n === 1 ? 'paper' : 'papers'} from ${year}: ${sessions}, ${n === 1 ? 'with its' : 'each with its'} ${scheme(bank)}.`,
   };
 }

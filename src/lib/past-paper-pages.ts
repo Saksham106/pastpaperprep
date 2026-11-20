@@ -12,6 +12,7 @@ import { archiveQuestions, archivePaperKey, questionPaperKey, type PaperQuestion
 import type { Explanation } from './explanation-format';
 import { freeExplanations } from './free-explanations';
 import { paperIndexing, type PaperIndexing } from './past-paper-indexing';
+import { demandPage, previewExplanations } from './paper-previews';
 import { completeInventory } from './past-paper-insights';
 import reprintAliases from '@/data/reprint-question-aliases.json';
 
@@ -19,14 +20,17 @@ import reprintAliases from '@/data/reprint-question-aliases.json';
  * Everything is empty while the archive gate is closed, so no page is built or linked. */
 export type HubBank = { bankSlug: BankSlug; subjectSlug: string; name: string; qualification: PastPaperQualification; paperCount: number; years: string; tone: CourseTone };
 /** `practice` is false for banks whose /banks page isn't published yet, so no link points at a 404. */
-export type SubjectView = { kind: 'subject'; bank: CatalogBank; papers: WholePaperSummary[]; practice: boolean };
-export type YearView = { kind: 'year'; bank: CatalogBank; year: number; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean };
+/** `latestSets`: the latest year's complete question lists, for the subject page's topic summary (subject route only). */
+export type SubjectView = { kind: 'subject'; bank: CatalogBank; papers: WholePaperSummary[]; practice: boolean; latestSets?: PaperQuestion[][] };
+/** `questionSets`: each listed paper's questions when complete (else empty), for the year's topic table. */
+export type YearView = { kind: 'year'; bank: CatalogBank; year: number; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean; questionSets?: PaperQuestion[][] };
 /** `questionSets` holds each listed paper's questions when they are the whole paper (else empty), for the topic table. */
 export type PaperNumberView = { kind: 'paperNumber'; bank: CatalogBank; paper: string; papers: WholePaperSummary[]; all: WholePaperSummary[]; practice: boolean; questionSets?: PaperQuestion[][] };
 /** A free-year question with its worked explanation, printed in the page. */
 export type WorkedAnswer = { number: number; marks: number | null; topics: readonly string[]; explanation: Explanation };
 /** `complete`: `questions` is the whole paper (completeInventory), so whole-paper shares can be stated. */
-export type PaperView = { kind: 'paper'; bank: CatalogBank; detail: WholePaperDetail; all: WholePaperSummary[]; practice: boolean; questions?: PaperQuestion[]; complete?: boolean; workedAnswers?: WorkedAnswer[]; indexing?: PaperIndexing };
+/** `preview`: the worked answers are a free preview of a paid paper (demand-listed), not a free year's full set. */
+export type PaperView = { kind: 'paper'; bank: CatalogBank; detail: WholePaperDetail; all: WholePaperSummary[]; practice: boolean; questions?: PaperQuestion[]; complete?: boolean; workedAnswers?: WorkedAnswer[]; preview?: boolean; indexing?: PaperIndexing };
 export type ListView = SubjectView | YearView | PaperNumberView;
 
 async function availableBanks(): Promise<{ bank: CatalogBank; papers: WholePaperSummary[] }[]> {
@@ -54,27 +58,38 @@ export async function resolveEntry(slug: string, entry: string): Promise<YearVie
   const { bank, papers: all, practice } = subject;
   if (/^\d{4}$/.test(entry)) {
     const papers = all.filter(p => p.year === Number(entry));
-    return papers.length ? { kind: 'year', bank, year: Number(entry), papers, all, practice } : null;
+    return papers.length ? { kind: 'year', bank, year: Number(entry), papers, all, practice, questionSets: completeQuestionSets(bank.slug, papers) } : null;
   }
   const number = /^paper-([0-9a-z]+)$/.exec(entry)?.[1];
   if (number) {
     const papers = all.filter(p => p.paper.toLowerCase() === number);
     if (!papers.length) return null;
-    const questionSets = papers.map(p => {
-      const d = findWholePaperBySlug(bank.slug, paperSlug(p));
-      const questions = d ? paperQuestions(bank.slug, d) : [];
-      return completeInventory(p, questions) ? questions : [];
-    });
-    return { kind: 'paperNumber', bank, paper: papers[0].paper, papers, all, practice, questionSets };
+    return { kind: 'paperNumber', bank, paper: papers[0].paper, papers, all, practice, questionSets: completeQuestionSets(bank.slug, papers) };
   }
   const detail = findWholePaperBySlug(bank.slug, entry);
   if (!detail) return null;
   const questions = paperQuestions(bank.slug, detail);
-  const workedAnswers = paperWorkedAnswers(bank.slug, questions);
-  return { kind: 'paper', bank, detail, all, practice, questions, complete: completeInventory(detail.summary, questions), workedAnswers, indexing: indexingFor(bank.slug, detail.summary, all, workedAnswers) };
+  const free = paperWorkedAnswers(bank.slug, questions);
+  const preview = free.length ? [] : paperPreviewAnswers(bank.slug, detail.summary.id, questions);
+  const workedAnswers = free.length ? free : preview;
+  return { kind: 'paper', bank, detail, all, practice, questions, complete: completeInventory(detail.summary, questions), workedAnswers, preview: preview.length > 0, indexing: indexingFor(bank.slug, detail.summary, free, preview) };
 }
 
-const latestYear = (papers: readonly WholePaperSummary[]) => Math.max(...papers.map(p => p.year));
+/** Each paper's questions when they are the whole paper (completeInventory), else empty: for topic tables. */
+export function completeQuestionSets(slug: BankSlug, papers: readonly WholePaperSummary[]): PaperQuestion[][] {
+  return papers.map(p => {
+    const d = findWholePaperBySlug(slug, paperSlug(p));
+    const questions = d ? paperQuestions(slug, d) : [];
+    return completeInventory(p, questions) ? questions : [];
+  });
+}
+
+export const latestYear = (papers: readonly WholePaperSummary[]) => Math.max(...papers.map(p => p.year));
+
+function paperPreviewAnswers(slug: BankSlug, paperId: string, questions: readonly PaperQuestion[]): WorkedAnswer[] {
+  const explanations = previewExplanations(slug, paperId);
+  return questions.flatMap(q => { const explanation = explanations.get(q.id); return explanation ? [{ number: q.number, marks: q.marks, topics: q.topics, explanation }] : []; });
+}
 
 function paperWorkedAnswers(slug: BankSlug, questions: readonly PaperQuestion[]): WorkedAnswer[] {
   const explanations = freeExplanations(slug);
@@ -82,9 +97,9 @@ function paperWorkedAnswers(slug: BankSlug, questions: readonly PaperQuestion[])
 }
 
 /** Coverage is measured against the archive's whole-paper question count, not the (possibly partial) list we hold. */
-function indexingFor(slug: BankSlug, p: WholePaperSummary, all: readonly WholePaperSummary[], workedAnswers: readonly WorkedAnswer[]): PaperIndexing {
-  const answered = new Set(workedAnswers.map(w => w.number)).size;
-  return paperIndexing({ year: p.year, latestYear: latestYear(all), questionCount: p.questionCount > 0 ? p.questionCount : null, workedAnswers: answered, qualification: qualificationOfBank(slug) });
+function indexingFor(slug: BankSlug, p: WholePaperSummary, free: readonly WorkedAnswer[], preview: readonly WorkedAnswer[]): PaperIndexing {
+  const answered = new Set(free.map(w => w.number)).size;
+  return paperIndexing({ questionCount: p.questionCount > 0 ? p.questionCount : null, workedAnswers: answered, demand: !!demandPage(slug, p.id), previewAnswers: new Set(preview.map(w => w.number)).size });
 }
 
 /** Where an unknown entry under a real subject should go: the paper's real URL, else that year's or the subject's list. */
@@ -119,9 +134,10 @@ export async function pastPaperSitemapPaths(): Promise<string[]> {
     const indexedPapers = papers.filter(p => {
       const detail = findWholePaperBySlug(bank.slug, paperSlug(p));
       if (!detail) return false;
-      return indexingFor(bank.slug, p, papers, paperWorkedAnswers(bank.slug, paperQuestions(bank.slug, detail))).indexed;
+      const questions = paperQuestions(bank.slug, detail);
+      return indexingFor(bank.slug, p, paperWorkedAnswers(bank.slug, questions), paperPreviewAnswers(bank.slug, p.id, questions)).indexed;
     });
-    return [`/past-papers/${subject}`, ...numbers.map(n => `/past-papers/${subject}/${n}`), ...indexedPapers.map(p => `/past-papers/${subject}/${paperSlug(p)}`)];
+    return [`/past-papers/${subject}`, `/past-papers/${subject}/${latestYear(papers)}`, ...numbers.map(n => `/past-papers/${subject}/${n}`), ...indexedPapers.map(p => `/past-papers/${subject}/${paperSlug(p)}`)];
   })];
 }
 

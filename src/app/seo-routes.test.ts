@@ -1,3 +1,4 @@
+import { lastUpdated } from "@/lib/updates";
 import { describe, expect, it } from "vitest";
 import robots, { AI_CRAWLERS } from "@/app/robots";
 import sitemap from "@/app/sitemap";
@@ -52,7 +53,12 @@ describe("search crawler routes", () => {
     }
     expect(new Set(urls).size).toBe(urls.length);
     expect(urls.every((url) => !url.includes("?"))).toBe(true);
-    expect(entries.filter(({ url }) => !url.includes("/articles/")).every((entry) => entry.lastModified === undefined)).toBe(true);
+    // Only articles (their own updatedAt) and notes (their course's newest changelog entry) carry a date.
+    for (const entry of entries.filter(({ url }) => !url.includes("/articles/"))) {
+      const path = entry.url.replace("https://pastpaperprep.com", "");
+      if (!path.startsWith("/revision-notes/")) expect(entry.lastModified, entry.url).toBeUndefined();
+      else expect(entry.lastModified).toBe(lastUpdated([path.split("/").slice(0, 3).join("/")]));
+    }
     expect(entries.every((entry) => entry.changeFrequency === undefined)).toBe(true);
     expect(entries.every((entry) => entry.priority === undefined)).toBe(true);
   }, 30_000);

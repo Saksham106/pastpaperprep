@@ -4,7 +4,7 @@ import { PastPaperHub } from '@/components/past-papers/PastPaperHub';
 import { PastPaperListPage } from '@/components/past-papers/PastPaperListPage';
 import { qualificationOfBank, type PastPaperQualification } from '@/lib/past-paper-catalog';
 import { isQualificationId } from '@/lib/qualifications';
-import { hubBanks, pastPaperParams, resolveSubject } from '@/lib/past-paper-pages';
+import { completeQuestionSets, hubBanks, latestYear, pastPaperParams, resolveSubject } from '@/lib/past-paper-pages';
 import { hubCopy, pastPaperMetadata, subjectCopy } from '@/lib/past-paper-seo';
 
 export const dynamicParams = false;
@@ -31,5 +31,6 @@ export default async function PastPaperSlugPage({ params }: { params: Promise<{ 
   }
   const subject = await resolveSubject(slug);
   if (!subject) notFound();
-  return <PastPaperListPage view={subject} />;
+  const latest = latestYear(subject.papers);
+  return <PastPaperListPage view={{ ...subject, latestSets: completeQuestionSets(subject.bank.slug, subject.papers.filter(p => p.year === latest)) }} />;
 }

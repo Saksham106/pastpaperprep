@@ -73,6 +73,17 @@ export function paperThreshold(subjectSlug: string, p: WholePaperSummary): Compo
   return table ? componentRow(table, p.component) : null;
 }
 
+/** Thresholds for each component sat in these papers' own series (a year list), when Cambridge published them. */
+export function seriesThresholds(subjectSlug: string, papers: readonly WholePaperSummary[]): ComponentThreshold[] {
+  const tables = getGradeThresholds(subjectSlug)?.tables ?? [];
+  const bySeries = new Map<string, Set<string>>();
+  for (const p of papers) { const series = thresholdSeries(p); if (series) bySeries.set(series, (bySeries.get(series) ?? new Set()).add(p.component)); }
+  return [...bySeries].flatMap(([series, components]) => {
+    const table = tables.find(t => t.series === series);
+    return table ? [...components].sort((a, b) => a.localeCompare(b, undefined, { numeric: true })).map(c => componentRow(table, c)).filter((row): row is ComponentThreshold => row !== null) : [];
+  });
+}
+
 /** Thresholds for every variant of one paper number in the latest series we hold, newest first. */
 export function paperNumberThresholds(subjectSlug: string, papers: readonly WholePaperSummary[], seriesLimit = 4): ComponentThreshold[] {
   const tables = getGradeThresholds(subjectSlug)?.tables ?? [];

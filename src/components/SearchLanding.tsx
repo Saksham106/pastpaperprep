@@ -18,6 +18,7 @@ import { getGradeThresholds } from "@/lib/grade-thresholds";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { qualificationInfo, qualifiedBankTitle } from "@/lib/qualifications";
 import { aLevelSuccessors, igcsePredecessors, IGCSE_TO_A_LEVEL_ARTICLE } from "@/lib/next-step-banks";
+import { articlesForBank, articlesForExam } from "@/lib/article-links";
 import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
 import { paperFacts, topicFacts } from "@/lib/quick-facts";
 import { hasPublishedExplanations } from "@/lib/explanations";
@@ -65,6 +66,7 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
   const banks = getCatalogBanksForDisplay().filter((bank) => bank.qualification === qualification);
   const path = qualificationInfo(qualification).hubPath;
   const updated = lastUpdated(banks.flatMap((bank) => [`/banks/${bank.slug}`, `/past-papers/${subjectSlugForBank(bank.slug)}`]));
+  const boardGuides = articlesForExam(qualification === "IB Diploma" ? "IB Diploma" : qualification);
   const igcseRoutes = qualification === "Cambridge A Level" ? banks.flatMap((to) => {
     const from = igcsePredecessors(to.slug).filter((bank) => bank.slug !== "igcse-coordinated-sciences-0654" && bank.slug !== "igcse-additional").map((bank) => bank.shortName);
     return from.length ? [{ to, from: from.join(" or ") }] : [];
@@ -80,6 +82,7 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
       <div className="search-bank-grid">
         {banks.map((bank) => <BankLandingCard key={bank.slug} bank={bank} />)}
       </div>
+      {boardGuides.length > 0 && <nav className="bank-seo-links" aria-labelledby="board-guides-heading"><h2 id="board-guides-heading">{qualificationInfo(qualification).shortLabel} revision guides</h2>{boardGuides.map((guide) => <Link transitionTypes={PAGE_NAVIGATION} key={guide.href} href={guide.href}>{guide.title}</Link>)}</nav>}
       {qualification === "IB Diploma" ? (
         <section className="landing-method" aria-labelledby="ib-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="ib-resources-heading">More IB study resources</h2></div>
@@ -138,6 +141,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   const canonicalPath = `/syllabus/${bank.slug}`;
   const hubPath = qualificationInfo(bank.qualification).hubPath;
   const successors = aLevelSuccessors(bank.slug);
+  const guides = articlesForBank(bank.slug);
   const guide = assessmentGuideFor(bank);
   const groupedPapers = assessmentGroups(guide.papers);
   const maxTopicCount = Math.max(1, ...manifest.syllabusTopics.map((topic) => topic.count));
@@ -218,6 +222,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
             : bank.qualification === "Cambridge A Level" ? <Link transitionTypes={PAGE_NAVIGATION} href={IGCSE_TO_A_LEVEL_ARTICLE}>Moving up from IGCSE</Link>
             : <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">Compare free IGCSE archives</Link>}
         </nav>
+        {guides.length > 0 && <nav className="bank-seo-links" aria-label={`${bank.shortName} guides`}>{guides.map((guide) => <Link transitionTypes={PAGE_NAVIGATION} key={guide.href} href={guide.href}>{guide.title}</Link>)}</nav>}
         {successors.length > 0 && <p className="access-footnote">Next step after {bank.shortName}: {successors.map((next, index) => <span key={next.slug}>{index > 0 ? (index === successors.length - 1 ? " or " : ", ") : null}<Link transitionTypes={PAGE_NAVIGATION} href={`/syllabus/${next.slug}`}>{qualifiedBankTitle(next)}</Link></span>)}. See <Link transitionTypes={PAGE_NAVIGATION} href={IGCSE_TO_A_LEVEL_ARTICLE}>what changes at A Level</Link>.</p>}
         <p className="official-source"><a href={officialQualificationSource(bank)} target="_blank" rel="noreferrer">Read the official {bank.qualification} course source <ArrowRight weight="bold" /></a></p>
       </section>

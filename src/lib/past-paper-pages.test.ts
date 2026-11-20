@@ -55,7 +55,9 @@ describe('indexing measures worked answers against the whole paper', () => {
     expect(view?.kind === 'paper' && view.complete).toBe(false);
     const paths = await pastPaperSitemapPaths();
     expect(paths).not.toContain('/past-papers/igcse-chemistry-0620/2019-may-june-23');
-    expect(paths).toContain('/past-papers/igcse-chemistry-0620/2024-may-june-23');
+    // The latest year's papers are listed through that year's page, not one by one.
+    expect(paths).not.toContain('/past-papers/igcse-chemistry-0620/2024-may-june-23');
+    expect(paths).toContain('/past-papers/igcse-chemistry-0620/2024');
     expect(paths).toContain('/past-papers/igcse-chemistry-0620/paper-2');
     expect(paths).not.toContain('/past-papers/igcse-chemistry-0620/2019');
   });

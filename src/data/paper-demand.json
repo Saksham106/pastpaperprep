@@ -1,0 +1,617 @@
+{
+  "selectedAt": "2026-11-20",
+  "rule": "A paper page is listed when, before or since the 2026-10-26 drop, it had at least 3 Google clicks on 2026-10-12..10-25 (Search Console), or at least 6 search or AI-assistant sessions landing on it in the 60 days to 2026-11-20 (PostHog, first pageview per session, single-page CN direct sessions excluded), or at least 2 Bing clicks on 2026-10-01..11-18. Free-year pages already indexed for worked answers are not listed. A listed page is indexed only with at least 2 printed preview explanations.",
+  "pages": [
+    {
+      "path": "/past-papers/ib-biology-hl/2025-may-paper-2-tz3",
+      "bank": "ib-biology-hl",
+      "paperId": "biology-2025-may-tz3-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 4,
+        "gscImpressionsOct12to25": 19,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 5,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2025-may-tz3-hl-p2-q1",
+        "2025-may-tz3-hl-p2-q2",
+        "2025-may-tz3-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-hl/2025-november-paper-2-tz1",
+      "bank": "ib-biology-hl",
+      "paperId": "biology-2025-november-tz1-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 21,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 2,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2025-november-tz1-hl-p2-q1",
+        "2025-november-tz1-hl-p2-q2",
+        "2025-november-tz1-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-hl/2026-may-paper-1b-tz1",
+      "bank": "ib-biology-hl",
+      "paperId": "biology-2026-may-tz1-hl-p1b-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 22,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 4,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-hl-p1b-q1",
+        "2026-may-tz1-hl-p1b-q3",
+        "2026-may-tz1-hl-p1b-q4"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-hl/2026-may-paper-1b-tz2",
+      "bank": "ib-biology-hl",
+      "paperId": "biology-2026-may-tz2-hl-p1b-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 9,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 4,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-hl-p1b-q1",
+        "2026-may-tz2-hl-p1b-q2",
+        "2026-may-tz2-hl-p1b-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-hl/2026-may-paper-2-tz1",
+      "bank": "ib-biology-hl",
+      "paperId": "biology-2026-may-tz1-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 4,
+        "gscImpressionsOct12to25": 17,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 7,
+        "posthogAiSessions60d": 7
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-hl-p2-q1",
+        "2026-may-tz1-hl-p2-q2",
+        "2026-may-tz1-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-hl/2026-may-paper-2-tz2",
+      "bank": "ib-biology-hl",
+      "paperId": "biology-2026-may-tz2-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 4,
+        "gscImpressionsOct12to25": 21,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 3,
+        "posthogAiSessions60d": 1
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-hl-p2-q1",
+        "2026-may-tz2-hl-p2-q2",
+        "2026-may-tz2-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-sl/2026-may-paper-1a-tz1",
+      "bank": "ib-biology-sl",
+      "paperId": "biology-2026-may-tz1-sl-p1a-english",
+      "evidence": {
+        "gscClicksOct12to25": 2,
+        "gscImpressionsOct12to25": 20,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 1,
+        "posthogAiSessions60d": 5
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-sl-p1a-q1",
+        "2026-may-tz1-sl-p1a-q2",
+        "2026-may-tz1-sl-p1a-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-sl/2026-may-paper-1a-tz3",
+      "bank": "ib-biology-sl",
+      "paperId": "biology-2026-may-tz3-sl-p1a-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 10,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 3,
+        "posthogAiSessions60d": 3
+      },
+      "previewQuestionIds": [
+        "2026-may-tz3-sl-p1a-q1",
+        "2026-may-tz3-sl-p1a-q2",
+        "2026-may-tz3-sl-p1a-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-biology-sl/2026-may-paper-2-tz2",
+      "bank": "ib-biology-sl",
+      "paperId": "biology-2026-may-tz2-sl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 4,
+        "gscImpressionsOct12to25": 59,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-sl-p2-q1",
+        "2026-may-tz2-sl-p2-q2",
+        "2026-may-tz2-sl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-hl/2026-may-paper-1a-tz1",
+      "bank": "ib-chemistry-hl",
+      "paperId": "chemistry-2026-may-tz1-hl-p1a-english",
+      "evidence": {
+        "gscClicksOct12to25": 7,
+        "gscImpressionsOct12to25": 18,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 12,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-hl-p1a-q1",
+        "2026-may-tz1-hl-p1a-q2",
+        "2026-may-tz1-hl-p1a-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-hl/2026-may-paper-1a-tz2",
+      "bank": "ib-chemistry-hl",
+      "paperId": "chemistry-2026-may-tz2-hl-p1a-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 11,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 4,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-hl-p1a-q1",
+        "2026-may-tz2-hl-p1a-q2",
+        "2026-may-tz2-hl-p1a-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-hl/2026-may-paper-2-tz1",
+      "bank": "ib-chemistry-hl",
+      "paperId": "chemistry-2026-may-tz1-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 15,
+        "gscImpressionsOct12to25": 70,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 14,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-hl-p2-q1",
+        "2026-may-tz1-hl-p2-q2",
+        "2026-may-tz1-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-hl/2026-may-paper-2-tz2",
+      "bank": "ib-chemistry-hl",
+      "paperId": "chemistry-2026-may-tz2-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 13,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-hl-p2-q1",
+        "2026-may-tz2-hl-p2-q2",
+        "2026-may-tz2-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-hl/2026-may-paper-2-tz3",
+      "bank": "ib-chemistry-hl",
+      "paperId": "chemistry-2026-may-tz3-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 4,
+        "gscImpressionsOct12to25": 47,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 5,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz3-hl-p2-q1",
+        "2026-may-tz3-hl-p2-q2",
+        "2026-may-tz3-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-sl/2026-may-paper-1a-tz2",
+      "bank": "ib-chemistry-sl",
+      "paperId": "chemistry-2026-may-tz2-sl-p1a-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 32,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 3,
+        "posthogAiSessions60d": 1
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-sl-p1a-q1",
+        "2026-may-tz2-sl-p1a-q2",
+        "2026-may-tz2-sl-p1a-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-sl/2026-may-paper-2-tz1",
+      "bank": "ib-chemistry-sl",
+      "paperId": "chemistry-2026-may-tz1-sl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 2,
+        "gscImpressionsOct12to25": 15,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 5,
+        "posthogAiSessions60d": 1
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-sl-p2-q1",
+        "2026-may-tz1-sl-p2-q2",
+        "2026-may-tz1-sl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-sl/2026-may-paper-2-tz2",
+      "bank": "ib-chemistry-sl",
+      "paperId": "chemistry-2026-may-tz2-sl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 5,
+        "gscImpressionsOct12to25": 13,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 8,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-sl-p2-q1",
+        "2026-may-tz2-sl-p2-q2",
+        "2026-may-tz2-sl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-chemistry-sl/2026-may-paper-2-tz3",
+      "bank": "ib-chemistry-sl",
+      "paperId": "chemistry-2026-may-tz3-sl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 1,
+        "gscImpressionsOct12to25": 2,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 7,
+        "posthogAiSessions60d": 1
+      },
+      "previewQuestionIds": [
+        "2026-may-tz3-sl-p2-q1",
+        "2026-may-tz3-sl-p2-q2",
+        "2026-may-tz3-sl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-economics-hl/2026-may-paper-1-tz1",
+      "bank": "ib-economics-hl",
+      "paperId": "economics-2026-may-tz1-hl-p1-english",
+      "evidence": {
+        "gscClicksOct12to25": 6,
+        "gscImpressionsOct12to25": 14,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 1
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-hl-p1-q01",
+        "2026-may-tz1-hl-p1-q02",
+        "2026-may-tz1-hl-p1-q03"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-economics-hl/2026-may-paper-3",
+      "bank": "ib-economics-hl",
+      "paperId": "economics-2026-may-none-hl-p3-english",
+      "evidence": {
+        "gscClicksOct12to25": 5,
+        "gscImpressionsOct12to25": 15,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-none-hl-p3-q01",
+        "2026-may-none-hl-p3-q02"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-hl/2026-may-paper-1-tz1",
+      "bank": "ib-hl",
+      "paperId": "2026-may-tz1-p1",
+      "evidence": {
+        "gscClicksOct12to25": 5,
+        "gscImpressionsOct12to25": 41,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 1
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-p1-q1",
+        "2026-may-tz1-p1-q2",
+        "2026-may-tz1-p1-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-hl/2026-may-paper-2-tz1",
+      "bank": "ib-hl",
+      "paperId": "2026-may-tz1-p2",
+      "evidence": {
+        "gscClicksOct12to25": 2,
+        "gscImpressionsOct12to25": 10,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-p2-q1",
+        "2026-may-tz1-p2-q2",
+        "2026-may-tz1-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-sl/2023-november-paper-1-tz1",
+      "bank": "ib-sl",
+      "paperId": "2023-november-p1-tz1",
+      "evidence": {
+        "gscClicksOct12to25": 0,
+        "gscImpressionsOct12to25": 5,
+        "bingClicksOct1toNov18": 3,
+        "posthogSearchSessions60d": 0,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2023-november-p1-tz1-q1",
+        "2023-november-p1-tz1-q2",
+        "2023-november-p1-tz1-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-sl/2026-may-paper-1-tz1",
+      "bank": "ib-sl",
+      "paperId": "2026-may-p1-tz1",
+      "evidence": {
+        "gscClicksOct12to25": 6,
+        "gscImpressionsOct12to25": 42,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 9,
+        "posthogAiSessions60d": 18
+      },
+      "previewQuestionIds": [
+        "2026-may-p1-tz1-q1",
+        "2026-may-p1-tz1-q2",
+        "2026-may-p1-tz1-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-sl/2026-may-paper-1-tz2",
+      "bank": "ib-sl",
+      "paperId": "2026-may-p1-tz2",
+      "evidence": {
+        "gscClicksOct12to25": 0,
+        "gscImpressionsOct12to25": 0,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 4,
+        "posthogAiSessions60d": 8
+      },
+      "previewQuestionIds": [
+        "2026-may-p1-tz2-q1",
+        "2026-may-p1-tz2-q2",
+        "2026-may-p1-tz2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-sl/2026-may-paper-1-tz3",
+      "bank": "ib-sl",
+      "paperId": "2026-may-p1-tz3",
+      "evidence": {
+        "gscClicksOct12to25": 2,
+        "gscImpressionsOct12to25": 10,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 28,
+        "posthogAiSessions60d": 7
+      },
+      "previewQuestionIds": [
+        "2026-may-p1-tz3-q1",
+        "2026-may-p1-tz3-q2",
+        "2026-may-p1-tz3-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-sl/2026-may-paper-2-tz1",
+      "bank": "ib-sl",
+      "paperId": "2026-may-p2-tz1",
+      "evidence": {
+        "gscClicksOct12to25": 5,
+        "gscImpressionsOct12to25": 24,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 5,
+        "posthogAiSessions60d": 8
+      },
+      "previewQuestionIds": [
+        "2026-may-p2-tz1-q1",
+        "2026-may-p2-tz1-q2",
+        "2026-may-p2-tz1-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-aa-sl/2026-may-paper-2-tz2",
+      "bank": "ib-sl",
+      "paperId": "2026-may-p2-tz2",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 26,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 5,
+        "posthogAiSessions60d": 2
+      },
+      "previewQuestionIds": [
+        "2026-may-p2-tz2-q1",
+        "2026-may-p2-tz2-q2",
+        "2026-may-p2-tz2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-ai-hl/2026-may-paper-2-tz1",
+      "bank": "ib-ai-hl",
+      "paperId": "2026-may-tz1-p2",
+      "evidence": {
+        "gscClicksOct12to25": 0,
+        "gscImpressionsOct12to25": 0,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 9,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-p2-q1",
+        "2026-may-tz1-p2-q2",
+        "2026-may-tz1-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-ai-sl/2025-may-paper-1-tz3",
+      "bank": "ib-ai-sl",
+      "paperId": "2025-may-tz3-p1",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 8,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 3,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2025-may-tz3-p1-q1",
+        "2025-may-tz3-p1-q2",
+        "2025-may-tz3-p1-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-math-ai-sl/2026-may-paper-1-tz1",
+      "bank": "ib-ai-sl",
+      "paperId": "2026-may-tz1-p1",
+      "evidence": {
+        "gscClicksOct12to25": 5,
+        "gscImpressionsOct12to25": 37,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 7,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-p1-q1",
+        "2026-may-tz1-p1-q2",
+        "2026-may-tz1-p1-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-physics-hl/2026-may-paper-2-tz1",
+      "bank": "ib-physics-hl",
+      "paperId": "physics-2026-may-tz1-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 4,
+        "gscImpressionsOct12to25": 26,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz1-hl-p2-q1",
+        "2026-may-tz1-hl-p2-q2",
+        "2026-may-tz1-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-physics-hl/2026-may-paper-2-tz2",
+      "bank": "ib-physics-hl",
+      "paperId": "physics-2026-may-tz2-hl-p2-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 22,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 4,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz2-hl-p2-q1",
+        "2026-may-tz2-hl-p2-q2",
+        "2026-may-tz2-hl-p2-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/ib-physics-sl/2026-may-paper-1a-tz3",
+      "bank": "ib-physics-sl",
+      "paperId": "physics-2026-may-tz3-sl-p1a-english",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 29,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 3,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "2026-may-tz3-sl-p1a-q1",
+        "2026-may-tz3-sl-p1a-q2",
+        "2026-may-tz3-sl-p1a-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/igcse-coordinated-sciences-0654/2024-may-june-11",
+      "bank": "igcse-coordinated-sciences-0654",
+      "paperId": "0654-2024-summer-11",
+      "evidence": {
+        "gscClicksOct12to25": 0,
+        "gscImpressionsOct12to25": 0,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 6,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "0654-2024-summer-11-q1",
+        "0654-2024-summer-11-q2",
+        "0654-2024-summer-11-q3"
+      ]
+    },
+    {
+      "path": "/past-papers/igcse-economics-0455/2025-may-june-21",
+      "bank": "igcse-economics-0455",
+      "paperId": "0455-2025-s-21",
+      "evidence": {
+        "gscClicksOct12to25": 3,
+        "gscImpressionsOct12to25": 26,
+        "bingClicksOct1toNov18": 0,
+        "posthogSearchSessions60d": 3,
+        "posthogAiSessions60d": 0
+      },
+      "previewQuestionIds": [
+        "0455-2025-s-21-q1",
+        "0455-2025-s-21-q2",
+        "0455-2025-s-21-q3"
+      ]
+    }
+  ]
+}

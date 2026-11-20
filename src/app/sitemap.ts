@@ -6,6 +6,7 @@ import { pastPaperSitemapPaths } from "@/lib/past-paper-pages";
 import { PAST_PAPER_PAGES_UPDATED } from "@/lib/past-paper-seo";
 import { notesPaths } from "@/lib/revision-notes";
 import { GRADE_THRESHOLDS } from "@/lib/grade-thresholds";
+import { lastUpdated } from "@/lib/updates";
 
 const SITE_URL = "https://pastpaperprep.com";
 
@@ -37,7 +38,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]),
     ...pastPapers.map((path) => ({ url: `${SITE_URL}${path}`, lastModified: PAST_PAPER_PAGES_UPDATED })),
     { url: `${SITE_URL}/revision-notes` },
-    ...notesPaths().map((path) => ({ url: `${SITE_URL}${path}` })),
+    // Notes carry the date of the newest changelog entry for their course (never the build date).
+    ...notesPaths().map((path) => {
+      const updated = lastUpdated([path.split("/").slice(0, 3).join("/")]);
+      return { url: `${SITE_URL}${path}`, ...(updated ? { lastModified: updated } : {}) };
+    }),
     ...GRADE_THRESHOLDS.map(({ subjectSlug }) => ({ url: `${SITE_URL}/grade-thresholds/${subjectSlug}` })),
   ];
 }

@@ -2,9 +2,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
-import { getVisibleCourse, lessonPath } from "@/lib/course-notes/course";
+import { coursePath, getVisibleCourse, lessonPath, topicPath } from "@/lib/course-notes/course";
 import { inlineToPlainText } from "@/lib/course-notes/plain-text";
-import { SITE_URL, lessonMeta } from "@/lib/course-notes/seo";
+import { SITE_URL, lessonMeta, notesBreadcrumb } from "@/lib/course-notes/seo";
 import { LessonPage } from "../LessonPage";
 import { withCourse, type LessonParams } from "./shared";
 
@@ -36,6 +36,7 @@ export function courseLessonRoute(slug: string) {
       return (
         <>
           <JsonLd data={{ "@context": "https://schema.org", "@type": "LearningResource", name: lesson.title, description: inlineToPlainText(lesson.summary), url: `${SITE_URL}${lessonPath(course, lesson)}`, educationalLevel: course.copy.educationalLevel, learningResourceType: "Course notes", timeRequired: `PT${lesson.readingMinutes}M`, author: { "@type": "Organization", name: "PastPaperPrep" } }} />
+          <JsonLd data={notesBreadcrumb([{ name: `${course.name} notes`, path: coursePath(course) }, { name: course.topics.find((t) => t.n === lesson.topic)?.name ?? "Topic", path: topicPath(course, lesson.topic) }, { name: lesson.title, path: lessonPath(course, lesson) }])} />
           {withCourse(course, <LessonPage course={course} lesson={lesson} />)}
         </>
       );
