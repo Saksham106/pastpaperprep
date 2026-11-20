@@ -8,14 +8,211 @@
    "verdict": "valid-pair",
    "evidence": "Cambridge's published scheme prints the template placeholder '9702/COMP' on its cover and every page header instead of 9702/22. The cover otherwise reads PHYSICS, Paper 2 AS Level Structured Questions, March 2021, Maximum Mark: 60. March has a single Paper 2 variant (22); the question paper's footers all read 9702/22/F/M/21, and the scheme's mark tokens sum to 60, the question paper's printed total. Reviewed in the 9702 content workspace (data/identity-review-cases.json, 2026-11-17) and re-checked from the rendered covers 2026-11-20.",
    "extractedHeaderFields": {
-    "question": { "coverPage": 1, "examCodeLiteral": "9702/22", "paperLiteral": "Paper 2 AS Level Structured Questions", "dateOrSessionLiteral": "February/March 2021" },
-    "markscheme": { "coverPage": 1, "examCodeLiteral": "9702/COMP", "paperLiteral": "Paper 2 AS Level Structured Questions", "sessionLiteral": "March 2021", "maximumMark": 60 }
+    "question": {
+     "coverPage": 1,
+     "examCodeLiteral": "9702/22",
+     "paperLiteral": "Paper 2 AS Level Structured Questions",
+     "dateOrSessionLiteral": "February/March 2021"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "examCodeLiteral": "9702/COMP",
+     "paperLiteral": "Paper 2 AS Level Structured Questions",
+     "sessionLiteral": "March 2021",
+     "maximumMark": 60
+    }
    },
    "proposedRule": "Individual exception keyed by bank/paper plus BOTH PDF SHA-256 hashes; the '9702/COMP' placeholder is accepted only for this 9702/22 March 2021 pair.",
    "category": "published-component-label",
    "visualEvidence": [
-    { "document": "question", "sourcePdfSha256": "af5174f518021cd1da4bef36b5fccd01b7d58268a363ec91c6cc9a77f76a011d", "page": 1, "renderer": "PyMuPDF 2.1 page 1 at 72 dpi", "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/dda920596eb41cc3d04748ee9856e182d3a6f721234563c663c179bfb11dc589.png", "imageSha256": "dda920596eb41cc3d04748ee9856e182d3a6f721234563c663c179bfb11dc589" },
-    { "document": "markscheme", "sourcePdfSha256": "5c77ca751eda5866b5bfa36ebc5cb22e6e9b93f8b88d3ab24ad35b4cc3e069f2", "page": 1, "renderer": "PyMuPDF 2.1 page 1 at 72 dpi", "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/c402f932314896888e44688f58e8e84161142209d43772699628558849dc0e80.png", "imageSha256": "c402f932314896888e44688f58e8e84161142209d43772699628558849dc0e80" }
+    {
+     "document": "question",
+     "sourcePdfSha256": "af5174f518021cd1da4bef36b5fccd01b7d58268a363ec91c6cc9a77f76a011d",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/dda920596eb41cc3d04748ee9856e182d3a6f721234563c663c179bfb11dc589.png",
+     "imageSha256": "dda920596eb41cc3d04748ee9856e182d3a6f721234563c663c179bfb11dc589"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "5c77ca751eda5866b5bfa36ebc5cb22e6e9b93f8b88d3ab24ad35b4cc3e069f2",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/c402f932314896888e44688f58e8e84161142209d43772699628558849dc0e80.png",
+     "imageSha256": "c402f932314896888e44688f58e8e84161142209d43772699628558849dc0e80"
+    }
+   ]
+  },
+  {
+   "bankSlug": "a-level-economics-9708",
+   "paperId": "9708-2025-w-22",
+   "questionSha256": "9e6f889005f018152897a3f4cf878b6d44924353abda8af2769d2dbc520bbca0",
+   "markschemeSha256": "c5d5e270ea2c6ac6aaffeabbe0c0c2bb5294c1079af4339ffabae6976d92edb6",
+   "verdict": "valid-pair",
+   "evidence": "The question paper's cover has no text layer (a single image, as Cambridge published it; bytes equal Exam Easy's copy). The rendered cover reads Cambridge International AS & A Level, ECONOMICS, 9708/22, Paper 2 AS Level Data Response and Essays, October/November 2025, 2 hours, total mark 60. Every inner-page footer reads 9708/22/O/N/25. The mark scheme's cover text reads 9708/22, October/November 2025, Maximum Mark: 60. Reviewed in the 9708 content workspace (data/identity-review-cases.json, 2026-11-19) and re-checked from the rendered covers 2026-11-20.",
+   "extractedHeaderFields": {
+    "question": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/22",
+     "paperLiteral": "Paper 2 AS Level Data Response and Essays",
+     "dateOrSessionLiteral": "October/November 2025",
+     "textLayer": "none (image-only cover)"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/22",
+     "sessionLiteral": "October/November 2025",
+     "maximumMark": 60
+    }
+   },
+   "proposedRule": "Individual exception keyed by bank/paper plus BOTH PDF SHA-256 hashes; the image-only cover is accepted only for this pair.",
+   "category": "image-only-cover",
+   "visualEvidence": [
+    {
+     "document": "question",
+     "sourcePdfSha256": "9e6f889005f018152897a3f4cf878b6d44924353abda8af2769d2dbc520bbca0",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/68c3d2b983dee2d9aad257f56d809535f1c057e5bca0cd487c0e6ee6255554de.png",
+     "imageSha256": "68c3d2b983dee2d9aad257f56d809535f1c057e5bca0cd487c0e6ee6255554de"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "c5d5e270ea2c6ac6aaffeabbe0c0c2bb5294c1079af4339ffabae6976d92edb6",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/67837452fb711c33f3b9d8697190f84b7832029b16cd5156cc8d70f079042361.png",
+     "imageSha256": "67837452fb711c33f3b9d8697190f84b7832029b16cd5156cc8d70f079042361"
+    }
+   ]
+  },
+  {
+   "bankSlug": "a-level-economics-9708",
+   "paperId": "9708-2025-w-23",
+   "questionSha256": "2e308446448d4990fd4becf2c50d9afc79d0e031069af88a2b95a706d9818a5b",
+   "markschemeSha256": "42634ba7ac63e6e840f51c3f2763253d0f5643b35ee9f1b3ebd762f1816a6b9a",
+   "verdict": "valid-pair",
+   "evidence": "The question paper's cover has no text layer (a single image, as Cambridge published it; bytes equal Exam Easy's copy). The rendered cover reads Cambridge International AS & A Level, ECONOMICS, 9708/23, Paper 2 AS Level Data Response and Essays, October/November 2025, 2 hours, total mark 60. Every inner-page footer reads 9708/23/O/N/25. The mark scheme's cover text reads 9708/23, October/November 2025, Maximum Mark: 60. Reviewed in the 9708 content workspace (data/identity-review-cases.json, 2026-11-19) and re-checked from the rendered covers 2026-11-20.",
+   "extractedHeaderFields": {
+    "question": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/23",
+     "paperLiteral": "Paper 2 AS Level Data Response and Essays",
+     "dateOrSessionLiteral": "October/November 2025",
+     "textLayer": "none (image-only cover)"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/23",
+     "sessionLiteral": "October/November 2025",
+     "maximumMark": 60
+    }
+   },
+   "proposedRule": "Individual exception keyed by bank/paper plus BOTH PDF SHA-256 hashes; the image-only cover is accepted only for this pair.",
+   "category": "image-only-cover",
+   "visualEvidence": [
+    {
+     "document": "question",
+     "sourcePdfSha256": "2e308446448d4990fd4becf2c50d9afc79d0e031069af88a2b95a706d9818a5b",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/425489ef3833424678c4c9b126636daf25ca39bcb2dbfc24d515b8343ab5a7bb.png",
+     "imageSha256": "425489ef3833424678c4c9b126636daf25ca39bcb2dbfc24d515b8343ab5a7bb"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "42634ba7ac63e6e840f51c3f2763253d0f5643b35ee9f1b3ebd762f1816a6b9a",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/bf059fb015245260e93d7e8b668f8ba19947c63005562e65575a92716a9ba19c.png",
+     "imageSha256": "bf059fb015245260e93d7e8b668f8ba19947c63005562e65575a92716a9ba19c"
+    }
+   ]
+  },
+  {
+   "bankSlug": "a-level-economics-9708",
+   "paperId": "9708-2026-s-22",
+   "questionSha256": "4d7a5326e3b0a6e81f907de104a4259289f42927346471c04647e427e45251b0",
+   "markschemeSha256": "903ac3d608de21e4a420ce85b57a408fc58e823f428212b12d8a4645fb7b7d0d",
+   "verdict": "valid-pair",
+   "evidence": "The question paper's cover has no text layer (a single image, as Cambridge published it; bytes equal Exam Easy's copy). The rendered cover reads Cambridge International AS & A Level, ECONOMICS, 9708/22, Paper 2 AS Level Data Response and Essays, May/June 2026, 2 hours, total mark 60. Every inner-page footer reads 9708/22/M/J/26. The mark scheme's cover text reads 9708/22, May/June 2026, Maximum Mark: 60. Reviewed in the 9708 content workspace (data/identity-review-cases.json, 2026-11-19) and re-checked from the rendered covers 2026-11-20.",
+   "extractedHeaderFields": {
+    "question": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/22",
+     "paperLiteral": "Paper 2 AS Level Data Response and Essays",
+     "dateOrSessionLiteral": "May/June 2026",
+     "textLayer": "none (image-only cover)"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/22",
+     "sessionLiteral": "May/June 2026",
+     "maximumMark": 60
+    }
+   },
+   "proposedRule": "Individual exception keyed by bank/paper plus BOTH PDF SHA-256 hashes; the image-only cover is accepted only for this pair.",
+   "category": "image-only-cover",
+   "visualEvidence": [
+    {
+     "document": "question",
+     "sourcePdfSha256": "4d7a5326e3b0a6e81f907de104a4259289f42927346471c04647e427e45251b0",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/526335dae2ec73896c1a67a6207027bb9d169f5746548c8c6b6ddd9c95a9f1f2.png",
+     "imageSha256": "526335dae2ec73896c1a67a6207027bb9d169f5746548c8c6b6ddd9c95a9f1f2"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "903ac3d608de21e4a420ce85b57a408fc58e823f428212b12d8a4645fb7b7d0d",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/bd4658c7fa5093711e6ccd0f70923cb6f9575bbc930f181ad17dac22ca7db44c.png",
+     "imageSha256": "bd4658c7fa5093711e6ccd0f70923cb6f9575bbc930f181ad17dac22ca7db44c"
+    }
+   ]
+  },
+  {
+   "bankSlug": "a-level-economics-9708",
+   "paperId": "9708-2026-s-23",
+   "questionSha256": "6018fada31dade66c6df142c437d22b69e12c6e6ca762942d443339a04561309",
+   "markschemeSha256": "35ab0fd4e85877f557446a9f852b578b3abe61d700c068b9641a9df02c7fce88",
+   "verdict": "valid-pair",
+   "evidence": "The question paper's cover has no text layer (a single image, as Cambridge published it; bytes equal Exam Easy's copy). The rendered cover reads Cambridge International AS & A Level, ECONOMICS, 9708/23, Paper 2 AS Level Data Response and Essays, May/June 2026, 2 hours, total mark 60. Every inner-page footer reads 9708/23/M/J/26. The mark scheme's cover text reads 9708/23, May/June 2026, Maximum Mark: 60. Reviewed in the 9708 content workspace (data/identity-review-cases.json, 2026-11-19) and re-checked from the rendered covers 2026-11-20.",
+   "extractedHeaderFields": {
+    "question": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/23",
+     "paperLiteral": "Paper 2 AS Level Data Response and Essays",
+     "dateOrSessionLiteral": "May/June 2026",
+     "textLayer": "none (image-only cover)"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "examCodeLiteral": "9708/23",
+     "sessionLiteral": "May/June 2026",
+     "maximumMark": 60
+    }
+   },
+   "proposedRule": "Individual exception keyed by bank/paper plus BOTH PDF SHA-256 hashes; the image-only cover is accepted only for this pair.",
+   "category": "image-only-cover",
+   "visualEvidence": [
+    {
+     "document": "question",
+     "sourcePdfSha256": "6018fada31dade66c6df142c437d22b69e12c6e6ca762942d443339a04561309",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/57ed421cb9fcdcfb53df73d1cc927828e047f9117678d83d8360c2d6c449bac7.png",
+     "imageSha256": "57ed421cb9fcdcfb53df73d1cc927828e047f9117678d83d8360c2d6c449bac7"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "35ab0fd4e85877f557446a9f852b578b3abe61d700c068b9641a9df02c7fce88",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/b653e604c171c5d91e33256991840d663e66aece50cddfa0dd8ce972dbfc3639.png",
+     "imageSha256": "b653e604c171c5d91e33256991840d663e66aece50cddfa0dd8ce972dbfc3639"
+    }
    ]
   }
  ]

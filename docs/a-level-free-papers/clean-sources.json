@@ -3,6 +3,195 @@
  "reason": "The bestexamhelp.com copies of every 2020 Feb/March and May/June A Level QP and MS carry a cover stamp. These clean copies of the same files are what the archive binds and publishes. Each one: no host stamp on scan, same page count, identical page text once the stamp is ignored, 0 differing pixels on pages 2+, the same producer and the same creation time as the stamped file, and no later modification. Evidence: research/stamp-scan-a-level-2026-11/results.json.",
  "sources": [
   {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-m-12",
+   "role": "question",
+   "stampedSha256": "849017f9b888cefcb815e3dc4fec3c223fd3fdf48f92c062d6b47e0d951c0767",
+   "cleanSha256": "f4e3c33b2cd0b455ce49513cb1f2fea37c23d19098ee74aa13e817235e8395e5",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_m20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-m-22",
+   "role": "question",
+   "stampedSha256": "dde157b38ec35b5a18a076c3ddac649431d356f6a290b695fdb659fbffe2976a",
+   "cleanSha256": "312c16423ba715f41d9ce39cde61ee2f11002e5cd74a854715e3dd842975d366",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_m20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-m-42",
+   "role": "question",
+   "stampedSha256": "ce1918b07f7beaff0fdc5109c203e4b614fcdef6947cd67ff220d23d2d67c906",
+   "cleanSha256": "55017dde4c305c76acb6b0e84b736f4de88af82c1b1dd8c5a23e83b0bbf29498",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_m20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-11",
+   "role": "markscheme",
+   "stampedSha256": "e78e54104e94e8814d4500b3df815b15a7e0b7e30b9845adaef306f86217793d",
+   "cleanSha256": "f4f55548abd381e614bd1c0ba72ddf4f5d5ddf0ca5418f13a1a1cabe8c299be9",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_11.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-11",
+   "role": "question",
+   "stampedSha256": "4bd2821768370ce439669b7588c6d4bfe10d2b2b9bdd872299ad532990f9792a",
+   "cleanSha256": "491e8c93f7c37a04704e8f7e3296cb336bd22465fdebdc23e06156a2264aec2f",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_11.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-12",
+   "role": "markscheme",
+   "stampedSha256": "89cc1740166603c0de9d0c8d8bdaef6e6cca0638c4345a4d40bcc52a7c151ba9",
+   "cleanSha256": "c2103fb9c6dd6be0f0b7594ae88e7c7a10db2e1a6d18d1d01187b960bb531391",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-12",
+   "role": "question",
+   "stampedSha256": "e0fdb15ed249e8273bf17abaa2d7eceb17cb2743791d2a6ff85fd4960e515ea8",
+   "cleanSha256": "dd7984a74c75733bbff5d9b7ff003c08593a7241aa48624a31bb0f8fb119360d",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-13",
+   "role": "markscheme",
+   "stampedSha256": "c831da606ce26096f1702ac695ace4f0d99764ef18cbb5b2bab39074b52b986e",
+   "cleanSha256": "27a01226e5fa7706416f295889bb64549a65dad9c4742cba59aaaf98ef77300f",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_13.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-13",
+   "role": "question",
+   "stampedSha256": "6e1ff73ee537d5c933c4a950b7bda4a22ba87c5494068c869fc4649c61229e5d",
+   "cleanSha256": "f205394a92efac605e210edad1b7c01b9ccb37eda43758d21c9c32c4d2c83043",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_13.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-21",
+   "role": "markscheme",
+   "stampedSha256": "f9a17ada9692cfd10bd0f21a3ef91fb865ccbdb314574074e21290b20ab24532",
+   "cleanSha256": "064812d6b93fbc9e3e9067b70a2e46646ed34728e0df63ebcad79cb9b08c8889",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_21.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-21",
+   "role": "question",
+   "stampedSha256": "746086fa2ec08a7ce67feb3e3e1f91fca32370cea0a9fba7c9ac158a7a435274",
+   "cleanSha256": "766dddaa703ad1073a383be538059421dae38f5079fc05a075cea606840588dc",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_21.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-22",
+   "role": "markscheme",
+   "stampedSha256": "92a1070f694a5f765f0fec78842b57b33078c1b441e6a5e7a60556de4f40e3f7",
+   "cleanSha256": "ef5c7075c1327a545e91b6ece4d5351f02d9181a1d87cdc8b25092de1462bd50",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-22",
+   "role": "question",
+   "stampedSha256": "990821256b5329e60ca147987fd60a88b2be131b23faf0aebeba39cc6b36e09c",
+   "cleanSha256": "db02dc02f60ad228b2799c9823a160def120287195bf84625e122ab1d52a930c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-23",
+   "role": "markscheme",
+   "stampedSha256": "451995b35ac22eadbc73dc55b8c7d6b66fdcd5517c4cddd6380188cf3957f583",
+   "cleanSha256": "68d4c88c4c3985dd1a2b43a801ecba7f61b6978fc25b247fd4d6378bc764085f",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_23.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-23",
+   "role": "question",
+   "stampedSha256": "10ffda4ea31c8edafefec3decbfae9c43b4a5d0d028ba1fc6f0bf87761be546d",
+   "cleanSha256": "3e6178e55c0c141aa5b845357a541afdd8c829894be82e3b32fb2dcebaf07be9",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_23.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-41",
+   "role": "markscheme",
+   "stampedSha256": "477d38fe26ad926f156dc3af14fd78ecbcbb8e1450e9779c1e26f00f3fda320e",
+   "cleanSha256": "dd3d39a57458d69851579d290d266567cbb6dba0e04a5da4428d657d2c556e1c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_41.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-41",
+   "role": "question",
+   "stampedSha256": "ade82f4aa0d3d284b447db2c15706765640080070054907682bade82264dafe3",
+   "cleanSha256": "1223150fdb70f75258f777baf5c748e0360e5d3cd1002c5f725ad2c5e045bce6",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_41.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-42",
+   "role": "markscheme",
+   "stampedSha256": "2f602754789ef7001f7bd0cb5656d4034345c60c3df60a4899abd6af01292a94",
+   "cleanSha256": "5dbbf08c30ec3d10e992164ffed95a37637a8e46b45a83c4d350cd2ece0833fd",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-42",
+   "role": "question",
+   "stampedSha256": "b80a9cf3a2f0666c435e66f4afeeb8bcab624a6b064e0356256656cca9a98ac1",
+   "cleanSha256": "9b2ecea7f9852e8231fce193a418fb3dd715f7d5adb867c18b56c6ac20e93898",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-43",
+   "role": "markscheme",
+   "stampedSha256": "5ec91e1f98f67aa5510761873ee9a7c1e136e9a988b9ae1ec7ec6dbe57c22c88",
+   "cleanSha256": "79cca36811f67b8e384d6f7414fbe03b86821b7adc491221e93bd5556f099f00",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_ms_43.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-biology-9700",
+   "paper": "9700-2020-s-43",
+   "role": "question",
+   "stampedSha256": "f0987731d137890501684f63fe77e7e9da54f9d1eb7d158f1fae54c89dced47f",
+   "cleanSha256": "7887245d1fd144186fc713edc5ade97f2ed0cd68ca53ff4a34ba4eb0faec5c18",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9700_s20_qp_43.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
    "bank": "a-level-chemistry-9701",
    "paper": "9701-2020-m-12",
    "role": "markscheme",
@@ -432,6 +621,294 @@
    "stampedSha256": "02ccd21b4ff7d6b69683d4b537fedb3248ea7418739a13bdc5526dea14657c1f",
    "cleanSha256": "5658023c3abe68ae0824cb91661875a8a9e913cf3562ad52cdfdde8d77e0359c",
    "sourceUrl": "https://d.exam-easy.com/pdf/9702_s20_qp_43.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-12",
+   "role": "markscheme",
+   "stampedSha256": "dee69c1a4aea030a035dc62cdd9285079e14acdd45e66541cf1abaad79c9d6cb",
+   "cleanSha256": "6be70cac54603961a0bf0576bc4bad010a0c11fa4f0a02ecf1509a8b6d29f284",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-12",
+   "role": "question",
+   "stampedSha256": "3a28e35856b2056a131ff513cc7be58f90f25f0e47777fd03021960831ad0a3b",
+   "cleanSha256": "23091286ac8e4d6c412d5cd7a2d9c55d6206bc48f989fa8a2e6d97c3abdd8eef",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-22",
+   "role": "markscheme",
+   "stampedSha256": "160d18ea403d79f4d13122ecdb4e0a61773859838ce8979c7b9dd2fa9486d9f5",
+   "cleanSha256": "22d977aa27d6b616cf5ba8c30419780166356f229c6ffd2a225e52a5eba53a93",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-22",
+   "role": "question",
+   "stampedSha256": "71c5f968234a2b7fc886ad8bd701c28f4f164a167268eff434ab72d3afd9b8cc",
+   "cleanSha256": "590d7e0c0aa524b075e6e4fb84e0b0225f33add7940e6aa0ad6034e5feb14e6c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-32",
+   "role": "markscheme",
+   "stampedSha256": "d7235eceeaa957b8e916f8ea36d6ee17d150608ee14871acd4c6fba428820c1d",
+   "cleanSha256": "cf3ed04bc628b399cbbe9faed52fbea0fc380ce2b44f56587d50312f965d1517",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_ms_32.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-32",
+   "role": "question",
+   "stampedSha256": "f6aadb8e99e2bd2c5aeb33547d4eb0da69103fbda35c911ed215d07627a5e8ce",
+   "cleanSha256": "a0970c8b7dc73d579a192de35832c9e19a01090a96b32886afcb33c560c6e05d",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_qp_32.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-42",
+   "role": "markscheme",
+   "stampedSha256": "7571e70f3ce3db2898ae839d06cdd4449881b337bfa8c4c9d0b39c73fd231383",
+   "cleanSha256": "2d1bd84bd98af0ce2fdc39e92788cac11ff880156e680550be975c119de14e63",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-m-42",
+   "role": "question",
+   "stampedSha256": "f5cfebb85dc3b84fbcd21ad3f95fd1e4354a7d19be9e203c71b31fe89c70a81f",
+   "cleanSha256": "830007c0901dd00c9864ad9d4ff77c727ba446676ca8d52791f049a36928cd2b",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_m20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-11",
+   "role": "markscheme",
+   "stampedSha256": "f043134ea0803a3718e6df59fed88ecf1fb191fd1e73602cb76edafb763429dd",
+   "cleanSha256": "679a87900c2cba57b7b7d1b8d8319b0d14ed6d3a443ccbd9d7664a100dc2d1b7",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_11.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-11",
+   "role": "question",
+   "stampedSha256": "999ed5edc2264c35dd7eb57292e535f57b8f0ed0ae670eece7128c0afd830bb4",
+   "cleanSha256": "856c37a46d42f357e26ea41924ab0dfe297b8d3ee31b0d490130366d5c6edc0d",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_11.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-12",
+   "role": "markscheme",
+   "stampedSha256": "ad929543b04dc7c6f469a987256626f71469987efa9f8bb984fe32047ef990e2",
+   "cleanSha256": "588ceb8a4feb263d6926a69c4689d0829a293367a516f4fa3f0d32109432ad05",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-12",
+   "role": "question",
+   "stampedSha256": "332fa8b444047dfb153ca7705d64bb5042be367e3f16b1ad1283948c4068d160",
+   "cleanSha256": "7e8d0e9166fb60f7b7abf0235b42896fd2c98347ecd3092a831b2ef8a0273224",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_12.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-13",
+   "role": "markscheme",
+   "stampedSha256": "963b980b59c78f6949e205d9d397db4262bb13f58f756b5d54e34edb8eafbac6",
+   "cleanSha256": "c7069ab1b2bbccc87488c0fd8300ff50889330bc35fc09778174481464c8ea98",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_13.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-13",
+   "role": "question",
+   "stampedSha256": "e77d52d76bff5842aa032adabde726fcbc7980f5bdd0ceb6219230ea71b83371",
+   "cleanSha256": "5917b83219ac329fbddc2755e8ebce7eee6a5f6f5e4cddb9a65ef871d1f80a3b",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_13.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-21",
+   "role": "markscheme",
+   "stampedSha256": "0a8b7c99578bc417af73bbdae491b57aa7b1a4f867a8b9625c8802681368ec62",
+   "cleanSha256": "2e45406768188de8fda813b1d86d3dc60f602b573745c99adb74f1e88dc717b0",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_21.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-21",
+   "role": "question",
+   "stampedSha256": "6f07338e2719ad9b4d3649c9957521c7c960148a395f14dc6a50ceb30d7d7346",
+   "cleanSha256": "cdf49573673cb20f488897c16f1d744dc150f27065e55ba7b72c75261ff9e414",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_21.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-22",
+   "role": "markscheme",
+   "stampedSha256": "194a303f92a60e873976af45f650b09d618d5f64833c7ebc531905941d67db84",
+   "cleanSha256": "0bbcf2c137942f18859e64d84809d52adb8a05d43a28e1e45da9849fb747d47e",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-22",
+   "role": "question",
+   "stampedSha256": "e345eab0436a01c3060d63cad8a2aa88ba828c634afd2a5fab2e8f5aca1ce828",
+   "cleanSha256": "3290d8a2d050d76d067e237e9a5ef3f8847b570520b5c67cdbf14a3145dafd3a",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-23",
+   "role": "markscheme",
+   "stampedSha256": "aaf9de25c018e9ae07ee9de4b6faa3aa59a73c1867045b71391a64933e8c7533",
+   "cleanSha256": "2bf51cf5eb713e167427d296c628f37adb10d71c9397f67d1831f05b17ba701c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_23.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-23",
+   "role": "question",
+   "stampedSha256": "bf13bb77b5822df205a9bbe8213426cf489ea2532da345da46bd3899a49c7d0d",
+   "cleanSha256": "d13b9a0c93f10e56fb8428f4514b9482b55bbe76c0905a5aa09e49795738fe41",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_23.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-31",
+   "role": "markscheme",
+   "stampedSha256": "fa74f6d73d68b3a79ab2910afd31fdb7268ffdb51f9f396eb90eb1e363a56d8a",
+   "cleanSha256": "3a33da7198e792bcb7ea380b6a6229aa0c7c0a82aa4050c6574aeda4da4baab5",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_31.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-31",
+   "role": "question",
+   "stampedSha256": "2e38ffa58d71a03da10773c3bfec16f24bc723524c487ec6fca4c17a82952b34",
+   "cleanSha256": "cc836cd37a6f6193b6a8cb9ae43bd8aac7d37043d2adc9c3a877c140904e67fd",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_31.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-32",
+   "role": "markscheme",
+   "stampedSha256": "c205e66b55b3095a2cbe4a3557be1e812ea06b72005dc2e59d8b074c3a7d75ab",
+   "cleanSha256": "41b3aef4665c05ac37de2aa50109336470795dc25473ab2b0571d7ffc5989bc0",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_32.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-32",
+   "role": "question",
+   "stampedSha256": "a623caf56c6445ad27dd104302862754c75ade000e3868d78374aecb1721af38",
+   "cleanSha256": "826d60c65ce1a1a5512377c34f0ef9c7e3b492643246b4443c73adb026ca9927",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_32.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-33",
+   "role": "markscheme",
+   "stampedSha256": "6a483256103d470f781316ae28caf3f9aadc8f6285897f67952e1ef6e4ccab1d",
+   "cleanSha256": "e708129a92d538fa333f38db8d387b2d9b62f677b3f6dda6fb180d86556e1284",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_33.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-33",
+   "role": "question",
+   "stampedSha256": "b907a023b53c14ad9dc285c15ab0526abcd8fbe99f0e7e87e15f1cded952741a",
+   "cleanSha256": "4062a08798660f8a8699707cea670fd9a148134f9362c4ca99ef18a89856d4df",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_33.pdf",
+   "producer": "Acrobat Distiller 5.0.5 (Windows)"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-41",
+   "role": "markscheme",
+   "stampedSha256": "f307b953e6c3e964a12d0fe4c42003bb07a901a67c22d59abd173869fae8a31d",
+   "cleanSha256": "8c08cef8ad4378642a51529b478ecf9413097847c5b10d78b1512d4aa86203f9",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_41.pdf",
+   "producer": "Adobe PDF Library 20.9.95"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-41",
+   "role": "question",
+   "stampedSha256": "537e648628c71ee6618f16fef795e164234152230fe5fa52ce3a12a61a3e6830",
+   "cleanSha256": "0237d0c16be77bf9709bfba3e7e0f70bb5c6db13489179651ad28fb70ea2f33a",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_41.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-42",
+   "role": "markscheme",
+   "stampedSha256": "0a8617870d4e55c640b00bf9f813f6265c0fb2935795523e3914b33e1d422194",
+   "cleanSha256": "a6d7470de54550a947779d8ef50f76de0b8337d828df4a1820b6b069fee8cf25",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_42.pdf",
+   "producer": "Adobe PDF Library 20.9.95"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-42",
+   "role": "question",
+   "stampedSha256": "75d2d68e487de1f7cfe9b47018ee036fdc940b157037e9ee399abe86115dafd0",
+   "cleanSha256": "05e7f366e1d53d6d3e3c862c7cf8ab6af80f1cf6fcc7c3212ae5295694883df7",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-43",
+   "role": "markscheme",
+   "stampedSha256": "d0a354623e9fa00e0f48905a48e782981955f96deeae753f8e7cc32ea040e7d9",
+   "cleanSha256": "8dac27f0f5a3561ab0601a7ab4e74801f7434f9203306d147d606e946868f235",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_ms_43.pdf",
+   "producer": "Adobe PDF Library 20.9.95"
+  },
+  {
+   "bank": "a-level-economics-9708",
+   "paper": "9708-2020-s-43",
+   "role": "question",
+   "stampedSha256": "1acfe3c8f23770d43a29f39706582f2c9a1a2adf78d01d5af3a838f4c33741fd",
+   "cleanSha256": "1ce51e10a85d173b0400f130ccb7a86aa43bc29e8d4250b9f1cbc8cc7f6dca80",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9708_s20_qp_43.pdf",
    "producer": "Adobe PDF Library 15.0"
   },
   {
