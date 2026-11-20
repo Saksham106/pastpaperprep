@@ -147,6 +147,33 @@ const GUIDES: Partial<Record<BankSlug, AssessmentGuide>> = {
     ],
     caveat: "Papers 3 (practical) and 5 (planning) are not in the bank. 2020–2021 papers follow the earlier syllabus; removed content sits under its own earlier-syllabus topics. The May/June 2020 papers were published but never sat.",
   },
+  // Durations, totals and weightings: the 2025–2027 syllabus assessment overview, p. 10 (source workspace data/paper-facts.json).
+  // Paper 1 was 1 hour in 2020–2021 (2019–2021 syllabus and those question paper covers). In 2020–2021 Paper 4, Section B was a
+  // choice of two 15-mark essays; candidates answered one.
+  "a-level-biology-9700": {
+    version: "2025–2027 syllabus",
+    summary: "AS Level is Papers 1, 2 and 3. A Level adds Papers 4 and 5. This bank holds Papers 1, 2 and 4.",
+    papers: [
+      { name: "Paper 1", format: "Multiple choice (AS content)", duration: "1 hr 15 min (1 hr in 2020–21)", marks: "40", weighting: "31% of AS, 15.5% of A Level" },
+      { name: "Paper 2", format: "AS structured questions", duration: "1 hr 15 min", marks: "60", weighting: "46% of AS, 23% of A Level" },
+      { name: "Paper 4", format: "A Level structured questions", duration: "2 hr", marks: "100", weighting: "38.5% of A Level" },
+    ],
+    caveat: "Papers 3 (practical) and 5 (planning) are not in the bank. 2020–2021 papers follow the earlier syllabus; removed content sits under its own earlier-syllabus topics. In 2020–2021 Paper 4, candidates answered one of the two Section B essays (Q9 or Q10). The May/June 2020 papers were published but never sat.",
+  },
+  // Durations, totals and weightings: the 2026–2028 syllabus assessment overview, p. 11 (same in 2023–2025; source workspace
+  // data/paper-facts.json). 2020–2022 papers used the 2019–2021/2022 syllabuses: Paper 2 was 40 marks in 1 hr 30 min and
+  // Paper 4 was 70 marks in 2 hr 15 min, with two 25-mark essays from six.
+  "a-level-economics-9708": {
+    version: "2026–2028 syllabus",
+    summary: "AS Level is Papers 1 and 2. A Level adds Papers 3 and 4. This bank holds all four papers.",
+    papers: [
+      { name: "Paper 1", format: "AS multiple choice", duration: "1 hr", marks: "30", weighting: "33% of AS, 17% of A Level" },
+      { name: "Paper 2", format: "AS data response and essays", duration: "2 hr (1 hr 30 min in 2020–22)", marks: "60 (40 in 2020–22)", weighting: "67% of AS, 33% of A Level" },
+      { name: "Paper 3", format: "A Level multiple choice", duration: "1 hr 15 min", marks: "30", weighting: "17% of A Level" },
+      { name: "Paper 4", format: "A Level data response and essays", duration: "2 hr (2 hr 15 min in 2020–22)", marks: "60 (70 in 2020–22)", weighting: "33% of A Level" },
+    ],
+    caveat: "Section A data response is compulsory; you choose the essays (from 2023, one from Section B and one from Section C on each written paper). 2020–2022 papers follow the earlier syllabus; removed content sits under its own earlier-syllabus topics. The May/June 2020 papers were published but never sat.",
+  },
   "igcse-economics-0455": {
     version: "2026 syllabus",
     summary: "There is no Core or Extended route. Paper 1 checks broad knowledge through multiple choice; Paper 2 tests structured economic reasoning, calculations, data interpretation, analysis, and evaluation.",

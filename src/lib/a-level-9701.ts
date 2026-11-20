@@ -75,3 +75,48 @@ export const CHEMISTRY_9701_EARLIER_TOPICS: readonly string[] = [
 ];
 
 export const CHEMISTRY_9701_TOPIC_ORDER: readonly string[] = [...CHEMISTRY_9701_TOPICS, ...CHEMISTRY_9701_EARLIER_TOPICS];
+
+
+/**
+ * Each current topic's subtopic sections, in syllabus order (source taxonomy). The subtopic picker shows these under the
+ * selected topic. Earlier-syllabus topics have no sections. The test keeps this equal to src/data/a-level-chemistry-9701-taxonomy.json.
+ */
+export const CHEMISTRY_9701_SUBTOPICS: Readonly<Record<string, readonly string[]>> = {
+  "Atomic structure": ["Particles in the atom and atomic radius", "Isotopes", "Electrons, energy levels and atomic orbitals", "Ionisation energy"],
+  "Atoms, molecules and stoichiometry": ["Relative masses of atoms and molecules", "The mole and the Avogadro constant", "Formulas", "Reacting masses and volumes (of solutions and gases)"],
+  "Chemical bonding": ["Electronegativity and bonding", "Ionic bonding", "Metallic bonding", "Covalent bonding and coordinate (dative covalent) bonding", "Shapes of molecules", "Intermolecular forces, electronegativity and bond properties", "Dot-and-cross diagrams"],
+  "States of matter": ["The gaseous state: ideal and real gases and pV = nRT", "Bonding and structure"],
+  "Chemical energetics": ["Enthalpy change, ΔH", "Hess’s law"],
+  "Electrochemistry": ["Redox processes: electron transfer and changes in oxidation number (oxidation state)"],
+  "Equilibria": ["Chemical equilibria: reversible reactions, dynamic equilibrium", "Brønsted–Lowry theory of acids and bases"],
+  "Reaction kinetics": ["Rate of reaction", "Effect of temperature on reaction rates and the concept of activation energy", "Homogeneous and heterogeneous catalysts"],
+  "The Periodic Table: chemical periodicity": ["Periodicity of physical properties of the elements in Period 3", "Periodicity of chemical properties of the elements in Period 3", "Chemical periodicity of other elements"],
+  "Group 2": ["\u0007Similarities and trends in the properties of the Group 2 metals, magnesium to barium, and their compounds"],
+  "Group 17": ["\u0007Physical properties of the Group 17 elements", "The chemical properties of the halogen elements and the hydrogen halides", "Some reactions of the halide ions", "The reactions of chlorine"],
+  "Nitrogen and sulfur": ["\u0007Nitrogen and sulfur"],
+  "An introduction to AS Level organic chemistry": ["Formulas, functional groups and the naming of organic compounds", "Characteristic organic reactions", "Shapes of organic molecules; σ and π bonds", "Isomerism: structural isomerism and stereoisomerism"],
+  "Hydrocarbons": ["Alkanes", "Alkenes"],
+  "Halogen compounds": ["Halogenoalkanes"],
+  "Hydroxy compounds": ["Alcohols"],
+  "Carbonyl compounds": ["Aldehydes and ketones"],
+  "Carboxylic acids and derivatives": ["Carboxylic acids", "Esters"],
+  "Nitrogen compounds": ["Primary amines", "Nitriles and hydroxynitriles"],
+  "Polymerisation": ["Addition polymerisation"],
+  "Organic synthesis": ["Organic synthesis"],
+  "Analytical techniques": ["Infrared spectroscopy", "Mass spectrometry"],
+  "Chemical energetics (A Level)": ["Lattice energy and Born-Haber cycles", "Enthalpies of solution and hydration", "Entropy change, ΔS", "Gibbs free energy change, ΔG"],
+  "Electrochemistry (A Level)": ["Electrolysis", "Standard electrode potentials E⦵, standard cell potentials E⦵cell and the Nernst equation"],
+  "Equilibria (A Level)": ["Acids and bases", "Partition coefficients"],
+  "Reaction kinetics (A Level)": ["Simple rate equations, orders of reaction and rate constants", "Homogeneous and heterogeneous catalysts"],
+  "Group 2 (A Level)": ["\u0007Similarities and trends in the properties of the Group 2 metals, magnesium to barium, and their compounds"],
+  "Chemistry of transition elements": ["\u0007General physical and chemical properties of the first row of transition elements, titanium to copper", "\u0007General characteristic chemical properties of the first set of transition elements, titanium to copper", "Colour of complexes", "Stereoisomerism in transition element complexes", "Stability constants, Kstab"],
+  "An introduction to A Level organic chemistry": ["Formulas, functional groups and the naming of organic compounds", "Characteristic organic reactions", "Shapes of aromatic organic molecules; σ and π bonds", "Isomerism: optical"],
+  "Hydrocarbons (A Level)": ["Arenes"],
+  "Halogen compounds (A Level)": ["Halogen compounds"],
+  "Hydroxy compounds (A Level)": ["Alcohols", "Phenol"],
+  "Carboxylic acids and derivatives (A Level)": ["Carboxylic acids", "Esters", "Acyl chlorides"],
+  "Nitrogen compounds (A Level)": ["Primary and secondary amines", "Phenylamine and azo compounds", "Amides", "Amino acids"],
+  "Polymerisation (A Level)": ["Condensation polymerisation", "Predicting the type of polymerisation", "Degradable polymers"],
+  "Organic synthesis (A Level)": ["Organic synthesis"],
+  "Analytical techniques (A Level)": ["Thin-layer chromatography", "Gas / liquid chromatography", "Carbon-13 NMR spectroscopy", "Proton (1H) NMR spectroscopy"],
+};

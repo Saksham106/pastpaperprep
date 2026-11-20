@@ -57,6 +57,12 @@ declare const data: {
         note: string;
       };
     };
+    "a-level-economics-9708": {
+      "9708-2020-w-12-q25": {
+        answers: Array<string>;
+        note: string;
+      };
+    };
   };
 };
 export default data;

@@ -72,7 +72,7 @@ describe("MCQ detection", () => {
 
 const OVERLAY_PATH = join(process.cwd(), "src", "data", "reviewed-mcq-answer-letters.json");
 // Imported 2026-10-13 from ../research/mcq-answer-letters-2026-10 (receipt: docs/reviewed-mcq-answer-letters.md).
-const OVERLAY_SHA256 = "51743d5653ffc9e9e2c85f90a1617eb3d4021194ea703292c6f3b9220f23ebcd";
+const OVERLAY_SHA256 = "bce3a7af53f203c4e79be24ebb51f9aa1c6ae1bbffebd077c6c6f98f558a0087";
 // Reviewed additions merged over the research file: May 2026 IB Biology, IB Chemistry (210 each) and IB Physics (195) keys,
 // read independently from the official mark schemes, then the 0654/23 Nov 2020 key correction.
 const REVIEWED_ADDITIONS = [
@@ -81,6 +81,8 @@ const REVIEWED_ADDITIONS = [
   { path: join(process.cwd(), "docs", "ib-physics-may-2026", "mcq-answer-letters-2026.json"), sha256: "75d8347ee954d60f2bb58cc34d808e144db2ca4c6193e580e2eebb8b0ab0a214" },
   // 0654/23 Nov 2020: five rows of a misprinted official key, corrected (docs/0654-w20-23-mcq-key-misprint.md).
   { path: join(process.cwd(), "docs", "0654-w20-23-mcq-key", "mcq-answer-letters.json"), sha256: "7ae13a88b172860bed582ab608b4b49470aea5daedb2b5226b4d3ee49995643a" },
+  // A Level Economics 9708: 2020-w-12 Q25, served from Cambridge's examiner report key (C); the mark scheme prints B.
+  { path: join(process.cwd(), "docs", "a-level-economics-9708-mcq-key", "mcq-answer-letters.json"), sha256: "22faa1ff7a8cce1d4a0640da2df3312224773a9e13331be7714c0878c8b53c4e" },
 ];
 // The research folder sits beside the repository; from a worktree under .worktrees/ it is three levels up,
 // from one under .claude/worktrees/ four.
@@ -113,6 +115,8 @@ describe("reviewed MCQ answer letters file", () => {
       "ib-physics-hl": 1320, "ib-physics-sl": 947,
       // Only the five corrected rows of 0654/23 Nov 2020; every other 0654 letter stays in production data.
       "igcse-coordinated-sciences-0654": 5,
+      // Only the one 9708 row whose mark scheme misprints its key; every other 9708 letter stays in production data.
+      "a-level-economics-9708": 1,
     });
   });
 
