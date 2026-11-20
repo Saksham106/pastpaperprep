@@ -1,4 +1,5 @@
 import { parseExplorerState, serializeExplorerState } from './explorer-state';
+import type { KeyErratum } from './mcq-key-errata';
 
 /** Review heuristic, not topic accuracy: net lost-question evidence first,
  * repeated losses second, mean normalized whole-question loss third.
@@ -17,7 +18,8 @@ function compareReview(a: TopicReview, b: TopicReview): number {
   return net(b) - net(a) || b.lostEvidence.length - a.lostEvidence.length || meanLoss(b) - meanLoss(a);
 }
 
-export type MarkingManifest = { maxMarks: number; questions: readonly { id: string; number: number; maxMarks: number; topics: readonly string[] }[] };
+/** `erratum`: a reviewed correction to the official key for this question (src/lib/mcq-key-errata.ts), shown only while marking. */
+export type MarkingManifest = { maxMarks: number; questions: readonly { id: string; number: number; maxMarks: number; topics: readonly string[]; erratum?: KeyErratum }[] };
 export type QuestionMarks = Record<string, number | null>;
 export type QuestionEvidence = { questionId: string; number: number; earned: number; maxMarks: number };
 export type TopicReview = { topic: string; lostEvidence: QuestionEvidence[]; fullMarkEvidence: QuestionEvidence[]; exposureCount: number };

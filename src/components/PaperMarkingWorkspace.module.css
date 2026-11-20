@@ -57,3 +57,9 @@
   .stepper input { width: 34px; height: 42px; font-size: 16px; }
   .stepper button { width: 42px; height: 42px; }
 }
+.erratum { grid-column: 1 / -1; margin: 0; color: var(--ink-soft); font-size: .8rem; line-height: 1.45; }
+.erratum b { color: var(--ink); font-weight: 650; }
+.erratum span, .errata span { color: var(--muted); }
+.errata { margin: 4px 0 0; }
+.errata ul { margin: 6px 0 0; padding: 0; list-style: none; color: var(--ink-soft); font-size: .84rem; line-height: 1.5; }
+.errata li b { margin-right: 4px; font: 600 .84rem/1.2 var(--font-mono); color: var(--muted); }

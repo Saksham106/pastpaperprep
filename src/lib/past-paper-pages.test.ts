@@ -5,7 +5,10 @@ const archive = vi.hoisted(() => ({ enabled: vi.fn(), summaries: vi.fn(), find: 
 vi.mock('./whole-paper-archive', () => ({ wholePaperArchiveEnabled: archive.enabled, getWholePaperSummaries: archive.summaries, findWholePaperBySlug: archive.find }));
 const explanations = vi.hoisted(() => ({ get: vi.fn() }));
 vi.mock('./free-explanations', () => ({ freeExplanations: () => ({ get: explanations.get }) }));
-import { pastPaperFallback, pastPaperSitemapPaths, resolveEntry, resolveSubject } from './past-paper-pages';
+import { paperQuestions, pastPaperFallback, pastPaperSitemapPaths, resolveEntry, resolveSubject } from './past-paper-pages';
+import { completeInventory } from './past-paper-insights';
+import { execFileSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 
 const paper = (bankSlug: WholePaperSummary['bankSlug']): WholePaperSummary => ({ id: 'p', bankSlug, title: 't', qualification: 'Cambridge IGCSE', subject: 'Biology', syllabusCode: '0610', year: 2024, session: 'May/June', sessionCode: 's', component: '42', paper: '4', variant: '2', route: 'Extended', durationMinutes: 75, maxMarks: 80, questionCount: 1, reportAvailable: true, metadataVerified: true });
 beforeEach(() => { archive.enabled.mockResolvedValue(true); archive.summaries.mockImplementation((bank: WholePaperSummary['bankSlug']) => [paper(bank)]); });
@@ -66,5 +69,38 @@ describe('indexing measures worked answers against the whole paper', () => {
     archive.find.mockImplementation(() => detail({ ...held, questionCount: 0 }, 40));
     const unknown = await resolveEntry('igcse-chemistry-0620', '2019-may-june-23');
     expect(unknown?.kind === 'paper' && unknown.indexing?.indexed).toBe(false);
+  });
+});
+
+describe('PDF-only reprinted variants list the questions their runtime aliases name', () => {
+  const manifest = (bank: string) => JSON.parse(readFileSync(`src/data/paper-archives/${bank}.json`, 'utf8')) as { papers: { summary: WholePaperSummary; version: string; documents: never; questions: never[] }[] };
+  const held = (bank: WholePaperSummary['bankSlug'], id: string) => {
+    const entry = manifest(bank).papers.find(e => e.summary.id === id)!;
+    expect(entry.summary.reportAvailable).toBe(false); // self-marking stays held
+    return { ...entry, sources: { question: '/q', markscheme: '/m' } };
+  };
+  it.each([
+    ['a-level-economics-9708', '9708-2024-s-43', '9708-2024-s-41', 5],
+    ['a-level-biology-9700', '9700-2021-w-43', '9700-2021-w-41', 10],
+  ] as const)('%s %s recovers its %s rows under its own printed numbers', (bank, id, canonical, count) => {
+    const detail = held(bank, id);
+    const rows = paperQuestions(bank, detail);
+    expect(rows.map(q => q.number)).toEqual(Array.from({ length: count }, (_, i) => i + 1));
+    expect(rows.map(q => q.id)).toEqual(rows.map(q => `${canonical}-q${q.number}`));
+    expect(rows.every(q => q.topics.length > 0 && q.marks !== null)).toBe(true);
+    // Judged exactly like the canonical variant's own rows (these optional-choice papers are never "complete").
+    const own = paperQuestions(bank, held(bank, canonical));
+    expect(rows.map(q => [q.number, q.marks, q.topics])).toEqual(own.map(q => [q.number, q.marks, q.topics]));
+    expect(completeInventory(detail.summary, rows)).toBe(completeInventory(held(bank, canonical).summary, own));
+  });
+  it('recovers only the rows the bank has, and does not claim the whole paper (9708-2025-s-43)', () => {
+    const detail = held('a-level-economics-9708', '9708-2025-s-43');
+    const rows = paperQuestions('a-level-economics-9708', detail);
+    expect(rows).toHaveLength(4);
+    expect(detail.summary.questionCount).toBe(5);
+    expect(completeInventory(detail.summary, rows)).toBe(false);
+  });
+  it('keeps the committed alias map in step with the runtimes', () => {
+    expect(() => execFileSync('node', ['scripts/generate-reprint-aliases.mjs', '--check'], { encoding: 'utf8' })).not.toThrow();
   });
 });

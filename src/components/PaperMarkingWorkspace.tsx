@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Minus, Plus } from '@phosphor-icons/react/dist/s
 import { PAPER_MARKING_PREVIEW } from '@/lib/paper-marking-preview';
 import { createPaperMarkingReport, topicPracticeHref, topicLessonRecommendation, type NotesLink, type QuestionMarks, type TopicReview, type MarkingManifest } from '@/lib/paper-marking-report';
 import { trackProductEvent } from '@/lib/product-analytics';
+import { erratumMessage } from '@/lib/mcq-key-errata';
 import styles from './PaperMarkingWorkspace.module.css';
 
 export type PaperMarkingPaper = MarkingManifest & { id: string; version: string; bankSlug: string; title: string };
@@ -93,6 +94,7 @@ function PaperMarkingSession({ paper, onClose, practice, notesLinks }: { paper: 
   const valid = !Object.values(errors).some(Boolean);
   const report = valid ? createPaperMarkingReport(paper, marks) : null;
   const top = report?.priorities[0];
+  const errata = paper.questions.filter(q => q.erratum);
   const lesson = report ? topicLessonRecommendation(report.priorities, notesLinks) : null;
   function openReport() {
     if (!valid || !report?.markedMaximum) return;
@@ -114,10 +116,11 @@ function PaperMarkingSession({ paper, onClose, practice, notesLinks }: { paper: 
         <label htmlFor={`marks-${q.id}`}><b>Q{q.number}</b><span>{q.topics[0]}</span><span className={styles.visuallyHidden}>Question {q.number} marks</span></label>
         <div className={styles.stepper}>
           <button type="button" aria-label={`Remove a mark from question ${q.number}`} onClick={() => step(q.id, q.maxMarks, -1)}><Minus aria-hidden="true" weight="bold" /></button>
-          <input ref={q.number === 1 ? firstInput : undefined} id={`marks-${q.id}`} aria-label={`Question ${q.number} marks`} type="text" inputMode="numeric" autoComplete="off" placeholder="–" value={values[q.id] ?? ''} onChange={event => update(q.id, event.target.value)} aria-invalid={Boolean(errors[q.id])} aria-describedby={`max-${q.id}${errors[q.id] ? ` error-${q.id}` : ''}`} />
+          <input ref={q.number === 1 ? firstInput : undefined} id={`marks-${q.id}`} aria-label={`Question ${q.number} marks`} type="text" inputMode="numeric" autoComplete="off" placeholder="–" value={values[q.id] ?? ''} onChange={event => update(q.id, event.target.value)} aria-invalid={Boolean(errors[q.id])} aria-describedby={`max-${q.id}${q.erratum ? ` erratum-${q.id}` : ''}${errors[q.id] ? ` error-${q.id}` : ''}`} />
           <span id={`max-${q.id}`}>/ {q.maxMarks}</span>
           <button type="button" aria-label={`Add a mark to question ${q.number}`} onClick={() => step(q.id, q.maxMarks, 1)}><Plus aria-hidden="true" weight="bold" /></button>
         </div>
+        {q.erratum && <p className={styles.erratum} id={`erratum-${q.id}`}><b>Mark against {q.erratum.corrected}.</b> {erratumMessage(q.erratum)} <span>Source: {q.erratum.source}.</span></p>}
         {errors[q.id] && <p className={styles.error} id={`error-${q.id}`}>{errors[q.id]}</p>}
       </li>)}</ol>
       <div className={styles.footer}>
@@ -129,6 +132,10 @@ function PaperMarkingSession({ paper, onClose, practice, notesLinks }: { paper: 
         <h3 ref={reportHeading} tabIndex={-1}>{report.complete ? `${report.markedTotal} / ${paper.maxMarks} paper marks` : `${report.markedTotal} / ${report.markedMaximum} marks on marked questions`}</h3>
         {!report.complete && <p className={styles.note}>{report.unmarkedCount} questions unmarked. This is a partial report, not a paper score.</p>}
       </div>
+      {errata.length > 0 && <div className={styles.errata}>
+        <h4 className={styles.label}>Mark scheme {errata.length === 1 ? 'correction' : 'corrections'}</h4>
+        <ul>{errata.map(q => <li key={q.id}><b>Q{q.number}</b> {erratumMessage(q.erratum!)} <span>Source: {q.erratum!.source}.</span></li>)}</ul>
+      </div>}
       {report.priorities.length ? <>
         <h4 className={styles.label}>Topics to review</h4>
         <ol className={styles.topics} aria-label="Topics to review">{(showAll ? report.priorities : report.priorities.slice(0, 3)).map(topic => <TopicEvidence key={topic.topic} topic={topic} />)}</ol>

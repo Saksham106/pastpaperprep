@@ -1,0 +1,78 @@
+{
+ "schema": "mcq-key-errata-v1",
+ "rule": "A reviewed MCQ letter correction (src/data/reviewed-mcq-answer-letters.json, an entry with a note) also applies when a whole paper is self-marked: the marking list and report show the corrected letter beside the published one, with its source. Each erratum is bound to the exact mark-scheme PDF the archive serves for that paper. The original PDF is never changed.",
+ "errata": [
+  {
+   "bankSlug": "a-level-economics-9708",
+   "paperId": "9708-2020-w-12",
+   "questionId": "9708-2020-w-12-q25",
+   "number": 25,
+   "markschemeSha256": "dfb8c70fae23994e33c0ee05b8bfa549a287171d84fec25ee2060ca2dc0d5f4f",
+   "published": "B",
+   "corrected": "C",
+   "correction": "the examiner report corrects it to C",
+   "source": "Cambridge Principal Examiner Report, November 2020, 9708/12 key table, p. 3",
+   "evidence": "9708_w20_er.pdf SHA-256 f6a8195093b35b294b619cbefc00534bafb46f6ca10747d04151f782fc01db48; docs/a-level-economics-9708-mcq-key/mcq-answer-letters.json"
+  },
+  {
+   "bankSlug": "igcse-coordinated-sciences-0654",
+   "paperId": "0654-2020-winter-23",
+   "questionId": "0654-2020-winter-23-q8",
+   "number": 8,
+   "markschemeSha256": "3702242c8b496290a52d991a10905c625ac5efb6569814ee310e52b390d9d11c",
+   "published": "D",
+   "corrected": "B",
+   "correction": "its key rows 8–14 are out of step with this paper, and the answer is B",
+   "source": "Cambridge Principal Examiner Report, November 2020, 0654 (its comments follow this paper's numbering)",
+   "evidence": "docs/0654-w20-23-mcq-key-misprint.md"
+  },
+  {
+   "bankSlug": "igcse-coordinated-sciences-0654",
+   "paperId": "0654-2020-winter-23",
+   "questionId": "0654-2020-winter-23-q9",
+   "number": 9,
+   "markschemeSha256": "3702242c8b496290a52d991a10905c625ac5efb6569814ee310e52b390d9d11c",
+   "published": "B",
+   "corrected": "D",
+   "correction": "its key rows 8–14 are out of step with this paper, and the answer is D",
+   "source": "Cambridge Principal Examiner Report, November 2020, 0654 (its comments follow this paper's numbering)",
+   "evidence": "docs/0654-w20-23-mcq-key-misprint.md"
+  },
+  {
+   "bankSlug": "igcse-coordinated-sciences-0654",
+   "paperId": "0654-2020-winter-23",
+   "questionId": "0654-2020-winter-23-q11",
+   "number": 11,
+   "markschemeSha256": "3702242c8b496290a52d991a10905c625ac5efb6569814ee310e52b390d9d11c",
+   "published": "A",
+   "corrected": "B",
+   "correction": "the examiner report's key table corrects it to B",
+   "source": "Cambridge Principal Examiner Report, November 2020, 0654/23 key table",
+   "evidence": "docs/0654-w20-23-mcq-key-misprint.md"
+  },
+  {
+   "bankSlug": "igcse-coordinated-sciences-0654",
+   "paperId": "0654-2020-winter-23",
+   "questionId": "0654-2020-winter-23-q12",
+   "number": 12,
+   "markschemeSha256": "3702242c8b496290a52d991a10905c625ac5efb6569814ee310e52b390d9d11c",
+   "published": "D",
+   "corrected": "A",
+   "correction": "its key rows 8–14 are out of step with this paper, and the answer is A",
+   "source": "Cambridge Principal Examiner Report, November 2020, 0654 (its comments follow this paper's numbering)",
+   "evidence": "docs/0654-w20-23-mcq-key-misprint.md"
+  },
+  {
+   "bankSlug": "igcse-coordinated-sciences-0654",
+   "paperId": "0654-2020-winter-23",
+   "questionId": "0654-2020-winter-23-q14",
+   "number": 14,
+   "markschemeSha256": "3702242c8b496290a52d991a10905c625ac5efb6569814ee310e52b390d9d11c",
+   "published": "B",
+   "corrected": "D",
+   "correction": "its key rows 8–14 are out of step with this paper, and the answer is D",
+   "source": "Cambridge Principal Examiner Report, November 2020, 0654 (its comments follow this paper's numbering)",
+   "evidence": "docs/0654-w20-23-mcq-key-misprint.md"
+  }
+ ]
+}
