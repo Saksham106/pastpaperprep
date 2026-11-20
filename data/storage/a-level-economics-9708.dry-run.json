@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "a-level-economics-9708",
+  "date": "2026-11-19",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/",
+  "objects": 7347,
+  "bytes": 81059370,
+  "uniqueKeys": 7347,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 7347,
+  "sha256MatchesSegmentationRecord": 7347,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "a51a32c54f4e7294b653aec1aa473ca2bc93cf32bc509260be60aaebf67bb56a",
+  "sourceCommit": "e6d88fe",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (research/ppp-tools/r2-upload-worker/upload.mjs) against data/storage/a-level-economics-9708.manifest.json, then generate-igcse-release.mjs --finalize a-level-economics-9708."
+}

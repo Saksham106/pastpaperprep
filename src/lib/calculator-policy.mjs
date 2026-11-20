@@ -19,9 +19,13 @@
 //
 // A Level Biology 9700: every paper in scope allows a calculator. All 147 question papers (Papers 1, 2 and 4,
 // 2020 to May/June 2026) print "You may use a calculator" on the cover (text layer, checked 2026-11-19).
+//
+// A Level Economics 9708: every paper allows a calculator. All 197 question papers (Papers 1-4, 2020 to May/June 2026)
+// print "You may use a calculator" on the cover (193 in the text layer, 4 image-only covers read from a render,
+// checked 2026-11-19), and the syllabus says "Calculators may be used for all papers" (2023-2025 and 2026-2028).
 
 /** Banks whose questions carry a calculator status. */
-export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700"]);
+export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708"]);
 /** Banks where both values occur, so a calculator filter is useful. */
 export const CALCULATOR_FILTER_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl"]);
 
@@ -42,6 +46,7 @@ export function calculatorAllowed(bank, { paper, year }) {
     case "a-level-physics-9702": return true;
     case "a-level-chemistry-9701": return true;
     case "a-level-biology-9700": return true;
+    case "a-level-economics-9708": return true;
     default: return null;
   }
 }

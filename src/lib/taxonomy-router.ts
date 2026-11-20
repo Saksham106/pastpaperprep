@@ -19,6 +19,7 @@ import { A_LEVEL_MATHS_9709, MATHS_9709_PAPERS, MATHS_9709_SECTION_ORDER } from 
 import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_SUBTOPICS, PHYSICS_9702_TOPIC_ORDER } from "@/lib/a-level-9702";
 import { A_LEVEL_CHEMISTRY_9701, CHEMISTRY_9701_SUBTOPICS, CHEMISTRY_9701_TOPIC_ORDER } from "@/lib/a-level-9701";
 import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_SUBTOPICS, BIOLOGY_9700_TOPIC_ORDER } from "@/lib/a-level-9700";
+import { A_LEVEL_ECONOMICS_9708, ECONOMICS_9708_SUBTOPICS, ECONOMICS_9708_TOPIC_ORDER } from "@/lib/a-level-9708";
 import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -184,6 +185,11 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     return [...BIOLOGY_9700_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !BIOLOGY_9700_TOPIC_ORDER.includes(topic)).sort()];
   }
+  // 9708: topics 1-11 in syllabus order (AS 1-6, A Level 7-11), then the named earlier-syllabus topics.
+  if (bank === A_LEVEL_ECONOMICS_9708) {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    return [...ECONOMICS_9708_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !ECONOMICS_9708_TOPIC_ORDER.includes(topic)).sort()];
+  }
   if (bank === A_LEVEL_MATHS_9709) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     // One paper (a paper tab): that paper's own section order. Several papers: first appearance across Papers 1-6.
@@ -207,6 +213,7 @@ const A_LEVEL_SECTIONS: Partial<Record<string, Readonly<Record<string, readonly 
   [A_LEVEL_PHYSICS_9702]: PHYSICS_9702_SUBTOPICS,
   [A_LEVEL_CHEMISTRY_9701]: CHEMISTRY_9701_SUBTOPICS,
   [A_LEVEL_BIOLOGY_9700]: BIOLOGY_9700_SUBTOPICS,
+  [A_LEVEL_ECONOMICS_9708]: ECONOMICS_9708_SUBTOPICS,
 };
 
 function aLevelSubtopicGroups(sections: Readonly<Record<string, readonly string[]>>, questions: UnifiedQuestion[], selectedTopics: string[], selectedSubtopics: string[]) {

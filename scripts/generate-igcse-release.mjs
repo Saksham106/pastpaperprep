@@ -58,6 +58,7 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
   'a-level-physics-9702': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'a-level-chemistry-9701': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'a-level-biology-9700': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
+  'a-level-economics-9708': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'igcse-physics-0625': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 336 },
 };
 

@@ -14,29 +14,30 @@ import { PDF_TESTIMONIAL, SIGNUP_GATE_TESTIMONIAL, bankTestimonial, testimonialF
 // Owner's pre-launch polish for A Level (2026-11-18, "Yes, fix first").
 
 describe("A Level subject order", () => {
-  it("is Mathematics, Chemistry, Physics, Biology from one shared source", () => {
-    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology"]);
+  it("is Mathematics, Chemistry, Physics, Biology, Economics from one shared source", () => {
+    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics"]);
   });
 
   it("reorders A Level banks within their own slots and leaves every other bank in place", () => {
     const banks = [
       { slug: "igcse", qualification: "Cambridge IGCSE", subject: "Mathematics" },
+      { slug: "a-level-economics-9708", qualification: "Cambridge A Level", subject: "Economics" },
       { slug: "a-level-biology-9700", qualification: "Cambridge A Level", subject: "Biology" },
       { slug: "a-level-physics-9702", qualification: "Cambridge A Level", subject: "Physics" },
       { slug: "ib-sl", qualification: "IB Diploma", subject: "Mathematics" },
       { slug: "a-level-chemistry-9701", qualification: "Cambridge A Level", subject: "Chemistry" },
       { slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics" },
     ];
-    expect(inBoardSubjectOrder(banks).map((bank) => bank.slug)).toEqual(["igcse", "a-level-maths-9709", "a-level-chemistry-9701", "ib-sl", "a-level-physics-9702", "a-level-biology-9700"]);
+    expect(inBoardSubjectOrder(banks).map((bank) => bank.slug)).toEqual(["igcse", "a-level-maths-9709", "a-level-chemistry-9701", "a-level-physics-9702", "ib-sl", "a-level-biology-9700", "a-level-economics-9708"]);
     // The pricing pickers group the display list, so they inherit the order.
     const groups = bankGroupsByBoard(inBoardSubjectOrder(banks), (bank) => ({ board: QUALIFICATIONS[bank.qualification === "Cambridge A Level" ? "a-level" : bank.qualification === "IB Diploma" ? "ib" : "igcse"].id, subject: bank.subject }));
-    expect(groups.find((group) => group.board === "a-level")?.banks.map((bank) => bank.subject)).toEqual(["Mathematics", "Chemistry", "Physics", "Biology"]);
+    expect(groups.find((group) => group.board === "a-level")?.banks.map((bank) => bank.subject)).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics"]);
   });
 });
 
 describe("testimonials on A Level pages", () => {
   it("shows no quote from another board until there are A Level ones", () => {
-    for (const slug of ["a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700"]) {
+    for (const slug of ["a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708"]) {
       expect(bankTestimonial(slug)).toBeUndefined();
       expect(topicTestimonial(slug)).toBeUndefined();
       expect(testimonialForBank(slug, PDF_TESTIMONIAL)).toBeUndefined();
@@ -124,5 +125,15 @@ describe("Biology 9700 under the same rules", () => {
     expect(picker.querySelectorAll("label")).toHaveLength(4);
     expect(picker.classList.contains("is-paper-tabs")).toBe(true);
     expect(picker.classList.contains("is-wrapping-tabs")).toBe(false);
+  });
+});
+
+describe("Economics 9708 under the same rules", () => {
+  it("wraps its five paper tabs, AS before A Level and multiple choice before written", () => {
+    const { container } = render(<QuestionExplorer questions={[]} bankSlug="a-level-economics-9708" access={{ authenticated: true, bankAccess: true, canExportPdf: true }} />);
+    const picker = container.querySelector(".course-route-picker")!;
+    expect([...picker.querySelectorAll("label")].map((label) => label.textContent)).toEqual(["All papersPapers 1–4", "AS multiple choicePaper 1", "AS writtenPaper 2", "A Level multiple choicePaper 3", "A Level writtenPaper 4"]);
+    expect(picker.classList.contains("is-paper-tabs")).toBe(true);
+    expect(picker.classList.contains("is-wrapping-tabs")).toBe(true);
   });
 });

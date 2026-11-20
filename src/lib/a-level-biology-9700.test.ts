@@ -97,7 +97,7 @@ describe("A Level Biology 9700 catalog entry", () => {
     expect(BANK_PRODUCTS[slug]).toBe(product);
     expect(qualificationOfBank(slug)).toBe("a-level");
     expect(SUBJECT_SLUGS[slug]).toBe(slug);
-    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology"]);
+    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics"]);
   });
 
   it("rides the shared release lane, finalized against a verified readback, and is served", () => {
@@ -141,7 +141,13 @@ describe("A Level Biology 9700 billing", () => {
     const name = "20261119000000_a_level_biology_9700_release.sql";
     const migrations = readdirSync(join(ROOT, "supabase/migrations")).filter((file) => file.endsWith(".sql")).sort();
     expect(new Set(migrations.map((file) => file.slice(0, 14))).size).toBe(migrations.length);
-    expect(migrations.at(-1)).toBe(name);
+    // A later bank release may redefine these objects only by carrying 9700 forward in every list.
+    for (const later of migrations.filter((file) => file > name)) {
+      const body = readFileSync(join(ROOT, "supabase/migrations", later), "utf8");
+      if (!/products_known_id|function public\.confirm_billing_checkout/.test(body)) continue;
+      expect(body.match(/'bank_a_level_biology_9700'/g)?.length, `${later} drops bank_a_level_biology_9700`).toBe(6);
+      expect(body.match(/'a-level-biology-9700'/g)?.length, `${later} drops a-level-biology-9700`).toBe(3);
+    }
     const migration = readFileSync(join(ROOT, "supabase/migrations", name), "utf8");
     expect(migration.startsWith("begin;")).toBe(true);
     expect(migration.trimEnd().endsWith("commit;")).toBe(true);

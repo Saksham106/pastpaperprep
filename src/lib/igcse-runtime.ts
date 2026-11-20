@@ -25,6 +25,8 @@ import aLevelChemistry9701 from "@/data/production/a-level-chemistry-9701.json";
 import aLevelChemistry9701Taxonomy from "@/data/a-level-chemistry-9701-taxonomy.json";
 import aLevelBiology9700 from "@/data/production/a-level-biology-9700.json";
 import aLevelBiology9700Taxonomy from "@/data/a-level-biology-9700-taxonomy.json";
+import aLevelEconomics9708 from "@/data/production/a-level-economics-9708.json";
+import aLevelEconomics9708Taxonomy from "@/data/a-level-economics-9708-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
 type IGCSEArtifact = {
@@ -168,6 +170,7 @@ export const IGCSE_RUNTIME_COUNTS = {
   "a-level-physics-9702": [2627, 132],
   "a-level-chemistry-9701": [2220, 123],
   "a-level-biology-9700": [2680, 141],
+  "a-level-economics-9708": [3208, 183],
 } as const;
 const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-biology-0610": biology as IGCSEArtifact,
@@ -182,6 +185,7 @@ const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "a-level-physics-9702": aLevelPhysics9702 as IGCSEArtifact,
   "a-level-chemistry-9701": aLevelChemistry9701 as IGCSEArtifact,
   "a-level-biology-9700": aLevelBiology9700 as IGCSEArtifact,
+  "a-level-economics-9708": aLevelEconomics9708 as IGCSEArtifact,
 };
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-biology-0610": biologyTaxonomy,
@@ -196,6 +200,7 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "a-level-physics-9702": aLevelPhysics9702Taxonomy,
   "a-level-chemistry-9701": aLevelChemistry9701Taxonomy,
   "a-level-biology-9700": aLevelBiology9700Taxonomy,
+  "a-level-economics-9708": aLevelEconomics9708Taxonomy,
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -211,6 +216,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
   "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
+  "a-level-economics-9708": "a51a32c54f4e7294b653aec1aa473ca2bc93cf32bc509260be60aaebf67bb56a",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -226,6 +232,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
   "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
+  "a-level-economics-9708": "a51a32c54f4e7294b653aec1aa473ca2bc93cf32bc509260be60aaebf67bb56a",
 };
 
 function canonicalSha256(value: unknown) {

@@ -33,7 +33,7 @@ export type QualificationInfo = {
  * Chemistry, Physics (owner, 2026-11-18). Subjects not listed keep catalog order after the listed ones.
  */
 export const BOARD_SUBJECT_ORDER: Partial<Record<QualificationId, readonly string[]>> = {
-  "a-level": ["Mathematics", "Chemistry", "Physics", "Biology"],
+  "a-level": ["Mathematics", "Chemistry", "Physics", "Biology", "Economics"],
 };
 
 export const QUALIFICATIONS: Record<QualificationId, QualificationInfo> = {

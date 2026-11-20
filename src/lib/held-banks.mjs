@@ -3,7 +3,7 @@
 // held-banks.test.ts keeps it equal to the catalog. Switching a bank on removes it from both places.
 
 /** @type {readonly string[]} */
-export const HELD_BANKS = Object.freeze([]);
+export const HELD_BANKS = Object.freeze(["a-level-economics-9708"]);
 
 /** The dev-only preview that shows held banks locally. Never true for a production build. */
 export function isPendingBankPreview(environment = process.env) {
