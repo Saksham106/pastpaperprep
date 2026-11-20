@@ -91,11 +91,13 @@ export const RELEASE_BANKS = {
   },
   // Cambridge International A Level Economics 9708: 3,208 rows (P1 and P3 multiple choice, P2 and P4 data response and essays),
   // one segmentation lane; 16 held (14 data-response Q1s with content removed for copyright, 2 MCQ items), 6 removed MCQ items excluded.
+  // The prefix is named for the first candidate (a51a32c5...); the reviewed secondary-subtopic overlay changed labels only, so
+  // the byte-identical verified crops stay under it.
   'a-level-economics-9708': {
     prefix: 'a-level-economics-9708/releases/full3208-v1-a51a32c54f4e',
     sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_ECONOMICS_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: 'a51a32c54f4e7294b653aec1aa473ca2bc93cf32bc509260be60aaebf67bb56a',
+    originalCandidateRuntimeSha256: '1a2690c748552fa711e54fa92099c7a34879c3c56f5181930ea3ccb0efdec1d4',
   },
 };
 

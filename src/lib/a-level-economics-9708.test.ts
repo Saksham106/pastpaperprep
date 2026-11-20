@@ -44,7 +44,7 @@ import removedPartMarks from "@/data/reviewed-science-removed-part-marks.json";
 const ROOT = process.cwd();
 const slug = A_LEVEL_ECONOMICS_9708;
 const product = "bank_a_level_economics_9708";
-const CANDIDATE = "a51a32c54f4e7294b653aec1aa473ca2bc93cf32bc509260be60aaebf67bb56a";
+const CANDIDATE = "1a2690c748552fa711e54fa92099c7a34879c3c56f5181930ea3ccb0efdec1d4";
 const PREFIX = "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e";
 const HELD_COPYRIGHT = [
   "9708-2020-w-42-q1", "9708-2021-m-22-q1", "9708-2022-w-42-q1", "9708-2023-m-22-q1", "9708-2023-w-42-q1", "9708-2025-m-42-q1", "9708-2025-s-21-q1",
@@ -60,7 +60,7 @@ type RuntimeQuestion = {
   marks: number; maxMarks: number; aliasIds: string[]; primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; choiceGroup?: string; choiceRequired?: number;
   removedParts?: string[]; sharedStimulusImages?: string[]; accessibleText: string; answer?: string;
   answerProvenance?: { status: string; questionId: string; keyReads: { markSchemeText: string; renderedView: string; examinerReport?: string }; servedFrom?: string };
-  questionImages: string[]; markschemeImages: string[];
+  questionImages: string[]; markschemeImages: string[]; secondarySubtopics: string[];
 };
 const runtime = runtimeJson as unknown as {
   questionCount: number; paperCount: number; years: string; assetVerification: string; publicationStatus: string; heldQuestionIds: string[]; excludedQuestionIds: string[];
@@ -376,8 +376,9 @@ describe("A Level Economics 9708 subtopic picker", () => {
           const groups = getSubtopicGroups(tab, [topic], []);
           if (topic.endsWith("(earlier syllabus)")) { expect(groups.relevant, `${paper} ${topic}`).toEqual([]); continue; }
           for (const subtopic of groups.relevant) expect(ECONOMICS_9708_SUBTOPICS[topic], `${paper} ${topic}`).toContain(subtopic);
-          // Every section a question in this tab is labelled with under this primary topic is listed.
-          const own = new Set(tab.filter((question) => question.primaryTopic === topic).flatMap((question) => question.subtopics));
+          expect(groups.relevant.length, `${paper} ${topic}`).toBeGreaterThan(0);
+          // Every section of this topic that a question in this tab carries is listed.
+          const own = new Set(tab.flatMap((question) => question.subtopics).filter((subtopic) => ECONOMICS_9708_SUBTOPICS[topic].includes(subtopic)));
           for (const subtopic of own) expect(groups.relevant, `${paper} ${topic}`).toContain(subtopic);
         }
       }
@@ -386,9 +387,47 @@ describe("A Level Economics 9708 subtopic picker", () => {
       const all = getSubtopicGroups(rows, [], []).all;
       expect(all).toEqual(order.filter((subtopic) => all.includes(subtopic)));
       // AS "Exchange rates" and A Level "Exchange rates (A Level)" never mix.
-      const ids = (subtopic: string) => filterQuestions(rows, { subtopics: [subtopic] }).map((question) => question.primaryTopic);
-      expect(new Set(ids("Exchange rates"))).toEqual(new Set(["International economic issues"]));
-      expect(new Set(ids("Exchange rates (A Level)"))).toEqual(new Set(["International economic issues (A Level)"]));
+      const topicsOf = (subtopic: string) => filterQuestions(rows, { subtopics: [subtopic] }).map((question) => [question.primaryTopic, ...question.secondaryTopics]);
+      for (const topics of topicsOf("Exchange rates")) expect(topics).toContain("International economic issues");
+      for (const topics of topicsOf("Exchange rates (A Level)")) expect(topics).toContain("International economic issues (A Level)");
+    });
+  }
+});
+
+describe("A Level Economics 9708 secondary sections (the #499 review fix)", () => {
+  const sectionTopic = new Map(Object.entries(ECONOMICS_9708_SUBTOPICS).flatMap(([topic, sections]) => sections.map((section) => [section, topic] as const)));
+
+  it("gives every current secondary topic at least one reviewed section, and only sections of the question's own topics", () => {
+    let pairs = 0;
+    for (const question of runtime.questions) {
+      const topics = new Set([question.primaryTopic, ...question.secondaryTopics]);
+      for (const section of question.secondarySubtopics) expect(topics.has(sectionTopic.get(section)!), `${question.id} ${section}`).toBe(true);
+      expect(new Set(question.subtopics).size, question.id).toBe(question.subtopics.length);
+      // The primary subtopic first, then the reviewed further sections.
+      const primaryCount = question.primaryTopic.endsWith("(earlier syllabus)") ? 0 : 1;
+      expect(question.subtopics.slice(primaryCount), question.id).toEqual(question.secondarySubtopics);
+      for (const topic of question.secondaryTopics) {
+        if (topic.endsWith("(earlier syllabus)")) continue;
+        pairs += 1;
+        expect(question.secondarySubtopics.some((section) => sectionTopic.get(section) === topic), `${question.id} ${topic}`).toBe(true);
+      }
+    }
+    expect(pairs).toBe(327);
+    expect(runtime.questions.filter((question) => question.secondarySubtopics.length)).toHaveLength(377);
+    expect((runtimeJson.runtimeArtifact as unknown as { sourceSha256: Record<string, string> }).sourceSha256.secondarySubtopics).toBe("a7b4a90cbd4ecdd8c1affb37c27d95a29c0d8c9f5b4c271e506564c722540b6e");
+  });
+
+  for (const [label, rows] of [["normalized", questions], ["hydrated from bank-index metadata", hydrated]] as const) {
+    it(`finds 9708-2020-m-22-q1 under the sections its parts are marked on (${label})`, () => {
+      const p2 = rows.filter((question) => question.paper === 2);
+      const ids = (filters: Parameters<typeof filterQuestions>[1]) => filterQuestions(p2, filters).map((question) => question.id);
+      // (a)(ii) tariffs and (d) trade war -> Protectionism; (b)(ii) Marshall-Lerner -> A Level exchange rates.
+      expect(ids({ topics: ["International economic issues"], subtopics: ["Protectionism"] })).toContain("9708-2020-m-22-q1");
+      expect(ids({ subtopics: ["Exchange rates (A Level)"] })).toContain("9708-2020-m-22-q1");
+      expect(ids({ subtopics: ["Current account of the balance of payments"] })).toContain("9708-2020-m-22-q1");
+      // An unassessed section does not find it, and AS "Exchange rates" stays apart.
+      expect(ids({ subtopics: ["Exchange rates"] })).not.toContain("9708-2020-m-22-q1");
+      expect(ids({ subtopics: ["Globalisation"] })).not.toContain("9708-2020-m-22-q1");
     });
   }
 });
@@ -419,7 +458,7 @@ describe("A Level Economics 9708 storage plan", () => {
 
   it("records the generator's pinned source in the runtime", () => {
     const meta = runtimeJson.runtimeArtifact as unknown as { sourceCommit: string; sourceRepository: string };
-    expect(meta).toMatchObject({ sourceRepository: "cambridge-a-level-economics-9708-topic-practice", sourceCommit: "e6d88fe" });
+    expect(meta).toMatchObject({ sourceRepository: "cambridge-a-level-economics-9708-topic-practice", sourceCommit: "bbd10f4" });
     const generator = join(ROOT, "scripts/generate-a-level-economics-9708-runtime.mjs");
     expect(existsSync(generator)).toBe(true);
     expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/a-level-economics-9708-taxonomy.json"))).digest("hex")).toBe((runtimeJson as unknown as { taxonomy: { sha256: string } }).taxonomy.sha256);

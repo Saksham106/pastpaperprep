@@ -216,7 +216,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
   "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
-  "a-level-economics-9708": "a51a32c54f4e7294b653aec1aa473ca2bc93cf32bc509260be60aaebf67bb56a",
+  "a-level-economics-9708": "1a2690c748552fa711e54fa92099c7a34879c3c56f5181930ea3ccb0efdec1d4",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -232,7 +232,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
   "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
-  "a-level-economics-9708": "a51a32c54f4e7294b653aec1aa473ca2bc93cf32bc509260be60aaebf67bb56a",
+  "a-level-economics-9708": "1a2690c748552fa711e54fa92099c7a34879c3c56f5181930ea3ccb0efdec1d4",
 };
 
 function canonicalSha256(value: unknown) {

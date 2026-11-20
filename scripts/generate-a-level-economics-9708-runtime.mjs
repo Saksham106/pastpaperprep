@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Build the Cambridge International AS & A Level Economics 9708 candidate runtime from the pinned source workspace
- * (cambridge-a-level-economics-9708-topic-practice, commit e6d88fe). Every input is SHA-256 pinned; any drift fails closed.
+ * (cambridge-a-level-economics-9708-topic-practice, commit bbd10f4: the e6d88fe data plus the reviewed secondary-subtopic
+ * overlay). Every input is SHA-256 pinned; any drift fails closed.
  *
  *   data/segmentation/full/segmentation.json   3,230 canonical questions in 183 canonical papers (P1, P2, P3, P4)
  *   data/classification/final-labels.json      3,208 labels: primary topic, primary_subtopic, secondaries
@@ -15,6 +16,9 @@
  *   data/review/mcq-key-corrections.json       one key served from Cambridge's examiner report (2020-w-12 Q25: MS B, ER C)
  *   data/source-manifest.json + acquisition-manifest.json   kept, identity-checked source files
  *   data/classification/blind-results/*.json   blind-pass transcriptions, used as accessible text
+ *   data/classification/secondary-subtopics.json      reviewed overlay (the #499 review fix): the subtopic sections each
+ *                                              current secondary topic materially assesses, and any further section of the
+ *                                              primary topic, with mark evidence
  *
  * Economics specifics carried into the rows:
  *   - Six multiple-choice items Cambridge removed from the paper ("Question discounted"/withdrawn, no key) are
@@ -26,8 +30,10 @@
  *     (`q<n>-levels-<page>-<k>.webp`). Three mark schemes print them only in a sibling variant; those crops are copies
  *     taken from that variant and stored under the question's own paper.
  *   - Topic labels: five A Level topics reuse an AS title (7-11 vs 2-6), so the A Level ones say "(A Level)".
- *   - Subtopics: the primary subtopic only. Earlier-syllabus topics have none. Two A Level sections reuse an AS
- *     section's title and say "(A Level)" too, so every subtopic label names one syllabus section.
+ *   - Subtopics: the primary subtopic first, then the reviewed further sections in syllabus order (`subtopics`,
+ *     `detailedSubtopics`); the further sections alone are `secondarySubtopics`. Every current secondary topic has at
+ *     least one section; earlier-syllabus topics have none. Two A Level sections reuse an AS section's title and say
+ *     "(A Level)" too, so every subtopic label names one syllabus section.
  *
  * Multiple-choice rows carry the official key as `answer` with official `answerProvenance`. Each key was read two
  * independent ways in the source (mark-scheme text and rendered view; both must agree) and a third time from the
@@ -46,7 +52,7 @@ export const BANK = "a-level-economics-9708";
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/cambridge-a-level-economics-9708-topic-practice";
-export const SOURCE_COMMIT = "e6d88fe";
+export const SOURCE_COMMIT = "bbd10f4";
 export const SOURCE_SHA256 = {
   segmentation: "dca6685ec88b40dcfff7aecd7f3628a115e4bcc5e2dfb4308259cdc9553f6543",
   labels: "700a60e458a14c2fe3bd4607744d354807c06113695dc0530bb1e4363040d466",
@@ -58,6 +64,7 @@ export const SOURCE_SHA256 = {
   heldQuestions: "dae4ad81ad8aef90c8c47880970778b5467af57b33d3f7098ecdea3c61d1cfc8",
   cropRevisions: "06a2c300f9be42b1a9602180c547a9a0598f82c531da87bbcebe34c0b19c48f5",
   mcqKeyCorrections: "33055812662956aa8fcecdcd305a96889aba8b3f7f8e771aa0da73a09426a9d1",
+  secondarySubtopics: "a7b4a90cbd4ecdd8c1affb37c27d95a29c0d8c9f5b4c271e506564c722540b6e",
   /** SHA-256 over the sorted "<file> <sha256>" lines of every top-level blind-results/*.json file. */
   blindResults: "6e2d8ac9bb23d4568fcfb9ef54572dbf0c938516cf31e171ae22854736f89fd1",
 };
@@ -195,6 +202,37 @@ export function seal(artifact) {
   return { candidate, runtime: artifact.runtimeArtifact.runtimeSha256 };
 }
 
+/**
+ * The reviewed further sections of one question, in syllabus order: at least one for every current secondary topic,
+ * optionally more of the primary topic (never its primary subtopic again), none for earlier-syllabus topics, and only
+ * under the question's own topics. Fails closed on any other shape.
+ */
+export function furtherSections(id, label, entry, subtopicsByCode, topicsByCode) {
+  const allowed = new Set([label.primary, ...label.secondaries]);
+  for (const code of Object.keys(entry)) if (!allowed.has(code)) throw new Error(`9708 ${id} overlay names topic ${code}, which is not its primary or a secondary`);
+  const codes = [];
+  for (const code of [label.primary, ...label.secondaries]) {
+    const topic = topicsByCode.get(code);
+    const sections = entry[code]?.subtopics;
+    if (topic.era === "2019") {
+      if (sections !== undefined) throw new Error(`9708 ${id} overlay gives sections to earlier-syllabus topic ${code}`);
+      continue;
+    }
+    if (sections === undefined) {
+      if (code !== label.primary) throw new Error(`9708 ${id} secondary topic ${code} has no reviewed section`);
+      continue;
+    }
+    if (!Array.isArray(sections) || !sections.length || new Set(sections).size !== sections.length || typeof entry[code].evidence !== "string" || !entry[code].evidence.trim()) throw new Error(`9708 ${id} overlay entry for ${code} is malformed`);
+    for (const section of sections) {
+      if (subtopicsByCode.get(section)?.topic !== code) throw new Error(`9708 ${id} section ${section} is not under topic ${code}`);
+      if (code === label.primary && section === label.primary_subtopic) throw new Error(`9708 ${id} overlay repeats the primary subtopic ${section}`);
+    }
+    codes.push(...sections);
+  }
+  const order = [...subtopicsByCode.keys()];
+  return [...new Set(codes)].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+}
+
 /** The served multiple-choice key and its provenance: two equal reads, or the reviewed examiner-report correction. */
 export function mcqKey(question, entry, corrections) {
   if (question.marks !== 1 || !/^[ABCD]$/.test(question.mcq_key ?? "") || question.mcq_key !== question.mcq_key_text || entry.mcq_key !== question.mcq_key) throw new Error(`9708 ${question.id} MCQ key reads disagree`);
@@ -221,6 +259,8 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const held = await pinned(sourceRoot, "data/held-questions.json", SOURCE_SHA256.heldQuestions);
   const cropRevisions = await pinned(sourceRoot, "data/crop-revisions.json", SOURCE_SHA256.cropRevisions);
   const keyCorrections = await pinned(sourceRoot, "data/review/mcq-key-corrections.json", SOURCE_SHA256.mcqKeyCorrections);
+  const sectionOverlay = await pinned(sourceRoot, "data/classification/secondary-subtopics.json", SOURCE_SHA256.secondarySubtopics);
+  if (sectionOverlay.inputs?.final_labels_sha256 !== SOURCE_SHA256.labels || sectionOverlay.inputs?.taxonomy_sha256 !== SOURCE_SHA256.taxonomy || sectionOverlay.inputs?.segmentation_sha256 !== SOURCE_SHA256.segmentation) throw new Error("9708 secondary-subtopic overlay was made against different inputs");
   const blind = await blindTranscripts(sourceRoot);
   if (blind.pin !== SOURCE_SHA256.blindResults) throw new Error(`9708 blind results ${blind.pin} != pinned ${SOURCE_SHA256.blindResults}`);
   if (JSON.stringify(Object.keys(held.questions).sort()) !== JSON.stringify(HELD)) throw new Error("9708 held set drifted");
@@ -260,6 +300,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const skipped = [];
   let choiceRows = 0;
   let levelsTableCrops = 0;
+  const overlayRowsUsed = new Set();
   for (const { paper, question } of sourceQuestions) {
     const entry = canonicalById.get(question.id);
     if (HELD.includes(question.id)) {
@@ -313,12 +354,16 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
       if (topic.era === "2019" && era !== "2019") throw new Error(`9708 ${question.id} carries an earlier-syllabus topic after 2022`);
       return topic;
     });
-    let subtopics = [];
+    let primarySubtopic = [];
     if (label.primary_subtopic !== null) {
       const subtopic = subtopicsByCode.get(label.primary_subtopic);
       if (!subtopic || subtopic.topic !== label.primary) throw new Error(`9708 ${question.id} subtopic ${label.primary_subtopic} is not under ${label.primary}`);
-      subtopics = [sectionLabelFor.get(subtopic.code)];
+      primarySubtopic = [sectionLabelFor.get(subtopic.code)];
     } else if (resolved[0].era !== "2019") throw new Error(`9708 ${question.id} has no subtopic under a current topic`);
+    const furtherCodes = furtherSections(question.id, label, sectionOverlay.rows[question.id] ?? {}, subtopicsByCode, topicsByCode);
+    overlayRowsUsed.add(question.id);
+    const furtherSubtopics = furtherCodes.map((code) => sectionLabelFor.get(code)).filter((title) => !primarySubtopic.includes(title));
+    const subtopics = [...primarySubtopic, ...furtherSubtopics];
     const session = SESSION_LABELS[question.session];
     if (!session || SERIES_CODES[question.session] !== entry.series_code) throw new Error(`9708 ${question.id} session ${question.session}`);
     const component = paper.paper_id.split("-")[3];
@@ -365,6 +410,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
       secondaryTopicIds: secondaries.map((topic) => topic.id),
       subtopics,
       detailedSubtopics: subtopics,
+      secondarySubtopics: furtherSubtopics,
       skills: [],
       assessmentObjectives: [],
       marks: question.marks,
@@ -393,6 +439,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
         primaryCode: label.primary,
         primarySubtopic: label.primary_subtopic,
         secondaryCodes: [...label.secondaries],
+        furtherSubtopicCodes: furtherCodes,
         markAllocation: label.mark_allocation,
         taxonomyPath: TAXONOMY_OUTPUT,
       },
@@ -401,6 +448,8 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
     });
   }
 
+  const strayOverlayRows = Object.keys(sectionOverlay.rows).filter((id) => !overlayRowsUsed.has(id));
+  if (strayOverlayRows.length) throw new Error(`9708 secondary-subtopic overlay rows for questions not in the release: ${strayOverlayRows.join(", ")}`);
   if (JSON.stringify(skipped.sort()) !== JSON.stringify([...HELD, ...EXCLUDED].sort())) throw new Error(`9708 skipped ${skipped.join(", ")}`);
   if (questions.length !== EXPECTED.rows || new Set(questions.map((question) => question.id)).size !== EXPECTED.rows) throw new Error(`9708 rows ${questions.length}`);
   for (const [paper, count] of Object.entries(EXPECTED.byPaper)) if (questions.filter((question) => question.paper === Number(paper)).length !== count) throw new Error(`9708 Paper ${paper} count drifted`);
