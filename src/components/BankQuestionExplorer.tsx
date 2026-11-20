@@ -10,7 +10,7 @@ type BankExplorerData = NonNullable<Awaited<ReturnType<typeof loadBankExplorer>>
 
 /** The public question-bank explorer, shared by bank, topic, and paper routes. */
 export function BankQuestionExplorer({ slug, explorer, routePreset, fullPaperHrefs, notesLinks }: { slug: BankSlug; explorer: BankExplorerData; routePreset?: ExplorerSearchParams; fullPaperHrefs?: Record<string, string>; notesLinks?: Record<string, { href: string; label: string }> }) {
-  const { localPreview, initialState, initialQuestions } = explorer;
+  const { localPreview, initialState, initialQuestions, initialTeasers } = explorer;
   // Question images come from signed Storage/R2 URLs; open those connections while JS loads.
   for (const origin of assetOriginsForBank(slug)) preconnect(origin);
   return (
@@ -21,6 +21,7 @@ export function BankQuestionExplorer({ slug, explorer, routePreset, fullPaperHre
       indexUrl={localPreview ? localPreviewBankIndexUrl(slug) : publicBankIndexUrl(slug)}
       access={{ authenticated: false, bankAccess: localPreview, canExportPdf: localPreview }}
       initialState={initialState}
+      initialTeasers={initialTeasers}
       bootstrapUrl={localPreview ? undefined : `/api/banks/bootstrap?bank=${encodeURIComponent(slug)}`}
       hydrateFromLocation
       routePreset={routePreset}

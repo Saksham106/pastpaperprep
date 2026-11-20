@@ -1,4 +1,4 @@
-import { freeQuestionYears } from "@/lib/access";
+import { freeQuestionYears, isPreviewQuestion } from "@/lib/access";
 import { BANK_CATALOG, type BankSlug } from "@/lib/catalog";
 import { formatPrice, PRICING_MODEL } from "@/lib/pricing-model";
 
@@ -51,7 +51,25 @@ export function bankYearFacts(bankSlug: string): BankYearFacts | null {
   return { freeLabel: yearRangeLabel(freeYears), paidLabel: yearRangeLabel(coverage.filter((year) => !freeYears.includes(year))), newerPaidLabel: yearRangeLabel(newerPaidYears), latestYear: end, coverage, freeYears, newerPaidYears };
 }
 
-const PLACEMENTS: readonly UpgradePlacement[] = ["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog", "dashboard"];
+/** What a feed teaser card shows about the paid question it teases. */
+export type FeedTeaser = { id: string; year: number; session: string; paper: number; number: number; marks: number | null; primaryTopic: string };
+
+/** Feed teasers a bank view can show: no more than one page of results has teaser slots for. */
+export const FEED_TEASER_LIMIT = 3;
+const SESSION_ORDER = ["feb", "mar", "may", "jun", "oct", "nov"];
+const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((key) => session.toLowerCase().includes(key)));
+
+/**
+ * Paid questions of a result list, newest sitting first. The static first page and the
+ * browser both pick teasers here, so the cards in the page HTML are the ones the full index picks.
+ */
+export function feedTeaserPool<Question extends FeedTeaser & { bankSlug: string }>(questions: readonly Question[]): Question[] {
+  return questions
+    .filter((question) => !isPreviewQuestion(question.bankSlug as BankSlug, question.id))
+    .sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session));
+}
+
+const PLACEMENTS: readonly UpgradePlacement[] =["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog", "dashboard"];
 
 export function isUpgradePlacement(value: unknown): value is UpgradePlacement {
   return typeof value === "string" && (PLACEMENTS as readonly string[]).includes(value);

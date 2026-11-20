@@ -39,8 +39,10 @@ function VerifiedCrop({ src, alt, crop, onError, loading }: { src: string; alt: 
     return () => { active = false; if (objectUrl) URL.revokeObjectURL(objectUrl); };
   }, [src, crop.imageSha256]);
   if (failed) return <Image unoptimized width={crop.fullWidthPx} height={crop.fullHeightPx} src={src} alt={alt} onError={onError} {...loading} />;
-  if (!verifiedUrl) return <div role="status" aria-label="Verifying original image" />;
-  return <div className="source-tail-clipped" style={{ aspectRatio: `${crop.fullWidthPx} / ${crop.visibleHeightPx}` }}>
+  const box = { aspectRatio: `${crop.fullWidthPx} / ${crop.visibleHeightPx}` };
+  // Verifying holds the clipped image's box, so the image lands without moving anything.
+  if (!verifiedUrl) return <div className="source-tail-clipped" style={box} role="status" aria-label="Verifying original image" />;
+  return <div className="source-tail-clipped" style={box}>
     <Image unoptimized width={crop.fullWidthPx} height={crop.fullHeightPx} src={verifiedUrl} alt={alt} onError={onError} {...loading} />
   </div>;
 }
