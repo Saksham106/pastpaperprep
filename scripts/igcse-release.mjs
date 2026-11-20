@@ -97,7 +97,7 @@ export const RELEASE_BANKS = {
     prefix: 'a-level-economics-9708/releases/full3208-v1-a51a32c54f4e',
     sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_ECONOMICS_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '1a2690c748552fa711e54fa92099c7a34879c3c56f5181930ea3ccb0efdec1d4',
+    originalCandidateRuntimeSha256: '264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd',
   },
 };
 

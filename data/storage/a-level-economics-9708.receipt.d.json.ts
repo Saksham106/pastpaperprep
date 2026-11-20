@@ -12,7 +12,7 @@ declare const data: {
     log: string;
     logSha256: string;
     existedBefore: number;
-    supersededKeys: never[];
+    supersededKeys: Array<string>;
   };
 };
 export default data;

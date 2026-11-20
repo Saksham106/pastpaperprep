@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Build the Cambridge International AS & A Level Economics 9708 candidate runtime from the pinned source workspace
- * (cambridge-a-level-economics-9708-topic-practice, commit bbd10f4: the e6d88fe data plus the reviewed secondary-subtopic
+ * (cambridge-a-level-economics-9708-topic-practice, commit 88d95f8: the e6d88fe data plus the reviewed secondary-subtopic
  * overlay). Every input is SHA-256 pinned; any drift fails closed.
  *
  *   data/segmentation/full/segmentation.json   3,230 canonical questions in 183 canonical papers (P1, P2, P3, P4)
@@ -9,7 +9,8 @@
  *   data/taxonomy/taxonomy.json                topics 1-11 (9708:2023:<n>, AS 1-6, A Level 7-11) and 4 earlier-syllabus topics
  *   data/canonical-manifest.json               canonical ids, exam status, alias ids, MCQ keys, essay choice groups
  *   data/held-questions.json                   16 held: 14 data-response Q1s whose published QP has content removed for
- *                                              copyright, and 2 MCQ items (an item misprint and a disputed key)
+ *                                              copyright, and 2 MCQ items (an item misprint and a disputed key); one more
+ *                                              data-response Q1 is held here (APP_HELD, owner review of #500)
  *   data/crop-revisions.json                   empty (asserted)
  *   data/paper-facts.json                      totals and durations per syllabus era from the assessment overviews:
  *                                              2020-2022 (P2 40 marks / 90 min, P4 70 / 135) and 2023+ (both 60 / 120)
@@ -52,7 +53,7 @@ export const BANK = "a-level-economics-9708";
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/cambridge-a-level-economics-9708-topic-practice";
-export const SOURCE_COMMIT = "bbd10f4";
+export const SOURCE_COMMIT = "88d95f8";
 export const SOURCE_SHA256 = {
   segmentation: "dca6685ec88b40dcfff7aecd7f3628a115e4bcc5e2dfb4308259cdc9553f6543",
   labels: "700a60e458a14c2fe3bd4607744d354807c06113695dc0530bb1e4363040d466",
@@ -64,7 +65,7 @@ export const SOURCE_SHA256 = {
   heldQuestions: "dae4ad81ad8aef90c8c47880970778b5467af57b33d3f7098ecdea3c61d1cfc8",
   cropRevisions: "06a2c300f9be42b1a9602180c547a9a0598f82c531da87bbcebe34c0b19c48f5",
   mcqKeyCorrections: "33055812662956aa8fcecdcd305a96889aba8b3f7f8e771aa0da73a09426a9d1",
-  secondarySubtopics: "a7b4a90cbd4ecdd8c1affb37c27d95a29c0d8c9f5b4c271e506564c722540b6e",
+  secondarySubtopics: "1579d6381519eb95f9b181404afaac9a1a464aac02776775eb8c195b0e4b52c0",
   /** SHA-256 over the sorted "<file> <sha256>" lines of every top-level blind-results/*.json file. */
   blindResults: "6e2d8ac9bb23d4568fcfb9ef54572dbf0c938516cf31e171ae22854736f89fd1",
 };
@@ -73,6 +74,18 @@ export const HELD = [
   "9708-2025-m-42-q1", "9708-2025-s-21-q1", "9708-2025-s-24-q1", "9708-2025-s-41-q1", "9708-2025-s-42-q1", "9708-2025-w-13-q17",
   "9708-2025-w-22-q1", "9708-2025-w-23-q1", "9708-2026-s-22-q1", "9708-2026-s-23-q1",
 ];
+/**
+ * Held in the app on top of the source's list (owner review of #500, 2026-11-20): the published QP removes a figure that a
+ * part's prompt names. A sweep of every 9708 QP for "Content removed due to copyright restrictions." found 17 Q1s with a
+ * removal; 14 are held in the source, this one is held here, and the other two (2022-s-22-q1, 2025-s-23-q1) lose article text
+ * only, with every figure and table their prompts name printed. The crops stay in the private bucket, outside the runtime.
+ */
+export const APP_HELD = {
+  "9708-2025-m-22-q1": {
+    reason: "official_qp_figure_removed",
+    detail: "QP p. 3 prints 'Content removed due to copyright restrictions.' in place of Fig. 1.2 (EU olive oil production, 2017-2023); Q1(c) asks 'With reference to Fig. 1.2' (4 marks).",
+  },
+};
 /** Held for a reason other than content removed for copyright: an item misprint and a key with no official confirmation. */
 export const HELD_MCQ = { "9708-2023-w-13-q24": "official_item_misprint", "9708-2025-w-13-q17": "official_key_disputed" };
 export const EXCLUDED = ["9708-2023-s-11-q22", "9708-2023-s-11-q30", "9708-2024-s-12-q4", "9708-2024-s-12-q6", "9708-2024-s-12-q8", "9708-2025-s-14-q2"];
@@ -82,7 +95,7 @@ export const HELD_ALIASES = ["9708-2025-s-43-q1"];
 export const STALE_MS_MAXIMUM = { "9708-2023-s-21": 40, "9708-2023-s-22": 40, "9708-2023-s-23": 40, "9708-2023-s-41": 70, "9708-2023-s-42": 70 };
 export const KEY_CORRECTIONS ={ "9708-2020-w-12-q25": { markScheme: "B", served: "C" } };
 export const EXPECTED = {
-  rows: 3208, segmented: 3230, papers: 183, aliases: 250, byPaper: { 1: 1492, 2: 216, 3: 1260, 4: 240 }, topics: 11, earlierTopics: 4,
+  labels: 3208, rows: 3207, segmented: 3230, papers: 183, aliases: 250, byPaper: { 1: 1492, 2: 215, 3: 1260, 4: 240 }, topics: 11, earlierTopics: 4,
   freeRows: 918, notSatRows: 176, years: "2020-2026", sourcePapers: 197, choiceRows: 379, levelsTableCrops: 420,
 };
 export const TAXONOMY_OUTPUT = "src/data/a-level-economics-9708-taxonomy.json";
@@ -272,7 +285,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   if (!canonical.frozen || canonical.canonical_questions.length !== EXPECTED.segmented) throw new Error("9708 canonical manifest drifted");
   const canonicalById = new Map(canonical.canonical_questions.map((question) => [question.id, question]));
   const labels = new Map(finalLabels.labels.map((label) => [label.id, label]));
-  if (labels.size !== EXPECTED.rows || finalLabels.labels.length !== EXPECTED.rows) throw new Error("9708 labels do not cover the release once each");
+  if (labels.size !== EXPECTED.labels || finalLabels.labels.length !== EXPECTED.labels) throw new Error("9708 labels do not cover the release once each");
   const topicsByCode = new Map([...sourceTaxonomy.topics, ...sourceTaxonomy.earlier_syllabus_topics].map((entry) => [entry.code, entry]));
   const subtopicsByCode = new Map(sourceTaxonomy.topics.flatMap((entry) => entry.subtopics.map((subtopic) => [subtopic.code, { ...subtopic, topic: entry.code }])));
   const labelFor = topicLabels(sourceTaxonomy);
@@ -308,6 +321,12 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
       if (!question.held || question.marks_status !== reason || held.questions[question.id].reason !== reason || labels.has(question.id)) throw new Error(`9708 held question ${question.id} is not held in the source for ${reason}`);
       if (!HELD_MCQ[question.id] && (question.number !== 1 || question.format !== "data_response")) throw new Error(`9708 held ${question.id} is not a data-response Q1`);
       skipped.push(question.id);
+      continue;
+    }
+    if (APP_HELD[question.id]) {
+      if (question.held || entry.excluded_from_practice || question.format !== "data_response" || question.number !== 1 || !labels.has(question.id)) throw new Error(`9708 app-held ${question.id} changed in the source; review before building`);
+      skipped.push(question.id);
+      overlayRowsUsed.add(question.id);
       continue;
     }
     if (EXCLUDED.includes(question.id)) {
@@ -450,7 +469,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
 
   const strayOverlayRows = Object.keys(sectionOverlay.rows).filter((id) => !overlayRowsUsed.has(id));
   if (strayOverlayRows.length) throw new Error(`9708 secondary-subtopic overlay rows for questions not in the release: ${strayOverlayRows.join(", ")}`);
-  if (JSON.stringify(skipped.sort()) !== JSON.stringify([...HELD, ...EXCLUDED].sort())) throw new Error(`9708 skipped ${skipped.join(", ")}`);
+  if (JSON.stringify(skipped.sort()) !== JSON.stringify([...HELD, ...Object.keys(APP_HELD), ...EXCLUDED].sort())) throw new Error(`9708 skipped ${skipped.join(", ")}`);
   if (questions.length !== EXPECTED.rows || new Set(questions.map((question) => question.id)).size !== EXPECTED.rows) throw new Error(`9708 rows ${questions.length}`);
   for (const [paper, count] of Object.entries(EXPECTED.byPaper)) if (questions.filter((question) => question.paper === Number(paper)).length !== count) throw new Error(`9708 Paper ${paper} count drifted`);
   const papers = new Set(questions.map((question) => question.paperId));
@@ -492,7 +511,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
       durationMinutesByEra: { 2019: facts.by_era["2019"].duration_minutes, 2023: facts.by_era["2023"].duration_minutes },
       totalMarksByEra: { 2019: facts.by_era["2019"].total_marks, 2023: facts.by_era["2023"].total_marks },
     }])),
-    heldQuestionIds: [...HELD],
+    heldQuestionIds: [...HELD, ...Object.keys(APP_HELD)].sort(),
     excludedQuestionIds: [...EXCLUDED],
     sourceCandidate: { paths: ["data/classification/final-labels.json"], sha256: [SOURCE_SHA256.labels], questionCount: questions.length },
     taxonomy: { path: TAXONOMY_OUTPUT, version: taxonomy.version, sha256: taxonomyFileSha },
@@ -525,7 +544,7 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
     artifact, serialized: `${JSON.stringify(artifact, null, 2)}\n`, seals, taxonomy, taxonomySerialized, aliases,
     report: {
       status: "PASS", bank: BANK, rows: questions.length, papers: papers.size, years: yearRange, aliases: Object.keys(aliases).length,
-      byPaper: EXPECTED.byPaper, freeRows: EXPECTED.freeRows, notSatRows: EXPECTED.notSatRows, held: HELD.length, excluded: EXCLUDED.length, choiceRows, levelsTableCrops,
+      byPaper: EXPECTED.byPaper, freeRows: EXPECTED.freeRows, notSatRows: EXPECTED.notSatRows, held: HELD.length + Object.keys(APP_HELD).length, excluded: EXCLUDED.length, choiceRows, levelsTableCrops,
       runtimeAssetRefs: new Set(questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages])).size,
     },
   };

@@ -21,6 +21,8 @@ import { PURCHASABLE_PRODUCTS } from "@/lib/pricing-intent";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { filterQuestions } from "@/lib/question-filter";
+import { generatePaper } from "@/lib/paper-builder";
+import type { PublicBankIndex } from "@/lib/question-index";
 import { publicMetadataToQuestion, type PublicQuestionMetadata } from "@/lib/question-index";
 import { defaultRouteSelection, deriveCourseRoute, routeConfigFor } from "@/lib/course-route";
 import { isNotSatSeries } from "@/lib/series-notes";
@@ -44,13 +46,15 @@ import removedPartMarks from "@/data/reviewed-science-removed-part-marks.json";
 const ROOT = process.cwd();
 const slug = A_LEVEL_ECONOMICS_9708;
 const product = "bank_a_level_economics_9708";
-const CANDIDATE = "1a2690c748552fa711e54fa92099c7a34879c3c56f5181930ea3ccb0efdec1d4";
+const CANDIDATE = "264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd";
 const PREFIX = "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e";
 const HELD_COPYRIGHT = [
   "9708-2020-w-42-q1", "9708-2021-m-22-q1", "9708-2022-w-42-q1", "9708-2023-m-22-q1", "9708-2023-w-42-q1", "9708-2025-m-42-q1", "9708-2025-s-21-q1",
   "9708-2025-s-24-q1", "9708-2025-s-41-q1", "9708-2025-s-42-q1", "9708-2025-w-22-q1", "9708-2025-w-23-q1", "9708-2026-s-22-q1", "9708-2026-s-23-q1",
 ];
 const HELD_MCQ = ["9708-2023-w-13-q24", "9708-2025-w-13-q17"];
+/** Held in the app (owner review of #500): QP p. 3 removes Fig. 1.2, which Q1(c) names. Its 5 crops stay in R2, unserved. */
+const APP_HELD = "9708-2025-m-22-q1";
 const EXCLUDED = ["9708-2023-s-11-q22", "9708-2023-s-11-q30", "9708-2024-s-12-q4", "9708-2024-s-12-q6", "9708-2024-s-12-q8", "9708-2025-s-14-q2"];
 const PRODUCTION = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
 const PREVIEW = { NODE_ENV: "development", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
@@ -103,10 +107,11 @@ const stripeConfig = validateStripeConfig({
 });
 
 describe("A Level Economics 9708 catalog entry", () => {
-  it("is a hidden, gated, paid Cambridge A Level bank with no pair bundle", () => {
+  it("is a launched, gated, paid Cambridge A Level bank with no pair bundle", () => {
     expect(BANK_CATALOG.filter((entry) => entry.slug === slug)).toHaveLength(1);
     const entry = getCatalogBank(slug)!;
-    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Economics", title: "Economics 9708", syllabusCode: "9708", questionCount: 3208, paperCount: 183, years: "2020-2026", productId: product, release: "gated", delivery: "hosted", pendingStorage: true });
+    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Economics", title: "Economics 9708", syllabusCode: "9708", questionCount: 3207, paperCount: 183, years: "2020-2026", productId: product, release: "gated", delivery: "hosted" });
+    expect("pendingStorage" in entry).toBe(false);
     // Subject-named pair bundles are IB-only: A Level Economics never inherits bundle_ib_economics.
     expect(entry.bundleProductId).toBeUndefined();
     expect(BANK_PRODUCTS[slug]).toBe(product);
@@ -115,25 +120,26 @@ describe("A Level Economics 9708 catalog entry", () => {
     expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics"]);
   });
 
-  it("rides the shared release lane, finalized against a verified readback but still hidden", () => {
+  it("rides the shared release lane, finalized against a verified readback, and is served", () => {
     expect(isIGCSEReleaseBank(slug)).toBe(true);
     expect(RELEASE_BANKS[slug]).toEqual({ prefix: PREFIX, sourceRootEnv: "PASTPAPERPREP_A_LEVEL_ECONOMICS_SOURCE_ROOT", candidateSeal: "blanked-v1", originalCandidateRuntimeSha256: CANDIDATE });
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[slug]).toBe(`${PREFIX}/`);
     expect(inferredPdfDpiForBank(slug)).toBe(108);
     expect(runtime.assetVerification).toBe("verified_readback");
-    expect(getIGCSERuntimeArtifact(slug, PRODUCTION).questions).toHaveLength(3208);
-    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getBank(slug, PRODUCTION)).toBeUndefined();
-    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(false);
-    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(true);
-    expect(isPendingStoragePreview(slug, { ...PRODUCTION, PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" })).toBe(false);
+    expect(getIGCSERuntimeArtifact(slug, PRODUCTION).questions).toHaveLength(3207);
+    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getCatalogBanksForDisplay({ NODE_ENV: "production" }).some((entry) => entry.slug === slug)).toBe(false);
+    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getBank(slug, PRODUCTION)?.qualification).toBe("Cambridge A Level");
+    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(true);
+    // No longer staged: never read through the pending-storage preview path.
+    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(false);
   });
 
-  it("is held: no production public/bank-index source or manifest entry while pendingStorage is on", () => {
-    expect(HELD_BANKS).toContain(slug);
-    expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(false);
-    expect(Object.keys(PUBLIC_BANK_INDEX_FILES)).not.toContain(slug);
+  it("is no longer held: production publishes its static index and manifest entry, and no bank is held", () => {
+    expect(HELD_BANKS).toEqual([]);
+    expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(true);
+    expect(PUBLIC_BANK_INDEX_FILES[slug as keyof typeof PUBLIC_BANK_INDEX_FILES]).toMatch(/^a-level-economics-9708\.v1-[a-f0-9]{12}\.json$/);
   });
 
   it("has a course guide from the 2026-2028 syllabus, with the 2020-2022 written-paper totals", () => {
@@ -145,12 +151,12 @@ describe("A Level Economics 9708 catalog entry", () => {
 });
 
 describe("A Level Economics 9708 billing", () => {
-  it("sells as a single bank at the shared single-bank price and joins Build Your Plan once displayed", () => {
+  it("sells as a single bank at the shared single-bank price and joins Build Your Plan", () => {
     expect(PURCHASABLE_PRODUCTS).toContain(product);
-    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PREVIEW)).toMatchObject({ priceId: "price_single_monthly" });
-    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toThrow("Bank is not available for checkout");
+    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toMatchObject({ priceId: "price_single_monthly" });
+    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, { NODE_ENV: "production" })).toThrow("Bank is not available for checkout");
     expect(isStripePriceAllowedForProduct(product, stripeConfig.singleAnnualPriceId, stripeConfig, "annual")).toBe(true);
-    expect(getCustomBundlePlan("monthly", [slug, "a-level-chemistry-9701"], stripeConfig, PREVIEW)).toMatchObject({ productId: "bundle_custom", quantity: 2 });
+    expect(getCustomBundlePlan("monthly", [slug, "a-level-chemistry-9701"], stripeConfig, PRODUCTION)).toMatchObject({ productId: "bundle_custom", quantity: 2 });
   });
 
   it("is reached by its own product, All Access, Lifetime and a custom bundle, never by a pair bundle", () => {
@@ -185,12 +191,12 @@ describe("A Level Economics 9708 billing", () => {
 });
 
 describe("A Level Economics 9708 runtime", () => {
-  it("ships 3,208 questions from 183 canonical papers: P1 1,492, P2 216, P3 1,260, P4 240", () => {
-    expect(runtime.questionCount).toBe(3208);
+  it("ships 3,207 questions from 183 canonical papers: P1 1,492, P2 215, P3 1,260, P4 240", () => {
+    expect(runtime.questionCount).toBe(3207);
     expect(runtime.paperCount).toBe(183);
     expect(new Set(runtime.questions.map((question) => question.paperId)).size).toBe(183);
     const count = (paper: number) => runtime.questions.filter((question) => question.paper === paper).length;
-    expect([count(1), count(2), count(3), count(4)]).toEqual([1492, 216, 1260, 240]);
+    expect([count(1), count(2), count(3), count(4)]).toEqual([1492, 215, 1260, 240]);
     expect(runtime.questions.every((question) => ([1, 3].includes(question.paper)) === (question.format === "multiple_choice"))).toBe(true);
     expect(runtime.questions.every((question) => [1, 2, 3, 4].includes(question.paper))).toBe(true);
   });
@@ -203,12 +209,12 @@ describe("A Level Economics 9708 runtime", () => {
     expect(runtime.paperFacts["4"]).toMatchObject({ durationMinutes: 120, totalMarks: 60, durationMinutesByEra: { 2019: 135, 2023: 120 }, totalMarksByEra: { 2019: 70, 2023: 60 } });
   });
 
-  it("keeps the 16 held questions out: 14 data-response Q1s with content removed for copyright, and 2 MCQ items", () => {
-    expect([...runtime.heldQuestionIds].sort()).toEqual([...HELD_COPYRIGHT, ...HELD_MCQ].sort());
+  it("keeps the 17 held questions out: 15 data-response Q1s with content removed for copyright, and 2 MCQ items", () => {
+    expect([...runtime.heldQuestionIds].sort()).toEqual([...HELD_COPYRIGHT, APP_HELD, ...HELD_MCQ].sort());
     const ids = new Set(runtime.questions.map((question) => question.id));
     for (const id of runtime.heldQuestionIds) expect(ids.has(id), id).toBe(false);
     // The rest of each affected written paper is served: its essays.
-    for (const id of HELD_COPYRIGHT) expect(runtime.questions.filter((question) => question.paperId === id.slice(0, -3)).length, id).toBeGreaterThan(0);
+    for (const id of [...HELD_COPYRIGHT, APP_HELD]) expect(runtime.questions.filter((question) => question.paperId === id.slice(0, -3)).length, id).toBeGreaterThan(0);
   });
 
   it("excludes the 6 multiple-choice items Cambridge removed, which have no key", () => {
@@ -237,7 +243,13 @@ describe("A Level Economics 9708 runtime", () => {
     const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
     expect(log).toHaveLength(7347);
     expect(new Set(log.map((row) => row.key)).size).toBe(7347);
-    for (const row of log) expect(row.status === "verified" && !row.existedBefore && byKey.get(row.key)?.sha256 === row.sha256 && byKey.get(row.key)?.size === row.bytes, row.key).toBe(true);
+    for (const row of log) expect(row.status === "verified" && !row.existedBefore, row.key).toBe(true);
+    // 7,342 current objects plus the 5 crops of 9708-2025-m-22-q1, uploaded before the owner held it: left in R2, unserved.
+    const superseded = log.filter((row) => !byKey.has(row.key));
+    expect(superseded.map((row) => row.key).sort()).toEqual([...(receipt.readbackProvenance as { supersededKeys: string[] }).supersededKeys].sort());
+    expect(superseded).toHaveLength(5);
+    expect(superseded.every((row) => /\/9708-2025-m-22\/q1-/.test(row.key))).toBe(true);
+    for (const row of log.filter((entry) => byKey.has(entry.key))) expect(byKey.get(row.key)?.sha256 === row.sha256 && byKey.get(row.key)?.size === row.bytes, row.key).toBe(true);
     const meta = runtimeJson.runtimeArtifact as unknown as Record<string, string>;
     expect(meta.assetManifestSha256).toBe(manifestSha256(manifest));
     expect(meta.storageReceiptSha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "data/storage/a-level-economics-9708.receipt.json"), "utf8")).digest("hex"));
@@ -412,9 +424,10 @@ describe("A Level Economics 9708 secondary sections (the #499 review fix)", () =
         expect(question.secondarySubtopics.some((section) => sectionTopic.get(section) === topic), `${question.id} ${topic}`).toBe(true);
       }
     }
-    expect(pairs).toBe(327);
+    // 327 reviewed pairs, less the one of held 9708-2025-m-22-q1.
+    expect(pairs).toBe(326);
     expect(runtime.questions.filter((question) => question.secondarySubtopics.length)).toHaveLength(377);
-    expect((runtimeJson.runtimeArtifact as unknown as { sourceSha256: Record<string, string> }).sourceSha256.secondarySubtopics).toBe("a7b4a90cbd4ecdd8c1affb37c27d95a29c0d8c9f5b4c271e506564c722540b6e");
+    expect((runtimeJson.runtimeArtifact as unknown as { sourceSha256: Record<string, string> }).sourceSha256.secondarySubtopics).toBe("1579d6381519eb95f9b181404afaac9a1a464aac02776775eb8c195b0e4b52c0");
   });
 
   for (const [label, rows] of [["normalized", questions], ["hydrated from bank-index metadata", hydrated]] as const) {
@@ -432,13 +445,58 @@ describe("A Level Economics 9708 secondary sections (the #499 review fix)", () =
   }
 });
 
+describe("A Level Economics 9708 held 9708-2025-m-22-q1 (owner review of #500: QP p. 3 removes Fig. 1.2, which Q1(c) needs)", () => {
+  const emitted = () => {
+    const file = PUBLIC_BANK_INDEX_FILES[slug as keyof typeof PUBLIC_BANK_INDEX_FILES];
+    return (JSON.parse(readFileSync(join(ROOT, "public", "bank-index", file), "utf8")) as PublicBankIndex).questions;
+  };
+
+  it("is absent from the runtime, the private index, the emitted bank index and the hydrated rows", () => {
+    expect(runtime.questions.some((question) => question.id === APP_HELD)).toBe(false);
+    expect(privateIndex.questions.some((question) => question.id === APP_HELD)).toBe(false);
+    expect(emitted().some((question) => question.id === APP_HELD)).toBe(false);
+    expect(hydrated.some((question) => question.id === APP_HELD)).toBe(false);
+    expect(currentQuestionId(slug, APP_HELD)).toBe(APP_HELD);
+    // The rest of the paper (its four essays) is still served.
+    expect(runtime.questions.filter((question) => question.paperId === "9708-2025-m-22").map((question) => question.number)).toEqual([2, 3, 4, 5]);
+  });
+
+  it("is never picked by the worksheet builder, even for an exact 20-mark AS written request on 2025", () => {
+    const pool = emitted().filter((question) => question.paper === 2 && question.year === 2025);
+    expect(pool.length).toBeGreaterThan(0);
+    for (let seed = 1; seed <= 200; seed += 1) {
+      const built = generatePaper(pool, { mode: "marks", targets: [{ paper: 2, amount: 20 }], seed, yearFrom: 2025, yearTo: 2025, bank: slug, courseRoute: "as-written" });
+      expect(built.questions.map((question) => question.id), String(seed)).not.toContain(APP_HELD);
+    }
+  });
+});
+
+describe("A Level Economics 9708 AD/AS sections (owner review of #500)", () => {
+  it("finds 9708-2021-w-21-q1 and 9708-2022-s-22-q1 under Aggregate Demand and Aggregate Supply analysis in the emitted index", () => {
+    const file = PUBLIC_BANK_INDEX_FILES[slug as keyof typeof PUBLIC_BANK_INDEX_FILES];
+    const emitted = (JSON.parse(readFileSync(join(ROOT, "public", "bank-index", file), "utf8")) as PublicBankIndex).questions.map((meta) => publicMetadataToQuestion(meta, slug));
+    const asWritten = emitted.filter((question) => question.paper === 2);
+    const ids = (filters: Parameters<typeof filterQuestions>[1]) => filterQuestions(asWritten, filters).map((question) => question.id);
+    for (const id of ["9708-2021-w-21-q1", "9708-2022-s-22-q1"]) {
+      // MS 2021 Q1(d) p. 6 and 2022 Q1(c) p. 7: AD/AS analysis for 6 marks each.
+      expect(ids({ topics: ["The macroeconomy"] }), id).toContain(id);
+      expect(ids({ topics: ["The macroeconomy"], subtopics: ["Aggregate Demand and Aggregate Supply analysis"] }), id).toContain(id);
+      expect(ids({ subtopics: ["Aggregate Demand and Aggregate Supply analysis"] }), id).toContain(id);
+    }
+    // Primaries are kept.
+    const primary = (id: string) => runtime.questions.find((question) => question.id === id)!.primaryTopic;
+    expect(primary("9708-2021-w-21-q1")).toBe("The macroeconomy");
+    expect(primary("9708-2022-s-22-q1")).toBe("Government macroeconomic intervention");
+  });
+});
+
 describe("A Level Economics 9708 storage plan", () => {
-  it("plans a create-only upload of exactly the runtime's 7,347 crops under a new prefix", () => {
+  it("plans exactly the runtime's 7,342 crops under a new prefix (the uploaded 7,347 less the held question's 5)", () => {
     const refs = new Set(runtime.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages]));
     expect(manifest.storageState).toBe("pending_upload");
     expect(manifest.originalCandidateRuntimeSha256).toBe(CANDIDATE);
     expect(manifest.objectPrefix).toBe(`${PREFIX}/`);
-    expect(manifest.assets).toHaveLength(7347);
+    expect(manifest.assets).toHaveLength(7342);
     expect(manifest.assets.map((asset) => asset.objectKey.slice(manifest.objectPrefix.length)).sort()).toEqual([...refs].sort());
     expect(manifest.assets.every((asset) => asset.objectKey.startsWith(`${PREFIX}/`) && asset.contentType === "image/webp")).toBe(true);
     // No crop of a held or excluded question is planned.
@@ -447,18 +505,19 @@ describe("A Level Economics 9708 storage plan", () => {
       const number = id.match(/-q(\d+)$/)![1];
       expect(manifest.assets.some((asset) => asset.objectKey.includes(`/${paperId}/q${number}-`)), id).toBe(false);
     }
-    expect(dryRun).toMatchObject({ r2Writes: 0, objects: 7347, uniqueKeys: 7347, mismatches: 0, localSha256ReHashed: 7347, sha256MatchesSegmentationRecord: 7347, bytes: manifest.assets.reduce((sum, asset) => sum + asset.size, 0) });
+    // The dry run checked the plan as uploaded (before the hold).
+    expect(dryRun).toMatchObject({ r2Writes: 0, objects: 7347, uniqueKeys: 7347, mismatches: 0, localSha256ReHashed: 7347, sha256MatchesSegmentationRecord: 7347 });
   });
 
   it("exposes a metadata-only private index", () => {
-    expect(privateIndex.questions).toHaveLength(3208);
+    expect(privateIndex.questions).toHaveLength(3207);
     const serialized = JSON.stringify(privateIndex);
     for (const field of ["accessibleText", "answer", "questionImages", "sourceQuestionUrl"]) expect(serialized).not.toContain(`"${field}"`);
   });
 
   it("records the generator's pinned source in the runtime", () => {
     const meta = runtimeJson.runtimeArtifact as unknown as { sourceCommit: string; sourceRepository: string };
-    expect(meta).toMatchObject({ sourceRepository: "cambridge-a-level-economics-9708-topic-practice", sourceCommit: "bbd10f4" });
+    expect(meta).toMatchObject({ sourceRepository: "cambridge-a-level-economics-9708-topic-practice", sourceCommit: "88d95f8" });
     const generator = join(ROOT, "scripts/generate-a-level-economics-9708-runtime.mjs");
     expect(existsSync(generator)).toBe(true);
     expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/a-level-economics-9708-taxonomy.json"))).digest("hex")).toBe((runtimeJson as unknown as { taxonomy: { sha256: string } }).taxonomy.sha256);

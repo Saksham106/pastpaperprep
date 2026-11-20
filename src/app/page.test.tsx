@@ -42,10 +42,10 @@ describe("home page", () => {
     expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("Practice by topicFull past papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
-    // 26 with A Level Biology 9700 switched on (#499), after Physics 9702 and Chemistry 9701 (2026-11-19) and Maths 9709.
-    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(26);
-    expect(rows).toHaveLength(26);
-    for (const slug of ["a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700"]) expect(rows.find((row) => row.dataset.bankSlug === slug)?.getAttribute("href")).toBe(`/banks/${slug}?free=1`);
+    // 27 with A Level Biology 9700 and Economics 9708 switched on for one launch (#499, #500), after Physics 9702 and Chemistry 9701 (2026-11-19) and Maths 9709.
+    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(27);
+    expect(rows).toHaveLength(27);
+    for (const slug of ["a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708"]) expect(rows.find((row) => row.dataset.bankSlug === slug)?.getAttribute("href")).toBe(`/banks/${slug}?free=1`);
     expect(container.querySelectorAll("a a")).toHaveLength(0);
     for (const row of rows) {
       expect(row.getAttribute("href")).toMatch(/^\/banks\/[a-z0-9-]+(\?free=1)?$/);

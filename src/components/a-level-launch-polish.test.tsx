@@ -93,10 +93,10 @@ describe("9709 explorer", () => {
 });
 
 describe("Physics 9702 under the same rules", () => {
-  it("lists Mathematics, Chemistry, Physics, Biology, whatever the catalog order", async () => {
+  it("lists Mathematics, Chemistry, Physics, Biology, Economics, whatever the catalog order", async () => {
     const { getCatalogBanksForDisplay } = await import("@/lib/catalog");
     const preview = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
-    expect(getCatalogBanksForDisplay(preview).filter((bank) => bank.qualification === "Cambridge A Level").map((bank) => bank.slug)).toEqual(["a-level-maths-9709", "a-level-chemistry-9701", "a-level-physics-9702", "a-level-biology-9700"]);
+    expect(getCatalogBanksForDisplay(preview).filter((bank) => bank.qualification === "Cambridge A Level").map((bank) => bank.slug)).toEqual(["a-level-maths-9709", "a-level-chemistry-9701", "a-level-physics-9702", "a-level-biology-9700", "a-level-economics-9708"]);
   });
 
   it("keeps its four paper tabs in one row", () => {

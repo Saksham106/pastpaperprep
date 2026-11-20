@@ -2,7 +2,7 @@
   "schemaVersion": "igcse-upload-receipt-v1",
   "bank": "a-level-economics-9708",
   "storageState": "verified_readback",
-  "assetManifestSha256": "0b8ddc1f20a8a662b5cc14ef727183ed42ab0e80f93f42ec0f1157d235c1c1db",
+  "assetManifestSha256": "bd2902af65363d6286e95bb200c36ee5e7fa6a205fa605f25d455dc8b30483f9",
   "completed": [
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2020-m-12/q1-2-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2020-m-12/q10-2-1.webp",
@@ -2845,9 +2845,6 @@
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-12/q7-2-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-12/q8-2-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-12/q9-2-1.webp",
-    "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q1-10-2.webp",
-    "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q1-11-3.webp",
-    "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q1-9-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q2-12-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q2-13-2.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q2-levels-7-1.webp",
@@ -6470,8 +6467,6 @@
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-12/q7-4-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-12/q8-4-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-12/q9-5-1.webp",
-    "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-22/q1-2-1.webp",
-    "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-22/q1-3-2.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-22/q2-4-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-22/q3-4-1.webp",
     "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-22/q4-4-1.webp",
@@ -7358,6 +7353,12 @@
     "log": "docs/a-level-economics-9708-r2-upload-log.jsonl",
     "logSha256": "a24dc79f8d45d6a74ff5f479898a432544ce1d6356e44372179cd6048a664390",
     "existedBefore": 0,
-    "supersededKeys": []
+    "supersededKeys": [
+      "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q1-10-2.webp",
+      "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q1-11-3.webp",
+      "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/markschemes/9708-2025-m-22/q1-9-1.webp",
+      "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-22/q1-2-1.webp",
+      "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/questions/9708-2025-m-22/q1-3-2.webp"
+    ]
   }
 }
