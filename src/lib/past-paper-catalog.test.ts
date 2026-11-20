@@ -105,6 +105,13 @@ describe('paper code search', () => {
     ['paper 42 on 23', '2023-oct-nov-42'],
   ])('finds %s', (q, slug) => { expect(top(q)[0]).toBe(slug); });
 
+  it('reads A Level syllabus codes and the fourth variant', () => {
+    expect(parsePaperQuery('9709/12/M/J/24')).toMatchObject({ code: '9709', component: '12', session: 'may-june', year: 2024 });
+    expect(parsePaperQuery('9702_s25_qp_14')).toMatchObject({ code: '9702', component: '14', session: 'may-june', year: 2025 });
+    expect(parsePaperQuery('9701 june 2025 paper 44')).toMatchObject({ code: '9701', component: '44', paper: '4', year: 2025 });
+    expect(parsePaperQuery('9709 s24 p32')).toMatchObject({ code: '9709', component: '32', year: 2024 });
+  });
+
   it('lists every variant for a partial query', () => {
     expect(top('oct nov 2025 paper 4')).toEqual(['2025-oct-nov-41', '2025-oct-nov-42', '2025-oct-nov-43']);
   });

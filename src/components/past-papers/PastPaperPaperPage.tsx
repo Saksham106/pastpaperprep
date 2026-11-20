@@ -86,7 +86,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const session = sameSitting.filter(o => o.paper !== p.paper && (!otherRoute || o.route !== otherRoute)).sort((a, b) => a.component.localeCompare(b.component, undefined, { numeric: true }) || a.variant.localeCompare(b.variant));
   const previous = neighbour(all, p, -1), next = neighbour(all, p, 1);
   const tz = /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
-  const facts = [p.route === 'Core' || p.route === 'Extended' ? p.route : null, p.durationMinutes !== null ? formatDuration(p.durationMinutes) : null, p.maxMarks !== null ? `${p.maxMarks} marks` : null, p.qualification === 'Cambridge IGCSE' && /^\d$/.test(p.variant) ? `Variant ${p.variant}` : tz].filter((fact): fact is string => !!fact);
+  const facts = [p.route === 'Core' || p.route === 'Extended' ? p.route : null, p.durationMinutes !== null ? formatDuration(p.durationMinutes) : null, p.maxMarks !== null ? `${p.maxMarks} marks` : null, isCambridge(p) && /^\d$/.test(p.variant) ? `Variant ${p.variant}` : tz].filter((fact): fact is string => !!fact);
   const codes = paperCodes(bank, p);
   const reader: PaperReaderConfig = { id: p.id, title: copy.h1, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, bankSlug: bank.slug, reportAvailable: p.reportAvailable, questionPages: questionPages(questions) };
   const marking = p.reportAvailable && p.maxMarks !== null ? { id: p.id, version: detail.version, bankSlug: bank.slug, title: copy.h1, maxMarks: p.maxMarks, questions: detail.questions } : null;

@@ -1,0 +1,22 @@
+{
+ "cases": [
+  {
+   "bankSlug": "a-level-physics-9702",
+   "paperId": "9702-2021-m-22",
+   "questionSha256": "af5174f518021cd1da4bef36b5fccd01b7d58268a363ec91c6cc9a77f76a011d",
+   "markschemeSha256": "5c77ca751eda5866b5bfa36ebc5cb22e6e9b93f8b88d3ab24ad35b4cc3e069f2",
+   "verdict": "valid-pair",
+   "evidence": "Cambridge's published scheme prints the template placeholder '9702/COMP' on its cover and every page header instead of 9702/22. The cover otherwise reads PHYSICS, Paper 2 AS Level Structured Questions, March 2021, Maximum Mark: 60. March has a single Paper 2 variant (22); the question paper's footers all read 9702/22/F/M/21, and the scheme's mark tokens sum to 60, the question paper's printed total. Reviewed in the 9702 content workspace (data/identity-review-cases.json, 2026-11-17) and re-checked from the rendered covers 2026-11-20.",
+   "extractedHeaderFields": {
+    "question": { "coverPage": 1, "examCodeLiteral": "9702/22", "paperLiteral": "Paper 2 AS Level Structured Questions", "dateOrSessionLiteral": "February/March 2021" },
+    "markscheme": { "coverPage": 1, "examCodeLiteral": "9702/COMP", "paperLiteral": "Paper 2 AS Level Structured Questions", "sessionLiteral": "March 2021", "maximumMark": 60 }
+   },
+   "proposedRule": "Individual exception keyed by bank/paper plus BOTH PDF SHA-256 hashes; the '9702/COMP' placeholder is accepted only for this 9702/22 March 2021 pair.",
+   "category": "published-component-label",
+   "visualEvidence": [
+    { "document": "question", "sourcePdfSha256": "af5174f518021cd1da4bef36b5fccd01b7d58268a363ec91c6cc9a77f76a011d", "page": 1, "renderer": "PyMuPDF 2.1 page 1 at 72 dpi", "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/dda920596eb41cc3d04748ee9856e182d3a6f721234563c663c179bfb11dc589.png", "imageSha256": "dda920596eb41cc3d04748ee9856e182d3a6f721234563c663c179bfb11dc589" },
+    { "document": "markscheme", "sourcePdfSha256": "5c77ca751eda5866b5bfa36ebc5cb22e6e9b93f8b88d3ab24ad35b4cc3e069f2", "page": 1, "renderer": "PyMuPDF 2.1 page 1 at 72 dpi", "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/c402f932314896888e44688f58e8e84161142209d43772699628558849dc0e80.png", "imageSha256": "c402f932314896888e44688f58e8e84161142209d43772699628558849dc0e80" }
+   ]
+  }
+ ]
+}
