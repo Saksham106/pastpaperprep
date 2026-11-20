@@ -1,6 +1,6 @@
 # A Level Economics 9708: addition receipt (19 November 2026)
 
-The owner asked to "continue what needs to be done" after the 9708 content build finished; the coordinating session started this app PR. The bank is added **hidden**: the catalog entry has `pendingStorage: true` and the slug is listed in `src/lib/held-banks.mjs`. Nothing is migrated or switched on. It is built the way Chemistry 9701 (#498) and Biology 9700 (#499) were added, including #499's review fixes (per-topic subtopic grouping in `taxonomy-router`).
+The owner asked to "continue what needs to be done" after the 9708 content build finished; the coordinating session started this app PR. The crops are uploaded (owner-approved, run by the coordinating session) and read back, and the runtime is finalized. The bank stays **hidden**: the catalog entry has `pendingStorage: true` and the slug is listed in `src/lib/held-banks.mjs`. Nothing is migrated or switched on. It is built the way Chemistry 9701 (#498) and Biology 9700 (#499) were added, including #499's review fixes (per-topic subtopic grouping in `taxonomy-router`).
 
 ## Source
 - Workspace `cambridge-a-level-economics-9708-topic-practice` at commit `e6d88fe`. Receipts there: `docs/coverage-receipt.md` (PASS, byte-identical rebuild including all 7,426 crop SHA-256s; 43 tests), `docs/classification-receipt.md`, `docs/segmentation-receipt.md`, `docs/acquisition-receipt.md`, `docs/structure-verification.md`.
@@ -38,12 +38,21 @@ A Level subjects are listed Mathematics, Chemistry, Physics, Biology, Economics.
 - Prefix `a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/`, private bucket `pastpaperprep-assets`.
 - Plan: `data/storage/a-level-economics-9708.manifest.json`, **7,347 WebP objects, 81,059,370 bytes**. That's the 7,426 segmented crops minus the crops of the 16 held and 6 excluded questions.
 - Dry run: `data/storage/a-level-economics-9708.dry-run.json`. Every local file was re-hashed: 7,347/7,347 match the manifest and the segmentation record, 0 mismatches, 0 R2 writes.
+- Upload (owner-approved, 19 November 2026): run against this branch's manifest through the temporary create-only R2 Worker (`ppp-asset-upload`). Every put was SHA-256-checked by R2, then read back and re-hashed.
+- Results: **7,347 of 7,347 verified, 0 failed, 0 already present**.
+  - Log: `docs/a-level-economics-9708-r2-upload-log.jsonl` (`a24dc79f…`).
+  - Receipt: `data/storage/a-level-economics-9708.receipt.json` (`verified_readback`).
+- This session re-checked independently:
+  - the receipt covers exactly the manifest keys, with no failures, and its manifest seal holds;
+  - the log seal holds; every one of the 7,347 log rows is `verified`, not pre-existing, and matches its manifest SHA-256 and size;
+  - 3 random objects fetched from R2 with wrangler (`9708-2020-m-12` MS Q25, `9708-2025-s-14` MS Q14, `9708-2026-s-14` QP Q19) hash to their manifest values and sizes.
+- **Finalized:** `generate-igcse-release.mjs --finalize a-level-economics-9708`. All 3,208 rows are now production/classified; runtime `72f2e0fa…`, against candidate `a51a32c5…`. The test reconstructs the candidate from the finalized runtime.
 
 ## Billing
 `bank_a_level_economics_9708` is sold on the shared single-bank prices and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_economics`. Migration `20261120000000_a_level_economics_9708_release.sql` copies Biology's `20261119000000` definitions verbatim (a test checks this) and adds the product and slug after 9700. It is **not applied**.
 
 ## Still owner-gated
 1. Production migration `20261120000000`, after `20261119000000`.
-2. The free-year copy of the 2020–2021 crops to the public bucket.
+2. The free-year copy of the 2020–2021 crops to the public bucket (918 questions).
 3. Switching the bank on: drop `pendingStorage`, empty `held-banks.mjs`, regenerate the bank index. Explanations are exempt by name until written.
 4. Merge, never back-to-back with another build.
