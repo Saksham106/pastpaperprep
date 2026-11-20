@@ -85,8 +85,21 @@ stacked on #500 plus this branch:
   papers (w25 22/23, s26 22/23) have no cover text layer and need an identity review.
 - **Size:** 674 PDFs, 0.541 GB. They are published once #499 and #500 merge.
 
-## Publish
+## Publish (owner approved in chat, 20 November 2026)
 
-Pending owner approval (see the PR). The plan is 1,140 PDFs (511.8 MB) added with `publish-added-free-papers.mts`:
-check-absent, put, read-back. Then `verify` reads every approved PDF back from `free.pastpaperprep.com` and writes
-`src/data/paper-archive-readback.json`.
+Published with `scripts/publish-added-free-papers.mts` (wrangler, no keys).
+
+- **Plan:** 1,140 PDFs (511.8 MB) that the manifests approve and `origin/main`'s don't. All are `9709_*`, `9702_*`
+  or `9701_*`, and no existing object changes its download name.
+- **Upload:** 2 at a time. For each PDF, a staged copy was hash-checked, the key was found absent, the PDF was put,
+  and it was read back with matching SHA-256 and size.
+  - Result: 1,140 of 1,140 present and read back, with 0 pre-existing conflicts and one transient `get` retry.
+  - Log: `r2-upload-log.jsonl` (no credentials).
+- **Verify:**
+  - The first full run stopped one existing IB Biology object at 2 MiB with an HTTP/2 stream error (curl 92). A fresh
+    fetch returned the full file with the right hash.
+  - The second full run read back all 6,626 approved PDFs from `free.pastpaperprep.com` through DoH, and bytes, type
+    and filename matched for every one.
+  - This wrote `src/data/paper-archive-readback.json`: objectsSha256 `c05dd650…`, mappingSha256 `9b466240…`.
+- **Storage:** before, `pastpaperprep-free` held 5.44 GB in 67,151 objects. After, it holds 5.96 GB in 68,291
+  objects. With `pastpaperprep-assets` at 4.07 GB, R2 totals 10.03 GB, about 0.03 GB over the 10 GB free tier.
