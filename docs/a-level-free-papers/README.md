@@ -121,4 +121,4 @@ Published with `scripts/publish-added-free-papers.mts` (wrangler, no keys).
   `r2-upload-log-9700-9708.jsonl` (no credentials).
 - **Verify:** one full run read back all 7,308 approved PDFs from `free.pastpaperprep.com`, with 0 failures.
   - Receipt: objectsSha256 `e16c3952…`, mappingSha256 `28963f1c…`.
-- **Storage:** __STORAGE__
+- **Storage:** a bucket listing through the Cloudflare API finds exactly 7,308 objects under `papers/v1/` (5.46 GB), the whole approved set, with all 682 new keys present. `wrangler r2 bucket info` still showed the pre-upload metrics an hour later (6.07 GB, +134 objects), so it lags. Expected R2 total: about 10.58 GB (10.03 + 0.55), about 0.58 GB over the 10 GB free tier.
