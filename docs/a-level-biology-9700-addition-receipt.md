@@ -1,6 +1,6 @@
 # A Level Biology 9700: addition receipt (19 November 2026)
 
-The owner asked for the Biology PR ("go ahead and build the biology pr") and approved the 9700 R2 upload in the 9700 content session, which ran it against this branch's manifest. The crops are uploaded and read back and the runtime is finalized. Nothing is migrated or published, and the catalog entry stays hidden (`pendingStorage: true`, listed in `src/lib/held-banks.mjs`). It is built on `main` at 0d6777a8 (#498), the same way Chemistry 9701 was added there.
+The owner asked for the Biology PR ("go ahead and build the biology pr") and approved the 9700 R2 upload in the 9700 content session, which ran it against this branch's manifest. The crops are uploaded and read back and the runtime is finalized. The bank was held (`pendingStorage`) through review and is switched on in this PR, ready for launch; nothing is migrated. It is built on `main` at 0d6777a8 (#498), the same way Chemistry 9701 was added there.
 
 ## Source
 - Workspace `cambridge-a-level-biology-9700-topic-practice` at commit 1c68c4d: the 314703b data plus the reviewed secondary-subtopic overlay (see below); commits in between only record the upload and free copy. Receipts there: `docs/coverage-receipt.md` (PASS, byte-identical rebuild including all 7,006 crops), `docs/classification-receipt.md`, `docs/segmentation-receipt.md`, `docs/acquisition-receipt.md`.
@@ -73,13 +73,16 @@ Paper tabs: All papers · Multiple choice · AS structured · A Level structured
     - New seals: runtime `8f705c91…`, manifest `5cc8fcf7…`, receipt `5a514f10…`.
     - The dry-run file still records the first candidate it ran against.
 
+## Switch-on (19 November 2026, in #499)
+- The owner asked to continue toward launch ("continue what needs to be done"), relayed by the coordinating session. #499 drops `pendingStorage` and empties `src/lib/held-banks.mjs`, so production publishes Biology's static index, search entries and asset manifests like 9701's and 9702's. The bank-index manifest gains only the 9700 entry; every other bank's index hash is unchanged. Explanations stay exempt by name.
+- Free 2020–2021 index: all 1,409 asset paths in the generated `public/free-assets/a-level-biology-9700.json` (763 questions) are in the verified free-copy log, with the private manifest's hashes and sizes. 6 random files fetched from free.pastpaperprep.com hash to their manifest values.
+
 ## Billing
 `bank_a_level_biology_9700` is sold on the shared single-bank prices, and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle: subject-named pair bundles are IB-only, so it never inherits `bundle_ib_biology`. Migration `20261119000000_a_level_biology_9700_release.sql` copies Chemistry's `20261118000000` definitions verbatim (a test checks this) and adds the product and slug after 9701. It is **not applied**.
 
 ## Still owner-gated
-1. Production migration `20261119000000`.
-2. Switching the bank on (drop `pendingStorage`, empty `held-banks.mjs`). Explanations are exempt by name until written.
-3. Merge, never back-to-back with another build.
+1. Production migration `20261119000000_a_level_biology_9700_release.sql`, before the merge. Checkout for this product needs it.
+2. Merge #499 as a single build, never back-to-back with another build, then do the live check.
 
 ## Existing banks unchanged
-Against `main` at 0d6777a8, nothing under `src/data`, `public` or `data` changed except the new 9700 files and the added `a-level-biology-9700` block (and its sentence in `note`) in `question-id-aliases.json`. All 20 other `src/data/production` runtimes are byte-identical, every other bank's alias map is identical, and `src/lib/bank-index-manifest.ts` is unchanged (9700 is held, so no static index is published for it).
+Against `main` at 0d6777a8, nothing under `src/data`, `public` or `data` changed except the new 9700 files and the added `a-level-biology-9700` block (and its sentence in `note`) in `question-id-aliases.json`. All 20 other `src/data/production` runtimes are byte-identical, every other bank's alias map is identical, and `src/lib/bank-index-manifest.ts` gains only the 9700 entry at switch-on.

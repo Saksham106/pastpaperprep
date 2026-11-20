@@ -69,8 +69,8 @@ export const BANK_CATALOG = [
   // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: switched on 2026-11-19 with 9702.
   bank({ slug: "a-level-chemistry-9701", qualification: "Cambridge A Level", subject: "Chemistry", title: "Chemistry 9701", shortName: "Chemistry 9701", syllabusCode: "9701", level: "AS & A Level", questionCount: 2220, paperCount: 123, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_chemistry_9701", release: "gated", delivery: "hosted" }),
   // Cambridge International AS & A Level Biology 9700: Papers 1 (multiple choice), 2 and 4, with paper tabs like 9701.
-  // Hidden (pendingStorage) until the owner-approved R2 upload is read back and the runtime is finalized.
-  bank({ slug: "a-level-biology-9700", qualification: "Cambridge A Level", subject: "Biology", title: "Biology 9700", shortName: "Biology 9700", syllabusCode: "9700", level: "AS & A Level", questionCount: 2680, paperCount: 141, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_biology_9700", release: "gated", delivery: "hosted", pendingStorage: true }),
+  // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: switched on for launch (#499).
+  bank({ slug: "a-level-biology-9700", qualification: "Cambridge A Level", subject: "Biology", title: "Biology 9700", shortName: "Biology 9700", syllabusCode: "9700", level: "AS & A Level", questionCount: 2680, paperCount: 141, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_biology_9700", release: "gated", delivery: "hosted" }),
   // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: served under the shared release
   // gate like the other private-storage banks (switched on 2026-11-18).
   bank({ slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", shortName: "Mathematics 9709", syllabusCode: "9709", level: "AS & A Level", questionCount: 2118, paperCount: 256, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_maths_9709", release: "gated", delivery: "hosted" }),

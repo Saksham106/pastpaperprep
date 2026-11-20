@@ -87,10 +87,11 @@ const stripeConfig = validateStripeConfig({
 });
 
 describe("A Level Biology 9700 catalog entry", () => {
-  it("is a hidden, gated, paid Cambridge A Level bank with no pair bundle", () => {
+  it("is a launched, gated, paid Cambridge A Level bank with no pair bundle", () => {
     expect(BANK_CATALOG.filter((entry) => entry.slug === slug)).toHaveLength(1);
     const entry = getCatalogBank(slug)!;
-    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Biology", title: "Biology 9700", syllabusCode: "9700", questionCount: 2680, paperCount: 141, years: "2020-2026", productId: product, release: "gated", delivery: "hosted", pendingStorage: true });
+    expect(entry).toMatchObject({ qualification: "Cambridge A Level", subject: "Biology", title: "Biology 9700", syllabusCode: "9700", questionCount: 2680, paperCount: 141, years: "2020-2026", productId: product, release: "gated", delivery: "hosted" });
+    expect("pendingStorage" in entry).toBe(false);
     // Subject-named pair bundles are IB-only: A Level Biology never inherits bundle_ib_biology.
     expect(entry.bundleProductId).toBeUndefined();
     expect(BANK_PRODUCTS[slug]).toBe(product);
@@ -99,35 +100,36 @@ describe("A Level Biology 9700 catalog entry", () => {
     expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology"]);
   });
 
-  it("rides the shared release lane, finalized against a verified readback but still hidden", () => {
+  it("rides the shared release lane, finalized against a verified readback, and is served", () => {
     expect(isIGCSEReleaseBank(slug)).toBe(true);
     expect(RELEASE_BANKS[slug]).toEqual({ prefix: PREFIX, sourceRootEnv: "PASTPAPERPREP_A_LEVEL_BIOLOGY_SOURCE_ROOT", candidateSeal: "blanked-v1", originalCandidateRuntimeSha256: CANDIDATE });
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[slug]).toBe(`${PREFIX}/`);
     expect(inferredPdfDpiForBank(slug)).toBe(108);
     expect(runtime.assetVerification).toBe("verified_readback");
     expect(getIGCSERuntimeArtifact(slug, PRODUCTION).questions).toHaveLength(2680);
-    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(false);
-    expect(getBank(slug, PRODUCTION)).toBeUndefined();
-    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(false);
-    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(true);
-    expect(isPendingStoragePreview(slug, { ...PRODUCTION, PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true" })).toBe(false);
+    expect(getCatalogBanksForDisplay(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getCatalogBanksForDisplay({ NODE_ENV: "production" }).some((entry) => entry.slug === slug)).toBe(false);
+    expect(getCatalogBillingBanks(PRODUCTION).some((entry) => entry.slug === slug)).toBe(true);
+    expect(getBank(slug, PRODUCTION)?.qualification).toBe("Cambridge A Level");
+    expect(isPrivateBankIndexEnabled(slug, PRODUCTION)).toBe(true);
+    // No longer staged: never read through the pending-storage preview path.
+    expect(isPendingStoragePreview(slug, PREVIEW)).toBe(false);
   });
 
-  it("is held: no production public/bank-index source or manifest entry while pendingStorage is on", () => {
-    expect(HELD_BANKS).toContain(slug);
-    expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(false);
-    expect(Object.keys(PUBLIC_BANK_INDEX_FILES)).not.toContain(slug);
+  it("is no longer held: production publishes its static index and manifest entry, like 9701 and 9702", () => {
+    expect(HELD_BANKS).not.toContain(slug);
+    expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(true);
+    expect(PUBLIC_BANK_INDEX_FILES[slug as keyof typeof PUBLIC_BANK_INDEX_FILES]).toMatch(/^a-level-biology-9700\.v1-[a-f0-9]{12}\.json$/);
   });
 });
 
 describe("A Level Biology 9700 billing", () => {
-  it("sells as a single bank at the shared single-bank price and joins Build Your Plan once displayed", () => {
+  it("sells as a single bank at the shared single-bank price and joins Build Your Plan", () => {
     expect(PURCHASABLE_PRODUCTS).toContain(product);
-    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PREVIEW)).toMatchObject({ priceId: "price_single_monthly" });
-    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toThrow("Bank is not available for checkout");
+    expect(getBillingPlan(product, "monthly", stripeConfig, undefined, PRODUCTION)).toMatchObject({ priceId: "price_single_monthly" });
+    expect(() => getBillingPlan(product, "monthly", stripeConfig, undefined, { NODE_ENV: "production" })).toThrow("Bank is not available for checkout");
     expect(isStripePriceAllowedForProduct(product, stripeConfig.singleAnnualPriceId, stripeConfig, "annual")).toBe(true);
-    expect(getCustomBundlePlan("monthly", [slug, "a-level-chemistry-9701"], stripeConfig, PREVIEW)).toMatchObject({ productId: "bundle_custom", quantity: 2 });
+    expect(getCustomBundlePlan("monthly", [slug, "a-level-chemistry-9701"], stripeConfig, PRODUCTION)).toMatchObject({ productId: "bundle_custom", quantity: 2 });
   });
 
   it("is reached by its own product, All Access, Lifetime and a custom bundle, never by a pair bundle", () => {
