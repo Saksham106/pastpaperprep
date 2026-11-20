@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "a-level-biology-9700",
+  "date": "2026-11-19",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "a-level-biology-9700/releases/full2680-v1-102ff947f0aa/",
+  "objects": 6994,
+  "bytes": 122994092,
+  "uniqueKeys": 6994,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 6994,
+  "sha256MatchesSegmentationRecord": 6994,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "102ff947f0aa8db777cc049e663c5d348dbf498a2ee2115e617ce3f59b63df8a",
+  "sourceCommit": "314703b",
+  "nextStep": "Owner approval in the session that runs it (given in the 9700 content session), then the create-only R2 Worker upload (research/ppp-tools/r2-upload-worker/upload.mjs) against data/storage/a-level-biology-9700.manifest.json, then generate-igcse-release.mjs --finalize a-level-biology-9700."
+}

@@ -60,3 +60,36 @@ export const PHYSICS_9702_EARLIER_TOPICS: readonly string[] = [
 ];
 
 export const PHYSICS_9702_TOPIC_ORDER: readonly string[] = [...PHYSICS_9702_TOPICS, ...PHYSICS_9702_EARLIER_TOPICS];
+
+
+/**
+ * Each current topic's subtopic sections, in syllabus order (source taxonomy). The subtopic picker shows these under the
+ * selected topic. Earlier-syllabus topics have no sections. The test keeps this equal to src/data/a-level-physics-9702-taxonomy.json.
+ */
+export const PHYSICS_9702_SUBTOPICS: Readonly<Record<string, readonly string[]>> = {
+  "Physical quantities and units": ["Physical quantities", "SI units", "Errors and uncertainties", "Scalars and vectors"],
+  "Kinematics": ["Equations of motion"],
+  "Dynamics": ["Momentum and Newton’s laws of motion", "Non-uniform motion", "Linear momentum and its conservation"],
+  "Forces, density and pressure": ["Turning effects of forces", "Equilibrium of forces", "Density and pressure"],
+  "Work, energy and power": ["Energy conservation", "Gravitational potential energy and kinetic energy"],
+  "Deformation of solids": ["Stress and strain", "Elastic and plastic behaviour"],
+  "Waves": ["Progressive waves", "Transverse and longitudinal waves", "Doppler effect for sound waves", "Electromagnetic spectrum", "Polarisation"],
+  "Superposition": ["Stationary waves", "Diffraction", "Interference", "The diffraction grating"],
+  "Electricity": ["Electric current", "Potential difference and power", "Resistance and resistivity"],
+  "D.C. circuits": ["Practical circuits", "Kirchhoff’s laws", "Potential dividers"],
+  "Particle physics": ["Atoms, nuclei and radiation", "Fundamental particles"],
+  "Motion in a circle": ["Kinematics of uniform circular motion", "Centripetal acceleration"],
+  "Gravitational fields": ["Gravitational field", "Gravitational force between point masses", "Gravitational field of a point mass", "Gravitational potential"],
+  "Temperature": ["Thermal equilibrium", "Temperature scales", "Specific heat capacity and specific latent heat"],
+  "Ideal gases": ["The mole", "Equation of state", "Kinetic theory of gases"],
+  "Thermodynamics": ["Internal energy", "The first law of thermodynamics"],
+  "Oscillations": ["Simple harmonic oscillations", "Energy in simple harmonic motion", "Damped and forced oscillations, resonance"],
+  "Electric fields": ["Electric fields and field lines", "Uniform electric fields", "Electric force between point charges", "Electric field of a point charge", "Electric potential"],
+  "Capacitance": ["Capacitors and capacitance", "Energy stored in a capacitor", "Discharging a capacitor"],
+  "Magnetic fields": ["Concept of a magnetic field", "Force on a current-carrying conductor", "Force on a moving charge", "Magnetic fields due to currents", "Electromagnetic induction"],
+  "Alternating currents": ["Characteristics of alternating currents", "Rectification and smoothing"],
+  "Quantum physics": ["Energy and momentum of a photon", "Photoelectric effect", "Wave-particle duality", "Energy levels in atoms and line spectra"],
+  "Nuclear physics": ["Mass defect and nuclear binding energy", "Radioactive decay"],
+  "Medical physics": ["Production and use of ultrasound", "Production and use of X-rays", "PET scanning"],
+  "Astronomy and cosmology": ["Standard candles", "Stellar radii", "Hubble’s law and the Big Bang theory"],
+};

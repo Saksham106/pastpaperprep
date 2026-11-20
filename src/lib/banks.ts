@@ -14,7 +14,7 @@ import {
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
 // "IGCSE release" is the historical name of the shared gated, private-storage release machinery
 // (sealed runtimes, R2 assets, one release gate). It also covers the IB Computer Science banks.
-export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701";
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708";
 export type { BankSlug };
 export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
 export type LegacyProductionBankSlug = ProductionBankSlug;
@@ -63,6 +63,8 @@ const IGCSE_RELEASE_SLUGS = new Set<BankSlug>([
   "a-level-maths-9709",
   "a-level-physics-9702",
   "a-level-chemistry-9701",
+  "a-level-biology-9700",
+  "a-level-economics-9708",
 ]);
 
 export function isIGCSEReleaseBank(slug: string): slug is IGCSEReleaseBankSlug {
