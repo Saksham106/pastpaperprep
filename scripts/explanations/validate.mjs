@@ -98,8 +98,9 @@ export function validateExplanation(doc, expected = {}) {
     });
     const codes = part.steps.flatMap((step) => (Array.isArray(step.marks) ? step.marks.filter((c) => typeof c === "string") : []));
     // Level-marked parts carry one level code for the whole part (SPEC 11b).
-    // A part the exam board withdrew keeps its printed marks but awards none (SPEC 13b).
+    // A part the exam board withdrew awards no marks and counts 0 towards the total (SPEC 13b).
     if (part.withdrawn === true && codes.length) errors.push(`${at}: a withdrawn part carries no mark codes`);
+    if (part.withdrawn === true && part.marks !== 0) errors.push(`${at}: a withdrawn part has marks 0, not ${part.marks}`);
     if (Number.isInteger(part.marks) && !part.withdrawn && !codes.some((c) => /^\(?L\d/.test(c))) {
       const { coded, ticks } = codeTotals(codes, { science: SCIENCE.test(doc.bank ?? "") });
       if (coded > part.marks) errors.push(`${at}: mark codes add up to ${coded}, more than the part's ${part.marks} marks`);
