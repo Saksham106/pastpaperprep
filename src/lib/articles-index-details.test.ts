@@ -70,6 +70,8 @@ describe("articles index enrichment", () => {
             "a-level-maths-9709": "src/data/production/a-level-maths-9709.json",
             "a-level-physics-9702": "src/data/production/a-level-physics-9702.json",
             "a-level-economics-9708": "src/data/production/a-level-economics-9708.json",
+            "a-level-chemistry-9701": "src/data/production/a-level-chemistry-9701.json",
+            "a-level-biology-9700": "src/data/production/a-level-biology-9700.json",
           };
           const topicLabels = privateDataFiles[slug]
             ? JSON.parse(readFileSync(resolve(process.cwd(), privateDataFiles[slug]), "utf8")).questions.flatMap((question: { primaryTopic: string; secondaryTopics?: string[] }) => [question.primaryTopic, ...(question.secondaryTopics ?? [])])

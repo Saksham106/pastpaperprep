@@ -11,6 +11,7 @@ import { freeAccessSection } from "@/lib/article-clusters/free-access-section";
 import { IB_BOOKLET_GUIDES } from "@/lib/article-clusters/ib-booklets";
 import { SUBJECT_GAP_GUIDES } from "@/lib/article-clusters/subject-gaps-2026-11";
 import { A_LEVEL_GUIDES } from "@/lib/article-clusters/a-level-guides-2026-11";
+import { A_LEVEL_ARTICLES } from "@/lib/article-clusters/a-level-articles-2026-11";
 
 export type ArticleSection = {
   heading: string;
@@ -87,6 +88,46 @@ export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>>
   "a-level-economics-9708-essay-technique": { difficulty: "Advanced", exam: "Cambridge A Level", practiceLinks: [
     { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy", label: "A Level Economics 9708: The price system and the microeconomy" },
     { href: "/banks/a-level-economics-9708?topic=The%20macroeconomy", label: "A Level Economics 9708: The macroeconomy" },
+  ] },
+  "best-cambridge-a-level-past-paper-websites": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709", label: "A Level Maths 9709 question bank" },
+    { href: "/banks/a-level-physics-9702", label: "A Level Physics 9702 question bank" },
+    { href: "/banks/a-level-chemistry-9701", label: "A Level Chemistry 9701 question bank" },
+    { href: "/banks/a-level-biology-9700", label: "A Level Biology 9700 question bank" },
+    { href: "/banks/a-level-economics-9708", label: "A Level Economics 9708 question bank" },
+  ] },
+  "best-save-my-exams-alternatives-cie-a-level": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709?topic=Differentiation", label: "A Level Maths 9709: Differentiation" },
+    { href: "/banks/a-level-biology-9700?topic=Transport%20in%20mammals", label: "A Level Biology 9700: Transport in mammals" },
+  ] },
+  "papacambridge-vs-physics-and-maths-tutor-a-level": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709?topic=Integration", label: "A Level Maths 9709: Integration" },
+    { href: "/banks/a-level-physics-9702?topic=Waves", label: "A Level Physics 9702: Waves" },
+  ] },
+  "a-level-chemistry-9701-guide": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-chemistry-9701?topic=Chemistry%20of%20transition%20elements", label: "A Level Chemistry 9701: Chemistry of transition elements" },
+    { href: "/banks/a-level-chemistry-9701?topic=The%20Periodic%20Table%3A%20chemical%20periodicity", label: "A Level Chemistry 9701: The Periodic Table: chemical periodicity" },
+  ] },
+  "a-level-biology-9700-guide": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-biology-9700?topic=Homeostasis", label: "A Level Biology 9700: Homeostasis" },
+    { href: "/banks/a-level-biology-9700?topic=Transport%20in%20mammals", label: "A Level Biology 9700: Transport in mammals" },
+  ] },
+  "a-level-maths-9709-mechanics-vs-statistics": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709?topic=Kinematics%20of%20motion%20in%20a%20straight%20line", label: "A Level Maths 9709: Kinematics of motion in a straight line" },
+    { href: "/banks/a-level-maths-9709?topic=The%20normal%20distribution", label: "A Level Maths 9709: The normal distribution" },
+  ] },
+  "a-level-economics-9708-multiple-choice": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy", label: "A Level Economics 9708: The price system and the microeconomy" },
+    { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy%20%28A%20Level%29", label: "A Level Economics 9708: The price system and the microeconomy (A Level)" },
+  ] },
+  "a-level-grade-thresholds-explained": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709", label: "A Level Maths 9709 question bank" },
+    { href: "/banks/a-level-chemistry-9701", label: "A Level Chemistry 9701 question bank" },
+    { href: "/banks/a-level-economics-9708", label: "A Level Economics 9708 question bank" },
+  ] },
+  "free-cambridge-a-level-past-papers-by-topic": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-physics-9702?topic=Dynamics", label: "A Level Physics 9702: Dynamics" },
+    { href: "/banks/a-level-maths-9709?topic=Functions", label: "A Level Maths 9709: Functions" },
   ] },
   "best-igcse-additional-maths-0606-resources": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
     { href: "/banks/igcse-additional?topic=Calculus", label: "Additional Maths 0606: Calculus" },
@@ -1270,6 +1311,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   ...IB_BOOKLET_GUIDES,
   ...SUBJECT_GAP_GUIDES,
   ...A_LEVEL_GUIDES,
+  ...A_LEVEL_ARTICLES,
 ] as const;
 
 export const ARTICLES: readonly Article[] = ALL_ARTICLES

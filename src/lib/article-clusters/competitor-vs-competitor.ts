@@ -11,7 +11,7 @@ const PMT_VS_SAVE_MY_EXAMS: Article = {
   answer:
     "Neither wins outright, because they solve different problems. Physics & Maths Tutor (PMT) is a free, ad-supported library of past papers, mark schemes, notes and topic questions that you download and organise yourself. Save My Exams sells a paid membership with teacher-written notes, exam-style questions, model answers, feedback and mock exams across several qualifications. Choose PMT for free files. Choose Save My Exams when you need teaching. For supported courses, PastPaperPrep is stronger than both specifically at turning real past-paper questions into a filtered, printable topic set. Its live banks cover Cambridge IGCSE Maths, Biology, Chemistry, Physics, Co-ordinated Sciences and Economics, plus IB Maths and sciences. It is not the best choice if you need lessons, videos, or an unsupported course.",
   publishedAt: "2026-09-15",
-  updatedAt: "2026-11-08",
+  updatedAt: "2026-11-21",
   readingMinutes: 8,
   comparison: {
     caption: "Physics & Maths Tutor vs Save My Exams at a glance",
@@ -101,7 +101,7 @@ const PMT_VS_SAVE_MY_EXAMS: Article = {
       paragraphs: [
         "PastPaperPrep has a free whole-paper library as well as its topical banks, but is not a full revision course. It focuses on live question banks: Cambridge IGCSE Mathematics 0580, Additional Mathematics 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478, plus IB Mathematics AA and AI, Chemistry, Physics, Biology, Economics and Computer Science at HL and SL. The questions are real past-paper questions with source details attached, and you can filter by course, topic, subtopic, year, paper, session, marks and other exam-specific properties before building a printable set.",
         "Prices are $6 per month or $48 per year for one bank. Two to five banks start at $10 per month or $84 per year, with each extra bank at $4 per month or $36 per year. Six or more banks are $25 per month or $216 per year. Complete older exam years can be practised free.",
-        "There is no video course, and its free revision notes cover only IB Maths AA, IGCSE Maths 0580 and IB Chemistry so far. Every IGCSE and IB question on PastPaperPrep has a worked explanation, but it doesn't teach every method from the beginning. For unsupported courses, such as A Level Chemistry or GCSE English, compare the relevant PMT and Save My Exams resources instead.",
+        "There is no video course, and its free revision notes cover only IB Maths AA, IGCSE Maths 0580 and IB Chemistry so far. Every IGCSE and IB question on PastPaperPrep has a worked explanation, but it doesn't teach every method from the beginning. For unsupported courses, such as GCSE English or UK-board A Levels, compare the relevant PMT and Save My Exams resources instead.",
       ],
     },
     {
