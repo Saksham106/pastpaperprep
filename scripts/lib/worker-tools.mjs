@@ -93,3 +93,29 @@ export async function waitForWorkerAuth(url, route, {
     delay = Math.min(Math.round(delay * 1.5), maxDelayMs);
   }
 }
+
+/**
+ * After `wrangler delete`, waits until the workers.dev URL answers 404 (the Worker is gone). Throws at the deadline,
+ * so a delete that did not take effect is never reported as done. Read-only probe without a token.
+ */
+export async function waitForWorkerGone(url, {
+  fetchImpl = fetch,
+  sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
+  now = Date.now,
+  timeoutMs = 120_000,
+  delayMs = 3000,
+} = {}) {
+  const deadline = now() + timeoutMs;
+  let last = "no response";
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      const status = (await fetchImpl(url, { method: "GET" })).status;
+      if (status === 404) return { attempts: attempt };
+      last = `HTTP ${status}`;
+    } catch (error) {
+      last = `network error: ${error?.message ?? error}`;
+    }
+    if (now() + delayMs > deadline) throw new Error(`Worker URL still answers (${last}) after delete; check the Cloudflare dashboard`);
+    await sleep(delayMs);
+  }
+}

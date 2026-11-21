@@ -3,7 +3,7 @@ import { mkdtempSync, rmSync, statSync, readFileSync, writeFileSync } from "node
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
-import { REPO_ROOT, argValue, argValues, assertOutsideRepo, readWorkerConfig, waitForWorkerAuth, writePrivateJson } from "./worker-tools.mjs";
+import { REPO_ROOT, argValue, argValues, assertOutsideRepo, readWorkerConfig, waitForWorkerAuth, waitForWorkerGone, writePrivateJson } from "./worker-tools.mjs";
 
 const res = (status: number) => new Response(null, { status });
 
@@ -82,5 +82,17 @@ describe("worker tool helpers", () => {
       expect(() => readWorkerConfig(path.join(dir, "none.json"))).toThrow("run deploy first");
       expect(readFileSync(file, "utf8")).toContain("short");
     } finally { rmSync(dir, { recursive: true, force: true }); }
+  });
+});
+
+describe("waitForWorkerGone", () => {
+  it("returns once the deleted Worker's URL answers 404", async () => {
+    const fetchImpl = vi.fn().mockResolvedValueOnce(res(403)).mockResolvedValueOnce(res(404));
+    expect(await waitForWorkerGone("https://w.workers.dev", { fetchImpl: fetchImpl as never, ...clock() })).toEqual({ attempts: 2 });
+  });
+
+  it("fails closed when the URL keeps answering", async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(res(403));
+    await expect(waitForWorkerGone("https://w.workers.dev", { fetchImpl: fetchImpl as never, ...clock() })).rejects.toThrow(/still answers/);
   });
 });

@@ -70,7 +70,7 @@ npx tsx scripts/free-copy/free-copy.mts list   --bank <slug>   # offline: writes
 npx tsx scripts/free-copy/free-copy.mts deploy --bank <slug>   # owner approval: deploys, waits for 403, bundles the list
 npx tsx scripts/free-copy/free-copy.mts copy                    # owner approval: waits for 403, self-test, create-only copy
 npx tsx scripts/free-copy/free-copy.mts verify                  # every path from free.pastpaperprep.com vs the private hash
-npx tsx scripts/free-copy/free-copy.mts delete                  # then confirm the workers.dev URL answers 404
+npx tsx scripts/free-copy/free-copy.mts delete                  # waits until the workers.dev URL answers 404
 ```
 
 A live bank needs no held-bank env; generate its manifest as in the first block above. If the manifest is missing, `list` and `deploy` stop and print the exact command to run. Only R2-sourced files are copied; Supabase-sourced previews go through `publish-free-assets.mts`.

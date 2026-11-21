@@ -388,7 +388,7 @@ Never paste real credentials into documentation, shared command history, Git, or
 
 **Gated release banks (0455, 0610, 0620, 0625, 0654) and the A Level / CS banks** are not covered by `r2:sync`. Upload their reviewed additions with `scripts/igcse-release.mjs --upload <bank>`, or with the create-only upload Worker below.
 
-The shared ingestion toolkit (source acquisition, segmentation, audits) is being built in the sibling repo `../ppp-ingestion-toolkit`; this repo keeps only the release and upload tooling.
+Source acquisition, segmentation, classification and their gates live in the shared ingestion toolkit, the sibling repo `../ppp-ingestion-toolkit`; this repo keeps the runtime generators, release and upload tooling.
 
 #### R2 upload Worker (`scripts/r2-upload-worker/`)
 
@@ -400,7 +400,7 @@ node scripts/r2-upload-worker/upload.mjs deploy   --bank <bank> --work $W   # de
 node scripts/r2-upload-worker/upload.mjs selftest --work $W                 # proves create-only on a scratch key
 node scripts/r2-upload-worker/upload.mjs upload   --bank <bank> --work $W   # resumable; writes the log and receipt under docs/ and data/storage/
 node scripts/generate-igcse-release.mjs --finalize <bank>                   # as before
-node scripts/r2-upload-worker/upload.mjs delete   --work $W                 # then confirm the workers.dev URL answers 404
+node scripts/r2-upload-worker/upload.mjs delete   --work $W                 # waits until the workers.dev URL answers 404
 ```
 
 `scripts/upload-computer-science-wrangler.mjs` no longer uploads: Wrangler has no conditional put, so it cannot be create-only. It only re-reads objects already in the bucket, logs them and writes the receipt; an absent key stops it with a pointer to the Worker.

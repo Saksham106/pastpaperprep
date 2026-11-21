@@ -21,7 +21,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { composeUploadReceipt, indexLogRows, verifiedLogRow } from "../lib/upload-receipt.mjs";
 import { runWrangler } from "../lib/wrangler-cli.mjs";
-import { argValue, assertOutsideRepo, ensurePrivateDir, readWorkerConfig, waitForWorkerAuth, writePrivateJson } from "../lib/worker-tools.mjs";
+import { argValue, assertOutsideRepo, ensurePrivateDir, readWorkerConfig, waitForWorkerAuth, waitForWorkerGone, writePrivateJson } from "../lib/worker-tools.mjs";
 import { BUCKET, WORKER_NAME, assertManifestKeys, bankPaths, buildAllowlist, classifyPutResult, describeFailure, putWithRetry, runSelftest, sha256 } from "./lib.mjs";
 
 const here = import.meta.dirname;
@@ -112,9 +112,12 @@ async function upload() {
 
 async function remove() {
   const file = workFile();
+  const url = existsSync(file) ? readWorkerConfig(file).url : null;
   const out = await runWrangler(["delete", "--name", WORKER_NAME, "--force"], { cwd: tmpdir() });
   rmSync(file, { force: true });
-  console.log(JSON.stringify({ deleted: WORKER_NAME, output: out.trim().split("\n").slice(-1)[0], next: "confirm the workers.dev URL now answers 404" }));
+  console.log(JSON.stringify({ deleted: WORKER_NAME, output: out.trim().split("\n").slice(-1)[0] }));
+  if (url) console.log(JSON.stringify({ gone: true, ...(await waitForWorkerGone(url)) }));
+  else console.log(JSON.stringify({ next: "no saved URL: confirm the workers.dev URL now answers 404" }));
 }
 
 const commands = {

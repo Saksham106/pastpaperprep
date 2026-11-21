@@ -29,7 +29,7 @@ import type { BankSlug } from "@/lib/banks";
 import { getCatalogBank } from "@/lib/catalog";
 import { listFreePublicAssets } from "@/lib/free-public-assets";
 import { runWrangler } from "../lib/wrangler-cli.mjs";
-import { REPO_ROOT, argValue, argValues, assertOutsideRepo, ensurePrivateDir, readWorkerConfig, waitForWorkerAuth, writePrivateJson } from "../lib/worker-tools.mjs";
+import { REPO_ROOT, argValue, argValues, assertOutsideRepo, ensurePrivateDir, readWorkerConfig, waitForWorkerAuth, waitForWorkerGone, writePrivateJson } from "../lib/worker-tools.mjs";
 import { COPY_BATCH, FREE_BUCKET, PRIVATE_BUCKET, PUBLIC_BASE, WORKER_NAME, copyablePaths, defaultOutDir, isDone, listDigest, missingManifestMessage, postWorker, sha256, summariseAssets, verifyPublicPath } from "./lib.mjs";
 
 type ListFile = { banks: Record<string, number>; paths: string[]; skippedSupabase: number };
@@ -189,9 +189,12 @@ async function verify() {
 
 async function remove() {
   prepareOut();
+  const url = existsSync(files.worker) ? readWorkerConfig(files.worker).url : null;
   const output = await runWrangler(["delete", "--name", WORKER_NAME, "--force"], { cwd: tmpdir() });
   rmSync(files.worker, { force: true });
-  console.log(JSON.stringify({ deleted: WORKER_NAME, output: output.trim().split("\n").slice(-1)[0], next: "confirm the workers.dev URL now answers 404" }));
+  console.log(JSON.stringify({ deleted: WORKER_NAME, output: output.trim().split("\n").slice(-1)[0] }));
+  if (url) console.log(JSON.stringify({ gone: true, ...(await waitForWorkerGone(url)) }));
+  else console.log(JSON.stringify({ next: "no saved URL: confirm the workers.dev URL now answers 404" }));
 }
 
 const commands: Record<string, () => Promise<void>> = { list, deploy, copy, verify, delete: remove };
