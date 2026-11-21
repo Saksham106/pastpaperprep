@@ -386,12 +386,26 @@ Do not use the legacy `scripts/upload-question-assets.mjs` uploader for current 
 
 Never paste real credentials into documentation, shared command history, Git, or chat. Keep production secrets in the provider dashboard or an ignored local environment.
 
-**Gated release banks (0455, 0610, 0620, 0625, 0654)** are not covered by `r2:sync`. Upload their reviewed additions with `scripts/igcse-release.mjs --upload <bank>`, or, as for the October 2026 gap papers, a create-only CLI upload:
+**Gated release banks (0455, 0610, 0620, 0625, 0654) and the A Level / CS banks** are not covered by `r2:sync`. Upload their reviewed additions with `scripts/igcse-release.mjs --upload <bank>`, or with the create-only upload Worker below.
 
-1. Check each key is absent.
-2. Upload it with `image/webp` and `private, max-age=31536000, immutable`.
-3. Read it back and compare SHA-256 and size.
-4. Log one line per object: key, SHA-256, size, no secrets. Commit the log under `docs/`.
+The shared ingestion toolkit (source acquisition, segmentation, audits) is being built in the sibling repo `../ppp-ingestion-toolkit`; this repo keeps only the release and upload tooling.
+
+#### R2 upload Worker (`scripts/r2-upload-worker/`)
+
+A temporary Worker writes a bank's crops into the private bucket through an R2 binding, so this machine only streams bytes. The bank's manifest is bundled in as an allowlist (key, SHA-256, size); a random token is set as the Worker secret and stored only in `<work>/upload-worker.json` (mode 0600, outside the repo, never printed). Writes are create-only (`If-None-Match: *`), R2 checks the SHA-256, and each object is read back and re-hashed. An existing key is never replaced: same bytes count as already uploaded, different bytes stop the run. Log rows and the `igcse-upload-receipt-v1` receipt match the old Wrangler uploader, so `--finalize` works unchanged.
+
+```bash
+W=~/.cache/ppp-upload-work/<bank>
+node scripts/r2-upload-worker/upload.mjs deploy   --bank <bank> --work $W   # deploys, then waits for the Worker to answer 403 when unauthenticated
+node scripts/r2-upload-worker/upload.mjs selftest --work $W                 # proves create-only on a scratch key
+node scripts/r2-upload-worker/upload.mjs upload   --bank <bank> --work $W   # resumable; writes the log and receipt under docs/ and data/storage/
+node scripts/generate-igcse-release.mjs --finalize <bank>                   # as before
+node scripts/r2-upload-worker/upload.mjs delete   --work $W                 # then confirm the workers.dev URL answers 404
+```
+
+`scripts/upload-computer-science-wrangler.mjs` no longer uploads: Wrangler has no conditional put, so it cannot be create-only. It only re-reads objects already in the bucket, logs them and writes the receipt; an absent key stops it with a pointer to the Worker.
+
+Every real deploy, upload, copy and delete needs explicit owner approval, asked in the session that runs it. Tests use in-memory fakes only.
 
 Then compose a `verified_readback` receipt over the full regenerated manifest. Carry earlier objects over only when they are byte-identical to the previous verified receipt's manifest; accept new objects only with a matching readback line. Run `generate-igcse-release.mjs --finalize <bank>` and commit the manifest, receipt, finalized runtime and log together. See `docs/2026-paper-gaps-r2-upload-receipt.md` and `scripts/igcse-2026-release-finalization.mjs` for the proof pattern. Finalized candidate-state tests then run against the exactly reconstructed candidate, never a weakened copy.
 

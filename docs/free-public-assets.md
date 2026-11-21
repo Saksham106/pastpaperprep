@@ -38,8 +38,7 @@ npx tsx scripts/publish-free-assets.mts verify /tmp/free     # every object from
 
 ### R2-backed files: copy inside Cloudflare
 
-Every R2-backed bank's free files (the IGCSE release banks, IB CS, IB Economics and, since
-October 2026, the IB sciences) can skip the download/upload round trip. A one-off Worker
+Every R2-backed bank's free files (the IGCSE release banks, IB CS, IB Economics, the IB sciences and the A Level banks) can skip the download/upload round trip. A one-off Worker
 (`scripts/free-copy-worker/`) copies them from `pastpaperprep-assets` to `pastpaperprep-free`
 inside Cloudflare. The free set is bundled into the Worker as its allowlist, so it can copy
 nothing else. Writes are atomically create-only: R2 evaluates `If-None-Match: *` as part of the
@@ -48,12 +47,35 @@ write, so an existing object is never replaced, even one created mid-run. Before
 and stops if the proof fails. Each answer carries the file's SHA-256, so `verify` can check the
 public copy. The run fits the Workers and R2 free tiers.
 
+Two scripts drive it. Both need explicit owner approval for deploy, copy and delete, asked in the session that runs them.
+
+**Live banks** (`scripts/publish-free-assets.mts`, free set computed from `getAvailableBanks()`):
+
 ```bash
 ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts copy-deploy /tmp/free-copy   # owner approval: deploys a Worker
 ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts copy /tmp/free-copy          # owner approval: writes to the bucket
 ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts verify /tmp/free-copy
 npx tsx scripts/publish-free-assets.mts copy-delete /tmp/free-copy
 ```
+
+**Any bank, including held (`pendingStorage`) banks** (`scripts/free-copy/free-copy.mts`, `--bank` is repeatable). The publish script skips held banks, so use this one to publish a bank's free files before it launches. It lists the files with the app's own `listFreePublicAssets`, so the set matches what the site will link to. Logs, the Worker secret and the receipt go to `--out` (default `~/.cache/ppp-upload-work/free-copy/<bank>`), which must be outside the repo.
+
+```bash
+# Held banks only: the full `npm run generate:asset-manifest` skips them, so generate theirs first
+mkdir -p generated/asset-manifest generated/question-search
+NODE_ENV=development PASTPAPERPREP_PREVIEW_PENDING_BANKS=true npx tsx scripts/generate-asset-manifest.mts --bank <slug>
+# Run `list` and every later command with the same env, so the manifest name matches
+export NODE_ENV=development PASTPAPERPREP_PREVIEW_PENDING_BANKS=true
+npx tsx scripts/free-copy/free-copy.mts list   --bank <slug>   # offline: writes free-list.json and prints counts
+npx tsx scripts/free-copy/free-copy.mts deploy --bank <slug>   # owner approval: deploys, waits for 403, bundles the list
+npx tsx scripts/free-copy/free-copy.mts copy                    # owner approval: waits for 403, self-test, create-only copy
+npx tsx scripts/free-copy/free-copy.mts verify                  # every path from free.pastpaperprep.com vs the private hash
+npx tsx scripts/free-copy/free-copy.mts delete                  # then confirm the workers.dev URL answers 404
+```
+
+A live bank needs no held-bank env; generate its manifest as in the first block above. If the manifest is missing, `list` and `deploy` stop and print the exact command to run. Only R2-sourced files are copied; Supabase-sourced previews go through `publish-free-assets.mts`.
+
+A new `workers.dev` Worker can answer 404 for a short while after deploy. Both `deploy` and `copy` poll with an unauthenticated request until the Worker answers 403, with backoff and a time limit, then run the self-test. A 200 on that request means authentication is broken, so the run stops; so does a Worker that never reaches 403.
 
 Files are cached at Cloudflare's edge for up to a week. **If you replace an existing object** (same
 path, new bytes or headers), purge those URLs in Cloudflare (Caching → Configuration → Custom Purge)
