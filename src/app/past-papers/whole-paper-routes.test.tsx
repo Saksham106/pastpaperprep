@@ -8,7 +8,7 @@ vi.mock('next/navigation', () => ({
   permanentRedirect: (href: string) => { throw new Error(`308 ${href}`); },
   redirect: (href: string) => { throw new Error(`307 ${href}`); },
 }));
-const pages = vi.hoisted(() => ({ hubBanks: vi.fn(), resolveSubject: vi.fn(), resolveEntry: vi.fn(), pastPaperParams: vi.fn(), pastPaperFallback: vi.fn() }));
+const pages = vi.hoisted(() => ({ hubBanks: vi.fn(), resolveSubject: vi.fn(), resolveEntry: vi.fn(), pastPaperParams: vi.fn(), pastPaperFallback: vi.fn(), latestYear: (papers: { year: number }[]) => Math.max(...papers.map(p => p.year)), completeQuestionSets: () => [] }));
 vi.mock('@/lib/past-paper-pages', () => pages);
 vi.mock('@/components/past-papers/PastPaperHub', () => ({ PastPaperHub: ({ qualification }: { qualification?: string }) => <div data-testid="hub">{qualification ?? 'all'}</div> }));
 vi.mock('@/components/past-papers/PastPaperListPage', () => ({ PastPaperListPage: ({ view }: { view: { kind: string } }) => <div data-testid="list">{view.kind}</div> }));
@@ -85,14 +85,18 @@ describe('free past-paper routes', () => {
     for (const m of all) expect(m).toMatchObject({ openGraph: { siteName: 'PastPaperPrep', type: 'website', images: [expect.objectContaining({ url: expect.any(String) })] }, twitter: { card: 'summary_large_image', title: text(m.title) } });
   });
 
-  it('asks search engines to index only hubs, paper-number pages and qualifying papers', async () => {
+  it('asks search engines to index only hubs, paper-number pages, the latest year list and qualifying papers', async () => {
     const entry = (e: string) => entryMetadata(params({ slug: 'igcse-maths-0580', entry: e }));
-    pages.resolveEntry.mockResolvedValue({ kind: 'paper', bank, detail, all: [paper], practice: true, indexing: { indexed: true, reason: 'latest-year' } });
+    pages.resolveEntry.mockResolvedValue({ kind: 'paper', bank, detail, all: [paper], practice: true, indexing: { indexed: true, reason: 'demand' } });
     expect((await entry('2024-may-june-42')).robots).toBeUndefined();
     pages.resolveEntry.mockResolvedValue({ kind: 'paper', bank, detail, all: [paper], practice: true, indexing: { indexed: false, reason: null } });
     expect((await entry('2024-may-june-42')).robots).toEqual({ index: false, follow: true });
-    pages.resolveEntry.mockResolvedValue({ kind: 'year', bank, year: 2024, papers: [paper], all: [paper], practice: true });
-    expect((await entry('2024')).robots).toEqual({ index: false, follow: true });
+    // Older year lists stay noindex; the latest year's list is the indexed page for that year's paper codes.
+    const later = { ...paper, year: paper.year + 1 };
+    pages.resolveEntry.mockResolvedValue({ kind: 'year', bank, year: paper.year, papers: [paper], all: [paper, later], practice: true });
+    expect((await entry(String(paper.year))).robots).toEqual({ index: false, follow: true });
+    pages.resolveEntry.mockResolvedValue({ kind: 'year', bank, year: later.year, papers: [later], all: [paper, later], practice: true });
+    expect((await entry(String(later.year))).robots).toBeUndefined();
     pages.resolveEntry.mockResolvedValue({ kind: 'paperNumber', bank, paper: '4', papers: [paper], all: [paper], practice: true });
     expect((await entry('paper-4')).robots).toBeUndefined();
     expect((await slugMetadata(params({ slug: 'igcse-maths-0580' }))).robots).toBeUndefined();

@@ -78,7 +78,7 @@ export function MarketingHome({ environment = process.env, papers = {}, news = [
           <div><dt>Real exam questions</dt><dd>{roundedDown(totalQuestions)}</dd></div>
           {years && <div><dt>Latest papers included</dt><dd>{years.latestYear}</dd></div>}
           <div><dt>Every question</dt><dd>By topic</dd></div>
-          <div><dt>IGCSE &amp; IB subjects</dt><dd>{banks.length}</dd></div>
+          <div><dt>Question banks</dt><dd>{banks.length}</dd></div>
         </dl>
         <p className={styles.eyebrow}>Why practice works</p>
         <div className={styles.studies}>

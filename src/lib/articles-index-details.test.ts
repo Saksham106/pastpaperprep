@@ -20,7 +20,7 @@ describe("articles index enrichment", () => {
       const detail = getArticleIndexDetail(article.slug);
       expect(detail, `missing index detail for ${article.slug}`).toBeDefined();
       expect(DIFFICULTIES.has(detail!.difficulty)).toBe(true);
-      expect(["Cambridge IGCSE", "IB Diploma"]).toContain(detail!.exam);
+      expect(["Cambridge IGCSE", "Cambridge A Level", "IB Diploma"]).toContain(detail!.exam);
       expect(article.readingMinutes).toBeGreaterThan(0);
       expect(detail!.practiceLinks.length).toBeGreaterThan(0);
     }
@@ -67,6 +67,9 @@ describe("articles index enrichment", () => {
             "ib-computer-science-sl": "src/data/production/ib-computer-science-sl.json",
             "ib-economics-hl": "src/data/production/ib-economics-hl.json",
             "ib-economics-sl": "src/data/production/ib-economics-sl.json",
+            "a-level-maths-9709": "src/data/production/a-level-maths-9709.json",
+            "a-level-physics-9702": "src/data/production/a-level-physics-9702.json",
+            "a-level-economics-9708": "src/data/production/a-level-economics-9708.json",
           };
           const topicLabels = privateDataFiles[slug]
             ? JSON.parse(readFileSync(resolve(process.cwd(), privateDataFiles[slug]), "utf8")).questions.flatMap((question: { primaryTopic: string; secondaryTopics?: string[] }) => [question.primaryTopic, ...(question.secondaryTopics ?? [])])

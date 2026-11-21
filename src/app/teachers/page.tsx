@@ -8,7 +8,7 @@ import { socialPreview } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "For teachers: free past papers and worked answers to share",
-  description: "Free Cambridge IGCSE and IB past papers with mark schemes, worked answers, topic breakdowns and grade thresholds that students open without signing up.",
+  description: "Free Cambridge IGCSE, A Level and IB past papers with mark schemes, worked answers, topic breakdowns and grade thresholds that students open without signing up.",
   alternates: { canonical: "/teachers" },
   openGraph: { url: "/teachers", ...socialPreview() },
 };
@@ -19,7 +19,7 @@ export default function TeachersPage() {
   const items = [
     {
       title: "Whole past papers with mark schemes",
-      body: "Every paper we hold opens free, with no account: the question paper, its mark scheme and an exam timer. Students can mark themselves question by question.",
+      body: "Every paper we hold opens free, with no account: the question paper, its mark scheme and an exam timer. On supported papers, students can mark themselves question by question.",
       links: [{ href: "/past-papers/igcse", label: "Cambridge IGCSE papers" }, { href: "/past-papers/ib", label: "IB papers" }],
     },
     {

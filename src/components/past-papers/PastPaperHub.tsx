@@ -74,7 +74,7 @@ export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[
     <section className={styles.why} aria-label="Why use these papers">
       <div><FileText aria-hidden="true" weight="bold" /><h2>Questions and answers together</h2><p>Question paper and mark scheme, one tap apart.</p></div>
       <div><Timer aria-hidden="true" weight="bold" /><h2>Real exam timing</h2><p>A timer set to the paper&apos;s real duration.</p></div>
-      <div><Target aria-hidden="true" weight="bold" /><h2>Know what to fix</h2><p>Mark it and see which topics cost you marks.</p></div>
+      <div><Target aria-hidden="true" weight="bold" /><h2>Know what to fix</h2><p>On supported papers, mark it and see which topics cost you marks.</p></div>
     </section>
   </article>;
 }

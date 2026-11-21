@@ -89,3 +89,8 @@
 .insight tbody th { font-weight: 650; }
 .tableScroll { overflow-x: auto; }
 .tableScroll td, .tableScroll th { white-space: nowrap; }
+
+/* Year list: one line per component with its codes. */
+.sessionPapers { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.6rem; }
+.sessionPapers li { line-height: 1.5; }
+.sessionCodes { display: block; }

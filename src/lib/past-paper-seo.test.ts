@@ -24,7 +24,7 @@ describe('names students search for', () => {
 describe('page copy', () => {
   it('writes titles from real counts without the layout suffix', () => {
     expect(titles).toEqual([
-      'Free IGCSE & IB Past Papers with Mark Schemes',
+      'Free IGCSE, A Level & IB Past Papers with Mark Schemes',
       'IGCSE Maths 0580 Past Papers & Mark Schemes (2016–2024)',
       'IGCSE Maths 0580 Past Papers 2024 & Mark Schemes',
       'IGCSE Maths 0580 Paper 4 Past Papers (Extended)',

@@ -61,6 +61,8 @@
 .explorer.is-worksheet-view .explorer-layout { display: block; }
 .explorer.is-worksheet-view .explorer-toolbar { display: flex; justify-content: flex-end; }
 .explorer.is-worksheet-view .explorer-results { width: 100%; }
+/* Room for a worksheet or shared set that is still loading, so the page below stays below. */
+.explorer-results.is-set-pending { min-height: 100vh; }
 @media (max-width: 600px) { .worksheet-workspace-heading { align-items: flex-start; flex-direction: column; } .worksheet-workspace-actions { width: 100%; flex-wrap: wrap; } .worksheet-workspace, .worksheet-edit-card { padding: 16px; } .worksheet-edit-actions > button { flex: 1 1 150px; } .worksheet-edit-list li { align-items: flex-start; flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) { .worksheet-edit-list li { transition: none; } }
 .saved-worksheets { margin: 0 0 2.5rem; }

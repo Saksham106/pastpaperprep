@@ -26,7 +26,7 @@ const SCREENSHOTS = [
 const faqs = [
   {
     question: "What is PastPaperPrep?",
-    answer: "PastPaperPrep is an independent online practice platform for Cambridge IGCSE and IB Diploma students. It organises authentic past-paper questions into focused banks that can be filtered by topic, paper, year, session, and other useful exam fields.",
+    answer: "PastPaperPrep is an independent online practice platform for Cambridge IGCSE, Cambridge International A Level and IB Diploma students. It organises authentic past-paper questions into focused banks that can be filtered by topic, paper, year, session, and other useful exam fields.",
   },
   {
     question: "Is PastPaperPrep an exam board?",
@@ -60,7 +60,7 @@ export default function AboutPage() {
             "@id": "https://pastpaperprep.com/#organization",
             name: "PastPaperPrep",
             url: "https://pastpaperprep.com/",
-            description: "An independent practice platform for Cambridge IGCSE and IB Diploma past-paper questions.",
+            description: "An independent practice platform for Cambridge IGCSE, Cambridge A Level and IB Diploma past-paper questions.",
             email: "hello@pastpaperprep.com",
           },
           {
@@ -84,7 +84,7 @@ export default function AboutPage() {
         </div>
         <div className="landing-hero-aside">
           <p>
-            PastPaperPrep is an independent practice platform that turns scattered Cambridge IGCSE and IB Diploma papers into precise, filterable question sets.
+            PastPaperPrep is an independent practice platform that turns scattered Cambridge IGCSE, A Level and IB Diploma papers into precise, filterable question sets.
           </p>
         </div>
       </header>
@@ -166,7 +166,7 @@ export default function AboutPage() {
         <dl className="about-facts" data-testid="about-key-facts">
           <div><dt>Company name</dt><dd>PastPaperPrep</dd></div>
           <div><dt>Type</dt><dd>Independent online education and exam-practice platform</dd></div>
-          <div><dt>Qualifications</dt><dd>Cambridge IGCSE and IB Diploma</dd></div>
+          <div><dt>Qualifications</dt><dd>Cambridge IGCSE, Cambridge International AS &amp; A Level and IB Diploma</dd></div>
           <div><dt>Core offering</dt><dd>Filterable past-paper question banks with source answers and printable practice tools where available</dd></div>
           <div><dt>Audience</dt><dd>Students, tutors, and teachers</dd></div>
           <div><dt>Pricing</dt><dd>Monthly and annual subscriptions. <Link href="/pricing">View current plans</Link>.</dd></div>
@@ -200,6 +200,7 @@ export default function AboutPage() {
 
       <nav className="about-links" aria-label="PastPaperPrep resources">
         <Link href="/cambridge-igcse">Cambridge IGCSE <ArrowRight weight="bold" /></Link>
+        <Link href="/cambridge-a-level">Cambridge A Level <ArrowRight weight="bold" /></Link>
         <Link href="/ib">IB Diploma <ArrowRight weight="bold" /></Link>
         <Link href="/pricing">Pricing <ArrowRight weight="bold" /></Link>
         <Link href="/articles">Revision guides <ArrowRight weight="bold" /></Link>

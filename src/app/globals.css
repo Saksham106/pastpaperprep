@@ -640,6 +640,8 @@ main { min-height: 72vh; }
 .asset-placeholder .placeholder-bars i { display: block; height: 12px; border-radius: 6px; background: color-mix(in srgb, var(--line) 72%, transparent); }
 .asset-placeholder .placeholder-bars i:first-child { width: 38%; height: 15px; margin-inline: auto; background: color-mix(in srgb, var(--line-strong) 60%, transparent); }
 .asset-placeholder .placeholder-bars i:last-child { width: 22%; margin-inline: auto; }
+/* One box per question image, the size SourceCropImage's 1400×1000 image takes before it loads, so swapping one for the other moves nothing. */
+.question-images .asset-placeholder { width: 100%; max-width: 900px; min-height: 0; margin: 0 auto; aspect-ratio: 1400 / 1000; }
 .question-locked {
   position: relative;
   margin: 16px 18px 18px;
@@ -2479,6 +2481,8 @@ main { min-height: 72vh; }
 .testimonial-card figcaption { flex-direction: column; gap: 2px; }
 .testimonial-inline { margin-top: 14px; padding-left: 14px; display: grid; gap: 4px; max-width: 640px; border-left: 2px solid color-mix(in srgb, var(--course-accent, var(--cobalt)) 55%, transparent); text-align: left; }
 .testimonial-inline blockquote p { font: 400 1rem/1.42 var(--font-serif); }
+/* Hero quotes are one line in Young Serif; the room keeps them one line in its wider fallback too, so the hero doesn't shrink when the font swaps in. */
+.bank-hero .testimonial-inline { max-width: 660px; }
 .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 32px; }
 .pricing-page .testimonial-grid { margin-top: 44px; }
 .about-audience .testimonial-card { margin-top: 22px; }

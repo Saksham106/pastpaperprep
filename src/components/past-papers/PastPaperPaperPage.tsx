@@ -148,8 +148,10 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <ol aria-label="Questions in this paper">{questions.map(q => <li key={q.id}><b>Q{q.number}</b><span>{q.topics.map((topic, i) => <span key={topic}>{i > 0 && ', '}{practice ? <Link href={topicFilterHref(bank.slug, topic)}>{topic}</Link> : topic}</span>)}</span>{q.marks !== null && <em>{q.marks} {q.marks === 1 ? 'mark' : 'marks'}</em>}</li>)}</ol>
     </section>}
     {worked.length > 0 && <section className={`${styles.questions} ${styles.worked}`} aria-labelledby="worked-answers">
-      <h2 id="worked-answers">Worked answers</h2>
-      <p>Step-by-step solutions, with the mark-scheme points each step earns.</p>
+      <h2 id="worked-answers">{view.preview ? 'Worked answers: free preview' : 'Worked answers'}</h2>
+      <p>{view.preview
+        ? <>Step-by-step solutions to {worked.length} of this paper&rsquo;s questions, with the mark-scheme points each step earns. The rest are worked the same way in the {practice ? <Link href={`/banks/${bank.slug}`}>{name} question bank</Link> : `${name} question bank`}, with a plan.</>
+        : 'Step-by-step solutions, with the mark-scheme points each step earns.'}</p>
       <WorkedAnswerHashOpener />
       {worked.map(w => <details key={w.number} id={`worked-q${w.number}`}>
         <summary><b>Q{w.number}</b><span>{w.topics.filter(t => !STATUS_TOPIC.test(t)).join(', ')}</span><em>{w.marks !== null && `${w.marks} ${w.marks === 1 ? 'mark' : 'marks'}`}</em><CopyWorkedAnswerLink number={w.number} bank={bank.slug} paper={p.id} /></summary>

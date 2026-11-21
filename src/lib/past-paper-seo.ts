@@ -52,14 +52,14 @@ export function formatDuration(minutes: number): string {
 }
 
 const HUB: Record<'all' | PastPaperQualification, Pick<PageCopy, 'title' | 'h1'>> = {
-  all: { title: 'Free IGCSE & IB Past Papers with Mark Schemes', h1: 'Free IGCSE & IB past papers' },
+  all: { title: 'Free IGCSE, A Level & IB Past Papers with Mark Schemes', h1: 'Free IGCSE, A Level & IB past papers' },
   igcse: { title: 'Cambridge IGCSE Past Papers with Mark Schemes', h1: 'Cambridge IGCSE past papers' },
   ib: { title: 'IB Past Papers with Markschemes', h1: 'IB past papers' },
   'a-level': { title: 'Cambridge A Level Past Papers with Mark Schemes', h1: 'Cambridge A Level past papers' },
 };
 export function hubCopy(paperCount: number, qualification?: PastPaperQualification): PageCopy {
-  const scope = qualification === 'igcse' ? 'Cambridge IGCSE' : qualification === 'ib' ? 'IB Diploma' : qualification === 'a-level' ? 'Cambridge A Level' : 'Cambridge IGCSE and IB';
-  return { ...HUB[qualification ?? 'all'], description: `${paperCount.toLocaleString('en-US')} ${scope} past papers with mark schemes. Time them, mark them and see which topics to fix. Free, no sign-up.`, answer: 'Every paper with its mark scheme. Time it, mark it, see what to fix.' };
+  const scope = qualification === 'igcse' ? 'Cambridge IGCSE' : qualification === 'ib' ? 'IB Diploma' : qualification === 'a-level' ? 'Cambridge A Level' : 'Cambridge IGCSE, A Level and IB';
+  return { ...HUB[qualification ?? 'all'], description: `${paperCount.toLocaleString('en-US')} ${scope} past papers with mark schemes. Time them, and mark supported papers to see which topics to fix. Free, no sign-up.`, answer: 'Every paper with its mark scheme. Time it, and mark supported papers to see what to fix.' };
 }
 
 /** Board-level questions for the IGCSE and IB hubs; every claim is general and true for the whole board. */
@@ -92,7 +92,7 @@ export function subjectCopy(bank: CatalogBank, papers: readonly WholePaperSummar
   return {
     title: fitTitle(`${name} Past Papers & Mark Schemes (${yearRange(papers)})`, `${name} Past Papers & Mark Schemes`, `${name} Past Papers`),
     h1: `${name} past papers`,
-    description: `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}.${papers.some(p => p.reportAvailable) ? ' Time it, mark it and see which topics to fix.' : ''} Free, no sign-up.`,
+    description: `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}.${papers.every(p => p.reportAvailable) ? ' Time it, mark it and see which topics to fix.' : papers.some(p => p.reportAvailable) ? ' Time it, and mark supported papers to see which topics to fix.' : ''} Free, no sign-up.`,
     answer: `${n} ${fullName(bank)} past ${n === 1 ? 'paper' : 'papers'} ${fromYears(papers)}, ${n === 1 ? 'with its' : 'each with its'} ${scheme(bank)}. Free, no sign-up.`,
   };
 }
@@ -103,7 +103,7 @@ export function yearCopy(bank: CatalogBank, year: number, papers: readonly Whole
   return {
     title: fitTitle(`${name} Past Papers ${year} & Mark Schemes`, `${name} Past Papers ${year}`),
     h1: `${name} past papers ${year}`,
-    description: `${name} past papers from ${year}: ${sessions}, with ${scheme(bank)}s. Free, no sign-up.`,
+    description: `${name} past papers from ${year}: ${sessions}. Every paper and variant by its code, with ${scheme(bank)}s, timings and marks. Free, no sign-up.`,
     answer: `${n} ${fullName(bank)} past ${n === 1 ? 'paper' : 'papers'} from ${year}: ${sessions}, ${n === 1 ? 'with its' : 'each with its'} ${scheme(bank)}.`,
   };
 }
@@ -178,7 +178,7 @@ export function subjectFaq(bank: CatalogBank, papers: readonly WholePaperSummary
   if (isIb(bank) && papers.some(p => /^tz[1-9]$/i.test(p.variant))) faq.push({ q: 'What do TZ1 and TZ2 mean on IB papers?', a: 'IB sets separate papers for different time zones. Each has its own markscheme.' });
   const routes = routeAnswer(papers);
   if (routes) faq.push({ q: `Which ${code} papers do Core and Extended students take?`, a: routes });
-  if (papers.some(p => p.reportAvailable)) faq.push({ q: 'How do I mark a past paper here?', a: 'Open a paper, switch to the mark scheme, then tap Mark this paper and enter your marks for each question. Your marks stay on this device.' });
+  if (papers.some(p => p.reportAvailable)) faq.push({ q: 'How do I mark a past paper here?', a: 'On papers that support self-marking, open the paper, switch to the mark scheme, then tap Mark this paper and enter your marks for each question. Your marks stay on this device.' });
   return faq;
 }
 

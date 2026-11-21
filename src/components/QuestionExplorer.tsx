@@ -21,7 +21,7 @@ import { fetchExplanation } from "@/lib/explanation-client";
 import type { Explanation } from "@/lib/explanation-format";
 import { hasFreeTier, isPreviewQuestion } from "@/lib/access";
 import { BANK_CATALOG } from "@/lib/catalog";
-import { bankYearFacts, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, type UpgradePlacement } from "@/lib/upgrade-copy";
+import { bankYearFacts, feedTeaserPool, upgradeHref, UPGRADE_PRICE_LABEL, UPGRADE_PRICE_MONTH, type FeedTeaser, type UpgradePlacement } from "@/lib/upgrade-copy";
 
 import { filterQuestions, questionZoneValue } from "@/lib/question-filter";
 import { EXPLORER_PAGE_SIZE, parseExplorerState, serializeExplorerState, preserveClearedRoutePreset, stripRoutePreset, withRoutePreset, type ExplorerFilterKey, type ExplorerSearchParams, type ExplorerState } from "@/lib/explorer-state";
@@ -211,9 +211,11 @@ function trackAssetLoadFailure(bank: string, questionId: string, kind: "question
 }
 const hydratedSnapshot = () => true;
 const serverSnapshot = () => false;
-const SESSION_ORDER = ["feb", "mar", "may", "jun", "oct", "nov"];
-const sessionRank = (session: string) => Math.max(0, SESSION_ORDER.findIndex((key) => session.toLowerCase().includes(key)));
-const questionTopicLabel = (question: UnifiedQuestion) => formatQuestionTopic(question.bankSlug, question.primaryTopic);
+/** The filters, search, sort and route that pick a result list; equal keys list the same questions. */
+const resultStateKey = (state: Pick<ExplorerState, "search" | "sort" | "filters" | "partialTopics" | "courseRoute">) => JSON.stringify([
+  state.search.trim(), state.sort, Boolean(state.partialTopics), state.courseRoute,
+  Object.entries(state.filters).filter(([, values]) => values?.length).sort(([a], [b]) => a.localeCompare(b)),
+]);
 
 const readAuthCookiePresent = () => documentHasSupabaseAuthCookie(document.cookie);
 /** Which signed-in/out period this page belongs to; unchanged by token refreshes. */
@@ -289,6 +291,7 @@ function SessionQuestionExplorer({
   access,
   exportMarker,
   initialState = DEFAULT_EXPLORER_STATE,
+  initialTeasers = [],
   studyState = EMPTY_STUDY_STATE,
   bootstrapUrl,
   hydrateFromLocation = false,
@@ -303,6 +306,8 @@ indexUrl?: string;
 access: ExplorerAccess;
   exportMarker?: string;
   initialState?: ExplorerState;
+  /** Paid teasers for `initialState`, picked by the server so feed cards render before the full index loads. */
+  initialTeasers?: FeedTeaser[];
   studyState?: ExplorerStudyState;
   bootstrapUrl?: string;
   hydrateFromLocation?: boolean;
@@ -519,7 +524,9 @@ access: ExplorerAccess;
   const shownQuestions = useMemo(() => {
     if (!locationHydrated) {
       // Static HTML: the anonymous default (free filter, default sort) the server already computed.
-      return hydrateFromLocation && !localPreview ? questions.slice(0, Math.min(visible, ANONYMOUS_FREE_QUESTION_LIMIT)) : [];
+      // A client navigation to a worksheet or shared set already knows the default list isn't it.
+      const showsOtherSet = Boolean(worksheetId) || mountParams.has("set");
+      return hydrateFromLocation && !localPreview && !showsOtherSet ? questions.slice(0, Math.min(visible, ANONYMOUS_FREE_QUESTION_LIMIT)) : [];
     }
     if (sharedSetView && (sharedError || Boolean(missingSharedCount))) return [];
     if (!anonymous) return savedWorksheetView || sharedSetView ? resultQuestions : resultQuestions.slice(0, visible);
@@ -533,7 +540,11 @@ access: ExplorerAccess;
       return true;
     });
     return safeSample.slice(0, visible);
-  }, [accessResolved, anonymous, freeGate.visibleCount, hydrateFromLocation, localPreview, locationHydrated, missingSharedCount, questions, visible, resultQuestions, savedWorksheetView, sharedError, sharedSetView]);
+  }, [accessResolved, anonymous, freeGate.visibleCount, hydrateFromLocation, localPreview, locationHydrated, missingSharedCount, mountParams, questions, visible, resultQuestions, savedWorksheetView, sharedError, sharedSetView, worksheetId]);
+  // A worksheet or shared set still loading: its results keep a screen of room, so the page below
+  // doesn't rise into view and drop back when the questions arrive.
+  const setViewPending = (sharedSetView && !sharedError && ((Boolean(indexUrl) && !indexLoaded) || bootstrapPending))
+    || (savedWorksheetView && !worksheetLoadFailed && (!worksheetReady || bootstrapPending));
   const returnPath = hydrated ? `${window.location.pathname}${window.location.search}` : "/";
   const signupHref = `/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`;
   const signinHref = `/login?next=${encodeURIComponent(returnPath)}`;
@@ -558,13 +569,16 @@ access: ExplorerAccess;
   const paidCount = useMemo(() => catalogQuestions.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).length, [catalogQuestions]);
   // The catalogue starts as the server's first-page sample; only a fully loaded index is the whole bank.
   const bankFreeCount = indexLoaded && !indexError ? catalogQuestions.length - paidCount : undefined;
-  const teaserPool = useMemo(() => nudgesActive && effectiveFreeOnly
-    ? matching.filter((question) => !isPreviewQuestion(question.bankSlug, question.id)).sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session))
-    : [], [nudgesActive, effectiveFreeOnly, matching]);
+  // Before the full index loads only the server sample is known, so the only true teasers are the
+  // ones the server picked for the page's own filters. Showing those from the first paint keeps the
+  // feed cards from being inserted mid-list, under the reader, when the index arrives.
+  const showsInitialResults = resultStateKey({ search, sort, filters, partialTopics, courseRoute: effectiveCourseRoute }) === resultStateKey(initialState);
+  const serverTeasers = !indexLoaded && showsInitialResults && initialTeasers.length ? initialTeasers : null;
+  const teaserPool = useMemo<FeedTeaser[]>(() => !nudgesActive || !effectiveFreeOnly ? [] : indexLoaded ? feedTeaserPool(matching) : serverTeasers ?? [],
+    [nudgesActive, effectiveFreeOnly, indexLoaded, matching, serverTeasers]);
   const storedFeedDismissed = useSyncExternalStore(subscribeToNothing, readFeedNudgeDismissed, () => false);
   const [feedDismissedNow, setFeedDismissedNow] = useState(false);
-  // Wait for the full index: before it loads only the server sample is known, so there is nothing true to tease or count.
-  const feedNudges = nudgesActive && effectiveFreeOnly && indexLoaded && !storedFeedDismissed && !feedDismissedNow;
+  const feedNudges = nudgesActive && effectiveFreeOnly && (indexLoaded || Boolean(serverTeasers)) && !storedFeedDismissed && !feedDismissedNow;
   const [sentUpgradeViews] = useState(() => new Set<string>()); // stable for the page; views are recorded, not rendered
   const resultsHeadingRef = useRef<HTMLDivElement>(null);
   // A filter change swaps in a new, usually shorter list. Left alone, the window keeps its old
@@ -589,7 +603,7 @@ access: ExplorerAccess;
     if (slot % 2 === 0) {
       // No matching paid question: skip the slot rather than repeat the timeline card.
       const teaser = teaserPool[slot / 2];
-      return teaser ? <FeedTeaserCard bank={nudgeBank} question={teaser} topicLabel={questionTopicLabel(teaser)} href={upgradeLink("feed_teaser")} slot={slot} sentViews={sentUpgradeViews} onDismiss={dismissFeedNudges} /> : null;
+      return teaser ? <FeedTeaserCard bank={nudgeBank} question={teaser} topicLabel={formatQuestionTopic(nudgeBank, teaser.primaryTopic)} href={upgradeLink("feed_teaser")} slot={slot} sentViews={sentUpgradeViews} onDismiss={dismissFeedNudges} /> : null;
     }
     return yearFacts ? <FeedTimelineCard bank={nudgeBank} shortName={bankShortName} facts={yearFacts} href={upgradeLink("feed_timeline")} slot={slot} sentViews={sentUpgradeViews} onDismiss={dismissFeedNudges} /> : null;
   };
@@ -1542,7 +1556,7 @@ access: ExplorerAccess;
           </div>
         </aside>
 
-        <div className="explorer-results" inert={filtersOpen || undefined}>
+        <div className={`explorer-results${setViewPending ? " is-set-pending" : ""}`} inert={filtersOpen || undefined}>
           <div ref={resultsHeadingRef} className="results-heading" tabIndex={-1}>
             <div><strong>{resultQuestions.length.toLocaleString("en-US")} {savedWorksheetView ? "saved " : !sharedSetView && effectiveFreeOnly ? "free " : ""}{resultQuestions.length === 1 ? "question" : "questions"}</strong>{selectionIsExplicit && !savedWorksheetView && !sharedSetView && <span>{selectedIds.size} selected for PDF</span>}</div>
             <div>{selectionIsExplicit && !worksheetId && !sharedSetView && <button className="text-button" onClick={() => { setSelectionIsExplicit(false); setSelectedIds(new Set()); }}>Clear selection</button>}{!savedWorksheetView && !sharedSetView && (search || activeCount > 0 || (courseRoute !== "all" && !routeConfig?.remember)) && <button className="text-button" onClick={clearFilters}>Clear filters</button>}</div>
@@ -1787,7 +1801,7 @@ function QuestionCard({ question, notesLink, fullPaperHref, unlocked, authentica
     <article className={`question-card question-paper${selected && selectable ? " is-selected" : ""}`}>
       <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span>{isNotSatSeries(question.bankSlug, question.year, question.session) && <span>Not sat</span>}<span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
-      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><IntentPrefetchLink className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</IntentPrefetchLink></div>}
+      {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <><div className="asset-placeholder" role="status"><span className="placeholder-shimmer" aria-hidden="true" /><span className="placeholder-bars" aria-hidden="true"><i /><i /><i /><i /></span><span className="sr-only">Loading original question</span></div>{Array.from({ length: Math.max(0, question.questionImageCount - 1) }, (_, index) => <div key={index} className="asset-placeholder" aria-hidden="true" />)}</>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><IntentPrefetchLink className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</IntentPrefetchLink></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{showExplanationButton && <button className="answer-toggle" disabled={explanationLoading} aria-expanded={explanationOpen} onClick={toggleExplanation}>{explanationLoading ? "Loading explanation..." : explanationOpen ? "Hide explanation" : "Explanation"}</button>}{answerError && <span className="muted" role="alert">{answerError}</span>}{explanationError && <span className="muted" role="alert">{explanationError}</span>}</div>
         <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{notesLink && <IntentPrefetchLink className="notes-link" href={notesLink.href} title={notesLink.label} onClick={() => trackProductEvent("question_notes_click", { bank: question.bankSlug })}>Learn this topic</IntentPrefetchLink>}{unlocked && fullPaperHref && <IntentPrefetchLink className="full-paper-button" href={fullPaperHref} title="Open the whole paper at this question, with its mark scheme" onClick={() => trackProductEvent("question_full_paper_click", { bank: question.bankSlug })}><FileText aria-hidden="true" weight="bold" />Full paper</IntentPrefetchLink>}{unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>

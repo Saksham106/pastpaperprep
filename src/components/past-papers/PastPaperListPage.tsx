@@ -3,14 +3,16 @@ import { IntentPrefetchLink } from '@/components/IntentPrefetchLink';
 import { ArrowLeft, ArrowRight, CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { CourseIcon, courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
-import { buildPaperMatrix, paperHref, paperName, qualificationOfBank, subjectSlugForBank } from '@/lib/past-paper-catalog';
+import { buildPaperMatrix, paperHref, paperName, qualificationOfBank, sessionRank, subjectSlugForBank } from '@/lib/past-paper-catalog';
 import type { ListView } from '@/lib/past-paper-pages';
-import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, paperNumberCopy, subjectCopy, subjectFaq, subjectSearchName, yearCopy } from '@/lib/past-paper-seo';
+import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, formatDuration, paperCodes, paperNumberCopy, subjectCopy, subjectFaq, subjectSearchName, yearCopy } from '@/lib/past-paper-seo';
 import { PaperLibraryTools } from './PaperLibraryTools';
 import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
+import { aLevelSuccessors } from '@/lib/next-step-banks';
+import { articlesForBank } from '@/lib/article-links';
 import { formatUpdateDate, lastUpdated } from '@/lib/updates';
-import { paperNumberThresholds, topicFrequency } from '@/lib/past-paper-insights';
+import { paperNumberThresholds, seriesThresholds, topicFrequency } from '@/lib/past-paper-insights';
 import styles from './PastPaperPages.module.css';
 
 const TOPIC_ROWS = 12;
@@ -42,6 +44,74 @@ function PaperNumberThresholds({ label, subject, papers }: { label: string; subj
       <thead><tr><th scope="col">Series</th><th scope="col">Paper</th><th scope="col">Out of</th>{headings.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead>
       <tbody>{rows.map(r => <tr key={`${r.series}-${r.component}`}><th scope="row">{r.series}</th><td>{r.component}</td><td>{r.maxMark}</td>{headings.map(h => <td key={h}>{r.values[r.headings.indexOf(h)] ?? '–'}</td>)}</tr>)}</tbody>
     </table></div>
+  </section>;
+}
+
+/** A year list: every paper sat that year by session and component, with the codes students search for,
+ * durations and marks (from the cited assessment-structure table), thresholds and topic coverage. The
+ * latest year's list is the indexed page for that year's paper codes (past-paper-indexing.ts). */
+function YearPapers({ view, subject }: { view: Extract<ListView, { kind: 'year' }>; subject: string }) {
+  const { bank } = view;
+  const sessions = [...new Set(view.papers.map(p => p.session))].sort((a, b) => sessionRank(a) - sessionRank(b));
+  const { papers: counted, topics } = topicFrequency(view.questionSets ?? []);
+  const thresholds = seriesThresholds(subject, view.papers);
+  const headings = [...new Set(thresholds.flatMap(r => r.headings))];
+  return <>
+    {sessions.map(session => {
+      const inSession = view.papers.filter(p => p.session === session);
+      const components = [...new Set(inSession.map(p => p.paper))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+      const id = `session-${session.replace(/[^a-z]/gi, '').toLowerCase()}`;
+      return <section key={session} className={styles.insight} aria-labelledby={id}>
+        <h2 id={id}>{session} {view.year}</h2>
+        <ul className={styles.sessionPapers}>{components.map(component => {
+          const variants = inSession.filter(p => p.paper === component).sort((a, b) => a.variant.localeCompare(b.variant, undefined, { numeric: true }));
+          const first = variants[0];
+          const facts = [first.route === 'Core' || first.route === 'Extended' ? first.route : null, first.durationMinutes !== null ? formatDuration(first.durationMinutes) : null, first.maxMarks !== null ? `${first.maxMarks} marks` : null].filter(Boolean).join(' · ');
+          return <li key={component}>
+            <strong>Paper {component.toUpperCase()}</strong>{facts && <span> · {facts}</span>}
+            <span className={styles.sessionCodes}>{variants.map((p, i) => <span key={p.id}>{i > 0 && ', '}<Link href={paperHref(p)}>{paperCodes(bank, p)[0] ?? paperName(p)}</Link></span>)}</span>
+          </li>;
+        })}</ul>
+      </section>;
+    })}
+    {thresholds.length > 0 && <section className={styles.insight} aria-labelledby="year-thresholds">
+      <h2 id="year-thresholds">{view.year} grade thresholds</h2>
+      <p>Marks needed for each grade, from Cambridge&rsquo;s published tables. A dash means that grade isn&rsquo;t available on the paper.</p>
+      <div className={styles.tableScroll}><table>
+        <thead><tr><th scope="col">Series</th><th scope="col">Paper</th><th scope="col">Out of</th>{headings.map(h => <th key={h} scope="col">{h}</th>)}</tr></thead>
+        <tbody>{thresholds.map(r => <tr key={`${r.series}-${r.component}`}><th scope="row">{r.series}</th><td>{r.component}</td><td>{r.maxMark}</td>{headings.map(h => <td key={h}>{r.values[r.headings.indexOf(h)] ?? '–'}</td>)}</tr>)}</tbody>
+      </table></div>
+    </section>}
+    {counted >= 2 && topics.length > 0 && <section className={styles.insight} aria-labelledby="year-topics">
+      <h2 id="year-topics">Topics in the {view.year} papers</h2>
+      <p>Across {counted} {view.year} papers, by each question&rsquo;s main topic.</p>
+      <table>
+        <thead><tr><th scope="col">Topic</th><th scope="col">Papers it appears in</th><th scope="col">Typical marks</th></tr></thead>
+        <tbody>{topics.slice(0, TOPIC_ROWS).map(t => <tr key={t.topic}><th scope="row">{t.topic}</th><td>{t.papers} of {counted}</td><td>{t.averageMarks}</td></tr>)}</tbody>
+      </table>
+    </section>}
+  </>;
+}
+
+/** Subject page: how the course is examined now (the latest sitting's papers) and that year's most-tested
+ * topics, so each subject page carries facts of its own rather than only the shared library shell. */
+function SubjectSummary({ view, subject }: { view: Extract<ListView, { kind: 'subject' }>; subject: string }) {
+  const latest = Math.max(...view.papers.map(p => p.year));
+  const inYear = view.papers.filter(p => p.year === latest);
+  const session = [...new Set(inYear.map(p => p.session))].sort((a, b) => sessionRank(b) - sessionRank(a))[0];
+  const sitting = inYear.filter(p => p.session === session);
+  const components = [...new Map(sitting.sort((a, b) => a.paper.localeCompare(b.paper, undefined, { numeric: true })).map(p => [`${p.paper}-${p.route ?? ''}`, p])).values()];
+  const { papers: counted, topics } = topicFrequency(view.latestSets ?? []);
+  const name = subjectSearchName(view.bank);
+  return <section className={styles.insight} aria-labelledby="subject-exam">
+    <h2 id="subject-exam">How {name} is examined</h2>
+    <p>The papers set in {session} {latest}, with their timings and marks.</p>
+    <table>
+      <thead><tr><th scope="col">Paper</th><th scope="col">Time</th><th scope="col">Marks</th></tr></thead>
+      <tbody>{components.map(p => <tr key={`${p.paper}-${p.route}`}><th scope="row">{paperName(p).replace(/ TZ\d$/i, '')}{p.route === 'Core' || p.route === 'Extended' || p.route === 'HL' || p.route === 'SL' ? ` (${p.route})` : ''}</th><td>{p.durationMinutes !== null ? formatDuration(p.durationMinutes) : '–'}</td><td>{p.maxMarks ?? '–'}</td></tr>)}</tbody>
+    </table>
+    {counted >= 2 && topics.length > 0 && <p>Most-tested topics in the {latest} papers: {topics.slice(0, 5).map(t => t.topic).join(', ')}.</p>}
+    <p><Link href={`/past-papers/${subject}/${latest}`}>Every {latest} {name} paper by its code</Link></p>
   </section>;
 }
 
@@ -84,6 +154,8 @@ export function PastPaperListPage({ view }: { view: ListView }) {
     <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all} />
     {view.kind === 'paperNumber' && <PaperNumberTopics label={view.paper.toUpperCase()} view={view} />}
     {view.kind === 'paperNumber' && <PaperNumberThresholds label={view.paper.toUpperCase()} subject={subject} papers={view.papers} />}
+    {view.kind === 'year' && <YearPapers view={view} subject={subject} />}
+    {view.kind === 'subject' && <SubjectSummary view={view} subject={subject} />}
     {view.kind === 'year' && <nav aria-label="Neighbouring years" className={styles.pager}>
       {previous ? <Link href={`${subjectPath}/${previous}`}><ArrowLeft aria-hidden="true" /><span>Previous year: {previous}</span></Link> : <span />}
       {next ? <Link href={`${subjectPath}/${next}`}><span>Next year: {next}</span><ArrowRight aria-hidden="true" /></Link> : <span />}
@@ -95,6 +167,8 @@ export function PastPaperListPage({ view }: { view: ListView }) {
     {view.practice && <Link className={styles.practice} href={`/banks/${bank.slug}`}>Practise {name} questions by topic <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {getGradeThresholds(subject) && <Link className={styles.practice} href={`/grade-thresholds/${subject}`}>{name} grade thresholds <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {getNotesSubject(subject) && <Link className={styles.practice} href={`/revision-notes/${subject}`}>{name} revision notes <ArrowRight aria-hidden="true" weight="bold" /></Link>}
+    {view.kind === 'subject' && articlesForBank(bank.slug).map(guide => <Link key={guide.href} className={styles.practice} href={guide.href}>{guide.title} <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
+    {view.kind === 'subject' && aLevelSuccessors(bank.slug).map(next => <Link key={next.slug} className={styles.practice} href={`/past-papers/${subjectSlugForBank(next.slug)}`}>Next step: {subjectSearchName(next)} past papers <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
     {faq.length > 0 && <section className={styles.faq} aria-labelledby="past-paper-faq">
       <h2 id="past-paper-faq">Questions</h2>
       {faq.map(item => <details key={item.q}><summary>{item.q}<CaretDown aria-hidden="true" /></summary><p>{item.a}</p></details>)}

@@ -3,7 +3,8 @@ import { notFound, permanentRedirect, redirect } from 'next/navigation';
 import { PastPaperListPage } from '@/components/past-papers/PastPaperListPage';
 import { PastPaperPaperPage } from '@/components/past-papers/PastPaperPaperPage';
 import { qualificationOfBank } from '@/lib/past-paper-catalog';
-import { pastPaperFallback, pastPaperParams, resolveEntry } from '@/lib/past-paper-pages';
+import { latestYear, pastPaperFallback, pastPaperParams, resolveEntry } from '@/lib/past-paper-pages';
+import { yearIndexed } from '@/lib/past-paper-indexing';
 import { paperCopy, paperNumberCopy, pastPaperMetadata, yearCopy } from '@/lib/past-paper-seo';
 import { topicFrequency } from '@/lib/past-paper-insights';
 
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const view = await resolveEntry(slug, entry);
   if (!view) return {};
   const copy = view.kind === 'year' ? yearCopy(view.bank, view.year, view.papers) : view.kind === 'paperNumber' ? paperNumberCopy(view.bank, view.paper, view.papers, topicFrequency(view.questionSets ?? []).topics.map(t => t.topic)) : paperCopy(view.bank, view.detail.summary);
-  const indexed = view.kind === 'paper' ? view.indexing?.indexed ?? false : view.kind === 'paperNumber';
+  const indexed = view.kind === 'paper' ? view.indexing?.indexed ?? false : view.kind === 'paperNumber' || yearIndexed(view.year, latestYear(view.all));
   return pastPaperMetadata(copy, `/past-papers/${slug}/${entry}`, qualificationOfBank(view.bank.slug), indexed);
 }
 

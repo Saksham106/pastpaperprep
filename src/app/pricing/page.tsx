@@ -7,7 +7,7 @@ import { formatUpdateDate, lastUpdated } from "@/lib/updates";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Choose one PastPaperPrep question bank across IGCSE and IB Maths, Biology, Chemistry, Physics and Economics; build an exact bundle of two to five, or unlock every current bank.",
+  description: "Choose one PastPaperPrep question bank across IGCSE, A Level and IB Maths, Biology, Chemistry, Physics and Economics; build an exact bundle of two to five, or unlock every current bank.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "PastPaperPrep Pricing",

@@ -6,6 +6,7 @@ import { filterQuestions } from "@/lib/question-filter";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { loadBankQuestions } from "@/lib/question-loader";
+import { FEED_TEASER_LIMIT, feedTeaserPool, type FeedTeaser } from "@/lib/upgrade-copy";
 
 /**
  * Static first page of a bank explorer, optionally narrowed by a route preset (a topic or
@@ -40,5 +41,11 @@ export async function loadBankExplorer(slug: BankSlug, routePreset: ExplorerSear
       ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, [], new Date(), localPreview))
       : question;
   });
-  return { localPreview, initialState, initialQuestions, routeMatches };
+  // The page's paid-question teasers, so the feed cards are in the HTML instead of arriving with the full index.
+  const initialTeasers = initialState.freeOnly
+    ? feedTeaserPool(routeMatches.filter((question) => matchesCourseRoute(question.syllabusRoute, initialState.courseRoute)))
+      .slice(0, FEED_TEASER_LIMIT)
+      .map(({ id, year, session, paper, number, marks, primaryTopic }): FeedTeaser => ({ id, year, session, paper, number, marks, primaryTopic }))
+    : [];
+  return { localPreview, initialState, initialQuestions, initialTeasers, routeMatches };
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { articlesForBank } from "@/lib/article-links";
 import type { Bank } from "@/lib/banks";
 import { BankWorkedExample } from "@/components/BankWorkedExample";
 import { hasFreeTier } from "@/lib/access";
@@ -102,6 +103,7 @@ export function BankSeoContent({ bank, topicLinks = [], topicHeading }: { bank: 
         {!isScience ? (
           <Link href="/articles/how-to-use-maths-past-papers-effectively">How to use past papers effectively</Link>
         ) : null}
+        {articlesForBank(bank.slug).filter((article) => article.href !== guide.href && article.href !== "/articles/how-to-use-maths-past-papers-effectively").map((article) => <Link key={article.href} href={article.href}>{article.title}</Link>)}
       </div>
     </section>
     <BankWorkedExample bankSlug={bank.slug} />

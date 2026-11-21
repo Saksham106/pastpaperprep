@@ -49,7 +49,7 @@ describe("Updates page", () => {
     const log = screen.getByRole("region", { name: "All updates" });
     expect(within(log).getByRole("link", { name: "IB Maths AI course notes" })).toHaveAttribute("href", "/revision-notes/ib-math-ai");
     expect(within(log).queryByRole("link", { name: "Every question now explained" })).toBeNull();
-    expect(within(log).getAllByRole("link", { name: "Biology HL" })[0]).toHaveAttribute("href", "/banks/ib-biology-hl");
+    expect(within(log).getAllByRole("link", { name: "Chemistry HL" })[0]).toHaveAttribute("href", "/banks/ib-chemistry-hl");
   });
 
   it("shows each date once, with that day's updates under it", () => {

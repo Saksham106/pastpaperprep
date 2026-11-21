@@ -78,7 +78,7 @@ describe("canonical search metadata", () => {
     });
     expect(pricingMetadata.alternates?.canonical).toBe("/pricing");
     expect(pricingMetadata.openGraph).toMatchObject({ images: [{ url: "/social/do-better-igcse.png" }] });
-    expect(pricingMetadata.description).toMatch(/IGCSE and IB Maths/i);
+    expect(pricingMetadata.description).toMatch(/IGCSE, A Level and IB Maths/i);
     expect(pricingMetadata.description).toMatch(/Chemistry/i);
     expect(pricingMetadata.description).toMatch(/Economics/i);
   });

@@ -13,7 +13,7 @@ type PublicFaq = {
 export const FAQS: readonly PublicFaq[] = [
   {
     question: "What is PastPaperPrep?",
-    answer: "Free Cambridge IGCSE and IB past papers with their mark schemes, plus real exam questions sorted by topic. Practise, check the official answer, and open a worked explanation when you get stuck.",
+    answer: "Free Cambridge IGCSE, A Level and IB past papers with their mark schemes, plus real exam questions sorted by topic. Practise, check the official answer, and open a worked explanation when you get stuck.",
   },
   {
     question: "What can I use for free?",
@@ -22,7 +22,7 @@ export const FAQS: readonly PublicFaq[] = [
   },
   {
     question: "Which courses are available?",
-    answer: "Cambridge IGCSE Maths 0580, Additional Maths 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478. IB Diploma Maths AA and AI, Biology, Chemistry, Physics, Economics and Computer Science, each at HL and SL.",
+    answer: "Cambridge IGCSE Maths 0580, Additional Maths 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478. Cambridge International A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700 and Economics 9708. IB Diploma Maths AA and AI, Biology, Chemistry, Physics, Economics and Computer Science, each at HL and SL.",
     links: [{ href: "/#question-banks", label: "See every bank" }],
   },
   {
@@ -32,11 +32,11 @@ export const FAQS: readonly PublicFaq[] = [
   },
   {
     question: "Where do the questions come from?",
-    answer: "Every question in the topic banks is from an official Cambridge IGCSE or IB Diploma past paper, not written to look like one. Each one is cut from its paper, matched to its mark scheme and tagged by syllabus topic. Spot a wrong tag or a cut-off image? Report it from the question and we fix it.",
+    answer: "Every question in the topic banks is from an official Cambridge IGCSE, Cambridge A Level or IB Diploma past paper, not written to look like one. Each one is cut from its paper, matched to its mark scheme and tagged by syllabus topic. Spot a wrong tag or a cut-off image? Report it from the question and we fix it.",
   },
   {
     question: "Who is PastPaperPrep not for?",
-    answer: "Students on other boards, such as Edexcel, AQA or A Level, since only Cambridge IGCSE and IB Diploma are covered. If you only want complete papers to sit as mocks, the free library is enough; a plan is for topic practice on recent years and PDF worksheets.",
+    answer: "Students on other boards, such as Edexcel, AQA or OCR (including their UK A Levels), since only Cambridge IGCSE, Cambridge International A Level and IB Diploma are covered. If you only want complete papers to sit as mocks, the free library is enough; a plan is for topic practice on recent years and PDF worksheets.",
   },
   {
     question: "How do PDF worksheets work?",
