@@ -40,7 +40,7 @@ const ADD_MATHS_0606: Article = {
     {
       heading: "PastPaperPrep: papers, topics and worked answers in one place",
       paragraphs: [
-        "Every 0606 paper we hold opens free, with its mark scheme, a timer and question-by-question self-marking. The topic bank sorts 1,656 real questions into the syllabus topics, so you can work through, say, only Calculus (the most-tested area, with 424 questions) or only Trigonometry.",
+        "Every 0606 paper we hold opens free, with its mark scheme and a timer; supported papers add question-by-question self-marking. The topic bank sorts 1,656 real questions into the syllabus topics, so you can work through, say, only Calculus (the most-tested area, with 424 questions) or only Trigonometry.",
         "Every question has a step-by-step worked explanation showing which mark-scheme points each step earns. On free-year papers those explanations are printed on the paper page itself. Cambridge's grade thresholds for recent 0606 sessions are on the grade thresholds page.",
       ],
       links: [
@@ -323,7 +323,7 @@ const FREE_IB_PAPERS: Article = {
     {
       heading: "PastPaperPrep: free whole papers in seven IB subjects",
       paragraphs: [
-        "Every IB paper we hold opens free with its markscheme, a timer and self-marking, with no account. Papers run from 2016 for the sciences, 2017 for Maths AA, 2019 for Computer Science and 2021 for Maths AI and Economics, up to May 2026. Each subject page shows exactly which sessions are there.",
+        "Every IB paper we hold opens free with its markscheme and a timer, with no account; supported papers add self-marking. Papers run from 2016 for the sciences, 2017 for Maths AA, 2019 for Computer Science and 2021 for Maths AI and Economics, up to May 2026. Each subject page shows exactly which sessions are there.",
         "For topic practice, the banks sort the same real questions by syllabus topic, and every question has a worked explanation. Free-year questions are open to everyone; on free-year paper pages, the worked answers are printed below the paper.",
       ],
       links: [
@@ -464,7 +464,7 @@ const PAPACAMBRIDGE_ALTERNATIVES: Article = {
       heading: "PastPaperPrep: free topical practice with worked answers",
       paragraphs: [
         "If you came to PapaCambridge for topical questions, PastPaperPrep sorts real Cambridge questions by syllabus topic for Maths 0580, Additional Maths 0606, Biology 0610, Chemistry 0620, Physics 0625, Co-ordinated Sciences 0654, Economics 0455 and Computer Science 0478. Every question has a worked explanation, and older years are free.",
-        "Whole past papers are free for every year we hold, with the mark scheme beside the paper, a timer and self-marking.",
+        "Whole past papers are free for every year we hold, with the mark scheme beside the paper and a timer; supported papers add self-marking.",
       ],
       links: [
         { href: "/past-papers/igcse", label: "Free IGCSE papers" },

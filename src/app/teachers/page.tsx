@@ -19,7 +19,7 @@ export default function TeachersPage() {
   const items = [
     {
       title: "Whole past papers with mark schemes",
-      body: "Every paper we hold opens free, with no account: the question paper, its mark scheme and an exam timer. Students can mark themselves question by question.",
+      body: "Every paper we hold opens free, with no account: the question paper, its mark scheme and an exam timer. On supported papers, students can mark themselves question by question.",
       links: [{ href: "/past-papers/igcse", label: "Cambridge IGCSE papers" }, { href: "/past-papers/ib", label: "IB papers" }],
     },
     {
