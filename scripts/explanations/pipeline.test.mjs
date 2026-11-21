@@ -329,11 +329,23 @@ test('mark codes must account for each part exactly, with science point labels c
   assert.equal(codeErrors(doc('igcse-biology-0610', 3, [[], []])).length, 1);
   assert.deepEqual(codeErrors(doc('ib-physics-hl', 2, [['✓'], ['✓'], ['✓']])), []);
   assert.deepEqual(codeErrors(doc('igcse-economics-0455', 6, [[], ['L3']])), []);
-  const withdrawn = doc('igcse-biology-0610', 3, [[]]);
+  const withdrawn = doc('igcse-biology-0610', 0, [[]]);
   withdrawn.parts[0].withdrawn = true;
-  assert.deepEqual(codeErrors(withdrawn), []);
+  assert.deepEqual(validateExplanation(withdrawn), []);
   withdrawn.parts[0].steps[0].marks = ['B1'];
   assert.equal(validateExplanation(withdrawn).filter((e) => /withdrawn/.test(e)).length, 1);
+  // A withdrawn part scores nothing (SPEC 13b): printed marks on it fail, even when the total still adds up.
+  const printed = doc('igcse-biology-0610', 3, [[]]);
+  printed.parts[0].withdrawn = true;
+  assert.deepEqual(validateExplanation(printed).filter((e) => /withdrawn part has marks 0/.test(e)).length, 1);
+  const moved = { schemaVersion: 1, bank: 'igcse-biology-0610', questionId: 'q', totalMarks: 3, parts: [
+    { label: 'a', marks: 1, withdrawn: true, approach: 'x', answer: 'y', steps: [{ text: 't', marks: [] }] },
+    { label: 'b', marks: 2, approach: 'x', answer: 'y', steps: [{ text: 't', marks: ['B1'] }, { text: 't', marks: ['B1'] }] },
+  ] };
+  assert.deepEqual(validateExplanation(moved), ['parts[0] (a): a withdrawn part has marks 0, not 1']);
+  moved.parts[0].marks = 0;
+  moved.totalMarks = 2;
+  assert.deepEqual(validateExplanation(moved), []);
 });
 
 test('validator accepts a code block and rejects empty, tab-indented or unknown step fields', async () => {
