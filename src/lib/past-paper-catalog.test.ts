@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { BANK_CATALOG } from './catalog';
 import type { WholePaperManifest } from './whole-paper-types';
-import { SUBJECT_SLUGS, bankForSubjectSlug, buildPaperMatrix, closestPaperEntry, chipLabel, fileAliases, filterMatrixByTier, matchPapers, paperName, paperSlug, parsePaperQuery, subjectSlugForBank } from './past-paper-catalog';
+import { SUBJECT_SLUGS, bankForSubjectSlug, buildPaperMatrix, closestPaperEntry, chipLabel, fileAliases, filterMatrixByTier, matchPapers, paperHref, paperName, paperRef, paperSlug, parsePaperQuery, slashCode, subjectSlugForBank } from './past-paper-catalog';
 
 const papers = (slug: string) => (JSON.parse(readFileSync(join(process.cwd(), 'src/data/paper-archives', `${slug}.json`), 'utf8')) as WholePaperManifest).papers.map(p => p.summary);
 const find = (slug: string, id: string) => papers(slug).find(p => p.id === id)!;
@@ -204,5 +204,18 @@ describe('guessed past-paper URLs', () => {
     expect(closestPaperEntry('2019-november-paper-1', entries)).toBeNull();
     expect(closestPaperEntry('%E0%A4%A', entries)).toBeNull();
     expect(closestPaperEntry('paper-9', entries)).toBeNull();
+  });
+});
+
+describe('paper references sent to the browser', () => {
+  it('keep only the fields paper search and links read, with the same results', () => {
+    for (const slug of ['igcse-physics-0625', 'ib-hl']) {
+      const all = papers(slug);
+      const refs = all.map(paperRef);
+      expect(Object.keys(refs[0]).sort()).toEqual(['bankSlug', 'component', 'id', 'paper', 'qualification', 'session', 'sessionCode', 'syllabusCode', 'variant', 'year']);
+      expect(refs.map(p => [paperHref(p), paperName(p), slashCode(p)])).toEqual(all.map(p => [paperHref(p), paperName(p), slashCode(p)]));
+      const query = parsePaperQuery(slug.startsWith('igcse') ? '0625/42/M/J/24' : 'paper 1 2021');
+      expect(matchPapers(refs, query).map(p => p.id)).toEqual(matchPapers(all, query).map(p => p.id));
+    }
   });
 });

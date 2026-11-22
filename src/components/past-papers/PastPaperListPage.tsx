@@ -3,7 +3,7 @@ import { IntentPrefetchLink } from '@/components/IntentPrefetchLink';
 import { ArrowLeft, ArrowRight, CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { CourseIcon, courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
-import { buildPaperMatrix, paperHref, paperName, qualificationOfBank, sessionRank, subjectSlugForBank } from '@/lib/past-paper-catalog';
+import { buildPaperMatrix, paperHref, paperName, paperRef, qualificationOfBank, sessionRank, subjectSlugForBank } from '@/lib/past-paper-catalog';
 import type { ListView } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, formatDuration, paperCodes, paperNumberCopy, subjectCopy, subjectFaq, subjectSearchName, yearCopy } from '@/lib/past-paper-seo';
 import { PaperLibraryTools } from './PaperLibraryTools';
@@ -151,7 +151,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       <p>{copy.answer}</p>
       {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
     </header>
-    <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all} />
+    <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all.map(paperRef)} />
     {view.kind === 'paperNumber' && <PaperNumberTopics label={view.paper.toUpperCase()} view={view} />}
     {view.kind === 'paperNumber' && <PaperNumberThresholds label={view.paper.toUpperCase()} subject={subject} papers={view.papers} />}
     {view.kind === 'year' && <YearPapers view={view} subject={subject} />}
