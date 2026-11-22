@@ -43,4 +43,20 @@ describe("A Level articles (2026-11-21)", () => {
       if (/A Level|970[0-9]/.test(match[0])) expect(match[0], match[0]).toMatch(/Pure 1|Pure 2|Pure 3/);
     }
   });
+
+  it("points MCQ links at a multiple-choice paper, and bank links only use topic and paper filters", () => {
+    const links = A_LEVEL_ARTICLES.flatMap((article) => article.sections.flatMap((section) => section.links ?? []).map((link) => ({ ...link, slug: article.slug })));
+    for (const link of links.filter((entry) => entry.href.startsWith("/banks/"))) {
+      const url = new URL(link.href, "https://pastpaperprep.com");
+      for (const key of url.searchParams.keys()) expect(["topic", "paper"], `${link.slug}: ${link.href}`).toContain(key);
+      const paper = url.searchParams.get("paper");
+      if (paper !== null) expect(paper, `${link.slug}: ${link.href}`).toMatch(/^[1-6]$/);
+    }
+    const mcq = links.filter((link) => /\bMCQs?\b/.test(link.label) && link.href.startsWith("/banks/a-level-economics-9708"));
+    expect(mcq.length).toBeGreaterThan(0);
+    for (const link of mcq) {
+      const paper = new URL(link.href, "https://pastpaperprep.com").searchParams.get("paper");
+      expect(["1", "3"], `${link.slug}: ${link.href} should open a multiple-choice paper`).toContain(paper);
+    }
+  });
 });

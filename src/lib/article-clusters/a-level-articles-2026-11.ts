@@ -683,7 +683,7 @@ const ECONOMICS_9708_MCQ: Article = {
         "PastPaperPrep's 9708 bank has 2,752 multiple-choice questions from 2020 to 2026 (1,492 from Paper 1, 1,260 from Paper 3), sorted by topic with the answer key, and 2020 and 2021 are free. The syllabus changed in 2023, so 2020 to 2022 questions are tagged to the earlier syllabus, but only a handful test content that's gone. The free multiple-choice paper pages have a timer and self-marking, so you can sit one under exam conditions.",
       ],
       links: [
-        { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy", label: "AS price system MCQs" },
+        { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy&paper=1", label: "AS price system MCQs" },
         { href: "/past-papers/a-level-economics-9708/paper-1", label: "Free Paper 1 whole papers" },
         { href: "/articles/a-level-economics-9708-essay-technique", label: "9708 essays and levels marking" },
       ],
