@@ -1,6 +1,6 @@
 # A Level Further Mathematics 9231: addition receipt (22 November 2026)
 
-The owner approved the app PR and the uploads ("Yes, PR + uploads") and chose to serve the "all candidates were awarded full marks" questions at their printed marks ("Serve them"). The coordinating session started this PR and runs the uploads. The bank stays **hidden**: the catalog entry has `pendingStorage: true` and the slug is listed in `src/lib/held-banks.mjs`. Nothing is migrated or switched on.
+The owner approved the app PR and the uploads ("Yes, PR + uploads") and chose to serve the "all candidates were awarded full marks" questions at their printed marks ("Serve them"). The coordinating session started this PR and ran both uploads. The crops are uploaded and read back, the 2020–2021 crops are in the free bucket, and the runtime is finalized. The bank stays **hidden**: the catalog entry has `pendingStorage: true` and the slug is listed in `src/lib/held-banks.mjs`. Nothing is migrated or switched on.
 
 It is stacked on Computer Science 9618 (#507), so both banks launch in one build. It follows Mathematics 9709 (#496) for the maths conventions (paper tabs, the MF19 formula-list button, May/June 2020 "Not sat", section titles as topics, linear maths transcripts as accessible text) and 9708/9700 (#500) and 9618 (#507) for everything else. It is the second bank built with the shared ingestion toolkit (`../ppp-ingestion-toolkit`).
 
@@ -42,7 +42,17 @@ A Level subjects are listed Mathematics, Further Mathematics, Chemistry, Physics
 - Prefix `a-level-further-maths-9231/releases/full813-v1-89c4fe2cbc19/`, private bucket `pastpaperprep-assets`.
 - Plan: `data/storage/a-level-further-maths-9231.manifest.json`, **2,728 WebP objects, 32,628,068 bytes**: every segmented crop, since nothing is held or excluded.
 - Dry run: `data/storage/a-level-further-maths-9231.dry-run.json`. Every local file was re-hashed: 2,728/2,728 match the manifest and the segmentation record, 0 mismatches, 0 R2 writes.
-- Upload: pending. The coordinating session runs it with the owner's approval through the create-only R2 Worker, then this branch is finalized.
+- Upload (owner-approved, 22 November 2026): the coordinating session re-hashed all 2,728 manifest entries against the local crops (0 mismatches), then ran the upload through the temporary create-only R2 Worker (`ppp-asset-upload`) and deleted the Worker. Every put was SHA-256-checked by R2, then read back and re-hashed.
+- Results: **2,728 of 2,728 verified, 0 failed, 0 already present** (235 s).
+  - Log: `docs/a-level-further-maths-9231-r2-upload-log.jsonl` (`f5381127…`).
+  - Receipt: `data/storage/a-level-further-maths-9231.receipt.json` (`verified_readback`).
+- This session re-checked independently:
+  - the receipt covers exactly the manifest keys, with no failures, and its manifest seal holds;
+  - the log seal holds; every one of the 2,728 log rows is `verified`, not pre-existing, and matches its manifest SHA-256 and size;
+  - 3 random objects fetched from R2 with wrangler (`9231-2020-s-13` MS Q6, `9231-2020-w-22` QP Q6, `9231-2026-s-41` QP Q2) hash to their manifest values and sizes.
+- **Finalized:** `generate-igcse-release.mjs --finalize a-level-further-maths-9231`. All 813 rows are now production/classified; runtime `d1b8ce1c…` against candidate `89c4fe2c…`; asset manifest `0634937c…`; receipt `e83c77e9…`. The test reconstructs the candidate from the finalized runtime.
+- **Free years (owner-approved):** the coordinating session copied the 2020–2021 crops to the free bucket with `scripts/free-copy-worker` (create-only): **719 files, 7.7 MB**, each re-hashed from `free.pastpaperprep.com`. Logs: `docs/a-level-further-maths-9231-free-copy/`.
+  - Cross-check here: `listFreePublicAssets` over the asset manifest production builds once the bank is served (private asset mode) returns exactly the 719 copied paths, covering 225 questions. The copy and verify log seals match the receipt, every verified row matches its manifest SHA-256 and size, and 2 public fetches re-hash correctly.
 
 ## Billing
 `bank_a_level_further_maths_9231` is sold on the shared single-bank prices and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle, and Mathematics 9709 does not reach it. Migration `20261122000000_a_level_further_maths_9231_release.sql` copies Computer Science's `20261121000000` definitions verbatim (a test checks this), carries 9618 forward in every list and adds the product and slug after it. It is **not applied**.
