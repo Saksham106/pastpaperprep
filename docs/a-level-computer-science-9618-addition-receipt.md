@@ -48,7 +48,7 @@ A Level subjects are listed Mathematics, Chemistry, Physics, Biology, Economics,
 `bank_a_level_computer_science_9618` is sold on the shared single-bank prices and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle, and no other Computer Science product (0478, IB HL/SL) reaches it. Migration `20261121000000_a_level_computer_science_9618_release.sql` copies Economics's `20261120000000` definitions verbatim (a test checks this) and adds the product and slug after 9708. It is **not applied**. 9708's migration test now accepts a later release that carries 9708 forward, as 9700's does.
 
 ## Other banks unchanged
-Against `origin/main` (`c79b23e5`), the only shared-data change is the new `a-level-computer-science-9618` block in `question-id-aliases.json` plus its sentence in `note`. Every other alias block, every other production runtime, `bank-index-manifest.ts` and `public/` are byte-identical.
+Against `origin/main` (`c79b23e5`), the only shared-data changes are the new `a-level-computer-science-9618` block in `question-id-aliases.json` (plus its sentence in `note`) and its block in the generated `reprint-question-aliases.json` (13 alias papers; read only for banks with a full-paper library, which 9618 does not have yet). Every other alias block, every other production runtime, `bank-index-manifest.ts` and `public/` are byte-identical.
 
 ## Still owner-gated
 1. The create-only R2 upload of the 2,397 crops, then `--finalize` against the verified readback.
