@@ -1,0 +1,719 @@
+{
+  "artifact": "a_level_further_maths_9231_student_taxonomy",
+  "version": "furthermathematics9231_syllabus_taxonomy@1",
+  "qualification": "9231",
+  "era": "2020",
+  "note": "Topics are the official syllabus sections, one set per paper (Paper 1: 1.1-1.7, Paper 2: 2.1-2.6, Paper 3: 3.1-3.6, Paper 4: 4.1-4.5); subtopics are the learning outcomes. Each paper is its own tab, and a question carries sections of its own paper only. 1.4 and 2.2 are both \"Matrices\", as 9709 shares section titles across papers.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "b867755a074b40659c247b6d7e726e1c50a5229526e7058a3ca003deed5a249a",
+  "papers": [
+    {
+      "paper": 1,
+      "title": "Further Pure Mathematics 1",
+      "sections": [
+        {
+          "id": "9231:2020:1.1",
+          "code": "1.1",
+          "label": "Roots of polynomial equations",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "1.1.1",
+              "label": "Relations between roots and coefficients",
+              "syllabusTitle": "Relations between roots and coefficients"
+            },
+            {
+              "code": "1.1.2",
+              "label": "Equations with transformed roots",
+              "syllabusTitle": "Equations with transformed roots"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:1.2",
+          "code": "1.2",
+          "label": "Rational functions and graphs",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 31,
+          "subtopics": [
+            {
+              "code": "1.2.1",
+              "label": "Sketching rational functions",
+              "syllabusTitle": "Sketching rational functions"
+            },
+            {
+              "code": "1.2.2",
+              "label": "Related graphs of f(x)",
+              "syllabusTitle": "Related graphs of f(x)"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:1.3",
+          "code": "1.3",
+          "label": "Summation of series",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 33,
+          "subtopics": [
+            {
+              "code": "1.3.1",
+              "label": "Standard summation results",
+              "syllabusTitle": "Standard summation results"
+            },
+            {
+              "code": "1.3.2",
+              "label": "Method of differences",
+              "syllabusTitle": "Method of differences"
+            },
+            {
+              "code": "1.3.3",
+              "label": "Convergent series and sum to infinity",
+              "syllabusTitle": "Convergent series and sum to infinity"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:1.4",
+          "code": "1.4",
+          "label": "Matrices",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 34,
+          "subtopics": [
+            {
+              "code": "1.4.1",
+              "label": "Matrix operations",
+              "syllabusTitle": "Matrix operations"
+            },
+            {
+              "code": "1.4.2",
+              "label": "Determinants and inverses",
+              "syllabusTitle": "Determinants and inverses"
+            },
+            {
+              "code": "1.4.3",
+              "label": "Inverse of a matrix product",
+              "syllabusTitle": "Inverse of a matrix product"
+            },
+            {
+              "code": "1.4.4",
+              "label": "Matrix transformations",
+              "syllabusTitle": "Matrix transformations"
+            },
+            {
+              "code": "1.4.5",
+              "label": "Invariant points and lines",
+              "syllabusTitle": "Invariant points and lines"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:1.5",
+          "code": "1.5",
+          "label": "Polar coordinates",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "1.5.1",
+              "label": "Cartesian and polar conversion",
+              "syllabusTitle": "Cartesian and polar conversion"
+            },
+            {
+              "code": "1.5.2",
+              "label": "Sketching polar curves",
+              "syllabusTitle": "Sketching polar curves"
+            },
+            {
+              "code": "1.5.3",
+              "label": "Area of a polar sector",
+              "syllabusTitle": "Area of a polar sector"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:1.6",
+          "code": "1.6",
+          "label": "Vectors",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "1.6.1",
+              "label": "Equations of planes",
+              "syllabusTitle": "Equations of planes"
+            },
+            {
+              "code": "1.6.2",
+              "label": "Vector product",
+              "syllabusTitle": "Vector product"
+            },
+            {
+              "code": "1.6.3",
+              "label": "Lines and planes: distances, angles",
+              "syllabusTitle": "Lines and planes: distances, angles"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:1.7",
+          "code": "1.7",
+          "label": "Proof by induction",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "1.7.1",
+              "label": "Proof by induction",
+              "syllabusTitle": "Proof by induction"
+            },
+            {
+              "code": "1.7.2",
+              "label": "Conjecture then prove by induction",
+              "syllabusTitle": "Conjecture then prove by induction"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": 2,
+      "title": "Further Pure Mathematics 2",
+      "sections": [
+        {
+          "id": "9231:2020:2.1",
+          "code": "2.1",
+          "label": "Hyperbolic functions",
+          "level": "A Level",
+          "era": "2020",
+          "official": true,
+          "questions": 22,
+          "subtopics": [
+            {
+              "code": "2.1.1",
+              "label": "Definitions of hyperbolic functions",
+              "syllabusTitle": "Definitions of hyperbolic functions"
+            },
+            {
+              "code": "2.1.2",
+              "label": "Graphs of hyperbolic functions",
+              "syllabusTitle": "Graphs of hyperbolic functions"
+            },
+            {
+              "code": "2.1.3",
+              "label": "Hyperbolic identities",
+              "syllabusTitle": "Hyperbolic identities"
+            },
+            {
+              "code": "2.1.4",
+              "label": "Inverse hyperbolic functions",
+              "syllabusTitle": "Inverse hyperbolic functions"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:2.2",
+          "code": "2.2",
+          "label": "Matrices",
+          "level": "A Level",
+          "era": "2020",
+          "official": true,
+          "questions": 39,
+          "subtopics": [
+            {
+              "code": "2.2.1",
+              "label": "Simultaneous equations as matrix equations",
+              "syllabusTitle": "Simultaneous equations as matrix equations"
+            },
+            {
+              "code": "2.2.2",
+              "label": "Consistency and geometry of systems",
+              "syllabusTitle": "Consistency and geometry of systems"
+            },
+            {
+              "code": "2.2.3",
+              "label": "Eigenvalue and eigenvector definitions",
+              "syllabusTitle": "Eigenvalue and eigenvector definitions"
+            },
+            {
+              "code": "2.2.4",
+              "label": "Finding eigenvalues and eigenvectors",
+              "syllabusTitle": "Finding eigenvalues and eigenvectors"
+            },
+            {
+              "code": "2.2.5",
+              "label": "Diagonalising a matrix",
+              "syllabusTitle": "Diagonalising a matrix"
+            },
+            {
+              "code": "2.2.6",
+              "label": "Cayley-Hamilton theorem",
+              "syllabusTitle": "Cayley-Hamilton theorem"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:2.3",
+          "code": "2.3",
+          "label": "Differentiation",
+          "level": "A Level",
+          "era": "2020",
+          "official": true,
+          "questions": 53,
+          "subtopics": [
+            {
+              "code": "2.3.1",
+              "label": "Differentiating hyperbolic and inverse functions",
+              "syllabusTitle": "Differentiating hyperbolic and inverse functions"
+            },
+            {
+              "code": "2.3.2",
+              "label": "Second derivative, implicit or parametric",
+              "syllabusTitle": "Second derivative, implicit or parametric"
+            },
+            {
+              "code": "2.3.3",
+              "label": "Maclaurin series",
+              "syllabusTitle": "Maclaurin series"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:2.4",
+          "code": "2.4",
+          "label": "Integration",
+          "level": "A Level",
+          "era": "2020",
+          "official": true,
+          "questions": 74,
+          "subtopics": [
+            {
+              "code": "2.4.1",
+              "label": "Hyperbolic and inverse-function integrals",
+              "syllabusTitle": "Hyperbolic and inverse-function integrals"
+            },
+            {
+              "code": "2.4.2",
+              "label": "Reduction formulae",
+              "syllabusTitle": "Reduction formulae"
+            },
+            {
+              "code": "2.4.3",
+              "label": "Area under curve and rectangle bounds",
+              "syllabusTitle": "Area under curve and rectangle bounds"
+            },
+            {
+              "code": "2.4.4",
+              "label": "Arc length and surface area",
+              "syllabusTitle": "Arc length and surface area"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:2.5",
+          "code": "2.5",
+          "label": "Complex numbers",
+          "level": "A Level",
+          "era": "2020",
+          "official": true,
+          "questions": 35,
+          "subtopics": [
+            {
+              "code": "2.5.1",
+              "label": "De Moivre's theorem, integer exponent",
+              "syllabusTitle": "De Moivre's theorem, integer exponent"
+            },
+            {
+              "code": "2.5.2",
+              "label": "Proving de Moivre's theorem",
+              "syllabusTitle": "Proving de Moivre's theorem"
+            },
+            {
+              "code": "2.5.3",
+              "label": "Applications of de Moivre's theorem",
+              "syllabusTitle": "Applications of de Moivre's theorem"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:2.6",
+          "code": "2.6",
+          "label": "Differential equations",
+          "level": "A Level",
+          "era": "2020",
+          "official": true,
+          "questions": 58,
+          "subtopics": [
+            {
+              "code": "2.6.1",
+              "label": "Integrating factor method",
+              "syllabusTitle": "Integrating factor method"
+            },
+            {
+              "code": "2.6.2",
+              "label": "Complementary function and particular integral",
+              "syllabusTitle": "Complementary function and particular integral"
+            },
+            {
+              "code": "2.6.3",
+              "label": "Finding the complementary function",
+              "syllabusTitle": "Finding the complementary function"
+            },
+            {
+              "code": "2.6.4",
+              "label": "Finding a particular integral",
+              "syllabusTitle": "Finding a particular integral"
+            },
+            {
+              "code": "2.6.5",
+              "label": "Solving by substitution",
+              "syllabusTitle": "Solving by substitution"
+            },
+            {
+              "code": "2.6.6",
+              "label": "Initial conditions and modelling",
+              "syllabusTitle": "Initial conditions and modelling"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": 3,
+      "title": "Further Mechanics",
+      "sections": [
+        {
+          "id": "9231:2020:3.1",
+          "code": "3.1",
+          "label": "Motion of a projectile",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 37,
+          "subtopics": [
+            {
+              "code": "3.1.1",
+              "label": "Projectile model and its limits",
+              "syllabusTitle": "Projectile model and its limits"
+            },
+            {
+              "code": "3.1.2",
+              "label": "Projectile motion problems",
+              "syllabusTitle": "Projectile motion problems"
+            },
+            {
+              "code": "3.1.3",
+              "label": "Cartesian equation of trajectory",
+              "syllabusTitle": "Cartesian equation of trajectory"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:3.2",
+          "code": "3.2",
+          "label": "Equilibrium of a rigid body",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 30,
+          "subtopics": [
+            {
+              "code": "3.2.1",
+              "label": "Moment of a force",
+              "syllabusTitle": "Moment of a force"
+            },
+            {
+              "code": "3.2.2",
+              "label": "Centre of mass by symmetry",
+              "syllabusTitle": "Centre of mass by symmetry"
+            },
+            {
+              "code": "3.2.3",
+              "label": "Centre of mass of standard shapes",
+              "syllabusTitle": "Centre of mass of standard shapes"
+            },
+            {
+              "code": "3.2.4",
+              "label": "Centre of mass of composite bodies",
+              "syllabusTitle": "Centre of mass of composite bodies"
+            },
+            {
+              "code": "3.2.5",
+              "label": "Conditions for equilibrium",
+              "syllabusTitle": "Conditions for equilibrium"
+            },
+            {
+              "code": "3.2.6",
+              "label": "Rigid body equilibrium, toppling, sliding",
+              "syllabusTitle": "Rigid body equilibrium, toppling, sliding"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:3.3",
+          "code": "3.3",
+          "label": "Circular motion",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 56,
+          "subtopics": [
+            {
+              "code": "3.3.1",
+              "label": "Angular speed",
+              "syllabusTitle": "Angular speed"
+            },
+            {
+              "code": "3.3.2",
+              "label": "Circular motion acceleration",
+              "syllabusTitle": "Circular motion acceleration"
+            },
+            {
+              "code": "3.3.3",
+              "label": "Horizontal circular motion",
+              "syllabusTitle": "Horizontal circular motion"
+            },
+            {
+              "code": "3.3.4",
+              "label": "Vertical circular motion",
+              "syllabusTitle": "Vertical circular motion"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:3.4",
+          "code": "3.4",
+          "label": "Hooke's law",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 36,
+          "subtopics": [
+            {
+              "code": "3.4.1",
+              "label": "Hooke's law and modulus of elasticity",
+              "syllabusTitle": "Hooke's law and modulus of elasticity"
+            },
+            {
+              "code": "3.4.2",
+              "label": "Elastic potential energy",
+              "syllabusTitle": "Elastic potential energy"
+            },
+            {
+              "code": "3.4.3",
+              "label": "Elastic strings and springs problems",
+              "syllabusTitle": "Elastic strings and springs problems"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:3.5",
+          "code": "3.5",
+          "label": "Linear motion under a variable force",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "3.5.1",
+              "label": "Motion under a variable force",
+              "syllabusTitle": "Motion under a variable force"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:3.6",
+          "code": "3.6",
+          "label": "Momentum",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 35,
+          "subtopics": [
+            {
+              "code": "3.6.1",
+              "label": "Restitution: definitions",
+              "syllabusTitle": "Coefficient of restitution"
+            },
+            {
+              "code": "3.6.2",
+              "label": "Direct and oblique impacts",
+              "syllabusTitle": "Direct and oblique impacts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paper": 4,
+      "title": "Further Probability & Statistics",
+      "sections": [
+        {
+          "id": "9231:2020:4.1",
+          "code": "4.1",
+          "label": "Continuous random variables",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "4.1.1",
+              "label": "Piecewise probability density functions",
+              "syllabusTitle": "Piecewise probability density functions"
+            },
+            {
+              "code": "4.1.2",
+              "label": "Expectation of a function of X",
+              "syllabusTitle": "Expectation of a function of X"
+            },
+            {
+              "code": "4.1.3",
+              "label": "PDF and CDF relationship",
+              "syllabusTitle": "PDF and CDF relationship"
+            },
+            {
+              "code": "4.1.4",
+              "label": "CDF of a related variable",
+              "syllabusTitle": "CDF of a related variable"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:4.2",
+          "code": "4.2",
+          "label": "Inference using normal and t-distributions",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 59,
+          "subtopics": [
+            {
+              "code": "4.2.1",
+              "label": "One-sample t-test",
+              "syllabusTitle": "One-sample t-test"
+            },
+            {
+              "code": "4.2.2",
+              "label": "Pooled variance estimate",
+              "syllabusTitle": "Pooled variance estimate"
+            },
+            {
+              "code": "4.2.3",
+              "label": "Tests for difference of means",
+              "syllabusTitle": "Tests for difference of means"
+            },
+            {
+              "code": "4.2.4",
+              "label": "Confidence interval using t",
+              "syllabusTitle": "Confidence interval using t"
+            },
+            {
+              "code": "4.2.5",
+              "label": "Confidence interval for difference of means",
+              "syllabusTitle": "Confidence interval for difference of means"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:4.3",
+          "code": "4.3",
+          "label": "χ²-tests",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "4.3.1",
+              "label": "Fitting a theoretical distribution",
+              "syllabusTitle": "Fitting a theoretical distribution"
+            },
+            {
+              "code": "4.3.2",
+              "label": "Goodness of fit test",
+              "syllabusTitle": "Goodness of fit test"
+            },
+            {
+              "code": "4.3.3",
+              "label": "Independence test for contingency tables",
+              "syllabusTitle": "Independence test for contingency tables"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:4.4",
+          "code": "4.4",
+          "label": "Non-parametric tests",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 31,
+          "subtopics": [
+            {
+              "code": "4.4.1",
+              "label": "Why use non-parametric tests",
+              "syllabusTitle": "Why use non-parametric tests"
+            },
+            {
+              "code": "4.4.2",
+              "label": "Basis of sign and Wilcoxon tests",
+              "syllabusTitle": "Basis of sign and Wilcoxon tests"
+            },
+            {
+              "code": "4.4.3",
+              "label": "Single-sample sign and signed-rank tests",
+              "syllabusTitle": "Single-sample sign and signed-rank tests"
+            },
+            {
+              "code": "4.4.4",
+              "label": "Paired and rank-sum tests",
+              "syllabusTitle": "Paired and rank-sum tests"
+            }
+          ]
+        },
+        {
+          "id": "9231:2020:4.5",
+          "code": "4.5",
+          "label": "Probability generating functions",
+          "level": "AS",
+          "era": "2020",
+          "official": true,
+          "questions": 29,
+          "subtopics": [
+            {
+              "code": "4.5.1",
+              "label": "Constructing and using PGFs",
+              "syllabusTitle": "Constructing and using PGFs"
+            },
+            {
+              "code": "4.5.2",
+              "label": "Mean and variance from a PGF",
+              "syllabusTitle": "Mean and variance from a PGF"
+            },
+            {
+              "code": "4.5.3",
+              "label": "PGF of a sum of variables",
+              "syllabusTitle": "PGF of a sum of variables"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

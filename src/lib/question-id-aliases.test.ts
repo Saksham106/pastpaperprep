@@ -25,12 +25,13 @@ describe('retired question id aliases', () => {
   });
 
   it('covers exactly the retired 2026 donated ids and the A Level duplicate variants onto live questions', async () => {
-    expect(Object.keys(banks).sort()).toEqual(['a-level-biology-9700', 'a-level-chemistry-9701', 'a-level-computer-science-9618', 'a-level-economics-9708', 'a-level-maths-9709', 'a-level-physics-9702', 'ib-hl', 'ib-sl']);
+    expect(Object.keys(banks).sort()).toEqual(['a-level-biology-9700', 'a-level-chemistry-9701', 'a-level-computer-science-9618', 'a-level-economics-9708', 'a-level-further-maths-9231', 'a-level-maths-9709', 'a-level-physics-9702', 'ib-hl', 'ib-sl']);
     expect(Object.keys(banks['a-level-physics-9702'])).toHaveLength(184);
     expect(Object.keys(banks['a-level-chemistry-9701'])).toHaveLength(381);
     expect(Object.keys(banks['a-level-biology-9700'])).toHaveLength(60);
     expect(Object.keys(banks['a-level-economics-9708'])).toHaveLength(250);
     expect(Object.keys(banks['a-level-computer-science-9618'])).toHaveLength(124);
+    expect(Object.keys(banks['a-level-further-maths-9231'])).toHaveLength(365);
     expect(Object.keys(banks['ib-hl'])).toHaveLength(26);
     expect(Object.keys(banks['ib-sl'])).toHaveLength(36);
     expect(Object.keys(banks['a-level-maths-9709'])).toHaveLength(149);
