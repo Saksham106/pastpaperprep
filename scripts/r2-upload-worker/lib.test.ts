@@ -106,19 +106,23 @@ describe("log rows and receipt", () => {
     expect(() => indexLogRows([{ ...original, key: "bank/q1.v2.webp" }], keys, new Set())).toThrow("does not match manifest"); // a v2 row must match its own hash
   });
 
-  it("resumes on the real 9709 log: every current row validates and the 23 crop-revision originals are superseded", () => {
+  it("resumes on the real 9709 log: every current row validates and each crop-revision original is superseded", () => {
     const root = path.resolve(import.meta.dirname, "../..");
     const real = JSON.parse(readFileSync(path.join(root, "data/storage/a-level-maths-9709.manifest.json"), "utf8"));
     const rows = readFileSync(path.join(root, "docs/a-level-maths-9709-r2-upload-log.jsonl"), "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
     const keys = new Map<string, { objectKey: string; sha256: string; size: number }>(real.assets.map((a: { objectKey: string; sha256: string; size: number }) => [a.objectKey, a]));
     const superseded = new Set<string>();
     const done = indexLogRows(rows, keys, superseded);
+    // One superseded original per .v2.webp key whose original was uploaded (23 from 2026-11-15, more with later revisions).
+    const logged = new Set(rows.map((row) => row.key));
+    const revised = real.assets.filter((a: { objectKey: string }) => a.objectKey.endsWith(".v2.webp") && logged.has(`${a.objectKey.slice(0, -8)}.webp`));
     expect(done.size).toBe(real.assets.length);
-    expect(superseded.size).toBe(23);
+    expect(superseded.size).toBe(revised.length);
+    expect(superseded.size).toBeGreaterThanOrEqual(23);
     expect([...superseded].every((key) => keys.has(`${key.slice(0, -5)}.v2.webp`))).toBe(true);
     const receipt = composeUploadReceipt({ bank: "a-level-maths-9709", manifest: real, rows, method: "m", logPath: "docs/a-level-maths-9709-r2-upload-log.jsonl", logSha256: "d".repeat(64), manifestSha256: () => "e".repeat(64), supersededKeys: [...superseded] });
     expect(receipt.completed).toHaveLength(real.assets.length);
-    expect(receipt.readbackProvenance.supersededKeys).toHaveLength(23);
+    expect(receipt.readbackProvenance.supersededKeys).toHaveLength(revised.length);
   });
 
   it("composes an igcse-upload-receipt-v1 receipt and refuses an incomplete log", () => {
