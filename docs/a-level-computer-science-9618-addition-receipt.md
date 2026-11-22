@@ -1,6 +1,6 @@
 # A Level Computer Science 9618: addition receipt (21 November 2026)
 
-The owner approved the app PR and the uploads ("Yes, PR + uploads") and chose to serve the two "all candidates were awarded full marks" questions at their printed marks ("Serve them"). The coordinating session started this PR. The bank is added **hidden**: the catalog entry has `pendingStorage: true` and the slug is listed in `src/lib/held-banks.mjs`. Nothing is migrated or switched on. It is built the way Economics 9708 and Biology 9700 were added (#500), and it is the first bank built with the shared ingestion toolkit (`../ppp-ingestion-toolkit`).
+The owner approved the app PR and the uploads ("Yes, PR + uploads") and chose to serve the two "all candidates were awarded full marks" questions at their printed marks ("Serve them"). The coordinating session started this PR and ran both uploads. The crops are uploaded and read back, the 2021–2022 crops are in the free bucket, and the runtime is finalized. The bank stays **hidden**: the catalog entry has `pendingStorage: true` and the slug is listed in `src/lib/held-banks.mjs`. Nothing is migrated or switched on. It is built the way Economics 9708 and Biology 9700 were added (#500), and it is the first bank built with the shared ingestion toolkit (`../ppp-ingestion-toolkit`).
 
 ## Source
 - Workspace `cambridge-a-level-computer-science-9618-topic-practice` at commit `df9a1d6`. Receipts there:
@@ -43,6 +43,17 @@ A Level subjects are listed Mathematics, Chemistry, Physics, Biology, Economics,
 - Prefix `a-level-computer-science-9618/releases/full750-v1-a456b8f0af53/`, private bucket `pastpaperprep-assets`.
 - Plan: `data/storage/a-level-computer-science-9618.manifest.json`, **2,397 WebP objects, 40,715,612 bytes**. That is every segmented crop, since nothing is held or excluded.
 - Dry run: `data/storage/a-level-computer-science-9618.dry-run.json`. Every local file was re-hashed: 2,397/2,397 match the manifest and the segmentation record, 0 mismatches, 0 R2 writes.
+- Upload (owner-approved, 21 November 2026): the coordinating session ran it against this branch's manifest through the temporary create-only R2 Worker (`ppp-asset-upload`), then deleted the Worker. Every put was SHA-256-checked by R2, then read back and re-hashed.
+- Results: **2,397 of 2,397 verified, 0 failed, 0 already present**.
+  - Log: `docs/a-level-computer-science-9618-r2-upload-log.jsonl` (`b1386c36…`).
+  - Receipt: `data/storage/a-level-computer-science-9618.receipt.json` (`verified_readback`).
+- This session re-checked independently:
+  - the receipt covers exactly the manifest keys, with no failures, and its manifest seal holds;
+  - the log seal holds; every one of the 2,397 log rows is `verified`, not pre-existing, and matches its manifest SHA-256 and size;
+  - 3 random objects fetched from R2 with wrangler (`9618-2023-s-12` QP Q4, `9618-2023-w-12` MS Q7, `9618-2024-s-21` QP Q3) hash to their manifest values and sizes.
+- **Finalized:** `generate-igcse-release.mjs --finalize a-level-computer-science-9618`. All 750 rows are now production/classified; runtime `1e6935a5…`, against candidate `a456b8f0…`. The test reconstructs the candidate from the finalized runtime.
+- **Free years (owner-approved):** the coordinating session copied the 2021–2022 crops to the free bucket with `scripts/free-copy-worker` (create-only): **706 files, 11.8 MB, from 26 papers**, each re-hashed from `free.pastpaperprep.com`. Logs: `docs/a-level-computer-science-9618-free-copy/`.
+  - Cross-check here: `listFreePublicAssets` over the asset manifest production builds once the bank is served (private asset mode) returns exactly the 706 copied paths, covering 218 questions. The copy and verify log seals match the receipt, every verified row matches its manifest SHA-256 and size, and 2 public fetches re-hash correctly. While the bank is held, the dev preview loads local paths, so the check runs the production normalization directly; the test does the same.
 
 ## Billing
 `bank_a_level_computer_science_9618` is sold on the shared single-bank prices and is included in Build Your Plan, All Access and Lifetime. There is no pair bundle, and no other Computer Science product (0478, IB HL/SL) reaches it. Migration `20261121000000_a_level_computer_science_9618_release.sql` copies Economics's `20261120000000` definitions verbatim (a test checks this) and adds the product and slug after 9708. It is **not applied**. 9708's migration test now accepts a later release that carries 9708 forward, as 9700's does.
@@ -51,8 +62,6 @@ A Level subjects are listed Mathematics, Chemistry, Physics, Biology, Economics,
 Against `origin/main` (`c79b23e5`), the only shared-data changes are the new `a-level-computer-science-9618` block in `question-id-aliases.json` (plus its sentence in `note`) and its block in the generated `reprint-question-aliases.json` (13 alias papers; read only for banks with a full-paper library, which 9618 does not have yet). Every other alias block, every other production runtime, `bank-index-manifest.ts` and `public/` are byte-identical.
 
 ## Still owner-gated
-1. The create-only R2 upload of the 2,397 crops, then `--finalize` against the verified readback.
-2. The free-year copy of the 2021–2022 crops to the public bucket.
-3. Production migration `20261121000000`, after `20261120000000`.
-4. Switching the bank on: drop `pendingStorage`, empty `held-banks.mjs`, regenerate the bank index. Explanations are exempt by name until written.
-5. Merge, never back-to-back with another build.
+1. Production migration `20261121000000`, after `20261120000000`.
+2. Switching the bank on: drop `pendingStorage`, empty `held-banks.mjs`, regenerate the bank index. Explanations are exempt by name until written.
+3. Merge, never back-to-back with another build.
