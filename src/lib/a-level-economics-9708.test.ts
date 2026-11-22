@@ -117,7 +117,7 @@ describe("A Level Economics 9708 catalog entry", () => {
     expect(BANK_PRODUCTS[slug]).toBe(product);
     expect(qualificationOfBank(slug)).toBe("a-level");
     expect(SUBJECT_SLUGS[slug]).toBe(slug);
-    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics", "Computer Science"]);
+    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Further Mathematics", "Chemistry", "Physics", "Biology", "Economics", "Computer Science"]);
   });
 
   it("rides the shared release lane, finalized against a verified readback, and is served", () => {

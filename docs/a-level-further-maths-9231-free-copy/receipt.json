@@ -1,0 +1,13 @@
+{
+  "verified": 719,
+  "total": 719,
+  "failed": 0,
+  "perBank": {
+    "a-level-further-maths-9231": 719
+  },
+  "copyLogSha256": "bd45d5e00ca411a6bdccab88000d025f5bb1a0c9bf5d9393224acfd8a694d448",
+  "verifyLogSha256": "30153d3ac6576b6a9a0e0d3bb024e92ba86e9af7f179bd0766de835a5859595b",
+  "method": "repo scripts/free-copy-worker (allowlist, If-None-Match create-only, self-tested) + public fetch re-hash",
+  "publicBase": "https://free.pastpaperprep.com/images/",
+  "at": "2026-11-22T06:24:55.859Z"
+}

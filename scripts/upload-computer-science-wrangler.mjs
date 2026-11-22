@@ -12,7 +12,7 @@
  *   WRANGLER=<binary> node scripts/upload-computer-science-wrangler.mjs [--bank <bank>] [--concurrency 4] [--limit N]
  *
  *   --bank   igcse-computer-science-0478 (default, the original behaviour), ib-computer-science-hl,
- *            ib-computer-science-sl, a-level-maths-9709, a-level-physics-9702, a-level-chemistry-9701, a-level-biology-9700, a-level-economics-9708 or a-level-computer-science-9618 (same lane; the file name is historical). Each bank reads data/storage/<bank>.manifest.json, appends to
+ *            ib-computer-science-sl, a-level-maths-9709, a-level-physics-9702, a-level-chemistry-9701, a-level-biology-9700, a-level-economics-9708, a-level-computer-science-9618 or a-level-further-maths-9231 (same lane; the file name is historical). Each bank reads data/storage/<bank>.manifest.json, appends to
  *            docs/<bank>-r2-upload-log.jsonl and writes data/storage/<bank>.receipt.json.
  *
  * Per object: check each local file against the manifest (SHA-256, size, key prefix), then `get` the key. An existing key is
@@ -28,7 +28,7 @@ import { promisify } from "node:util";
 import { manifestSha256 } from "./igcse-release.mjs";
 import { composeUploadReceipt, indexLogRows, verifiedLogRow } from "./lib/upload-receipt.mjs";
 
-const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618"];
+const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"];
 const bankFlag = process.argv.indexOf("--bank");
 const BANK = bankFlag === -1 ? BANKS[0] : process.argv[bankFlag + 1];
 if (!BANKS.includes(BANK)) throw new Error(`--bank must be one of ${BANKS.join(", ")}`);

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "a-level-further-maths-9231",
+  "date": "2026-11-22",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "a-level-further-maths-9231/releases/full813-v1-89c4fe2cbc19/",
+  "objects": 2728,
+  "bytes": 32628068,
+  "uniqueKeys": 2728,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 2728,
+  "sha256MatchesSegmentationRecord": 2728,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "89c4fe2cbc19ba4c9ddf6d2d76635ffc30f1c5f4cd8c1c6e8c3ac485cc4db7de",
+  "sourceCommit": "f750b6f",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (scripts/r2-upload-worker if PR #504 has merged, else research/ppp-tools/r2-upload-worker/upload.mjs) against data/storage/a-level-further-maths-9231.manifest.json, then generate-igcse-release.mjs --finalize a-level-further-maths-9231."
+}
