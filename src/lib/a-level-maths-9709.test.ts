@@ -41,7 +41,7 @@ type RuntimeQuestion = { id: string; paperId: string; paper: number; year: numbe
 const runtime = runtimeJson as unknown as { questionCount: number; paperCount: number; years: string; heldQuestionIds: string[]; assetVerification: string; questions: RuntimeQuestion[]; runtimeArtifact: { originalCandidateRuntimeSha256: string; runtimeSha256: string } };
 const taxonomy = taxonomyJson as { papers: Array<{ paper: number; sections: Array<{ id: string; label: string }> }> };
 const manifest = manifestJson as { storageState: string; objectPrefix: string; originalCandidateRuntimeSha256: string; assets: Array<{ objectKey: string; sha256: string; size: number; contentType: string }> };
-const CANDIDATE = "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482";
+const CANDIDATE = "5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa";
 /** Undo exactly what `generate-igcse-release.mjs --finalize` writes; the result must be the pinned candidate. */
 function reconstructCandidate(finalized: unknown) {
   const candidate = JSON.parse(JSON.stringify(finalized));
@@ -204,15 +204,16 @@ describe("A Level Mathematics 9709 runtime and paper tabs", () => {
     expect(createHash("sha256").update(logText).digest("hex")).toBe(receipt.readbackProvenance.logSha256);
     const log = logText.split("\n").filter(Boolean).map((line) => JSON.parse(line) as { key: string; sha256: string; bytes: number; status: string });
     const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
-    // 6,496 current objects plus the 23 originals that crop revision v2 superseded with new `.v2.webp` keys.
+    // 6,496 current objects plus the 24 originals that crop revision v2 superseded with new `.v2.webp` keys
+    // (23 on 2026-11-15, 2026-s-12 Q2 on 2026-11-21).
     const superseded = log.filter((row) => !byKey.has(row.key));
-    expect(superseded).toHaveLength(23);
+    expect(superseded).toHaveLength(24);
     expect(superseded.every((row) => byKey.has(`${row.key.slice(0, -5)}.v2.webp`))).toBe(true);
     expect([...(receipt.readbackProvenance as { supersededKeys?: string[] }).supersededKeys ?? []].sort()).toEqual(superseded.map((row) => row.key).sort());
     const current = log.filter((row) => byKey.has(row.key));
     expect(new Set(current.map((row) => row.key)).size).toBe(6496);
     for (const row of current) expect(row.status === "verified" && byKey.get(row.key)?.sha256 === row.sha256 && byKey.get(row.key)?.size === row.bytes, row.key).toBe(true);
-    expect(manifest.assets.filter((asset) => asset.objectKey.endsWith(".v2.webp"))).toHaveLength(23);
+    expect(manifest.assets.filter((asset) => asset.objectKey.endsWith(".v2.webp"))).toHaveLength(24);
     const meta = runtimeJson.runtimeArtifact as unknown as Record<string, string>;
     expect(meta.assetManifestSha256).toBe(manifestSha256(manifest));
     expect(meta.storageReceiptSha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "data/storage/a-level-maths-9709.receipt.json"), "utf8")).digest("hex"));
