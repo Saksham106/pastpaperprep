@@ -2,7 +2,7 @@
   "schemaVersion": "igcse-upload-receipt-v1",
   "bank": "a-level-maths-9709",
   "storageState": "verified_readback",
-  "assetManifestSha256": "575e2f232efd01141c18cea1842ebdc17d3003897a4f66590c0bce25ce4d0217",
+  "assetManifestSha256": "020f5ba9117b999ccc5f84803d3eb7355606d41e5b18cc82d98bb90aa206b1c9",
   "completed": [
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/markschemes/9709-2020-m-12/q1-6-1.webp",
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/markschemes/9709-2020-m-12/q10-11-1.webp",
@@ -6325,7 +6325,7 @@
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-11/q9-13-2.webp",
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q1-2-1.webp",
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q10-4-1.webp",
-    "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q2-2-1.webp",
+    "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q2-2-1.v2.webp",
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q3-2-1.webp",
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q4-2-1.webp",
     "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q5-3-1.webp",
@@ -6503,9 +6503,9 @@
   ],
   "failed": [],
   "readbackProvenance": {
-    "method": "wrangler-oauth create-only get/put/get",
+    "method": "worker-binding create-only put (R2 sha256-checked) + get re-hash (ppp-asset-upload)",
     "log": "docs/a-level-maths-9709-r2-upload-log.jsonl",
-    "logSha256": "e09eb942eef7c26f69443086887fcda49dc101837caa1d86c138da731793cabf",
+    "logSha256": "06f41073b7e7b580488004948258027dd36093d2f12074680d2322454e5b6201",
     "existedBefore": 0,
     "supersededKeys": [
       "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2020-s-32/q3-4-1.webp",
@@ -6530,7 +6530,8 @@
       "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2023-s-31/q10-16-1.webp",
       "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2023-s-33/q7-10-1.webp",
       "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2023-w-22/q5-9-2.webp",
-      "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2025-w-22/q6-8-1.webp"
+      "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2025-w-22/q6-8-1.webp",
+      "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-s-12/q2-2-1.webp"
     ]
   }
 }

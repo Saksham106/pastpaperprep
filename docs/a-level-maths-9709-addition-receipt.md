@@ -82,10 +82,12 @@ The shared ingestion toolkit's proof-of-equivalence run found it. The crop for `
   - The generator pins `7abce15`. It expects 24 revised crops and 21 revised questions; the transcript was checked and is unchanged.
   - The new candidate is `5cdeebc4…`. Exactly one row changed: `questionImages` and `questionImageHashes` of `9709-2026-s-12-q2`.
 - **Not a free year:** free years are 2020–2021, so nothing goes to the free bucket.
-- **Upload (staged, owner-gated):** one new private object, `questions/9709-2026-s-12/q2-2-1.v2.webp`, under the existing prefix.
-  - Dry run: all 6,496 local files re-hashed and matching the segmentation record; 6,495 are already verified in the log, and the 24 superseded originals stay in the log.
-  - Upload path: the Worker uploader (`scripts/r2-upload-worker/`, PR #504), whose log reader now accepts a superseded original only when its `.v2.webp` replacement is in the manifest, as the wrangler script did.
-  - After the upload: `generate-igcse-release.mjs --finalize a-level-maths-9709`.
+- **Upload:** one new private object, `questions/9709-2026-s-12/q2-2-1.v2.webp`, under the existing prefix. The owner approved it in the coordinating session ("Yes, upload it").
+  - Dry run: all 6,496 local files re-hashed and matching the segmentation record; 6,495 were already verified in the log.
+  - Run with the Worker uploader (`scripts/r2-upload-worker/`, PR #504): create-only put, R2 SHA-256 check and read-back. Its log reader now accepts a superseded original only when its `.v2.webp` replacement is in the manifest, as the wrangler script did.
+  - Result: verified, not pre-existing. The Worker was deleted, and its URL answers 404.
+  - Receipt: 6,496 of 6,496 verified, 0 failed, 24 superseded originals listed. They stay in the bucket, unreferenced.
+- **Re-finalized:** runtime `db987166…`. Compared with the previous live runtime, only this question's crop and the seal fields changed.
 
 ## Calculator policy
 `calculatorAllowed("a-level-maths-9709", …)` is true for all six papers. The source is syllabus section 4, "Calculators", which is identical in the 2020–22, 2023–25 and 2026–27 syllabuses: a calculator with standard scientific functions in all examinations; graphical and symbolic-algebra calculators are not permitted.
