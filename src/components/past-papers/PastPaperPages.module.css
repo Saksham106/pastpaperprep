@@ -15,6 +15,7 @@
 .scopes a { position: relative; z-index: 1; min-height: 38px; padding: 0 14px; display: inline-flex; align-items: center; justify-content: center; color: var(--muted); border-radius: 9px; font: 760 .86rem/1 var(--font-body); transition: color 200ms ease; }
 .scopes a:hover { color: var(--ink); }
 .scopes a[data-active="true"] { color: var(--surface); }
+.scopes[data-unset="true"] .scopeThumb { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .scopeThumb { transition: none; } }
 .subjectGrid { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .subjectCard { min-width: 0; overflow: hidden; display: grid; grid-template-rows: auto 1fr; background: var(--subject-panel-tint); border: 1px solid color-mix(in srgb, var(--course-pastel) 60%, var(--line)); border-radius: 18px; box-shadow: 0 18px 40px -32px rgb(24 35 59 / .5); }

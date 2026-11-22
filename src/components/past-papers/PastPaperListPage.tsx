@@ -7,6 +7,7 @@ import { buildPaperMatrix, paperHref, paperName, paperRef, qualificationOfBank, 
 import type { ListView } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, formatDuration, paperCodes, paperNumberCopy, subjectCopy, subjectFaq, subjectSearchName, yearCopy } from '@/lib/past-paper-seo';
 import { PaperLibraryTools } from './PaperLibraryTools';
+import { RememberedBoardScope } from './RememberedBoardScope';
 import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
 import { aLevelSuccessors } from '@/lib/next-step-banks';
@@ -138,6 +139,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
   const listed = [...view.papers].sort((a, b) => b.year - a.year).slice(0, 100).map(p => ({ name: `${paperName(p)}, ${p.session} ${p.year}`, path: paperHref(p) }));
   return <article className={styles.page} data-subject-tone={tone}>
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
+    <RememberedBoardScope board={qualificationOfBank(bank.slug)} />
     <JsonLd data={collectionJsonLd(copy, here?.path ?? subjectPath, listed)} />
     {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
     <nav aria-label="Breadcrumb" className={styles.crumbs}>

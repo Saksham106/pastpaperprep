@@ -26,7 +26,9 @@ describe('PastPaperHub', () => {
     expect(within(maths).getByRole('link', { name: /IB Math AA HL/ })).toHaveAttribute('href', '/past-papers/ib-math-aa-hl');
     expect(screen.getByRole('region', { name: 'Chemistry' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'IGCSE' })).toHaveAttribute('href', '/past-papers/igcse');
-    expect(screen.getByRole('link', { name: 'All' })).toHaveAttribute('aria-current', 'page');
+    // No "All" tab: the switch names the three boards, and none is current on the all-board index.
+    expect(screen.queryByRole('link', { name: 'All' })).not.toBeInTheDocument();
+    expect(screen.getByRole('navigation', { name: 'Qualification' }).querySelector('[aria-current]')).toBeNull();
     expect(screen.getByRole('combobox', { name: 'Find a paper' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Questions and answers together' })).toBeInTheDocument();
     expect(screen.queryByText(/Paper and scheme together/)).not.toBeInTheDocument();
