@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Build the Cambridge International AS & A Level Mathematics 9709 candidate runtime from the pinned source
- * workspace (cambridge-a-level-mathematics-9709-topic-practice, commit 8e5f3a7). Every input is SHA-256
+ * workspace (cambridge-a-level-mathematics-9709-topic-practice, commit 7abce15). Every input is SHA-256
  * pinned; any drift fails closed.
  *
  *   data/segmentation/full/segmentation.json   2,119 canonical questions in 256 canonical papers (crops, marks, text)
@@ -29,23 +29,26 @@ export const BANK = "a-level-maths-9709";
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/cambridge-a-level-mathematics-9709-topic-practice";
-export const SOURCE_COMMIT = "8e5f3a7";
+export const SOURCE_COMMIT = "7abce15";
 export const SOURCE_SHA256 = {
-  segmentation: "eb5d9ff0f4324ff1fc98676f6948514f4acb324a85912e50a1abf69fd37c3798",
-  labels: "66ad8d7d1649bda242aa397c27e83c29b639a00e48fc1d804f6c87df9b8bf6ec",
+  segmentation: "73da6b6c3ed1aa2e5e3adcbef3b21f06197c7fb725ec2aba9f8845cc16e35eb9",
+  labels: "95a6fa8e77bc369b078faa15bd31a222f017e1eb0b49d5e86fda7666864e6e13",
   taxonomy: "cfbb1efd4efd8018bd5c0a02eac863d49043566da37d0be64ce0ddfd72918ae7",
   canonicalManifest: "2143e6553c0cfcb545e16e2449c75a82e627a9ecb9f9ff6e6c4634aa8365e40a",
   paperFacts: "69e95e717e187a71c4e2057e33583f1fcb2b803935a1e164f5935ab3283eb6c5",
   sourceManifest: "ff314542cb9f80ada368b93538d63173a76de12470980d2b484a76e4d3cf73ce",
   acquisitionManifest: "ce9e850b21e77bce4b760d885ecaffd8370f5d2c50601a1af70208c04e07f238",
   heldQuestions: "7fa568d0878f77954a10520c3baba4d0620dc9237e5aa2db0be236e8c06df231",
-  /** Crop revision v2 (2026-11-15): 23 crops re-rendered under new .v2.webp names, and the 20 questions re-transcribed. */
-  cropRevisions: "e8ab88cab6d82ad9367692450ade42f8e9ce8513e5b47a75dec3e0a5011ee595",
-  transcriptOverrides: "abebfd7365a9e47276df8a077ecd9a57e6d1dd7b10601748d8f0543727ef5f7d",
+  /**
+   * Crop revision v2: 23 crops re-rendered under new .v2.webp names on 2026-11-15 (20 questions re-transcribed), and on
+   * 2026-11-21 2026-s-12 Q2 widened to its clipped axis labels (transcript checked, unchanged).
+   */
+  cropRevisions: "32acb78b3a6a6175400f0de92d3d3370dab3d30d5c2917262d56632a2276f5a4",
+  transcriptOverrides: "60b55574c5ba6f26818e495d730584cc494b79460fe2c93a955e8bb2b13c7085",
   /** SHA-256 over the sorted "<file> <sha256>" lines of every blind-results/*.json file. */
   blindResults: "e605c6857c2694266b291a8a7f938d2c1a55858c396b733172320814cc5e6006",
 };
-export const EXPECTED = { canonicalQuestions: 2119, rows: 2118, papers: 256, aliases: 149, sections: 38, freeRows: 636, notSatRows: 138, years: "2020-2026", revisedCrops: 23, revisedQuestions: 20 };
+export const EXPECTED = { canonicalQuestions: 2119, rows: 2118, papers: 256, aliases: 149, sections: 38, freeRows: 636, notSatRows: 138, years: "2020-2026", revisedCrops: 24, revisedQuestions: 21 };
 export const HELD = ["9709-2024-s-33-q11"];
 export const TAXONOMY_OUTPUT = "src/data/a-level-maths-9709-taxonomy.json";
 export const ALIASES_OUTPUT = "src/data/question-id-aliases.json";
