@@ -11,7 +11,7 @@ import type { Article, ArticleSection } from "@/lib/articles";
  * Explanation coverage: only 9709 Pure 1–3 have worked explanations, so no guide here claims more.
  */
 
-export const A_LEVEL_ACCESS: ArticleSection = {
+const A_LEVEL_ACCESS: ArticleSection = {
   heading: "What is free on PastPaperPrep",
   paragraphs: [
     "Whole A Level past papers and their mark schemes are free to read, with no account. Each paper page has a timer, and supported papers let you mark your own answers.",
@@ -251,7 +251,7 @@ const PHYSICS_9702_P2_P4: Article = {
       links: [
         { href: "/past-papers/a-level-physics-9702/paper-2", label: "Free Paper 2 whole papers" },
         { href: "/past-papers/a-level-physics-9702/paper-4", label: "Free Paper 4 whole papers" },
-        { href: "/articles/a-level-grade-thresholds-explained", label: "What score gets an A in 9702" },
+        { href: "/articles/cambridge-a-level-grade-boundaries", label: "9702 grade boundaries 2026" },
       ],
     },
     A_LEVEL_ACCESS,
@@ -334,7 +334,7 @@ const ECONOMICS_9708_ESSAYS: Article = {
       links: [
         { href: "/past-papers/a-level-economics-9708/paper-4", label: "Free Paper 4 whole papers" },
         { href: "/past-papers/a-level-economics-9708/paper-2", label: "Free Paper 2 whole papers" },
-        { href: "/articles/a-level-economics-9708-multiple-choice", label: "9708 multiple choice technique" },
+        { href: "/articles/a-level-economics-9708-topical-mcqs", label: "9708 topical MCQs and technique" },
       ],
     },
     A_LEVEL_ACCESS,
@@ -394,8 +394,8 @@ const IGCSE_TO_A_LEVEL: Article = {
         { href: "/articles/a-level-maths-9709-paper-routes", label: "Which 9709 papers you sit" },
         { href: "/articles/a-level-physics-9702-paper-2-vs-paper-4", label: "9702 Paper 2 vs Paper 4" },
         { href: "/articles/a-level-economics-9708-essay-technique", label: "9708 essays and levels marking" },
-        { href: "/articles/a-level-chemistry-9701-guide", label: "A Level Chemistry 9701 guide" },
-        { href: "/articles/a-level-biology-9700-guide", label: "A Level Biology 9700 guide" },
+        { href: "/articles/a-level-chemistry-9701-past-papers-by-topic", label: "9701 past papers by topic" },
+        { href: "/articles/a-level-biology-9700-past-papers-by-topic", label: "9700 past papers by topic" },
       ],
     },
     {

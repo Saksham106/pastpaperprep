@@ -100,15 +100,15 @@ export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>>
     { href: "/banks/a-level-maths-9709?topic=Differentiation", label: "A Level Maths 9709: Differentiation" },
     { href: "/banks/a-level-biology-9700?topic=Transport%20in%20mammals", label: "A Level Biology 9700: Transport in mammals" },
   ] },
-  "papacambridge-vs-physics-and-maths-tutor-a-level": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+  "znotes-vs-save-my-exams-a-level": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
     { href: "/banks/a-level-maths-9709?topic=Integration", label: "A Level Maths 9709: Integration" },
-    { href: "/banks/a-level-physics-9702?topic=Waves", label: "A Level Physics 9702: Waves" },
+    { href: "/banks/a-level-chemistry-9701?topic=Chemical%20bonding", label: "A Level Chemistry 9701: Chemical bonding" },
   ] },
-  "a-level-chemistry-9701-guide": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+  "a-level-chemistry-9701-past-papers-by-topic": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
     { href: "/banks/a-level-chemistry-9701?topic=Chemistry%20of%20transition%20elements", label: "A Level Chemistry 9701: Chemistry of transition elements" },
     { href: "/banks/a-level-chemistry-9701?topic=The%20Periodic%20Table%3A%20chemical%20periodicity", label: "A Level Chemistry 9701: The Periodic Table: chemical periodicity" },
   ] },
-  "a-level-biology-9700-guide": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+  "a-level-biology-9700-past-papers-by-topic": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
     { href: "/banks/a-level-biology-9700?topic=Homeostasis", label: "A Level Biology 9700: Homeostasis" },
     { href: "/banks/a-level-biology-9700?topic=Transport%20in%20mammals", label: "A Level Biology 9700: Transport in mammals" },
   ] },
@@ -116,18 +116,26 @@ export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>>
     { href: "/banks/a-level-maths-9709?topic=Kinematics%20of%20motion%20in%20a%20straight%20line", label: "A Level Maths 9709: Kinematics of motion in a straight line" },
     { href: "/banks/a-level-maths-9709?topic=The%20normal%20distribution", label: "A Level Maths 9709: The normal distribution" },
   ] },
-  "a-level-economics-9708-multiple-choice": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+  "a-level-economics-9708-topical-mcqs": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
     { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy", label: "A Level Economics 9708: The price system and the microeconomy" },
     { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy%20%28A%20Level%29", label: "A Level Economics 9708: The price system and the microeconomy (A Level)" },
   ] },
-  "a-level-grade-thresholds-explained": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+  "cambridge-a-level-grade-boundaries": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
     { href: "/banks/a-level-maths-9709", label: "A Level Maths 9709 question bank" },
     { href: "/banks/a-level-chemistry-9701", label: "A Level Chemistry 9701 question bank" },
     { href: "/banks/a-level-economics-9708", label: "A Level Economics 9708 question bank" },
   ] },
-  "free-cambridge-a-level-past-papers-by-topic": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
-    { href: "/banks/a-level-physics-9702?topic=Dynamics", label: "A Level Physics 9702: Dynamics" },
-    { href: "/banks/a-level-maths-9709?topic=Functions", label: "A Level Maths 9709: Functions" },
+  "a-level-maths-9709-past-papers-by-topic": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-maths-9709?topic=Series", label: "A Level Maths 9709: Series" },
+    { href: "/banks/a-level-maths-9709?topic=Complex%20numbers", label: "A Level Maths 9709: Complex numbers" },
+  ] },
+  "a-level-physics-9702-past-papers-by-topic": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-physics-9702?topic=Magnetic%20fields", label: "A Level Physics 9702: Magnetic fields" },
+    { href: "/banks/a-level-physics-9702?topic=Waves", label: "A Level Physics 9702: Waves" },
+  ] },
+  "cambridge-a-level-formula-sheets-data-booklets": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-physics-9702?topic=Capacitance", label: "A Level Physics 9702: Capacitance" },
+    { href: "/banks/a-level-maths-9709?topic=Kinematics%20of%20motion%20in%20a%20straight%20line", label: "A Level Maths 9709: Kinematics of motion in a straight line" },
   ] },
   "best-igcse-additional-maths-0606-resources": { difficulty: "Foundational", exam: "Cambridge IGCSE", practiceLinks: [
     { href: "/banks/igcse-additional?topic=Calculus", label: "Additional Maths 0606: Calculus" },

@@ -17,8 +17,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(66);
-    expect(ARTICLES).toHaveLength(63);
+    expect(ALL_ARTICLES).toHaveLength(68);
+    expect(ARTICLES).toHaveLength(65);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -85,8 +85,8 @@ describe("article library", () => {
       ["best-physics-and-maths-tutor-alternatives", "2026-11-08", "2026-11-08", false],
     ] as const;
 
-    expect(ALL_ARTICLES).toHaveLength(66);
-    expect(ARTICLES).toHaveLength(63);
+    expect(ALL_ARTICLES).toHaveLength(68);
+    expect(ARTICLES).toHaveLength(65);
     expect(ALL_ARTICLES.filter(({ draft }) => draft)).toHaveLength(3);
 
     for (const [slug, publishedAt, updatedAt, draft] of releaseMatrix) {
@@ -212,18 +212,20 @@ describe("article library", () => {
   });
 
   it("ships an intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(63);
+    expect(ARTICLES).toHaveLength(65);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
       "best-cambridge-a-level-past-paper-websites",
       "best-save-my-exams-alternatives-cie-a-level",
-      "papacambridge-vs-physics-and-maths-tutor-a-level",
-      "a-level-chemistry-9701-guide",
-      "a-level-biology-9700-guide",
+      "znotes-vs-save-my-exams-a-level",
+      "a-level-maths-9709-past-papers-by-topic",
+      "a-level-physics-9702-past-papers-by-topic",
+      "a-level-chemistry-9701-past-papers-by-topic",
+      "a-level-biology-9700-past-papers-by-topic",
+      "a-level-economics-9708-topical-mcqs",
+      "cambridge-a-level-grade-boundaries",
       "a-level-maths-9709-mechanics-vs-statistics",
-      "a-level-economics-9708-multiple-choice",
-      "a-level-grade-thresholds-explained",
-      "free-cambridge-a-level-past-papers-by-topic",
+      "cambridge-a-level-formula-sheets-data-booklets",
       "igcse-to-a-level-guide",
       "a-level-maths-9709-paper-routes",
       "a-level-maths-9709-pure-1-topics",

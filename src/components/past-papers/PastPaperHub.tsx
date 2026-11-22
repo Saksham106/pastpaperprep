@@ -31,8 +31,8 @@ const GUIDE = {
 /** Board guides about using these papers, so the method articles sit on a paper page, not only on /articles. */
 const HUB_GUIDES: Partial<Record<PastPaperQualification, { href: string; label: string }[]>> = {
   'a-level': [
-    { href: '/articles/free-cambridge-a-level-past-papers-by-topic', label: 'How to use A Level past papers by topic' },
-    { href: '/articles/a-level-grade-thresholds-explained', label: 'A Level grade thresholds explained' },
+    { href: '/articles/best-cambridge-a-level-past-paper-websites', label: 'Best sites for A Level topical questions' },
+    { href: '/articles/cambridge-a-level-grade-boundaries', label: 'A Level grade boundaries 2026' },
   ],
 };
 
