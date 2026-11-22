@@ -56,13 +56,21 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   const [notice, setNotice] = useState("");
   const [pendingRemoval, setPendingRemoval] = useState<string | null>(null);
   const removalTrigger = useRef<HTMLElement | null>(null);
+  const removalChipIndex = useRef(0);
   const removalDialog = useRef<HTMLDialogElement | null>(null);
   const keepBankButton = useRef<HTMLButtonElement | null>(null);
   const builderDisclosure = useRef<HTMLDetailsElement | null>(null);
   useEffect(() => {
     if (!pendingRemoval) {
-      removalTrigger.current?.focus();
+      const trigger = removalTrigger.current;
       removalTrigger.current = null;
+      if (!trigger) return;
+      if (trigger.isConnected) { trigger.focus(); return; }
+      // A confirmed removal unmounts the chip that asked: focus the chip now in its place, else the one before it, else the picker.
+      const chips = [...(builderDisclosure.current?.parentElement?.querySelectorAll<HTMLButtonElement>(".bank-chip") ?? [])];
+      const next = chips[Math.min(removalChipIndex.current, chips.length - 1)];
+      if (next) next.focus();
+      else builderDisclosure.current?.querySelector("summary")?.focus();
       return;
     }
     const dialog = removalDialog.current;
@@ -111,6 +119,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     if (!base.includes(slug) && base.length >= 5) return;
     if (base.includes(slug) && currentIds.includes(slug)) {
       removalTrigger.current = trigger ?? null;
+      removalChipIndex.current = trigger?.classList.contains("bank-chip") ? [...(trigger.closest("ul")?.querySelectorAll(".bank-chip") ?? [])].indexOf(trigger) : 0;
       setPendingRemoval(slug);
       return;
     }
