@@ -2,6 +2,11 @@ import type { BankSlug } from './catalog';
 import { qualificationIdOfSlug, type QualificationId } from './qualifications';
 import type { WholePaperSummary } from './whole-paper-types';
 
+/** What naming, linking and searching a paper read. Client components get only these fields (paperRef). */
+export type PaperRef = Pick<WholePaperSummary, 'id' | 'bankSlug' | 'qualification' | 'syllabusCode' | 'year' | 'session' | 'sessionCode' | 'component' | 'paper' | 'variant'>;
+export const paperRef = ({ id, bankSlug, qualification, syllabusCode, year, session, sessionCode, component, paper, variant }: PaperRef): PaperRef =>
+  ({ id, bankSlug, qualification, syllabusCode, year, session, sessionCode, component, paper, variant });
+
 /** Public naming for the free past-paper library: URLs, labels, the matrix and paper-code search.
  * Pure and client-safe. Archive I/O stays in whole-paper-archive.ts. */
 export type PastPaperQualification = QualificationId;
@@ -47,26 +52,26 @@ export const sessionRank = (session: string) => session.startsWith('Feb') ? 1 : 
 export const shortSession = (session: string) => SESSION_SHORT[session] ?? session;
 
 /** Cambridge papers (IGCSE and A Level) are named by component; IB papers by paper number. */
-const isIgcse = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE' || p.qualification === 'Cambridge A Level';
-const timezone = (p: WholePaperSummary) => /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
+const isIgcse = (p: PaperRef) => p.qualification === 'Cambridge IGCSE' || p.qualification === 'Cambridge A Level';
+const timezone = (p: PaperRef) => /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
 const OPTION_LABELS: Record<string, string> = { calculus: 'Calculus', 'discrete-mathematics': 'Discrete', 'sets-relations-and-groups': 'Sets', 'statistics-and-probability': 'Statistics' };
 /** IB papers with several options in one sitting (AA HL Paper 3, 2017–18) carry the option at the end of the ID. */
-export function paperOption(p: WholePaperSummary): string | null {
+export function paperOption(p: PaperRef): string | null {
   const raw = /-p\d[a-z]?-([a-z][a-z-]*)$/.exec(p.id)?.[1];
   return !raw || raw === 'english' || /^(tz[0-9n]|none)$/.test(raw) ? null : raw;
 }
 const optionLabel = (raw: string) => OPTION_LABELS[raw] ?? raw.charAt(0).toUpperCase() + raw.split('-')[0].slice(1);
 
-export function paperSlug(p: WholePaperSummary): string {
+export function paperSlug(p: PaperRef): string {
   if (isIgcse(p)) return `${p.year}-${SESSION_SLUG[p.session]}-${p.component}`;
   return [p.year, SESSION_SLUG[p.session], 'paper', p.paper.toLowerCase(), timezone(p)?.toLowerCase(), paperOption(p)].filter(Boolean).join('-');
 }
-export function chipLabel(p: WholePaperSummary): string {
+export function chipLabel(p: PaperRef): string {
   if (isIgcse(p)) return p.component;
   const raw = paperOption(p);
   return raw ? optionLabel(raw) : timezone(p) ?? `P${p.paper.toUpperCase()}`;
 }
-export function paperName(p: WholePaperSummary): string {
+export function paperName(p: PaperRef): string {
   if (isIgcse(p)) return `Paper ${p.component}`;
   const raw = paperOption(p);
   return [`Paper ${p.paper.toUpperCase()}`, timezone(p), raw && optionLabel(raw)].filter(Boolean).join(' ');
@@ -86,7 +91,7 @@ export function closestPaperEntry(entry: string, entries: readonly string[]): { 
   const year = /^(\d{4})-/.exec(normalized)?.[1];
   return year && known.has(year) ? { entry: year, exact: false } : null;
 }
-export const paperHref = (p: WholePaperSummary) => `/past-papers/${SUBJECT_SLUGS[p.bankSlug]}/${paperSlug(p)}`;
+export const paperHref = (p: PaperRef) => `/past-papers/${SUBJECT_SLUGS[p.bankSlug]}/${paperSlug(p)}`;
 /** Cambridge's own file names, which students paste into search. */
 export function fileAliases(p: WholePaperSummary): { question: string; markscheme: string } | null {
   if (!isIgcse(p) || !/^[msw]$/.test(p.sessionCode)) return null;
@@ -96,7 +101,7 @@ export function fileAliases(p: WholePaperSummary): { question: string; markschem
 
 const SLASH_SESSION: Record<string, string> = { m: 'F/M', s: 'M/J', w: 'O/N' };
 /** Cambridge's printed code on the paper's cover: 0580/42/M/J/24. */
-export function slashCode(p: WholePaperSummary): string | null {
+export function slashCode(p: PaperRef): string | null {
   if (!isIgcse(p) || !SLASH_SESSION[p.sessionCode]) return null;
   return `${p.syllabusCode}/${p.component}/${SLASH_SESSION[p.sessionCode]}/${String(p.year).slice(-2)}`;
 }
@@ -211,7 +216,7 @@ export function parsePaperQuery(input: string): PaperQuery {
 }
 
 const sessionGroup = (s: string) => s.startsWith('Feb') ? 'feb-march' : s.startsWith('May') ? 'may-june' : 'oct-nov';
-export function matchPapers<T extends WholePaperSummary>(papers: readonly T[], query: PaperQuery, limit = 6): T[] {
+export function matchPapers<T extends PaperRef>(papers: readonly T[], query: PaperQuery, limit = 6): T[] {
   if (!Object.keys(query).length) return [];
   return papers.filter(p =>
     (!query.code || p.syllabusCode === query.code) && (!query.year || p.year === query.year) &&

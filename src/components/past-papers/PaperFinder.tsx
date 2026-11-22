@@ -3,16 +3,15 @@
 import { useEffect, useId, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MagnifyingGlass } from '@phosphor-icons/react/dist/ssr';
-import { matchPapers, paperHref, paperName, parsePaperQuery, shortSession, slashCode } from '@/lib/past-paper-catalog';
+import { matchPapers, paperHref, paperName, parsePaperQuery, shortSession, slashCode, type PaperRef } from '@/lib/past-paper-catalog';
 import { trackProductEvent } from '@/lib/product-analytics';
-import type { WholePaperSummary } from '@/lib/whole-paper-types';
 import styles from './PaperFinder.module.css';
 
 export type FinderSubject = { name: string; code: string; href: string };
-type Props = { mode: 'papers'; papers: readonly WholePaperSummary[] } | { mode: 'subjects'; subjects: readonly FinderSubject[] };
+type Props = { mode: 'papers'; papers: readonly PaperRef[] } | { mode: 'subjects'; subjects: readonly FinderSubject[] };
 type Option = { href: string; label: string; detail?: string };
 
-function papersFor(papers: readonly WholePaperSummary[], q: string): Option[] {
+function papersFor(papers: readonly PaperRef[], q: string): Option[] {
   return matchPapers(papers, parsePaperQuery(q), 6).map(p => ({ href: paperHref(p), label: `${paperName(p)} · ${shortSession(p.session)} ${p.year}` }));
 }
 function subjectsFor(subjects: readonly FinderSubject[], q: string): Option[] {
@@ -24,7 +23,7 @@ function subjectsFor(subjects: readonly FinderSubject[], q: string): Option[] {
 }
 
 /** The example code shown in the box: the subject's own newest May/June Paper 1 for A Level, else the IGCSE classic. */
-export function exampleCode(papers: readonly WholePaperSummary[]): string {
+export function exampleCode(papers: readonly PaperRef[]): string {
   const aLevel = papers.filter(p => p.qualification === 'Cambridge A Level' && p.sessionCode === 's').sort((a, b) => b.year - a.year || a.component.localeCompare(b.component));
   return (aLevel[0] && slashCode(aLevel[0])) ?? '0580/42/M/J/24';
 }
