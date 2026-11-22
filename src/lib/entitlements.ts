@@ -30,6 +30,7 @@ const PRODUCT_IDS = new Set<ProductId>([
   "bank_a_level_chemistry_9701",
   "bank_a_level_biology_9700",
   "bank_a_level_economics_9708",
+  "bank_a_level_computer_science_9618",
   "bundle_igcse",
   "bundle_ib_aa",
   "bundle_ib_ai",

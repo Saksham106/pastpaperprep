@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "a-level-computer-science-9618",
+  "date": "2026-11-21",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "a-level-computer-science-9618/releases/full750-v1-a456b8f0af53/",
+  "objects": 2397,
+  "bytes": 40715612,
+  "uniqueKeys": 2397,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 2397,
+  "sha256MatchesSegmentationRecord": 2397,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6",
+  "sourceCommit": "df9a1d6",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (scripts/r2-upload-worker if PR #504 has merged, else research/ppp-tools/r2-upload-worker/upload.mjs) against data/storage/a-level-computer-science-9618.manifest.json, then generate-igcse-release.mjs --finalize a-level-computer-science-9618."
+}

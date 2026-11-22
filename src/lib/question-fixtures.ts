@@ -14,7 +14,7 @@ import { isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 
 type RawBank = { questions: Array<Record<string, unknown>> };
-type ProductionBankSlug = Exclude<BankSlug, "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708">;
+type ProductionBankSlug = Exclude<BankSlug, "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618">;
 const rawBanks: Record<ProductionBankSlug, RawBank> = {
   igcse: igcseData as RawBank,
   "igcse-additional": igcseAdditionalData as RawBank,
@@ -33,7 +33,7 @@ const cache = new Map<BankSlug, UnifiedQuestion[]>();
 
 /** Synchronous corpus loader for tests and offline data checks only. */
 export function loadBankQuestions(slug: BankSlug): UnifiedQuestion[] {
-  if (isLocalEconomicsBank(slug) || slug === "igcse-biology-0610" || slug === "igcse-economics-0455" || slug === "igcse-chemistry-0620" || slug === "igcse-physics-0625" || slug === "igcse-coordinated-sciences-0654" || slug === "igcse-computer-science-0478" || slug === "ib-computer-science-hl" || slug === "ib-computer-science-sl" || slug === "a-level-maths-9709" || slug === "a-level-physics-9702" || slug === "a-level-chemistry-9701" || slug === "a-level-biology-9700" || slug === "a-level-economics-9708") throw new Error("Private release banks use the async runtime loader");
+  if (isLocalEconomicsBank(slug) || slug === "igcse-biology-0610" || slug === "igcse-economics-0455" || slug === "igcse-chemistry-0620" || slug === "igcse-physics-0625" || slug === "igcse-coordinated-sciences-0654" || slug === "igcse-computer-science-0478" || slug === "ib-computer-science-hl" || slug === "ib-computer-science-sl" || slug === "a-level-maths-9709" || slug === "a-level-physics-9702" || slug === "a-level-chemistry-9701" || slug === "a-level-biology-9700" || slug === "a-level-economics-9708" || slug === "a-level-computer-science-9618") throw new Error("Private release banks use the async runtime loader");
   const cached = cache.get(slug);
   if (cached) return cached;
   const questions = normalizeBankQuestions(slug, rawBanks[slug].questions);
