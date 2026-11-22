@@ -1,0 +1,490 @@
+{
+  "artifact": "a_level_computer_science_9618_student_taxonomy",
+  "version": "computerscience9618_syllabus_taxonomy@1",
+  "qualification": "9618",
+  "note": "Sections 1-20 of the syllabus in order (AS 1-12, A Level 13-20; the A Level section and subsection that share an AS title say \"(A Level)\"). Each paper is its own tab: Paper 1 assesses sections 1-8, Paper 2 sections 9-12 and Paper 3 sections 13-20.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "cfea97415eefba158be26acbd24bc6346c847426b4c95c2bbb28a5dee71660e8",
+  "topics": [
+    {
+      "id": "9618:2021:1",
+      "code": "1",
+      "label": "Information representation",
+      "syllabusTitle": "Information representation",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 59,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Data Representation",
+          "syllabusTitle": "Data Representation"
+        },
+        {
+          "code": "1.2",
+          "label": "Multimedia",
+          "syllabusTitle": "Multimedia"
+        },
+        {
+          "code": "1.3",
+          "label": "Compression",
+          "syllabusTitle": "Compression"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:2",
+      "code": "2",
+      "label": "Communication",
+      "syllabusTitle": "Communication",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 31,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Networks including the internet",
+          "syllabusTitle": "Networks including the internet"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:3",
+      "code": "3",
+      "label": "Hardware",
+      "syllabusTitle": "Hardware",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 62,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Computers and their components",
+          "syllabusTitle": "Computers and their components"
+        },
+        {
+          "code": "3.2",
+          "label": "Logic Gates and Logic Circuits",
+          "syllabusTitle": "Logic Gates and Logic Circuits"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:4",
+      "code": "4",
+      "label": "Processor Fundamentals",
+      "syllabusTitle": "Processor Fundamentals",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 49,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Central Processing Unit (CPU) Architecture",
+          "syllabusTitle": "Central Processing Unit (CPU) Architecture"
+        },
+        {
+          "code": "4.2",
+          "label": "Assembly Language",
+          "syllabusTitle": "Assembly Language"
+        },
+        {
+          "code": "4.3",
+          "label": "Bit manipulation",
+          "syllabusTitle": "Bit manipulation"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:5",
+      "code": "5",
+      "label": "System Software",
+      "syllabusTitle": "System Software",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 33,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Operating Systems",
+          "syllabusTitle": "Operating Systems"
+        },
+        {
+          "code": "5.2",
+          "label": "Language Translators",
+          "syllabusTitle": "Language Translators"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:6",
+      "code": "6",
+      "label": "Security, privacy and data integrity",
+      "syllabusTitle": "Security, privacy and data integrity",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 31,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Data Security",
+          "syllabusTitle": "Data Security"
+        },
+        {
+          "code": "6.2",
+          "label": "Data Integrity",
+          "syllabusTitle": "Data Integrity"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:7",
+      "code": "7",
+      "label": "Ethics and Ownership",
+      "syllabusTitle": "Ethics and Ownership",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 27,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Ethics and Ownership",
+          "syllabusTitle": "Ethics and Ownership"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:8",
+      "code": "8",
+      "label": "Databases",
+      "syllabusTitle": "Databases",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 31,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Database Concepts",
+          "syllabusTitle": "Database Concepts"
+        },
+        {
+          "code": "8.2",
+          "label": "Database Management Systems (DBMS)",
+          "syllabusTitle": "Database Management Systems (DBMS)"
+        },
+        {
+          "code": "8.3",
+          "label": "Data Definition Language (DDL) and Data Manipulation Language (DML)",
+          "syllabusTitle": "Data Definition Language (DDL) and Data Manipulation Language (DML)"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:9",
+      "code": "9",
+      "label": "Algorithm Design and Problem-solving",
+      "syllabusTitle": "Algorithm Design and Problem-solving",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 62,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Computational Thinking Skills",
+          "syllabusTitle": "Computational Thinking Skills"
+        },
+        {
+          "code": "9.2",
+          "label": "Algorithms",
+          "syllabusTitle": "Algorithms"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:10",
+      "code": "10",
+      "label": "Data Types and Structures",
+      "syllabusTitle": "Data Types and Structures",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 114,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "Data Types and Records",
+          "syllabusTitle": "Data Types and Records"
+        },
+        {
+          "code": "10.2",
+          "label": "Arrays",
+          "syllabusTitle": "Arrays"
+        },
+        {
+          "code": "10.3",
+          "label": "Files",
+          "syllabusTitle": "Files"
+        },
+        {
+          "code": "10.4",
+          "label": "Introduction to Abstract Data Types (ADT)",
+          "syllabusTitle": "Introduction to Abstract Data Types (ADT)"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:11",
+      "code": "11",
+      "label": "Programming",
+      "syllabusTitle": "Programming",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 146,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "Programming Basics",
+          "syllabusTitle": "Programming Basics"
+        },
+        {
+          "code": "11.2",
+          "label": "Constructs",
+          "syllabusTitle": "Constructs"
+        },
+        {
+          "code": "11.3",
+          "label": "Structured Programming",
+          "syllabusTitle": "Structured Programming"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:12",
+      "code": "12",
+      "label": "Software Development",
+      "syllabusTitle": "Software Development",
+      "level": "AS",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 79,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Program Development Life cycle",
+          "syllabusTitle": "Program Development Life cycle"
+        },
+        {
+          "code": "12.2",
+          "label": "Program Design",
+          "syllabusTitle": "Program Design"
+        },
+        {
+          "code": "12.3",
+          "label": "Program Testing and Maintenance",
+          "syllabusTitle": "Program Testing and Maintenance"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:13",
+      "code": "13",
+      "label": "Data Representation",
+      "syllabusTitle": "Data Representation",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 56,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "User-defined data types",
+          "syllabusTitle": "User-defined data types"
+        },
+        {
+          "code": "13.2",
+          "label": "File organisation and access",
+          "syllabusTitle": "File organisation and access"
+        },
+        {
+          "code": "13.3",
+          "label": "Floating-point numbers, representation and manipulation",
+          "syllabusTitle": "Floating-point numbers, representation and manipulation"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:14",
+      "code": "14",
+      "label": "Communication and internet technologies",
+      "syllabusTitle": "Communication and internet technologies",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 28,
+      "subtopics": [
+        {
+          "code": "14.1",
+          "label": "Protocols",
+          "syllabusTitle": "Protocols"
+        },
+        {
+          "code": "14.2",
+          "label": "Circuit switching, packet switching",
+          "syllabusTitle": "Circuit switching, packet switching"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:15",
+      "code": "15",
+      "label": "Hardware and Virtual Machines",
+      "syllabusTitle": "Hardware and Virtual Machines",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 38,
+      "subtopics": [
+        {
+          "code": "15.1",
+          "label": "Processors, Parallel Processing and Virtual Machines",
+          "syllabusTitle": "Processors, Parallel Processing and Virtual Machines"
+        },
+        {
+          "code": "15.2",
+          "label": "Boolean Algebra and Logic Circuits",
+          "syllabusTitle": "Boolean Algebra and Logic Circuits"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:16",
+      "code": "16",
+      "label": "System Software (A Level)",
+      "syllabusTitle": "System Software",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 40,
+      "subtopics": [
+        {
+          "code": "16.1",
+          "label": "Purposes of an Operating System (OS)",
+          "syllabusTitle": "Purposes of an Operating System (OS)"
+        },
+        {
+          "code": "16.2",
+          "label": "Translation Software",
+          "syllabusTitle": "Translation Software"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:17",
+      "code": "17",
+      "label": "Security",
+      "syllabusTitle": "Security",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 18,
+      "subtopics": [
+        {
+          "code": "17.1",
+          "label": "Encryption, Encryption Protocols and Digital Certificates",
+          "syllabusTitle": "Encryption, Encryption Protocols and Digital Certificates"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:18",
+      "code": "18",
+      "label": "Artificial Intelligence (AI)",
+      "syllabusTitle": "Artificial Intelligence (AI)",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 19,
+      "subtopics": [
+        {
+          "code": "18.1",
+          "label": "Artificial Intelligence (AI)",
+          "syllabusTitle": "Artificial Intelligence (AI)"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:19",
+      "code": "19",
+      "label": "Computational thinking and Problem-solving",
+      "syllabusTitle": "Computational thinking and Problem-solving",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 26,
+      "subtopics": [
+        {
+          "code": "19.1",
+          "label": "Algorithms (A Level)",
+          "syllabusTitle": "Algorithms"
+        },
+        {
+          "code": "19.2",
+          "label": "Recursion",
+          "syllabusTitle": "Recursion"
+        }
+      ]
+    },
+    {
+      "id": "9618:2021:20",
+      "code": "20",
+      "label": "Further Programming",
+      "syllabusTitle": "Further Programming",
+      "level": "A Level",
+      "era": "2021",
+      "earlierSyllabus": false,
+      "official": true,
+      "questions": 37,
+      "subtopics": [
+        {
+          "code": "20.1",
+          "label": "Programming Paradigms",
+          "syllabusTitle": "Programming Paradigms"
+        },
+        {
+          "code": "20.2",
+          "label": "File Processing and Exception Handling",
+          "syllabusTitle": "File Processing and Exception Handling"
+        }
+      ]
+    }
+  ]
+}

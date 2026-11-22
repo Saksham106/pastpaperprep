@@ -174,6 +174,18 @@ const GUIDES: Partial<Record<BankSlug, AssessmentGuide>> = {
     ],
     caveat: "Section A data response is compulsory; you choose the essays (from 2023, one from Section B and one from Section C on each written paper). 2020–2022 papers follow the earlier syllabus; removed content sits under its own earlier-syllabus topics. The May/June 2020 papers were published but never sat.",
   },
+  // Durations, totals and weightings: the 2026 syllabus assessment overview, p. 11 (identical in the 2021–2023 and 2024–2025
+  // syllabuses). Paper 4 is a practical on a computer (Java, Visual Basic or Python), 2 hr 30 min, 75 marks, 25% of A Level.
+  "a-level-computer-science-9618": {
+    version: "2026 syllabus",
+    summary: "AS Level is Papers 1 and 2. A Level adds Papers 3 and 4. This bank holds Papers 1, 2 and 3.",
+    papers: [
+      { name: "Paper 1", format: "Theory Fundamentals (sections 1–8)", duration: "1 hr 30 min", marks: "75", weighting: "50% of AS, 25% of A Level" },
+      { name: "Paper 2", format: "Problem-solving and programming, in pseudocode (sections 9–12)", duration: "2 hr", marks: "75", weighting: "50% of AS, 25% of A Level" },
+      { name: "Paper 3", format: "Advanced Theory (sections 13–20)", duration: "1 hr 30 min", marks: "75", weighting: "25% of A Level" },
+    ],
+    caveat: "Paper 4 (practical, programmed on a computer) is not in the bank. Calculators are not allowed in any paper.",
+  },
   "igcse-economics-0455": {
     version: "2026 syllabus",
     summary: "There is no Core or Extended route. Paper 1 checks broad knowledge through multiple choice; Paper 2 tests structured economic reasoning, calculations, data interpretation, analysis, and evaluation.",

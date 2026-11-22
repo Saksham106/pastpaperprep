@@ -99,6 +99,14 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd',
   },
+  // Cambridge International A Level Computer Science 9618: 750 rows (Papers 1, 2 and 3, all structured), one segmentation lane,
+  // built with ../ppp-ingestion-toolkit; nothing held or excluded.
+  'a-level-computer-science-9618': {
+    prefix: 'a-level-computer-science-9618/releases/full750-v1-a456b8f0af53',
+    sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_COMPUTER_SCIENCE_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: 'a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6',
+  },
 };
 
 export function sha256(value) {
@@ -228,8 +236,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
-  // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700 and Economics 9708 sources (assets/<paper>/questions|markschemes/<file>).
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700, Economics 9708 and Computer Science 9618 sources (assets/<paper>/questions|markschemes/<file>).
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
