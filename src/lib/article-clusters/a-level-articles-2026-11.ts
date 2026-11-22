@@ -63,7 +63,7 @@ const BEST_A_LEVEL_SITES: Article = {
     caption: "Cambridge A Level revision websites, checked 21 November 2026",
     headings: ["Website", "Best for", "Worth knowing"],
     rows: [
-      { label: "PastPaperPrep", pastPaperPrep: "Topical questions for 9709, 9702, 9701, 9700 and 9708, plus free whole papers", competitor: "2020 and 2021 topical questions are free; newer years from $6 a month" },
+      { label: "PastPaperPrep", pastPaperPrep: "Topical questions for 9709, 9702, 9701, 9700 and 9708, plus free whole papers with self-marking", competitor: "2020 and 2021 topical questions are free; newer years from $6 a month" },
       { label: "PapaCambridge", pastPaperPrep: "Free yearly papers for every CAIE code", competitor: "Free 9709 topical PDFs; other topical books are sold, from $20" },
       { label: "Physics & Maths Tutor", pastPaperPrep: "Free CAIE papers listed by paper number", competitor: "No CAIE topic questions or notes" },
       { label: "Exam-Mate", pastPaperPrep: "Topical questions across many CAIE subjects", competitor: "Free up to 2019; newer years from USD 12 a month" },
@@ -83,7 +83,7 @@ const BEST_A_LEVEL_SITES: Article = {
       heading: "PastPaperPrep: topical questions you can filter and print",
       paragraphs: [
         "Full disclosure: this is our site. We took every question from the 2020 to 2026 papers for those five subjects and sorted it by paper and topic: 2,118 in Maths, 2,627 in Physics, 2,220 in Chemistry, 2,680 in Biology and 3,207 in Economics. So you can open 9709 Paper 4 kinematics, or 9700 Paper 4 homeostasis, and get only those questions, each with Cambridge's mark scheme underneath. You can turn a set into a printable PDF worksheet too.",
-        "Questions from 2020 and 2021 are free. Newer years cost $6 a month for one subject, or $25 a month for everything (IGCSE and IB included). All 911 whole papers are free to read with no account, and supported papers can be self-marked. Pure Maths questions have worked explanations as well as the mark scheme.",
+        "Questions from 2020 and 2021 are free. Newer years cost $6 a month for one subject, or $25 a month for everything (IGCSE and IB included). All 911 whole papers are free to read with no account, with a timer and self-marking. Pure Maths questions have worked explanations as well as the mark scheme.",
         "What we don't do: subjects beyond these five, the science practical papers (3 and 5), or teaching notes for every topic.",
       ],
       links: [
@@ -146,7 +146,7 @@ const BEST_A_LEVEL_SITES: Article = {
   ],
   faqs: [
     { question: "What is the best website for Cambridge A Level topical past papers?", answer: "For 9709, 9702, 9701, 9700 and 9708, PastPaperPrep sorts every 2020 to 2026 question by paper and topic, with 2020 and 2021 free. Exam-Mate covers more subjects but its free access stops at 2019. PapaCambridge has free 9709 topical PDFs." },
-    { question: "Where can I get free CAIE A Level past papers?", answer: "PapaCambridge, Physics & Maths Tutor and PastPaperPrep all have free whole papers with mark schemes. PastPaperPrep opens them in the browser with no account." },
+    { question: "Where can I get free CAIE A Level past papers?", answer: "PapaCambridge, Physics & Maths Tutor and PastPaperPrep all have free whole papers with mark schemes. PastPaperPrep opens them in the browser with no account, with a timer and self-marking." },
     { question: "Is Save My Exams worth it for A Level?", answer: "If you use its notes and exam-style questions every week, many students think so. If you mainly want past papers, they are free elsewhere. Essential is $96 a year in US dollars." },
     { question: "Is GCE Guide still working?", answer: "When we checked on 21 November 2026, its paper addresses redirected to an unrelated games site." },
   ],
@@ -680,7 +680,7 @@ const ECONOMICS_9708_MCQ: Article = {
     {
       heading: "Where to practise",
       paragraphs: [
-        "PastPaperPrep's 9708 bank has 2,752 multiple-choice questions from 2020 to 2026 (1,492 from Paper 1, 1,260 from Paper 3), sorted by topic with the answer key, and 2020 and 2021 are free. The syllabus changed in 2023, so 2020 to 2022 questions are tagged to the earlier syllabus, but only a handful test content that's gone. Most free multiple-choice paper pages support self-marking for a timed run.",
+        "PastPaperPrep's 9708 bank has 2,752 multiple-choice questions from 2020 to 2026 (1,492 from Paper 1, 1,260 from Paper 3), sorted by topic with the answer key, and 2020 and 2021 are free. The syllabus changed in 2023, so 2020 to 2022 questions are tagged to the earlier syllabus, but only a handful test content that's gone. The free multiple-choice paper pages have a timer and self-marking, so you can sit one under exam conditions.",
       ],
       links: [
         { href: "/banks/a-level-economics-9708?topic=The%20price%20system%20and%20the%20microeconomy", label: "AS price system MCQs" },

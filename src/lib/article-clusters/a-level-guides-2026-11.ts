@@ -14,7 +14,7 @@ import type { Article, ArticleSection } from "@/lib/articles";
 const A_LEVEL_ACCESS: ArticleSection = {
   heading: "What is free on PastPaperPrep",
   paragraphs: [
-    "Whole A Level past papers and their mark schemes are free to read, with no account. Each paper page has a timer, and supported papers let you mark your own answers.",
+    "Whole A Level past papers and their mark schemes are free to read, with no account. Each paper page has a timer and lets you mark your own answers.",
     "In the topic banks, questions from 2020 and 2021 are free to practise, with the official mark scheme under each question. Newer years and PDF worksheets need a plan.",
   ],
   links: [
