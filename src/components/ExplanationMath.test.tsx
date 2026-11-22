@@ -88,6 +88,45 @@ describe("ExplanationPanel with a TeX payload", () => {
   });
 });
 
+describe("ExplanationMath while KaTeX is still loading", () => {
+  let release: () => void = () => {};
+  beforeEach(() => {
+    vi.resetModules();
+    const gate = new Promise<void>((resolve) => { release = resolve; });
+    vi.doMock("@/lib/explanation-math", async (importOriginal) => {
+      await gate;
+      return importOriginal();
+    });
+  });
+  afterEach(() => vi.doUnmock("@/lib/explanation-math"));
+
+  it("shows the whole sentence as escaped source on a client-only mount, then swaps in KaTeX", async () => {
+    const fresh = await import("@/components/ExplanationMath");
+    const root = mount();
+    await act(async () => {
+      createRoot(root).render(<>
+        <fresh.ExplanationMath text="Use $x = 0$ to check <the> solution." />
+        <fresh.ExplanationMath className="d" tex="x^2" />
+        <fresh.ExplanationMath text="No maths here." />
+      </>);
+    });
+    const [inline, display, plain] = [...root.children] as HTMLElement[];
+    expect(inline.textContent).toBe("Use $x = 0$ to check <the> solution.");
+    expect(inline.innerHTML).toContain("&lt;the&gt;");
+    expect(inline.hasAttribute("data-tex-pending")).toBe(true);
+    expect(inline.title).toBe("");
+    expect(display.outerHTML).toBe('<div class="d" data-tex-pending="">x^2</div>');
+    expect(plain.outerHTML).toBe("<span>No maths here.</span>");
+    expect(root.querySelector(".katex")).toBeNull();
+
+    release();
+    await act(() => fresh.loadRenderer());
+    const [inlineAfter, displayAfter] = [...root.children] as HTMLElement[];
+    expect(inlineAfter.outerHTML).toBe(`<span>${renderInlineMath("Use $x = 0$ to check <the> solution.")}</span>`);
+    expect(displayAfter.outerHTML).toBe(`<div class="d">${renderDisplayMath("x^2")}</div>`);
+  });
+});
+
 describe("ExplanationMath when KaTeX can't be loaded", () => {
   let blocked = true;
   beforeEach(() => {
@@ -124,7 +163,9 @@ describe("ExplanationMath when KaTeX can't be loaded", () => {
       createRoot(later).render(<fresh.ExplanationMath tex="y" />);
     });
     await act(() => fresh.loadRenderer());
-    expect(inline.outerHTML).toBe(`<span>${renderInlineMath("Use $x = 0$.")}</span>`);
-    expect(display.outerHTML).toBe(`<div>${renderDisplayMath("x^2")}</div>`);
+    // The source element is replaced by the KaTeX one, so look the elements up again.
+    const [inlineAfter, displayAfter] = [...root.children] as HTMLElement[];
+    expect(inlineAfter.outerHTML).toBe(`<span>${renderInlineMath("Use $x = 0$.")}</span>`);
+    expect(displayAfter.outerHTML).toBe(`<div>${renderDisplayMath("x^2")}</div>`);
   });
 });

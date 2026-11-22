@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useMemo, useRef, useState } from "react";
+import { use, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { plainInlineHtml } from "@/lib/explanation-text";
 
 /*
@@ -10,8 +10,8 @@ import { plainInlineHtml } from "@/lib/explanation-text";
  * Rendered KaTeX is ~30x its TeX, and a prerendered page stores its RSC payload four times (inline in the HTML, .rsc
  * and two segment files), all of them read from the ISR cache on every visit. So the server renders KaTeX into the HTML
  * only and the payload carries the source. Hydrating keeps the server's markup as is (no KaTeX in the browser); KaTeX
- * loads only for maths mounted without server markup, such as after a client-side navigation. If it can't be loaded,
- * that maths shows its source (never a blank) until a later mount loads it.
+ * loads only for maths mounted without server markup, such as after a client-side navigation. Until it arrives, that
+ * maths shows its escaped source (never a blank), and stays that way if it can't be loaded.
  */
 
 type Renderer = typeof import("@/lib/explanation-math");
@@ -69,16 +69,22 @@ if (typeof window === "undefined") void loadRenderer().catch(() => {});
 type Props = { className?: string } & ({ text: string; tex?: never } | { tex: string; text?: never });
 
 const EMPTY = { __html: "" };
+const noSubscription = () => () => {};
 const FALLBACK_TITLE = "Maths didn't load. Reload the page to show it.";
 
 export function ExplanationMath({ className, text, tex }: Props) {
   const Tag = tex === undefined ? "span" : "div";
   const ref = useRef<HTMLDivElement & HTMLSpanElement>(null);
+  // False while hydrating server HTML (React uses the server snapshot then), true for a client-only mount such as after
+  // a client-side navigation. Latched on the first render, so the re-render after hydration doesn't flip it.
+  const clientRender = useSyncExternalStore(noSubscription, () => true, () => false);
+  const [clientMount] = useState(clientRender);
   // Text without maths needs no KaTeX anywhere.
   const plain = text === undefined ? null : plainInlineHtml(text);
   // On the server wait for KaTeX: the maths must be in the HTML.
   const serverRenderer = typeof window === "undefined" && plain === null ? use(loadRenderer()) : undefined;
-  // In the browser: KaTeX if it has already loaded. While it hasn't, render nothing new, so hydration keeps the server's maths.
+  // In the browser: KaTeX if it has already loaded. While it hasn't, a hydrating element renders nothing new, so it keeps
+  // the server's maths, and a client-only mount shows the source.
   const [renderer, setRenderer] = useState(() => serverRenderer ?? loaded);
   const [unavailable, setUnavailable] = useState(false);
   const source = tex === undefined ? `t${text}` : `d${tex}`;
@@ -96,12 +102,12 @@ export function ExplanationMath({ className, text, tex }: Props) {
   useEffect(() => {
     if (plain !== null || renderer) return;
     if (source === firstSource) {
-      hydrated.current ??= Boolean(ref.current?.hasChildNodes());
+      hydrated.current ??= !clientMount && Boolean(ref.current?.hasChildNodes());
       // Hydrated: the element still shows the server's markup for this source. Nothing to do.
       if (hydrated.current) return;
     }
-    // Mounted in the browser before KaTeX loaded, or the source changed: render once KaTeX is here, and show the
-    // source meanwhile if loading fails. Stays subscribed, so a later successful load still renders this.
+    // Mounted in the browser before KaTeX loaded, or the source changed: the source shows until KaTeX is here, and
+    // stays if loading fails. Stays subscribed, so a later successful load still renders this.
     const update = () => {
       if (loaded) setRenderer(loaded);
       else setUnavailable(failed);
@@ -110,10 +116,14 @@ export function ExplanationMath({ className, text, tex }: Props) {
     if (failed) queueMicrotask(update);
     loadRenderer().catch(() => {});
     return () => void listeners.delete(update);
-  }, [plain, renderer, source, firstSource]);
+  }, [plain, renderer, source, firstSource, clientMount]);
 
-  if (plain === null && !renderer && unavailable) {
-    return <Tag ref={ref} className={className} data-tex-fallback="" title={FALLBACK_TITLE}>{tex ?? text}</Tag>;
+  // No KaTeX yet and no server markup to keep: the escaped source, as text. Keyed apart from the HTML element, so React
+  // replaces it rather than switching one element from children to innerHTML.
+  if (plain === null && !renderer && (unavailable || clientMount || source !== firstSource)) {
+    return unavailable
+      ? <Tag key="source" ref={ref} className={className} data-tex-fallback="" title={FALLBACK_TITLE}>{tex ?? text}</Tag>
+      : <Tag key="source" ref={ref} className={className} data-tex-pending="">{tex ?? text}</Tag>;
   }
-  return <Tag ref={ref} className={className} suppressHydrationWarning dangerouslySetInnerHTML={html} />;
+  return <Tag key="html" ref={ref} className={className} suppressHydrationWarning dangerouslySetInnerHTML={html} />;
 }
