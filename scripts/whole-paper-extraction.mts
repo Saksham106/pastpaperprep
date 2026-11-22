@@ -32,7 +32,7 @@ export type PrintedQuestion = {number: number; page: number; text: string; maxMa
  */
 export type MarkRule = 'text' | 'right-margin';
 export const MARK_COLUMN_MIN_RIGHT = 520, MARK_COLUMN_MIN_Y = 40;
-export const RIGHT_MARGIN_MARK_BANKS: ReadonlySet<string> = new Set(['igcse-computer-science-0478']);
+export const RIGHT_MARGIN_MARK_BANKS: ReadonlySet<string> = new Set(['igcse-computer-science-0478', 'a-level-computer-science-9618']);
 export const markRuleForBank = (slug: string): MarkRule => RIGHT_MARGIN_MARK_BANKS.has(slug) ? 'right-margin' : 'text';
 /**
  * How a printed question number is recognised. 'strict' needs a word starting on the number's own line (or the
@@ -42,7 +42,7 @@ export const markRuleForBank = (slug: string): MarkRule => RIGHT_MARGIN_MARK_BAN
  * per page. Gated per bank (MARGIN_START_BANKS) so other banks' manifests stay byte-identical.
  */
 export type StartRule = 'strict' | 'margin';
-export const MARGIN_START_BANKS: ReadonlySet<string> = new Set(['a-level-maths-9709', 'a-level-physics-9702', 'a-level-chemistry-9701', 'a-level-biology-9700', 'a-level-economics-9708']);
+export const MARGIN_START_BANKS: ReadonlySet<string> = new Set(['a-level-maths-9709', 'a-level-physics-9702', 'a-level-chemistry-9701', 'a-level-biology-9700', 'a-level-economics-9708', 'a-level-computer-science-9618', 'a-level-further-maths-9231']);
 export const startRuleForBank = (slug: string): StartRule => MARGIN_START_BANKS.has(slug) ? 'margin' : 'strict';
 export const extractorVersionFor = (rule: MarkRule, startRule: StartRule = 'strict') => `${EXTRACTOR_VERSION}${rule==='text'?'':'+right-margin-marks'}${startRule==='strict'?'':'+margin-starts'}`;
 export function extractQuestionBlocks(pages: GeometryItem[][], family: Identity['family'], markRule: MarkRule = 'text', startRule: StartRule = 'strict'): PrintedQuestion[] {

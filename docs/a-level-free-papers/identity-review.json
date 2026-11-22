@@ -214,6 +214,50 @@
      "imageSha256": "b653e604c171c5d91e33256991840d663e66aece50cddfa0dd8ce972dbfc3639"
     }
    ]
+  },
+  {
+   "bankSlug": "a-level-computer-science-9618",
+   "paperId": "9618-2022-s-22",
+   "questionSha256": "243ad7a823b1c9ffe7a2919e710bf81c741ed1e8f44f0d015d064a06372112f6",
+   "markschemeSha256": "367bcb288ebdbc698aa85c79faa768bc8e06ba0f2969709c2eaec3aa4430953f",
+   "verdict": "valid-pair",
+   "evidence": "Cambridge's published scheme prints the template placeholder 'SUBJECT' on its cover where 'COMPUTER SCIENCE' belongs. The cover otherwise reads 9618/22, Paper 22 Fundamental Problem Solving & Programming Skills, May/June 2022, Maximum Mark: 75, and all 14 inner page headers read 9618/22 May/June 2022. The question paper's cover is 9618/22 Paper 2 Fundamental Problem-solving and Programming Skills, May/June 2022, 75 marks, and its 8 printed question maxima equal the runtime marks. Reviewed in the 9618 content workspace (data/identity-review-cases.json, 2026-11-21) and re-checked from the rendered covers 2026-11-22.",
+   "extractedHeaderFields": {
+    "question": {
+     "coverPage": 1,
+     "examCodeLiteral": "9618/22",
+     "paperLiteral": "Paper 2 Fundamental Problem-solving and Programming Skills",
+     "dateOrSessionLiteral": "May/June 2022"
+    },
+    "markscheme": {
+     "coverPage": 1,
+     "examCodeLiteral": "9618/22",
+     "subjectLiteral": "SUBJECT",
+     "paperLiteral": "Paper 22 Fundamental Problem Solving & Programming Skills",
+     "sessionLiteral": "May/June 2022",
+     "maximumMark": 75
+    }
+   },
+   "proposedRule": "Individual exception keyed by bank/paper plus BOTH PDF SHA-256 hashes; the 'SUBJECT' placeholder is accepted only for this 9618/22 May/June 2022 pair.",
+   "category": "published-component-label",
+   "visualEvidence": [
+    {
+     "document": "question",
+     "sourcePdfSha256": "243ad7a823b1c9ffe7a2919e710bf81c741ed1e8f44f0d015d064a06372112f6",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/dce082cd07f6f1c3a874daf7807e61f0abebd43299a467e24690784cef712adc.png",
+     "imageSha256": "dce082cd07f6f1c3a874daf7807e61f0abebd43299a467e24690784cef712adc"
+    },
+    {
+     "document": "markscheme",
+     "sourcePdfSha256": "367bcb288ebdbc698aa85c79faa768bc8e06ba0f2969709c2eaec3aa4430953f",
+     "page": 1,
+     "renderer": "PyMuPDF 2.1 page 1 at 72 dpi",
+     "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/a-level-free-papers-2026-11/identity-evidence/dac87c633abba1197ad11043e980e7fd079e01d40940f74e6041b92575e6ac6c.png",
+     "imageSha256": "dac87c633abba1197ad11043e980e7fd079e01d40940f74e6041b92575e6ac6c"
+    }
+   ]
   }
  ]
 }

@@ -68,7 +68,10 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
   const updated = lastUpdated(banks.flatMap((bank) => [`/banks/${bank.slug}`, `/past-papers/${subjectSlugForBank(bank.slug)}`]));
   const boardGuides = articlesForExam(qualification === "IB Diploma" ? "IB Diploma" : qualification);
   const igcseRoutes = qualification === "Cambridge A Level" ? banks.flatMap((to) => {
-    const from = igcsePredecessors(to.slug).filter((bank) => bank.slug !== "igcse-coordinated-sciences-0654" && bank.slug !== "igcse-additional").map((bank) => bank.shortName);
+    // Co-ordinated Sciences and Additional Maths are side routes; name them only where they are the sole route (0606 → 9231).
+    const all = igcsePredecessors(to.slug);
+    const main = all.filter((bank) => bank.slug !== "igcse-coordinated-sciences-0654" && bank.slug !== "igcse-additional");
+    const from = (main.length ? main : all).map((bank) => bank.shortName);
     return from.length ? [{ to, from: from.join(" or ") }] : [];
   }) : [];
   return (
