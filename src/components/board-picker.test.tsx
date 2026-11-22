@@ -58,7 +58,9 @@ describe("bank search", () => {
     expect(matches("0620")).toEqual(["igcse-chemistry-0620"]);
     expect(matches("9709")).toEqual(["a-level-maths-9709"]);
     expect(matches("ib phys hl")).toEqual(["ib-physics-hl"]);
-    expect(matches("a-level maths")).toEqual(["a-level-maths-9709"]);
+    expect(matches("a-level maths")).toEqual(["a-level-further-maths-9231", "a-level-maths-9709"]);
+    expect(matches("9231")).toEqual(["a-level-further-maths-9231"]);
+    expect(matches("9618")).toEqual(["a-level-computer-science-9618"]);
     expect(matches("A Level econ")).toEqual(["a-level-economics-9708"]);
     expect(matches("add maths")).toEqual(["igcse-additional"]);
     expect(matches("igcse cs")).toEqual(["igcse-computer-science-0478"]);

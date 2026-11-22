@@ -26,5 +26,7 @@ export const PUBLIC_BANK_INDEX_FILES = {
   "a-level-physics-9702": "a-level-physics-9702.v1-2e2cc6b71d8a.json",
   "a-level-chemistry-9701": "a-level-chemistry-9701.v1-97c1d60194c4.json",
   "a-level-biology-9700": "a-level-biology-9700.v1-60a09aab5fc1.json",
-  "a-level-economics-9708": "a-level-economics-9708.v1-cee5670fe0a1.json"
+  "a-level-economics-9708": "a-level-economics-9708.v1-cee5670fe0a1.json",
+  "a-level-computer-science-9618": "a-level-computer-science-9618.v1-d4a5378484f8.json",
+  "a-level-further-maths-9231": "a-level-further-maths-9231.v1-c430792de4d6.json"
 } as const;
