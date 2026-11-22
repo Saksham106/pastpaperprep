@@ -75,9 +75,11 @@ async function upload() {
   assertManifestKeys(manifest);
   const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
   const logRows = () => readFileSync(p.log, "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
-  const done = existsSync(p.log) ? indexLogRows(logRows(), byKey) : new Map();
+  // A crop revision's superseded originals (`<stem>.webp` replaced by `<stem>.v2.webp`) may stay in the log.
+  const superseded = new Set();
+  const done = existsSync(p.log) ? indexLogRows(logRows(), byKey, superseded) : new Map();
   const pending = manifest.assets.filter((asset) => !done.has(asset.objectKey));
-  console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, pending: pending.length }));
+  console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, superseded: superseded.size, pending: pending.length }));
   await waitForWorkerAuth(worker.url, "/selftest");
   console.log(JSON.stringify({ selftest: await runSelftest(worker) }));
 
@@ -104,7 +106,7 @@ async function upload() {
   const receipt = composeUploadReceipt({
     bank: p.bank, manifest, rows: logRows(), manifestSha256,
     method: `worker-binding create-only put (R2 sha256-checked) + get re-hash (${WORKER_NAME})`,
-    logPath: path.relative(p.repo, p.log), logSha256: sha256(readFileSync(p.log)),
+    logPath: path.relative(p.repo, p.log), logSha256: sha256(readFileSync(p.log)), supersededKeys: [...superseded],
   });
   writeFileSync(p.receipt, `${JSON.stringify(receipt, null, 2)}\n`);
   console.log(JSON.stringify({ verified: receipt.completed.length, existedBefore: existed, seconds: Math.round((Date.now() - started) / 1000), receipt: path.relative(p.repo, p.receipt) }));
@@ -112,12 +114,13 @@ async function upload() {
 
 async function remove() {
   const file = workFile();
-  const url = existsSync(file) ? readWorkerConfig(file).url : null;
+  if (!existsSync(file)) throw new Error("No upload-worker.json in the work folder: without the saved URL deletion cannot be confirmed; delete in the Cloudflare dashboard");
+  const { url } = readWorkerConfig(file);
   const out = await runWrangler(["delete", "--name", WORKER_NAME, "--force"], { cwd: tmpdir() });
+  console.log(JSON.stringify({ deleteRequested: WORKER_NAME, output: out.trim().split("\n").slice(-1)[0] }));
+  const gone = await waitForWorkerGone(url, "/selftest"); // throws, keeping the config, if the Worker still answers
   rmSync(file, { force: true });
-  console.log(JSON.stringify({ deleted: WORKER_NAME, output: out.trim().split("\n").slice(-1)[0] }));
-  if (url) console.log(JSON.stringify({ gone: true, ...(await waitForWorkerGone(url)) }));
-  else console.log(JSON.stringify({ next: "no saved URL: confirm the workers.dev URL now answers 404" }));
+  console.log(JSON.stringify({ deleted: WORKER_NAME, confirmed: true, ...gone }));
 }
 
 const commands = {

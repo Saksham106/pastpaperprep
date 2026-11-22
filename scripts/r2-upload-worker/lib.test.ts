@@ -1,4 +1,6 @@
 // @vitest-environment node
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { composeUploadReceipt, indexLogRows, verifiedLogRow } from "../lib/upload-receipt.mjs";
 import { assertManifestKeys, bankPaths, buildAllowlist, classifyPutResult, putWithRetry, runSelftest } from "./lib.mjs";
@@ -89,6 +91,34 @@ describe("log rows and receipt", () => {
     expect(() => indexLogRows([{ ...row, sha256: "c".repeat(64) }], byKey)).toThrow("does not match manifest");
     expect(() => indexLogRows([{ ...row, key: "bank/zzz.webp" }], byKey)).toThrow("does not match manifest");
     expect(() => indexLogRows([{ ...row, status: "failed" }], byKey)).toThrow("does not match manifest");
+  });
+
+  it("resuming accepts only verified originals superseded by a .v2.webp manifest key", () => {
+    const v2 = { objectKey: "bank/q1.v2.webp", sha256: "f".repeat(64), size: 5 };
+    const keys = new Map([[v2.objectKey, v2]]);
+    const original = verifiedLogRow({ bank: "bank", asset: { objectKey: "bank/q1.webp", sha256: "9".repeat(64), size: 4 }, existedBefore: false });
+    const superseded = new Set<string>();
+    expect(indexLogRows([original], keys, superseded).size).toBe(0);
+    expect([...superseded]).toEqual(["bank/q1.webp"]);
+    expect(() => indexLogRows([original], keys)).toThrow("does not match manifest"); // opt-in only
+    expect(() => indexLogRows([{ ...original, status: "failed" }], keys, new Set())).toThrow("does not match manifest");
+    expect(() => indexLogRows([{ ...original, key: "bank/q2.webp" }], keys, new Set())).toThrow("does not match manifest");
+    expect(() => indexLogRows([{ ...original, key: "bank/q1.v2.webp" }], keys, new Set())).toThrow("does not match manifest"); // a v2 row must match its own hash
+  });
+
+  it("resumes on the real 9709 log: every current row validates and the 23 crop-revision originals are superseded", () => {
+    const root = path.resolve(import.meta.dirname, "../..");
+    const real = JSON.parse(readFileSync(path.join(root, "data/storage/a-level-maths-9709.manifest.json"), "utf8"));
+    const rows = readFileSync(path.join(root, "docs/a-level-maths-9709-r2-upload-log.jsonl"), "utf8").split("\n").filter(Boolean).map((line) => JSON.parse(line));
+    const keys = new Map<string, { objectKey: string; sha256: string; size: number }>(real.assets.map((a: { objectKey: string; sha256: string; size: number }) => [a.objectKey, a]));
+    const superseded = new Set<string>();
+    const done = indexLogRows(rows, keys, superseded);
+    expect(done.size).toBe(real.assets.length);
+    expect(superseded.size).toBe(23);
+    expect([...superseded].every((key) => keys.has(`${key.slice(0, -5)}.v2.webp`))).toBe(true);
+    const receipt = composeUploadReceipt({ bank: "a-level-maths-9709", manifest: real, rows, method: "m", logPath: "docs/a-level-maths-9709-r2-upload-log.jsonl", logSha256: "d".repeat(64), manifestSha256: () => "e".repeat(64), supersededKeys: [...superseded] });
+    expect(receipt.completed).toHaveLength(real.assets.length);
+    expect(receipt.readbackProvenance.supersededKeys).toHaveLength(23);
   });
 
   it("composes an igcse-upload-receipt-v1 receipt and refuses an incomplete log", () => {

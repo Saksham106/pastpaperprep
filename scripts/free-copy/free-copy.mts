@@ -11,9 +11,11 @@
  *
  *   npx tsx scripts/free-copy/free-copy.mts list   --bank <slug> [--bank <slug>...] [--out <dir>]   # offline, writes free-list.json
  *   npx tsx scripts/free-copy/free-copy.mts deploy --bank <slug> [--bank ...] [--out <dir>]          # deploy Worker, wait for 403
- *   npx tsx scripts/free-copy/free-copy.mts copy   [--out <dir>]                                     # wait 403, selftest, copy
- *   npx tsx scripts/free-copy/free-copy.mts verify [--out <dir>]                                     # public fetch + hash for every path
- *   npx tsx scripts/free-copy/free-copy.mts delete [--out <dir>]                                     # delete Worker, then confirm 404
+ *   npx tsx scripts/free-copy/free-copy.mts copy   --bank <slug> [--bank ...] [--out <dir>]          # wait 403, selftest, copy
+ *   npx tsx scripts/free-copy/free-copy.mts verify --bank <slug> [--bank ...] [--out <dir>]          # public fetch + hash for every path
+ *   npx tsx scripts/free-copy/free-copy.mts delete --bank <slug> [--bank ...] [--out <dir>]          # delete Worker, confirm it is gone
+ *
+ * Pass the same --bank list (or the same --out) to every step: it selects the state folder.
  *
  * `--out` (default ~/.cache/ppp-upload-work/free-copy/<bank>[+<bank>...]) holds the free list, the Worker secret
  * (free-copy-worker.json, mode 0600, never printed), copy-log.jsonl, verify-log.jsonl and receipt.json. It must be
@@ -37,7 +39,14 @@ type CopyRow = { path: string; status: string; sha256?: string; bytes?: number; 
 
 const [command, ...rest] = process.argv.slice(2);
 const banks = argValues(rest, "bank");
-const out = path.resolve(argValue(rest, "out", defaultOutDir(banks.length ? banks : ["unnamed"])));
+const outFlag = argValue(rest, "out");
+// Every step reads and writes the same state folder, so each one needs the same --bank list (or an explicit --out);
+// never fall back to a shared default that would hide the deployed Worker's config from later steps.
+if (command && !banks.length && !outFlag) {
+  console.error(`${command} needs the same --bank <slug> (repeatable) used for deploy, or --out <dir>`);
+  process.exit(2);
+}
+const out = path.resolve(outFlag ?? defaultOutDir(banks));
 const files = {
   list: path.join(out, "free-list.json"),
   worker: path.join(out, "free-copy-worker.json"),
@@ -189,12 +198,13 @@ async function verify() {
 
 async function remove() {
   prepareOut();
-  const url = existsSync(files.worker) ? readWorkerConfig(files.worker).url : null;
+  if (!existsSync(files.worker)) throw new Error(`No free-copy-worker.json in ${out}: without the saved URL deletion cannot be confirmed; pass the --bank/--out used for deploy, or delete in the Cloudflare dashboard`);
+  const { url } = readWorkerConfig(files.worker);
   const output = await runWrangler(["delete", "--name", WORKER_NAME, "--force"], { cwd: tmpdir() });
+  console.log(JSON.stringify({ deleteRequested: WORKER_NAME, output: output.trim().split("\n").slice(-1)[0] }));
+  const gone = await waitForWorkerGone(url, "/selftest"); // throws, keeping the config, if the Worker still answers
   rmSync(files.worker, { force: true });
-  console.log(JSON.stringify({ deleted: WORKER_NAME, output: output.trim().split("\n").slice(-1)[0] }));
-  if (url) console.log(JSON.stringify({ gone: true, ...(await waitForWorkerGone(url)) }));
-  else console.log(JSON.stringify({ next: "no saved URL: confirm the workers.dev URL now answers 404" }));
+  console.log(JSON.stringify({ deleted: WORKER_NAME, confirmed: true, ...gone }));
 }
 
 const commands: Record<string, () => Promise<void>> = { list, deploy, copy, verify, delete: remove };

@@ -86,13 +86,27 @@ describe("worker tool helpers", () => {
 });
 
 describe("waitForWorkerGone", () => {
-  it("returns once the deleted Worker's URL answers 404", async () => {
-    const fetchImpl = vi.fn().mockResolvedValueOnce(res(403)).mockResolvedValueOnce(res(404));
-    expect(await waitForWorkerGone("https://w.workers.dev", { fetchImpl: fetchImpl as never, ...clock() })).toEqual({ attempts: 2 });
+  it("needs consecutive 404s on the authenticated route; a 403 in between resets the count", async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(res(403)).mockResolvedValueOnce(res(404)).mockResolvedValueOnce(res(403))
+      .mockResolvedValueOnce(res(404)).mockResolvedValueOnce(res(404)).mockResolvedValueOnce(res(404));
+    expect(await waitForWorkerGone("https://w.workers.dev", "/selftest", { fetchImpl: fetchImpl as never, ...clock() })).toEqual({ attempts: 6 });
+    const [url, init] = fetchImpl.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe("https://w.workers.dev/selftest");
+    expect(init).toEqual({ method: "POST" }); // no token: the probe can never write
   });
 
-  it("fails closed when the URL keeps answering", async () => {
+  it("fails closed while the Worker still answers 403", async () => {
     const fetchImpl = vi.fn().mockResolvedValue(res(403));
-    await expect(waitForWorkerGone("https://w.workers.dev", { fetchImpl: fetchImpl as never, ...clock() })).rejects.toThrow(/still answers/);
+    await expect(waitForWorkerGone("https://w.workers.dev", "/selftest", { fetchImpl: fetchImpl as never, ...clock() })).rejects.toThrow(/still live/);
+  });
+
+  it("does not count network errors or other statuses as deleted", async () => {
+    const fetchImpl = vi.fn().mockRejectedValueOnce(new Error("ECONNRESET")).mockResolvedValue(res(530));
+    await expect(waitForWorkerGone("https://w.workers.dev", "/selftest", { fetchImpl: fetchImpl as never, ...clock() })).rejects.toThrow(/not confirmed deleted/);
+  });
+
+  it("refuses to probe without the authenticated route", async () => {
+    await expect(waitForWorkerGone("https://w.workers.dev", "" as string)).rejects.toThrow(/route/);
   });
 });

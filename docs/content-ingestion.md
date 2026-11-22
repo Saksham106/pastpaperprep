@@ -400,7 +400,7 @@ node scripts/r2-upload-worker/upload.mjs deploy   --bank <bank> --work $W   # de
 node scripts/r2-upload-worker/upload.mjs selftest --work $W                 # proves create-only on a scratch key
 node scripts/r2-upload-worker/upload.mjs upload   --bank <bank> --work $W   # resumable; writes the log and receipt under docs/ and data/storage/
 node scripts/generate-igcse-release.mjs --finalize <bank>                   # as before
-node scripts/r2-upload-worker/upload.mjs delete   --work $W                 # waits until the workers.dev URL answers 404
+node scripts/r2-upload-worker/upload.mjs delete   --work $W                 # deletes, then confirms the Worker no longer answers its probe
 ```
 
 `scripts/upload-computer-science-wrangler.mjs` no longer uploads: Wrangler has no conditional put, so it cannot be create-only. It only re-reads objects already in the bucket, logs them and writes the receipt; an absent key stops it with a pointer to the Worker.

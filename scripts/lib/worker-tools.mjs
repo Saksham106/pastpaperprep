@@ -95,27 +95,40 @@ export async function waitForWorkerAuth(url, route, {
 }
 
 /**
- * After `wrangler delete`, waits until the workers.dev URL answers 404 (the Worker is gone). Throws at the deadline,
- * so a delete that did not take effect is never reported as done. Read-only probe without a token.
+ * After `wrangler delete`, confirms the Worker is gone with the same credential-free probe as waitForWorkerAuth: an
+ * unauthenticated POST to `route` (e.g. "/selftest"). A live Worker answers it 403; once the script is deleted,
+ * workers.dev answers 404 for that hostname. GET / is useless here: a live Worker already answers it 404.
+ * Requires `confirmations` consecutive 404s (the edge can keep serving the old script briefly after a delete); any
+ * 403 resets the count. Throws at the deadline, so a delete that did not take effect is never reported as done.
+ * The probe sends no token, so it can never write anything.
  */
-export async function waitForWorkerGone(url, {
+export async function waitForWorkerGone(url, route, {
   fetchImpl = fetch,
   sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
   now = Date.now,
-  timeoutMs = 120_000,
+  timeoutMs = 180_000,
   delayMs = 3000,
+  confirmations = 3,
 } = {}) {
+  if (!route?.startsWith("/")) throw new Error("waitForWorkerGone needs the Worker's authenticated route, e.g. /selftest");
   const deadline = now() + timeoutMs;
+  let absent = 0;
   let last = "no response";
   for (let attempt = 1; ; attempt += 1) {
+    let status = null;
     try {
-      const status = (await fetchImpl(url, { method: "GET" })).status;
-      if (status === 404) return { attempts: attempt };
-      last = `HTTP ${status}`;
+      status = (await fetchImpl(`${url}${route}`, { method: "POST" })).status;
     } catch (error) {
       last = `network error: ${error?.message ?? error}`;
     }
-    if (now() + delayMs > deadline) throw new Error(`Worker URL still answers (${last}) after delete; check the Cloudflare dashboard`);
+    if (status === 404) {
+      absent += 1;
+      if (absent >= confirmations) return { attempts: attempt };
+    } else {
+      absent = 0;
+      if (status !== null) last = status === 403 ? "HTTP 403 (Worker still live)" : `HTTP ${status}`;
+    }
+    if (now() + delayMs > deadline) throw new Error(`Worker not confirmed deleted (last: ${last}); keep its config and check the Cloudflare dashboard`);
     await sleep(delayMs);
   }
 }

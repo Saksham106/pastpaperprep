@@ -58,7 +58,7 @@ ONLY_SOURCE=r2 npx tsx scripts/publish-free-assets.mts verify /tmp/free-copy
 npx tsx scripts/publish-free-assets.mts copy-delete /tmp/free-copy
 ```
 
-**Any bank, including held (`pendingStorage`) banks** (`scripts/free-copy/free-copy.mts`, `--bank` is repeatable). The publish script skips held banks, so use this one to publish a bank's free files before it launches. It lists the files with the app's own `listFreePublicAssets`, so the set matches what the site will link to. Logs, the Worker secret and the receipt go to `--out` (default `~/.cache/ppp-upload-work/free-copy/<bank>`), which must be outside the repo.
+**Any bank, including held (`pendingStorage`) banks** (`scripts/free-copy/free-copy.mts`, `--bank` is repeatable). The publish script skips held banks, so use this one to publish a bank's free files before it launches. It lists the files with the app's own `listFreePublicAssets`, so the set matches what the site will link to. Logs, the Worker secret and the receipt go to `--out` (default `~/.cache/ppp-upload-work/free-copy/<bank>`), which must be outside the repo. Pass the same `--bank` list (or the same `--out`) to every step; a step without either stops.
 
 ```bash
 # Held banks only: the full `npm run generate:asset-manifest` skips them, so generate theirs first
@@ -68,14 +68,14 @@ NODE_ENV=development PASTPAPERPREP_PREVIEW_PENDING_BANKS=true npx tsx scripts/ge
 export NODE_ENV=development PASTPAPERPREP_PREVIEW_PENDING_BANKS=true
 npx tsx scripts/free-copy/free-copy.mts list   --bank <slug>   # offline: writes free-list.json and prints counts
 npx tsx scripts/free-copy/free-copy.mts deploy --bank <slug>   # owner approval: deploys, waits for 403, bundles the list
-npx tsx scripts/free-copy/free-copy.mts copy                    # owner approval: waits for 403, self-test, create-only copy
-npx tsx scripts/free-copy/free-copy.mts verify                  # every path from free.pastpaperprep.com vs the private hash
-npx tsx scripts/free-copy/free-copy.mts delete                  # waits until the workers.dev URL answers 404
+npx tsx scripts/free-copy/free-copy.mts copy   --bank <slug>   # owner approval: waits for 403, self-test, create-only copy
+npx tsx scripts/free-copy/free-copy.mts verify --bank <slug>   # every path from free.pastpaperprep.com vs the private hash
+npx tsx scripts/free-copy/free-copy.mts delete --bank <slug>   # deletes, then confirms the Worker no longer answers (keeps its config until then)
 ```
 
 A live bank needs no held-bank env; generate its manifest as in the first block above. If the manifest is missing, `list` and `deploy` stop and print the exact command to run. Only R2-sourced files are copied; Supabase-sourced previews go through `publish-free-assets.mts`.
 
-A new `workers.dev` Worker can answer 404 for a short while after deploy. Both `deploy` and `copy` poll with an unauthenticated request until the Worker answers 403, with backoff and a time limit, then run the self-test. A 200 on that request means authentication is broken, so the run stops; so does a Worker that never reaches 403.
+A new `workers.dev` Worker can answer 404 for a short while after deploy. Both `deploy` and `copy` poll with an unauthenticated request until the Worker answers 403, with backoff and a time limit, then run the self-test. A 200 on that request means authentication is broken, so the run stops; so does a Worker that never reaches 403. `delete` reuses that probe: it reports the Worker deleted only after the same request gets 404 three times in a row (a live Worker answers it 403, and answers `GET /` 404 even while live, so `GET /` proves nothing), and keeps the saved config until then.
 
 Files are cached at Cloudflare's edge for up to a week. **If you replace an existing object** (same
 path, new bytes or headers), purge those URLs in Cloudflare (Caching → Configuration → Custom Purge)

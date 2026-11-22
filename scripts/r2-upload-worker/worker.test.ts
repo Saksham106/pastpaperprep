@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { createHash } from "node:crypto";
 import { describe, expect, it, vi } from "vitest";
+import { waitForWorkerAuth, waitForWorkerGone } from "../lib/worker-tools.mjs";
 
 const hash = (bytes: Uint8Array) => createHash("sha256").update(bytes).digest("hex");
 const webp = (tag: string) => new TextEncoder().encode(`RIFF\u0010\u0000\u0000\u0000WEBPVP8 ${tag}`);
@@ -128,5 +129,31 @@ describe("R2 upload Worker", () => {
     const ignoring = bucket({}, { ignorePreconditions: true });
     expect(await (await call(ignoring, "/selftest")).json()).toMatchObject({ ok: false });
     expect(ignoring.objects.size).toBe(0);
+  });
+});
+
+describe("readiness and deletion probes against this Worker's real routing", () => {
+  // A deployed Worker is this module's fetch(); a deleted one is workers.dev answering 404 for the hostname.
+  const URL_BASE = "https://ppp.example.workers.dev";
+  const routed = (env: object, liveCalls: number) => {
+    let calls = 0;
+    return vi.fn(async (url: string, init?: RequestInit) => {
+      calls += 1;
+      return calls <= liveCalls ? worker.fetch(new Request(url, init), env as never) : new Response("There is nothing here yet", { status: 404 });
+    });
+  };
+  const clock = () => { let t = 0; return { now: () => t, sleep: async (ms: number) => { t += ms; } }; };
+
+  it("a live Worker answers GET / with 404, so GET / cannot prove deletion; the unauthenticated POST gets 403", async () => {
+    const env = { UPLOAD_TOKEN: TOKEN, ASSETS: bucket() };
+    expect((await worker.fetch(new Request(`${URL_BASE}/`), env as never)).status).toBe(404);
+    expect((await worker.fetch(new Request(`${URL_BASE}/selftest`, { method: "POST" }), env as never)).status).toBe(403);
+  });
+
+  it("waitForWorkerAuth proceeds against the live Worker; waitForWorkerGone confirms only after it stops answering", async () => {
+    const env = { UPLOAD_TOKEN: TOKEN, ASSETS: bucket() };
+    expect(await waitForWorkerAuth(URL_BASE, "/selftest", { fetchImpl: routed(env, Infinity) as never, ...clock() })).toEqual({ attempts: 1 });
+    expect(await waitForWorkerGone(URL_BASE, "/selftest", { fetchImpl: routed(env, 2) as never, ...clock() })).toEqual({ attempts: 5 });
+    await expect(waitForWorkerGone(URL_BASE, "/selftest", { fetchImpl: routed(env, Infinity) as never, ...clock() })).rejects.toThrow(/still live/);
   });
 });

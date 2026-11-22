@@ -26,7 +26,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { promisify } from "node:util";
 import { manifestSha256 } from "./igcse-release.mjs";
-import { composeUploadReceipt, verifiedLogRow } from "./lib/upload-receipt.mjs";
+import { composeUploadReceipt, indexLogRows, verifiedLogRow } from "./lib/upload-receipt.mjs";
 
 const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708"];
 const bankFlag = process.argv.indexOf("--bank");
@@ -88,15 +88,11 @@ async function main() {
   }
   const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset]));
   // A crop revision replaces a verified key with a new `<stem>.v2.webp` key (the original stays in the bucket, unreferenced).
-  // Only such superseded originals may sit in the log outside the manifest; anything else still fails closed.
-  const supersededBy = (key) => key.endsWith(".webp") && !key.endsWith(".v2.webp") ? byKey.get(`${key.slice(0, -5)}.v2.webp`) : undefined;
+  // Only such superseded originals may sit in the log outside the manifest; anything else still fails closed (shared rule).
   const superseded = new Set();
-  for (const [key, row] of done) {
-    const asset = byKey.get(key);
-    if (!asset && supersededBy(key) && row.status === "verified") { superseded.add(key); continue; }
-    if (!asset || row.sha256 !== asset.sha256 || row.bytes !== asset.size || row.status !== "verified") throw new Error(`log line does not match manifest: ${key}`);
-  }
-  for (const key of superseded) done.delete(key);
+  const indexed = indexLogRows([...done.values()], byKey, superseded);
+  done.clear();
+  for (const [key, row] of indexed) done.set(key, row);
   const limit = process.argv.includes("--limit") ? Number(process.argv[process.argv.indexOf("--limit") + 1]) : Infinity;
   const pending = manifest.assets.filter((asset) => !done.has(asset.objectKey)).slice(0, limit);
   console.log(JSON.stringify({ total: manifest.assets.length, alreadyVerified: done.size, superseded: superseded.size, pending: pending.length }));
