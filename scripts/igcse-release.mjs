@@ -108,12 +108,13 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: 'a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6',
   },
   // Cambridge International A Level Further Mathematics 9231: 813 rows (Papers 1-4, all structured), one segmentation lane,
-  // built with ../ppp-ingestion-toolkit; nothing held or excluded.
+  // built with ../ppp-ingestion-toolkit; nothing held or excluded. The prefix is named for the first candidate (89c4fe2c...);
+  // the owner's #509 review changed one transcript and three rows' tags, not the crops, so the verified upload stands.
   'a-level-further-maths-9231': {
     prefix: 'a-level-further-maths-9231/releases/full813-v1-89c4fe2cbc19',
     sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_FURTHER_MATHS_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '89c4fe2cbc19ba4c9ddf6d2d76635ffc30f1c5f4cd8c1c6e8c3ac485cc4db7de',
+    originalCandidateRuntimeSha256: '3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171',
   },
 };
 

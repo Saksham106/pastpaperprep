@@ -154,6 +154,8 @@ declare const data: {
       fullMarksNotesReviewed: string;
       msMarksReviewed: string;
       secondarySubtopics: string;
+      transcriptCorrections: string;
+      reviewOverlayPr509: string;
       syllabus2026: string;
       mf19: string;
       coverageReceipt: string;

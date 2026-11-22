@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Build the Cambridge International AS & A Level Further Mathematics 9231 candidate runtime from the pinned source
- * workspace (cambridge-a-level-further-mathematics-9231-topic-practice, commit f750b6f, built with ../ppp-ingestion-toolkit;
+ * workspace (cambridge-a-level-further-mathematics-9231-topic-practice, commit 046efa5, built with ../ppp-ingestion-toolkit;
  * coverage receipt PASS, every gate passing with none waived). Every input is SHA-256 pinned; any drift fails closed.
  *
  *   data/segmentation/full/segmentation.json   813 canonical questions in 116 canonical papers (Papers 1-4)
@@ -17,6 +17,10 @@
  *   data/extras/9231-syllabus-2026-2027.pdf    paper facts (assessment overview, p. 11)
  *   data/extras/9231-mf19.pdf                  the formula list (MF19, shared with 9709), pinned as the reference the app links
  *   data/classification/blind-results/*.json   blind-pass linear maths transcriptions, used as accessible text
+ *   data/classification/transcript-corrections.json   reviewed row-level transcript fixes over the immutable blind results
+ *                                              (owner review of #509: 9231-2020-s-23-q4's diagram, rectangles on the x-axis)
+ *   data/classification/review-overlays/owner-review-pr509.json   the reviewed label overlay of the owner's #509 review: secondary
+ *                                              sections for two independently scored marks below the two-mark floor
  *   data/classification/secondary-subtopics.json      reviewed overlay: the learning outcomes each secondary section
  *                                              materially assesses, and any further outcome of the primary section, with mark evidence
  *
@@ -44,10 +48,10 @@ export const BANK = "a-level-further-maths-9231";
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/cambridge-a-level-further-mathematics-9231-topic-practice";
-export const SOURCE_COMMIT = "f750b6f";
+export const SOURCE_COMMIT = "046efa5";
 export const SOURCE_SHA256 = {
   segmentation: "62a99b2028937d17ee2a12ea61b0272e24d51219e00c4671f1476ee3406a8f32",
-  labels: "c1b91c2d6b2dfddb54e41965d8d2b47e993fb3ac5715fb5715fe90212d214f55",
+  labels: "9a470d1424d7cea9a898486da1654b992344cef7dc4f25c2fa8f9b93afe290c3",
   taxonomy: "b867755a074b40659c247b6d7e726e1c50a5229526e7058a3ca003deed5a249a",
   canonicalManifest: "665b0510335f6e2236bf35d04dbca2f247b9303cc135d46bf78f8d8e97154bc4",
   sourceManifest: "3b63674fc611be00fefb8f7e5a7d5807a45b16a3229f930f61beb4724e518724",
@@ -56,10 +60,12 @@ export const SOURCE_SHA256 = {
   fullMarksNotes: "44a355df58ec692f487bd155efc8a3202a1e4b4b1a90681daa299efba3135175",
   fullMarksNotesReviewed: "e8f1e4208719850f9fed27992b4a8fb28b01c17d8c28b7dba5a9163dd7b20bfc",
   msMarksReviewed: "a9cbb2f853adeabc9505b7be9c9ba165b23323f061d1986115cfda001aeb0e5f",
-  secondarySubtopics: "86b81cc8292258b1f19f4c7a5e31a2b9df6031822d85b20f6b24bc2785c0b923",
+  secondarySubtopics: "fa198997d2e00ed3bda01d5ed1b6868c221900e410b0b7cba685da34c3e25298",
+  transcriptCorrections: "b24fc47bb325162769ad5d860e83bb284c1d0a22e6afa3f685bd28d3550045b9",
+  reviewOverlayPr509: "8ec73f75fd379d07f1d1c7b58286aee137011d9128ff6acad6ee3dd1c3f3b07c",
   syllabus2026: "65599e6aea802cf8f1cd424989a0b95050ce1d161e4c3f7a577b9397471523b6",
   mf19: "c075388ec7227fea086358f4332592a395a3c8d9c82b75890346f84cfc749d90",
-  coverageReceipt: "4be718ebe26f9a184e00cd9f65ab1a17ddbcc7d6dfb911ec56049a4b7d0b229e",
+  coverageReceipt: "381f0648439e5b7cd5eab275db061ddb241fab1207b5b97f1046ec7267aa2c01",
   /** SHA-256 over the sorted "<file> <sha256>" lines of every top-level blind-results/*.json file. */
   blindResults: "ea7f2e38afb0d2b7523919f4bc08c909cca83e807a2bb20216d2232a7f2a5846",
 };
@@ -86,8 +92,10 @@ export const FULL_MARKS_NOTES = {
 /** The one MS that prints a part-total cell blank (5(c), [3]); the QP's printed brackets are served. */
 export const MS_MARKS_REVIEWED = { "9231-2022-w-41-q5": { qpMarks: 10, msMarks: 7 } };
 /**
- * MS totals that differ from the QP only through the scheme's layout (an "Alternative method" block repeats a part total, or a
- * split "M1" reads as a stray "1"). All were in the source's visual review; the QP's printed brackets are served.
+ * MS totals that differ from the QP, all in the source's visual review; the QP's printed brackets are served. Six are layout
+ * effects of the scheme (an "Alternative method" block repeats a part total, or a split "M1" reads as a stray "1").
+ * 9231-2025-s-43-q6 is a genuinely missing subtotal: the MS prints none for 6(c) (subtotals 4, 1, 2 against QP brackets
+ * [4] [1] [4] [2]), and 6(c)'s four mark points (B1 M1 A1 A1) confirm the QP's 4, so it is served at 11 (owner review of #509).
  */
 export const MS_LAYOUT_DIFFERS = {
   "9231-2020-s-13-q5": { qpMarks: 11, msMarks: 20 },
@@ -98,10 +106,14 @@ export const MS_LAYOUT_DIFFERS = {
   "9231-2024-w-32-q6": { qpMarks: 10, msMarks: 16 },
   "9231-2025-s-43-q6": { qpMarks: 11, msMarks: 7 },
 };
+/** Reviewed transcript corrections applied over the blind results (owner review of #509). */
+export const TRANSCRIPT_CORRECTIONS = ["9231-2020-s-23-q4"];
+/** Reviewed label overlays in the final labels (owner review of #509: 2020-s-33-q7 gains 3.6, 2023-w-21-q3 gains 2.1). */
+export const REVIEW_OVERLAYS = { "owner-review-pr509-2026-11-22": "owner-review-pr509.json" };
 /** Student-facing outcome labels that differ from the source's short label (source app note, classification receipt). */
 export const SUBTOPIC_LABEL_OVERRIDES = { "3.6.1": "Restitution: definitions" };
 export const EXPECTED = {
-  labels: 813, rows: 813, papers: 116, aliases: 365, aliasPapers: 52, byPaper: { 1: 203, 2: 233, 3: 202, 4: 175 }, topics: 24, topicLabels: 23,
+  labels: 813, rows: 813, labelsWithSecondaries: 80, papers: 116, aliases: 365, aliasPapers: 52, byPaper: { 1: 203, 2: 233, 3: 202, 4: 175 }, topics: 24, topicLabels: 23,
   subtopics: 84, freeRows: 225, notSatRows: 56, years: "2020-2026", sourcePapers: 168, crops: 2728, marks: 7250,
 };
 export const FREE_YEARS = [2020, 2021];
@@ -135,8 +147,10 @@ export async function blindTranscripts(sourceRoot) {
   const files = (await readdir(directory, { withFileTypes: true })).filter((entry) => entry.isFile() && entry.name.endsWith(".json")).map((entry) => entry.name).sort();
   const lines = [];
   const transcripts = new Map();
+  const fileSha256 = {};
   for (const file of files) {
     const bytes = await readFile(path.join(directory, file));
+    fileSha256[file] = sha256(bytes);
     lines.push(`${file} ${sha256(bytes)}`);
     for (const row of JSON.parse(bytes.toString("utf8")).rows ?? []) {
       if (typeof row.transcript !== "string" || !row.transcript.trim()) continue;
@@ -144,7 +158,7 @@ export async function blindTranscripts(sourceRoot) {
       transcripts.set(row.id, row.transcript.trim());
     }
   }
-  return { pin: sha256(`${lines.join("\n")}\n`), transcripts };
+  return { pin: sha256(`${lines.join("\n")}\n`), transcripts, fileSha256 };
 }
 
 /** Learning-outcome labels: the source's reviewed short labels, unique across the bank, with the reviewed overrides. */
@@ -254,7 +268,19 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   const blind = await blindTranscripts(sourceRoot);
   if (blind.pin !== SOURCE_SHA256.blindResults) throw new Error(`9231 blind results ${blind.pin} != pinned ${SOURCE_SHA256.blindResults}`);
   if (Object.keys(held.questions).length || finalLabels.held.length) throw new Error("9231 held questions appeared; review before building");
-  if (finalLabels.review_overlays?.length || finalLabels.review_corrections?.length) throw new Error("9231 final labels carry review overlays; review before building");
+  // Reviewed overlays: exactly the owner's #509 review, pinned by file.
+  if (JSON.stringify(finalLabels.review_overlays) !== JSON.stringify(Object.keys(REVIEW_OVERLAYS)) || finalLabels.review_corrections?.length) throw new Error("9231 final-label review overlays drifted; review before building");
+  if (JSON.stringify(finalLabels.inputs?.review_overlays_sha256) !== JSON.stringify({ "owner-review-pr509.json": SOURCE_SHA256.reviewOverlayPr509 })) throw new Error("9231 review overlay pin drifted");
+  await pinnedBytes(sourceRoot, "data/classification/review-overlays/owner-review-pr509.json", SOURCE_SHA256.reviewOverlayPr509);
+  if (finalLabels.labels.filter((label) => label.secondaries.length).length !== EXPECTED.labelsWithSecondaries) throw new Error("9231 labels with secondaries drifted");
+  // Reviewed transcript corrections over the immutable blind results: made against exactly these blind files, for exactly the listed rows.
+  const corrections = await pinned(sourceRoot, "data/classification/transcript-corrections.json", SOURCE_SHA256.transcriptCorrections);
+  if (JSON.stringify(corrections.blind_results_sha256) !== JSON.stringify(Object.fromEntries(Object.entries(blind.fileSha256).filter(([file]) => file in corrections.blind_results_sha256))) || Object.keys(corrections.blind_results_sha256).length < 30) throw new Error("9231 transcript corrections were made against different blind results");
+  if (JSON.stringify(Object.keys(corrections.rows)) !== JSON.stringify(TRANSCRIPT_CORRECTIONS)) throw new Error("9231 transcript corrections drifted");
+  for (const [id, row] of Object.entries(corrections.rows)) {
+    if (!blind.transcripts.has(id) || typeof row.transcript !== "string" || !row.transcript.trim() || !row.replacements?.length) throw new Error(`9231 transcript correction ${id} is invalid`);
+    blind.transcripts.set(id, row.transcript.trim());
+  }
   if (finalLabels.dropped_empty_earlier_syllabus_topics.length) throw new Error("9231 final labels name earlier-syllabus topics");
   if (coverage.verdict !== "PASS" || coverage.problems.length || coverage.crop_assets_verified !== EXPECTED.crops || coverage.totals.marks !== EXPECTED.marks || coverage.totals.held_questions || coverage.totals.excluded_questions) throw new Error("9231 coverage receipt is not PASS");
 

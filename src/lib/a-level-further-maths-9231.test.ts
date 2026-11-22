@@ -49,7 +49,9 @@ import removedPartMarks from "@/data/reviewed-science-removed-part-marks.json";
 const ROOT = process.cwd();
 const slug = A_LEVEL_FURTHER_MATHS_9231;
 const product = "bank_a_level_further_maths_9231";
-const CANDIDATE = "89c4fe2cbc19ba4c9ddf6d2d76635ffc30f1c5f4cd8c1c6e8c3ac485cc4db7de";
+const CANDIDATE = "3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171";
+/** The first candidate names the storage prefix and the verified upload manifest; the #509 review changed text and tags, not crops. */
+const FIRST_CANDIDATE = "89c4fe2cbc19ba4c9ddf6d2d76635ffc30f1c5f4cd8c1c6e8c3ac485cc4db7de";
 const PREFIX = "a-level-further-maths-9231/releases/full813-v1-89c4fe2cbc19";
 const PRODUCTION = { NODE_ENV: "production", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
 const PREVIEW = { NODE_ENV: "development", PASTPAPERPREP_PREVIEW_PENDING_BANKS: "true", PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS: "true", PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED: "true" };
@@ -366,6 +368,30 @@ describe("A Level Further Mathematics 9231 runtime", () => {
   });
 });
 
+describe("A Level Further Mathematics 9231 owner review of #509", () => {
+  const row = (id: string) => runtime.questions.find((question) => question.id === id)!;
+
+  it("describes 2020-s-23-q4's rectangles as standing on the x-axis, corners on the curve", () => {
+    const text = row("9231-2020-s-23-q4").accessibleText;
+    expect(text).toContain("rectangles of unit width whose bases lie on the x-axis");
+    expect(text).toContain("the upper right-hand corner of each rectangle lies on the curve");
+    expect(text).not.toContain("standing on the curve");
+  });
+
+  it("tags independently scored marks below the two-mark floor", () => {
+    // 7(a): B1 for momentum in the coalescing collision.
+    expect(row("9231-2020-s-33-q7")).toMatchObject({ primaryTopic: "Hooke's law", secondaryTopics: ["Momentum"] });
+    expect(row("9231-2020-s-33-q7").subtopics).toContain("Direct and oblique impacts");
+    // M1: the logarithmic form of tanh⁻¹.
+    expect(row("9231-2023-w-21-q3")).toMatchObject({ primaryTopic: "Differentiation", secondaryTopics: ["Hyperbolic functions"] });
+    expect(row("9231-2023-w-21-q3").subtopics).toContain("Inverse hyperbolic functions");
+    // 5(a): B1 "a shear", a further Matrices outcome.
+    expect(row("9231-2022-s-13-q5").subtopics).toEqual(["Invariant points and lines", "Matrix transformations", "Proof by induction"]);
+    expect(filterQuestions(questions, { subtopics: ["Matrix transformations"] }).map((question) => question.id)).toContain("9231-2022-s-13-q5");
+    expect(runtime.questions.filter((question) => question.secondaryTopics.length)).toHaveLength(80);
+  });
+});
+
 describe("A Level Further Mathematics 9231 subtopic picker", () => {
   it("keeps the outcome map equal to the bank taxonomy (Matrices: Paper 1's outcomes, then Paper 2's)", () => {
     const fromTaxonomy: Record<string, string[]> = {};
@@ -417,7 +443,7 @@ describe("A Level Further Mathematics 9231 storage plan", () => {
     const refs = new Set(runtime.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages]));
     expect(refs.size).toBe(2728);
     expect(manifest.storageState).toBe("pending_upload");
-    expect(manifest.originalCandidateRuntimeSha256).toBe(CANDIDATE);
+    expect(manifest.originalCandidateRuntimeSha256).toBe(FIRST_CANDIDATE);
     expect(manifest.objectPrefix).toBe(`${PREFIX}/`);
     expect(manifest.assets).toHaveLength(2728);
     expect(manifest.assets.map((asset) => asset.objectKey.slice(manifest.objectPrefix.length)).sort()).toEqual([...refs].sort());
@@ -433,7 +459,7 @@ describe("A Level Further Mathematics 9231 storage plan", () => {
 
   it("records the generator's pinned source in the runtime", () => {
     const meta = runtimeJson.runtimeArtifact as unknown as { sourceCommit: string; sourceRepository: string };
-    expect(meta).toMatchObject({ sourceRepository: "cambridge-a-level-further-mathematics-9231-topic-practice", sourceCommit: "f750b6f" });
+    expect(meta).toMatchObject({ sourceRepository: "cambridge-a-level-further-mathematics-9231-topic-practice", sourceCommit: "046efa5" });
     expect(existsSync(join(ROOT, "scripts/generate-a-level-further-maths-9231-runtime.mjs"))).toBe(true);
     expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/a-level-further-maths-9231-taxonomy.json"))).digest("hex")).toBe((runtimeJson as unknown as { taxonomy: { sha256: string } }).taxonomy.sha256);
   });
