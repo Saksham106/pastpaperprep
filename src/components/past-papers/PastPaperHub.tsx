@@ -28,6 +28,14 @@ const GUIDE = {
   },
 } as const;
 
+/** Board guides about using these papers, so the method articles sit on a paper page, not only on /articles. */
+const HUB_GUIDES: Partial<Record<PastPaperQualification, { href: string; label: string }[]>> = {
+  'a-level': [
+    { href: '/articles/best-cambridge-a-level-past-paper-websites', label: 'Best sites for A Level topical questions' },
+    { href: '/articles/cambridge-a-level-grade-boundaries', label: 'A Level grade boundaries 2026' },
+  ],
+};
+
 /** `boards` lists the qualifications that have papers, so a board-filtered page still links to the others. */
 export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[]; qualification?: PastPaperQualification; boards?: PastPaperQualification[] }) {
   const available = new Set<PastPaperQualification | undefined>(['igcse', 'ib', ...(boards ?? banks.map(b => b.qualification))]);
@@ -67,6 +75,7 @@ export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[
       <p>{GUIDE[qualification].body}</p>
     </section>}
     {qualification && <Link className={styles.practice} href="/#question-banks">Practise past-paper questions by topic instead <ArrowRight aria-hidden="true" weight="bold" /></Link>}
+    {qualification && HUB_GUIDES[qualification]?.map(guide => <Link key={guide.href} className={styles.practice} href={guide.href}>{guide.label} <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
     {faq.length > 0 && <section className={styles.faq} aria-labelledby="hub-faq">
       <h2 id="hub-faq">Questions</h2>
       {faq.map(item => <details key={item.q}><summary>{item.q}<CaretDown aria-hidden="true" /></summary><p>{item.a}</p></details>)}

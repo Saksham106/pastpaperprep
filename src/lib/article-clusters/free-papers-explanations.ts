@@ -239,6 +239,7 @@ const BEST_FREE_IGCSE_PAST_PAPER_WEBSITES: Article = {
     { href: "/banks/igcse-physics-0625", label: "Physics 0625 topic practice" },
     { href: "/banks/igcse-economics-0455", label: "Economics 0455 topic practice" },
     { href: "/banks/igcse-coordinated-sciences-0654", label: "Co-ordinated Sciences 0654 topic practice" },
+    { href: "/articles/best-cambridge-a-level-past-paper-websites", label: "Best Cambridge A Level past paper websites" },
   ],
   sources: [
     { href: "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-igcse-mathematics-0580/past-papers/", label: "Cambridge International: public papers, specimens and syllabus warning, checked 14 October 2026" },
