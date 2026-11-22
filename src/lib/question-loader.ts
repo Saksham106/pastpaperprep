@@ -35,6 +35,8 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "a-level-chemistry-9701": async () => (await import("@/data/production/a-level-chemistry-9701.json")).default as RawBank,
   "a-level-biology-9700": async () => (await import("@/data/production/a-level-biology-9700.json")).default as RawBank,
   "a-level-economics-9708": async () => (await import("@/data/production/a-level-economics-9708.json")).default as RawBank,
+  "a-level-computer-science-9618": async () => (await import("@/data/production/a-level-computer-science-9618.json")).default as RawBank,
+  "a-level-further-maths-9231": async () => (await import("@/data/production/a-level-further-maths-9231.json")).default as RawBank,
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();

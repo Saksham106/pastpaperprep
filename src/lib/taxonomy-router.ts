@@ -20,6 +20,8 @@ import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_SUBTOPICS, PHYSICS_9702_TOPIC_ORDER 
 import { A_LEVEL_CHEMISTRY_9701, CHEMISTRY_9701_SUBTOPICS, CHEMISTRY_9701_TOPIC_ORDER } from "@/lib/a-level-9701";
 import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_SUBTOPICS, BIOLOGY_9700_TOPIC_ORDER } from "@/lib/a-level-9700";
 import { A_LEVEL_ECONOMICS_9708, ECONOMICS_9708_SUBTOPICS, ECONOMICS_9708_TOPIC_ORDER } from "@/lib/a-level-9708";
+import { A_LEVEL_COMPUTER_SCIENCE_9618, COMPUTER_SCIENCE_9618_SUBTOPICS, COMPUTER_SCIENCE_9618_TOPIC_ORDER } from "@/lib/a-level-9618";
+import { A_LEVEL_FURTHER_MATHS_9231, FURTHER_MATHS_9231_PAPERS, FURTHER_MATHS_9231_SECTION_ORDER, FURTHER_MATHS_9231_SUBTOPICS } from "@/lib/a-level-9231";
 import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -190,11 +192,23 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     return [...ECONOMICS_9708_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !ECONOMICS_9708_TOPIC_ORDER.includes(topic)).sort()];
   }
+  // 9618: syllabus sections 1-20 in order (AS 1-12, A Level 13-20).
+  if (bank === A_LEVEL_COMPUTER_SCIENCE_9618) {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    return [...COMPUTER_SCIENCE_9618_TOPIC_ORDER.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !COMPUTER_SCIENCE_9618_TOPIC_ORDER.includes(topic)).sort()];
+  }
   if (bank === A_LEVEL_MATHS_9709) {
     const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
     // One paper (a paper tab): that paper's own section order. Several papers: first appearance across Papers 1-6.
     const papers = new Set(questions.map((question) => question.paper));
     const order = papers.size === 1 ? MATHS_9709_PAPERS.find((paper) => papers.has(paper.paper))?.sections ?? MATHS_9709_SECTION_ORDER : MATHS_9709_SECTION_ORDER;
+    return [...order.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !order.includes(topic)).sort()];
+  }
+  // 9231: as 9709. One paper (a paper tab): that paper's own section order. Several papers: first appearance across Papers 1-4.
+  if (bank === A_LEVEL_FURTHER_MATHS_9231) {
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    const papers = new Set(questions.map((question) => question.paper));
+    const order = papers.size === 1 ? FURTHER_MATHS_9231_PAPERS.find((paper) => papers.has(paper.paper))?.sections ?? FURTHER_MATHS_9231_SECTION_ORDER : FURTHER_MATHS_9231_SECTION_ORDER;
     return [...order.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !order.includes(topic)).sort()];
   }
   if (isOfficial0610Bank(bank)) return [...BIOLOGY_0610_TOPIC_ORDER, ...(questions.some((question) => question.primaryTopic === BIOLOGY_0610_EARLIER_TOPIC) ? [BIOLOGY_0610_EARLIER_TOPIC] : [])];
@@ -214,6 +228,8 @@ const A_LEVEL_SECTIONS: Partial<Record<string, Readonly<Record<string, readonly 
   [A_LEVEL_CHEMISTRY_9701]: CHEMISTRY_9701_SUBTOPICS,
   [A_LEVEL_BIOLOGY_9700]: BIOLOGY_9700_SUBTOPICS,
   [A_LEVEL_ECONOMICS_9708]: ECONOMICS_9708_SUBTOPICS,
+  [A_LEVEL_COMPUTER_SCIENCE_9618]: COMPUTER_SCIENCE_9618_SUBTOPICS,
+  [A_LEVEL_FURTHER_MATHS_9231]: FURTHER_MATHS_9231_SUBTOPICS,
 };
 
 function aLevelSubtopicGroups(sections: Readonly<Record<string, readonly string[]>>, questions: UnifiedQuestion[], selectedTopics: string[], selectedSubtopics: string[]) {

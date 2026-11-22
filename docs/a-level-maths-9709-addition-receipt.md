@@ -19,7 +19,7 @@ The owner approved folding the real 9709 questions into this PR in chat ("Yes, f
 | Free | 2020-2021: 636 questions |
 | Not sat | May/June 2020: 138 questions, labelled "Not sat" (source exam status `released_not_sat`) |
 | Paper facts | totals and durations from the syllabus assessment table (`paper-facts.json`), in the runtime and `assessment-guides.ts` |
-| Candidate seal | `1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482` after crop revision v2 (first candidate `191db74b…`; blanked-v1, recomputed from content) |
+| Candidate seal | `5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa` after crop revision v2 of 2026-11-21 (before: `1b09ae09…` after 2026-11-15; first candidate `191db74b…`; blanked-v1, recomputed from content) |
 | Files | `src/data/production/a-level-maths-9709.json`, `src/data/private-index/a-level-maths-9709.json`, `src/data/a-level-maths-9709-taxonomy.json` |
 
 Topics are the official section titles; the paper tab equals the paper number, and a paper tab lists that paper's sections in syllabus order.
@@ -71,6 +71,23 @@ The explanations session found maths glyphs missing from some question crops.
   - Receipt: 6,496 of 6,496 verified, 0 failed, 0 pre-existing. It lists the 23 superseded keys, which stay in the bucket unreferenced.
   - The upload script accepts a superseded original in its log only when its `.v2.webp` replacement is in the manifest.
 - **Re-finalized:** runtime `8d7493bc…`, still hidden.
+
+## Crop revision v2: 2026-s-12 Q2 axis labels (21 November 2026)
+The shared ingestion toolkit's proof-of-equivalence run found it. The crop for `9709-2026-s-12-q2` (page 2) cut two of its graph's axis labels at the fixed 40–556pt crop edges: the "–" of "–1" at x 38.5pt and the "x" label, which runs to x 556.9pt. A fresh render confirmed it.
+- **Fix:** content workspace commit `7abce15` (`docs/crop-revision-2026-11-21.md`). QP crops widen to the printed text, out to 25/575pt, as the toolkit does.
+  - This crop is now 37.01–558.36pt, matching the toolkit, under a new key: `q2-2-1.v2.webp`, sha `8f5d6af8…`, 18,950 bytes.
+  - The other 6,497 crops are byte-identical, and the text, labels and marks are unchanged.
+  - A scan of every QP crop found no other printed word cut by its edges.
+- **App side:**
+  - The generator pins `7abce15`. It expects 24 revised crops and 21 revised questions; the transcript was checked and is unchanged.
+  - The new candidate is `5cdeebc4…`. Exactly one row changed: `questionImages` and `questionImageHashes` of `9709-2026-s-12-q2`.
+- **Not a free year:** free years are 2020–2021, so nothing goes to the free bucket.
+- **Upload:** one new private object, `questions/9709-2026-s-12/q2-2-1.v2.webp`, under the existing prefix. The owner approved it in the coordinating session ("Yes, upload it").
+  - Dry run: all 6,496 local files re-hashed and matching the segmentation record; 6,495 were already verified in the log.
+  - Run with the Worker uploader (`scripts/r2-upload-worker/`, PR #504): create-only put, R2 SHA-256 check and read-back. Its log reader now accepts a superseded original only when its `.v2.webp` replacement is in the manifest, as the wrangler script did.
+  - Result: verified, not pre-existing. The Worker was deleted, and its URL answers 404.
+  - Receipt: 6,496 of 6,496 verified, 0 failed, 24 superseded originals listed. They stay in the bucket, unreferenced.
+- **Re-finalized:** runtime `db987166…`. Compared with the previous live runtime, only this question's crop and the seal fields changed.
 
 ## Calculator policy
 `calculatorAllowed("a-level-maths-9709", …)` is true for all six papers. The source is syllabus section 4, "Calculators", which is identical in the 2020–22, 2023–25 and 2026–27 syllabuses: a calculator with standard scientific functions in all examinations; graphical and symbolic-algebra calculators are not permitted.

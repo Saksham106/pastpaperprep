@@ -52,6 +52,8 @@ const CAMBRIDGE_OFFICIAL_PAGES: Partial<Record<BankSlug, string>> = {
   "a-level-chemistry-9701": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-chemistry-9701/",
   "a-level-biology-9700": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-biology-9700/",
   "a-level-economics-9708": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-economics-9708/",
+  "a-level-computer-science-9618": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-computer-science-9618/",
+  "a-level-further-maths-9231": "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-international-as-and-a-level-mathematics-further-9231/",
 };
 
 const COURSE_OVERVIEWS: Record<string, string> = {

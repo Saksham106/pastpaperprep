@@ -183,6 +183,7 @@ export const ALTERNATIVES_COMPARISONS = [
       { href: "/banks/igcse", label: "IGCSE Mathematics 0580 question bank" },
       { href: "/banks/igcse-additional", label: "IGCSE Additional Mathematics 0606 question bank" },
       { href: "/banks/ib-hl", label: "IB Mathematics AA HL question bank" },
+      { href: "/articles/best-save-my-exams-alternatives-cie-a-level", label: "Save My Exams alternatives for CIE A Level" },
       { href: "/pricing", label: "PastPaperPrep pricing" },
     ],
     sources: [

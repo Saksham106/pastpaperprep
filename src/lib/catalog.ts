@@ -3,7 +3,7 @@ import { BOARD_SUBJECT_ORDER, qualificationInfo, type QualificationLabel } from 
 
 export type Qualification = QualificationLabel;
 export type DeliveryMode = "hosted" | "local-preview";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618" | "a-level-further-maths-9231";
 
 export type CatalogBank = {
   slug: BankSlug;
@@ -75,6 +75,13 @@ export const BANK_CATALOG = [
   // essays), with paper tabs. Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: switched on
   // for the joint launch with Biology 9700 (#500).
   bank({ slug: "a-level-economics-9708", qualification: "Cambridge A Level", subject: "Economics", title: "Economics 9708", shortName: "Economics 9708", syllabusCode: "9708", level: "AS & A Level", questionCount: 3207, paperCount: 183, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_economics_9708", release: "gated", delivery: "hosted" }),
+  // Cambridge International AS & A Level Computer Science 9618: Papers 1-3 (all structured; Paper 4 is a practical on a
+  // computer), with paper tabs. Crops uploaded and read back, runtime finalized, free-year crops in the free bucket
+  // (switched on 2026-11-22 with 9231).
+  bank({ slug: "a-level-computer-science-9618", qualification: "Cambridge A Level", subject: "Computer Science", title: "Computer Science 9618", shortName: "Computer Science 9618", syllabusCode: "9618", level: "AS & A Level", questionCount: 750, paperCount: 85, years: "2021-2026", access: "paid-bank", productId: "bank_a_level_computer_science_9618", release: "gated", delivery: "hosted" }),
+  // Cambridge International AS & A Level Further Mathematics 9231: Papers 1-4 (all structured), with paper tabs like 9709.
+  // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket (switched on 2026-11-22 with 9618).
+  bank({ slug: "a-level-further-maths-9231", qualification: "Cambridge A Level", subject: "Further Mathematics", title: "Further Mathematics 9231", shortName: "Further Mathematics 9231", syllabusCode: "9231", level: "AS & A Level", questionCount: 813, paperCount: 116, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_further_maths_9231", release: "gated", delivery: "hosted" }),
   // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: served under the shared release
   // gate like the other private-storage banks (switched on 2026-11-18).
   bank({ slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", shortName: "Mathematics 9709", syllabusCode: "9709", level: "AS & A Level", questionCount: 2118, paperCount: 256, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_maths_9709", release: "gated", delivery: "hosted" }),

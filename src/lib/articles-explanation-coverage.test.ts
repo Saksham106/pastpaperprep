@@ -22,6 +22,10 @@ export const PARTIAL_EXPLANATION_BANKS: Readonly<Record<string, string>> = {
   "a-level-biology-9700": "A Level Biology 9700 launches without explanations (owner decision 2026-11-17, carried into the 9700 plan).",
   // The same owner rule carried into the 9708 plan (2026-11-19): explanations are not a launch blocker.
   "a-level-economics-9708": "A Level Economics 9708 launches without explanations (owner decision 2026-11-17, carried into the 9708 plan).",
+  // The same owner rule carried into the 9618 plan (2026-11-21): explanations are not a launch blocker.
+  "a-level-computer-science-9618": "A Level Computer Science 9618 launches without explanations (owner decision 2026-11-17, carried into the 9618 plan).",
+  // The same owner rule carried into the 9231 plan (2026-11-21): explanations are not a launch blocker.
+  "a-level-further-maths-9231": "A Level Further Mathematics 9231 launches without explanations (owner decision 2026-11-17, carried into the 9231 plan).",
 };
 
 describe("article claim: every IGCSE and IB question has a worked explanation", () => {

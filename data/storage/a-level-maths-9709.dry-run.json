@@ -1,19 +1,19 @@
 {
   "schemaVersion": "igcse-upload-dry-run-v1",
   "bank": "a-level-maths-9709",
-  "date": "2026-11-15",
+  "date": "2026-11-21",
   "mode": "dry_run_local_only",
   "r2Writes": 0,
   "bucket": "pastpaperprep-assets",
   "objectPrefix": "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/",
   "objects": 6496,
-  "bytes": 84549230,
+  "bytes": 84549278,
   "uniqueKeys": 6496,
   "allKeysUnderNewPrefix": true,
   "localSha256ReHashed": 6496,
   "sha256MatchesSegmentationRecord": 6496,
   "mismatches": 0,
-  "originalCandidateRuntimeSha256": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
+  "originalCandidateRuntimeSha256": "5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa",
   "notInPlan": {
     "reason": "held question 9709-2024-s-33-q11 is not in the runtime (no official mark scheme)",
     "crops": [
@@ -21,7 +21,7 @@
       "9709-2024-s-33/questions/q11-17-2.webp"
     ]
   },
-  "nextStep": "Owner approval, then: WRANGLER=<bin> node scripts/upload-computer-science-wrangler.mjs --bank a-level-maths-9709 --concurrency 2 (uploads only the 23 new keys; absent check then unconditional put, not atomic create-only; future writes use research/ppp-tools/r2-upload-worker), then generate-igcse-release.mjs --finalize a-level-maths-9709.",
+  "nextStep": "Owner approval, then (from a checkout with scripts/r2-upload-worker, PR #504): node scripts/r2-upload-worker/upload.mjs deploy|upload|delete --bank a-level-maths-9709 --repo <this checkout> --work ~/.cache/ppp-upload-work/a-level-maths-9709 (create-only If-None-Match put, R2 sha256-checked, read back; uploads only the 1 pending key; the 24 superseded originals stay in the log), confirm the Worker URL answers 404, then generate-igcse-release.mjs --finalize a-level-maths-9709.",
   "cropRevisionV2": {
     "sourceCommit": "8e5f3a7",
     "alreadyVerifiedInR2": 6473,
@@ -53,5 +53,20 @@
       "questions/9709-2025-w-22/q6-8-1.v2.webp"
     ],
     "supersededKeys": 23
+  },
+  "cropRevisionV2_2026_11_21": {
+    "sourceCommit": "7abce15",
+    "alreadyVerifiedInR2": 6495,
+    "newKeys": 1,
+    "newBytes": 18950,
+    "newKeyList": [
+      "questions/9709-2026-s-12/q2-2-1.v2.webp"
+    ],
+    "newSha256": [
+      "8f5d6af83900f627637bb46be4445b58358fa45d224a9aaf5689c11009560209"
+    ],
+    "supersededKeys": 24,
+    "replaces": "questions/9709-2026-s-12/q2-2-1.webp (clipped axis labels)",
+    "freeYear": false
   }
 }

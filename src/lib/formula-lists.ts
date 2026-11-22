@@ -1,6 +1,7 @@
 import { A_LEVEL_MATHS_9709, MF19_URL } from "@/lib/a-level-9709";
 import { A_LEVEL_PHYSICS_9702 } from "@/lib/a-level-9702";
 import { A_LEVEL_CHEMISTRY_9701 } from "@/lib/a-level-9701";
+import { A_LEVEL_FURTHER_MATHS_9231 } from "@/lib/a-level-9231";
 
 /** Exam reference sheets that sit outside the question (formula lists, data and formulae). Pure and client-safe. */
 type FormulaList = { code: string; label: string; url: string };
@@ -48,7 +49,8 @@ export function formulaListsForYears(bank: string | null | undefined, years: rea
 
 /** The sheet for a bank, and for one question's year when the sheet changed between eras. */
 export function formulaListFor(bank: string | null | undefined, year?: number): FormulaList | undefined {
-  if (bank === A_LEVEL_MATHS_9709) return { code: "MF19", label: "Formula list (MF19)", url: MF19_URL };
+  // 9231 uses the same booklet: MF19 is the combined list for 9709 and 9231 (9231 syllabus 2026-2027, section 4).
+  if (bank === A_LEVEL_MATHS_9709 || bank === A_LEVEL_FURTHER_MATHS_9231) return { code: "MF19", label: "Formula list (MF19)", url: MF19_URL };
   const sheets = bank ? ERA_SHEETS[bank] : undefined;
   if (sheets) return year !== undefined && year <= 2021 ? sheets.earlier : sheets.current;
   return undefined;

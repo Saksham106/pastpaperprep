@@ -14,7 +14,7 @@ import type { Article, ArticleSection } from "@/lib/articles";
 const A_LEVEL_ACCESS: ArticleSection = {
   heading: "What is free on PastPaperPrep",
   paragraphs: [
-    "Whole A Level past papers and their mark schemes are free to read, with no account. Each paper page has a timer, and supported papers let you mark your own answers.",
+    "Whole A Level past papers and their mark schemes are free to read, with no account. Each paper page has a timer and lets you mark your own answers.",
     "In the topic banks, questions from 2020 and 2021 are free to practise, with the official mark scheme under each question. Newer years and PDF worksheets need a plan.",
   ],
   links: [
@@ -83,6 +83,7 @@ const MATHS_9709_ROUTES: Article = {
       ],
       links: [
         { href: "/articles/a-level-maths-9709-pure-1-topics", label: "Pure 1 topics and how to revise them" },
+        { href: "/articles/a-level-maths-9709-mechanics-vs-statistics", label: "Mechanics vs Statistics: Papers 4, 5 and 6" },
       ],
     },
     {
@@ -250,6 +251,7 @@ const PHYSICS_9702_P2_P4: Article = {
       links: [
         { href: "/past-papers/a-level-physics-9702/paper-2", label: "Free Paper 2 whole papers" },
         { href: "/past-papers/a-level-physics-9702/paper-4", label: "Free Paper 4 whole papers" },
+        { href: "/articles/cambridge-a-level-grade-boundaries", label: "9702 grade boundaries 2026" },
       ],
     },
     A_LEVEL_ACCESS,
@@ -332,6 +334,7 @@ const ECONOMICS_9708_ESSAYS: Article = {
       links: [
         { href: "/past-papers/a-level-economics-9708/paper-4", label: "Free Paper 4 whole papers" },
         { href: "/past-papers/a-level-economics-9708/paper-2", label: "Free Paper 2 whole papers" },
+        { href: "/articles/a-level-economics-9708-topical-mcqs", label: "9708 topical MCQs and technique" },
       ],
     },
     A_LEVEL_ACCESS,
@@ -391,6 +394,8 @@ const IGCSE_TO_A_LEVEL: Article = {
         { href: "/articles/a-level-maths-9709-paper-routes", label: "Which 9709 papers you sit" },
         { href: "/articles/a-level-physics-9702-paper-2-vs-paper-4", label: "9702 Paper 2 vs Paper 4" },
         { href: "/articles/a-level-economics-9708-essay-technique", label: "9708 essays and levels marking" },
+        { href: "/articles/a-level-chemistry-9701-past-papers-by-topic", label: "9701 past papers by topic" },
+        { href: "/articles/a-level-biology-9700-past-papers-by-topic", label: "9700 past papers by topic" },
       ],
     },
     {

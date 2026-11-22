@@ -58,13 +58,13 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: '371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9',
   },
   // Cambridge International A Level Mathematics 9709 rides the same lane: 2,118 rows, crops from one segmentation lane.
-  // The prefix is named for the first candidate (191db74b...); crop revision v2 (2026-11-15) adds 23 .v2.webp keys beside the
-  // byte-identical verified crops under it.
+  // The prefix is named for the first candidate (191db74b...); crop revision v2 adds .v2.webp keys beside the byte-identical
+  // verified crops under it: 23 on 2026-11-15 (masked maths glyphs), 1 on 2026-11-21 (2026-s-12 Q2's clipped axis labels).
   'a-level-maths-9709': {
     prefix: 'a-level-maths-9709/releases/full2118-v1-191db74b1cb4',
     sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_MATHS_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482',
+    originalCandidateRuntimeSha256: '5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa',
   },
   // Cambridge International A Level Physics 9702: 2,627 rows (P1 multiple choice, P2, P4), one segmentation lane.
   'a-level-physics-9702': {
@@ -98,6 +98,23 @@ export const RELEASE_BANKS = {
     sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_ECONOMICS_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd',
+  },
+  // Cambridge International A Level Computer Science 9618: 750 rows (Papers 1, 2 and 3, all structured), one segmentation lane,
+  // built with ../ppp-ingestion-toolkit; nothing held or excluded.
+  'a-level-computer-science-9618': {
+    prefix: 'a-level-computer-science-9618/releases/full750-v1-a456b8f0af53',
+    sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_COMPUTER_SCIENCE_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: 'a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6',
+  },
+  // Cambridge International A Level Further Mathematics 9231: 813 rows (Papers 1-4, all structured), one segmentation lane,
+  // built with ../ppp-ingestion-toolkit; nothing held or excluded. The prefix is named for the first candidate (89c4fe2c...);
+  // the owner's #509 review changed one transcript and three rows' tags, not the crops, so the verified upload stands.
+  'a-level-further-maths-9231': {
+    prefix: 'a-level-further-maths-9231/releases/full813-v1-89c4fe2cbc19',
+    sourceRootEnv: 'PASTPAPERPREP_A_LEVEL_FURTHER_MATHS_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171',
   },
 };
 
@@ -228,8 +245,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
-  // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700 and Economics 9708 sources (assets/<paper>/questions|markschemes/<file>).
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700, Economics 9708, Computer Science 9618 and Further Mathematics 9231 sources (assets/<paper>/questions|markschemes/<file>).
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618' || bank === 'a-level-further-maths-9231') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

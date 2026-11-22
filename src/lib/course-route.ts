@@ -4,6 +4,8 @@ import { A_LEVEL_PHYSICS_9702, PHYSICS_9702_PAPERS } from "@/lib/a-level-9702";
 import { A_LEVEL_CHEMISTRY_9701, CHEMISTRY_9701_PAPERS } from "@/lib/a-level-9701";
 import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_PAPERS } from "@/lib/a-level-9700";
 import { A_LEVEL_ECONOMICS_9708, ECONOMICS_9708_PAPERS } from "@/lib/a-level-9708";
+import { A_LEVEL_COMPUTER_SCIENCE_9618, COMPUTER_SCIENCE_9618_PAPERS } from "@/lib/a-level-9618";
+import { A_LEVEL_FURTHER_MATHS_9231, FURTHER_MATHS_9231_PAPERS } from "@/lib/a-level-9231";
 
 /**
  * Per-bank route options: the top-level scope a student picks before topics and filters.
@@ -116,6 +118,36 @@ const ECONOMICS_9708_TABS: BankRouteConfig = {
   hidesPaperFilter: true,
 };
 
+/**
+ * 9618: three papers, ordered as students sit them (AS theory, AS problem-solving, then A Level theory). AS candidates
+ * take Papers 1 and 2 in the same series, so the bank opens on Paper 1.
+ */
+const COMPUTER_SCIENCE_9618_TABS: BankRouteConfig = {
+  name: "Paper",
+  allLabel: "All papers",
+  allDetail: "Papers 1–3",
+  options: COMPUTER_SCIENCE_9618_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
+  defaultSelection: "as-theory",
+  remember: true,
+  scopesTopics: true,
+  hidesPaperFilter: true,
+};
+
+/**
+ * 9231: four papers, like 9709's paper tabs. Further Pure 1 is compulsory for AS and A Level (AS adds Paper 3 or 4; A Level
+ * is all four), so the bank opens there.
+ */
+const FURTHER_MATHS_9231_TABS: BankRouteConfig = {
+  name: "Paper",
+  allLabel: "All papers",
+  allDetail: "Papers 1–4",
+  options: FURTHER_MATHS_9231_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
+  defaultSelection: "further-pure-1",
+  remember: true,
+  scopesTopics: true,
+  hidesPaperFilter: true,
+};
+
 const ROUTE_CONFIGS: Partial<Record<BankSlug, BankRouteConfig>> = {
   igcse: CORE_EXTENDED,
   "igcse-biology-0610": CORE_EXTENDED,
@@ -127,6 +159,8 @@ const ROUTE_CONFIGS: Partial<Record<BankSlug, BankRouteConfig>> = {
   [A_LEVEL_CHEMISTRY_9701]: CHEMISTRY_9701_TABS,
   [A_LEVEL_BIOLOGY_9700]: BIOLOGY_9700_TABS,
   [A_LEVEL_ECONOMICS_9708]: ECONOMICS_9708_TABS,
+  [A_LEVEL_COMPUTER_SCIENCE_9618]: COMPUTER_SCIENCE_9618_TABS,
+  [A_LEVEL_FURTHER_MATHS_9231]: FURTHER_MATHS_9231_TABS,
 };
 
 export function routeConfigFor(bank: string | undefined): BankRouteConfig | undefined {

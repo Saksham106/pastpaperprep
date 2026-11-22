@@ -117,7 +117,7 @@ describe("A Level Economics 9708 catalog entry", () => {
     expect(BANK_PRODUCTS[slug]).toBe(product);
     expect(qualificationOfBank(slug)).toBe("a-level");
     expect(SUBJECT_SLUGS[slug]).toBe(slug);
-    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics"]);
+    expect(BOARD_SUBJECT_ORDER["a-level"]).toEqual(["Mathematics", "Further Mathematics", "Chemistry", "Physics", "Biology", "Economics", "Computer Science"]);
   });
 
   it("rides the shared release lane, finalized against a verified readback, and is served", () => {
@@ -136,8 +136,8 @@ describe("A Level Economics 9708 catalog entry", () => {
     expect(isPendingStoragePreview(slug, PREVIEW)).toBe(false);
   });
 
-  it("is no longer held: production publishes its static index and manifest entry, and no bank is held", () => {
-    expect(HELD_BANKS).toEqual([]);
+  it("is no longer held: production publishes its static index and manifest entry", () => {
+    expect(HELD_BANKS).not.toContain(slug);
     expect(publishedBankSources({ NODE_ENV: "production" }).some(({ bank }) => bank === slug)).toBe(true);
     expect(PUBLIC_BANK_INDEX_FILES[slug as keyof typeof PUBLIC_BANK_INDEX_FILES]).toMatch(/^a-level-economics-9708\.v1-[a-f0-9]{12}\.json$/);
   });
@@ -168,7 +168,13 @@ describe("A Level Economics 9708 billing", () => {
     const name = "20261120000000_a_level_economics_9708_release.sql";
     const migrations = readdirSync(join(ROOT, "supabase/migrations")).filter((file) => file.endsWith(".sql")).sort();
     expect(new Set(migrations.map((file) => file.slice(0, 14))).size).toBe(migrations.length);
-    expect(migrations.at(-1)).toBe(name);
+    // A later bank release may redefine these objects only by carrying 9708 forward in every list.
+    for (const later of migrations.filter((file) => file > name)) {
+      const body = readFileSync(join(ROOT, "supabase/migrations", later), "utf8");
+      if (!/products_known_id|function public\.confirm_billing_checkout/.test(body)) continue;
+      expect(body.match(/'bank_a_level_economics_9708'/g)?.length, `${later} drops bank_a_level_economics_9708`).toBe(6);
+      expect(body.match(/'a-level-economics-9708'/g)?.length, `${later} drops a-level-economics-9708`).toBe(3);
+    }
     const migration = readFileSync(join(ROOT, "supabase/migrations", name), "utf8");
     expect(migration.startsWith("begin;")).toBe(true);
     expect(migration.trimEnd().endsWith("commit;")).toBe(true);

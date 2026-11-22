@@ -300,30 +300,26 @@ describe("approved custom-bank pricing", () => {
     expect(within(builder).queryByText(/two-bank minimum|for 2|for two/i)).not.toBeInTheDocument();
   });
 
-  it("organizes every bank choice into compact, discoverable subject groups", () => {
+  it("puts every bank behind one board tab each, every board one tap away", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
-    const groups = builder.querySelectorAll(".custom-bank-group");
 
-    expect(groups).toHaveLength(3);
-    expect(within(builder).getByText("Cambridge IGCSE")).toBeInTheDocument();
-    expect(within(builder).getByText("IB Mathematics")).toBeInTheDocument();
-    expect(within(builder).getByText("IB Sciences")).toBeInTheDocument();
+    expect(within(builder).getAllByRole("tab").map((tab) => tab.textContent)).toEqual(["IGCSE", "IB"]);
+    expect(builder.querySelectorAll(".bank-board-panel")).toHaveLength(2);
+    expect(within(builder).queryByText(/other boards/i)).not.toBeInTheDocument();
     expect(builder.querySelectorAll("[data-bank-id]")).toHaveLength(availableBanks.length);
     expect(container.querySelectorAll("[data-pricing-bank]")).toHaveLength(availableBanks.length);
   });
 
-  it("gives IB Computer Science its own group once its banks are live, apart from IB Sciences", () => {
+  it("keeps IB Computer Science in the IB tab after the sciences once its banks are live", () => {
     const computerScience = BANK_CATALOG.filter((bank) => bank.slug.startsWith("ib-computer-science-")).map(catalogBankToRuntimeBank);
     expect(computerScience).toHaveLength(2);
     render(<PricingContent authenticated={false} hasPaidAccess={false} availableBanks={[...availableBanks, ...computerScience]} />);
     const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article") as HTMLElement;
-    const groups = [...builder.querySelectorAll(".custom-bank-group")];
+    const ib = [...builder.querySelector('.bank-board-panel[data-board="ib"]')!.querySelectorAll("[data-bank-id]")].map((row) => row.getAttribute("data-bank-id"));
 
-    expect(groups.map((group) => group.querySelector("h3")?.textContent)).toEqual(["Cambridge IGCSE", "IB Mathematics", "IB Sciences", "IB Computer Science"]);
-    const own = groups.find((group) => group.querySelector("h3")?.textContent === "IB Computer Science")!;
-    expect([...own.querySelectorAll("[data-bank-id]")].map((row) => row.getAttribute("data-bank-id"))).toEqual(["ib-computer-science-hl", "ib-computer-science-sl"]);
-    expect(groups.find((group) => group.querySelector("h3")?.textContent === "IB Sciences")!.querySelector('[data-bank-id^="ib-computer-science"]')).toBeNull();
+    expect(ib.slice(-2)).toEqual(["ib-computer-science-hl", "ib-computer-science-sl"]);
+    expect(builder.querySelector('.bank-board-panel[data-board="igcse"] [data-bank-id^="ib-"]')).toBeNull();
   });
 
   it("keeps the grouped picker collapsed until the student chooses to edit it", () => {

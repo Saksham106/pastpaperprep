@@ -17,8 +17,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(57);
-    expect(ARTICLES).toHaveLength(54);
+    expect(ALL_ARTICLES).toHaveLength(68);
+    expect(ARTICLES).toHaveLength(65);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -63,7 +63,7 @@ describe("article library", () => {
       ["best-save-my-exams-alternatives-topical-past-papers", "2026-09-15", "2026-11-08", false],
       ["pastpaperprep-vs-physics-and-maths-tutor", "2026-09-15", "2026-11-08", false],
       ["real-past-papers-vs-exam-style-questions", "2026-09-30", "2026-09-12", true],
-      ["physics-and-maths-tutor-vs-save-my-exams", "2026-09-15", "2026-11-08", false],
+      ["physics-and-maths-tutor-vs-save-my-exams", "2026-09-15", "2026-11-21", false],
       ["revision-village-vs-save-my-exams", "2026-09-15", "2026-11-08", false],
       ["exam-mate-vs-save-my-exams", "2026-09-15", "2026-11-08", false],
       ["pastpaperprep-for-tutors-printable-practice-sets", "2026-09-15", "2026-09-15", false],
@@ -85,8 +85,8 @@ describe("article library", () => {
       ["best-physics-and-maths-tutor-alternatives", "2026-11-08", "2026-11-08", false],
     ] as const;
 
-    expect(ALL_ARTICLES).toHaveLength(57);
-    expect(ARTICLES).toHaveLength(54);
+    expect(ALL_ARTICLES).toHaveLength(68);
+    expect(ARTICLES).toHaveLength(65);
     expect(ALL_ARTICLES.filter(({ draft }) => draft)).toHaveLength(3);
 
     for (const [slug, publishedAt, updatedAt, draft] of releaseMatrix) {
@@ -212,9 +212,20 @@ describe("article library", () => {
   });
 
   it("ships an intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(54);
+    expect(ARTICLES).toHaveLength(65);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "best-cambridge-a-level-past-paper-websites",
+      "best-save-my-exams-alternatives-cie-a-level",
+      "znotes-vs-save-my-exams-a-level",
+      "a-level-maths-9709-past-papers-by-topic",
+      "a-level-physics-9702-past-papers-by-topic",
+      "a-level-chemistry-9701-past-papers-by-topic",
+      "a-level-biology-9700-past-papers-by-topic",
+      "a-level-economics-9708-topical-mcqs",
+      "cambridge-a-level-grade-boundaries",
+      "a-level-maths-9709-mechanics-vs-statistics",
+      "cambridge-a-level-formula-sheets-data-booklets",
       "igcse-to-a-level-guide",
       "a-level-maths-9709-paper-routes",
       "a-level-maths-9709-pure-1-topics",

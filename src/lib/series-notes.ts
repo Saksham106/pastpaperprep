@@ -9,6 +9,7 @@ const NOT_SAT: Readonly<Record<string, readonly { year: number; series: RegExp }
   "a-level-chemistry-9701": [{ year: 2020, series: /^(may|june|s$)/i }],
   "a-level-biology-9700": [{ year: 2020, series: /^(may|june|s$)/i }],
   "a-level-economics-9708": [{ year: 2020, series: /^(may|june|s$)/i }],
+  "a-level-further-maths-9231": [{ year: 2020, series: /^(may|june|s$)/i }],
 };
 
 export function isNotSatSeries(bankSlug: string, year: number, session: string): boolean {

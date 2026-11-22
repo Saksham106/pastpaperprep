@@ -27,6 +27,10 @@ import aLevelBiology9700 from "@/data/production/a-level-biology-9700.json";
 import aLevelBiology9700Taxonomy from "@/data/a-level-biology-9700-taxonomy.json";
 import aLevelEconomics9708 from "@/data/production/a-level-economics-9708.json";
 import aLevelEconomics9708Taxonomy from "@/data/a-level-economics-9708-taxonomy.json";
+import aLevelComputerScience9618 from "@/data/production/a-level-computer-science-9618.json";
+import aLevelComputerScience9618Taxonomy from "@/data/a-level-computer-science-9618-taxonomy.json";
+import aLevelFurtherMaths9231 from "@/data/production/a-level-further-maths-9231.json";
+import aLevelFurtherMaths9231Taxonomy from "@/data/a-level-further-maths-9231-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
 type IGCSEArtifact = {
@@ -171,6 +175,8 @@ export const IGCSE_RUNTIME_COUNTS = {
   "a-level-chemistry-9701": [2220, 123],
   "a-level-biology-9700": [2680, 141],
   "a-level-economics-9708": [3207, 183],
+  "a-level-computer-science-9618": [750, 85],
+  "a-level-further-maths-9231": [813, 116],
 } as const;
 const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-biology-0610": biology as IGCSEArtifact,
@@ -186,6 +192,8 @@ const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "a-level-chemistry-9701": aLevelChemistry9701 as IGCSEArtifact,
   "a-level-biology-9700": aLevelBiology9700 as IGCSEArtifact,
   "a-level-economics-9708": aLevelEconomics9708 as IGCSEArtifact,
+  "a-level-computer-science-9618": aLevelComputerScience9618 as IGCSEArtifact,
+  "a-level-further-maths-9231": aLevelFurtherMaths9231 as IGCSEArtifact,
 };
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-biology-0610": biologyTaxonomy,
@@ -201,6 +209,8 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "a-level-chemistry-9701": aLevelChemistry9701Taxonomy,
   "a-level-biology-9700": aLevelBiology9700Taxonomy,
   "a-level-economics-9708": aLevelEconomics9708Taxonomy,
+  "a-level-computer-science-9618": aLevelComputerScience9618Taxonomy,
+  "a-level-further-maths-9231": aLevelFurtherMaths9231Taxonomy,
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -212,11 +222,13 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-computer-science-0478": "f3e6b8015de192d9c723d7b825a4f29e58c88568b608bf5c6abaafcd493c546b",
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
-  "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
+  "a-level-maths-9709": "5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa",
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
   "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
   "a-level-economics-9708": "264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd",
+  "a-level-computer-science-9618": "a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6",
+  "a-level-further-maths-9231": "3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -228,11 +240,13 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-computer-science-0478": "f3e6b8015de192d9c723d7b825a4f29e58c88568b608bf5c6abaafcd493c546b",
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
-  "a-level-maths-9709": "1b09ae09136ea36c96a96795ec26bb602a781649a170c3543a6ffac152cc7482",
+  "a-level-maths-9709": "5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa",
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
   "a-level-biology-9700": "71f39318165df84df5e6dac7c60c91ab67a8937632481be975e0cee230992a8d",
   "a-level-economics-9708": "264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd",
+  "a-level-computer-science-9618": "a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6",
+  "a-level-further-maths-9231": "3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171",
 };
 
 function canonicalSha256(value: unknown) {
