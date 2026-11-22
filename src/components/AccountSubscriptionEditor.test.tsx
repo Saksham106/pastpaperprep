@@ -97,6 +97,28 @@ describe("account subscription editor", () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it("asks the same question when an owned bank's chip is removed, and lists picks from every board as chips", () => {
+    const fetch = vi.fn(); vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
+    const builder = screen.getByRole("heading", { name: "Build Your Plan" }).closest("article")!;
+    fireEvent.click(within(builder).getByRole("tab", { name: "IGCSE" }));
+    fireEvent.click(within(builder).getByRole("checkbox", { name: "IGCSE Mathematics" }));
+    const tray = within(builder).getByRole("list", { name: "Selected banks" });
+    expect(within(tray).getAllByRole("button").map((chip) => chip.getAttribute("aria-label"))).toEqual(["Remove IB Math AA HL", "Remove IGCSE Mathematics"]);
+    expect(within(builder).getByRole("tab", { name: "IB, 1 selected" })).toBeInTheDocument();
+
+    const ownedChip = within(tray).getByRole("button", { name: "Remove IB Math AA HL" });
+    fireEvent.click(ownedChip);
+    expect(screen.getByRole("alertdialog", { name: /Remove IB Math AA HL at renewal/i })).toBeInTheDocument();
+    fireEvent.click(within(screen.getByRole("alertdialog")).getByRole("button", { name: "Keep bank" }));
+    expect(ownedChip).toHaveFocus();
+    expect(within(builder).getByRole("checkbox", { name: "IB Math AA HL" })).toBeChecked();
+    // A bank that isn't on the plan yet leaves straight away.
+    fireEvent.click(within(tray).getByRole("button", { name: "Remove IGCSE Mathematics" }));
+    expect(within(builder).getByRole("checkbox", { name: "IGCSE Mathematics" })).not.toBeChecked();
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
   it("routes an owned-bank removal with a replacement to renewal after confirmation", async () => {
     const twoBanks = { ...plan(), bankSelection: { kind: "selected" as const, banks: [banks[0], banks[1]] }, item: { ...plan().item, quantity: 2 } };
     const renewalSnapshot = { subscriptionId: "sub_one", currentPeriodStart: 1790208000, currentPeriodEnd: 1792886400, currentPriceId: "price_two", currentQuantity: 2, currentProductId: "bundle_custom", currentSelectedBankIds: ["ib-hl", "igcse"], currentInterval: "monthly", targetPriceId: "price_two", quantity: 2, recurringSubtotalCents: 1000, selectedBankIds: ["ib-sl", "igcse"], allAccess: false, interval: "monthly", quotedAt: Math.floor(Date.now() / 1000) };

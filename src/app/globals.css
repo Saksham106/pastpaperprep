@@ -879,23 +879,38 @@ main { min-height: 72vh; }
 .custom-bank-disclosure summary svg { width: 15px; height: 15px; transition: transform .16s ease; }
 .custom-bank-disclosure[open] summary svg { transform: rotate(180deg); }
 .custom-bank-disclosure-value { max-width: 130px; overflow: hidden; color: var(--muted); font-size: .72rem; font-weight: 720; text-overflow: ellipsis; white-space: nowrap; }
-.custom-bank-picker { max-height: min(310px, 52dvh); margin: 0; padding: 10px; overflow-y: auto; overscroll-behavior: contain; border: 0; border-top: 1px solid var(--line); background: var(--surface-raised); }
-.custom-bank-groups { display: grid; grid-template-columns: 1fr; gap: 7px; }
-.custom-bank-group { min-width: 0; padding: 7px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
-.custom-bank-group h3 { margin: 0 0 5px; color: var(--muted); font: 800 .66rem/1.2 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; }
-.custom-bank-group-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; }
-.custom-bank-group label { min-width: 0; min-height: 40px; padding: 5px 6px; display: flex; align-items: center; gap: 6px; color: var(--ink); border: 1px solid transparent; border-radius: 6px; font-size: .72rem; line-height: 1.2; cursor: pointer; }
-.custom-bank-group label:hover, .custom-bank-group label:has(input:checked) { background: var(--cobalt-faint); border-color: color-mix(in srgb, var(--cobalt) 24%, transparent); }
-.custom-bank-group label:focus-within { outline: 2px solid var(--cobalt); outline-offset: 1px; }
-.custom-bank-group label span { min-width: 0; }
-.custom-bank-group input { width: 15px; height: 15px; margin: 0; flex: 0 0 auto; accent-color: var(--cobalt); }
-/* The remembered board's groups lead; other boards fold under one quiet row and stay selectable. */
-.custom-bank-other-boards { display: grid; gap: 7px; }
-.custom-bank-other-boards > summary { min-height: 40px; padding: 0 8px; display: flex; align-items: center; gap: 6px; color: var(--muted); font: 800 .66rem/1.2 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; list-style: none; cursor: pointer; border: 1px dashed var(--line-strong); border-radius: 8px; }
-.custom-bank-other-boards > summary::-webkit-details-marker { display: none; }
-.custom-bank-other-boards > summary::before { content: "+"; font-size: .9rem; }
-.custom-bank-other-boards[open] > summary::before { content: "−"; }
-.custom-bank-other-boards > summary:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 1px; }
+.custom-bank-picker { max-height: min(380px, 58dvh); margin: 0; padding: 0 10px 10px; overflow-y: auto; overscroll-behavior: contain; border: 0; border-top: 1px solid var(--line); background: var(--surface-raised); }
+/* Search and board tabs stay pinned while the list scrolls under them. */
+.bank-picker-head { position: sticky; top: 0; z-index: 1; display: grid; gap: 7px; padding: 10px 0 8px; background: var(--surface-raised); }
+.bank-picker-search { min-height: 38px; padding: 0 10px; display: flex; align-items: center; gap: 7px; color: var(--muted); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; cursor: text; }
+.bank-picker-search:focus-within { border-color: var(--cobalt); box-shadow: 0 0 0 2px color-mix(in srgb, var(--cobalt) 22%, transparent); }
+.bank-picker-search svg { width: 14px; height: 14px; flex: 0 0 auto; }
+.bank-picker-search input { min-width: 0; flex: 1; padding: 0; color: var(--ink); background: transparent; border: 0; outline: 0; font: 600 .8rem/1.2 var(--font-body); }
+.bank-picker-search input::placeholder { color: var(--muted); font-weight: 500; }
+.bank-board-tabs { padding: 3px; display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; gap: 3px; background: var(--paper); border-radius: 9px; }
+.bank-board-tabs button { min-height: 34px; padding: 0 6px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; color: var(--muted); background: transparent; border: 0; border-radius: 7px; font: 800 .78rem/1 var(--font-body); white-space: nowrap; cursor: pointer; }
+.bank-board-tabs button:hover { color: var(--ink); }
+.bank-board-tabs button[aria-selected="true"] { color: var(--ink); background: var(--surface-raised); box-shadow: 0 1px 2px rgb(0 0 0 / .1), 0 0 0 1px var(--line); }
+.bank-board-tabs button:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 1px; }
+.bank-board-tab-count { min-width: 17px; height: 17px; padding: 0 4px; display: inline-grid; place-items: center; color: var(--surface-raised); background: var(--cobalt); border-radius: 999px; font: 800 .62rem/1 var(--font-body); }
+/* Every board's options stay mounted so picks survive a tab switch; only the active board shows. */
+.bank-board-panel[data-active="false"] { display: none; }
+.bank-picker-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px; }
+.bank-picker-options label { min-width: 0; min-height: 40px; padding: 5px 6px; display: flex; align-items: center; gap: 6px; color: var(--ink); border: 1px solid transparent; border-radius: 6px; font-size: .72rem; line-height: 1.2; cursor: pointer; }
+.bank-picker-options label:hover, .bank-picker-options label:has(input:checked) { background: var(--cobalt-faint); border-color: color-mix(in srgb, var(--cobalt) 24%, transparent); }
+.bank-picker-options label:focus-within { outline: 2px solid var(--cobalt); outline-offset: 1px; }
+.bank-picker-options label span { min-width: 0; }
+.bank-picker-options input { width: 15px; height: 15px; margin: 0; flex: 0 0 auto; accent-color: var(--cobalt); }
+.bank-search-results { display: grid; gap: 8px; }
+.bank-search-results h3 { margin: 0 0 3px 2px; color: var(--muted); font: 800 .66rem/1.2 var(--font-mono); letter-spacing: .035em; text-transform: uppercase; }
+.bank-search-empty { margin: 4px 2px; color: var(--muted); font-size: .76rem; }
+/* The chosen banks, visible with the picker open or closed; tap one to remove it. */
+.bank-chip-tray { margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 5px; list-style: none; }
+.bank-chip { min-height: 32px; padding: 0 9px 0 11px; display: inline-flex; align-items: center; gap: 6px; color: var(--ink); background: var(--cobalt-faint); border: 1px solid color-mix(in srgb, var(--cobalt) 28%, transparent); border-radius: 999px; font: 700 .72rem/1.15 var(--font-body); text-align: left; cursor: pointer; }
+.bank-chip svg { width: 11px; height: 11px; flex: 0 0 auto; color: var(--cobalt); }
+.bank-chip:hover { border-color: var(--cobalt); }
+.bank-chip:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 1px; }
+.bank-chip:disabled { opacity: .6; cursor: default; }
 .custom-bundle-selection-note { margin: 0; color: var(--muted); font-size: .78rem; }
 .plan-selector { position: relative; display: grid; gap: 6px; color: var(--muted); font-size: .82rem; }
 .plan-selector:has(.plan-select-menu) { z-index: 20; }
@@ -1649,7 +1664,6 @@ main { min-height: 72vh; }
   .billing-toggle { width: 100%; margin-top: 18px; }
   .billing-toggle button { padding-inline: 9px; }
   .pricing-decision-grid { margin-top: 14px; }
-  .custom-bank-groups { grid-template-columns: 1fr; }
   .pricing-option { min-height: 520px; padding: 18px; }
   .pricing-option:has(.custom-bank-disclosure[open]) { min-height: auto; }
   .pricing-option h2 { font-size: 1.75rem; }

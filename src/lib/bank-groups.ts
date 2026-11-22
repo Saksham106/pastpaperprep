@@ -1,35 +1,45 @@
-import { QUALIFICATIONS, type QualificationId } from "@/lib/qualifications";
+import { QUALIFICATION_IDS, QUALIFICATIONS, type QualificationId } from "@/lib/qualifications";
 
-/** A labelled group of banks in the "Choose your banks" picker, tagged with its board. */
-export type BankGroup<T> = { label: string; board: QualificationId | null; banks: readonly T[] };
-
-type BankFacts = { board: QualificationId | null; subject: string };
+/** One board's banks in the "Choose your banks" picker: one tab each, IGCSE · A Level · IB. */
+export type BankBoard<T> = { board: QualificationId; label: string; shortLabel: string; banks: readonly T[] };
 
 /**
- * The picker's groups, in board order (IGCSE · A Level · IB): Cambridge IGCSE, Cambridge A Level, then IB
- * Mathematics, IB Sciences and IB Computer Science; anything without a known board last. Empty groups drop out.
+ * The picker's board tabs in display order (IGCSE · A Level · IB). Banks keep the order they arrive in, which is the
+ * catalog's display order (`getCatalogBanksForDisplay` already applies each board's subject order). Empty boards drop out.
  */
-export function bankGroupsByBoard<T>(banks: readonly T[], facts: (bank: T) => BankFacts): BankGroup<T>[] {
-  const of = (test: (fact: BankFacts) => boolean) => banks.filter((bank) => test(facts(bank)));
-  const ib = (fact: BankFacts) => fact.board === "ib";
-  const groups: BankGroup<T>[] = [
-    { label: QUALIFICATIONS.igcse.groupLabel, board: "igcse", banks: of((fact) => fact.board === "igcse") },
-    { label: QUALIFICATIONS["a-level"].groupLabel, board: "a-level", banks: of((fact) => fact.board === "a-level") },
-    { label: "IB Mathematics", board: "ib", banks: of((fact) => ib(fact) && fact.subject.startsWith("Mathematics")) },
-    { label: "IB Sciences", board: "ib", banks: of((fact) => ib(fact) && !fact.subject.startsWith("Mathematics") && !fact.subject.startsWith("Computer Science")) },
-    { label: "IB Computer Science", board: "ib", banks: of((fact) => ib(fact) && fact.subject.startsWith("Computer Science")) },
-    { label: "Other banks", board: null, banks: of((fact) => fact.board === null) },
-  ];
-  return groups.filter((group) => group.banks.length > 0);
+export function bankBoards<T>(banks: readonly T[], boardOf: (bank: T) => QualificationId): BankBoard<T>[] {
+  return QUALIFICATION_IDS
+    .map((board) => ({ board, label: QUALIFICATIONS[board].label, shortLabel: QUALIFICATIONS[board].shortLabel, banks: banks.filter((bank) => boardOf(bank) === board) }))
+    .filter((group) => group.banks.length > 0);
+}
+
+/** "IB Chemistry HL", "IGCSE Physics 0625", "A Level Mathematics 9709": the board is named once, for chips that mix boards. */
+export function boardQualifiedName(name: string, board: QualificationId): string {
+  const prefix = QUALIFICATIONS[board].shortLabel;
+  return name.toLowerCase().startsWith(prefix.toLowerCase()) ? name : `${prefix} ${name}`;
+}
+
+const normalise = (value: string) => value.toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[-\u2010\u2013]/g, "");
+
+/** Words students type that the bank titles don't contain. */
+function aliasesFor(text: string): string[] {
+  const aliases: string[] = [];
+  if (/mathematics|\bmath\b/i.test(text)) aliases.push("maths", "math");
+  if (/additional/i.test(text)) aliases.push("addmaths", "add");
+  if (/computer science/i.test(text)) aliases.push("cs", "compsci", "computing");
+  if (/co-?ordinated/i.test(text)) aliases.push("combined", "coord");
+  return aliases;
 }
 
 /**
- * The remembered board's groups come first and open; every other board folds beneath them. With no
- * remembered board, or none of its banks on offer, everything stays in the first list as before.
+ * Whether a bank matches a search like "chem", "0620", "ib phys hl", "a-level maths" or "add maths": every typed word
+ * must start a word of the bank's board, name, subject or slug.
  */
-export function splitByBoard<T>(groups: readonly BankGroup<T>[], board: QualificationId | null): { first: BankGroup<T>[]; others: BankGroup<T>[] } {
-  const first = board ? groups.filter((group) => group.board === board) : [];
-  if (!first.length) return { first: [...groups], others: [] };
-  return { first, others: groups.filter((group) => group.board !== board) };
+export function bankMatchesQuery(query: string, bank: { slug: string; name: string; board: QualificationId; subject?: string }): boolean {
+  const tokens = normalise(query).split(/\s+/).filter(Boolean);
+  if (!tokens.length) return true;
+  const info = QUALIFICATIONS[bank.board];
+  const text = [info.label, info.shortLabel, info.shortLabel.replace(/\s+/g, ""), bank.name, bank.subject ?? "", bank.slug.replaceAll("-", " ")].join(" ");
+  const words = normalise(`${text} ${aliasesFor(text).join(" ")}`).split(/[\s/(),.]+/).filter(Boolean);
+  return tokens.every((token) => words.some((word) => word.startsWith(token)));
 }
-

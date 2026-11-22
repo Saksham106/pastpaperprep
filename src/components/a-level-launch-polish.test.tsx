@@ -4,7 +4,7 @@ import runtime from "@/data/production/a-level-maths-9709.json";
 import { metadata as hubMetadata } from "@/app/cambridge-a-level/page";
 import { metadata as homeMetadata } from "@/app/page";
 import { QuestionExplorer } from "@/components/QuestionExplorer";
-import { bankGroupsByBoard } from "@/lib/bank-groups";
+import { bankBoards } from "@/lib/bank-groups";
 import { inBoardSubjectOrder } from "@/lib/catalog";
 import { routeConfigFor } from "@/lib/course-route";
 import { BOARD_SUBJECT_ORDER, QUALIFICATIONS } from "@/lib/qualifications";
@@ -30,7 +30,7 @@ describe("A Level subject order", () => {
     ];
     expect(inBoardSubjectOrder(banks).map((bank) => bank.slug)).toEqual(["igcse", "a-level-maths-9709", "a-level-chemistry-9701", "a-level-physics-9702", "ib-sl", "a-level-biology-9700", "a-level-economics-9708"]);
     // The pricing pickers group the display list, so they inherit the order.
-    const groups = bankGroupsByBoard(inBoardSubjectOrder(banks), (bank) => ({ board: QUALIFICATIONS[bank.qualification === "Cambridge A Level" ? "a-level" : bank.qualification === "IB Diploma" ? "ib" : "igcse"].id, subject: bank.subject }));
+    const groups = bankBoards(inBoardSubjectOrder(banks), (bank) => QUALIFICATIONS[bank.qualification === "Cambridge A Level" ? "a-level" : bank.qualification === "IB Diploma" ? "ib" : "igcse"].id);
     expect(groups.find((group) => group.board === "a-level")?.banks.map((bank) => bank.subject)).toEqual(["Mathematics", "Chemistry", "Physics", "Biology", "Economics"]);
   });
 });
