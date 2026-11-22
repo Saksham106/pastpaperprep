@@ -94,6 +94,15 @@ npx tsx scripts/build-whole-paper-archives.mts --identity-review docs/a-level-fr
 Biology 9700 and Economics 9708 joined after #500 merged. The syllabus rows for them come from
 `WITH_HELD=1 node .../add_assessment_entries.mjs .`.
 
+Computer Science 9618 and Further Maths 9231 (below) build only when named:
+
+```bash
+S=../research/stamp-scan-9231-2026-11
+BANKS=a-level-computer-science-9618,a-level-further-maths-9231 node ../research/a-level-free-papers-2026-11/scripts/build_inventory.mjs "$PWD" "$PWD/private/paper-archives/inventory" $S/results.json,$S/complete-copies.json
+node ../research/a-level-free-papers-2026-11/scripts/add_assessment_entries_9618_9231.mjs .
+npx tsx scripts/build-whole-paper-archives.mts --identity-review docs/a-level-free-papers/identity-review.json --inventory private/paper-archives/inventory/inventory-a-level-computer-science-9618.json --inventory private/paper-archives/inventory/inventory-a-level-further-maths-9231.json
+```
+
 ## Publish (owner approved in chat, 20 November 2026)
 
 Published with `scripts/publish-added-free-papers.mts` (wrangler, no keys).
@@ -141,3 +150,45 @@ Published with `scripts/publish-added-free-papers.mts` (wrangler, no keys).
   - The page fallback joins those exact aliases under the reprint's printed numbers, for the ten PDF-only A Level
     reprints. Self-marking stays held.
   - Rows the bank withholds stay missing: 9708 May/June 2025 Paper 43 reads "4 of 5 questions listed".
+
+## Computer Science 9618 and Further Maths 9231 (22 November 2026)
+
+Both banks went live in #510. Their full papers join the library the same way.
+
+| Bank | Papers | Online marking (report) | Held (PDFs only) |
+| --- | ---: | ---: | ---: |
+| Computer Science 9618 | 98: 2021–2026 May/June and Oct/Nov, Papers 1–3 (no Oct/Nov 2021 Paper 33) | 95 | 3 |
+| Further Maths 9231 | 168: 2020–2026 May/June and Oct/Nov, Papers 1–4; variant 4 from May/June 2025 | 168 | 0 |
+
+- **Marks:** report papers carry exactly the runtime marks: 0 of 2,023 questions differ, and every paper totals its
+  syllabus maximum. Paper 4 (Practical) is not in the 9618 bank, so it is not listed.
+- **Reprints:** 13 of the 9618 papers and 52 of the 9231 papers reprint another variant's questions, and their reports
+  reuse the canonical rows (`reprintQuestionIds`).
+- **9618 marks column:** 9618 uses the right-margin mark rule, like IGCSE 0478 (`RIGHT_MARGIN_MARK_BANKS`). The
+  text rule counted pseudocode such as `Data[3]` as marks and held 10 papers; the right-margin rule holds 3
+  (2024-s-21, 2025-s-33, 2025-w-23). On those, a bracketed code index ends in the mark column, so the printed maxima
+  don't reconcile. They fail closed with "Printed question maxima do not reconcile."
+- **Margin starts:** both banks use the A Level `margin` question-start rule (`MARGIN_START_BANKS`). Other
+  manifests are unchanged.
+- **Syllabus rows:** 84 rows cited to the 9618 2021–2023, 2024–2025 and 2026 syllabuses and the 9231 2020–2022,
+  2023–2025 and 2026–2027 syllabuses (`add_assessment_entries_9618_9231.mjs`).
+- **9231 May/June 2020 stamps:** all 24 Best Exam Help QPs and MSs carry a `bestexamhelp.com` cover line. All 24 have
+  clean copies from Exam Easy (`clean-sources.json`). pastpapers.co and PapaCambridge serve byte-identical files.
+  Each copy has:
+  - no host stamp on scan;
+  - the same page count and identical page text once the stamp is ignored;
+  - 0 differing pixels on pages 2+;
+  - the same producer and creation time, and no later modification.
+
+  xtremepape.rs is stamped on every page; smarteduhub, dynamicpapers and cienotes have no 9231 files.
+  Evidence: `research/stamp-scan-9231-2026-11/`.
+- **9618-2021-s-22 question paper:** the pinned Best Exam Help copy is a truncated download: 2,150,400 of 2,480,433
+  bytes, with no trailer. pdf.js rejects it ("Invalid PDF structure"), though PyMuPDF repaired it for the topic crops.
+  The archive binds the complete original from Exam Easy (byte-identical on PapaCambridge). It has the same metadata,
+  identical text and 0 differing pixels on all 16 pages (`research/stamp-scan-9231-2026-11/complete-copies.json`).
+- **Identity:** 265 of 266 pairs pass the cover checks directly. The 9618-2022-s-22 mark scheme prints the template
+  placeholder `SUBJECT` on its cover, and is accepted through a reviewed case in `identity-review.json`.
+- **Publish:** `publish-added-free-papers.mts plan origin/main` gives 532 PDFs (305.3 MB), all `9618_*` or `9231_*`,
+  for 7,840 approved objects. Uploading waits for the owner's approval. Until the readback receipt is regenerated,
+  `paper-archive-readback.json` doesn't match the manifests, so production keeps the whole library closed. Do not
+  merge before the receipt is updated.

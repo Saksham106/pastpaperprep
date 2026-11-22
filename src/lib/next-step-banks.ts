@@ -5,17 +5,18 @@ export const IGCSE_TO_A_LEVEL_ARTICLE = "/articles/igcse-to-a-level-guide";
 
 /**
  * The Cambridge A Level course a student usually moves on to after each IGCSE course. The 9709 syllabus
- * assumes 0580 Extended; Additional Maths 0606 covers much of Pure 1, so it leads there too.
- * Co-ordinated Sciences leads to all three sciences. Computer Science 0478 has no A Level bank yet.
+ * assumes 0580 Extended; Additional Maths 0606 covers much of Pure 1, so it leads there too, and on to Further
+ * Maths 9231, which students take alongside 9709. Co-ordinated Sciences leads to all three sciences.
  */
 const A_LEVEL_SUCCESSORS: Partial<Record<BankSlug, readonly BankSlug[]>> = {
   igcse: ["a-level-maths-9709"],
-  "igcse-additional": ["a-level-maths-9709"],
+  "igcse-additional": ["a-level-maths-9709", "a-level-further-maths-9231"],
   "igcse-physics-0625": ["a-level-physics-9702"],
   "igcse-chemistry-0620": ["a-level-chemistry-9701"],
   "igcse-biology-0610": ["a-level-biology-9700"],
   "igcse-coordinated-sciences-0654": ["a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700"],
   "igcse-economics-0455": ["a-level-economics-9708"],
+  "igcse-computer-science-0478": ["a-level-computer-science-9618"],
 };
 
 /** Live A Level banks that follow this IGCSE bank; empty for other boards or while A Level is hidden. */
