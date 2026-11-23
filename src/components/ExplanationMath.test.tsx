@@ -125,6 +125,33 @@ describe("ExplanationMath while KaTeX is still loading", () => {
     expect(inlineAfter.outerHTML).toBe(`<span>${renderInlineMath("Use $x = 0$ to check <the> solution.")}</span>`);
     expect(displayAfter.outerHTML).toBe(`<div class="d">${renderDisplayMath("x^2")}</div>`);
   });
+
+  it("hydrated A, then B, then A again: never blank, and KaTeX once it loads", async () => {
+    const fresh = await import("@/components/ExplanationMath");
+    const A = { text: "Use $x = 0$.", tex: "x^2" };
+    const B = { text: "Now $y = 1$.", tex: "y^3" };
+    const leaves = (s: typeof A) => <><fresh.ExplanationMath text={s.text} /><fresh.ExplanationMath className="d" tex={s.tex} /></>;
+    const root = mount(`<span>${renderInlineMath(A.text)}</span><div class="d">${renderDisplayMath(A.tex)}</div>`);
+    const serverHtml = root.innerHTML;
+    let reactRoot!: ReturnType<typeof hydrateRoot>;
+    await act(async () => {
+      reactRoot = hydrateRoot(root, leaves(A));
+    });
+    expect(root.innerHTML).toBe(serverHtml);
+
+    await act(async () => reactRoot.render(leaves(B)));
+    expect([...root.children].map((e) => e.textContent)).toEqual([B.text, B.tex]);
+
+    // The server's markup for A is gone, so A shows its source until KaTeX arrives rather than an empty element.
+    await act(async () => reactRoot.render(leaves(A)));
+    const pending = [...root.children] as HTMLElement[];
+    expect(pending.map((e) => e.textContent)).toEqual([A.text, A.tex]);
+    expect(pending.every((e) => e.hasAttribute("data-tex-pending"))).toBe(true);
+
+    release();
+    await act(() => fresh.loadRenderer());
+    expect(root.innerHTML).toBe(`<span>${renderInlineMath(A.text)}</span><div class="d">${renderDisplayMath(A.tex)}</div>`);
+  });
 });
 
 describe("ExplanationMath when KaTeX can't be loaded", () => {
