@@ -10,7 +10,7 @@ import { PaperLibraryTools } from './PaperLibraryTools';
 import { RememberedBoardScope } from './RememberedBoardScope';
 import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
-import { aLevelSuccessors } from '@/lib/next-step-banks';
+import { aLevelSuccessors, takenAlongside } from '@/lib/next-step-banks';
 import { articlesForBank } from '@/lib/article-links';
 import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import { paperNumberThresholds, seriesThresholds, topicFrequency } from '@/lib/past-paper-insights';
@@ -170,7 +170,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
     {getGradeThresholds(subject) && <Link className={styles.practice} href={`/grade-thresholds/${subject}`}>{name} grade thresholds <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {getNotesSubject(subject) && <Link className={styles.practice} href={`/revision-notes/${subject}`}>{name} revision notes <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {view.kind === 'subject' && articlesForBank(bank.slug).map(guide => <Link key={guide.href} className={styles.practice} href={guide.href}>{guide.title} <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
-    {view.kind === 'subject' && aLevelSuccessors(bank.slug).map(next => <Link key={next.slug} className={styles.practice} href={`/past-papers/${subjectSlugForBank(next.slug)}`}>Next step: {subjectSearchName(next)} past papers <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
+    {view.kind === 'subject' && aLevelSuccessors(bank.slug).map((next, _, all) => { const partner = takenAlongside(next.slug, all); return <Link key={next.slug} className={styles.practice} href={`/past-papers/${subjectSlugForBank(next.slug)}`}>{partner ? `Taken alongside ${subjectSearchName(partner)}: ` : 'Next step: '}{subjectSearchName(next)} past papers <ArrowRight aria-hidden="true" weight="bold" /></Link>; })}
     {faq.length > 0 && <section className={styles.faq} aria-labelledby="past-paper-faq">
       <h2 id="past-paper-faq">Questions</h2>
       {faq.map(item => <details key={item.q}><summary>{item.q}<CaretDown aria-hidden="true" /></summary><p>{item.a}</p></details>)}

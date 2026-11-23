@@ -1,31 +1,29 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { HeaderNavigation } from "@/components/HeaderNavigation";
 import { QUALIFICATION_KEY } from "@/lib/remembered-board";
 import { RememberedBoardScope } from "./RememberedBoardScope";
 
-const replace = vi.fn();
-vi.mock("next/navigation", () => ({ useRouter: () => ({ replace }) }));
+let pathname = "/";
+vi.mock("next/navigation", () => ({ usePathname: () => pathname, useRouter: () => ({ push: vi.fn(), replace: vi.fn(), prefetch: vi.fn() }) }));
 
-describe("RememberedBoardScope", () => {
-  beforeEach(() => { window.localStorage.clear(); replace.mockClear(); });
+const papersLink = () => screen.getByRole("link", { name: "Full past papers" });
+
+describe("remembered board on past papers", () => {
+  beforeEach(() => { window.localStorage.clear(); pathname = "/"; });
   afterEach(() => window.localStorage.clear());
 
-  it("opens the remembered board's hub from /past-papers", () => {
-    window.localStorage.setItem(QUALIFICATION_KEY, "ib");
-    render(<RememberedBoardScope available={["igcse", "ib", "a-level"]} />);
-    expect(replace).toHaveBeenCalledWith("/past-papers/ib");
-  });
-
-  it("stays on the all-board index with nothing remembered, or a board without papers", () => {
-    render(<RememberedBoardScope available={["igcse", "ib", "a-level"]} />);
-    window.localStorage.setItem(QUALIFICATION_KEY, "a-level");
-    render(<RememberedBoardScope available={["igcse", "ib"]} />);
-    expect(replace).not.toHaveBeenCalled();
-  });
-
-  it("remembers the board of a board or subject page, without redirecting", () => {
+  it("a board or subject paper page remembers its board", () => {
     render(<RememberedBoardScope board="a-level" />);
     expect(window.localStorage.getItem(QUALIFICATION_KEY)).toBe("a-level");
-    expect(replace).not.toHaveBeenCalled();
+  });
+
+  it("the header's Full past papers link opens the remembered board, else the all-board index", () => {
+    const { unmount } = render(<HeaderNavigation authenticated={false} workspaceIcon={null} pastPapers />);
+    expect(papersLink()).toHaveAttribute("href", "/past-papers");
+    unmount();
+    window.localStorage.setItem(QUALIFICATION_KEY, "ib");
+    render(<HeaderNavigation authenticated={false} workspaceIcon={null} pastPapers />);
+    expect(papersLink()).toHaveAttribute("href", "/past-papers/ib");
   });
 });

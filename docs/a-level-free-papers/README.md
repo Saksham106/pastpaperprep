@@ -189,6 +189,6 @@ Both banks went live in #510. Their full papers join the library the same way.
 - **Identity:** 265 of 266 pairs pass the cover checks directly. The 9618-2022-s-22 mark scheme prints the template
   placeholder `SUBJECT` on its cover, and is accepted through a reviewed case in `identity-review.json`.
 - **Publish:** `publish-added-free-papers.mts plan origin/main` gives 532 PDFs (305.3 MB), all `9618_*` or `9231_*`,
-  for 7,840 approved objects. Uploading waits for the owner's approval. Until the readback receipt is regenerated,
-  `paper-archive-readback.json` doesn't match the manifests, so production keeps the whole library closed. Do not
-  merge before the receipt is updated.
+  for 7,840 approved objects. Published 2026-11-22 on the owner's approval: 532 of 532 added and read back, 0
+  pre-existing conflicts. `verify` then re-read all 7,840 approved PDFs from free.pastpaperprep.com and wrote
+  `paper-archive-readback.json`, which is committed, so the archive gate opens with both production flags.

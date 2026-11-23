@@ -1,25 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import type { QualificationId } from '@/lib/qualifications';
-import { readRememberedBoard, rememberBoard } from '@/lib/remembered-board';
+import { rememberBoard } from '@/lib/remembered-board';
 
 /**
- * Students study one board. On a board's past-paper pages it becomes the remembered board, the same one the
- * home tabs, pricing and bank visits use. On /past-papers it opens the remembered board's hub straight away,
- * so "Past papers" lands on IGCSE, IB or A Level rather than every board. With nothing remembered (and for
- * crawlers) /past-papers stays the full index.
+ * Students study one board. Opening a board's past-paper hub or a subject's paper page makes that board the
+ * remembered one, the same one the home tabs, pricing and bank visits use, so the header's "Full past papers"
+ * link opens it next time. /past-papers itself never redirects: it stays the all-board index (breadcrumbs, search).
  */
-export function RememberedBoardScope({ board, available }: { board?: QualificationId; available?: readonly QualificationId[] }) {
-  const router = useRouter();
-  useLayoutEffect(() => {
-    if (board) {
-      rememberBoard(board);
-      return;
-    }
-    const remembered = readRememberedBoard();
-    if (remembered && (!available || available.includes(remembered))) router.replace(`/past-papers/${remembered}`);
-  }, [board, available, router]);
+export function RememberedBoardScope({ board }: { board: QualificationId }) {
+  useEffect(() => { rememberBoard(board); }, [board]);
   return null;
 }

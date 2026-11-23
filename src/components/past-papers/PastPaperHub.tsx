@@ -12,7 +12,7 @@ import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import styles from './PastPaperPages.module.css';
 
 const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics'], ['computer-science', 'Computer Science']];
-// No "All" tab: students sit one board. /past-papers itself still lists every board (for search and first visits).
+// No "All" tab: students sit one board. /past-papers itself still lists every board, reached by the breadcrumb.
 const SCOPES: [string, string, PastPaperQualification][] = [['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib'], ['A Level', '/past-papers/a-level', 'a-level']];
 const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB', 'a-level': 'Cambridge A Level' } as const;
 const GUIDE = {
@@ -51,7 +51,7 @@ export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
     <JsonLd data={collectionJsonLd(copy, path, banks.map(b => ({ name: `${b.name} past papers`, path: `/past-papers/${b.subjectSlug}` })))} />
     {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
-    <RememberedBoardScope board={qualification} available={scopes.map(([, , scope]) => scope)} />
+    {qualification && <RememberedBoardScope board={qualification} />}
     {qualification && <nav aria-label="Breadcrumb" className={styles.crumbs}><Link href="/past-papers">Past papers</Link><span aria-hidden="true">/</span><span>{QUALIFICATION_NAME[qualification]}</span></nav>}
     <header className={styles.hubHead}>
       <h1>{copy.h1}</h1>

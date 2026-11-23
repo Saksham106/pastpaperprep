@@ -19,6 +19,15 @@ const A_LEVEL_SUCCESSORS: Partial<Record<BankSlug, readonly BankSlug[]>> = {
   "igcse-computer-science-0478": ["a-level-computer-science-9618"],
 };
 
+/** A Level courses taken alongside another rather than instead of it (Cambridge: 9231 with 9709). */
+const TAKEN_ALONGSIDE: Partial<Record<BankSlug, BankSlug>> = { "a-level-further-maths-9231": "a-level-maths-9709" };
+
+/** The bank this one is taken alongside, when that bank is also in `among` (so copy can say "with ... alongside"). */
+export function takenAlongside(slug: BankSlug, among: readonly CatalogBank[]): CatalogBank | undefined {
+  const partner = TAKEN_ALONGSIDE[slug];
+  return partner ? among.find((bank) => bank.slug === partner) : undefined;
+}
+
 /** Live A Level banks that follow this IGCSE bank; empty for other boards or while A Level is hidden. */
 export function aLevelSuccessors(slug: BankSlug, environment: Record<string, string | undefined> = process.env): CatalogBank[] {
   const next = A_LEVEL_SUCCESSORS[slug] ?? [];
