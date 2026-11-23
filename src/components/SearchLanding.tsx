@@ -17,7 +17,7 @@ import { notesSubjectForBank, getNoteTopic } from "@/lib/revision-notes";
 import { getGradeThresholds } from "@/lib/grade-thresholds";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { qualificationInfo, qualifiedBankTitle } from "@/lib/qualifications";
-import { aLevelSuccessors, igcsePredecessors, IGCSE_TO_A_LEVEL_ARTICLE } from "@/lib/next-step-banks";
+import { aLevelSuccessors, igcsePredecessors, IGCSE_TO_A_LEVEL_ARTICLE, takenAlongside } from "@/lib/next-step-banks";
 import { articlesForBank, articlesForExam } from "@/lib/article-links";
 import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
 import { paperFacts, topicFacts } from "@/lib/quick-facts";
@@ -68,7 +68,10 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
   const updated = lastUpdated(banks.flatMap((bank) => [`/banks/${bank.slug}`, `/past-papers/${subjectSlugForBank(bank.slug)}`]));
   const boardGuides = articlesForExam(qualification === "IB Diploma" ? "IB Diploma" : qualification);
   const igcseRoutes = qualification === "Cambridge A Level" ? banks.flatMap((to) => {
-    const from = igcsePredecessors(to.slug).filter((bank) => bank.slug !== "igcse-coordinated-sciences-0654" && bank.slug !== "igcse-additional").map((bank) => bank.shortName);
+    // Co-ordinated Sciences and Additional Maths are side routes; name them only where they are the sole route (0606 → 9231).
+    const all = igcsePredecessors(to.slug);
+    const main = all.filter((bank) => bank.slug !== "igcse-coordinated-sciences-0654" && bank.slug !== "igcse-additional");
+    const from = (main.length ? main : all).map((bank) => bank.shortName);
     return from.length ? [{ to, from: from.join(" or ") }] : [];
   }) : [];
   return (
@@ -141,6 +144,9 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   const canonicalPath = `/syllabus/${bank.slug}`;
   const hubPath = qualificationInfo(bank.qualification).hubPath;
   const successors = aLevelSuccessors(bank.slug);
+  // Further Maths 9231 is taken with Maths 9709, not instead of it.
+  const alongside = successors.filter((next) => takenAlongside(next.slug, successors));
+  const nextSteps = successors.filter((next) => !alongside.includes(next));
   const guides = articlesForBank(bank.slug);
   const guide = assessmentGuideFor(bank);
   const groupedPapers = assessmentGroups(guide.papers);
@@ -223,7 +229,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
             : <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-free-igcse-past-paper-websites">Compare free IGCSE archives</Link>}
         </nav>
         {guides.length > 0 && <nav className="bank-seo-links" aria-label={`${bank.shortName} guides`}>{guides.map((guide) => <Link transitionTypes={PAGE_NAVIGATION} key={guide.href} href={guide.href}>{guide.title}</Link>)}</nav>}
-        {successors.length > 0 && <p className="access-footnote">Next step after {bank.shortName}: {successors.map((next, index) => <span key={next.slug}>{index > 0 ? (index === successors.length - 1 ? " or " : ", ") : null}<Link transitionTypes={PAGE_NAVIGATION} href={`/syllabus/${next.slug}`}>{qualifiedBankTitle(next)}</Link></span>)}. See <Link transitionTypes={PAGE_NAVIGATION} href={IGCSE_TO_A_LEVEL_ARTICLE}>what changes at A Level</Link>.</p>}
+        {nextSteps.length > 0 && <p className="access-footnote">Next step after {bank.shortName}: {nextSteps.map((next, index) => <span key={next.slug}>{index > 0 ? (index === nextSteps.length - 1 ? " or " : ", ") : null}<Link transitionTypes={PAGE_NAVIGATION} href={`/syllabus/${next.slug}`}>{qualifiedBankTitle(next)}</Link></span>)}{alongside.map((extra) => <span key={extra.slug}>, with <Link transitionTypes={PAGE_NAVIGATION} href={`/syllabus/${extra.slug}`}>{qualifiedBankTitle(extra)}</Link> taken alongside it</span>)}. See <Link transitionTypes={PAGE_NAVIGATION} href={IGCSE_TO_A_LEVEL_ARTICLE}>what changes at A Level</Link>.</p>}
         <p className="official-source"><a href={officialQualificationSource(bank)} target="_blank" rel="noreferrer">Read the official {bank.qualification} course source <ArrowRight weight="bold" /></a></p>
       </section>
     </div>

@@ -3,9 +3,10 @@
 import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
 import { usePathname } from "next/navigation";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { NOTES_HOME_HREF } from "@/lib/course-notes/visibility";
 import { requestPracticeMode } from "@/lib/practice-mode";
+import { readRememberedBoard } from "@/lib/remembered-board";
 
 function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "worksheets" | "dashboard" | "login" | "notes") {
   if (destination === "papers") return pathname === "/past-papers" || pathname.startsWith("/past-papers/");
@@ -22,11 +23,19 @@ function current(pathname: string, destination: "papers" | "banks" | "articles" 
 
 export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = false, onNavigate, trailing, pastPapers = false, notes = false }: { authenticated: boolean; workspaceIcon: ReactNode; menuOpen?: boolean; onNavigate?: () => void; trailing?: ReactNode; pastPapers?: boolean; notes?: boolean }) {
   const pathname = usePathname();
+  // "Full past papers" opens the student's remembered board (set by the home tabs, pricing, banks and paper pages);
+  // /past-papers itself stays the all-board index. Re-read on each navigation, after hydration.
+  const [papersHref, setPapersHref] = useState("/past-papers");
+  useEffect(() => {
+    const board = readRememberedBoard();
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is client-only; read after hydration
+    setPapersHref(board ? `/past-papers/${board}` : "/past-papers");
+  }, [pathname]);
   return (
     <nav id="site-menu" className="site-menu" data-open={menuOpen ? "true" : "false"} aria-label="Main navigation" onClick={(event) => { if ((event.target as Element).closest("a")) onNavigate?.(); }}>
       {/* Desktop: page links sit in the bar's center column, account actions on the right. The phone menu lists both. */}
       <div className="nav-pages">
-        {pastPapers && <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href="/past-papers">Full past papers</IntentPrefetchLink>}
+        {pastPapers && <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "papers") ? "nav-active" : undefined} aria-current={current(pathname, "papers") ? "page" : undefined} href={papersHref}>Full past papers</IntentPrefetchLink>}
         <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "banks") ? "nav-active" : undefined} aria-current={current(pathname, "banks") ? "page" : undefined} href="/dashboard" onClick={() => requestPracticeMode("topics")}>Practice by topic</IntentPrefetchLink>
         {notes && <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "notes") ? "nav-active" : undefined} aria-current={current(pathname, "notes") ? "page" : undefined} href={NOTES_HOME_HREF}>Notes</IntentPrefetchLink>}
         <IntentPrefetchLink transitionTypes={PAGE_NAVIGATION} className={current(pathname, "articles") ? "nav-active" : undefined} aria-current={current(pathname, "articles") ? "page" : undefined} href="/articles">Articles</IntentPrefetchLink>

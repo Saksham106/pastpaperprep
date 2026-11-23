@@ -3,13 +3,14 @@ import { IntentPrefetchLink } from '@/components/IntentPrefetchLink';
 import { ArrowLeft, ArrowRight, CaretDown } from '@phosphor-icons/react/dist/ssr';
 import { CourseIcon, courseToneForBank } from '@/components/CourseIcon';
 import { JsonLd } from '@/components/JsonLd';
-import { buildPaperMatrix, paperHref, paperName, qualificationOfBank, sessionRank, subjectSlugForBank } from '@/lib/past-paper-catalog';
+import { buildPaperMatrix, paperHref, paperName, paperRef, qualificationOfBank, sessionRank, subjectSlugForBank } from '@/lib/past-paper-catalog';
 import type { ListView } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, formatDuration, paperCodes, paperNumberCopy, subjectCopy, subjectFaq, subjectSearchName, yearCopy } from '@/lib/past-paper-seo';
 import { PaperLibraryTools } from './PaperLibraryTools';
+import { RememberedBoardScope } from './RememberedBoardScope';
 import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
-import { aLevelSuccessors } from '@/lib/next-step-banks';
+import { aLevelSuccessors, takenAlongside } from '@/lib/next-step-banks';
 import { articlesForBank } from '@/lib/article-links';
 import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import { paperNumberThresholds, seriesThresholds, topicFrequency } from '@/lib/past-paper-insights';
@@ -138,6 +139,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
   const listed = [...view.papers].sort((a, b) => b.year - a.year).slice(0, 100).map(p => ({ name: `${paperName(p)}, ${p.session} ${p.year}`, path: paperHref(p) }));
   return <article className={styles.page} data-subject-tone={tone}>
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
+    <RememberedBoardScope board={qualificationOfBank(bank.slug)} />
     <JsonLd data={collectionJsonLd(copy, here?.path ?? subjectPath, listed)} />
     {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
     <nav aria-label="Breadcrumb" className={styles.crumbs}>
@@ -151,7 +153,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       <p>{copy.answer}</p>
       {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
     </header>
-    <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all} />
+    <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all.map(paperRef)} />
     {view.kind === 'paperNumber' && <PaperNumberTopics label={view.paper.toUpperCase()} view={view} />}
     {view.kind === 'paperNumber' && <PaperNumberThresholds label={view.paper.toUpperCase()} subject={subject} papers={view.papers} />}
     {view.kind === 'year' && <YearPapers view={view} subject={subject} />}
@@ -168,7 +170,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
     {getGradeThresholds(subject) && <Link className={styles.practice} href={`/grade-thresholds/${subject}`}>{name} grade thresholds <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {getNotesSubject(subject) && <Link className={styles.practice} href={`/revision-notes/${subject}`}>{name} revision notes <ArrowRight aria-hidden="true" weight="bold" /></Link>}
     {view.kind === 'subject' && articlesForBank(bank.slug).map(guide => <Link key={guide.href} className={styles.practice} href={guide.href}>{guide.title} <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
-    {view.kind === 'subject' && aLevelSuccessors(bank.slug).map(next => <Link key={next.slug} className={styles.practice} href={`/past-papers/${subjectSlugForBank(next.slug)}`}>Next step: {subjectSearchName(next)} past papers <ArrowRight aria-hidden="true" weight="bold" /></Link>)}
+    {view.kind === 'subject' && aLevelSuccessors(bank.slug).map((next, _, all) => { const partner = takenAlongside(next.slug, all); return <Link key={next.slug} className={styles.practice} href={`/past-papers/${subjectSlugForBank(next.slug)}`}>{partner ? `Taken alongside ${subjectSearchName(partner)}: ` : 'Next step: '}{subjectSearchName(next)} past papers <ArrowRight aria-hidden="true" weight="bold" /></Link>; })}
     {faq.length > 0 && <section className={styles.faq} aria-labelledby="past-paper-faq">
       <h2 id="past-paper-faq">Questions</h2>
       {faq.map(item => <details key={item.q}><summary>{item.q}<CaretDown aria-hidden="true" /></summary><p>{item.a}</p></details>)}

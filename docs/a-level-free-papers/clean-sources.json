@@ -1,6 +1,6 @@
 {
  "schema": "a-level-clean-sources-v1",
- "reason": "The bestexamhelp.com copies of every 2020 Feb/March and May/June A Level QP and MS carry a cover stamp. These clean copies of the same files are what the archive binds and publishes. Each one: no host stamp on scan, same page count, identical page text once the stamp is ignored, 0 differing pixels on pages 2+, the same producer and the same creation time as the stamped file, and no later modification. Evidence: research/stamp-scan-a-level-2026-11/results.json.",
+ "reason": "The bestexamhelp.com copies of every 2020 Feb/March and May/June A Level QP and MS carry a cover stamp. These clean copies of the same files are what the archive binds and publishes. Each one: no host stamp on scan, same page count, identical page text once the stamp is ignored, 0 differing pixels on pages 2+, the same producer and the same creation time as the stamped file, and no later modification. Evidence: research/stamp-scan-a-level-2026-11/results.json. Further Maths 9231 (May/June 2020) evidence: research/stamp-scan-9231-2026-11/results.json. One Computer Science 9618 entry replaces a truncated download rather than a stamped one (see its note).",
  "sources": [
   {
    "bank": "a-level-biology-9700",
@@ -1342,6 +1342,232 @@
    "cleanSha256": "de9c93a6b0f445bca3555fede1014e46defdea6729902c3ec9907a6267236a5e",
    "sourceUrl": "https://d.exam-easy.com/pdf/9709_s20_qp_63.pdf",
    "producer": "GPL Ghostscript 9.19"
+  },
+  {
+   "bank": "a-level-computer-science-9618",
+   "paper": "9618-2021-s-22",
+   "role": "question",
+   "truncatedSha256": "a9d4c0d452524fc429e5996fcc7c6cf2e4d7409b4b2284eddb8c040375b81ca8",
+   "cleanSha256": "c3bc9ed1a7e409e67bb7826c18607615759bba80e796a97e6f3465f9604dee43",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9618_s21_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0",
+   "note": "The pinned Best Exam Help copy is a truncated download (2,150,400 of 2,480,433 bytes, no trailer). This is the complete original: same metadata, identical text, 0 differing pixels on all 16 pages. Evidence: research/stamp-scan-9231-2026-11/complete-copies.json."
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-11",
+   "role": "markscheme",
+   "stampedSha256": "db853e2c3c2b6efd3586f4cd5b2fac69bc782e0aa175080ea5e572993f285a64",
+   "cleanSha256": "a7d83c73aefea485b0398ca73c835cc8fa1fb5ebfa7b3aa9a057cb9c955c493a",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_11.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-11",
+   "role": "question",
+   "stampedSha256": "e2e0a5e58f58d943f57082882d54d2090af1c38cfa319918f24e1f7c15f376ad",
+   "cleanSha256": "713509fac5492b3b50609be541779d1efad518486edd541b5cfb169ecc3b01e6",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_11.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-12",
+   "role": "markscheme",
+   "stampedSha256": "19f7eaaa521e9bde8efb44badad7a4adb1d85fd38e705655db348118de8268ef",
+   "cleanSha256": "3dd1444fe2dae946bfacd9fe935eae90b922cfaf5b18e11c088c0ba898763276",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_12.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-12",
+   "role": "question",
+   "stampedSha256": "f56617e984484d7eaca484b3aaa35fdab4558d601f3272f2ce9f693f04baf921",
+   "cleanSha256": "81da173c5f6ed6e754760acaf8c0bfcfbed089b505ccc1c397fae3ac1e897743",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_12.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-13",
+   "role": "markscheme",
+   "stampedSha256": "c2ea2fc3fd911a8edba43e7b3770e9e229708e4f6fe27319b6df43bc8ed082bc",
+   "cleanSha256": "43cab7aab8e385d0591978e6716a0793b53b4f23ff76a46b95a1670a9c749182",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_13.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-13",
+   "role": "question",
+   "stampedSha256": "1d796ee1271d08fbf4f4604f6803d2e47aebffe7acabfb6158c866015d25f5be",
+   "cleanSha256": "c01f89b737a652072749f67e6668d1bcf6dd14950488e6ac329db4df0fb98a10",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_13.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-21",
+   "role": "markscheme",
+   "stampedSha256": "118546c978cebf320ea8504d3592297227e6eda2fc956372e42e8c485687b109",
+   "cleanSha256": "6c287e367668eb2c62310773ce49043b74436db65552b86e08784b201cce5faf",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_21.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-21",
+   "role": "question",
+   "stampedSha256": "bba12bc046c8baec004ed42f39c6d03bcb5203603dedb5e0f08eeefa06b34049",
+   "cleanSha256": "0102c387ffeed2d3a66cad83e1d65d730591b947418f062999231a52ab609cb6",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_21.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-22",
+   "role": "markscheme",
+   "stampedSha256": "b4400b7f400a049edd2169ba376fd5a8357371c6bc54967a2db98dc37d060c05",
+   "cleanSha256": "9b73d040718e32a137d7db95b7361f0cf92ca7af3626ac60b45eadac3afa608b",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_22.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-22",
+   "role": "question",
+   "stampedSha256": "2dbe610c8f5a927eb37554c40dc872aaf2212e70e4a99c9314baada7ba5baa00",
+   "cleanSha256": "cd6a885e53e9c26746112aacf86e79ee0ecabed6f190127d40fffdf679bbe1a9",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_22.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-23",
+   "role": "markscheme",
+   "stampedSha256": "3e7607cf187a6c84e02e1bfa66f44f5738962bdf2e8da104d2b982ef8f743e5c",
+   "cleanSha256": "2a499f1486f33c22a1e53d4a237449e8a475d4b636c08fbc6691df91d140bfe0",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_23.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-23",
+   "role": "question",
+   "stampedSha256": "899bbbbc0349ea500ee473eefe7f19e6c6cb5ba9888ca0a87d0b5a5fb501ee35",
+   "cleanSha256": "f51875d1712ccfe10c11dece6434df495034f132af8a2f7d4f79155a1a143642",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_23.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-31",
+   "role": "markscheme",
+   "stampedSha256": "8cababdea395dcbaefd0cfc047874677fd563028018369ac13e6367b508ac541",
+   "cleanSha256": "79ddb4610dbb416e03c44cdb9094b83da0f415c919fe88730b5e385109b9857e",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_31.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-31",
+   "role": "question",
+   "stampedSha256": "7ed9465fcac33c263b84b763cac6f500514bea5006ec215ac4df7ade404556ed",
+   "cleanSha256": "eb9b43beac9dd6538bcdae21cc5e1d4d089b910acf4bd5b39f973738722a38e3",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_31.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-32",
+   "role": "markscheme",
+   "stampedSha256": "5ac10eda653163def65a4a67e5b0792b1316d9f7f17da87ce99c5637a8a1ddd4",
+   "cleanSha256": "d622711c08c491bb2336a62e949a2bd1fe131d20c4f51480e10bd823a8bf8ff9",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_32.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-32",
+   "role": "question",
+   "stampedSha256": "3b9579d5cd1c2cc285583489b01fae838d58875151fd00420f6c67d528e9c7b8",
+   "cleanSha256": "93ca49b3571a45175efc31d31d2c2859038331ef2940af4dddedf53232a579e7",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_32.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-33",
+   "role": "markscheme",
+   "stampedSha256": "f09cbbd276cf8148ca9fdd0c2be06a310609c2f990cb4fd6be8af6cea375b459",
+   "cleanSha256": "d885bf8354ce526aa6f80f063366ad4e92ebaed11935431f51f7f0467811ad6c",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_33.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-33",
+   "role": "question",
+   "stampedSha256": "702022ae35dbafb39ec1ac6f124268da80e270ff582f81e9ca6dd804ffea490d",
+   "cleanSha256": "7be113a656dbc4fd8b7377e0191931f3b7849be521c582612f7bee6b680af207",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_33.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-41",
+   "role": "markscheme",
+   "stampedSha256": "054395c385b05e39c755637f402d342f565aa56b269e64e1d9c5e1d33222e271",
+   "cleanSha256": "bf15329c830031eb28be71d6056312907779868a71693dabfe64758965a6a348",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_41.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-41",
+   "role": "question",
+   "stampedSha256": "98069f1bc9e2f8dc5190b3f148ddbf40f29b30210ffa54282c677d29233a890f",
+   "cleanSha256": "e36f99c4db088a559fe0b34513059c4d70ee10160020164be63a2ebfd826dd5a",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_41.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-42",
+   "role": "markscheme",
+   "stampedSha256": "2182dab52bc0c773df0b8d6ed71280f681e1691aad67061b5fcd875e5d14c9bd",
+   "cleanSha256": "8df56c30087ad4a634ad2134e6ffe2bd4184f29bb2272b1752740716471a68f9",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_42.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-42",
+   "role": "question",
+   "stampedSha256": "5c5faa49d36d0a6e7a6e471a9ecd6268c9868dde2c6654433218cf5f45dd5df1",
+   "cleanSha256": "3fc21d2b9815900aea12ed9faedd6fee312aadb802e4f797b32ec732f02c59b4",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_42.pdf",
+   "producer": "Adobe PDF Library 15.0"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-43",
+   "role": "markscheme",
+   "stampedSha256": "ef8d13673db68ab5a2a60f4abb59e4d3a48069563346761c7e282b817293de48",
+   "cleanSha256": "eb091bf79cca438b6a8881fe5dfec76e3870ad6f9177459ef4e2998d65a44679",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_ms_43.pdf",
+   "producer": "Acrobat Distiller 20.0 (Windows)"
+  },
+  {
+   "bank": "a-level-further-maths-9231",
+   "paper": "9231-2020-s-43",
+   "role": "question",
+   "stampedSha256": "9e57b9a63005745099943d8708e63f7e948328da5f14da9db28f037288b1432e",
+   "cleanSha256": "4b6954bafc72acaa7914b4442ecb8dd452fd4b9fc3f24db8cb45c4fe929ef650",
+   "sourceUrl": "https://d.exam-easy.com/pdf/9231_s20_qp_43.pdf",
+   "producer": "Adobe PDF Library 15.0"
   }
  ]
 }

@@ -6,12 +6,14 @@ import type { PastPaperQualification } from '@/lib/past-paper-catalog';
 import type { HubBank } from '@/lib/past-paper-pages';
 import { breadcrumbJsonLd, collectionJsonLd, faqJsonLd, hubCopy, hubFaq } from '@/lib/past-paper-seo';
 import { PaperFinder } from './PaperFinder';
+import { RememberedBoardScope } from './RememberedBoardScope';
 import { ScopeSwitch } from './ScopeSwitch';
 import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import styles from './PastPaperPages.module.css';
 
 const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics'], ['computer-science', 'Computer Science']];
-const SCOPES: [string, string, PastPaperQualification | undefined][] = [['All', '/past-papers', undefined], ['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib'], ['A Level', '/past-papers/a-level', 'a-level']];
+// No "All" tab: students sit one board. /past-papers itself still lists every board, reached by the breadcrumb.
+const SCOPES: [string, string, PastPaperQualification][] = [['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib'], ['A Level', '/past-papers/a-level', 'a-level']];
 const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB', 'a-level': 'Cambridge A Level' } as const;
 const GUIDE = {
   igcse: {
@@ -38,7 +40,7 @@ const HUB_GUIDES: Partial<Record<PastPaperQualification, { href: string; label: 
 
 /** `boards` lists the qualifications that have papers, so a board-filtered page still links to the others. */
 export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[]; qualification?: PastPaperQualification; boards?: PastPaperQualification[] }) {
-  const available = new Set<PastPaperQualification | undefined>(['igcse', 'ib', ...(boards ?? banks.map(b => b.qualification))]);
+  const available = new Set<PastPaperQualification>(['igcse', 'ib', ...(boards ?? banks.map(b => b.qualification))]);
   const scopes = SCOPES.filter(([, , scope]) => scope !== 'a-level' || available.has('a-level') || qualification === 'a-level');
   const copy = hubCopy(banks.reduce((n, b) => n + b.paperCount, 0), qualification);
   const path = qualification ? `/past-papers/${qualification}` : '/past-papers';
@@ -49,6 +51,7 @@ export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
     <JsonLd data={collectionJsonLd(copy, path, banks.map(b => ({ name: `${b.name} past papers`, path: `/past-papers/${b.subjectSlug}` })))} />
     {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
+    {qualification && <RememberedBoardScope board={qualification} />}
     {qualification && <nav aria-label="Breadcrumb" className={styles.crumbs}><Link href="/past-papers">Past papers</Link><span aria-hidden="true">/</span><span>{QUALIFICATION_NAME[qualification]}</span></nav>}
     <header className={styles.hubHead}>
       <h1>{copy.h1}</h1>

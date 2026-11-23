@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import type { PaperMatrixData } from '@/lib/past-paper-catalog';
-import type { WholePaperSummary } from '@/lib/whole-paper-types';
+import type { PaperMatrixData, PaperRef } from '@/lib/past-paper-catalog';
 import { PaperFinder } from './PaperFinder';
 import { PaperMatrix, type MatrixTier } from './PaperMatrix';
 import styles from './PaperLibraryTools.module.css';
@@ -10,7 +9,7 @@ import styles from './PaperLibraryTools.module.css';
 const TIERS: [MatrixTier, string][] = [['all', 'All'], ['core', 'Core'], ['ext', 'Extended']];
 
 /** Search and the Core/Extended toggle sit side by side above the matrix they control. */
-export function PaperLibraryTools({ data, papers }: { data: PaperMatrixData; papers: readonly WholePaperSummary[] }) {
+export function PaperLibraryTools({ data, papers }: { data: PaperMatrixData; papers: readonly PaperRef[] }) {
   const [tier, setTier] = useState<MatrixTier>('all');
   return <>
     <div className={styles.tools}>

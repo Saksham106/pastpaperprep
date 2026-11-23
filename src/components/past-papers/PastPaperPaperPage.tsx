@@ -155,7 +155,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
       <WorkedAnswerHashOpener />
       {worked.map(w => <details key={w.number} id={`worked-q${w.number}`}>
         <summary><b>Q{w.number}</b><span>{w.topics.filter(t => !STATUS_TOPIC.test(t)).join(', ')}</span><em>{w.marks !== null && `${w.marks} ${w.marks === 1 ? 'mark' : 'marks'}`}</em><CopyWorkedAnswerLink number={w.number} bank={bank.slug} paper={p.id} /></summary>
-        <ExplanationPanel explanation={w.explanation} />
+        <ExplanationPanel explanation={w.explanation} texPayload />
       </details>)}
     </section>}
     <p className={styles.aliases}><span>Also listed as</span>{codes.join(' · ')}</p>

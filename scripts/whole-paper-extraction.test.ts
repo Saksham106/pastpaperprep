@@ -43,8 +43,8 @@ it('reads Computer Science marks from the right-aligned mark column, not pseudoc
   expect(extractQuestionBlocks(pages,'igcse').map(q=>q.maxMarks)).toEqual([15]);
   expect(extractQuestionBlocks(pages,'igcse','right-margin').map(q=>q.maxMarks)).toEqual([14]);
 });
-it('gates the mark-column rule to Computer Science 0478 so other manifests keep their extractor version',()=>{
-  expect(BANK_CATALOG.map(bank=>bank.slug).filter(slug=>markRuleForBank(slug)!=='text')).toEqual(['igcse-computer-science-0478']);
+it('gates the mark-column rule to the Computer Science banks (0478, 9618) so other manifests keep their extractor version',()=>{
+  expect(BANK_CATALOG.map(bank=>bank.slug).filter(slug=>markRuleForBank(slug)!=='text')).toEqual(['igcse-computer-science-0478','a-level-computer-science-9618']);
   expect(extractorVersionFor('text')).toBe(EXTRACTOR_VERSION);
   expect(extractorVersionFor('right-margin')).not.toBe(EXTRACTOR_VERSION);
 });
