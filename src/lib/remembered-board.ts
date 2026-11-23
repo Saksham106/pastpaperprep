@@ -7,6 +7,9 @@ import { isQualificationId, qualificationIdOfSlug, type QualificationId } from "
  */
 export const QUALIFICATION_KEY = "ppp-qualification";
 
+/** Fired on window when the remembered board changes in this tab, so already-mounted links (the header) follow it. */
+export const BOARD_CHANGE_EVENT = "ppp-board-change";
+
 export function readRememberedBoard(): QualificationId | null {
   if (typeof window === "undefined") return null;
   try {
@@ -20,6 +23,7 @@ export function readRememberedBoard(): QualificationId | null {
 export function rememberBoard(board: QualificationId): void {
   if (typeof window === "undefined") return;
   try { window.localStorage.setItem(QUALIFICATION_KEY, board); } catch { /* private mode */ }
+  window.dispatchEvent(new Event(BOARD_CHANGE_EVENT));
 }
 
 /** Opening a bank makes its board the remembered one (9709 → A Level). */
