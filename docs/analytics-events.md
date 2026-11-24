@@ -22,6 +22,12 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
+| `helper_open` | "Ask" button on an unlocked question card (or the phone page opened from its QR code, `surface: "phone"`) | `bank`, `freePreview`, `surface?` |
+| `helper_chip` | a chip in the helper panel | `bank`, `chip` (`mark`, `hint`, `explain`), `freePreview` |
+| `helper_send` | any helper message | `bank`, `mode` (`mark`, `hint`, `explain`, `chat`), `photo`, `freePreview` |
+| `helper_result` | a helper reply finished | `bank`, `mode`, `freePreview`, `score?`/`total?` (marking only, read from the reply's "Mark: X / Y" line) |
+| `helper_limit` / `helper_error` | the daily helper limit was hit / a helper message failed | `bank`, `freePreview`, `mode?`, `code?` (HTTP status) |
+| `helper_phone_qr` / `helper_signin_click` | "Use your phone's camera" QR shown / sign-in link in the helper panel | `bank`, `freePreview?`, `action?` |
 | `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |
 | `worked_answer_link_copy` | free past-paper page, copy-link icon on a worked-answer row | `bank`, `paper` (archive id), `question` (number) |
 | `question_notes_click` | bank page, "Learn this topic" link on an AA question card; only rendered while the AA notes course is visible | `bank` |
