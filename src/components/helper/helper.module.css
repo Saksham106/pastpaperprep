@@ -101,7 +101,9 @@
 .reply { display: grid; gap: 8px; overflow-wrap: anywhere; }
 .reply p, .reply ul, .reply ol { margin: 0; }
 .reply ul, .reply ol { padding-left: 1.25rem; display: grid; gap: 4px; }
-.display { overflow-x: auto; padding: 2px 0; }
+.display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+.display :global(.katex-display) { margin: 0; text-align: left; }
+.display :global(.katex-display > .katex) { text-align: left; }
 
 .chips {
   display: flex;

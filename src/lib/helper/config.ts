@@ -37,6 +37,9 @@ export const HELPER_CHIP_PROMPTS: Readonly<Record<Exclude<HelperMode, "chat">, s
   explain: "Explain the whole answer.",
 };
 
+/** Added to earlier student turns that carried a photo: photos are sent only with their own message. */
+export const HELPER_PHOTO_NOTE = "[I attached a photo of my working with this message.]";
+
 export const HELPER_MAX_TURNS = 12;
 export const HELPER_MAX_TEXT = 2000;
 /** Data-URL length cap for one photo (about 1.5 MB of JPEG); the browser resizes to fit well under it. */

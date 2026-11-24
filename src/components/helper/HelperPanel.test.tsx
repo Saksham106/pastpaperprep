@@ -6,7 +6,7 @@ const track = vi.hoisted(() => vi.fn());
 vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: track }));
 
 import { HelperPanel } from "@/components/helper/HelperPanel";
-import { HELPER_NAME } from "@/lib/helper/config";
+import { HELPER_NAME, HELPER_PHOTO_NOTE } from "@/lib/helper/config";
 
 const props = { bank: "igcse", questionId: "q1", questionLabel: "2021 June · Paper 4 · Question 3", authenticated: true, freePreview: true };
 
@@ -81,5 +81,22 @@ describe("HelperPanel", () => {
     await screen.findByText("Nearly.");
     expect(JSON.parse(fetchMock.mock.calls[0][1].body as string)).toMatchObject({ mode: "mark", messages: [{ role: "user", text: "x = 4" }] });
     expect(track).toHaveBeenCalledWith("helper_result", expect.objectContaining({ mode: "mark", score: 2, total: 3 }));
+  });
+
+  it("tells follow-ups that an earlier message carried a photo", async () => {
+    vi.stubGlobal("createImageBitmap", vi.fn(async () => ({ width: 10, height: 10, close: vi.fn() })));
+    vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue({ fillRect: vi.fn(), drawImage: vi.fn(), fillStyle: "" } as never);
+    vi.spyOn(HTMLCanvasElement.prototype, "toDataURL").mockReturnValue("data:image/jpeg;base64,AAAA");
+    fetchMock.mockResolvedValueOnce(streamResponse(["Mark: 0 / 1"])).mockResolvedValueOnce(streamResponse(["Sure."]));
+    const { container } = render(<HelperPanel {...props} />);
+    await userEvent.upload(container.querySelector('input[type="file"]') as HTMLInputElement, new File(["x"], "w.jpg", { type: "image/jpeg" }));
+    await userEvent.click(screen.getByRole("button", { name: "Mark my photo" }));
+    await screen.findByText("Mark: 0 / 1");
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body as string).image).toBe("data:image/jpeg;base64,AAAA");
+    await userEvent.type(screen.getByRole("textbox", { name: `Message ${HELPER_NAME}` }), "Why?{Enter}");
+    await screen.findByText("Sure.");
+    const sent = JSON.parse(fetchMock.mock.calls[1][1].body as string);
+    expect(sent.image).toBeUndefined();
+    expect(sent.messages[0].text).toBe(`Mark my working.\n${HELPER_PHOTO_NOTE}`);
   });
 });

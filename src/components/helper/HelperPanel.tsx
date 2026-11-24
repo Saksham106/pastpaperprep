@@ -4,7 +4,7 @@ import { Camera, DeviceMobile, PaperPlaneRight, Sparkle, X } from "@phosphor-ico
 import Image from "next/image";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { HelperMessage } from "@/components/helper/HelperMessage";
-import { HELPER_CHIP_PROMPTS, HELPER_CHIPS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME, helperPhonePath, type HelperMode } from "@/lib/helper/config";
+import { HELPER_CHIP_PROMPTS, HELPER_PHOTO_NOTE, HELPER_CHIPS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME, helperPhonePath, type HelperMode } from "@/lib/helper/config";
 import { HelperRequestError, photoToDataUrl, streamHelperReply } from "@/lib/helper/client";
 import { parseMarkLine } from "@/lib/helper/marking";
 import { trackProductEvent } from "@/lib/product-analytics";
@@ -54,7 +54,8 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
   const send = async (mode: HelperMode, text: string, image: string | null) => {
     if (busyRef.current) return;
     busyRef.current = true;
-    const history = turns.filter((turn) => turn.text).slice(-HELPER_MAX_TURNS).map(({ role, text: turnText }) => ({ role, text: turnText }));
+    // Photos go only with their own message; later turns say one was there, so the model trusts its earlier reading.
+    const history = turns.filter((turn) => turn.text).slice(-HELPER_MAX_TURNS).map(({ role, text: turnText, photo: hadPhoto }) => ({ role, text: hadPhoto ? `${turnText}\n${HELPER_PHOTO_NOTE}` : turnText }));
     const userTurn: Turn = { role: "user", text, ...(image ? { photo: image } : {}) };
     setTurns((current) => [...current, userTurn, { role: "assistant", text: "" }]);
     setBusy(true);

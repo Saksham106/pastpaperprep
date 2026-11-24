@@ -1,5 +1,6 @@
 "use client";
 
+import "katex/dist/katex.min.css";
 import { Fragment } from "react";
 import { ExplanationMath } from "@/components/ExplanationMath";
 import styles from "./helper.module.css";
