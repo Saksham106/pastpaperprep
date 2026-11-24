@@ -29,9 +29,10 @@ export const HELPER_MODE_INSTRUCTIONS: Readonly<Record<HelperMode, string>> = {
   explain: "The student wants the whole answer explained. Walk through it part by part in the order of the mark scheme, showing where each mark is earned, then give the final answer. Point out the most common mistake if there is one. Keep it as short as a clear explanation allows.",
   mark: `The student wants their answer marked. Their working is in the attached photo or their message.
 1. If the photo is unreadable, blank, or clearly a different question, say so in one or two sentences, give no marks, and ask for a clearer photo. Stop there.
-2. Otherwise mark it strictly against the official mark scheme, part by part. For each part: the marks awarded out of the marks available, which mark points were earned, and exactly where marks were lost and why. Credit correct alternative methods the mark scheme allows; apply follow-through marks only where the mark scheme allows them.
+2. Otherwise mark it strictly against the official mark scheme. Credit correct alternative methods the mark scheme allows; apply follow-through marks only where the mark scheme allows them.
 3. Your reply must start with exactly one line in this form: Mark: X / Y (Y is the question's total marks; if they only attempted some parts, still mark out of the full total).
-4. Finish with one or two sentences on the single most useful thing to fix. Do not rewrite their whole answer unless they ask.`,
+4. Then list every mark point, one per line, starting with ✓ (earned) or ✗ (lost), then the mark code, then a short reason, e.g. "✗ A1 (b) the bracket was expanded with the wrong sign". Label parts like (a), (b) when the question has them.
+5. Finish with one line starting "Fix:" giving the single most useful thing to change. Do not rewrite their whole answer unless they ask.`,
   chat: "Answer the student's message about this question. If they share working, respond to it. If they ask for the answer outright, you may give it, with the reasoning.",
 };
 

@@ -1,8 +1,8 @@
 "use client";
 
-import { Sparkle } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import { useEffect, useId, useRef, useState } from "react";
+import { HelperFace } from "@/components/helper/HelperFace";
 import { HELPER_NAME } from "@/lib/helper/config";
 import { trackProductEvent } from "@/lib/product-analytics";
 import styles from "./helper.module.css";
@@ -46,7 +46,7 @@ export function HelperLauncher({ bank, questionId, questionLabel, authenticated,
         trackProductEvent("helper_open", { bank, freePreview });
         setOpen(true);
       }}
-    ><Sparkle weight="fill" aria-hidden="true" />Ask {HELPER_NAME}</button>
+    ><HelperFace size={24} />Ask {HELPER_NAME}</button>
     {open && <HelperPanel bank={bank} questionId={questionId} questionLabel={questionLabel} authenticated={authenticated} freePreview={freePreview} onClose={close} />}
   </>;
 }

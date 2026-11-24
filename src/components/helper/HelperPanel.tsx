@@ -1,9 +1,12 @@
 "use client";
 
-import { Camera, DeviceMobile, PaperPlaneRight, Sparkle, X } from "@phosphor-icons/react";
+import { ArrowUp, Camera, DeviceMobile, Lightbulb, PencilSimpleLine, X, type Icon as PhosphorIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { courseToneForBank } from "@/components/CourseIcon";
+import { HelperFace } from "@/components/helper/HelperFace";
 import { HelperMessage } from "@/components/helper/HelperMessage";
+import { getCatalogBank } from "@/lib/catalog";
 import { HELPER_CHIP_PROMPTS, HELPER_PHOTO_NOTE, HELPER_CHIPS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME, helperPhonePath, type HelperMode } from "@/lib/helper/config";
 import { HelperRequestError, photoToDataUrl, streamHelperReply } from "@/lib/helper/client";
 import { parseMarkLine } from "@/lib/helper/marking";
@@ -11,6 +14,18 @@ import { trackProductEvent } from "@/lib/product-analytics";
 import styles from "./helper.module.css";
 
 type Turn = { role: "user" | "assistant"; text: string; photo?: string };
+
+const CHIP_ICONS: Readonly<Record<Exclude<HelperMode, "chat">, PhosphorIcon>> = { mark: Camera, hint: Lightbulb, explain: PencilSimpleLine };
+const CHIP_HINTS: Readonly<Record<Exclude<HelperMode, "chat">, string>> = {
+  mark: "Snap your working, get it marked point by point",
+  hint: "A nudge, not the answer",
+  explain: "Every mark, step by step",
+};
+
+const toneFor = (bank: string) => {
+  const catalog = getCatalogBank(bank as never);
+  return catalog ? courseToneForBank(catalog) : "math";
+};
 
 export type HelperPanelProps = {
   bank: string;
@@ -154,11 +169,13 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
 
   const returnPath = typeof window === "undefined" ? "/" : `${window.location.pathname}${window.location.search}`;
   const empty = turns.length === 0;
+  const tone = toneFor(bank);
+  const lastUser = [...turns].reverse().find((turn) => turn.role === "user");
 
   return (
     <section className={`${styles.panel} ${variant === "page" ? styles.page : styles.sheet}`} role={variant === "sheet" ? "dialog" : undefined} aria-labelledby={titleId}>
-      <header className={styles.header}>
-        <span className={styles.avatar} aria-hidden="true"><Sparkle weight="fill" /></span>
+      <header className={`${styles.header} course-tone-${tone}`} data-subject-tone={tone}>
+        <span className={styles.faceWrap}><HelperFace thinking={busy} /></span>
         <div className={styles.heading}>
           <h2 id={titleId}>{HELPER_NAME}</h2>
           <p>{questionLabel}</p>
@@ -168,7 +185,8 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
 
       {!authenticated ? (
         <div className={styles.signin}>
-          <p>Sign in to ask {HELPER_NAME} about this question: hints, full explanations, and marking from a photo of your working.</p>
+          <p className={styles.greet}>Stuck on this one? <em>I can help.</em></p>
+          <p className={styles.muted}>Hints, full explanations, and marking from a photo of your working. Free with an account.</p>
           <a className="button primary" href={`/login?mode=sign-up&next=${encodeURIComponent(returnPath)}`} onClick={() => trackProductEvent("helper_signin_click", { bank, action: "sign_up" })}>Create free account</a>
           <p className={styles.muted}>Have an account? <a href={`/login?next=${encodeURIComponent(returnPath)}`} onClick={() => trackProductEvent("helper_signin_click", { bank, action: "sign_in" })}>Sign in</a></p>
         </div>
@@ -176,25 +194,32 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
         <>
           <div className={styles.list} ref={listRef} aria-live="polite">
             {empty && (
-              <div className={styles.intro}>
-                <p>Hi! I&apos;ve read this question and its official mark scheme. What would help?</p>
+              <div className={styles.start}>
+                <p className={styles.greet}>I&apos;ve read this question <em>and its mark scheme.</em></p>
+                <div className={styles.tiles}>
+                  {HELPER_CHIPS.map((chip) => {
+                    const Icon = CHIP_ICONS[chip.mode];
+                    return <button key={chip.mode} type="button" className={`${styles.tile} ${chip.mode === "mark" ? styles.tileMain : ""}`} disabled={busy} onClick={() => pickChip(chip.mode)}>
+                      <span className={styles.tileIcon}><Icon weight="fill" aria-hidden="true" /></span>
+                      <span><b>{chip.label}</b><span>{CHIP_HINTS[chip.mode]}</span></span>
+                    </button>;
+                  })}
+                </div>
+                {variant === "sheet" && <button type="button" className={styles.phone} aria-expanded={qr.open} onClick={toggleQr}><DeviceMobile weight="bold" aria-hidden="true" />On a laptop? <span>Use your phone&apos;s camera</span></button>}
+                {qr.open && (
+                  <div className={styles.qr}>
+                    {qr.src ? <Image unoptimized src={qr.src} width={180} height={180} alt="QR code that opens this question on your phone" /> : <span className={styles.muted}>Making QR code…</span>}
+                    <p>Scan with your phone, sign in, then take a photo. The marking shows on your phone.</p>
+                  </div>
+                )}
               </div>
             )}
             {turns.map((turn, index) => turn.role === "user"
-              ? <div key={index} className={styles.user}>{turn.photo && <Image unoptimized width={0} height={0} src={turn.photo} alt="Your working" className={styles.thumb} />}{turn.text && <p>{turn.text}</p>}</div>
-              : <div key={index} className={styles.assistant}>{turn.text ? <HelperMessage text={turn.text} /> : <p className={styles.thinking}>{HELPER_NAME} is thinking…</p>}</div>)}
+              ? <div key={index} className={`${styles.user} ${styles.enter}`}>{turn.photo && <Image unoptimized width={0} height={0} src={turn.photo} alt="Your working" className={styles.thumb} />}{turn.text && <p>{turn.text}</p>}</div>
+              : <div key={index} className={`${styles.assistant} ${styles.enter}`}>{turn.text
+                ? <HelperMessage text={turn.text} />
+                : <p className={styles.thinking}><HelperFace thinking size={26} />{lastUser?.photo ? "Reading your working" : "Thinking"}<span className={styles.dots} aria-hidden="true"><i /><i /><i /></span></p>}</div>)}
           </div>
-
-          <div className={styles.chips}>
-            {HELPER_CHIPS.map((chip) => <button key={chip.mode} type="button" className={`${styles.chip} ${chip.mode === "mark" ? styles.chipPrimary : ""}`} disabled={busy} onClick={() => pickChip(chip.mode)}>{chip.mode === "mark" && <Camera weight="bold" aria-hidden="true" />}{chip.label}</button>)}
-            {variant === "sheet" && <button type="button" className={styles.phone} aria-expanded={qr.open} onClick={toggleQr}><DeviceMobile weight="bold" aria-hidden="true" />Use your phone&apos;s camera</button>}
-          </div>
-          {qr.open && (
-            <div className={styles.qr}>
-              {qr.src ? <Image unoptimized src={qr.src} width={180} height={180} alt="QR code that opens this question on your phone" /> : <span className={styles.muted}>Making QR code…</span>}
-              <p>Scan with your phone, sign in, then take a photo. The marking shows on your phone.</p>
-            </div>
-          )}
 
           {error && <p className={styles.error} role="alert">{error}</p>}
 
@@ -206,21 +231,21 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
               </div>
             )}
             <div className={styles.inputRow}>
-              <button type="button" className={styles.iconButton} aria-label="Attach a photo of your working" disabled={busy} onClick={() => choosePhoto(null)}><Camera weight="bold" /></button>
               <textarea
                 ref={inputRef}
                 className={styles.input}
                 rows={1}
                 maxLength={HELPER_MAX_TEXT}
-                placeholder={photo ? "Add a note, or just send" : `Ask ${HELPER_NAME} about this question`}
+                placeholder={photo ? "Add a note, or just send" : empty ? "Ask anything about this question" : "Ask a follow-up"}
                 value={draft}
                 onChange={(event) => setDraft(event.target.value)}
                 onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); event.currentTarget.form?.requestSubmit(); } }}
                 aria-label={`Message ${HELPER_NAME}`}
               />
-              <button type="submit" className={styles.iconButton} aria-label="Send" disabled={busy || (!draft.trim() && !photo)}><PaperPlaneRight weight="fill" /></button>
+              <button type="button" className={styles.iconButton} aria-label="Attach a photo of your working" disabled={busy} onClick={() => choosePhoto(null)}><Camera weight="bold" /></button>
+              <button type="submit" className={styles.send} aria-label="Send" disabled={busy || (!draft.trim() && !photo)}><ArrowUp weight="bold" /></button>
             </div>
-            <p className={styles.footnote}>{remaining !== null ? `${remaining} ${remaining === 1 ? "message" : "messages"} left today · ` : ""}{HELPER_NAME} can make mistakes; the mark scheme has the final say.</p>
+            <p className={styles.footnote}>{remaining !== null ? `${remaining} left today · ` : ""}The mark scheme has the final say.</p>
           </form>
           <input ref={fileRef} type="file" accept="image/*" hidden onChange={(event) => void onPhotoChosen(event.target.files?.[0])} />
         </>

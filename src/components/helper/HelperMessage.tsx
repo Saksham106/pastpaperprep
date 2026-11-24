@@ -3,6 +3,7 @@
 import "katex/dist/katex.min.css";
 import { Fragment } from "react";
 import { ExplanationMath } from "@/components/ExplanationMath";
+import { parseMarkLine } from "@/lib/helper/marking";
 import styles from "./helper.module.css";
 
 /** One line of text: **bold** spans, the rest with inline $maths$. */
@@ -35,7 +36,8 @@ export function parseHelperText(source: string): Block[] {
       blocks.push({ kind: "math", text: tex.trimEnd().replace(/\$\$$/, "").trim() });
       continue;
     }
-    const bullet = /^[-*•]\s+(.*)$/.exec(line);
+    // Marking replies list mark points as "✓ B1 ..." / "✗ M1 ...", with or without a bullet in front.
+    const bullet = /^[-*•]\s+(.*)$/.exec(line) ?? /^([✓✔✗✘].*)$/.exec(line);
     const numbered = /^\d{1,2}[.)]\s+(.*)$/.exec(line);
     const heading = /^#{1,4}\s+(.*)$/.exec(line);
     if (bullet || numbered) {
@@ -54,11 +56,43 @@ export function parseHelperText(source: string): Block[] {
   return blocks;
 }
 
+const MARK_POINT = /^([✓✔✗✘])\s*(?:\(?((?:SC|[MABC])\d{1,2})\)?[:\s—–-]*)?(.*)$/;
+
+function ListItem({ item }: { item: string }) {
+  const point = MARK_POINT.exec(item);
+  if (!point) return <li><Inline text={item} /></li>;
+  const earned = point[1] === "✓" || point[1] === "✔";
+  return <li className={`${styles.point} ${earned ? styles.earned : styles.lost}`}>
+    <span className={styles.pointMark} aria-label={earned ? "Mark earned" : "Mark lost"}>{earned ? "✓" : "✗"}</span>
+    <span>{point[2] && <code className={styles.pointCode}>{point[2]}</code>}<Inline text={point[3]} /></span>
+  </li>;
+}
+
+function Paragraph({ text }: { text: string }) {
+  const fix = /^\**(?:Fix|To fix|Next time)\**:\**\s*(.*)$/i.exec(text);
+  if (fix) return <p className={styles.fix}><span className={styles.fixLabel}>Fix</span><Inline text={fix[1]} /></p>;
+  return <p><Inline text={text} /></p>;
+}
+
+/** The score line a marking reply starts with, drawn as an examiner's mark. */
+function Score({ score, total }: { score: number; total: number }) {
+  const tone = score >= total ? styles.scoreFull : score > 0 ? styles.scorePart : styles.scoreNone;
+  return <div className={`${styles.score} ${tone}`} role="img" aria-label={`Marked ${score} out of ${total}`}>
+    <span className={styles.scoreNumber}>{score}</span><span className={styles.scoreTotal}>/ {total}</span>
+    <span className={styles.stamp}>Marked</span>
+  </div>;
+}
+
 export function HelperMessage({ text }: { text: string }) {
-  return <div className={styles.reply}>{parseHelperText(text).map((block, index) => <Fragment key={index}>
-    {block.kind === "p" && <p><Inline text={block.text} /></p>}
-    {block.kind === "math" && <ExplanationMath className={styles.display} tex={block.text} />}
-    {block.kind === "ul" && <ul>{block.items.map((item, itemIndex) => <li key={itemIndex}><Inline text={item} /></li>)}</ul>}
-    {block.kind === "ol" && <ol>{block.items.map((item, itemIndex) => <li key={itemIndex}><Inline text={item} /></li>)}</ol>}
-  </Fragment>)}</div>;
+  const mark = parseMarkLine(text);
+  const body = mark ? text.replace(/^\s*[^\n]*\n?/, "") : text;
+  return <div className={styles.reply}>
+    {mark && <Score score={mark.score} total={mark.total} />}
+    {parseHelperText(body).map((block, index) => <Fragment key={index}>
+      {block.kind === "p" && <Paragraph text={block.text} />}
+      {block.kind === "math" && <ExplanationMath className={styles.display} tex={block.text} />}
+      {block.kind === "ul" && <ul>{block.items.map((item, itemIndex) => <ListItem key={itemIndex} item={item} />)}</ul>}
+      {block.kind === "ol" && <ol>{block.items.map((item, itemIndex) => <ListItem key={itemIndex} item={item} />)}</ol>}
+    </Fragment>)}
+  </div>;
 }
