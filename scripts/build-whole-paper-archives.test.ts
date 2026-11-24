@@ -306,3 +306,29 @@ it('reads MCQ key reviews on every build and rejects malformed, duplicate or unk
     await expect(buildWholePaperArchives({root:dir,inventoryFiles:[inventoryFile]})).rejects.toThrow('MCQ key reviews match no built paper: 0620-2023-w-99');
   } finally {await fs.rm(dir,{recursive:true,force:true});}
 });
+it('adds an insert only when the pair has one, and checks its cover names the subject and sitting',()=>{
+  const p={...pair,id:'chemistry-2023-may-tz1-hl-p2-english'};
+  const q=doc('2223 – 6108 Chemistry Higher level Paper 2 May 2023 2 hours Maximum marks: 80',[30,50]);
+  const m=doc('M23/4/CHEMI/HP2/ENG/TZ1/XX/M Chemistry Higher level Paper 2 May 2023');
+  const plain=assemblePaper('ib-chemistry-hl',p,rows as never,q,m);
+  expect(plain.entry.documents).not.toHaveProperty('insert');
+  const booklet={...doc('Licence page'),sha256:'c'.repeat(64),pages:6,text:['Licence page','2223 – 5001 For use in May 2023 Chemistry Case study: fixture']};
+  const withInsert=assemblePaper('ib-chemistry-hl',p,rows as never,q,m,undefined,undefined,undefined,undefined,undefined,{document:booklet,label:'Case study'});
+  expect(withInsert.entry.documents.insert).toEqual({sha256:'c'.repeat(64),bytes:123,pages:6,label:'Case study'});
+  expect(withInsert.entry.summary).toEqual(plain.entry.summary);
+  expect(withInsert.entry.version).not.toBe(plain.entry.version);
+  expect(withInsert.evidence).toMatchObject({identityValid:true,insertValid:true,insertCoverPage:2});
+  const wrongSession={...booklet,text:['For use in November 2023 Chemistry Case study']};
+  const rejected=assemblePaper('ib-chemistry-hl',p,rows as never,q,m,undefined,undefined,undefined,undefined,undefined,{document:wrongSession,label:'Case study'});
+  expect(rejected.evidence).toMatchObject({identityValid:false,insertValid:false});
+  expect(rejected.entry.summary.reportReason).toBe('Insert cover does not name this subject and session.');
+});
+it('lets one insert serve several pairs but never as a question paper or mark scheme',()=>{
+  const twin={...pair,id:'0620-2023-w-43',runtimePaperId:'0620-2023-w-43',questionPath:'/original/q43.pdf',markschemePath:'/original/m43.pdf',runtimeQuestionIds:['0620-2023-w-43-q1']};
+  const shared=(insertPath:string,insertLabel='Insert')=>({banks:[{...bank,pairs:[{...pair,insertPath,insertLabel},{...twin,insertPath,insertLabel}]}]});
+  expect(()=>validateInventory(shared('/original/insert.pdf'))).not.toThrow();
+  expect(()=>validateInventory(shared('/original/q43.pdf'))).toThrow('Insert is also a question paper or mark scheme');
+  expect(()=>validateInventory(shared('relative/insert.pdf'))).toThrow('Original paths must be absolute');
+  expect(()=>validateInventory(shared('/original/insert.pdf','case_study'))).toThrow('Insert needs a plain label');
+  expect(()=>validateInventory({banks:[{...bank,pairs:[{...pair,insertLabel:'Insert'}]}]})).toThrow('Original paths must be absolute');
+});

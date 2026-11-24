@@ -138,6 +138,7 @@ export const IGCSE_BIO_COORDINATED_ECON: Article[] = [
     "draft": false,
     "slug": "best-igcse-coordinated-sciences-0654-question-banks",
     "title": "IGCSE Co-ordinated Sciences 0654 Past Papers & Question Banks",
+    "seoTitle": "IGCSE Co-ordinated Sciences 0654 Question Banks",
     "description": "Find the best IGCSE Co-ordinated Sciences 0654 past-paper resources and learn how to match combined science papers to your component and tier.",
     "eyebrow": "IGCSE Co-ordinated Sciences 0654",
     "answer": "For IGCSE Co-ordinated Sciences (Double Award) 0654, use Cambridge's official syllabus and papers to confirm your component route, then use a topical bank to practise weak Biology, Chemistry and Physics areas without splitting the qualification into three unrelated courses. PastPaperPrep's live 0654 bank contains real past-paper questions from papers covering recent exam years. Use it when you want authentic questions, syllabus-aware topic filters and printable mixed sets; a notes-led platform is better when you still need the science explained.",

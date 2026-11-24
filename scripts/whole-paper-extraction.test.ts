@@ -77,6 +77,15 @@ it('keeps source grammar, shared levels and split components distinct',()=>{
   expect(parseIdentity('0654-2020-summer-42')).toMatchObject({sessionCode:'s',component:'42'});
   expect(parseIdentity('chemistry-2025-november-tz3-hl-p1b-english')).toMatchObject({sessionCode:'nov',paper:'1b',component:'P1B',variant:'tz3'});
   expect(parseIdentity('economics-2025-may-tz3-hlsl-p2-english')).toMatchObject({level:'hlsl'});
+  expect(parseIdentity('business-management-2024-may-tz1-hlsl-p1')).toMatchObject({year:2024,sessionCode:'may',level:'hlsl',paper:'1',component:'P1',variant:'tz1'});
+  expect(parseIdentity('business-management-2024-nov-tz0-hl-p3')).toMatchObject({sessionCode:'nov',level:'hl',paper:'3',variant:'tz0'});
+});
+it('accepts both printed forms of a joint HL/SL level, and no single level for a joint paper',()=>{
+  const joint=parseIdentity('business-management-2024-may-tz1-hlsl-p1');
+  expect(parseHeader('2224 – 5004M 8 pages Markscheme May 2024 Business management Higher / Standard level Paper 1',joint).identityValid).toBe(true);
+  expect(parseHeader('8824 – 5004M 8 pages Markscheme November 2024 Business management Higher level and Standard level Paper 1',parseIdentity('business-management-2024-nov-tz1-hlsl-p1')).identityValid).toBe(true);
+  expect(parseHeader('Markscheme May 2024 Business management Higher level Paper 1',joint).identityValid).toBe(false);
+  expect(parseHeader('Markscheme May 2024 Business management Standard level Paper 1',joint).identityValid).toBe(false);
 });
 it('finds an IB exam cover after licensing and keeps component maximum separate from combined time',()=>{
   const identity=parseIdentity('chemistry-2025-may-tz1-hl-p1b-english');

@@ -5,7 +5,7 @@ export const dynamic='force-dynamic';
 const headers={'Cache-Control':'private, no-store, max-age=0','X-Robots-Tag':'noindex, nofollow, noarchive','X-Content-Type-Options':'nosniff'};
 export async function GET(request:Request,{params}:{params:Promise<{slug:string;entry:string}>}) {
   const kind=new URL(request.url).searchParams.get('kind');
-  if(kind!=='question' && kind!=='markscheme') return new Response('Not found',{status:404,headers});
+  if(kind!=='question' && kind!=='markscheme' && kind!=='insert') return new Response('Not found',{status:404,headers});
   const {slug,entry}=await params;
   const bank=bankForSubjectSlug(slug);
   try {

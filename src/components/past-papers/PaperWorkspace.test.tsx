@@ -57,3 +57,18 @@ describe('PaperWorkspace', () => {
     expect(screen.getByTestId('marking')).toHaveAttribute('data-notes', 'none');
   });
 });
+
+describe('PaperWorkspace with a case study booklet', () => {
+  it('adds the booklet between the paper and the scheme in the phone dock', async () => {
+    const reader = { ...DEFAULT_PAPER_READER_CONFIG, sources: { ...DEFAULT_PAPER_READER_CONFIG.sources, insert: '/booklet.pdf' }, insertLabel: 'Case study' };
+    render(<PaperWorkspace reader={reader} marking={null} bank="ib-business-management-hl"><p /></PaperWorkspace>);
+    const dock = screen.getByRole('navigation', { name: 'Paper shortcuts' });
+    expect([...dock.querySelectorAll('button')].map(b => b.textContent)).toEqual(['Paper', 'Case', 'Scheme']);
+    await userEvent.click(screen.getByRole('button', { name: 'Case' }));
+    expect(screen.getByTestId('reader')).toHaveTextContent('insert');
+  });
+  it('shows no booklet button when the paper has none', () => {
+    render(<PaperWorkspace reader={DEFAULT_PAPER_READER_CONFIG} marking={null} bank="igcse"><p /></PaperWorkspace>);
+    expect([...screen.getByRole('navigation', { name: 'Paper shortcuts' }).querySelectorAll('button')].map(b => b.textContent)).toEqual(['Paper', 'Scheme']);
+  });
+});

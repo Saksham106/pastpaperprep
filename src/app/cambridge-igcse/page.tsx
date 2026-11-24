@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { QualificationHub } from "@/components/SearchLanding";
 import { IGCSE_MATHS_NOTES_HREF, IGCSE_PHYSICS_NOTES_HREF, igcseMathsNotesVisible, igcsePhysicsNotesVisible } from "@/lib/course-notes/visibility";
 export const metadata: Metadata = {
-  title: "IGCSE Past Papers by Topic: Maths, Sciences and Economics",
+  title: "Cambridge IGCSE Past Papers by Topic",
   description:
-    "Cambridge IGCSE past-paper questions sorted by topic for Maths 0580, Add Maths 0606, Biology 0610, Chemistry 0620, Physics 0625, 0654 and Economics 0455.",
+    "Cambridge IGCSE past-paper questions by topic: Maths 0580, Add Maths 0606, Biology 0610, Chemistry 0620, Physics 0625, 0654, Economics 0455 and CS 0478.",
   alternates: { canonical: "/cambridge-igcse" },
 };
 export default function CambridgeIgcsePage() {

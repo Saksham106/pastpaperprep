@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageTitle } from "@/lib/past-paper-seo";
 import { notFound } from "next/navigation";
 import { ArticleContent } from "@/components/Articles";
 import { ARTICLES, getArticle } from "@/lib/articles";
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const path = `/articles/${article.slug}`;
 
   return {
-    title: article.title,
+    title: pageTitle(article.seoTitle ?? article.title),
     description: article.description,
     alternates: { canonical: path },
     openGraph: {

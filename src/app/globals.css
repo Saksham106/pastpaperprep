@@ -1431,6 +1431,9 @@ main { min-height: 72vh; }
 .article-header { padding-bottom: 36px; border-bottom: 1px solid var(--line-strong); }
 .article-header .breadcrumbs { margin-bottom: 34px; }
 .article-byline { margin-top: 25px; display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font: 600 .72rem/1.5 var(--font-mono); }
+.article-answer:has(+ .article-answer-cta) { margin-bottom: 16px; }
+.article-answer-cta { margin: 0 0 50px; font-weight: 620; }
+.article-answer-cta a { text-decoration: underline; text-underline-offset: 0.15em; }
 .article-answer { margin: 38px 0 50px; padding: 24px 26px; color: var(--ink); background: color-mix(in srgb, var(--lime) 13%, var(--surface)); border-left: 4px solid var(--lime); border-radius: 0 12px 12px 0; font-size: 1.1rem; font-weight: 620; line-height: 1.7; }
 .article-body { max-width: 760px; }
 .comparison-table-wrap { margin: 0 0 54px; overflow-x: auto; border: 1px solid var(--line-strong); border-radius: 14px; }
@@ -1602,6 +1605,7 @@ main { min-height: 72vh; }
   .article-card-meta { align-items: flex-start; flex-direction: column; }
   .article-bank-cta { margin-top: 44px; padding: 24px; }
   .article-answer { margin-block: 28px 40px; padding: 20px; }
+  .article-answer-cta { margin-bottom: 40px; }
   .article-section h2, .article-faq > h2, .article-related h2 { font-size: 1.7rem; }
   .shell { width: min(100% - 24px, 1200px); }
   .site-header { width: 100%; padding-inline: 20px; }

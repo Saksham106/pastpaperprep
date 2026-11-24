@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from "react-dom/server";
+import { pageTitle } from "@/lib/past-paper-seo";
 import { describe, expect, it } from "vitest";
 import ArticlesPage, { metadata as articlesMetadata } from "@/app/articles/page";
 import ArticlePage, { generateMetadata, generateStaticParams } from "@/app/articles/[slug]/page";
@@ -55,7 +56,7 @@ describe("article routes", () => {
     const article = ARTICLES[0];
     const metadata = await generateMetadata({ params: Promise.resolve({ slug: article.slug }) });
 
-    expect(metadata.title).toBe(article.title);
+    expect(metadata.title).toEqual(pageTitle(article.seoTitle ?? article.title));
     expect(metadata.description).toBe(article.description);
     expect(metadata.alternates?.canonical).toBe(`/articles/${article.slug}`);
     expect(metadata.openGraph).toMatchObject({

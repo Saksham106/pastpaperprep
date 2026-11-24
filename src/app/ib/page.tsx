@@ -3,9 +3,9 @@ import { QualificationHub } from "@/components/SearchLanding";
 import { socialPreview } from "@/lib/seo";
 import { IB_CHEMISTRY_NOTES_HREF, IB_MATHS_AI_NOTES_HREF, IB_PHYSICS_NOTES_HREF, NOTES_INDEX_HREF, aaNotesVisible, ibChemistryNotesVisible, ibMathsAiNotesVisible, ibPhysicsNotesVisible } from "@/lib/course-notes/visibility";
 export const metadata: Metadata = {
-  title: "IB Past Papers by Topic: Maths, Sciences and Economics",
+  title: "IB Past Papers and Question Banks by Topic",
   description:
-    "IB Diploma past-paper questions sorted by topic for Maths AA and AI, Biology, Chemistry, Physics and Economics at HL and SL.",
+    "IB Diploma past-paper questions by topic for Maths AA and AI, Biology, Chemistry, Physics, Economics, Computer Science and Business Management, HL and SL.",
   alternates: { canonical: "/ib" },
   openGraph: { url: "/ib", ...socialPreview("ib") },
 };

@@ -131,14 +131,16 @@ function paperTail(p: WholePaperSummary): string {
   return p.durationMinutes !== null ? ' Time yourself with the real exam duration.' : '';
 }
 
-export function paperCopy(bank: CatalogBank, p: WholePaperSummary): PageCopy {
+/** `insertLabel`: the paper's separate booklet ("Case study"), named alongside the mark scheme when there is one. */
+export function paperCopy(bank: CatalogBank, p: WholePaperSummary, insertLabel?: string): PageCopy {
   const name = paperSubjectName(bank, p), label = paperName(p);
+  const extra = insertLabel ? ` and ${insertLabel.toLowerCase()}` : '';
   const facts = [p.durationMinutes !== null && formatDuration(p.durationMinutes), p.maxMarks !== null && plural(p.maxMarks, 'mark')].filter(Boolean).join(', ');
   if (isIb(bank)) return {
     title: fitTitle(`${name} ${p.session} ${p.year} ${label}: Paper & Markscheme`, `${name} ${shortIbSession(p.session)} ${p.year} ${label}: Paper & Markscheme`, `${name} ${shortIbSession(p.session)} ${p.year} ${label} & Markscheme`, `${name} ${shortIbSession(p.session)} ${p.year} ${label}`),
     h1: `${name} ${p.session} ${p.year} ${label}`,
-    description: `${paperCourseTitle(bank, p)} ${label}, ${p.session} ${p.year}, with its markscheme.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
-    answer: `${paperCourseTitle(bank, p)} ${label} from ${p.session} ${p.year}, with its markscheme.`,
+    description: `${paperCourseTitle(bank, p)} ${label}, ${p.session} ${p.year}, with its markscheme${extra}.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
+    answer: `${paperCourseTitle(bank, p)} ${label} from ${p.session} ${p.year}, with its markscheme${extra}.`,
   };
   const subject = name.replace(` ${bank.syllabusCode}`, '');
   const code = slashCode(p);
@@ -151,11 +153,11 @@ export function paperCopy(bank: CatalogBank, p: WholePaperSummary): PageCopy {
     ),
     h1: `${subject} ${p.syllabusCode}/${p.component} ${p.session} ${p.year}`,
     description: fitDescription(
-      `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${p.session} ${p.year}, with its mark scheme.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
-      `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${shortSession(p.session)} ${p.year}, with its mark scheme.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
-      `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${shortSession(p.session)} ${p.year}, with its mark scheme.${facts ? ` ${facts}.` : ''}`,
+      `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${p.session} ${p.year}, with its mark scheme${extra}.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
+      `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${shortSession(p.session)} ${p.year}, with its mark scheme${extra}.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
+      `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${shortSession(p.session)} ${p.year}, with its mark scheme${extra}.${facts ? ` ${facts}.` : ''}`,
     ),
-    answer: `${isALevel(bank) ? 'Cambridge A Level' : 'Cambridge IGCSE'} ${bank.subject} ${bank.syllabusCode} ${label} from ${p.session} ${p.year}, with its mark scheme.`,
+    answer: `${isALevel(bank) ? 'Cambridge A Level' : 'Cambridge IGCSE'} ${bank.subject} ${bank.syllabusCode} ${label} from ${p.session} ${p.year}, with its mark scheme${extra}.`,
   };
 }
 
@@ -192,8 +194,8 @@ export function collectionJsonLd(copy: PageCopy, path: string, items: { name: st
 export function faqJsonLd(faq: FaqItem[]): Record<string, unknown> {
   return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
 }
-export function paperJsonLd(bank: CatalogBank, p: WholePaperSummary, path: string): Record<string, unknown> {
-  const copy = paperCopy(bank, p);
+export function paperJsonLd(bank: CatalogBank, p: WholePaperSummary, path: string, insertLabel?: string): Record<string, unknown> {
+  const copy = paperCopy(bank, p, insertLabel);
   const time = p.durationMinutes === null ? null : `PT${Math.floor(p.durationMinutes / 60) ? `${Math.floor(p.durationMinutes / 60)}H` : ''}${p.durationMinutes % 60 ? `${p.durationMinutes % 60}M` : ''}`;
   return {
     '@context': 'https://schema.org', '@type': 'LearningResource', name: copy.title, alternateName: paperCodes(bank, p), description: copy.description, url: absolute(path),

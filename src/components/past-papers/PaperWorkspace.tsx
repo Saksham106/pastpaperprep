@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { CheckSquare } from '@phosphor-icons/react/dist/ssr';
-import { PastPaperReader, type PaperDocumentKind } from '@/components/PastPaperReader';
+import { PastPaperReader } from '@/components/PastPaperReader';
 import { PaperMarkingWorkspace, type PaperMarkingPaper } from '@/components/PaperMarkingWorkspace';
-import type { PaperReaderConfig } from '@/lib/paper-reader-config';
+import { paperDocumentKinds, type PaperDocumentKind, type PaperReaderConfig } from '@/lib/paper-reader-config';
 import { trackProductEvent } from '@/lib/product-analytics';
 import { PeriodicTableButton } from '@/components/PeriodicTableButton';
 import type { NotesLink } from '@/lib/paper-marking-report';
@@ -38,7 +38,7 @@ export function PaperWorkspace({ reader, marking, bank, practice = true, notesLi
       </>}
     </aside>
     <nav className={styles.dock} aria-label="Paper shortcuts">
-      <div className={styles.dockSwitch}>{(['question', 'markscheme'] as const).map(type => <button key={type} type="button" aria-pressed={kind === type} onClick={() => setKind(type)}>{type === 'question' ? 'Paper' : 'Scheme'}</button>)}</div>
+      <div className={styles.dockSwitch}>{paperDocumentKinds(reader).map(type => <button key={type} type="button" aria-pressed={kind === type} onClick={() => setKind(type)}>{type === 'question' ? 'Paper' : type === 'markscheme' ? 'Scheme' : reader.insertLabel?.split(' ')[0]}</button>)}</div>
       {marking && !markingOpen && <button type="button" className={styles.dockMark} onClick={openMarking}><CheckSquare aria-hidden="true" weight="bold" />Mark it</button>}
       {hasPeriodicTable(bank) && <PeriodicTableButton source="past-paper-dock" />}
     </nav>

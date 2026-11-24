@@ -1,3 +1,7 @@
+export type PaperDocumentKind = 'question' | 'markscheme' | 'insert';
+/** The paper's documents in reading order: an insert (case study booklet) sits between the paper and its mark scheme. */
+export const paperDocumentKinds = (paper: PaperReaderConfig): PaperDocumentKind[] => paper.sources.insert && paper.insertLabel ? ['question', 'insert', 'markscheme'] : ['question', 'markscheme'];
+
 /** Minimal serializable client metadata; never imports an archive corpus. */
 export type PaperReaderConfig = {
   id: string;
@@ -12,7 +16,9 @@ export type PaperReaderConfig = {
   durationMinutes: number | null;
   maxMarks: number | null;
   bankSlug?: string;
-  sources: { question: string; markscheme: string };
+  /** `insert`: a separate booklet the paper needs (a pre-seen case study), shown as a third tab named `insertLabel`. */
+  sources: { question: string; markscheme: string; insert?: string };
+  insertLabel?: string;
   archiveHref?: string;
   reportAvailable?: boolean;
   /** Question number -> question-paper page, so /past-papers/...#q3 opens at question 3. */
