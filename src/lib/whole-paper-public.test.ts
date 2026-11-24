@@ -42,6 +42,25 @@ describe('public paper objects', () => {
     expect(sharedDownloadName(['0580_s23_qp_42.pdf', '0580_s23_qp_42.pdf'])).toBe('0580_s23_qp_42.pdf');
     expect(() => sharedDownloadName(['0580_s23_qp_42.pdf', '0580_s23_qp_43.pdf'])).toThrow();
   });
+  it('names an insert by its label, once per sitting: no time zone, and no level once HL and SL share it', () => {
+    const bm = { ...ib, id: 'business-management-2023-may-tz1-hl-p1', bankSlug: 'ib-business-management-hl', syllabusCode: 'Business Management', year: 2023, variant: 'tz1' } as WholePaperSummary;
+    expect(paperDownloadName(bm, 'insert', 'Case study')).toBe('ib-business-management-hl-2023-may-paper-1_case-study.pdf');
+    expect(paperDownloadName({ ...bm, variant: 'tz2' }, 'insert', 'Case study')).toBe('ib-business-management-hl-2023-may-paper-1_case-study.pdf');
+    expect(paperDownloadName({ ...igcse, component: '22' } as WholePaperSummary, 'insert', 'Insert')).toBe('0580_s23_in_22.pdf');
+    expect(() => paperDownloadName(bm, 'insert')).toThrow('plain label');
+    expect(() => paperDownloadName(bm, 'insert', '../x')).toThrow('plain label');
+    const paper = (bankSlug: string, variant: string) => ({ summary: { ...bm, bankSlug, id: `${bankSlug}-${variant}`, variant }, version: 'v', questions: [], documents: { question: { sha256: createHash('sha256').update(bankSlug + variant).digest('hex'), bytes: 1, pages: 1 }, markscheme: { sha256: createHash('sha256').update(`ms${bankSlug}${variant}`).digest('hex'), bytes: 1, pages: 1 }, insert: { sha256: sha, bytes: 9, pages: 6, label: 'Case study' } } });
+    const manifest = (bankSlug: string) => ({ version: 'v', bankSlug, runtimeSha256: sha, papers: [paper(bankSlug, 'tz1'), paper(bankSlug, 'tz2')], coverage: { paired: 2, reports: 0, held: 2, unpaired: 0, runtimeWithoutPair: 0 } }) as unknown as WholePaperManifest;
+    const approved = approvedPapers([manifest('ib-business-management-hl'), manifest('ib-business-management-sl')]);
+    expect(approved.sizes.get(sha)).toBe(9);
+    expect(approved.refs.filter(r => r.kind === 'insert')).toHaveLength(4);
+    expect(objectDownloadNames(approved).get(sha)).toBe('ib-business-management-2023-may-paper-1_case-study.pdf');
+  });
+  it('adds seal lines for inserts only, so manifests without one keep their digests', () => {
+    const refs = [{ bankSlug: 'ib-economics-sl', paperId: 'p2', kind: 'question' as const, sha256: sha, bytes: 10 }];
+    expect(paperMappingDigest(refs)).toBe(createHash('sha256').update(`ib-economics-sl/p2/question ${sha} 10\n`).digest('hex'));
+    expect(paperMappingDigest([...refs, { ...refs[0], kind: 'insert' as const, sha256: 'b'.repeat(64) }])).not.toBe(paperMappingDigest(refs));
+  });
 });
 
 describe('public readback receipt', () => {

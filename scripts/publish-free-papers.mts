@@ -1,6 +1,8 @@
 /**
  * Publishes the free past-paper PDFs to the public `pastpaperprep-free` bucket and proves they are there.
  * Uploading publishes the files: owner approval required (AGENTS.md). Needs `wrangler login`; no keys.
+ * "Approved PDFs" are every question paper, mark scheme and optional insert (case study booklet) the manifests
+ * list (approvedPapers); the tool handles them alike, by hash.
  *
  *   npx tsx scripts/publish-free-papers.mts list <source-bindings.json> <work-dir>
  *   npx tsx scripts/publish-free-papers.mts upload <source-bindings.json> <work-dir>   # ~3 parallel; resumable

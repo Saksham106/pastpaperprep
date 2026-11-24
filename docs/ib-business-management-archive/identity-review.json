@@ -24,6 +24,31 @@
           "imageSha256": "4b704e2b59c666d112c8ecfffe176f7caa09c5388c3a84872b9d40886905440f"
         }
       ]
+    },
+    {
+      "bankSlug": "ib-business-management-sl",
+      "paperId": "business-management-2023-nov-tz1-sl-p1",
+      "questionSha256": "f1c196b06900ae52544165200b2e2c73f3aa1f9b62f068f3a39c5f0a803b7f31",
+      "markschemeSha256": "6937e083e81b9ed97706424be8afcb9b194a8383c807e7f82bb3838a7df905c0",
+      "verdict": "valid-pair",
+      "evidence": "The markscheme cover prints 8823 – 5013M, the TZ2 code, while the question paper prints 8823 – 9228. The rendered covers agree on everything else: Markscheme, November 2023, Business management, Standard level, Paper 1; and Business management, Standard level, Paper 1, 23 October 2023, 1 hour 15 minutes, [40 marks]. It is a different file from the TZ2 markscheme (0f4622c5…), and its text holds all 22 words unique to the TZ1 paper against 12 of 26 unique to TZ2 (its Q1(a) asks about BRD converting to a public limited company, as the TZ1 paper does). The source workspace's pair check agrees (1.0 vs 0.399 for TZ2), so the code is an IB cover misprint.",
+      "reviewedBy": "IB Business Management archive session, 2026-11-24, rendered covers and zone-unique vocabulary",
+      "visualEvidence": [
+        {
+          "document": "question",
+          "sourcePdfSha256": "f1c196b06900ae52544165200b2e2c73f3aa1f9b62f068f3a39c5f0a803b7f31",
+          "page": 2,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-business-management-free-papers-2026-11/identity-evidence/2a4c7ddffc2898afbc8e4430715cc711d65774155609cde39c029fb80accafea.png",
+          "imageSha256": "2a4c7ddffc2898afbc8e4430715cc711d65774155609cde39c029fb80accafea"
+        },
+        {
+          "document": "markscheme",
+          "sourcePdfSha256": "6937e083e81b9ed97706424be8afcb9b194a8383c807e7f82bb3838a7df905c0",
+          "page": 1,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-business-management-free-papers-2026-11/identity-evidence/1a4560303808e9b3a365e357cbbca8d421dc826a51622f5d11447325113b3858.png",
+          "imageSha256": "1a4560303808e9b3a365e357cbbca8d421dc826a51622f5d11447325113b3858"
+        }
+      ]
     }
   ]
 }

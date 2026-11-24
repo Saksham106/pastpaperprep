@@ -2,6 +2,8 @@
  * Publishes only the free past-paper PDFs a change adds, without re-putting live objects, then
  * re-verifies every approved PDF from free.pastpaperprep.com. Uploading publishes the files: owner approval required (AGENTS.md).
  * Needs `wrangler login`; no keys.
+ * "Approved PDFs" are every question paper, mark scheme and optional insert (case study booklet) the manifests
+ * list (approvedPapers); the tool handles them alike, by hash.
  *
  *   npx tsx scripts/publish-added-free-papers.mts plan   <base-ref> <source-bindings.json> <work-dir>
  *   npx tsx scripts/publish-added-free-papers.mts upload <base-ref> <source-bindings.json> <work-dir>

@@ -10,16 +10,35 @@ const runtime = (level: 'hl' | 'sl') => JSON.parse(readFileSync(join(process.cwd
 const hl = load('hl'), sl = load('sl');
 
 describe('IB Business Management whole papers', () => {
-  it('lists every paired paper from Nov 2020 to May 2026 except old-guide Paper 1', () => {
-    expect(hl.coverage).toEqual({ paired: 40, reports: 7, held: 33, unpaired: 0, runtimeWithoutPair: 9 });
-    expect(sl.coverage).toEqual({ paired: 32, reports: 0, held: 32, unpaired: 1, runtimeWithoutPair: 9 });
+  it('lists every paired paper from Nov 2020 to May 2026', () => {
+    expect(hl.coverage).toEqual({ paired: 49, reports: 7, held: 42, unpaired: 0, runtimeWithoutPair: 0 });
+    expect(sl.coverage).toEqual({ paired: 41, reports: 0, held: 41, unpaired: 1, runtimeWithoutPair: 0 });
     for (const m of [hl, sl]) {
       const years = m.papers.map(p => p.summary.year);
       expect(Math.min(...years)).toBe(2020);
       expect(Math.max(...years)).toBe(2026);
-      // Old Paper 1 needs the pre-seen case booklet, which the archive cannot list.
-      expect(m.papers.filter(p => p.summary.component === 'P1' && p.summary.year < 2024)).toEqual([]);
     }
+  });
+
+  it('lists old-guide Paper 1 with its case study, one booklet per session shared by HL, SL and both zones', () => {
+    const oldP1 = (m: WholePaperManifest) => m.papers.filter(p => p.summary.component === 'P1' && p.summary.year < 2024);
+    expect(oldP1(hl)).toHaveLength(9);
+    expect(oldP1(sl)).toHaveLength(9);
+    for (const p of [...oldP1(hl), ...oldP1(sl)]) expect(p.documents.insert).toMatchObject({ label: 'Case study' });
+    expect([...hl.papers, ...sl.papers].filter(p => p.documents.insert)).toHaveLength(18);
+    const names = objectDownloadNames(approvedPapers([hl, sl]));
+    const booklets = new Set([...oldP1(hl), ...oldP1(sl)].map(p => p.documents.insert!.sha256));
+    expect(booklets.size).toBe(7);
+    for (const sha of booklets) expect(names.get(sha)).toMatch(/^ib-business-management-20\d\d-(may|november)-paper-1_case-study\.pdf$/);
+    const session = (m: WholePaperManifest, year: number, code: string) => new Set(oldP1(m).filter(p => p.summary.year === year && p.summary.sessionCode === code).map(p => p.documents.insert!.sha256));
+    expect(session(hl, 2023, 'nov')).toEqual(session(sl, 2023, 'nov'));
+    expect(session(hl, 2023, 'nov').size).toBe(1);
+  });
+
+  it('takes old Paper 1 timing and marks from the 2016 guide and the 2021-2022 adaptations', () => {
+    const p1 = (m: WholePaperManifest, year: number) => m.papers.find(p => p.summary.year === year && p.summary.component === 'P1')!.summary;
+    expect([p1(hl, 2020), p1(hl, 2022), p1(hl, 2023)].map(s => [s.durationMinutes, s.maxMarks])).toEqual([[135, 60], [75, 40], [135, 60]]);
+    expect([p1(sl, 2020), p1(sl, 2021), p1(sl, 2023)].map(s => [s.durationMinutes, s.maxMarks])).toEqual([[75, 40], [60, 30], [75, 40]]);
   });
 
   it('leaves out Nov 2025 Paper 2 SL TZ1, which has no question paper', () => {

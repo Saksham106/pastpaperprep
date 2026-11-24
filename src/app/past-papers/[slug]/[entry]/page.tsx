@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug, entry } = await params;
   const view = await resolveEntry(slug, entry);
   if (!view) return {};
-  const copy = view.kind === 'year' ? yearCopy(view.bank, view.year, view.papers) : view.kind === 'paperNumber' ? paperNumberCopy(view.bank, view.paper, view.papers, topicFrequency(view.questionSets ?? []).topics.map(t => t.topic)) : paperCopy(view.bank, view.detail.summary);
+  const copy = view.kind === 'year' ? yearCopy(view.bank, view.year, view.papers) : view.kind === 'paperNumber' ? paperNumberCopy(view.bank, view.paper, view.papers, topicFrequency(view.questionSets ?? []).topics.map(t => t.topic)) : paperCopy(view.bank, view.detail.summary, view.detail.documents.insert?.label);
   const indexed = view.kind === 'paper' ? view.indexing?.indexed ?? false : view.kind === 'paperNumber' || yearIndexed(view.year, latestYear(view.all));
   return pastPaperMetadata(copy, `/past-papers/${slug}/${entry}`, qualificationOfBank(view.bank.slug), indexed);
 }

@@ -10,8 +10,13 @@ Never put these PDFs in the private `pastpaperprep-assets` bucket, and never mak
 ## How it fits together
 
 - `src/data/paper-archives/<bank>.json` lists every approved PDF by SHA-256 and size.
+- A paper may also carry an optional **insert** (`documents.insert`, with a `label` such as "Case study"): a
+  separate booklet the paper needs, like IB Business Management's pre-seen case study. The paper page shows it as a
+  third reader tab. The inventory pair names it with `insertPath` + `insertLabel`; one booklet may serve several
+  pairs (both time zones, HL and SL), and its cover must name the subject and sitting. Papers without one are
+  byte-identical to before, and so are their digests.
 - `src/data/paper-archive-readback.json` (committed) records a digest of that whole set and a seal
-  of which PDF serves each bank/paper/role (question paper or mark scheme). It is written only after
+  of which PDF serves each bank/paper/role (question paper, mark scheme or insert). It is written only after
   every object was downloaded from `free.pastpaperprep.com` and matched byte for byte, filename
   included, and the manifests didn't change during the run.
 - Production shows the library only with `PAPER_ARCHIVE_ENABLED=true`,
@@ -21,7 +26,8 @@ Never put these PDFs in the private `pastpaperprep-assets` bucket, and never mak
 - Objects carry `Content-Disposition: attachment; filename="0580_s23_qp_42.pdf"` (IB:
   `ib-math-aa-hl-2021-may-paper-1-tz1_qp.pdf`), because browsers ignore `download=` on
   cross-origin links. A PDF shared by IB HL and SL papers carries a level-neutral name
-  (`ib-economics-2024-may-paper-2-tz1_qp.pdf`). The reader fetches with pdf.js, which the header
+  (`ib-economics-2024-may-paper-2-tz1_qp.pdf`). An insert is named by its label without the time zone
+  (`ib-business-management-2023-may-paper-1_case-study.pdf`; Cambridge `9708_s23_in_22.pdf`). The reader fetches with pdf.js, which the header
   does not affect.
 - A Cloudflare response-header Transform Rule on the `pastpaperprep.com` zone sends
   `X-Robots-Tag: noindex` for `free.pastpaperprep.com/papers/*`, so search lands on the paper
