@@ -15,6 +15,18 @@ export function fitTitle(title: string, suffix = ""): string {
   return `${title.slice(0, MAX_TITLE - 1).trimEnd()}…`;
 }
 
+/**
+ * Notes titles always name the course: "Limits and the derivative | IB Maths AA" beats a bare lesson name,
+ * which AA and AI share. Prefer " | <course> Notes", then " | <course>"; the short form may run to 70
+ * characters, since a missing course name costs more than a truncated tail.
+ */
+export function notesTitle(title: string, courseName: string): string {
+  const long = `${title} | ${courseName} Notes`;
+  if (long.length <= MAX_TITLE) return long;
+  const short = `${title} | ${courseName}`;
+  return short.length <= 70 ? short : fitTitle(title);
+}
+
 export function courseMeta(title: string, description: string, path: string, type: "website" | "article" = "website"): Metadata {
   return {
     title: { absolute: fitTitle(title) },
@@ -28,15 +40,17 @@ export const homeMeta = (course: Course) =>
   courseMeta(`${course.name} Course Notes: Every Topic`, `Free ${course.name} course notes for every syllabus topic, with worked examples, checks and links to real past-paper questions.`, `/revision-notes/${course.slug}`);
 
 export const topicMeta = (course: Course, topic: Course["topics"][number]) =>
-  courseMeta(fitTitle(topic.name, ` | ${course.name} Notes`), `${course.name} notes on ${topic.name.toLowerCase()}: every lesson, with worked examples and checks.`, topicPath(course, topic.n));
+  courseMeta(notesTitle(topic.name, course.name), `${course.name} notes on ${topic.name.toLowerCase()}: every lesson, with worked examples and checks.`, topicPath(course, topic.n));
 
 export const lessonMeta = (course: Course, lesson: Lesson) =>
-  courseMeta(fitTitle(lesson.title, ` | ${course.name} Notes`), fitMetaDescription(inlineToPlainText(lesson.summary)), lessonPath(course, lesson), "article");
+  courseMeta(notesTitle(lesson.title, course.name), fitMetaDescription(inlineToPlainText(lesson.summary)), lessonPath(course, lesson), "article");
 
 export const cheatSheetMeta = (course: Course, topic?: Course["topics"][number]) =>
   courseMeta(
     fitTitle(topic ? `${topic.name} Cheat Sheet | ${course.name}` : `${course.name} Cheat Sheet: Key Formulas`),
-    `Key formulas and facts for ${topic ? topic.name.toLowerCase() : course.name} on one page.`,
+    topic
+      ? `${course.name} ${topic.name.toLowerCase()} cheat sheet: the key formulas and facts on one page, each linked to the lesson that teaches it.`
+      : `${course.name} cheat sheet: the key formulas and facts for every topic on one page, each linked to the lesson that teaches it.`,
     topic ? `${topicPath(course, topic.n)}/cheat-sheet` : `/revision-notes/${course.slug}/cheat-sheet`,
   );
 

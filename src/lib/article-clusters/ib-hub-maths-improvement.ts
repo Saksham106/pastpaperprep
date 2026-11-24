@@ -184,6 +184,7 @@ export const IB_HUB_MATHS_IMPROVEMENT = [
     description: "Use IB past papers as retrieval practice: diagnose gaps, mark precisely, space retests, and turn mistakes into a realistic revision plan.",
     eyebrow: "Study method",
     answer: "Past-paper practice can support better IB performance when it is used as a learning loop, not a score-collecting ritual: attempt questions from memory, mark against a reliable answer, diagnose the first error, practise that skill, and retest it after a delay. Research supports practice testing and spaced practice, but no method or question bank can promise a grade increase. Your results depend on course understanding, feedback, and consistent correction.",
+    answerLink: { href: "/ib", label: "Practise IB questions by topic" },
     publishedAt: "2026-09-15",
     updatedAt: "2026-09-15",
     readingMinutes: 8,

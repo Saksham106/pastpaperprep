@@ -17,8 +17,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(68);
-    expect(ARTICLES).toHaveLength(65);
+    expect(ALL_ARTICLES).toHaveLength(74);
+    expect(ARTICLES).toHaveLength(71);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -85,8 +85,8 @@ describe("article library", () => {
       ["best-physics-and-maths-tutor-alternatives", "2026-11-08", "2026-11-08", false],
     ] as const;
 
-    expect(ALL_ARTICLES).toHaveLength(68);
-    expect(ARTICLES).toHaveLength(65);
+    expect(ALL_ARTICLES).toHaveLength(74);
+    expect(ARTICLES).toHaveLength(71);
     expect(ALL_ARTICLES.filter(({ draft }) => draft)).toHaveLength(3);
 
     for (const [slug, publishedAt, updatedAt, draft] of releaseMatrix) {
@@ -212,9 +212,15 @@ describe("article library", () => {
   });
 
   it("ships an intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(65);
+    expect(ARTICLES).toHaveLength(71);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "a-level-computer-science-9618-paper-2-pseudocode",
+      "a-level-computer-science-9618-past-papers-by-topic",
+      "a-level-further-maths-9231-papers-and-topics",
+      "a-level-further-maths-9231-grade-thresholds",
+      "ib-business-management-past-papers-by-topic",
+      "ib-business-management-10-mark-questions",
       "best-cambridge-a-level-past-paper-websites",
       "best-save-my-exams-alternatives-cie-a-level",
       "znotes-vs-save-my-exams-a-level",
@@ -383,6 +389,23 @@ describe("article library", () => {
     }
   });
 
+  it("keeps every article title tag within 60 characters (seoTitle when the H1 is longer)", () => {
+    const long = ARTICLES.filter((article) => (article.seoTitle ?? article.title).length > 60).map(({ slug }) => slug);
+    expect(long).toEqual([]);
+  });
+
+  it("opens every public article with a rendered link to practice in the answer box", () => {
+    const missing: string[] = [];
+    for (const article of ARTICLES) {
+      const { container, unmount } = render(<ArticleContent article={article} />);
+      const href = article.answerLink?.href;
+      const rendered = href ? container.querySelector(`:is(.article-answer, .article-answer-cta) a[href="${href}"]`) : null;
+      if (!rendered) missing.push(article.slug);
+      unmount();
+    }
+    expect(missing).toEqual([]);
+  });
+
   it("renders an index that links to every article and relevant question banks", () => {
     render(<ArticlesIndex />);
 
@@ -390,8 +413,9 @@ describe("article library", () => {
     for (const article of ARTICLES) {
       expect(screen.getByRole("link", { name: article.title })).toHaveAttribute("href", `/articles/${article.slug}`);
     }
-    expect(screen.getByRole("link", { name: /cambridge igcse maths question banks/i })).toHaveAttribute("href", "/#question-banks");
-    expect(screen.getByRole("link", { name: /ib maths and science question banks/i })).toHaveAttribute("href", "/#question-banks");
+    expect(screen.getByRole("link", { name: /cambridge igcse question banks/i })).toHaveAttribute("href", "/cambridge-igcse");
+    expect(screen.getByRole("link", { name: /cambridge a level question banks/i })).toHaveAttribute("href", "/cambridge-a-level");
+    expect(screen.getByRole("link", { name: /^ib question banks$/i })).toHaveAttribute("href", "/ib");
   });
 
   it("puts the direct answer before the supporting detail and shows transparent authorship", () => {
