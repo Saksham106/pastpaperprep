@@ -12,6 +12,7 @@ import { IB_BOOKLET_GUIDES } from "@/lib/article-clusters/ib-booklets";
 import { SUBJECT_GAP_GUIDES } from "@/lib/article-clusters/subject-gaps-2026-11";
 import { A_LEVEL_GUIDES } from "@/lib/article-clusters/a-level-guides-2026-11";
 import { A_LEVEL_ARTICLES } from "@/lib/article-clusters/a-level-articles-2026-11";
+import { NEW_SUBJECT_ARTICLES } from "@/lib/article-clusters/new-subjects-2026-11-24";
 
 export type ArticleSection = {
   heading: string;
@@ -71,6 +72,27 @@ export type ArticleIndexDetail = {
  * never invents a route, an article count, or a topic.
  */
 export const ARTICLE_INDEX_DETAILS: Readonly<Record<string, ArticleIndexDetail>> = {
+  "a-level-computer-science-9618-paper-2-pseudocode": { difficulty: "Intermediate", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-computer-science-9618?topic=Programming", label: "A Level Computer Science 9618: Programming" },
+  ] },
+  "a-level-computer-science-9618-past-papers-by-topic": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-computer-science-9618?topic=Data%20Types%20and%20Structures", label: "A Level Computer Science 9618: Data Types and Structures" },
+    { href: "/banks/a-level-computer-science-9618?topic=Hardware", label: "A Level Computer Science 9618: Hardware" },
+  ] },
+  "a-level-further-maths-9231-papers-and-topics": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-further-maths-9231?topic=Integration", label: "A Level Further Maths 9231: Integration" },
+    { href: "/banks/a-level-further-maths-9231?topic=Circular%20motion", label: "A Level Further Maths 9231: Circular motion" },
+  ] },
+  "a-level-further-maths-9231-grade-thresholds": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
+    { href: "/banks/a-level-further-maths-9231?topic=Matrices", label: "A Level Further Maths 9231: Matrices" },
+  ] },
+  "ib-business-management-past-papers-by-topic": { difficulty: "Foundational", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-business-management-hl?topic=Unit%203%3A%20Finance%20and%20accounts", label: "IB Business Management HL: Finance and accounts" },
+    { href: "/banks/ib-business-management-sl?topic=Unit%201%3A%20Introduction%20to%20business%20management", label: "IB Business Management SL: Introduction to business management" },
+  ] },
+  "ib-business-management-10-mark-questions": { difficulty: "Intermediate", exam: "IB Diploma", practiceLinks: [
+    { href: "/banks/ib-business-management-hl?topic=Unit%204%3A%20Marketing", label: "IB Business Management HL: Marketing" },
+  ] },
   "igcse-to-a-level-guide": { difficulty: "Foundational", exam: "Cambridge A Level", practiceLinks: [
     { href: "/banks/a-level-maths-9709?topic=Functions", label: "A Level Maths 9709: Functions" },
     { href: "/banks/a-level-physics-9702?topic=Kinematics", label: "A Level Physics 9702: Kinematics" },
@@ -1330,6 +1352,7 @@ export const ALL_ARTICLES: readonly Article[] = [
   ...SUBJECT_GAP_GUIDES,
   ...A_LEVEL_GUIDES,
   ...A_LEVEL_ARTICLES,
+  ...NEW_SUBJECT_ARTICLES,
 ] as const;
 
 export const ARTICLES: readonly Article[] = ALL_ARTICLES

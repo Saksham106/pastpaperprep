@@ -17,8 +17,8 @@ describe("article library", () => {
   it("keeps scheduled drafts out of public article collections", () => {
     expect(isPublicArticle({ draft: false })).toBe(true);
     expect(isPublicArticle({ draft: true })).toBe(false);
-    expect(ALL_ARTICLES).toHaveLength(68);
-    expect(ARTICLES).toHaveLength(65);
+    expect(ALL_ARTICLES).toHaveLength(74);
+    expect(ARTICLES).toHaveLength(71);
     expect(getArticle("how-to-mark-maths-past-paper-mistake-log")?.draft).toBe(false);
     expect(getArticle("topic-questions-vs-full-past-papers")?.draft).toBe(false);
     expect(getArticle("best-free-ib-maths-aa-hl-resources")?.draft).toBe(false);
@@ -85,8 +85,8 @@ describe("article library", () => {
       ["best-physics-and-maths-tutor-alternatives", "2026-11-08", "2026-11-08", false],
     ] as const;
 
-    expect(ALL_ARTICLES).toHaveLength(68);
-    expect(ARTICLES).toHaveLength(65);
+    expect(ALL_ARTICLES).toHaveLength(74);
+    expect(ARTICLES).toHaveLength(71);
     expect(ALL_ARTICLES.filter(({ draft }) => draft)).toHaveLength(3);
 
     for (const [slug, publishedAt, updatedAt, draft] of releaseMatrix) {
@@ -212,9 +212,15 @@ describe("article library", () => {
   });
 
   it("ships an intentional public cluster with unique search-friendly URLs", () => {
-    expect(ARTICLES).toHaveLength(65);
+    expect(ARTICLES).toHaveLength(71);
     expect(new Set(ALL_ARTICLES.map(({ slug }) => slug)).size).toBe(ALL_ARTICLES.length);
     expect(ARTICLES.map(({ slug }) => slug)).toEqual([
+      "a-level-computer-science-9618-paper-2-pseudocode",
+      "a-level-computer-science-9618-past-papers-by-topic",
+      "a-level-further-maths-9231-papers-and-topics",
+      "a-level-further-maths-9231-grade-thresholds",
+      "ib-business-management-past-papers-by-topic",
+      "ib-business-management-10-mark-questions",
       "best-cambridge-a-level-past-paper-websites",
       "best-save-my-exams-alternatives-cie-a-level",
       "znotes-vs-save-my-exams-a-level",
