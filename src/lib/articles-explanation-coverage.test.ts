@@ -26,6 +26,9 @@ export const PARTIAL_EXPLANATION_BANKS: Readonly<Record<string, string>> = {
   "a-level-computer-science-9618": "A Level Computer Science 9618 launches without explanations (owner decision 2026-11-17, carried into the 9618 plan).",
   // The same owner rule carried into the 9231 plan (2026-11-21): explanations are not a launch blocker.
   "a-level-further-maths-9231": "A Level Further Mathematics 9231 launches without explanations (owner decision 2026-11-17, carried into the 9231 plan).",
+  // IB Business Management HL and SL launch without explanations (2026-11-23); same launch-first rule as the A Level banks.
+  "ib-business-management-hl": "IB Business Management HL launches without explanations (2026-11-23).",
+  "ib-business-management-sl": "IB Business Management SL launches without explanations (2026-11-23).",
 };
 
 describe("article claim: every IGCSE and IB question has a worked explanation", () => {

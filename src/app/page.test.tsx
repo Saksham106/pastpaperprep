@@ -42,9 +42,9 @@ describe("home page", () => {
     expect(container.querySelector(".practice-mode-switch")?.textContent).toBe("Practice by topicFull past papers");
     const rows = [...container.querySelectorAll<HTMLAnchorElement>("#question-banks a[data-bank-slug]")];
 
-    // 29 with A Level Computer Science 9618 and Further Mathematics 9231 switched on for one launch (#507, #509), after Biology 9700 and Economics 9708 (#500), Physics 9702 and Chemistry 9701 (2026-11-19) and Maths 9709.
-    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(29);
-    expect(rows).toHaveLength(29);
+    // 31 with IB Business Management HL and SL (2026-11-23), after 29 with A Level Computer Science 9618 and Further Mathematics 9231 switched on for one launch (#507, #509), after Biology 9700 and Economics 9708 (#500), Physics 9702 and Chemistry 9701 (2026-11-19) and Maths 9709.
+    expect(getAvailableBanks(liveBankEnvironment)).toHaveLength(31);
+    expect(rows).toHaveLength(31);
     for (const slug of ["a-level-maths-9709", "a-level-further-maths-9231", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618"]) expect(rows.find((row) => row.dataset.bankSlug === slug)?.getAttribute("href")).toBe(`/banks/${slug}?free=1`);
     expect(container.querySelectorAll("a a")).toHaveLength(0);
     for (const row of rows) {
