@@ -75,16 +75,16 @@ const BANKS = [
     slug: "ib-business-management-hl", product: "bank_ib_business_management_hl", level: "HL", title: "IB Business Management Higher Level", shortName: "Business Management HL",
     rows: 260, papers: 49, sectionsShown: 55, tools: 13, earlier: 5, freeQuestions: 28, freeObjects: 131, stimulusObjects: 93, markbandObjects: 61, objects: 1277,
     papersByNumber: { 1: 134, 2: 105, 3: 21 },
-    runtime_sha: "e0709f5d58267f22a2f7b434ae81956efebb247327d2077a6c85dac63d99dc35",
-    candidate: "80144c77f2d9c2c26e45c03ebc7788b30420d82dcc726f33d3a3702cc5d277fe", prefix: "ib-business-management-hl/releases/full260-v1-4ff98d61200c",
+    runtime_sha: "c7c257ba01fa9817859bf984662b9727f9f0ce946e2ac8b1f462b675ea066591",
+    candidate: "80144c77f2d9c2c26e45c03ebc7788b30420d82dcc726f33d3a3702cc5d277fe", prefix: "ib-business-management-hl/releases/full260-v1-4ff98d61200c", firstCandidate12: "4ff98d61200c",
     runtime: hlRuntime as unknown as Runtime, index: hlIndex,
   },
   {
     slug: "ib-business-management-sl", product: "bank_ib_business_management_sl", level: "SL", title: "IB Business Management Standard Level", shortName: "Business Management SL",
     rows: 218, papers: 41, sectionsShown: 36, tools: 6, earlier: 4, freeQuestions: 27, freeObjects: 115, stimulusObjects: 66, markbandObjects: 50, objects: 1015,
     papersByNumber: { 1: 129, 2: 89 },
-    runtime_sha: "0b8ca88c867fb9234f1e3199f6dd4788de6d309aabcdae9ad6d5504e8fb8999a",
-    candidate: "8de7e465ac8aa0190cc5f1c08bc701c19b570bfab7fd542f4787a37b058b4578", prefix: "ib-business-management-sl/releases/full218-v1-ada0f6fad25c",
+    runtime_sha: "872ea8b015363bd5b894ff2d04a81433df59d58c1641a367aa3dc66f70097aeb",
+    candidate: "8de7e465ac8aa0190cc5f1c08bc701c19b570bfab7fd542f4787a37b058b4578", prefix: "ib-business-management-sl/releases/full218-v1-ada0f6fad25c", firstCandidate12: "ada0f6fad25c",
     runtime: slRuntime as unknown as Runtime, index: slIndex,
   },
 ] as const;
@@ -405,7 +405,9 @@ describe.each(BANKS)("IB Business Management $level release", (bank) => {
     expect(Object.keys(SOURCE_SHA256)).toEqual(["questions", "stimuli", "markbands", "papers", "labels", "taxonomy", "paperFilters", "acquisitionManifest"]);
     expect(Object.values(SOURCE_SHA256).every((value) => /^[a-f0-9]{64}$/.test(value as string))).toBe(true);
     expect(RELEASE_BANKS[bank.slug]).toMatchObject({ originalCandidateRuntimeSha256: bank.candidate, candidateSeal: "blanked-v1", prefix: bank.prefix });
-    expect(bank.prefix).toBe(`${bank.slug}/releases/full${bank.rows}-v1-${bank.candidate.slice(0, 12)}`);
+    // The prefix is named for the first uploaded candidate (2026-11-23) and stays fixed: the 2026-11-24 review fixes
+    // changed text and markband bindings only, so the verified objects were re-sealed from the unchanged upload logs.
+    expect(bank.prefix).toBe(`${bank.slug}/releases/full${bank.rows}-v1-${bank.firstCandidate12}`);
     expect(PRIVATE_RUNTIME_OBJECT_PREFIXES[bank.slug]).toBe(`${bank.prefix}/`);
     const runtimeSource = readFileSync(join(ROOT, "src/lib/igcse-runtime.ts"), "utf8");
     expect(runtimeSource.match(new RegExp(`"${bank.slug}": "${bank.candidate}"`, "g"))).toHaveLength(2);
