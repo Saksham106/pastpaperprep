@@ -14,6 +14,7 @@ import { getLandingManifest, topicPath } from "@/lib/search-landing";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { buildSearchTopics } from "@/lib/site-search-topics";
 import { SEARCH_INDEX_VERSION, subjectTerms, type SearchIndex, type SearchPaper, type SearchPapers } from "@/lib/site-search";
+import { bankFacets, type SearchFacets } from "@/lib/site-facets";
 import { getWholePaperSummaries, wholePaperArchiveEnabled } from "@/lib/whole-paper-archive";
 
 const practiceBanks = new Map(getCatalogBanksForDisplay().map(bank => [bank.slug, bank]));
@@ -46,10 +47,12 @@ for (const bank of BANK_CATALOG) {
 
 // Every syllabus topic and subtopic with its question count (src/lib/site-search-topics.ts).
 const topics: SearchIndex["topics"] = [];
+const facets: SearchFacets = { version: SEARCH_INDEX_VERSION, banks: {} };
 for (const bank of practiceBanks.values()) {
   const [manifest, questions] = await Promise.all([getLandingManifest(bank.slug), loadBankQuestions(bank.slug)]);
   const landings = manifest.topics.map(topic => ({ label: topic.label, href: topicPath(bank.slug, topic), count: topic.count }));
   topics.push(...buildSearchTopics(bank.slug, questions, landings, hasFreeTier(bank.slug)));
+  facets.banks[bank.slug] = bankFacets(questions);
 }
 
 const dir = join(process.cwd(), "public", "search");
@@ -61,4 +64,6 @@ await writeFile(join(dir, "index.json"), JSON.stringify(index));
 await writeFile(join(dir, "papers.json"), JSON.stringify(paperIndex));
 // Just the subjects, for the dashboard's full-paper links.
 await writeFile(join(dir, "subjects.json"), JSON.stringify({ version: SEARCH_INDEX_VERSION, subjects }));
+// Each bank's years, papers and sessions, for the site helper's bank filters (src/lib/helper/site-tools.ts).
+await writeFile(join(dir, "facets.json"), JSON.stringify(facets));
 console.log(`search index: ${subjects.length} subjects, ${topics.length} topics, ${papers.length} papers${archive ? "" : " (paper library off)"}`);
