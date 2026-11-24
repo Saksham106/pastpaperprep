@@ -383,6 +383,23 @@ describe("article library", () => {
     }
   });
 
+  it("keeps every article title tag within 60 characters (seoTitle when the H1 is longer)", () => {
+    const long = ARTICLES.filter((article) => (article.seoTitle ?? article.title).length > 60).map(({ slug }) => slug);
+    expect(long).toEqual([]);
+  });
+
+  it("opens every public article with a rendered link to practice in the answer box", () => {
+    const missing: string[] = [];
+    for (const article of ARTICLES) {
+      const { container, unmount } = render(<ArticleContent article={article} />);
+      const href = article.answerLink?.href;
+      const rendered = href ? container.querySelector(`:is(.article-answer, .article-answer-cta) a[href="${href}"]`) : null;
+      if (!rendered) missing.push(article.slug);
+      unmount();
+    }
+    expect(missing).toEqual([]);
+  });
+
   it("renders an index that links to every article and relevant question banks", () => {
     render(<ArticlesIndex />);
 
@@ -390,8 +407,9 @@ describe("article library", () => {
     for (const article of ARTICLES) {
       expect(screen.getByRole("link", { name: article.title })).toHaveAttribute("href", `/articles/${article.slug}`);
     }
-    expect(screen.getByRole("link", { name: /cambridge igcse maths question banks/i })).toHaveAttribute("href", "/#question-banks");
-    expect(screen.getByRole("link", { name: /ib maths and science question banks/i })).toHaveAttribute("href", "/#question-banks");
+    expect(screen.getByRole("link", { name: /cambridge igcse question banks/i })).toHaveAttribute("href", "/cambridge-igcse");
+    expect(screen.getByRole("link", { name: /cambridge a level question banks/i })).toHaveAttribute("href", "/cambridge-a-level");
+    expect(screen.getByRole("link", { name: /^ib question banks$/i })).toHaveAttribute("href", "/ib");
   });
 
   it("puts the direct answer before the supporting detail and shows transparent authorship", () => {

@@ -29,6 +29,8 @@ export type Article = {
   draft?: boolean;
   slug: string;
   title: string;
+  /** Shorter title tag when the H1 runs past ~60 characters; leads with the search query. */
+  seoTitle?: string;
   description: string;
   eyebrow: string;
   answer: string;
@@ -357,6 +359,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "Use maths past papers to find weak topics, practise deliberately, check the mark scheme, and retest mistakes instead of just collecting scores.",
     eyebrow: "Revision method",
     answer: "The most effective way to use maths past papers is to diagnose a weak topic, practise a short set of related questions, mark the work honestly, record the exact mistake, and retest that skill later. Full timed papers matter, but they work best after targeted practice has repaired the gaps they expose.",
+    answerLink: { href: "/banks/igcse", label: "practise a short set of related questions" },
     publishedAt: "2026-08-30",
     updatedAt: "2026-08-30",
     readingMinutes: 7,
@@ -434,6 +437,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "Practise Cambridge IGCSE Maths 0580 past-paper questions by topic, then combine them into mixed and timed sets as your weak areas improve.",
     eyebrow: "Cambridge IGCSE Mathematics 0580",
     answer: "For IGCSE Maths 0580, topic-based past-paper practice is best used to repair specific gaps before returning to mixed Core or Extended papers. Filter a narrow skill, attempt several real questions without help, review the first point of failure, and retest the skill in a mixed set so the topic label no longer gives away the method.",
+    answerLink: { href: "/banks/igcse", label: "Filter a narrow skill" },
     publishedAt: "2026-08-30",
     updatedAt: "2026-09-01",
     readingMinutes: 6,
@@ -517,6 +521,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "Use IB Math AA and AI past-paper questions by topic to repair weak skills, then move into mixed and timed practice for your exact level.",
     eyebrow: "IB Mathematics AA and AI",
     answer: "IB Math past papers by topic work best as a bridge between learning a concept and sitting a complete paper. Choose the exact AA or AI course and level, practise a narrow skill across several real questions, review the reasoning and mark scheme, then test the skill again in a mixed set where you must recognize the method yourself.",
+    answerLink: { href: "/ib", label: "Choose the exact AA or AI course and level" },
     publishedAt: "2026-08-30",
     updatedAt: "2026-08-30",
     readingMinutes: 6,
@@ -605,9 +610,9 @@ export const ALL_ARTICLES: readonly Article[] = [
         { label: "Longer access", pastPaperPrep: "$48 annually for one bank", competitor: "$249 billed once for Single Course Full Course access" },
         { label: "Broadest listed plan", pastPaperPrep: "$25 monthly or $216 annually for All Access", competitor: "$140 monthly or $499 once for the Complete Learning Suite" },
         { label: "Free access", pastPaperPrep: "Whole papers free without signup; topical sample and older free account selection are separate", competitor: "A subset of topics within one course" },
-        { label: "Core strength", pastPaperPrep: "Real past-paper questions across IGCSE Maths and IB Maths and sciences, with granular filters and PDF set building", competitor: "Full learning suite with questionbank, lessons and broader exam preparation" },
+        { label: "Core strength", pastPaperPrep: "Real past-paper questions across Cambridge IGCSE, A Level and IB subjects, with granular filters and PDF set building", competitor: "Full learning suite with questionbank, lessons and broader exam preparation" },
         { label: "Worked support", pastPaperPrep: "Official mark schemes, plus a worked explanation on every question", competitor: "Mark schemes and video solutions, plus key concepts and bootcamps" },
-        { label: "Course breadth", pastPaperPrep: "Supported Cambridge IGCSE Maths, sciences and Economics; IB Maths, sciences and Economics", competitor: "A broad range of IBDP subjects" },
+        { label: "Course breadth", pastPaperPrep: "Cambridge IGCSE and A Level Maths, sciences, Economics and Computer Science; IB Maths, sciences, Economics, Computer Science and Business Management", competitor: "A broad range of IBDP subjects" },
       ],
     },
     sections: [
@@ -669,6 +674,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "Compare PastPaperPrep and Save My Exams on pricing, real past-paper practice, notes, videos, subject coverage, and the best use for each.",
     eyebrow: "Revision platform comparison",
     answer: "Choose PastPaperPrep for free whole papers without signup and targeted practice from real Cambridge IGCSE and IB questions. Every question also has a worked explanation. Choose Save My Exams if you also want a broad written revision-notes library, exam-style topic questions and plan-dependent feedback tools.",
+    answerLink: { href: "/past-papers", label: "free whole papers without signup" },
     publishedAt: "2026-08-30",
     updatedAt: "2026-11-08",
     readingMinutes: 6,
@@ -681,7 +687,7 @@ export const ALL_ARTICLES: readonly Article[] = [
         { label: "Free access", pastPaperPrep: "Whole papers free without signup; topical guest sample and free-account selection are separate", competitor: "Free account with resource limits and available past-paper downloads; Premium trial has separate terms" },
         { label: "Core strength", pastPaperPrep: "Granular real-question filtering and PDF practice sets", competitor: "Study guides and exam practice across many subjects" },
         { label: "Learning content", pastPaperPrep: "Official mark schemes, plus a worked explanation on every IGCSE and IB question", competitor: "Revision notes, exam-style questions and model answers; feedback tools depend on course and plan" },
-        { label: "Subject breadth", pastPaperPrep: "Supported Cambridge IGCSE Maths, sciences and Economics; IB Maths, sciences and Economics", competitor: "Maths plus sciences, humanities, English and more" },
+        { label: "Subject breadth", pastPaperPrep: "Cambridge IGCSE and A Level Maths, sciences, Economics and Computer Science; IB Maths, sciences, Economics, Computer Science and Business Management", competitor: "Maths plus sciences, humanities, English and more" },
       ],
     },
     sections: [
@@ -836,6 +842,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "A precise way to mark maths past papers, classify recurring errors, repair them, and retest without turning your notebook into a list of regrets.",
     eyebrow: "Past-paper improvement",
     answer: "Do not use a past-paper mark only as a score. Mark each lost mark to the first point where your reasoning stopped working, classify the cause, write a repair action, and retest that exact skill later. A useful mistake log is short enough to review and specific enough to change what you do next time.",
+    answerLink: { href: "/past-papers", label: "Mark a free maths paper" },
     publishedAt: "2026-09-01",
     updatedAt: "2026-09-01",
     readingMinutes: 8,
@@ -959,6 +966,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "Know when to leave topic practice, move into mixed questions, or sit a full paper—using visible readiness signals and calm fallback rules.",
     eyebrow: "Revision decision guide",
     answer: "Use topic questions when you can name a specific gap or keep repeating one mistake. Move to mixed questions when you can solve that skill without a topic label and choose the method from unfamiliar wording. Use a full timed paper when your main risk is switching between topics, following the correct paper rules, or managing time. If the paper exposes a gap, do not treat the score as a verdict: pull out the smallest weak skill, repair it, and return through mixed practice before timing yourself again.",
+    answerLink: { href: "/past-papers", label: "full timed paper" },
     publishedAt: "2026-09-02",
     updatedAt: "2026-09-02",
     readingMinutes: 8,
@@ -1072,6 +1080,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "A careful comparison of official IB materials, Christos Nikolaidis, Revision Village, and PastPaperPrep for affordable Maths AA HL practice.",
     eyebrow: "IB Mathematics AA HL",
     answer: "The best free IB Mathematics: Analysis and Approaches HL stack combines official IB sample materials, Christos Nikolaidis, and PastPaperPrep. Use the official curriculum and samples to confirm the course and exam format, Christos for free topic notes and exercises, and PastPaperPrep for real questions organised by topic and paper. Revision Village is useful, but its free tier is a sample rather than a free copy of the full Questionbank: the live AA HL index labels a small set of Functions subtopics “RV Free” and most other listed subtopics “RV Gold.” If you can spend a little, start with the free layer and add one targeted paid resource only when you know what is missing. Do not use random “IB past paper PDF” repositories. Many are unauthorised, their files can be incomplete or altered, and downloading them is not a sound study or copyright practice. Ask your teacher or IB coordinator for school-licensed materials, or use the official IB/Follett channels.",
+    answerLink: { href: "/banks/ib-hl", label: "real questions organised by topic and paper" },
     publishedAt: "2026-09-03",
     updatedAt: "2026-11-08",
     readingMinutes: 9,
@@ -1266,6 +1275,7 @@ export const ALL_ARTICLES: readonly Article[] = [
     description: "Use IB Biology HL and SL past-paper questions by topic, paper, session, and year to diagnose gaps before moving to timed practice.",
     eyebrow: "IB Biology revision guide",
     answer: "The fastest way to use IB Biology past papers is to filter a short set by topic, attempt the original questions, compare the markscheme, and then retest the same skill in a mixed set. PastPaperPrep's IB Biology banks hold real papers from 2016 to May 2026: 2,071 HL and 1,671 SL questions as of October 2026.",
+    answerLink: { href: "/banks/ib-biology-hl", label: "PastPaperPrep's IB Biology banks" },
     publishedAt: "2026-09-08",
     updatedAt: "2026-10-21",
     readingMinutes: 5,

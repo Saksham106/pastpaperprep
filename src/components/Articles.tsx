@@ -56,8 +56,9 @@ export function ArticlesIndex() {
             <p>Filter real questions by course, topic, year, paper, marks, and other available exam details.</p>
           </div>
           <div>
-            <Link href="/#question-banks">Cambridge IGCSE Maths question banks</Link>
-            <Link href="/#question-banks">IB Maths and science question banks</Link>
+            <Link href="/cambridge-igcse">Cambridge IGCSE question banks</Link>
+            <Link href="/cambridge-a-level">Cambridge A Level question banks</Link>
+            <Link href="/ib">IB question banks</Link>
           </div>
         </aside>
       </div>
@@ -70,6 +71,16 @@ function LinkedAnswer({ article }: { article: Article }) {
   const offset = link?.label ? article.answer.indexOf(link.label) : -1;
   if (!link || offset < 0 || !link.href.startsWith("/") || link.href.startsWith("//")) return <>{article.answer}</>;
   return <>{article.answer.slice(0, offset)}<Link href={link.href} style={{ textDecoration: "underline", textUnderlineOffset: "0.15em" }}>{link.label}</Link>{article.answer.slice(offset + link.label.length)}</>;
+}
+
+/**
+ * An answerLink whose label is not a phrase of the answer is a call to action. Show it straight under the
+ * answer box (outside it, so the box still matches the JSON-LD answer) instead of dropping the link.
+ */
+function AnswerCallToAction({ article }: { article: Article }) {
+  const link = article.answerLink;
+  if (!link?.label || article.answer.includes(link.label) || !link.href.startsWith("/") || link.href.startsWith("//")) return null;
+  return <p className="article-answer-cta"><Link href={link.href}>{link.label} →</Link></p>;
 }
 
 export function ArticleContent({ article }: { article: Article }) {
@@ -94,6 +105,7 @@ export function ArticleContent({ article }: { article: Article }) {
       </header>
 
       <p className="article-answer"><LinkedAnswer article={article} /></p>
+      <AnswerCallToAction article={article} />
 
       <div className="article-body">
         {article.comparison ? (
