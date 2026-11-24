@@ -1,6 +1,6 @@
 # IB Business Management HL and SL: release receipt (23 November 2026)
 
-The owner approved the private R2 upload and the free-bucket copy. The billing migration is written but not yet applied; production needs it before merge, and the owner approves that separately.
+The owner approved the private R2 upload and the free-bucket copy. The billing migration was applied to production with owner approval (24 November 2026).
 
 ## Source
 - Workspace: `ib-business-management-topic-practice` at commit 817b319 (local git).
@@ -31,5 +31,12 @@ Finalized content seals (`finalizedContentSha256`): HL `56eb5ff6ac64b37942c9d3b1
 - No free object is shared with a paid question.
 
 ## Billing migration
-- `supabase/migrations/20261123000000_ib_business_management_release.sql`: written, not yet applied (needs owner approval before merge).
-- Until it is applied and the release gates are on, checkout for these banks must not be enabled. No Stripe object was created or changed.
+- `supabase/migrations/20261123000000_ib_business_management_release.sql` (SHA-256 `f89007eb…2889`) was applied to production on 24 November 2026, with owner approval, through the linked Supabase CLI (`db query --linked`).
+  - Production was on 20261122000000 beforehand, the definitions this migration copies.
+  - `migration repair` needs the file in the linked checkout, so the history row was inserted directly instead (`version 20261123000000`, `name ib_business_management_release`).
+- Read back from production:
+  - `schema_migrations` contains `20261123000000 ib_business_management_release`;
+  - `bank_ib_business_management_hl` and `bank_ib_business_management_sl` are active;
+  - each has 3 `stripe_price_catalog` rows, identical to the 3 generic `bank_igcse` rows;
+  - `is_valid_custom_bank_ids` accepts both slugs and rejects an unknown one.
+- No Stripe object was created or changed.
