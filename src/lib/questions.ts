@@ -322,7 +322,9 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     ...subtopics,
     ...skills,
     summary,
-    accessibleText,
+    // A bank can name the text to search when its accessible text carries a long shared case (IB Business Management),
+    // so one word from a case does not match every question of that paper.
+    text(raw.searchSourceText) || accessibleText,
     solution ?? "",
   ]
     .join(" ")

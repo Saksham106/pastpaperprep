@@ -53,8 +53,10 @@ declare const data: {
     marksSource: string;
     summary: string;
     accessibleText: string;
+    searchSourceText?: string;
     stimulusId?: string;
     stimulusImageCount?: number;
+    stimulusKey?: string;
     markbandId?: string;
     questionImages: Array<string>;
     markschemeImages: Array<string>;

@@ -64,13 +64,13 @@ export const RELEASE_BANKS = {
     prefix: 'ib-business-management-hl/releases/full260-v1-4ff98d61200c',
     sourceRootEnv: 'PASTPAPERPREP_IB_BUSINESS_MANAGEMENT_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: '4ff98d61200c851d15051ec90810b3ab4ceb19c3fc9807f5bba47f4400ac8106',
+    originalCandidateRuntimeSha256: '80144c77f2d9c2c26e45c03ebc7788b30420d82dcc726f33d3a3702cc5d277fe',
   },
   'ib-business-management-sl': {
     prefix: 'ib-business-management-sl/releases/full218-v1-ada0f6fad25c',
     sourceRootEnv: 'PASTPAPERPREP_IB_BUSINESS_MANAGEMENT_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: 'ada0f6fad25cf1489d9d20ba3e071c3a11310c5ef583c4df5e95a39683541f73',
+    originalCandidateRuntimeSha256: '8de7e465ac8aa0190cc5f1c08bc701c19b570bfab7fd542f4787a37b058b4578',
   },
   // Cambridge International A Level Mathematics 9709 rides the same lane: 2,118 rows, crops from one segmentation lane.
   // The prefix is named for the first candidate (191db74b...); crop revision v2 adds .v2.webp keys beside the byte-identical

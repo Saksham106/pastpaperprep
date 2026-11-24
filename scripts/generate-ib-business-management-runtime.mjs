@@ -3,7 +3,7 @@
  * Build the IB Business Management HL and SL candidate runtimes from the pinned source workspace.
  *
  * Inputs (SHA-256 pinned; any drift fails closed), all under the source workspace
- * (ib-business-management-topic-practice, commit 817b319):
+ * (ib-business-management-topic-practice, commit a7221b2):
  *   data/segmentation/full/questions.json   385 questions, Nov 2020 to May 2026 (old guide P1/P2 Sections A and B; 2024 guide P1/P2/P3)
  *   data/segmentation/full/stimuli.json     28 shared case-study sets (P1 and P3)
  *   data/segmentation/full/markbands.json   71 shared markband sets
@@ -34,12 +34,12 @@ export const BANKS = {
 export const RIGHTS_STATUS = "user_attested_rights_authorized";
 export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
 export const DEFAULT_SOURCE_ROOT = "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice";
-export const SOURCE_COMMIT = "817b319";
+export const SOURCE_COMMIT = "a7221b2";
 export const SOURCE_SHA256 = {
-  questions: "73637ac8765c6e68314c945f8a9a8eeab58fa4fe3cac2d479c286eaa7f27ab01",
-  stimuli: "ae4fca917efb64cc116de3023d65babf421063897018300b86f13e1f3845715f",
-  markbands: "cab4f655558df1d74f5cfc22b2a83dc5bad43170b06f6f73e21126d48c32e8c8",
-  papers: "a9c950331b2f9b99c08e584be15b8d0f1e4d12a13b50973dffede209f7dca227",
+  questions: "015ddf5fc023d7fd509ead51b0ddd34908ef035266fd83575a21cf7f9c7d70f5",
+  stimuli: "8a8e87f7f36ac85a6f1729238ac98f2501443b6803cae8222a0030087e7aebd9",
+  markbands: "22b8ec7afb54c90e680618582dbd03e227f96a76ca1dd0a7c54b0a5b158ed659",
+  papers: "792b68d4fd84472ae74bb42852634b50de610a499646c5b289a346bf5996ea7a",
   labels: "b47d4b96eef04c9ba7047d4001824fc48ca0a4e453dc7c3e7173137c910100a1",
   taxonomy: "d9ff54d2ee820f35480da75b2d0ea3640b57ef0ff6fe990ff1419db9464338ee",
   paperFilters: "a64908d1a7d271b99b4b0e1d156a68b75da4ace8041db08e5044077760f2c97c",
@@ -243,6 +243,7 @@ function toQuestion(bank, question, context) {
     summary: question.text.slice(0, 220),
     // A question with a case or resources carries them as text, after its own text; the summary stays the question alone.
     accessibleText: stimulus ? `${question.text}\n\n${question.paper === 3 ? "Resources:" : "Case study:"}\n${stimulus.accessible_text.trim()}` : question.text,
+    ...(stimulus ? { searchSourceText: question.text } : {}),
     ...(stimulus ? { stimulusId: stimulus.stimulus_id, stimulusImageCount: stimulusImages.length, stimulusKey: sha256(stimulusHashes.join("\n")).slice(0, 16) } : {}),
     ...(markband ? { markbandId: markband.markband_id } : {}),
     questionImages,

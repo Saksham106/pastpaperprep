@@ -76,7 +76,7 @@ const BANKS = [
     rows: 260, papers: 49, sectionsShown: 55, tools: 13, earlier: 5, freeQuestions: 28, freeObjects: 131, stimulusObjects: 93, markbandObjects: 61, objects: 1277,
     papersByNumber: { 1: 134, 2: 105, 3: 21 },
     runtime_sha: "e0709f5d58267f22a2f7b434ae81956efebb247327d2077a6c85dac63d99dc35",
-    candidate: "4ff98d61200c851d15051ec90810b3ab4ceb19c3fc9807f5bba47f4400ac8106", prefix: "ib-business-management-hl/releases/full260-v1-4ff98d61200c",
+    candidate: "80144c77f2d9c2c26e45c03ebc7788b30420d82dcc726f33d3a3702cc5d277fe", prefix: "ib-business-management-hl/releases/full260-v1-4ff98d61200c",
     runtime: hlRuntime as unknown as Runtime, index: hlIndex,
   },
   {
@@ -84,7 +84,7 @@ const BANKS = [
     rows: 218, papers: 41, sectionsShown: 36, tools: 6, earlier: 4, freeQuestions: 27, freeObjects: 115, stimulusObjects: 66, markbandObjects: 50, objects: 1015,
     papersByNumber: { 1: 129, 2: 89 },
     runtime_sha: "0b8ca88c867fb9234f1e3199f6dd4788de6d309aabcdae9ad6d5504e8fb8999a",
-    candidate: "ada0f6fad25cf1489d9d20ba3e071c3a11310c5ef583c4df5e95a39683541f73", prefix: "ib-business-management-sl/releases/full218-v1-ada0f6fad25c",
+    candidate: "8de7e465ac8aa0190cc5f1c08bc701c19b570bfab7fd542f4787a37b058b4578", prefix: "ib-business-management-sl/releases/full218-v1-ada0f6fad25c",
     runtime: slRuntime as unknown as Runtime, index: slIndex,
   },
 ] as const;
@@ -399,8 +399,8 @@ describe.each(BANKS)("IB Business Management $level release", (bank) => {
     expect(meta.runtimeTaxonomySha256).toBe(sha(taxonomy));
     expect(meta.releaseTaxonomySha256).toBe(sha(readFileSync(join(ROOT, "src/data/ib-business-management-taxonomy.json"), "utf8")));
     expect(production.taxonomy.sha256).toBe(meta.releaseTaxonomySha256);
-    expect(meta.sourceCommit).toBe("817b319");
-    expect(SOURCE_COMMIT).toBe("817b319");
+    expect(meta.sourceCommit).toBe("a7221b2");
+    expect(SOURCE_COMMIT).toBe("a7221b2");
     expect(meta.sourceSha256).toEqual(SOURCE_SHA256);
     expect(Object.keys(SOURCE_SHA256)).toEqual(["questions", "stimuli", "markbands", "papers", "labels", "taxonomy", "paperFilters", "acquisitionManifest"]);
     expect(Object.values(SOURCE_SHA256).every((value) => /^[a-f0-9]{64}$/.test(value as string))).toBe(true);
