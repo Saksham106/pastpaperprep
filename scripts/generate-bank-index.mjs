@@ -238,7 +238,7 @@ const biologyPrimaryTopic = (record, raw) => record.primary?.parentTopic ?? raw.
 const bankSources = [
   ...["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "ib-chemistry-hl", "ib-chemistry-sl", "ib-physics-hl", "ib-physics-sl", "ib-biology-hl", "ib-biology-sl"]
     .map((bank) => ({ bank, directory: "raw" })),
-  ...["ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654", "igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"]
+  ...["ib-economics-hl", "ib-economics-sl", "igcse-biology-0610", "igcse-economics-0455", "igcse-chemistry-0620", "igcse-physics-0625", "igcse-coordinated-sciences-0654", "igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "ib-business-management-hl", "ib-business-management-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"]
     .map((bank) => ({ bank, directory: "production" })),
 ];
 const banks = bankSources.map(({ bank }) => bank);
@@ -357,6 +357,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     markschemeImageCount: activeMarkschemeImageCount(bank, raw) ?? (normalizedProduction
       ? (strings(officialMarkscheme.images).length || strings(raw.markschemeImages).length)
       : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length),
+    ...(typeof raw.stimulusId === "string" && raw.stimulusId && integer(raw.stimulusImageCount) > 0 ? { stimulusId: raw.stimulusId, stimulusImageCount: integer(raw.stimulusImageCount) } : {}),
     ...(explanationIds.get(bank)?.has(raw.id) ? { hasExplanation: true } : {}),
   };
   return metadata;

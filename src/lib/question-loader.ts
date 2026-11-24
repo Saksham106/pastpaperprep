@@ -29,6 +29,8 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "igcse-computer-science-0478": async () => (await import("@/data/production/igcse-computer-science-0478.json")).default as RawBank,
   "ib-computer-science-hl": async () => (await import("@/data/production/ib-computer-science-hl.json")).default as RawBank,
   "ib-computer-science-sl": async () => (await import("@/data/production/ib-computer-science-sl.json")).default as RawBank,
+  "ib-business-management-hl": async () => (await import("@/data/production/ib-business-management-hl.json")).default as RawBank,
+  "ib-business-management-sl": async () => (await import("@/data/production/ib-business-management-sl.json")).default as RawBank,
   // Candidate runtime; the bank stays hidden (pendingStorage) until its crops are uploaded and it is finalized.
   "a-level-maths-9709": async () => (await import("@/data/production/a-level-maths-9709.json")).default as RawBank,
   "a-level-physics-9702": async () => (await import("@/data/production/a-level-physics-9702.json")).default as RawBank,

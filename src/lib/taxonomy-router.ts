@@ -3,6 +3,7 @@ import { BIOLOGY_0610_EARLIER, BIOLOGY_0610_EARLIER_TOPIC, BIOLOGY_0610_SECTIONS
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import computerScienceTaxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
 import ibComputerScienceTaxonomy from "@/data/ib-computer-science-taxonomy.json";
+import ibBusinessManagementTaxonomy from "@/data/ib-business-management-taxonomy.json";
 import { ECONOMICS_0455_TOPICS, ECONOMICS_0455_SECTIONS, ECONOMICS_0455_EARLIER } from "@/lib/igcse-0455-official.mjs";
 import { OFFICIAL_0606_TOPICS, EARLIER_0606_TOPIC, EARLIER_0606_SUBTOPICS } from "@/lib/igcse-0606-official.mjs";
 import numbered0606 from "@/data/igcse-0606-numbered-subtopics.json";
@@ -124,6 +125,21 @@ function ibComputerScienceTopics(bank: string): { label: string; sections: strin
     .filter((topic) => topic.sections.length > 0);
 }
 
+/**
+ * IB Business Management HL and SL share one tree: Units 1 to 5 (2024-guide subtopics), then "Business management toolkit"
+ * (one section per tool, a filter only), then "Earlier syllabus". A bank's picker shows only the topics and sections that
+ * carry at least one of its questions, so SL hides the HL-only subtopics and tools.
+ */
+function isIbBusinessManagementBank(bank: string | undefined): boolean {
+  return bank === "ib-business-management-hl" || bank === "ib-business-management-sl";
+}
+
+function ibBusinessManagementTopics(bank: string): { label: string; sections: string[] }[] {
+  return ibBusinessManagementTaxonomy.topics
+    .map((topic) => ({ label: topic.label, sections: topic.sections.filter((section) => section.banks.includes(bank)).map((section) => section.label) }))
+    .filter((topic) => topic.sections.length > 0);
+}
+
 function isReleaseBank(bank: string | undefined): bank is "igcse-biology-0610" | "igcse-economics-0455" | "igcse-coordinated-sciences-0654" {
   return bank === "igcse-biology-0610" || bank === "igcse-economics-0455" || bank === "igcse-coordinated-sciences-0654";
 }
@@ -145,6 +161,7 @@ export function getControlledSubtopics(bankSlug: string, topic: string): readonl
   if (bankSlug === "igcse-economics-0455") return OFFICIAL_0455_GROUPS[topic] ?? [];
   if (isComputerScienceBank(bankSlug)) return COMPUTER_SCIENCE_GROUPS[topic] ?? [];
   if (isIbComputerScienceBank(bankSlug)) return ibComputerScienceTopics(bankSlug).find((entry) => entry.label === topic)?.sections ?? [];
+  if (isIbBusinessManagementBank(bankSlug)) return ibBusinessManagementTopics(bankSlug).find((entry) => entry.label === topic)?.sections ?? [];
   if (isCoordinatedBank(bankSlug)) return topic === COORDINATED_0654_EARLIER_TOPIC ? [COORDINATED_0654_EARLIER] : COORDINATED_GROUPS[topic] ?? (COORDINATED_TOPIC_ORDER.includes(topic) ? [topic] : []);
   return getLegacyControlledSubtopics(bankSlug, topic);
 }
@@ -171,6 +188,7 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   }
   if (isComputerScienceBank(bank)) return [...COMPUTER_SCIENCE_TOPIC_ORDER];
   if (isIbComputerScienceBank(bank)) return ibComputerScienceTopics(bank!).map((topic) => topic.label);
+  if (isIbBusinessManagementBank(bank)) return ibBusinessManagementTopics(bank!).map((topic) => topic.label);
   // 9709: syllabus order. The explorer passes only the selected paper's questions, so a paper tab lists that paper's sections.
   // 9702: topics 1-25 in syllabus order, then the named earlier-syllabus topics (2020-2021 papers) at the end.
   if (bank === A_LEVEL_PHYSICS_9702) {
@@ -309,8 +327,8 @@ export function getSubtopicGroups(
     const relevantSet = new Set(relevant);
     return { all, relevant, other: all.filter((label) => !relevantSet.has(label)), selectedOutsideContext: selectedSubtopics.filter((label) => available.has(label) && !relevantSet.has(label)) };
   }
-  if (isIbComputerScienceBank(bank)) {
-    const topics = ibComputerScienceTopics(bank!);
+  if (isIbComputerScienceBank(bank) || isIbBusinessManagementBank(bank)) {
+    const topics = isIbBusinessManagementBank(bank) ? ibBusinessManagementTopics(bank!) : ibComputerScienceTopics(bank!);
     const all = topics.flatMap((topic) => topic.sections);
     const available = new Set(all);
     const relevant = selectedTopics.length

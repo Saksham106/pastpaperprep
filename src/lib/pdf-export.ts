@@ -57,6 +57,24 @@ const PDF_TITLE_FONT_FILE = "YoungSerif-Regular.ttf";
 const WIN_ANSI_EXTRA = new Set(Array.from("€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ").map((character) => character.codePointAt(0)!));
 const isWinAnsi = (code: number) => (code >= 32 && code <= 126) || (code >= 160 && code <= 255) || WIN_ANSI_EXTRA.has(code);
 
+/**
+ * Shared case study: how many leading question images each question job leaves out because the case already printed
+ * on the page run before it. A case prints once, before the first of a run of consecutive question jobs that share it;
+ * any answer job in between ends the run (answers after each question reprint the case so each question stands alone).
+ * The on-screen views are unaffected: they keep the case above every question.
+ */
+export function sharedStimulusSkips<T extends { id: string; bankSlug?: string; stimulusId?: string; stimulusImageCount?: number }>(jobs: readonly PdfJob<T>[]): Map<string, number> {
+  const skips = new Map<string, number>();
+  let previous: string | null = null;
+  for (const { question, kind } of jobs) {
+    if (kind !== "question") { previous = null; continue; }
+    const key = question.stimulusId && question.stimulusImageCount ? `${question.bankSlug}:${question.stimulusId}` : null;
+    if (key && key === previous) skips.set(question.id, question.stimulusImageCount!);
+    previous = key;
+  }
+  return skips;
+}
+
 export function orderPdfJobs<T>(questions: T[], content: PdfContent, placement: PdfAnswerPlacement): PdfJob<T>[] {
   const questionJobs = questions.map((question): PdfJob<T> => ({ question, kind: "question" }));
   const answerJobs = questions.map((question): PdfJob<T> => ({ question, kind: "answer" }));
@@ -160,7 +178,9 @@ export function inferredPdfDpiForBank(bank: UnifiedQuestion["bankSlug"]): number
   if (["igcse-biology-0610", "igcse-chemistry-0620", "igcse-physics-0625",
     "igcse-coordinated-sciences-0654", "igcse-economics-0455", "igcse-computer-science-0478",
     // IB Computer Science crops are rendered at 1.5 px/pt (527 pt wide = 791 px), like 0478.
-    "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"].includes(bank)) return 108;
+    "ib-computer-science-hl", "ib-computer-science-sl",
+    // IB Business Management crops are rendered the same way (527 pt wide = 791 px).
+    "ib-business-management-hl", "ib-business-management-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"].includes(bank)) return 108;
   if (["ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl",
     "ib-physics-hl", "ib-physics-sl"].includes(bank)) return 126;
   if (bank === "ib-economics-hl" || bank === "ib-economics-sl") return 144;
@@ -671,7 +691,9 @@ export async function downloadQuestionPdf(
 
   const positions = new Map(questions.map((question, index) => [question, index + 1]));
   let completed = 0;
-  for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
+  const jobs = orderPdfJobs(questions, content, answerPlacement);
+  const stimulusSkips = sharedStimulusSkips(jobs);
+  for (const { question, kind } of jobs) {
     if (content === "both" && answerPlacement === "all-answers-last" && kind === "answer" && currentSection !== "Answers") {
       currentSection = "Answers";
       startAnswerPage = true;
@@ -683,7 +705,9 @@ export async function downloadQuestionPdf(
     const label: PdfLabel = { heading: kind === "question" ? `Question ${position}` : `Question ${position} · Mark scheme`, source: pdfSourceLabel(question) };
     if (kind === "question") {
       if (!question.questionImages.length) throw new Error(`Question image is missing for ${question.id}`);
+      const skipped = Math.min(stimulusSkips.get(question.id) ?? 0, question.questionImages.length - 1);
       for (const [index, source] of question.questionImages.entries()) {
+        if (index < skipped) continue;
         if (question.bankSlug === "igcse-additional" && question.questionPrintSizesPt?.[index] &&
           question.questionPrintSegments?.[index] && question.questionRasterSizesPx?.[index]) {
           await verify0606PdfMetadata(question, "question", index);

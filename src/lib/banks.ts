@@ -13,8 +13,8 @@ import {
 
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
 // "IGCSE release" is the historical name of the shared gated, private-storage release machinery
-// (sealed runtimes, R2 assets, one release gate). It also covers the IB Computer Science banks.
-export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618" | "a-level-further-maths-9231";
+// (sealed runtimes, R2 assets, one release gate). It also covers the IB Computer Science and IB Business Management banks.
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "ib-business-management-hl" | "ib-business-management-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618" | "a-level-further-maths-9231";
 export type { BankSlug };
 export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
 export type LegacyProductionBankSlug = ProductionBankSlug;
@@ -59,6 +59,9 @@ const IGCSE_RELEASE_SLUGS = new Set<BankSlug>([
   // Not Cambridge IGCSE: the IB Computer Science banks ride the same gated release machinery.
   "ib-computer-science-hl",
   "ib-computer-science-sl",
+  // Not Cambridge IGCSE either: IB Business Management rides the same gated release machinery.
+  "ib-business-management-hl",
+  "ib-business-management-sl",
   // Not IGCSE either: Cambridge A Level Maths 9709 uses the same gated private-storage lane.
   "a-level-maths-9709",
   "a-level-physics-9702",

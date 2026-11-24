@@ -27,6 +27,9 @@ export type PublicQuestionMetadata = {
   marks: number | null;
   questionImageCount: number;
   markschemeImageCount: number;
+  /** Shared case study (IB Business Management): the leading question images that every question of one case repeats. */
+  stimulusId?: string;
+  stimulusImageCount?: number;
   hasExplanation?: true;
 };
 
@@ -59,6 +62,7 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
     marks: question.marks,
     questionImageCount: question.questionImageCount,
     markschemeImageCount: question.markschemeImageCount,
+    ...(question.stimulusId && question.stimulusImageCount ? { stimulusId: question.stimulusId, stimulusImageCount: question.stimulusImageCount } : {}),
     ...(question.hasExplanation ? { hasExplanation: true as const } : {}),
   } satisfies PublicQuestionMetadata;
 }

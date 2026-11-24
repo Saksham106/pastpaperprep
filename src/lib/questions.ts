@@ -159,6 +159,12 @@ export type UnifiedQuestion = {
   markschemeImages: string[];
   questionImageCount: number;
   markschemeImageCount: number;
+  /**
+   * Shared case study: the first `stimulusImageCount` question images are the case study's crops, stored once and
+   * referenced by every question that uses them. A worksheet prints them once, before the first of those questions.
+   */
+  stimulusId?: string;
+  stimulusImageCount?: number;
   questionAssetPaths: string[];
   markschemeAssetPaths: string[];
   /** True when a verified worked explanation is published for this question. */
@@ -354,6 +360,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     markschemeImages,
     questionImageCount: questionImages.length,
     markschemeImageCount: markschemeImages.length,
+    ...(text(raw.stimulusId) && integer(raw.stimulusImageCount) > 0 && integer(raw.stimulusImageCount) < questionImages.length
+      ? { stimulusId: text(raw.stimulusId), stimulusImageCount: integer(raw.stimulusImageCount) } : {}),
     questionAssetPaths: isPrivateRuntimeBank(slug)
       ? questionImages
       : questionImages.map((path) => storageObjectPath(slug, path)),

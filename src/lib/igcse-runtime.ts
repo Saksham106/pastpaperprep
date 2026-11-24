@@ -11,12 +11,15 @@ import chemistryOtherTargets from "../../scripts/data/0620-other-retrieval-targe
 import biologySecondaryTargets from "../../scripts/data/0610-extension-material-secondaries.json";
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
-// "IGCSE" here names the shared gated release machinery; it also holds the IB Computer Science banks.
+// "IGCSE" here names the shared gated release machinery; it also holds the IB Computer Science and IB Business Management banks.
 import computerScience from "@/data/production/igcse-computer-science-0478.json";
 import computerScienceTaxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
 import ibComputerScienceHl from "@/data/production/ib-computer-science-hl.json";
 import ibComputerScienceSl from "@/data/production/ib-computer-science-sl.json";
 import ibComputerScienceTaxonomy from "@/data/ib-computer-science-taxonomy.json";
+import ibBusinessManagementHl from "@/data/production/ib-business-management-hl.json";
+import ibBusinessManagementSl from "@/data/production/ib-business-management-sl.json";
+import ibBusinessManagementTaxonomy from "@/data/ib-business-management-taxonomy.json";
 import aLevelMaths9709 from "@/data/production/a-level-maths-9709.json";
 import aLevelMaths9709Taxonomy from "@/data/a-level-maths-9709-taxonomy.json";
 import aLevelPhysics9702 from "@/data/production/a-level-physics-9702.json";
@@ -170,6 +173,8 @@ export const IGCSE_RUNTIME_COUNTS = {
   "igcse-computer-science-0478": [847, 105],
   "ib-computer-science-hl": [506, 32],
   "ib-computer-science-sl": [391, 32],
+  "ib-business-management-hl": [260, 49],
+  "ib-business-management-sl": [218, 41],
   "a-level-maths-9709": [2118, 256],
   "a-level-physics-9702": [2627, 132],
   "a-level-chemistry-9701": [2220, 123],
@@ -187,6 +192,8 @@ const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
   "igcse-computer-science-0478": computerScience as IGCSEArtifact,
   "ib-computer-science-hl": ibComputerScienceHl as IGCSEArtifact,
   "ib-computer-science-sl": ibComputerScienceSl as IGCSEArtifact,
+  "ib-business-management-hl": ibBusinessManagementHl as IGCSEArtifact,
+  "ib-business-management-sl": ibBusinessManagementSl as IGCSEArtifact,
   "a-level-maths-9709": aLevelMaths9709 as IGCSEArtifact,
   "a-level-physics-9702": aLevelPhysics9702 as IGCSEArtifact,
   "a-level-chemistry-9701": aLevelChemistry9701 as IGCSEArtifact,
@@ -204,6 +211,8 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-computer-science-0478": computerScienceTaxonomy,
   "ib-computer-science-hl": ibComputerScienceTaxonomy,
   "ib-computer-science-sl": ibComputerScienceTaxonomy,
+  "ib-business-management-hl": ibBusinessManagementTaxonomy,
+  "ib-business-management-sl": ibBusinessManagementTaxonomy,
   "a-level-maths-9709": aLevelMaths9709Taxonomy,
   "a-level-physics-9702": aLevelPhysics9702Taxonomy,
   "a-level-chemistry-9701": aLevelChemistry9701Taxonomy,
@@ -222,6 +231,8 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-computer-science-0478": "f3e6b8015de192d9c723d7b825a4f29e58c88568b608bf5c6abaafcd493c546b",
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
+  "ib-business-management-hl": "4ff98d61200c851d15051ec90810b3ab4ceb19c3fc9807f5bba47f4400ac8106",
+  "ib-business-management-sl": "ada0f6fad25cf1489d9d20ba3e071c3a11310c5ef583c4df5e95a39683541f73",
   "a-level-maths-9709": "5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa",
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",
@@ -240,6 +251,8 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "igcse-computer-science-0478": "f3e6b8015de192d9c723d7b825a4f29e58c88568b608bf5c6abaafcd493c546b",
   "ib-computer-science-hl": "9b74c704510a93ac7d71e881b2a95dcad74814407281adb3a933e6ae64fb7077",
   "ib-computer-science-sl": "371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9",
+  "ib-business-management-hl": "4ff98d61200c851d15051ec90810b3ab4ceb19c3fc9807f5bba47f4400ac8106",
+  "ib-business-management-sl": "ada0f6fad25cf1489d9d20ba3e071c3a11310c5ef583c4df5e95a39683541f73",
   "a-level-maths-9709": "5cdeebc4a0d84f9878f6204b8b6d318a5b91fe7c216c46187a34383b1757c3fa",
   "a-level-physics-9702": "625c919f2ca5373a21be622a07c2c420656d5df2eda3e3f5b13bd82120874099",
   "a-level-chemistry-9701": "1c9b6408fce87d5ccdbdf15e3f141ca70b58b70b1093b54bf22e130a64a7c9e4",

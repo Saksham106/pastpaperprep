@@ -21,6 +21,8 @@ export const SUBJECT_SLUGS: Record<BankSlug, string> = {
   'igcse-computer-science-0478': 'igcse-computer-science-0478',
   'ib-computer-science-hl': 'ib-computer-science-hl',
   'ib-computer-science-sl': 'ib-computer-science-sl',
+  'ib-business-management-hl': 'ib-business-management-hl',
+  'ib-business-management-sl': 'ib-business-management-sl',
   'igcse-economics-0455': 'igcse-economics-0455',
   'ib-hl': 'ib-math-aa-hl',
   'ib-sl': 'ib-math-aa-sl',

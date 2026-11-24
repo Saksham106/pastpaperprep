@@ -1,7 +1,7 @@
 import type { BankSlug, ProductionBankSlug } from "@/lib/banks";
 import { BANK_CATALOG } from "@/lib/catalog";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bank_igcse_computer_science_0478" | "bank_ib_computer_science_hl" | "bank_ib_computer_science_sl" | "bank_a_level_maths_9709" | "bank_a_level_physics_9702" | "bank_a_level_chemistry_9701" | "bank_a_level_biology_9700" | "bank_a_level_economics_9708" | "bank_a_level_computer_science_9618" | "bank_a_level_further_maths_9231" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom" | "lifetime_all_access";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bank_igcse_computer_science_0478" | "bank_ib_computer_science_hl" | "bank_ib_computer_science_sl" | "bank_ib_business_management_hl" | "bank_ib_business_management_sl" | "bank_a_level_maths_9709" | "bank_a_level_physics_9702" | "bank_a_level_chemistry_9701" | "bank_a_level_biology_9700" | "bank_a_level_economics_9708" | "bank_a_level_computer_science_9618" | "bank_a_level_further_maths_9231" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom" | "lifetime_all_access";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -121,6 +121,9 @@ export const PRIVATE_FREE_QUESTION_YEARS: Partial<Record<BankSlug, readonly numb
   "igcse-computer-science-0478": [2019, 2020, 2021],
   "ib-computer-science-hl": [2019, 2020],
   "ib-computer-science-sl": [2019, 2020],
+  // IB Business Management: Nov 2020, May 2021 and Nov 2021 (the first three sessions in the bank).
+  "ib-business-management-hl": [2020, 2021],
+  "ib-business-management-sl": [2020, 2021],
   "ib-economics-hl": [2021],
   "ib-economics-sl": [2021],
   // A Level Maths 9709: the 2020 syllabus's first two years, including the unsat May/June 2020 papers.
@@ -141,8 +144,8 @@ export const PRIVATE_FREE_QUESTION_YEARS: Partial<Record<BankSlug, readonly numb
 
 export const PRIVATE_PREVIEW_QUESTION_IDS: Partial<Record<BankSlug, readonly string[]>> = {};
 
-/** Syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`, `ib-cs-2019-…`), then the IB year-first form. */
-const SYLLABUS_PREFIXED_ID = /^(?:\d{4}|ib-cs)-(\d{4})-/;
+/** Syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`, `ib-cs-2019-…`, `ibbm-2020-…`), then the IB year-first form. */
+const SYLLABUS_PREFIXED_ID = /^(?:\d{4}|ib-cs|ibbm)-(\d{4})-/;
 const YEAR_FIRST_ID = /^(\d{4})-/;
 
 export function questionYear(questionId: string): number | null {
