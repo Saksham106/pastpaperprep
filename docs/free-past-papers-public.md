@@ -16,9 +16,10 @@ Never put these PDFs in the private `pastpaperprep-assets` bucket, and never mak
   pairs (both time zones, HL and SL), and its cover must name the subject and sitting. Papers without one are
   byte-identical to before, and so are their digests.
 - `src/data/paper-archive-readback.json` (committed) records a digest of that whole set and a seal
-  of which PDF serves each bank/paper/role (question paper, mark scheme or insert). It is written only after
-  every object was downloaded from `free.pastpaperprep.com` and matched byte for byte, filename
-  included, and the manifests didn't change during the run.
+  of which PDF serves each bank/paper/role (question paper, mark scheme or insert). A full readback writes it
+  only after every object was downloaded from `free.pastpaperprep.com` and matched byte for byte,
+  filename included, and the manifests didn't change during the run. An incremental readback (below)
+  adds an `incremental` block naming the receipt it chains from and when the last full readback ran.
 - Production shows the library only with `PAPER_ARCHIVE_ENABLED=true`,
   `PAPER_ARCHIVE_STORAGE_VERIFIED=true` and a receipt that matches the current manifests. Any
   manifest change, including swapping two documents, closes it until the papers are re-published and
@@ -58,7 +59,7 @@ that needs it.
 
 To add papers without re-putting live objects, use the added-papers tool instead. It publishes only PDFs
 the manifests approve and `<base-ref>` doesn't (key checked absent, put, read back), then `verify` reads
-back every approved PDF and writes the receipt the same way. Its guarantee is check-absent → put →
+them back through the public origin and writes the receipt (see "Incremental verify"). Its guarantee is check-absent → put →
 read-back, serialized by one local writer: `upload` takes an exclusive lock
 (`scripts/lib/single-writer-lock.mjs`) and a second run fails at once. It catches pre-existing different
 bytes before writing and corrupt bytes after, but it is not an atomic create (wrangler has no conditional
@@ -69,8 +70,30 @@ delete the lock file named in the error.
 ```bash
 npx tsx scripts/publish-added-free-papers.mts plan origin/main private/paper-archives/source-bindings.json /tmp/added-papers
 WRANGLER_BIN=<wrangler> JOBS=2 npx tsx scripts/publish-added-free-papers.mts upload origin/main private/paper-archives/source-bindings.json /tmp/added-papers
-npx tsx scripts/publish-added-free-papers.mts verify /tmp/added-papers
+npx tsx scripts/publish-added-free-papers.mts verify /tmp/added-papers --since origin/main
 ```
+
+### Incremental verify
+
+`verify` with no flag reads back every approved PDF (~8,000 objects, ~7.9 GB, ~25 min).
+`verify <work-dir> --since <base-ref>` reads only what changed:
+
+1. `<base-ref>`'s committed receipt must match `<base-ref>`'s manifests exactly (objectCount,
+   objectsSha256, mappingSha256). Otherwise it stops: run a full verify.
+2. No object approved at `<base-ref>` and still approved may change its size or download name.
+   Otherwise it stops: that needs a re-put, a purge and a full verify.
+3. It fetches the PDFs added since `<base-ref>` plus `--sample` (default 64, max 1,000) random existing
+   ones through the public origin, checking bytes, content type and Content-Disposition.
+4. If all match and neither the manifests nor `<base-ref>` moved during the run, it writes a receipt
+   for the current manifests with
+   `incremental: { since: {verifiedAt, objectCount, objectsSha256, mappingSha256}, fullReadbackAt, added, sampled }`.
+
+Objects are keyed by SHA-256, so the base receipt still vouches for every object both sides approve.
+The sample is a spot check that the bucket hasn't drifted since then. Production only checks that
+the receipt matches the manifests; the `incremental` block is for audit. Run the full verify instead
+after replacing or purging any object, when a sampled object fails, and when `fullReadbackAt` is more
+than about a month old. Both modes retry an object up to 3 times on a transport error (curl exit
+nonzero); a completed download with wrong bytes or headers fails at once.
 
 Objects are cached at Cloudflare's edge for up to a week. **If you replace an existing object**
 (same hash, new filename or headers), purge those URLs in Cloudflare (Caching → Configuration →

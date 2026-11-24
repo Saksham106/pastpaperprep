@@ -71,6 +71,18 @@ describe('public readback receipt', () => {
       expect(validPublicReadback(bad)).toBe(false);
     }
   });
+  it('accepts an incremental readback only with a well-formed chain to the receipt it extends', () => {
+    const incremental = { since: { verifiedAt: '2026-10-01T00:00:00.000Z', objectCount: 1, objectsSha256: sha, mappingSha256: sha }, fullReadbackAt: '2026-09-01T00:00:00.000Z', added: 1, sampled: 64 };
+    expect(validPublicReadback({ ...receipt, incremental })).toBe(true);
+    for (const bad of [
+      { ...incremental, extra: 1 }, { ...incremental, since: { ...incremental.since, extra: 1 } }, { ...incremental, since: { ...incremental.since, objectCount: 0 } },
+      { ...incremental, since: { ...incremental.since, objectsSha256: 'x' } }, { ...incremental, added: -1 }, { ...incremental, sampled: 1.5 },
+      { ...incremental, fullReadbackAt: '2026-10-02T00:00:00.000Z' }, { ...incremental, since: { ...incremental.since, verifiedAt: '2026-10-14T00:00:00.000Z' } },
+      { ...incremental, fullReadbackAt: 'soon' }, null, [],
+    ]) {
+      expect(validPublicReadback({ ...receipt, incremental: bad })).toBe(false);
+    }
+  });
 });
 
 describe('committed public readback', () => {
