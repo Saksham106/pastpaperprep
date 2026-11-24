@@ -8,12 +8,15 @@ export type PaperQuestion = { id: string; number: number; marks: number | null; 
 
 export const questionPaperKey = (questionId: string) => questionId.replace(/-q\d+[a-z]*$/i, '');
 
+/** Banks whose question ids order the parts differently: <prefix>-<year>-<session>-<level>-<paper>-<tz>. */
+const REORDERED_PREFIX: Record<string, string> = { 'ib-computer-science': 'ib-cs', 'ib-business-management': 'ibbm' };
+
 export function archivePaperKey(bankSlug: string, paperId: string): string {
-  const key = paperId.replace(/-english$/, '').replace(/^(biology|chemistry|physics|economics|computer-science)-/, '');
-  if (!bankSlug.startsWith('ib-computer-science')) return key;
-  // IB Computer Science bank ids order the parts differently: ib-cs-<year>-<session>-<level>-<paper>-<tz>.
-  const match = /^(\d{4})-([a-z]+)-(tz\d)-(hl|sl)-(p\d)$/.exec(key);
-  return match ? `ib-cs-${match[1]}-${match[2]}-${match[4]}-${match[5]}-${match[3]}` : key;
+  const key = paperId.replace(/-english$/, '').replace(/^(biology|chemistry|physics|economics|computer-science|business-management)-/, '');
+  const prefix = REORDERED_PREFIX[bankSlug.replace(/-(hl|sl)$/, '')];
+  if (!prefix) return key;
+  const match = /^(\d{4})-([a-z]+)-(tz\d)-(hl|sl|hlsl)-(p\d)$/.exec(key);
+  return match ? `${prefix}-${match[1]}-${match[2]}-${match[4]}-${match[5]}-${match[3]}` : key;
 }
 
 /** Paper key -> full-paper page, for the "Full paper" link on question cards. */

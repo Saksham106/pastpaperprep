@@ -16,6 +16,24 @@ beforeEach(() => {
 });
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); });
 describe("PastPaperReader", () => {
+  it("adds a case study tab between the paper and the mark scheme, with arrow-key order and its own download", async () => {
+    const paper = { ...DEFAULT_PAPER_READER_CONFIG, id: "business-management-2023-may-tz1-hl-p1", sources: { question: "/bm/question", markscheme: "/bm/markscheme", insert: "/bm/insert" }, insertLabel: "Case study" };
+    render(<PastPaperReader paper={paper} />);
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    expect(screen.getAllByRole("tab").map(tab => tab.textContent)).toEqual(["Question paper", "Case study", "Mark scheme"]);
+    fireEvent.keyDown(screen.getByRole("tab", { name: "Question paper" }), { key: "ArrowRight" });
+    await screen.findByRole("img", { name: /Case study, page 1/ });
+    expect(fetch).toHaveBeenCalledWith("/bm/insert", expect.anything());
+    expect(screen.getByRole("link", { name: /Download case study/ })).toHaveAttribute("download", `${paper.id}_case-study.pdf`);
+    fireEvent.keyDown(screen.getByRole("tab", { name: "Case study" }), { key: "ArrowRight" });
+    await screen.findByRole("img", { name: /Mark scheme, page 1/ });
+    fireEvent.keyDown(screen.getByRole("tab", { name: "Mark scheme" }), { key: "ArrowRight" });
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+  });
+  it("shows two tabs when a paper has no insert", async () => {
+    render(<PastPaperReader paper={{ ...DEFAULT_PAPER_READER_CONFIG, insertLabel: "Case study" }} />);
+    expect(screen.getAllByRole("tab").map(tab => tab.textContent)).toEqual(["Question paper", "Mark scheme"]);
+  });
   it("uses per-paper identity, sources, duration and resets a changed paper", async () => {
     const paper = { id: "0620-2024-s-12", title: "Chemistry 0620 · May / June 2024 · Paper 12", subject: "Chemistry", syllabusCode: "0620", qualification: "Cambridge IGCSE", sessionLabel: "May / June 2024", component: "1", paperName: "Multiple Choice (Core)", variant: "2", durationMinutes: 45, maxMarks: 40, sources: { question: "/archive/12/question", markscheme: "/archive/12/markscheme" }, archiveHref: "/past-papers/igcse-chemistry-0620" };
     const view = render(<PastPaperReader paper={paper} />);

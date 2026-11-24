@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { BANK_CATALOG, type BankSlug } from './catalog';
 import { paperSlug, subjectSlugForBank } from './past-paper-catalog';
 import { approvedPapers, paperMappingDigest, paperObjectUrl, paperObjectsDigest, validPublicReadback } from './whole-paper-public';
-import type { WholePaperManifest, WholePaperBankSummary, WholePaperSummary, WholePaperDetail } from './whole-paper-types';
+import type { WholePaperManifest, WholePaperBankSummary, WholePaperSummary, WholePaperDetail, WholePaperDocumentKind } from './whole-paper-types';
 import { assessableArchiveQuestion } from './reviewed-science-removed-part-marks';
 
 export function wholePaperPreviewEnabled() { return process.env.NODE_ENV === 'development' && process.env.LOCAL_PAPER_PREVIEW === 'true'; }
@@ -19,6 +19,13 @@ function object(v: unknown, required: string[], optional: string[] = []): v is R
 function validDocument(v: unknown): boolean {
   return object(v, ['sha256', 'bytes', 'pages']) && typeof v.sha256 === 'string' && SHA256.test(v.sha256) && integer(v.bytes, 5, 100 * 1024 * 1024) && integer(v.pages, 1, 10_000);
 }
+/** An optional booklet (pre-seen case study): a document plus a plain label. */
+function validInsert(v: unknown): boolean {
+  if (!object(v, ['sha256', 'bytes', 'pages', 'label']) || typeof v.label !== 'string' || !/^[A-Za-z][A-Za-z ]{0,39}$/.test(v.label)) return false;
+  return validDocument({ sha256: v.sha256, bytes: v.bytes, pages: v.pages });
+}
+const DOCUMENT_KINDS = ['question', 'markscheme', 'insert'] as const;
+const documentKind = (v: unknown): v is WholePaperDocumentKind => DOCUMENT_KINDS.includes(v as WholePaperDocumentKind);
 function validManifest(value: unknown, slug: string): value is WholePaperManifest {
   const bank = BANK_CATALOG.find(b => b.slug === slug);
   if (!bank || !object(value, ['version', 'bankSlug', 'runtimeSha256', 'papers', 'coverage']) || value.bankSlug !== slug || !text(value.version) || typeof value.runtimeSha256 !== 'string' || !SHA256.test(value.runtimeSha256) || !Array.isArray(value.papers) || value.papers.length > 10_000) return false;
@@ -27,7 +34,7 @@ function validManifest(value: unknown, slug: string): value is WholePaperManifes
   const ids = new Set<string>();
   let reports = 0;
   for (const p of value.papers) {
-    if (!object(p, ['summary', 'version', 'documents', 'questions']) || !text(p.version) || !object(p.documents, ['question', 'markscheme']) || !validDocument(p.documents.question) || !validDocument(p.documents.markscheme) || !Array.isArray(p.questions)) return false;
+    if (!object(p, ['summary', 'version', 'documents', 'questions']) || !text(p.version) || !object(p.documents, ['question', 'markscheme'], ['insert']) || !validDocument(p.documents.question) || !validDocument(p.documents.markscheme) || (p.documents.insert !== undefined && !validInsert(p.documents.insert)) || !Array.isArray(p.questions)) return false;
     const s = p.summary;
     if (!object(s, ['id', 'bankSlug', 'title', 'qualification', 'subject', 'syllabusCode', 'year', 'session', 'sessionCode', 'component', 'paper', 'variant', 'route', 'durationMinutes', 'maxMarks', 'questionCount', 'reportAvailable', 'metadataVerified'], ['reportReason'])) return false;
     if (typeof s.id !== 'string' || !SAFE_ID.test(s.id) || ids.has(s.id) || s.bankSlug !== slug || s.qualification !== bank.qualification || s.subject !== bank.subject || s.syllabusCode !== bank.syllabusCode) return false;
@@ -86,9 +93,10 @@ export function getWholePaperBanks(): WholePaperBankSummary[] {
 export function getWholePaper(slug: string, id: string): WholePaperDetail | null {
   const entry = readManifest(slug)?.papers.find(p => p.summary.id === id);
   if (!entry) return null;
-  if (!wholePaperPreviewEnabled()) return { ...entry, sources: { question: paperObjectUrl(entry.documents.question.sha256), markscheme: paperObjectUrl(entry.documents.markscheme.sha256) } };
+  const insert = entry.documents.insert;
+  if (!wholePaperPreviewEnabled()) return { ...entry, sources: { question: paperObjectUrl(entry.documents.question.sha256), markscheme: paperObjectUrl(entry.documents.markscheme.sha256), ...(insert ? { insert: paperObjectUrl(insert.sha256) } : {}) } };
   const base = `/past-papers/${subjectSlugForBank(entry.summary.bankSlug)}/${paperSlug(entry.summary)}/document`;
-  return { ...entry, sources: { question: `${base}?kind=question`, markscheme: `${base}?kind=markscheme` } };
+  return { ...entry, sources: { question: `${base}?kind=question`, markscheme: `${base}?kind=markscheme`, ...(insert ? { insert: `${base}?kind=insert` } : {}) } };
 }
 export function findWholePaperBySlug(bank: BankSlug, slug: string): WholePaperDetail | null {
   const entry = readManifest(bank)?.papers.find(p => paperSlug(p.summary) === slug);
@@ -134,7 +142,7 @@ function validBindings(value: unknown): value is import('./whole-paper-types').W
   }
   const ids = new Set<string>();
   for (const b of value.documents) {
-    if (!object(b, ['bankSlug', 'paperId', 'kind', 'rootId', 'relativePath', 'sha256', 'bytes']) || typeof b.bankSlug !== 'string' || !BANK_CATALOG.some(bank => bank.slug === b.bankSlug) || typeof b.paperId !== 'string' || !SAFE_ID.test(b.paperId) || !['question', 'markscheme'].includes(b.kind as string) || typeof b.rootId !== 'string' || !roots.has(b.rootId) || !safeRelativePath(b.relativePath) || typeof b.sha256 !== 'string' || !SHA256.test(b.sha256) || !integer(b.bytes, 5, 100 * 1024 * 1024)) return false;
+    if (!object(b, ['bankSlug', 'paperId', 'kind', 'rootId', 'relativePath', 'sha256', 'bytes']) || typeof b.bankSlug !== 'string' || !BANK_CATALOG.some(bank => bank.slug === b.bankSlug) || typeof b.paperId !== 'string' || !SAFE_ID.test(b.paperId) || !documentKind(b.kind) || typeof b.rootId !== 'string' || !roots.has(b.rootId) || !safeRelativePath(b.relativePath) || typeof b.sha256 !== 'string' || !SHA256.test(b.sha256) || !integer(b.bytes, 5, 100 * 1024 * 1024)) return false;
     const key = `${b.bankSlug}/${b.paperId}/${b.kind}`;
     if (ids.has(key)) return false; ids.add(key);
   }
@@ -171,7 +179,7 @@ function productionEnabled(): boolean {
 export async function wholePaperArchiveEnabled(): Promise<boolean> { return wholePaperPreviewEnabled() || productionEnabled(); }
 /** Local preview only. Production pages link the public bucket directly, so this route never runs there. */
 export async function getWholePaperDocument(slug: string, id: string, kind: string): Promise<{bytes: Buffer; filename: string} | null> {
-  if (!SAFE_ID.test(id) || (kind !== 'question' && kind !== 'markscheme')) return null;
+  if (!SAFE_ID.test(id) || !documentKind(kind)) return null;
   const entry = getWholePaper(slug, id);
   if (!entry) return null;
   if (!wholePaperPreviewEnabled()) return null;
@@ -181,7 +189,7 @@ export async function getWholePaperDocument(slug: string, id: string, kind: stri
     const binding = bindings.documents.find(b => b.bankSlug === slug && b.paperId === id && b.kind === kind);
     const root = bindings.roots.find(r => r.id === binding?.rootId);
     const approved = entry.documents[kind];
-    if (!binding || !root || binding.sha256 !== approved.sha256 || binding.bytes !== approved.bytes) return null;
+    if (!approved || !binding || !root || binding.sha256 !== approved.sha256 || binding.bytes !== approved.bytes) return null;
     const path = resolve(root.path, binding.relativePath);
     const inside = relative(root.path, path);
     if (!inside || inside.startsWith(`..${sep}`) || isAbsolute(inside)) return null;

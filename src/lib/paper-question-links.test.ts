@@ -13,6 +13,8 @@ describe('paper question links', () => {
     expect(questionPaperKey('2021-may-none-hl-p2-q01')).toBe('2021-may-none-hl-p2');
     expect(archivePaperKey('ib-economics-hl', 'economics-2021-may-none-hl-p2-english')).toBe('2021-may-none-hl-p2');
     expect(archivePaperKey('ib-computer-science-hl', 'computer-science-2021-may-tz0-hl-p1')).toBe('ib-cs-2021-may-hl-p1-tz0');
+    expect(archivePaperKey('ib-business-management-sl', 'business-management-2024-may-tz1-hlsl-p1')).toBe('ibbm-2024-may-hlsl-p1-tz1');
+    expect(archivePaperKey('ib-business-management-hl', 'business-management-2025-nov-tz0-hl-p3')).toBe('ibbm-2025-nov-hl-p3-tz0');
     expect(archivePaperKey('igcse', '0580-2016-june-21')).toBe('0580-2016-june-21');
   });
 

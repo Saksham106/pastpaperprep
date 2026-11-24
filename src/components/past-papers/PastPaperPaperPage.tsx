@@ -75,7 +75,8 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const p = detail.summary;
   const subject = subjectSlugForBank(bank.slug);
   const name = subjectSearchName(bank);
-  const copy = paperCopy(bank, p);
+  const insertLabel = detail.documents.insert?.label;
+  const copy = paperCopy(bank, p, insertLabel);
   const path = paperHref(p);
   const qualification = QUALIFICATION[qualificationOfBank(bank.slug)];
   const label = paperName(p);
@@ -89,7 +90,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const tz = /^tz[1-9]$/i.test(p.variant) ? p.variant.toUpperCase() : null;
   const facts = [p.route === 'Core' || p.route === 'Extended' ? p.route : null, p.durationMinutes !== null ? formatDuration(p.durationMinutes) : null, p.maxMarks !== null ? `${p.maxMarks} marks` : null, isCambridge(p) && /^\d$/.test(p.variant) ? `Variant ${p.variant}` : tz].filter((fact): fact is string => !!fact);
   const codes = paperCodes(bank, p);
-  const reader: PaperReaderConfig = { id: p.id, title: copy.h1, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, bankSlug: bank.slug, reportAvailable: p.reportAvailable, questionPages: questionPages(questions) };
+  const reader: PaperReaderConfig = { id: p.id, title: copy.h1, subject: p.subject, syllabusCode: p.syllabusCode, qualification: p.qualification, sessionLabel: `${p.session} ${p.year}`, component: p.paper, paperName: label, variant: p.variant, durationMinutes: p.durationMinutes, maxMarks: p.maxMarks, sources: detail.sources, ...(insertLabel && detail.sources.insert ? { insertLabel } : {}), bankSlug: bank.slug, reportAvailable: p.reportAvailable, questionPages: questionPages(questions) };
   const marking = p.reportAvailable && p.maxMarks !== null ? { id: p.id, version: detail.version, bankSlug: bank.slug, title: copy.h1, maxMarks: p.maxMarks, questions: detail.documents?.markscheme ? withKeyErrata(bank.slug, p.id, detail.documents.markscheme.sha256, detail.questions) : detail.questions } : null;
   const paperNumber = p.paper.toUpperCase();
   const threshold = p.qualification === 'Cambridge IGCSE' ? paperThreshold(subject, p) : null;
@@ -97,7 +98,7 @@ export function PastPaperPaperPage({ view }: { view: PaperView }) {
   const glance = view.complete && p.maxMarks !== null ? p.maxMarks : null;
   return <article className={`${shell.page} ${styles.page}`} data-subject-tone={courseToneForBank(bank)}>
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
-    <JsonLd data={paperJsonLd(bank, p, path)} />
+    <JsonLd data={paperJsonLd(bank, p, path, insertLabel)} />
     <nav aria-label="Breadcrumb" className={shell.crumbs}>
       <Link href="/past-papers">Past papers</Link><span aria-hidden="true">/</span>
       <Link href={qualification.path}>{qualification.name}</Link><span aria-hidden="true">/</span>

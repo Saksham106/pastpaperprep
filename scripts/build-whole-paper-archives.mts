@@ -148,7 +148,8 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       const family=cambridgeFamily(bank.slug)?'igcse':'ib';
       const qp=await extractPdf(pair.questionPath,family,path.join(privateRoot,'text-cache'),path.join(root,'private/chemistry-paper-archive/checkpoints'),markRuleForBank(bank.slug),startRuleForBank(bank.slug));
       const ms=await extractPdf(pair.markschemePath,family,path.join(privateRoot,'text-cache'));
-      sourceDocuments.push({id:pair.id,question:{path:pair.questionPath,sha256:qp.sha256,bytes:qp.bytes,pages:qp.pages},markscheme:{path:pair.markschemePath,sha256:ms.sha256,bytes:ms.bytes,pages:ms.pages}});
+      const insert=pair.insertPath?{document:await extractPdf(pair.insertPath,family,path.join(privateRoot,'text-cache')),label:pair.insertLabel!}:undefined;
+      sourceDocuments.push({id:pair.id,question:{path:pair.questionPath,sha256:qp.sha256,bytes:qp.bytes,pages:qp.pages},markscheme:{path:pair.markschemePath,sha256:ms.sha256,bytes:ms.bytes,pages:ms.pages},...(insert?{insert:{path:pair.insertPath,label:insert.label,sha256:insert.document.sha256,bytes:insert.document.bytes,pages:insert.document.pages}}:{})});
       // IB Computer Science Paper 2 ids carry the option before the number (…-p2-tz0-optA-q3).
       const ownIds=normalized.filter(q=>q.id.replace(/-q\d+$/,'').replace(/^(ib-cs-.*-p2-tz\d)-opt[A-D]$/,'$1')===pair.runtimePaperId).map(q=>q.id);
       const reprintIds=reprintRows(pair.id,aliasesById);
@@ -156,12 +157,13 @@ export async function buildWholePaperArchives(options:BuildOptions) {
       const actualIds=[...ownIds,...reprintIds.keys()].sort();
       if(JSON.stringify(actualIds)!==JSON.stringify([...pair.runtimeQuestionIds].sort()))throw new Error(`Inventory qids differ from exact runtime paper ${pair.runtimePaperId}`);
       const rows=pair.runtimeQuestionIds.map(id=>{const q=byId.get(id);if(!q)throw new Error(`Missing exact runtime qid ${id}`);if(reprintIds.has(id)&&reprintIds.get(id)!==q.number)throw new Error(`Reprint ${pair.id} renumbers ${id}`);return q;});
-      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])),reportHolds.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.has(JSON.stringify([bank.slug,pair.id]))?await loadReviewedRuntimeLetters(root,bank.slug,pair.runtimePaperId):undefined,assessment);
+      const assembled=assemblePaper(bank.slug,pair,rows,qp,ms,identityReviews.get(JSON.stringify([bank.slug,pair.id])),reportHolds.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.get(JSON.stringify([bank.slug,pair.id])),mcqKeyReviews.has(JSON.stringify([bank.slug,pair.id]))?await loadReviewedRuntimeLetters(root,bank.slug,pair.runtimePaperId):undefined,assessment,insert);
       details.push({id:pair.id,runtimePaperId:pair.runtimePaperId,sourceMetadata:pair.metadata??null,inventoryRecord:pair,questionPath:pair.questionPath,markschemePath:pair.markschemePath,documents:assembled.entry.documents,reportReason:assembled.entry.summary.reportReason??null,corrections:assembled.corrections,evidence:assembled.evidence});
       if(!assembled.evidence.identityValid)throw new Error(`${assembled.entry.summary.reportReason} Not promoted to public manifest.`);
       papers.push(assembled.entry);
-      for(const kind of ['question','markscheme'] as const) {
-        const filename=kind==='question'?pair.questionPath:pair.markschemePath,doc=kind==='question'?qp:ms;
+      for(const kind of ['question','markscheme','insert'] as const) {
+        const filename=kind==='question'?pair.questionPath:kind==='markscheme'?pair.markschemePath:pair.insertPath,doc=kind==='question'?qp:kind==='markscheme'?ms:insert?.document;
+        if(!filename||!doc)continue;
         const sourceRoot=path.dirname(filename),rootId=`source-${sha256(sourceRoot).slice(0,20)}`;
         roots.set(rootId,{id:rootId,path:sourceRoot});
         bankBindings.push({bankSlug:bank.slug,paperId:pair.id,kind,rootId,relativePath:path.basename(filename),sha256:doc.sha256,bytes:doc.bytes});
@@ -174,7 +176,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
         console.error(`${bank.slug}: ${attempted}/${bank.pairs.length} ${pair.id} rejected: ${failure.error}`);
       }
     }
-    if(papers.length+failures.length!==bank.pairs.length||bankBindings.length!==papers.length*2)throw new Error(`Paired count mismatch: ${bank.slug}`);
+    if(papers.length+failures.length!==bank.pairs.length||bankBindings.length!==papers.length*2+papers.filter(p=>p.documents.insert).length)throw new Error(`Paired count mismatch: ${bank.slug}`);
     const unusedHolds=[...reportHolds.values()].filter(hold=>hold.bankSlug===bank.slug&&!papers.some(p=>p.summary.id===hold.paperId));
     if(unusedHolds.length)throw new Error(`Report holds match no built paper: ${unusedHolds.map(h=>h.paperId).join(', ')}`);
     const unusedKeyReviews=[...mcqKeyReviews.values()].filter(review=>review.bankSlug===bank.slug&&!papers.some(p=>p.summary.id===review.paperId));
@@ -183,7 +185,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
     const manifest:WholePaperManifest={version:GENERATOR_VERSION,bankSlug:bank.slug,runtimeSha256:sha256(runtimeBytes),papers,coverage:{paired:papers.length,reports,held:papers.length-reports,unpaired:bank.unpaired.length,runtimeWithoutPair:bank.runtimeWithoutPair.length}};
     bindings.documents=[...bindings.documents.filter(doc=>doc.bankSlug!==bank.slug),...bankBindings].sort((a,b)=>`${a.bankSlug}/${a.paperId}/${a.kind}`.localeCompare(`${b.bankSlug}/${b.paperId}/${b.kind}`));
     const usedRoots=new Set(bindings.documents.map(doc=>doc.rootId));bindings.roots=[...roots.values()].filter(root=>usedRoots.has(root.id)).sort((a,b)=>a.id.localeCompare(b.id));
-    receipt.banks=[...receipt.banks.filter(entry=>entry.slug!==bank.slug),{slug:bank.slug,questionMarkRule:markRuleForBank(bank.slug),runtimeFile:expectedRuntime,runtimeSha256:manifest.runtimeSha256,loaderTrace:{file:loaderFile,sha256:sha256(loaderBytes),selected:relativeRuntime},coverage:manifest.coverage,sourceCount:sourceDocuments.length*2,sourceDocuments,promotedSourceCount:bankBindings.length,unpaired:bank.unpaired,runtimeWithoutPair:bank.runtimeWithoutPair,notes:bank.notes,inventoryPaired:bank.pairs.length,publicPaired:papers.length,rejected:failures.length,failures,papers:details}].sort((a,b)=>a.slug.localeCompare(b.slug));
+    receipt.banks=[...receipt.banks.filter(entry=>entry.slug!==bank.slug),{slug:bank.slug,questionMarkRule:markRuleForBank(bank.slug),runtimeFile:expectedRuntime,runtimeSha256:manifest.runtimeSha256,loaderTrace:{file:loaderFile,sha256:sha256(loaderBytes),selected:relativeRuntime},coverage:manifest.coverage,sourceCount:sourceDocuments.reduce((n:number,d)=>n+((d as {insert?:unknown}).insert?3:2),0),sourceDocuments,promotedSourceCount:bankBindings.length,unpaired:bank.unpaired,runtimeWithoutPair:bank.runtimeWithoutPair,notes:bank.notes,inventoryPaired:bank.pairs.length,publicPaired:papers.length,rejected:failures.length,failures,papers:details}].sort((a,b)=>a.slug.localeCompare(b.slug));
     await atomicJson(path.join(privateRoot,'source-bindings.json'),bindings);
     await atomicJson(path.join(privateRoot,'receipt.json'),receipt);
     await atomicJson(path.join(outputRoot,'src/data/paper-archives',`${bank.slug}.json`),manifest);
@@ -193,12 +195,16 @@ export async function buildWholePaperArchives(options:BuildOptions) {
 }
 export const GENERATOR_VERSION='whole-paper-manifest-v3';
 /**
+ * `insertPath` + `insertLabel` (optional): a separate booklet the paper needs, such as IB Business Management's pre-seen
+ * case study. One booklet may serve several pairs (both time zones of a session), so its path may repeat across pairs,
+ * but never as a question paper or mark scheme. Its cover must name the subject, session and year.
+ *
  * `reprintQuestionIds`: questions of this paper that the bank keeps once, under another variant of the same series
  * (Cambridge A Level reprints a variant's questions; the runtime lists the reprint as that row's aliasIds). They must
  * equal exactly the runtime rows whose aliasIds name this paper, with the same printed number, and are the only qids
  * allowed in two pairs.
  */
-export type InventoryPair={id:string;runtimePaperId:string|null;questionPath:string;markschemePath:string;runtimeQuestionIds:string[];reprintQuestionIds?:string[];metadata?:{sourceIdentity?:string;[key:string]:unknown}};
+export type InventoryPair={id:string;runtimePaperId:string|null;questionPath:string;markschemePath:string;insertPath?:string;insertLabel?:string;runtimeQuestionIds:string[];reprintQuestionIds?:string[];metadata?:{sourceIdentity?:string;[key:string]:unknown}};
 /** Cambridge papers (IGCSE and A Level) share cover format, ids and question layout. */
 export function cambridgeFamily(slug:string) {
   const qualification=getCatalogBank(slug)?.qualification;
@@ -224,16 +230,23 @@ export function validateInventory(input:unknown): asserts input is Inventory {
     if(banks.has(bank.slug))throw new Error(`Duplicate bank ${bank.slug}`);banks.add(bank.slug);
     if(typeof bank.runtimeFile!=='string'||!path.isAbsolute(bank.runtimeFile))throw new Error('runtimeFile must be absolute');
     for(const field of ['pairs','unpaired','runtimeWithoutPair','notes'] as const)if(!Array.isArray(bank[field]))throw new Error(`Inventory ${bank.slug} requires ${field} array`);
-    const ids=new Set<string>(),qids=new Set<string>(),sources=new Set<string>(),runtimePapers=new Set<string>();
+    const ids=new Set<string>(),qids=new Set<string>(),sources=new Set<string>(),runtimePapers=new Set<string>(),inserts=new Set<string>();
     for(const pair of bank.pairs) {
       if(typeof pair.id!=='string'||! /^[a-z0-9][a-z0-9-]{0,159}$/.test(pair.id)||(pair.runtimePaperId!==null&&(typeof pair.runtimePaperId!=='string'||!pair.runtimePaperId)))throw new Error('Valid pair identity and nullable runtimePaperId are required');
       if(ids.has(pair.id)||(pair.runtimePaperId!==null&&runtimePapers.has(pair.runtimePaperId)))throw new Error(`Duplicate paper ${pair.id}`);ids.add(pair.id);if(pair.runtimePaperId!==null)runtimePapers.add(pair.runtimePaperId);
       for(const name of ['questionPath','markschemePath'] as const){if(typeof pair[name]!=='string'||!path.isAbsolute(pair[name]))throw new Error('Original paths must be absolute');if(/[\\:%?#]/.test(path.basename(pair[name])))throw new Error('Original filename is not safe for local bindings');if(sources.has(pair[name]))throw new Error(`Duplicate source ${pair[name]}`);sources.add(pair[name]);}
+      if(pair.insertPath!==undefined||pair.insertLabel!==undefined) {
+        if(typeof pair.insertPath!=='string'||!path.isAbsolute(pair.insertPath))throw new Error('Original paths must be absolute');
+        if(/[\\:%?#]/.test(path.basename(pair.insertPath)))throw new Error('Original filename is not safe for local bindings');
+        if(typeof pair.insertLabel!=='string'||!/^[A-Za-z][A-Za-z ]{0,39}$/.test(pair.insertLabel))throw new Error(`Insert needs a plain label: ${pair.id}`);
+        inserts.add(pair.insertPath);
+      }
       if(!Array.isArray(pair.runtimeQuestionIds))throw new Error('runtimeQuestionIds array required');
       const reprints=pair.reprintQuestionIds??[];
       if(!Array.isArray(reprints)||!reprints.every(id=>pair.runtimeQuestionIds.includes(id))||new Set(reprints).size!==reprints.length)throw new Error(`Reprint qids must be listed runtime qids: ${pair.id}`);
       for(const id of pair.runtimeQuestionIds){if(typeof id!=='string'||!id)throw new Error('Persisted qid must be a nonempty string');if(reprints.includes(id))continue;if(qids.has(id))throw new Error(`Duplicate qid ${id}`);qids.add(id);}
     }
+    for(const insert of inserts)if(sources.has(insert))throw new Error(`Insert is also a question paper or mark scheme: ${insert}`);
   }
 }
 /** Mirrors the production choice in question-loader, not candidate inventories. */
@@ -250,7 +263,7 @@ export function runtimeRelativeFile(slug:string) {
 export function optionalChoiceQuestionCount(slug:string,optionalChoice:boolean,runtimeRows:number,printedSegments:number) {
   return slug.startsWith('ib-economics-')&&optionalChoice&&runtimeRows>0?runtimeRows:printedSegments;
 }
-export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview,reportHold?:ReportHold,mcqKeyReview?:McqKeyReview,runtimeLetters?:Record<number,string>,assessment?:AssessmentStructure) {
+export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestion[],qp:ExtractedDocument,ms:ExtractedDocument,identityReview?:IdentityReview,reportHold?:ReportHold,mcqKeyReview?:McqKeyReview,runtimeLetters?:Record<number,string>,assessment?:AssessmentStructure,insert?:{document:ExtractedDocument;label:string}) {
   const bank=getCatalogBank(slug);if(!bank)throw new Error(`Unknown bank ${slug}`);
   const identity=parseIdentity(pair.metadata?.sourceIdentity??pair.id);
   if(identity.family==='ib')identity.level??=bank.level.toLowerCase();
@@ -271,6 +284,9 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const legacyMathematics=coursePattern!==null&&identity.year<2021;
   const courseValid=!coursePattern||legacyMathematics||(coursePattern.test(qFound.text)&&coursePattern.test(mFound.text));
   const bankLevelValid=identity.family!=='ib'||identity.level===bank.level.toLowerCase()||identity.level==='hlsl';
+  // An insert (pre-seen booklet) has no question layout; its cover must name the subject and this sitting.
+  const insertCover=insert?insert.document.text.slice(0,3).join(' ').replace(/\s+/g,' '):'';
+  const insertValid=!insert||(subjectPattern.test(insertCover)&&new RegExp(`\\b${identity.session.replace('/','\\s*/\\s*')}\\s+${identity.year}\\b`,'i').test(insertCover));
   const reviewMatches=Boolean(identityReview&&identityReview.bankSlug===slug&&identityReview.paperId===pair.id&&identityReview.questionSha256===qp.sha256&&identityReview.markschemeSha256===ms.sha256&&identityReview.verdict==='valid-pair');
   if(identityReview&&!reviewMatches)throw new Error('Identity review source binding mismatch');
   if(reportHold&&!(reportHold.bankSlug===slug&&reportHold.paperId===pair.id&&reportHold.questionSha256===qp.sha256&&reportHold.markschemeSha256===ms.sha256))throw new Error('Report hold source binding mismatch');
@@ -279,7 +295,7 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
     if(runtimeLetters?.[Number(number)]!==letter)throw new Error(`MCQ key review letter disagrees with the reviewed runtime letter: ${pair.id} Q${number}`);
     return Number(number);
   });
-  const identityValid=reviewMatches||(qCover.identityValid&&mCover.identityValid&&subjectValid&&examCodesAgree&&courseValid&&bankLevelValid&&legacyOptionValid&&(identity.family!=='igcse'||identity.syllabusCode===bank.syllabusCode));
+  const identityValid=insertValid&&(reviewMatches||(qCover.identityValid&&mCover.identityValid&&subjectValid&&examCodesAgree&&courseValid&&bankLevelValid&&legacyOptionValid&&(identity.family!=='igcse'||identity.syllabusCode===bank.syllabusCode)));
   const route:WholePaperEntry['summary']['route']=identity.family==='ib'?(bank.level==='HL'?'HL':bank.level==='SL'?'SL':null):/\bExtended\b/i.test(qFound.text)?'Extended':/\bCore\b/i.test(qFound.text)?'Core':/Alternative\s+to\s+Practical|Practical\s+Test/i.test(qFound.text)?'Shared':null;
   // Duration and maximum marks come from the syllabus table, never a parsed cover (which can misread); the cover
   // values are only the fallback for callers that pass no table (unit fixtures).
@@ -304,12 +320,13 @@ export function assemblePaper(slug:string,pair:InventoryPair,rows:UnifiedQuestio
   const topicsValid=topics.every(t=>t.length>0&&!t.some(topic=>/^(?:other|unclassified|unknown)$/i.test(topic)));
   // A reviewed hold is bound to both PDF hashes (checked above) and names the actual reason, so it wins over the derived
   // ones; a withheld question would otherwise only read as an inventory mismatch.
-  const reportReason=reportHold?.reason??(!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':undefined);
+  const reportReason=reportHold?.reason??(!insertValid?'Insert cover does not name this subject and session.':!mFound.text.trim()?'Original markscheme cover text is unavailable for identity verification.':!qFound.text.trim()?'Original question cover text is unavailable for identity verification.':!identityValid?'Source document identities need review.':qCover.optionalChoice||mCover.optionalChoice?'Optional question choices need review.':!maximaAgree||!msQuestionMaximaAgree?'Question and markscheme maxima disagree.':!inventoryValid?'Printed and runtime question inventories do not reconcile.':!totalsValid?'Printed question maxima do not reconcile.':!topicsValid?'Reviewed question topics are unavailable.':undefined);
   const questions=!reportReason?sorted.map((q,i)=>{const source=printed[i];if(q.marks!==source.maxMarks)corrections.push({id:q.id,from:q.marks,to:source.maxMarks,questionPage:source.page});return {id:q.id,number:q.number,maxMarks:source.maxMarks,topics:topics[i],questionPage:source.page};}):[];
   const document=(source:ExtractedDocument)=>({sha256:source.sha256,bytes:source.bytes,pages:source.pages});
   const summary:WholePaperEntry['summary']={id:pair.id,bankSlug:bank.slug,title:`${bank.title} · ${identity.session} ${identity.year} · Paper ${identity.component}`,qualification:bank.qualification,subject:bank.subject,syllabusCode:bank.syllabusCode,year:identity.year,session:identity.session,sessionCode:identity.sessionCode,component:identity.component,paper:identity.paper,variant:identity.variant,route,durationMinutes:official?official.durationMinutes:qCover.identityValid?qCover.durationMinutes:null,maxMarks,questionCount:optionalChoiceQuestionCount(bank.slug,Boolean(qCover.optionalChoice||mCover.optionalChoice),sorted.length,printed.length),reportAvailable:!reportReason,...(reportReason?{reportReason}:{}),metadataVerified:identityValid&&maximaAgree&&maxMarks!==null};
-  const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,extractorVersionFor(markRuleForBank(slug),startRuleForBank(slug)),qp.sha256,ms.sha256,summary,questions])).slice(0,20),documents:{question:document(qp),markscheme:document(ms)},questions};
-  return {entry,corrections,evidence:{identity,identityValid,identityReview:identityReview??null,reportHold:reportHold??null,mcqKeyReview:mcqKeyReview??null,textOrderMissingKeys:reviewedKeyNumbers.filter(n=>!textOrderNumbers.includes(n)),subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
+  // Without an insert the version and documents are exactly what they were before inserts existed.
+  const entry:WholePaperEntry={summary,version:sha256(JSON.stringify([GENERATOR_VERSION,extractorVersionFor(markRuleForBank(slug),startRuleForBank(slug)),qp.sha256,ms.sha256,summary,questions,...(insert?[insert.document.sha256,insert.label]:[])])).slice(0,20),documents:{question:document(qp),markscheme:document(ms),...(insert?{insert:{...document(insert.document),label:insert.label}}:{})},questions};
+  return {entry,corrections,evidence:{identity,identityValid,...(insert?{insertValid,insertCoverPage:insert.document.text.slice(0,3).findIndex(page=>subjectPattern.test(page))+1}:{}),identityReview:identityReview??null,reportHold:reportHold??null,mcqKeyReview:mcqKeyReview??null,textOrderMissingKeys:reviewedKeyNumbers.filter(n=>!textOrderNumbers.includes(n)),subjectValid,courseValid,legacyMathematics,legacyOptionValid,bankLevelValid,examCodesAgree,mcqVerified,questionCoverPage:qFound.page,markschemeCoverPage:mFound.page,qCover,mCover,sourceQuestionCount:printed.length,msQuestionMaximaAgree,sourceTotals:printed.map(q=>q.maxMarks),sourceQuestionPages:printed.map(q=>q.page),runtimeQuestionIds:sorted.map(q=>q.id),runtimeMarks:sorted.map(q=>q.marks),inventoryValid,totalsValid,topicsValid}};
 }
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   const manifests=await buildWholePaperArchives(parseCli(process.argv.slice(2)));

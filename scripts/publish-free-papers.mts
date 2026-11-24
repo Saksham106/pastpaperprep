@@ -1,6 +1,8 @@
 /**
  * Publishes the free past-paper PDFs to the public `pastpaperprep-free` bucket and proves they are there.
  * Uploading publishes the files: owner approval required (AGENTS.md). Needs `wrangler login`; no keys.
+ * "Approved PDFs" are every question paper, mark scheme and optional insert (case study booklet) the manifests
+ * list (approvedPapers); the tool handles them alike, by hash.
  *
  *   npx tsx scripts/publish-free-papers.mts list <source-bindings.json> <work-dir>
  *   npx tsx scripts/publish-free-papers.mts upload <source-bindings.json> <work-dir>   # ~3 parallel; resumable
@@ -174,7 +176,7 @@ async function verify(bindingsPath: string, workPath: string) {
   await pool(rows, 8, async r => {
     const headersFile = staging.path();
     // DoH: some resolvers (this Mac's router) still cache the pre-Cloudflare DNS for free.pastpaperprep.com.
-    const { code, out } = await run('curl', ['-sfL', '--retry', '2', '--doh-url', 'https://1.1.1.1/dns-query', '-D', headersFile, paperObjectUrl(r.sha256)]);
+    const { code, out } = await run('curl', ['-sfL', '--retry', '2', '--retry-connrefused', '--doh-url', 'https://1.1.1.1/dns-query', '-D', headersFile, paperObjectUrl(r.sha256)]);
     const headers = existsSync(headersFile) ? readFileSync(headersFile, 'utf8') : '';
     rmSync(headersFile, { force: true });
     const ok = code === 0 && out.length === r.bytes && out.subarray(0, 5).equals(Buffer.from('%PDF-'))

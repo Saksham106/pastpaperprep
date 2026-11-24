@@ -47,6 +47,15 @@ describe('page copy', () => {
     expect(paperCodes(getCatalogBank('ib-hl')!, ib)).toEqual(['IB Math AA HL May 2024 Paper 1 TZ1']);
   });
 
+  it('names a paper\'s case study booklet next to its markscheme, and nothing extra without one', () => {
+    const plain = paperCopy(getCatalogBank('ib-hl')!, ib), booklet = paperCopy(getCatalogBank('ib-hl')!, ib, 'Case study');
+    expect(plain.description).toMatch(/, with its markscheme\./);
+    expect(booklet.description).toMatch(/, with its markscheme and case study\./);
+    expect(booklet.answer).toMatch(/with its markscheme and case study\.$/);
+    expect(booklet.title).toBe(plain.title);
+    expect(paperJsonLd(getCatalogBank('ib-hl')!, ib, '/p', 'Case study').description).toBe(booklet.description);
+  });
+
   it('names pre-2021 AA-bank papers as the previous Mathematics HL/SL course', () => {
     const legacy = { ...ib, year: 2019, session: 'November', sessionCode: 'nov' } as WholePaperSummary;
     const copy = paperCopy(getCatalogBank('ib-hl')!, legacy);
