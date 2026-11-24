@@ -63,7 +63,13 @@ npx tsx scripts/build-whole-paper-archives.mts --identity-review docs/ib-busines
 
 Private state (bindings, receipt) is saved to `research/ib-business-management-free-papers-2026-11/paper-archive-state/`.
 
-## Publish
+## Publish (owner approved in chat, 24 November 2026: "Yes, publish 120 PDFs")
 
-Pending owner approval: `publish-added-free-papers.mts plan origin/main` gives 120 PDFs (104.7 MB), all
-`ib-business-management*`, of 7,960 approved objects.
+- **Script:** `scripts/publish-added-free-papers.mts` (wrangler, no keys).
+- **Plan:** 120 PDFs (104.7 MB) that the manifests approve and `origin/main`'s don't. All are `ib-business-management*`,
+  and no existing object changes its download name.
+- **Upload:** add-only, 2 at a time: check-absent → put → read-back (SHA-256 and size). 120 of 120 present and read
+  back, 0 pre-existing conflicts.
+- **Verify:** all 7,960 approved PDFs re-read from `free.pastpaperprep.com` (bytes, type, filename), 0 failed. This
+  refreshed `src/data/paper-archive-readback.json` (7,840 → 7,960 objects).
+- **Log:** `r2-upload-log.jsonl` (upload and verify events, no credentials).
