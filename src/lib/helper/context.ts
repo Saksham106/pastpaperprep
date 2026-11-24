@@ -3,9 +3,11 @@ import { isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import { authorizeAssetRequests, type AssetRequest } from "@/lib/asset-access";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { parseExplanation, type Explanation } from "@/lib/explanation-format";
-import { freeExplanations } from "@/lib/free-explanations";
 import { formatMcqAnswer, type McqAnswer } from "@/lib/mcq-answer";
+import { freePublicAssetUrl } from "@/lib/free-asset-index";
+import { isSafeFreeAssetPath } from "@/lib/free-public-assets";
 import { explanationAssetSignOptions, premiumAssetSignOptions, previewAssetSignOptions, signPrivateAssetUrls } from "@/lib/private-assets";
+import type { SignPrivateAssetOptions } from "@/lib/private-asset-providers";
 
 /** Everything the helper knows about one question. Images are base64 WebP crops of the official papers. */
 export type HelperContext = {
@@ -28,24 +30,49 @@ export class HelperAccessError extends Error {}
 const MAX_IMAGES_PER_KIND = 8;
 const FETCH_TIMEOUT_MS = 10_000;
 
-async function fetchBase64(url: string): Promise<string> {
+async function fetchOk(url: string): Promise<Response> {
   const response = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), cache: "no-store" });
   if (!response.ok) throw new Error(`Asset fetch failed: ${response.status}`);
-  return Buffer.from(await response.arrayBuffer()).toString("base64");
+  return response;
+}
+
+/** Free-year files are public on free.pastpaperprep.com: read them there first, so no signing is needed. */
+async function fetchPublic(path: string): Promise<Response | null> {
+  if (!isSafeFreeAssetPath(path)) return null;
+  try {
+    return await fetchOk(freePublicAssetUrl(path));
+  } catch {
+    return null;
+  }
+}
+
+async function fetchSigned(paths: string[], options: SignPrivateAssetOptions): Promise<Map<string, Response>> {
+  if (!paths.length) return new Map();
+  const urls = await signPrivateAssetUrls(paths, 60, options);
+  return new Map(await Promise.all(paths.map(async (path) => {
+    const url = urls.get(path);
+    if (!url) throw new Error("Unsigned asset");
+    return [path, await fetchOk(url)] as const;
+  })));
+}
+
+/** Base64 bytes for each path, in order: public copies for free questions, signed private reads otherwise. */
+async function loadImages(paths: string[], free: boolean, options: SignPrivateAssetOptions): Promise<string[]> {
+  const responses = new Map<string, Response>();
+  if (free) {
+    const publicResponses = await Promise.all(paths.map(fetchPublic));
+    paths.forEach((path, index) => { const response = publicResponses[index]; if (response) responses.set(path, response); });
+  }
+  const missing = paths.filter((path) => !responses.has(path));
+  for (const [path, response] of await fetchSigned(missing, options)) responses.set(path, response);
+  return Promise.all(paths.map(async (path) => Buffer.from(await responses.get(path)!.arrayBuffer()).toString("base64")));
 }
 
 async function loadExplanation(bank: BankSlug, questionId: string, free: boolean, paths: string[]): Promise<Explanation | null> {
-  if (free) {
-    const local = freeExplanations(bank).get(questionId);
-    if (local) return local;
-  }
   if (!paths.length) return null;
   try {
-    const urls = await signPrivateAssetUrls(paths, 60, explanationAssetSignOptions());
-    const url = urls.get(paths[0]);
-    if (!url) return null;
-    const response = await fetch(url, { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), cache: "no-store" });
-    if (!response.ok) return null;
+    const response = (free ? await fetchPublic(paths[0]) : null) ?? (await fetchSigned([paths[0]], explanationAssetSignOptions())).get(paths[0]);
+    if (!response) return null;
     return parseExplanation(await response.json(), bank, questionId);
   } catch {
     // The official question and mark scheme are enough to help; a missing worked solution is not an error.
@@ -69,16 +96,10 @@ export async function loadHelperContext(bank: BankSlug, questionId: string, enti
   const free = isPreviewQuestion(bank, questionId);
   const questionPaths = question.paths.slice(0, MAX_IMAGES_PER_KIND);
   const answerPaths = answer.paths.slice(0, MAX_IMAGES_PER_KIND);
-  const paths = [...questionPaths, ...answerPaths];
-  const urls = paths.length ? await signPrivateAssetUrls(paths, 60, free ? previewAssetSignOptions(bank) : premiumAssetSignOptions(bank)) : new Map<string, string>();
-  const fetchAll = (list: string[]) => Promise.all(list.map((path) => {
-    const url = urls.get(path);
-    if (!url) throw new Error("Unsigned asset");
-    return fetchBase64(url);
-  }));
+  const signOptions = free ? previewAssetSignOptions(bank) : premiumAssetSignOptions(bank);
   const [questionImages, markschemeImages, explanation] = await Promise.all([
-    fetchAll(questionPaths),
-    fetchAll(answerPaths),
+    loadImages(questionPaths, free, signOptions),
+    loadImages(answerPaths, free, signOptions),
     question.question.hasExplanation ? loadExplanation(bank, questionId, free, explanationRequest.paths) : Promise.resolve(null),
   ]);
   const meta = getBank(bank);

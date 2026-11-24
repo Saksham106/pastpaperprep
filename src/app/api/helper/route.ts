@@ -69,6 +69,7 @@ async function handlePOST(request: Request) {
     context = await loadHelperContext(bank, questionId, entitlements);
   } catch (error) {
     if (error instanceof HelperAccessError) return jsonError("Access required", 403);
+    console.error(JSON.stringify({ event: "helper_context_failed", bank, error: error instanceof Error ? error.message.slice(0, 200) : "unknown" }));
     return jsonError("The question could not load. Try again.", 503);
   }
 
