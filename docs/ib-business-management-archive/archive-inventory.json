@@ -1,0 +1,1446 @@
+{
+  "banks": [
+    {
+      "slug": "ib-business-management-hl",
+      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.claude/worktrees/determined-mayer-64fff8/src/data/production/ib-business-management-hl.json",
+      "pairs": [
+        {
+          "id": "business-management-2020-nov-tz0-hl-p2",
+          "runtimePaperId": "ibbm-2020-nov-hl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2020/Business_management_paper_2__HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2020/Business_management_paper_2__HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2020-nov-hl-p2-tz0-q1",
+            "ibbm-2020-nov-hl-p2-tz0-q2",
+            "ibbm-2020-nov-hl-p2-tz0-q3",
+            "ibbm-2020-nov-hl-p2-tz0-q4",
+            "ibbm-2020-nov-hl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2020-11-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2021-may-tz0-hl-p2",
+          "runtimePaperId": "ibbm-2021-may-hl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2021/Business_management_paper_2__HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2021/Business_management_paper_2__HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2021-may-hl-p2-tz0-q1",
+            "ibbm-2021-may-hl-p2-tz0-q2",
+            "ibbm-2021-may-hl-p2-tz0-q3",
+            "ibbm-2021-may-hl-p2-tz0-q4",
+            "ibbm-2021-may-hl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2021-05-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2021-nov-tz0-hl-p2",
+          "runtimePaperId": "ibbm-2021-nov-hl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2021/Business_management_paper_2__HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2021/Business_management_paper_2__HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2021-nov-hl-p2-tz0-q1",
+            "ibbm-2021-nov-hl-p2-tz0-q2",
+            "ibbm-2021-nov-hl-p2-tz0-q3",
+            "ibbm-2021-nov-hl-p2-tz0-q4",
+            "ibbm-2021-nov-hl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2021-11-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2022-may-tz0-hl-p2",
+          "runtimePaperId": "ibbm-2022-may-hl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2022/Business_management_paper_2__HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2022/Business_management_paper_2__HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2022-may-hl-p2-tz0-q1",
+            "ibbm-2022-may-hl-p2-tz0-q2",
+            "ibbm-2022-may-hl-p2-tz0-q3",
+            "ibbm-2022-may-hl-p2-tz0-q4",
+            "ibbm-2022-may-hl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2022-05-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2022-nov-tz0-hl-p2",
+          "runtimePaperId": "ibbm-2022-nov-hl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2022/Business_management_paper_2__HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2022/Business_management_paper_2__HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2022-nov-hl-p2-tz0-q1",
+            "ibbm-2022-nov-hl-p2-tz0-q2",
+            "ibbm-2022-nov-hl-p2-tz0-q3",
+            "ibbm-2022-nov-hl-p2-tz0-q4",
+            "ibbm-2022-nov-hl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2022-11-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2023-may-tz1-hl-p2",
+          "runtimePaperId": "ibbm-2023-may-hl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-may-hl-p2-tz1-q1",
+            "ibbm-2023-may-hl-p2-tz1-q2",
+            "ibbm-2023-may-hl-p2-tz1-q3",
+            "ibbm-2023-may-hl-p2-tz1-q4",
+            "ibbm-2023-may-hl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-05-TZ1-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2023-may-tz2-hl-p2",
+          "runtimePaperId": "ibbm-2023-may-hl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ2_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ2_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-may-hl-p2-tz2-q1",
+            "ibbm-2023-may-hl-p2-tz2-q2",
+            "ibbm-2023-may-hl-p2-tz2-q3",
+            "ibbm-2023-may-hl-p2-tz2-q4",
+            "ibbm-2023-may-hl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-05-TZ2-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2023-nov-tz1-hl-p2",
+          "runtimePaperId": "ibbm-2023-nov-hl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-nov-hl-p2-tz1-q1",
+            "ibbm-2023-nov-hl-p2-tz1-q2",
+            "ibbm-2023-nov-hl-p2-tz1-q3",
+            "ibbm-2023-nov-hl-p2-tz1-q4",
+            "ibbm-2023-nov-hl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-11-TZ1-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2023-nov-tz2-hl-p2",
+          "runtimePaperId": "ibbm-2023-nov-hl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ2_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ2_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-nov-hl-p2-tz2-q1",
+            "ibbm-2023-nov-hl-p2-tz2-q2",
+            "ibbm-2023-nov-hl-p2-tz2-q3",
+            "ibbm-2023-nov-hl-p2-tz2-q4",
+            "ibbm-2023-nov-hl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-11-TZ2-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz0-hl-p3",
+          "runtimePaperId": "ibbm-2024-may-hl-p3-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_3__HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_3__HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-hl-p3-tz0-q1",
+            "ibbm-2024-may-hl-p3-tz0-q2",
+            "ibbm-2024-may-hl-p3-tz0-q3"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-P3-HL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz1-hl-p2",
+          "runtimePaperId": "ibbm-2024-may-hl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-hl-p2-tz1-q1",
+            "ibbm-2024-may-hl-p2-tz1-q2",
+            "ibbm-2024-may-hl-p2-tz1-q3",
+            "ibbm-2024-may-hl-p2-tz1-q4",
+            "ibbm-2024-may-hl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ1-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-may-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-hlsl-p1-tz1-q1",
+            "ibbm-2024-may-hlsl-p1-tz1-q2",
+            "ibbm-2024-may-hlsl-p1-tz1-q3",
+            "ibbm-2024-may-hlsl-p1-tz1-q4",
+            "ibbm-2024-may-hlsl-p1-tz1-q5",
+            "ibbm-2024-may-hlsl-p1-tz1-q6",
+            "ibbm-2024-may-hlsl-p1-tz1-q7",
+            "ibbm-2024-may-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz2-hl-p2",
+          "runtimePaperId": "ibbm-2024-may-hl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ2_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ2_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-hl-p2-tz2-q1",
+            "ibbm-2024-may-hl-p2-tz2-q2",
+            "ibbm-2024-may-hl-p2-tz2-q3",
+            "ibbm-2024-may-hl-p2-tz2-q4",
+            "ibbm-2024-may-hl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ2-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-may-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-hlsl-p1-tz2-q1",
+            "ibbm-2024-may-hlsl-p1-tz2-q2",
+            "ibbm-2024-may-hlsl-p1-tz2-q3",
+            "ibbm-2024-may-hlsl-p1-tz2-q4",
+            "ibbm-2024-may-hlsl-p1-tz2-q5",
+            "ibbm-2024-may-hlsl-p1-tz2-q6",
+            "ibbm-2024-may-hlsl-p1-tz2-q7",
+            "ibbm-2024-may-hlsl-p1-tz2-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz0-hl-p3",
+          "runtimePaperId": "ibbm-2024-nov-hl-p3-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_3__HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_3__HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-hl-p3-tz0-q1",
+            "ibbm-2024-nov-hl-p3-tz0-q2",
+            "ibbm-2024-nov-hl-p3-tz0-q3"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-P3-HL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz1-hl-p2",
+          "runtimePaperId": "ibbm-2024-nov-hl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-hl-p2-tz1-q1",
+            "ibbm-2024-nov-hl-p2-tz1-q2",
+            "ibbm-2024-nov-hl-p2-tz1-q3",
+            "ibbm-2024-nov-hl-p2-tz1-q4",
+            "ibbm-2024-nov-hl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ1-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-nov-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-hlsl-p1-tz1-q1",
+            "ibbm-2024-nov-hlsl-p1-tz1-q2",
+            "ibbm-2024-nov-hlsl-p1-tz1-q3",
+            "ibbm-2024-nov-hlsl-p1-tz1-q4",
+            "ibbm-2024-nov-hlsl-p1-tz1-q5",
+            "ibbm-2024-nov-hlsl-p1-tz1-q6",
+            "ibbm-2024-nov-hlsl-p1-tz1-q7",
+            "ibbm-2024-nov-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz2-hl-p2",
+          "runtimePaperId": "ibbm-2024-nov-hl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ2_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ2_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-hl-p2-tz2-q1",
+            "ibbm-2024-nov-hl-p2-tz2-q2",
+            "ibbm-2024-nov-hl-p2-tz2-q3",
+            "ibbm-2024-nov-hl-p2-tz2-q4",
+            "ibbm-2024-nov-hl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ2-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-nov-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-hlsl-p1-tz2-q1",
+            "ibbm-2024-nov-hlsl-p1-tz2-q2",
+            "ibbm-2024-nov-hlsl-p1-tz2-q3",
+            "ibbm-2024-nov-hlsl-p1-tz2-q4",
+            "ibbm-2024-nov-hlsl-p1-tz2-q5",
+            "ibbm-2024-nov-hlsl-p1-tz2-q6",
+            "ibbm-2024-nov-hlsl-p1-tz2-q7",
+            "ibbm-2024-nov-hlsl-p1-tz2-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz0-hl-p3",
+          "runtimePaperId": "ibbm-2025-may-hl-p3-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_3_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_3_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hl-p3-tz0-q1",
+            "ibbm-2025-may-hl-p3-tz0-q2",
+            "ibbm-2025-may-hl-p3-tz0-q3"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-P3-HL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz1-hl-p2",
+          "runtimePaperId": "ibbm-2025-may-hl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hl-p2-tz1-q1",
+            "ibbm-2025-may-hl-p2-tz1-q2",
+            "ibbm-2025-may-hl-p2-tz1-q3",
+            "ibbm-2025-may-hl-p2-tz1-q4",
+            "ibbm-2025-may-hl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ1-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-may-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hlsl-p1-tz1-q1",
+            "ibbm-2025-may-hlsl-p1-tz1-q2",
+            "ibbm-2025-may-hlsl-p1-tz1-q3",
+            "ibbm-2025-may-hlsl-p1-tz1-q4",
+            "ibbm-2025-may-hlsl-p1-tz1-q5",
+            "ibbm-2025-may-hlsl-p1-tz1-q6",
+            "ibbm-2025-may-hlsl-p1-tz1-q7",
+            "ibbm-2025-may-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz2-hl-p2",
+          "runtimePaperId": "ibbm-2025-may-hl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ2_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ2_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hl-p2-tz2-q1",
+            "ibbm-2025-may-hl-p2-tz2-q2",
+            "ibbm-2025-may-hl-p2-tz2-q3",
+            "ibbm-2025-may-hl-p2-tz2-q4",
+            "ibbm-2025-may-hl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ2-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-may-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hlsl-p1-tz2-q1",
+            "ibbm-2025-may-hlsl-p1-tz2-q2",
+            "ibbm-2025-may-hlsl-p1-tz2-q3",
+            "ibbm-2025-may-hlsl-p1-tz2-q4",
+            "ibbm-2025-may-hlsl-p1-tz2-q5",
+            "ibbm-2025-may-hlsl-p1-tz2-q6",
+            "ibbm-2025-may-hlsl-p1-tz2-q7",
+            "ibbm-2025-may-hlsl-p1-tz2-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz3-hl-p2",
+          "runtimePaperId": "ibbm-2025-may-hl-p2-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ3_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ3_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hl-p2-tz3-q1",
+            "ibbm-2025-may-hl-p2-tz3-q2",
+            "ibbm-2025-may-hl-p2-tz3-q3",
+            "ibbm-2025-may-hl-p2-tz3-q4",
+            "ibbm-2025-may-hl-p2-tz3-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ3-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz3-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-may-hlsl-p1-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ3_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ3_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hlsl-p1-tz3-q1",
+            "ibbm-2025-may-hlsl-p1-tz3-q2",
+            "ibbm-2025-may-hlsl-p1-tz3-q3",
+            "ibbm-2025-may-hlsl-p1-tz3-q4",
+            "ibbm-2025-may-hlsl-p1-tz3-q5",
+            "ibbm-2025-may-hlsl-p1-tz3-q6",
+            "ibbm-2025-may-hlsl-p1-tz3-q7",
+            "ibbm-2025-may-hlsl-p1-tz3-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ3-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz0-hl-p3",
+          "runtimePaperId": "ibbm-2025-nov-hl-p3-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_3_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_3_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-hl-p3-tz0-q1",
+            "ibbm-2025-nov-hl-p3-tz0-q2",
+            "ibbm-2025-nov-hl-p3-tz0-q3"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-P3-HL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz1-hl-p2",
+          "runtimePaperId": "ibbm-2025-nov-hl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_2_TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_2_TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-hl-p2-tz1-q1",
+            "ibbm-2025-nov-hl-p2-tz1-q2",
+            "ibbm-2025-nov-hl-p2-tz1-q3",
+            "ibbm-2025-nov-hl-p2-tz1-q4",
+            "ibbm-2025-nov-hl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-TZ1-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-nov-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-hlsl-p1-tz1-q1",
+            "ibbm-2025-nov-hlsl-p1-tz1-q2",
+            "ibbm-2025-nov-hlsl-p1-tz1-q3",
+            "ibbm-2025-nov-hlsl-p1-tz1-q4",
+            "ibbm-2025-nov-hlsl-p1-tz1-q5",
+            "ibbm-2025-nov-hlsl-p1-tz1-q6",
+            "ibbm-2025-nov-hlsl-p1-tz1-q7",
+            "ibbm-2025-nov-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz3-hl-p2",
+          "runtimePaperId": "ibbm-2025-nov-hl-p2-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_2_TZ3_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_2_TZ3_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-hl-p2-tz3-q1",
+            "ibbm-2025-nov-hl-p2-tz3-q2",
+            "ibbm-2025-nov-hl-p2-tz3-q3",
+            "ibbm-2025-nov-hl-p2-tz3-q4",
+            "ibbm-2025-nov-hl-p2-tz3-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-TZ3-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz3-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-nov-hlsl-p1-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ3_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ3_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-hlsl-p1-tz3-q1",
+            "ibbm-2025-nov-hlsl-p1-tz3-q2",
+            "ibbm-2025-nov-hlsl-p1-tz3-q3",
+            "ibbm-2025-nov-hlsl-p1-tz3-q4",
+            "ibbm-2025-nov-hlsl-p1-tz3-q5",
+            "ibbm-2025-nov-hlsl-p1-tz3-q6",
+            "ibbm-2025-nov-hlsl-p1-tz3-q7",
+            "ibbm-2025-nov-hlsl-p1-tz3-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-TZ3-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz1-hl-p2",
+          "runtimePaperId": "ibbm-2026-may-hl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hl-p2-tz1-q1",
+            "ibbm-2026-may-hl-p2-tz1-q2",
+            "ibbm-2026-may-hl-p2-tz1-q3",
+            "ibbm-2026-may-hl-p2-tz1-q4",
+            "ibbm-2026-may-hl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ1-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz1-hl-p3",
+          "runtimePaperId": "ibbm-2026-may-hl-p3-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_3_TZ1_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_3_TZ1_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hl-p3-tz1-q1",
+            "ibbm-2026-may-hl-p3-tz1-q2",
+            "ibbm-2026-may-hl-p3-tz1-q3"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ1-P3-HL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2026-may-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hlsl-p1-tz1-q1",
+            "ibbm-2026-may-hlsl-p1-tz1-q2",
+            "ibbm-2026-may-hlsl-p1-tz1-q3",
+            "ibbm-2026-may-hlsl-p1-tz1-q4",
+            "ibbm-2026-may-hlsl-p1-tz1-q5",
+            "ibbm-2026-may-hlsl-p1-tz1-q6",
+            "ibbm-2026-may-hlsl-p1-tz1-q7"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz2-hl-p2",
+          "runtimePaperId": "ibbm-2026-may-hl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ2_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ2_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hl-p2-tz2-q1",
+            "ibbm-2026-may-hl-p2-tz2-q2",
+            "ibbm-2026-may-hl-p2-tz2-q3",
+            "ibbm-2026-may-hl-p2-tz2-q4",
+            "ibbm-2026-may-hl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ2-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz2-hl-p3",
+          "runtimePaperId": "ibbm-2026-may-hl-p3-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_3_TZ2_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_3_TZ2_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hl-p3-tz2-q1",
+            "ibbm-2026-may-hl-p3-tz2-q2",
+            "ibbm-2026-may-hl-p3-tz2-q3"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ2-P3-HL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2026-may-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hlsl-p1-tz2-q1",
+            "ibbm-2026-may-hlsl-p1-tz2-q2",
+            "ibbm-2026-may-hlsl-p1-tz2-q3",
+            "ibbm-2026-may-hlsl-p1-tz2-q4",
+            "ibbm-2026-may-hlsl-p1-tz2-q5",
+            "ibbm-2026-may-hlsl-p1-tz2-q6",
+            "ibbm-2026-may-hlsl-p1-tz2-q7"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz3-hl-p2",
+          "runtimePaperId": "ibbm-2026-may-hl-p2-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ3_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ3_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hl-p2-tz3-q1",
+            "ibbm-2026-may-hl-p2-tz3-q2",
+            "ibbm-2026-may-hl-p2-tz3-q3",
+            "ibbm-2026-may-hl-p2-tz3-q4",
+            "ibbm-2026-may-hl-p2-tz3-q5"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ3-P2-HL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz3-hl-p3",
+          "runtimePaperId": "ibbm-2026-may-hl-p3-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_3_TZ3_HL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_3_TZ3_HL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hl-p3-tz3-q1",
+            "ibbm-2026-may-hl-p3-tz3-q2",
+            "ibbm-2026-may-hl-p3-tz3-q3"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ3-P3-HL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz3-hlsl-p1",
+          "runtimePaperId": "ibbm-2026-may-hlsl-p1-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ3_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ3_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hlsl-p1-tz3-q1",
+            "ibbm-2026-may-hlsl-p1-tz3-q2",
+            "ibbm-2026-may-hlsl-p1-tz3-q3",
+            "ibbm-2026-may-hlsl-p1-tz3-q4",
+            "ibbm-2026-may-hlsl-p1-tz3-q5",
+            "ibbm-2026-may-hlsl-p1-tz3-q6",
+            "ibbm-2026-may-hlsl-p1-tz3-q7"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ3-P1-HLSL"
+          }
+        }
+      ],
+      "unpaired": [],
+      "runtimeWithoutPair": [
+        {
+          "runtimePaperId": "ibbm-2020-nov-hl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2021-may-hl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2021-nov-hl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2022-may-hl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2022-nov-hl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-may-hl-p1-tz1",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-may-hl-p1-tz2",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-nov-hl-p1-tz1",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-nov-hl-p1-tz2",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        }
+      ],
+      "notes": [
+        "Sources: IB Docs (ibdocs.re) to Nov 2025, papers.xtremepape.rs for May 2026; SHA-256 pinned in ib-business-management-topic-practice/data/acquisition-manifest.json; identity-checked; watermark scan flags only exam-text domains (statista.com, smartg.com, robustbeans.com). Supplementary 'More Papers' uploads excluded.",
+        "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+      ]
+    },
+    {
+      "slug": "ib-business-management-sl",
+      "runtimeFile": "/Users/sakshamgoel/Documents/ProjectsInternships/pastpaperprep/.claude/worktrees/determined-mayer-64fff8/src/data/production/ib-business-management-sl.json",
+      "pairs": [
+        {
+          "id": "business-management-2020-nov-tz0-sl-p2",
+          "runtimePaperId": "ibbm-2020-nov-sl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2020/Business_management_paper_2__SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2020/Business_management_paper_2__SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2020-nov-sl-p2-tz0-q1",
+            "ibbm-2020-nov-sl-p2-tz0-q2",
+            "ibbm-2020-nov-sl-p2-tz0-q3",
+            "ibbm-2020-nov-sl-p2-tz0-q4",
+            "ibbm-2020-nov-sl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2020-11-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2021-may-tz0-sl-p2",
+          "runtimePaperId": "ibbm-2021-may-sl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2021/Business_management_paper_2__SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2021/Business_management_paper_2__SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2021-may-sl-p2-tz0-q1",
+            "ibbm-2021-may-sl-p2-tz0-q2",
+            "ibbm-2021-may-sl-p2-tz0-q3",
+            "ibbm-2021-may-sl-p2-tz0-q4",
+            "ibbm-2021-may-sl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2021-05-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2021-nov-tz0-sl-p2",
+          "runtimePaperId": "ibbm-2021-nov-sl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2021/Business_management_paper_2__SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2021/Business_management_paper_2__SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2021-nov-sl-p2-tz0-q1",
+            "ibbm-2021-nov-sl-p2-tz0-q2",
+            "ibbm-2021-nov-sl-p2-tz0-q3",
+            "ibbm-2021-nov-sl-p2-tz0-q4",
+            "ibbm-2021-nov-sl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2021-11-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2022-may-tz0-sl-p2",
+          "runtimePaperId": "ibbm-2022-may-sl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2022/Business_management_paper_2__SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2022/Business_management_paper_2__SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2022-may-sl-p2-tz0-q1",
+            "ibbm-2022-may-sl-p2-tz0-q2",
+            "ibbm-2022-may-sl-p2-tz0-q3",
+            "ibbm-2022-may-sl-p2-tz0-q4",
+            "ibbm-2022-may-sl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2022-05-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2022-nov-tz0-sl-p2",
+          "runtimePaperId": "ibbm-2022-nov-sl-p2-tz0",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2022/Business_management_paper_2__SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2022/Business_management_paper_2__SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2022-nov-sl-p2-tz0-q1",
+            "ibbm-2022-nov-sl-p2-tz0-q2",
+            "ibbm-2022-nov-sl-p2-tz0-q3",
+            "ibbm-2022-nov-sl-p2-tz0-q4",
+            "ibbm-2022-nov-sl-p2-tz0-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2022-11-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2023-may-tz1-sl-p2",
+          "runtimePaperId": "ibbm-2023-may-sl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ1_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ1_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-may-sl-p2-tz1-q1",
+            "ibbm-2023-may-sl-p2-tz1-q2",
+            "ibbm-2023-may-sl-p2-tz1-q3",
+            "ibbm-2023-may-sl-p2-tz1-q4",
+            "ibbm-2023-may-sl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-05-TZ1-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2023-may-tz2-sl-p2",
+          "runtimePaperId": "ibbm-2023-may-sl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ2_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2023/Business_management_paper_2__TZ2_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-may-sl-p2-tz2-q1",
+            "ibbm-2023-may-sl-p2-tz2-q2",
+            "ibbm-2023-may-sl-p2-tz2-q3",
+            "ibbm-2023-may-sl-p2-tz2-q4",
+            "ibbm-2023-may-sl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-05-TZ2-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2023-nov-tz1-sl-p2",
+          "runtimePaperId": "ibbm-2023-nov-sl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ1_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ1_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-nov-sl-p2-tz1-q1",
+            "ibbm-2023-nov-sl-p2-tz1-q2",
+            "ibbm-2023-nov-sl-p2-tz1-q3",
+            "ibbm-2023-nov-sl-p2-tz1-q4",
+            "ibbm-2023-nov-sl-p2-tz1-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-11-TZ1-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2023-nov-tz2-sl-p2",
+          "runtimePaperId": "ibbm-2023-nov-sl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ2_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2023/Business_management_paper_2__TZ2_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2023-nov-sl-p2-tz2-q1",
+            "ibbm-2023-nov-sl-p2-tz2-q2",
+            "ibbm-2023-nov-sl-p2-tz2-q3",
+            "ibbm-2023-nov-sl-p2-tz2-q4",
+            "ibbm-2023-nov-sl-p2-tz2-q5"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "old",
+            "acquisitionId": "2023-11-TZ2-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-may-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-hlsl-p1-tz1-q1",
+            "ibbm-2024-may-hlsl-p1-tz1-q2",
+            "ibbm-2024-may-hlsl-p1-tz1-q3",
+            "ibbm-2024-may-hlsl-p1-tz1-q4",
+            "ibbm-2024-may-hlsl-p1-tz1-q5",
+            "ibbm-2024-may-hlsl-p1-tz1-q6",
+            "ibbm-2024-may-hlsl-p1-tz1-q7",
+            "ibbm-2024-may-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz1-sl-p2",
+          "runtimePaperId": "ibbm-2024-may-sl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ1_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ1_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-sl-p2-tz1-q1",
+            "ibbm-2024-may-sl-p2-tz1-q2",
+            "ibbm-2024-may-sl-p2-tz1-q3",
+            "ibbm-2024-may-sl-p2-tz1-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ1-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-may-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_1__TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-hlsl-p1-tz2-q1",
+            "ibbm-2024-may-hlsl-p1-tz2-q2",
+            "ibbm-2024-may-hlsl-p1-tz2-q3",
+            "ibbm-2024-may-hlsl-p1-tz2-q4",
+            "ibbm-2024-may-hlsl-p1-tz2-q5",
+            "ibbm-2024-may-hlsl-p1-tz2-q6",
+            "ibbm-2024-may-hlsl-p1-tz2-q7",
+            "ibbm-2024-may-hlsl-p1-tz2-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2024-may-tz2-sl-p2",
+          "runtimePaperId": "ibbm-2024-may-sl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ2_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2024/Business_management_paper_2__TZ2_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-may-sl-p2-tz2-q1",
+            "ibbm-2024-may-sl-p2-tz2-q2",
+            "ibbm-2024-may-sl-p2-tz2-q3",
+            "ibbm-2024-may-sl-p2-tz2-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-05-TZ2-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-nov-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-hlsl-p1-tz1-q1",
+            "ibbm-2024-nov-hlsl-p1-tz1-q2",
+            "ibbm-2024-nov-hlsl-p1-tz1-q3",
+            "ibbm-2024-nov-hlsl-p1-tz1-q4",
+            "ibbm-2024-nov-hlsl-p1-tz1-q5",
+            "ibbm-2024-nov-hlsl-p1-tz1-q6",
+            "ibbm-2024-nov-hlsl-p1-tz1-q7",
+            "ibbm-2024-nov-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz1-sl-p2",
+          "runtimePaperId": "ibbm-2024-nov-sl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ1_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ1_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-sl-p2-tz1-q1",
+            "ibbm-2024-nov-sl-p2-tz1-q2",
+            "ibbm-2024-nov-sl-p2-tz1-q3",
+            "ibbm-2024-nov-sl-p2-tz1-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ1-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2024-nov-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_1__TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-hlsl-p1-tz2-q1",
+            "ibbm-2024-nov-hlsl-p1-tz2-q2",
+            "ibbm-2024-nov-hlsl-p1-tz2-q3",
+            "ibbm-2024-nov-hlsl-p1-tz2-q4",
+            "ibbm-2024-nov-hlsl-p1-tz2-q5",
+            "ibbm-2024-nov-hlsl-p1-tz2-q6",
+            "ibbm-2024-nov-hlsl-p1-tz2-q7",
+            "ibbm-2024-nov-hlsl-p1-tz2-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2024-nov-tz2-sl-p2",
+          "runtimePaperId": "ibbm-2024-nov-sl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ2_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2024/Business_management_paper_2__TZ2_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2024-nov-sl-p2-tz2-q1",
+            "ibbm-2024-nov-sl-p2-tz2-q2",
+            "ibbm-2024-nov-sl-p2-tz2-q3",
+            "ibbm-2024-nov-sl-p2-tz2-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2024-11-TZ2-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-may-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hlsl-p1-tz1-q1",
+            "ibbm-2025-may-hlsl-p1-tz1-q2",
+            "ibbm-2025-may-hlsl-p1-tz1-q3",
+            "ibbm-2025-may-hlsl-p1-tz1-q4",
+            "ibbm-2025-may-hlsl-p1-tz1-q5",
+            "ibbm-2025-may-hlsl-p1-tz1-q6",
+            "ibbm-2025-may-hlsl-p1-tz1-q7",
+            "ibbm-2025-may-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz1-sl-p2",
+          "runtimePaperId": "ibbm-2025-may-sl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ1_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ1_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-sl-p2-tz1-q1",
+            "ibbm-2025-may-sl-p2-tz1-q2",
+            "ibbm-2025-may-sl-p2-tz1-q3",
+            "ibbm-2025-may-sl-p2-tz1-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ1-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-may-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hlsl-p1-tz2-q1",
+            "ibbm-2025-may-hlsl-p1-tz2-q2",
+            "ibbm-2025-may-hlsl-p1-tz2-q3",
+            "ibbm-2025-may-hlsl-p1-tz2-q4",
+            "ibbm-2025-may-hlsl-p1-tz2-q5",
+            "ibbm-2025-may-hlsl-p1-tz2-q6",
+            "ibbm-2025-may-hlsl-p1-tz2-q7",
+            "ibbm-2025-may-hlsl-p1-tz2-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz2-sl-p2",
+          "runtimePaperId": "ibbm-2025-may-sl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ2_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ2_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-sl-p2-tz2-q1",
+            "ibbm-2025-may-sl-p2-tz2-q2",
+            "ibbm-2025-may-sl-p2-tz2-q3",
+            "ibbm-2025-may-sl-p2-tz2-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ2-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz3-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-may-hlsl-p1-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ3_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_1_TZ3_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-hlsl-p1-tz3-q1",
+            "ibbm-2025-may-hlsl-p1-tz3-q2",
+            "ibbm-2025-may-hlsl-p1-tz3-q3",
+            "ibbm-2025-may-hlsl-p1-tz3-q4",
+            "ibbm-2025-may-hlsl-p1-tz3-q5",
+            "ibbm-2025-may-hlsl-p1-tz3-q6",
+            "ibbm-2025-may-hlsl-p1-tz3-q7",
+            "ibbm-2025-may-hlsl-p1-tz3-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ3-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-may-tz3-sl-p2",
+          "runtimePaperId": "ibbm-2025-may-sl-p2-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ3_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/May-2025/Business_management_paper_2_TZ3_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-may-sl-p2-tz3-q1",
+            "ibbm-2025-may-sl-p2-tz3-q2",
+            "ibbm-2025-may-sl-p2-tz3-q3",
+            "ibbm-2025-may-sl-p2-tz3-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-05-TZ3-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-nov-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-hlsl-p1-tz1-q1",
+            "ibbm-2025-nov-hlsl-p1-tz1-q2",
+            "ibbm-2025-nov-hlsl-p1-tz1-q3",
+            "ibbm-2025-nov-hlsl-p1-tz1-q4",
+            "ibbm-2025-nov-hlsl-p1-tz1-q5",
+            "ibbm-2025-nov-hlsl-p1-tz1-q6",
+            "ibbm-2025-nov-hlsl-p1-tz1-q7",
+            "ibbm-2025-nov-hlsl-p1-tz1-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz3-hlsl-p1",
+          "runtimePaperId": "ibbm-2025-nov-hlsl-p1-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ3_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_1_TZ3_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-hlsl-p1-tz3-q1",
+            "ibbm-2025-nov-hlsl-p1-tz3-q2",
+            "ibbm-2025-nov-hlsl-p1-tz3-q3",
+            "ibbm-2025-nov-hlsl-p1-tz3-q4",
+            "ibbm-2025-nov-hlsl-p1-tz3-q5",
+            "ibbm-2025-nov-hlsl-p1-tz3-q6",
+            "ibbm-2025-nov-hlsl-p1-tz3-q7",
+            "ibbm-2025-nov-hlsl-p1-tz3-q8"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-TZ3-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2025-nov-tz3-sl-p2",
+          "runtimePaperId": "ibbm-2025-nov-sl-p2-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_2_TZ3_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/ibdocs/November-2025/Business_management_paper_2_TZ3_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2025-nov-sl-p2-tz3-q1",
+            "ibbm-2025-nov-sl-p2-tz3-q2",
+            "ibbm-2025-nov-sl-p2-tz3-q3",
+            "ibbm-2025-nov-sl-p2-tz3-q4"
+          ],
+          "metadata": {
+            "sourceHost": "ibdocs.re",
+            "guide": "new",
+            "acquisitionId": "2025-11-TZ3-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz1-hlsl-p1",
+          "runtimePaperId": "ibbm-2026-may-hlsl-p1-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ1_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ1_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hlsl-p1-tz1-q1",
+            "ibbm-2026-may-hlsl-p1-tz1-q2",
+            "ibbm-2026-may-hlsl-p1-tz1-q3",
+            "ibbm-2026-may-hlsl-p1-tz1-q4",
+            "ibbm-2026-may-hlsl-p1-tz1-q5",
+            "ibbm-2026-may-hlsl-p1-tz1-q6",
+            "ibbm-2026-may-hlsl-p1-tz1-q7"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ1-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz1-sl-p2",
+          "runtimePaperId": "ibbm-2026-may-sl-p2-tz1",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ1_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ1_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-sl-p2-tz1-q1",
+            "ibbm-2026-may-sl-p2-tz1-q2",
+            "ibbm-2026-may-sl-p2-tz1-q3",
+            "ibbm-2026-may-sl-p2-tz1-q4"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ1-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz2-hlsl-p1",
+          "runtimePaperId": "ibbm-2026-may-hlsl-p1-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ2_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ2_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hlsl-p1-tz2-q1",
+            "ibbm-2026-may-hlsl-p1-tz2-q2",
+            "ibbm-2026-may-hlsl-p1-tz2-q3",
+            "ibbm-2026-may-hlsl-p1-tz2-q4",
+            "ibbm-2026-may-hlsl-p1-tz2-q5",
+            "ibbm-2026-may-hlsl-p1-tz2-q6",
+            "ibbm-2026-may-hlsl-p1-tz2-q7"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ2-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz2-sl-p2",
+          "runtimePaperId": "ibbm-2026-may-sl-p2-tz2",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ2_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ2_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-sl-p2-tz2-q1",
+            "ibbm-2026-may-sl-p2-tz2-q2",
+            "ibbm-2026-may-sl-p2-tz2-q3",
+            "ibbm-2026-may-sl-p2-tz2-q4"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ2-P2-SL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz3-hlsl-p1",
+          "runtimePaperId": "ibbm-2026-may-hlsl-p1-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ3_HLSL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_1_TZ3_HLSL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-hlsl-p1-tz3-q1",
+            "ibbm-2026-may-hlsl-p1-tz3-q2",
+            "ibbm-2026-may-hlsl-p1-tz3-q3",
+            "ibbm-2026-may-hlsl-p1-tz3-q4",
+            "ibbm-2026-may-hlsl-p1-tz3-q5",
+            "ibbm-2026-may-hlsl-p1-tz3-q6",
+            "ibbm-2026-may-hlsl-p1-tz3-q7"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ3-P1-HLSL"
+          }
+        },
+        {
+          "id": "business-management-2026-may-tz3-sl-p2",
+          "runtimePaperId": "ibbm-2026-may-sl-p2-tz3",
+          "questionPath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ3_SL.pdf",
+          "markschemePath": "/Users/sakshamgoel/Documents/ProjectsInternships/ib-business-management-topic-practice/data/raw/xtreme/May-2026/Business_management_paper_2_TZ3_SL_markscheme.pdf",
+          "runtimeQuestionIds": [
+            "ibbm-2026-may-sl-p2-tz3-q1",
+            "ibbm-2026-may-sl-p2-tz3-q2",
+            "ibbm-2026-may-sl-p2-tz3-q3",
+            "ibbm-2026-may-sl-p2-tz3-q4"
+          ],
+          "metadata": {
+            "sourceHost": "papers.xtremepape.rs",
+            "guide": "new",
+            "acquisitionId": "2026-05-TZ3-P2-SL"
+          }
+        }
+      ],
+      "unpaired": [
+        {
+          "id": "2025-11-TZ1-P2-SL",
+          "runtimePaperId": "ibbm-2025-nov-sl-p2-tz1",
+          "status": "missing-QP",
+          "reason": "No question paper on any host; the mark scheme alone is not listed."
+        }
+      ],
+      "runtimeWithoutPair": [
+        {
+          "runtimePaperId": "ibbm-2020-nov-sl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2021-may-sl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2021-nov-sl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2022-may-sl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2022-nov-sl-p1-tz0",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-may-sl-p1-tz1",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-may-sl-p1-tz2",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-nov-sl-p1-tz1",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        },
+        {
+          "runtimePaperId": "ibbm-2023-nov-sl-p1-tz2",
+          "reason": "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+        }
+      ],
+      "notes": [
+        "Sources: IB Docs (ibdocs.re) to Nov 2025, papers.xtremepape.rs for May 2026; SHA-256 pinned in ib-business-management-topic-practice/data/acquisition-manifest.json; identity-checked; watermark scan flags only exam-text domains (statista.com, smartg.com, robustbeans.com). Supplementary 'More Papers' uploads excluded.",
+        "Old-guide Paper 1 (Nov 2020 to Nov 2023) is not listed: its questions need the separate pre-seen case booklet, and the archive lists a question paper and mark scheme only."
+      ]
+    }
+  ]
+}

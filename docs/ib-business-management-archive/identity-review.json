@@ -1,0 +1,29 @@
+{
+  "cases": [
+    {
+      "bankSlug": "ib-business-management-hl",
+      "paperId": "business-management-2026-may-tz2-hl-p3",
+      "questionSha256": "f920f0b06a1f537cf21ee551aa2a89ade7ba646cbcb54bd14a3b41343b1931ef",
+      "markschemeSha256": "91afe7b7cabe94821d6791fa481cafe9c4749de009e142afd940697835528c89",
+      "verdict": "valid-pair",
+      "evidence": "The markscheme's text layer splits the subject into 'Business m anagement', so the text subject check misses it; the rendered cover reads Markscheme, May 2026, Business management, Higher level, Paper 3, 2226 – 3023M. The question paper cover reads Business management, Higher level, Paper 3, 29 April 2026, 1 hour 15 minutes, [25 marks], 2226 – 3023. Exam codes, session, level and paper agree; the source workspace's pair check matches this scheme to TZ2 by zone-unique vocabulary in both directions (0.301 vs 0.081/0.071 for TZ3/TZ1).",
+      "reviewedBy": "IB Business Management archive session, 2026-11-24, rendered covers",
+      "visualEvidence": [
+        {
+          "document": "question",
+          "sourcePdfSha256": "f920f0b06a1f537cf21ee551aa2a89ade7ba646cbcb54bd14a3b41343b1931ef",
+          "page": 2,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-business-management-free-papers-2026-11/identity-evidence/eabfb7cd37769289503916fd8d62647cec7eca8c6369d1b496cdef9b898781e0.png",
+          "imageSha256": "eabfb7cd37769289503916fd8d62647cec7eca8c6369d1b496cdef9b898781e0"
+        },
+        {
+          "document": "markscheme",
+          "sourcePdfSha256": "91afe7b7cabe94821d6791fa481cafe9c4749de009e142afd940697835528c89",
+          "page": 1,
+          "imagePath": "/Users/sakshamgoel/Documents/ProjectsInternships/research/ib-business-management-free-papers-2026-11/identity-evidence/4b704e2b59c666d112c8ecfffe176f7caa09c5388c3a84872b9d40886905440f.png",
+          "imageSha256": "4b704e2b59c666d112c8ecfffe176f7caa09c5388c3a84872b9d40886905440f"
+        }
+      ]
+    }
+  ]
+}
