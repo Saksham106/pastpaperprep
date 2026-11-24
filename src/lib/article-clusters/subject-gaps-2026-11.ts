@@ -402,7 +402,7 @@ const ZNOTES_ALTERNATIVES: Article = {
       heading: "PastPaperPrep: from notes to real exam questions",
       paragraphs: [
         "Pair ZNotes with real practice. PastPaperPrep has free whole past papers with mark schemes for eight Cambridge IGCSE courses and seven IB subjects, and topic banks that sort the same real questions by syllabus topic, each with a worked explanation.",
-        "PastPaperPrep also has its own free course notes for IB Maths AA, IGCSE Maths 0580 and IB Chemistry, each lesson linked to past-paper questions on that topic.",
+        "PastPaperPrep also has its own free course notes for IB Maths AA and AI, IB Chemistry and Physics, and IGCSE Maths 0580, Chemistry 0620 and Physics 0625, each lesson linked to past-paper questions on that topic.",
       ],
       links: [
         { href: "/past-papers/igcse", label: "Free IGCSE papers" },
