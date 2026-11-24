@@ -50,6 +50,14 @@ describe('production delivery from the public free bucket', () => {
     const url = `https://free.pastpaperprep.com/papers/v1/${hash(pdf)}.pdf`;
     expect(getWholePaper('igcse', 'paper-2025-21')?.sources).toEqual({ question: url, markscheme: url });
   });
+  it('opens on an incremental readback that chains from an earlier receipt, and closes on a malformed chain', async () => {
+    manifest(); const receipt = productionReceipt();
+    const incremental = { since: { verifiedAt: '2026-10-01T00:00:00.000Z', objectCount: 1, objectsSha256: 'c'.repeat(64), mappingSha256: 'c'.repeat(64) }, fullReadbackAt: '2026-09-01T00:00:00.000Z', added: 1, sampled: 0 };
+    saveReceipt({ ...receipt, incremental } as typeof receipt);
+    expect(await wholePaperArchiveEnabled()).toBe(true);
+    saveReceipt({ ...receipt, incremental: { ...incremental, extra: true } } as typeof receipt);
+    expect(await wholePaperArchiveEnabled()).toBe(false);
+  });
   it('never streams PDFs through the app in production', async () => {
     manifest(); bindings(); productionReceipt();
     expect(await getWholePaperDocument('igcse', 'paper-2025-21', 'question')).toBeNull();

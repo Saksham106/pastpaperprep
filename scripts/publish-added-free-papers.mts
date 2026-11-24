@@ -1,11 +1,11 @@
 /**
- * Publishes only the free past-paper PDFs a change adds, without re-putting live objects, then
- * re-verifies every approved PDF from free.pastpaperprep.com. Uploading publishes the files: owner approval required (AGENTS.md).
+ * Publishes only the free past-paper PDFs a change adds, without re-putting live objects, then reads
+ * them back from free.pastpaperprep.com. Uploading publishes the files: owner approval required (AGENTS.md).
  * Needs `wrangler login`; no keys.
  *
  *   npx tsx scripts/publish-added-free-papers.mts plan   <base-ref> <source-bindings.json> <work-dir>
  *   npx tsx scripts/publish-added-free-papers.mts upload <base-ref> <source-bindings.json> <work-dir>
- *   npx tsx scripts/publish-added-free-papers.mts verify <work-dir>
+ *   npx tsx scripts/publish-added-free-papers.mts verify <work-dir> [--since <base-ref> [--sample <n>]]
  *
  * `publish-free-papers.mts upload` re-puts every approved PDF its work list hasn't logged, which
  * overwrites live objects, and its `list` needs source bindings for all of them. This tool touches
@@ -20,16 +20,23 @@
  * `upload` takes an exclusive lock (scripts/lib/single-writer-lock.mjs) before reading anything, so a
  * second run fails at once. That detects pre-existing different bytes before writing and corrupt bytes
  * after writing. It is not an atomic create: wrangler has no conditional put, so a concurrent foreign
- * writer between the check and the put cannot be ruled out. `verify` is the publisher's readback: every approved PDF from
- * the public origin (bytes, type, filename), and it writes src/data/paper-archive-readback.json only
- * if all match and the manifests didn't change. WRANGLER_BIN picks the wrangler binary; JOBS (default
- * 2) the number of parallel uploads. Every event is logged to <work-dir>/log/*.jsonl; any failure
- * exits nonzero.
+ * writer between the check and the put cannot be ruled out.
+ *
+ * `verify` is the publisher's readback through the public origin (bytes, type, filename). By default it
+ * reads every approved PDF. With `--since <base-ref>` it chains from that ref's committed receipt, which
+ * must match that ref's manifests exactly, refuses if any object approved there changed size or name,
+ * and reads only the PDFs added since then plus `--sample` (default 64) random kept ones
+ * (scripts/lib/readback-chain.ts); the receipt records what it chains from. Either way it writes
+ * src/data/paper-archive-readback.json only if every fetched object matched and the manifests didn't
+ * change. Transport failures are retried per object. WRANGLER_BIN picks the wrangler binary, CURL_BIN
+ * the curl binary; JOBS (default 2) the number of parallel uploads. Every event is logged to
+ * <work-dir>/log/*.jsonl; any failure exits nonzero.
  */
 import { createHash } from 'node:crypto';
 import { execFileSync, spawn } from 'node:child_process';
 import { appendFileSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import { DEFAULT_SAMPLE, chainedReceipt, checkedBaseReceipt, incrementalTargets } from './lib/readback-chain';
 import { canonicalRoot, privateStaging, readConfined, safeSegments, workerCount } from './lib/safe-files';
 import { SINGLE_WRITER_GUARANTEE, acquireSingleWriterLock } from './lib/single-writer-lock.mjs';
 import { FREE_PAPER_ORIGIN, approvedPapers, objectDownloadNames, paperMappingDigest, paperObjectKey, paperObjectUrl, paperObjectsDigest, type PublicReadback } from '../src/lib/whole-paper-public';
@@ -41,6 +48,11 @@ const DIR = 'src/data/paper-archives';
 const MAX_PDF_BYTES = 100 * 1024 * 1024;
 const SAFE_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,150}\.pdf$/;
 const CACHE_CONTROL = 'public, max-age=604800';
+const RECEIPT = 'src/data/paper-archive-readback.json';
+const SAFE_REF = /^[A-Za-z0-9][A-Za-z0-9._/-]{0,100}$/;
+const MAX_SAMPLE = 1000;
+const FETCH_ATTEMPTS = 3;
+const RETRY_MS = /^\d{1,6}$/.test(process.env.VERIFY_RETRY_MS ?? '') ? Number(process.env.VERIFY_RETRY_MS) : 5_000;
 const sha256 = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
 const wrangler = () => (process.env.WRANGLER_BIN ? [process.env.WRANGLER_BIN] : ['npx', '-y', 'wrangler@4']);
 
@@ -57,9 +69,17 @@ function approvedFrom(manifests: WholePaperManifest[]): Approved {
 const current = () => approvedFrom(readdirSync(DIR).filter(f => f.endsWith('.json')).sort()
   .map(f => JSON.parse(readFileSync(join(DIR, f), 'utf8')) as WholePaperManifest));
 function atRef(ref: string): Approved {
-  if (!/^[A-Za-z0-9][A-Za-z0-9._/-]{0,100}$/.test(ref)) throw new Error(`Unsafe git ref ${ref}`);
+  if (!SAFE_REF.test(ref)) throw new Error(`Unsafe git ref ${ref}`);
   const files = execFileSync('git', ['ls-tree', '--name-only', `${ref}:${DIR}`], { encoding: 'utf8' }).split('\n').filter(f => f.endsWith('.json')).sort();
   return approvedFrom(files.map(f => JSON.parse(execFileSync('git', ['show', `${ref}:${DIR}/${f}`], { encoding: 'utf8', maxBuffer: 256 * 1024 * 1024 })) as WholePaperManifest));
+}
+function resolveCommit(ref: string): string {
+  if (!SAFE_REF.test(ref)) throw new Error(`Unsafe git ref ${ref}`);
+  return execFileSync('git', ['rev-parse', '--verify', '--end-of-options', `${ref}^{commit}`], { encoding: 'utf8' }).trim();
+}
+/** The receipt committed at `ref`, or null if it has none. */
+function receiptAt(ref: string): unknown {
+  try { return JSON.parse(execFileSync('git', ['show', `${ref}:${RECEIPT}`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })); } catch { return null; }
 }
 const seal = (a: Approved) => `${a.objectsSha256}:${a.mappingSha256}:${[...a.objects].map(([sha, o]) => `${sha}=${o.name}`).sort().join(',')}`;
 
@@ -191,46 +211,111 @@ function headerValue(headers: string, name: string): string | undefined {
   return block.split(/\r?\n/).find(line => line.toLowerCase().startsWith(`${name}:`))?.slice(name.length + 1).trim();
 }
 const curl = (args: string[]) => new Promise<{ code: number; out: Buffer }>(ok => {
-  const child = spawn('curl', args, { stdio: ['ignore', 'pipe', 'ignore'] });
+  const child = spawn(process.env.CURL_BIN || 'curl', args, { stdio: ['ignore', 'pipe', 'ignore'] });
   const chunks: Buffer[] = [];
   child.stdout.on('data', c => chunks.push(c));
   child.on('error', () => ok({ code: 1, out: Buffer.alloc(0) }));
   child.on('close', code => ok({ code: code ?? 1, out: Buffer.concat(chunks) }));
 });
 
+/** One approved object through the public origin: bytes, type and filename. Transport failures (curl
+ * exit nonzero) are retried; a completed download with wrong bytes or headers fails at once. */
+async function fetchMatches(sha: string, o: { bytes: number; name: string }, staging: ReturnType<typeof privateStaging>, logFile: string): Promise<boolean> {
+  for (let attempt = 1; ; attempt++) {
+    const headersFile = staging.path();
+    // DoH: some resolvers still cache the pre-Cloudflare DNS for free.pastpaperprep.com.
+    const { code, out } = await curl(['-sfL', '--retry', '2', '--doh-url', 'https://1.1.1.1/dns-query', '-D', headersFile, paperObjectUrl(sha)]);
+    const headers = existsSync(headersFile) ? readFileSync(headersFile, 'utf8') : '';
+    rmSync(headersFile, { force: true });
+    const ok = code === 0 && out.length === o.bytes && out.subarray(0, 5).equals(Buffer.from('%PDF-')) && sha256(out) === sha
+      && headerValue(headers, 'content-type') === 'application/pdf'
+      && headerValue(headers, 'content-disposition') === `attachment; filename="${o.name}"`;
+    if (ok) return true;
+    if (code !== 0 && attempt < FETCH_ATTEMPTS) {
+      log(logFile, { event: 'retry', sha256: sha, code, attempt });
+      await new Promise(done => setTimeout(done, RETRY_MS * attempt));
+      continue;
+    }
+    log(logFile, { event: 'mismatch', sha256: sha, code, bytes: out.length, attempts: attempt });
+    return false;
+  }
+}
+
+/** Fetches `targets` through the public origin; returns how many failed. */
+async function readBack(targets: [string, { bytes: number; name: string }][], logFile: string): Promise<number> {
+  const staging = privateStaging('ppp-added-verify-');
+  let failed = 0;
+  try {
+    await pool(targets, 8, async ([sha, o]) => { if (!await fetchMatches(sha, o, staging, logFile)) failed++; });
+  } finally { staging.dispose(); }
+  return failed;
+}
+
+function writeReceipt(receipt: PublicReadback) {
+  writeFileSync(plainTarget(RECEIPT), JSON.stringify(receipt, null, 2) + '\n');
+}
+
+/** Full readback: every approved PDF. */
 async function verify(workPath: string) {
   const work = workDir(workPath), logFile = join(work, 'log/verify.jsonl');
   const now = current();
-  const staging = privateStaging('ppp-added-verify-');
-  const failed: string[] = [];
-  try {
-    await pool([...now.objects], 8, async ([sha, o]) => {
-      const headersFile = staging.path();
-      // DoH: some resolvers still cache the pre-Cloudflare DNS for free.pastpaperprep.com.
-      const { code, out } = await curl(['-sfL', '--retry', '2', '--doh-url', 'https://1.1.1.1/dns-query', '-D', headersFile, paperObjectUrl(sha)]);
-      const headers = existsSync(headersFile) ? readFileSync(headersFile, 'utf8') : '';
-      rmSync(headersFile, { force: true });
-      const ok = code === 0 && out.length === o.bytes && out.subarray(0, 5).equals(Buffer.from('%PDF-')) && sha256(out) === sha
-        && headerValue(headers, 'content-type') === 'application/pdf'
-        && headerValue(headers, 'content-disposition') === `attachment; filename="${o.name}"`;
-      if (!ok) { failed.push(sha); log(logFile, { event: 'mismatch', sha256: sha, code, bytes: out.length }); }
-    });
-  } finally { staging.dispose(); }
-  log(logFile, { event: 'summary', checked: now.objects.size, failed: failed.length });
-  if (failed.length) { console.log(`verify failed: ${failed.length} of ${now.objects.size} mismatched; receipt not written`); process.exitCode = 1; return; }
+  log(logFile, { event: 'start', mode: 'full', objects: now.objects.size });
+  const failed = await readBack([...now.objects], logFile);
+  log(logFile, { event: 'summary', checked: now.objects.size, failed });
+  if (failed) { console.log(`verify failed: ${failed} of ${now.objects.size} mismatched; receipt not written`); process.exitCode = 1; return; }
   if (seal(current()) !== seal(now)) { console.log('verify failed: manifests changed during verification; receipt not written'); process.exitCode = 1; return; }
-  const receipt: PublicReadback = {
+  writeReceipt({
     version: 3, status: 'verified_public_readback', origin: FREE_PAPER_ORIGIN, prefix: 'papers/v1/', verifiedAt: new Date().toISOString(),
     objectCount: now.objects.size, objectsSha256: now.objectsSha256, mappingSha256: now.mappingSha256,
-  };
-  writeFileSync(plainTarget('src/data/paper-archive-readback.json'), JSON.stringify(receipt, null, 2) + '\n');
+  });
   console.log(`verified ${now.objects.size} PDFs from ${FREE_PAPER_ORIGIN}; wrote src/data/paper-archive-readback.json`);
 }
 
+/**
+ * Incremental readback: chains from `<base-ref>`'s committed receipt, which must match that ref's
+ * manifests exactly, and fetches only the PDFs added since then plus a random sample of the rest.
+ */
+async function verifySince(workPath: string, baseRef: string, sample: number) {
+  const work = workDir(workPath), logFile = join(work, 'log/verify.jsonl');
+  const commit = resolveCommit(baseRef);
+  const base = atRef(commit), now = current();
+  const baseReceipt = checkedBaseReceipt(receiptAt(commit), base);
+  const targets = incrementalTargets(base, now, sample);
+  log(logFile, { event: 'start', mode: 'incremental', base: baseRef, commit, objects: now.objects.size, since: baseReceipt.verifiedAt,
+    fullReadbackAt: baseReceipt.incremental?.fullReadbackAt ?? baseReceipt.verifiedAt, added: targets.added, sampled: targets.sampled, removed: targets.removed });
+  const failed = await readBack([...targets.added, ...targets.sampled].map(sha => [sha, now.objects.get(sha)!]), logFile);
+  const checked = targets.added.length + targets.sampled.length;
+  log(logFile, { event: 'summary', mode: 'incremental', checked, added: targets.added.length, sampled: targets.sampled.length, failed });
+  if (failed) { console.log(`verify failed: ${failed} of ${checked} mismatched; receipt not written (a sampled mismatch means the bucket drifted: run a full verify)`); process.exitCode = 1; return; }
+  if (seal(current()) !== seal(now) || resolveCommit(baseRef) !== commit) { console.log('verify failed: manifests or base ref changed during verification; receipt not written'); process.exitCode = 1; return; }
+  const receipt = chainedReceipt(now, baseReceipt, targets, new Date().toISOString());
+  writeReceipt(receipt);
+  console.log(`verified ${targets.added.length} added + ${targets.sampled.length} sampled PDFs from ${FREE_PAPER_ORIGIN} (${targets.removed.length} no longer approved); chained from the ${baseReceipt.verifiedAt} receipt at ${baseRef} (last full readback ${receipt.incremental!.fullReadbackAt}); wrote src/data/paper-archive-readback.json for ${now.objects.size} PDFs`);
+}
+
+/** `verify <work-dir> [--since <base-ref>] [--sample <n>]`; null on anything else. */
+function verifyArgs(args: string[]): { work: string; since?: string; sample: number } | null {
+  const [work, ...rest] = args;
+  if (!work || work.startsWith('--')) return null;
+  let since: string | undefined, sample: number | undefined;
+  for (let i = 0; i < rest.length; i += 2) {
+    const [flag, value] = [rest[i], rest[i + 1]];
+    if (!value) return null;
+    if (flag === '--since' && since === undefined) since = value;
+    else if (flag === '--sample' && sample === undefined && /^\d{1,4}$/.test(value)) sample = Number(value);
+    else return null;
+  }
+  if (sample !== undefined && (!since || sample > MAX_SAMPLE)) return null;
+  return { work, since, sample: sample ?? DEFAULT_SAMPLE };
+}
+
 const [phase, a, b, c] = process.argv.slice(2);
+const USAGE = `usage: publish-added-free-papers.mts plan|upload <base-ref> <source-bindings.json> <work-dir> | verify <work-dir> [--since <base-ref> [--sample 0-${MAX_SAMPLE}]]`;
 try {
+  const v = phase === 'verify' ? verifyArgs(process.argv.slice(3)) : null;
   if (phase === 'plan' && a && b && c) plan(a, b, c);
   else if (phase === 'upload' && a && b && c) await upload(a, b, c);
-  else if (phase === 'verify' && a) await verify(a);
-  else { console.error('usage: publish-added-free-papers.mts plan|upload <base-ref> <source-bindings.json> <work-dir> | verify <work-dir>'); process.exitCode = 2; }
+  else if (v?.since) await verifySince(v.work, v.since, v.sample);
+  else if (v) await verify(v.work);
+  else { console.error(USAGE); process.exitCode = 2; }
 } catch (error) { console.error(String(error instanceof Error ? error.message : error)); process.exitCode = 1; }
