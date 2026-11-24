@@ -357,7 +357,7 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
     markschemeImageCount: activeMarkschemeImageCount(bank, raw) ?? (normalizedProduction
       ? (strings(officialMarkscheme.images).length || strings(raw.markschemeImages).length)
       : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length),
-    ...(typeof raw.stimulusId === "string" && raw.stimulusId && integer(raw.stimulusImageCount) > 0 ? { stimulusId: raw.stimulusId, stimulusImageCount: integer(raw.stimulusImageCount) } : {}),
+    ...(typeof raw.stimulusId === "string" && raw.stimulusId && integer(raw.stimulusImageCount) > 0 ? { stimulusId: raw.stimulusId, stimulusImageCount: integer(raw.stimulusImageCount), ...(typeof raw.stimulusKey === "string" && raw.stimulusKey ? { stimulusKey: raw.stimulusKey } : {}) } : {}),
     ...(explanationIds.get(bank)?.has(raw.id) ? { hasExplanation: true } : {}),
   };
   return metadata;

@@ -30,6 +30,25 @@ describe("pdfSourceLabel", () => {
   });
 });
 
+describe("pdfSourceLabel for IB Business Management", () => {
+  const bm = (overrides: Partial<PdfLabelQuestion> = {}) => question({
+    id: "ibbm-2024-may-hlsl-p1-tz2-q3", bankSlug: "ib-business-management-hl", year: 2024, session: "May", paper: 1, component: "P1", zone: "TZ2", number: 3, ...overrides,
+  });
+  it("includes the time zone, so TZ1 and TZ2 questions cite differently", () => {
+    expect(pdfSourceLabel(bm())).toBe("2024 May · Paper 1 · TZ2 · Q3");
+    expect(pdfSourceLabel(bm({ zone: "TZ1" }))).toBe("2024 May · Paper 1 · TZ1 · Q3");
+    expect(pdfSourceLabel(bm({ bankSlug: "ib-business-management-sl" }))).toBe("2024 May · Paper 1 · TZ2 · Q3");
+  });
+  it("never shows TZ0 or a missing zone", () => {
+    expect(pdfSourceLabel(bm({ zone: "TZ0", session: "November", year: 2020 }))).toBe("2020 November · Paper 1 · Q3");
+    expect(pdfSourceLabel(bm({ zone: undefined }))).toBe("2024 May · Paper 1 · Q3");
+  });
+  it("leaves other banks' labels alone, even with a zone", () => {
+    expect(pdfSourceLabel(question({ zone: "TZ2" }))).toBe("2024 May/June · Paper 22 · Q5");
+    expect(pdfSourceLabel(question({ bankSlug: "ib-chemistry-hl", session: "May", component: "P1", zone: "TZ2", paper: 1 }))).toBe("2024 May · Paper P1 · Q5");
+  });
+});
+
 describe("pdfCoverSummary", () => {
   it("names the bank and a shared Extended route", () => {
     const summary = pdfCoverSummary([question(), question({ id: "b", paper: 4 })], "igcse", "both");

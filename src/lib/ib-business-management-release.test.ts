@@ -27,7 +27,7 @@ type RuntimeQuestion = {
   id: string; paperId: string; bankSlug: string; level: string; paper: number; year: number; session: string; zone: string; timezone: string;
   component: string; marks: number; maxMarks: number; syllabusScope: string | null; courseEra: string;
   primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; officialCodeRefs: string[];
-  stimulusId?: string; stimulusImageCount?: number; markbandId?: string;
+  stimulusId?: string; stimulusImageCount?: number; stimulusKey?: string; markbandId?: string; accessibleText: string;
   questionImages: string[]; markschemeImages: string[]; questionImageHashes: string[]; markschemeImageHashes: string[]; officialMarkscheme: { images: string[] };
   classificationProvenance: { primaryCode: string; secondaryCodes: string[]; toolkitCodes: string[] };
   sourceQuestionUrl: string; sourceMarkSchemeUrl: string; publicationStatus: string; classificationReviewStatus: string; rightsStatus: string;
@@ -331,6 +331,41 @@ describe.each(BANKS)("IB Business Management $level release", (bank) => {
     expect(hashByKey.size).toBe(bank.objects);
   });
 
+  it("binds each question only to the markband pages its scheme references", () => {
+    const find = (id: string) => production.questions.find((question) => question.id === id);
+    const bands = (id: string) => find(id)?.markschemeImages.filter((key) => key.startsWith("markbands/")) ?? [];
+    if (bank.slug === "ib-business-management-hl") {
+      // Nov 2020 HL P1: Q1 to Q3 point to physical p. 3 only; Q4 to p. 4; Q5 (Section C) to the rest.
+      expect(bands("ibbm-2020-nov-hl-p1-tz0-q1")).toEqual(["markbands/ibbm-2020-nov-hl-p1-tz0-markbands/mb-p3-1.webp"]);
+      expect(bands("ibbm-2020-nov-hl-p1-tz0-q4")).toEqual(["markbands/ibbm-2020-nov-hl-p1-tz0-markbands/mb-p4-2.webp"]);
+    }
+    for (const question of production.questions.filter((entry) => entry.markbandId)) {
+      const set = new Set(bands(question.id));
+      expect(set.size, question.id).toBe(bands(question.id).length);
+    }
+  });
+
+  it("carries the case or resources as accessible text, with a content-derived key shared by identical case books", () => {
+    const withCase = production.questions.filter((question) => question.stimulusId);
+    for (const question of withCase) {
+      const label = question.paper === 3 ? "Resources:" : "Case study:";
+      const [own, ...rest] = question.accessibleText.split(`\n\n${label}\n`);
+      expect(rest, question.id).toHaveLength(1);
+      expect(own.length, question.id).toBeGreaterThan(0);
+      expect(rest[0].trim().length, question.id).toBeGreaterThan(40);
+      expect(question.stimulusKey, question.id).toMatch(/^[0-9a-f]{16}$/);
+      const caseHashes = question.questionImageHashes.slice(0, question.stimulusImageCount);
+      expect(question.stimulusKey, question.id).toBe(sha(caseHashes.join("\n")).slice(0, 16));
+    }
+    for (const question of production.questions.filter((entry) => !entry.stimulusId)) {
+      expect(question.stimulusKey, question.id).toBeUndefined();
+      expect(question.accessibleText, question.id).not.toMatch(/\n\n(Case study|Resources):\n/);
+    }
+    const q6 = production.questions.find((question) => question.id === "ibbm-2026-may-hlsl-p1-tz1-q6");
+    expect(q6?.accessibleText).toContain("Case study:");
+    expect(q6!.accessibleText.length).toBeGreaterThan(500);
+  });
+
   it("drops every pinned Section C markband crop and no other", async () => {
     const { SECTION_C_MARKBAND_CROPS } = await import("../../scripts/generate-ib-business-management-runtime.mjs");
     expect(SECTION_C_MARKBAND_CROPS).toHaveLength(20);
@@ -508,7 +543,8 @@ describe("IB Business Management shared tree and the two banks together", () => 
   it("registers the products in a migration copied from the latest billing definitions, with no Stripe id", () => {
     const name = "20261123000000_ib_business_management_release.sql";
     const migrations = readdirSync(join(ROOT, "supabase/migrations")).sort();
-    expect(migrations.at(-1)).toBe(name);
+    // Later migrations may follow; this one is judged against the definitions that precede it.
+    expect(migrations).toContain(name);
     expect(migrations.filter((file) => file.slice(0, 14) > "20261122000000" && file < name)).toEqual([]);
     const migration = readFileSync(join(ROOT, "supabase/migrations", name), "utf8");
     expect(migration.startsWith("begin;")).toBe(true);

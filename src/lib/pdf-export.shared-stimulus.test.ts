@@ -13,7 +13,7 @@ vi.mock("jspdf", () => ({ jsPDF: class {
   splitTextToSize(value: string) { return [value]; }
 } }));
 
-type Row = { id: string; bankSlug: string; stimulusId?: string; stimulusImageCount?: number };
+type Row = { id: string; bankSlug: string; stimulusId?: string; stimulusKey?: string; stimulusImageCount?: number };
 const row = (id: string, stimulusId?: string, bankSlug = "ib-business-management-hl"): Row => ({ id, bankSlug, ...(stimulusId ? { stimulusId, stimulusImageCount: 2 } : {}) });
 const skips = (rows: Row[], content: "questions" | "answers" | "both" = "questions", placement: "all-answers-last" | "after-each-question" = "all-answers-last") =>
   Object.fromEntries(sharedStimulusSkips(orderPdfJobs(rows, content, placement)));
@@ -32,6 +32,12 @@ describe("shared case study in worksheet PDFs: which images a question leaves ou
   it("reprints the case when answers sit between the questions, so each question stands alone", () => {
     expect(skips([row("a", "case-1"), row("b", "case-1")], "both", "after-each-question")).toEqual({});
     expect(skips([row("a", "case-1"), row("b", "case-1")], "both", "all-answers-last")).toEqual({ b: 2 });
+  });
+  it("treats byte-identical case books of two variants as one case, by content key, without merging the variants", () => {
+    const keyed = (id: string, stimulusId: string, stimulusKey: string): Row => ({ ...row(id, stimulusId), stimulusKey });
+    expect(skips([keyed("a", "tz1-case", "k1"), keyed("b", "tz2-case", "k1")])).toEqual({ b: 2 });
+    expect(skips([keyed("a", "tz1-case", "k1"), keyed("b", "tz2-case", "k2")])).toEqual({});
+    expect(skips([keyed("a", "tz1-case", "k1"), { ...keyed("b", "tz1-case", "k1"), bankSlug: "ib-business-management-sl" }])).toEqual({});
   });
   it("leaves questions without a case study untouched", () => {
     expect(skips([row("a"), row("b")])).toEqual({});
@@ -91,5 +97,34 @@ describe("worksheet PDF with a shared case study", () => {
     const odd = { ...question(2, "case"), stimulusImageCount: 3 } as unknown as UnifiedQuestion;
     await downloadQuestionPdf([question(1, "case"), odd], "questions");
     expect(drawnImages()).toBe(3 + 1);
+  });
+
+  const labelTexts = () => text.mock.calls.map((call) => call[0]).filter((value): value is string => typeof value === "string");
+  const withZone = (number: number, zone: string, stimulusId: string, stimulusKey?: string) => ({
+    ...question(number, stimulusId), zone, ...(stimulusKey ? { stimulusKey } : {}),
+  }) as unknown as UnifiedQuestion;
+  const source = (number: number) => `2024 May · Paper 1 · TZ1 · Q${number}`;
+
+  for (const [name, content, placement] of [["questions only", "questions", undefined], ["answers last", "both", "all-answers-last"]] as const) {
+    it(`heads the first printed crop of every question with its source and marks (${name})`, async () => {
+      const rows = [1, 2, 3].map((number) => withZone(number, "TZ1", "case"));
+      await downloadQuestionPdf(rows, content, undefined, undefined, placement);
+      const texts = labelTexts();
+      // Q2 and Q3 skip the shared case crops, so their first printed crop is their own and must carry the header.
+      for (const number of [1, 2, 3]) {
+        expect(texts, `Question ${number}`).toContain(`Question ${number}`);
+        expect(texts, `Question ${number}`).toContain(source(number));
+      }
+      expect(texts.filter((value) => value === "2 marks")).toHaveLength(3);
+      // Only Question 1 (case crop 2 and its own crop) continues; Q2 and Q3 never start as a continuation.
+      expect([...new Set(texts.filter((value) => value.includes("(continued)")))]).toEqual(["Question 1 (continued)"]);
+    });
+  }
+  it("prints the same case once across TZ1 and TZ2 and still labels each variant by its own source", async () => {
+    const rows = [withZone(1, "TZ1", "tz1-case", "same"), { ...withZone(1, "TZ2", "tz2-case", "same"), id: "ibbm-2024-may-hlsl-p1-tz2-q1" } as unknown as UnifiedQuestion];
+    await downloadQuestionPdf(rows, "questions");
+    // case once (2) + each variant's own crop.
+    expect(drawnImages()).toBe(2 + 1 + 1);
+    expect(labelTexts()).toEqual(expect.arrayContaining(["2024 May · Paper 1 · TZ1 · Q1", "2024 May · Paper 1 · TZ2 · Q1"]));
   });
 });

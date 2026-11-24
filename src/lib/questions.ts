@@ -165,6 +165,8 @@ export type UnifiedQuestion = {
    */
   stimulusId?: string;
   stimulusImageCount?: number;
+  /** Content identity of the case crops (first 16 hex of the sha256 of their ordered hashes): equal across variants that print the same case. */
+  stimulusKey?: string;
   questionAssetPaths: string[];
   markschemeAssetPaths: string[];
   /** True when a verified worked explanation is published for this question. */
@@ -361,7 +363,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     questionImageCount: questionImages.length,
     markschemeImageCount: markschemeImages.length,
     ...(text(raw.stimulusId) && integer(raw.stimulusImageCount) > 0 && integer(raw.stimulusImageCount) < questionImages.length
-      ? { stimulusId: text(raw.stimulusId), stimulusImageCount: integer(raw.stimulusImageCount) } : {}),
+      ? { stimulusId: text(raw.stimulusId), stimulusImageCount: integer(raw.stimulusImageCount), ...(text(raw.stimulusKey) ? { stimulusKey: text(raw.stimulusKey) } : {}) } : {}),
     questionAssetPaths: isPrivateRuntimeBank(slug)
       ? questionImages
       : questionImages.map((path) => storageObjectPath(slug, path)),

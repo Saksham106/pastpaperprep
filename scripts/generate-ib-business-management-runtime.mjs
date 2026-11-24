@@ -183,9 +183,20 @@ function toQuestion(bank, question, context) {
   const stimulusHashes = stimulus ? stimulus.images.map((asset) => asset.sha256) : [];
   if (Boolean(question.stimulus_id) !== Boolean(stimulus)) throw new Error(`IB Business Management ${question.id} stimulus reference drifted`);
   if (stimulus && !stimulus.used_by.includes(question.id)) throw new Error(`IB Business Management ${question.id} is not listed as a user of ${stimulus.stimulus_id}`);
-  const keptBand = markband ? markband.images.filter((asset) => !droppedCrops.has(`${markband.markband_id}:${asset.sha256}`)) : [];
   if (markband && !markband.used_by.includes(question.id)) throw new Error(`IB Business Management ${question.id} is not listed as a user of ${markband.markband_id}`);
-  if (Boolean(question.markband_id) !== Boolean(markband) || (markband && !keptBand.length)) throw new Error(`IB Business Management ${question.id} markband reference drifted`);
+  if (Boolean(question.markband_id) !== Boolean(markband)) throw new Error(`IB Business Management ${question.id} markband reference drifted`);
+  // Only the markband pages this question's scheme points to: 1-based, strictly ascending positions into the paper's set.
+  let keptBand = [];
+  if (markband) {
+    const positions = question.markband_positions;
+    if (!Array.isArray(positions) || !positions.length) throw new Error(`IB Business Management ${question.id} has a markband set but no markband_positions`);
+    if (positions.some((position, index) => !Number.isInteger(position) || position < 1 || position > markband.images.length || (index > 0 && position <= positions[index - 1]))) throw new Error(`IB Business Management ${question.id} markband_positions ${JSON.stringify(positions)} are not ascending 1-based positions within ${markband.images.length}`);
+    keptBand = positions.map((position) => markband.images[position - 1]).filter((asset) => !droppedCrops.has(`${markband.markband_id}:${asset.sha256}`));
+    if (!keptBand.length) throw new Error(`IB Business Management ${question.id} markband reference drifted`);
+  } else if (question.markband_positions !== undefined && question.markband_positions !== null && question.markband_positions.length) {
+    throw new Error(`IB Business Management ${question.id} has markband_positions without a markband set`);
+  }
+  if (stimulus && (typeof stimulus.accessible_text !== "string" || !stimulus.accessible_text.trim())) throw new Error(`IB Business Management ${stimulus.stimulus_id} has no accessible_text`);
   const bandImages = keptBand.map((asset) => markbandKey(markband.markband_id, asset));
   const bandHashes = keptBand.map((asset) => asset.sha256);
 
@@ -230,8 +241,9 @@ function toQuestion(bank, question, context) {
     maxMarks: paper.printed_max,
     marksSource: "printed_question_paper",
     summary: question.text.slice(0, 220),
-    accessibleText: question.text,
-    ...(stimulus ? { stimulusId: stimulus.stimulus_id, stimulusImageCount: stimulusImages.length } : {}),
+    // A question with a case or resources carries them as text, after its own text; the summary stays the question alone.
+    accessibleText: stimulus ? `${question.text}\n\n${question.paper === 3 ? "Resources:" : "Case study:"}\n${stimulus.accessible_text.trim()}` : question.text,
+    ...(stimulus ? { stimulusId: stimulus.stimulus_id, stimulusImageCount: stimulusImages.length, stimulusKey: sha256(stimulusHashes.join("\n")).slice(0, 16) } : {}),
     ...(markband ? { markbandId: markband.markband_id } : {}),
     questionImages,
     markschemeImages,

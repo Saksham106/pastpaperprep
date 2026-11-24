@@ -39,4 +39,7 @@ Finalized content seals (`finalizedContentSha256`): HL `56eb5ff6ac64b37942c9d3b1
   - `bank_ib_business_management_hl` and `bank_ib_business_management_sl` are active;
   - each has 3 `stripe_price_catalog` rows, identical to the 3 generic `bank_igcse` rows;
   - `is_valid_custom_bank_ids` accepts both slugs and rejects an unknown one.
+- The production `schema_migrations` row has `statements = NULL`, because it was recorded by a direct insert and not by `migration repair`. It proves only the version and name, not the SQL that ran.
+  - The reviewer independently checked the four live function bodies and the five constraints against the migration file. That check, not the history row, is the evidence that the file's definitions are what production runs.
+  - The SQL file was not changed after it was applied.
 - No Stripe object was created or changed.
