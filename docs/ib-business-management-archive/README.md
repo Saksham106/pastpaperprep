@@ -74,13 +74,17 @@ npx tsx scripts/build-whole-paper-archives.mts --identity-review docs/ib-busines
 
 Private state (bindings, receipt) is saved to `research/ib-business-management-free-papers-2026-11/paper-archive-state/`.
 
-## Publish: old Paper 1 with case studies (needs owner approval)
+## Publish: old Paper 1 with case studies (owner approved in chat, 24 November 2026: "Yes, publish 43 PDFs")
 
 - **Plan** (`publish-added-free-papers.mts plan` against #517's tip): 43 PDFs (27.9 MB): 18 question papers, 18 mark
   schemes and 7 case study booklets, all `ib-business-management*`. No existing object changes its download name.
-  8,003 approved PDFs in total.
-- Until the upload and `verify` run, the committed readback no longer matches the manifests, so the library stays
-  closed in production and the "committed public readback" test fails. `verify` rewrites the receipt.
+- **Upload:** add-only, 2 at a time: check-absent → put → read-back (SHA-256 and size). 43 of 43 absent before, put
+  and read back; 0 conflicts, 0 retries.
+- **Verify:** the first full pass failed on one unrelated object (`9709_w21_qp_21.pdf`, curl 7 "couldn't connect",
+  0 bytes); a manual re-fetch matched bytes, type and filename. `--retry-connrefused` was added to both verify curls,
+  and a second full pass read all 8,003 approved PDFs from `free.pastpaperprep.com` with 0 failures (21 min). This
+  refreshed `src/data/paper-archive-readback.json` (7,960 → 8,003 objects).
+- **Log:** appended to `r2-upload-log.jsonl`.
 
 ## Publish (owner approved in chat, 24 November 2026: "Yes, publish 120 PDFs")
 
