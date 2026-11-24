@@ -239,7 +239,7 @@ export function validateInventory(input:unknown): asserts input is Inventory {
 /** Mirrors the production choice in question-loader, not candidate inventories. */
 export function runtimeRelativeFile(slug:string) {
   if(!getCatalogBank(slug))throw new Error(`Unknown bank ${slug}`);
-  const cohort=slug.startsWith('igcse-')&&slug!=='igcse-additional'||slug.startsWith('ib-economics-')||slug.startsWith('ib-computer-science-')||slug.startsWith('a-level-')?'production':'raw';
+  const cohort=slug.startsWith('igcse-')&&slug!=='igcse-additional'||slug.startsWith('ib-economics-')||slug.startsWith('ib-computer-science-')||slug.startsWith('ib-business-management-')||slug.startsWith('a-level-')?'production':'raw';
   return `src/data/${cohort}/${slug}.json`;
 }
 /**

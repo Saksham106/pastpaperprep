@@ -7,7 +7,7 @@ export function courseToneForBank(bank: { subject: string }): CourseTone {
   if (bank.subject.includes("Chemistry")) return "chemistry";
   if (bank.subject.includes("Physics")) return "physics";
   if (bank.subject.includes("Biology")) return "biology";
-  if (bank.subject.includes("Economics")) return "economics";
+  if (bank.subject.includes("Economics") || bank.subject.includes("Business Management")) return "economics";
   return "math";
 }
 

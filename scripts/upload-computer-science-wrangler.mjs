@@ -28,7 +28,7 @@ import { promisify } from "node:util";
 import { manifestSha256 } from "./igcse-release.mjs";
 import { composeUploadReceipt, indexLogRows, verifiedLogRow } from "./lib/upload-receipt.mjs";
 
-const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"];
+const BANKS = ["igcse-computer-science-0478", "ib-computer-science-hl", "ib-computer-science-sl", "ib-business-management-hl", "ib-business-management-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"];
 const bankFlag = process.argv.indexOf("--bank");
 const BANK = bankFlag === -1 ? BANKS[0] : process.argv[bankFlag + 1];
 if (!BANKS.includes(BANK)) throw new Error(`--bank must be one of ${BANKS.join(", ")}`);

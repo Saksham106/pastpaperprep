@@ -24,6 +24,8 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
   { name: "Physics", tone: "physics", matches: (bank) => bank.subject.includes("Physics") },
   { name: "Biology", tone: "biology", matches: (bank) => bank.subject.includes("Biology") },
   { name: "Economics", tone: "economics", matches: (bank) => bank.subject.includes("Economics") },
+  // Business Management shares Economics' pastel tone and icon (the same business and economics family).
+  { name: "Business Management", tone: "economics", matches: (bank) => bank.subject.includes("Business Management") },
   { name: "Co-ordinated Sciences", tone: "coordinated", matches: (bank) => bank.subject.includes("Co-ordinated") },
   { name: "Computer Science", tone: "computer-science", matches: (bank) => bank.subject.includes("Computer Science") },
 ];

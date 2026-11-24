@@ -12,6 +12,8 @@ export const PRIVATE_RUNTIME_OBJECT_PREFIXES: Partial<Record<BankSlug, string>> 
   "igcse-computer-science-0478": "igcse-computer-science-0478/releases/full469-v1-0eb04c612b39/",
   "ib-computer-science-hl": "ib-computer-science-hl/releases/full506-v1-610ccfc508e1/",
   "ib-computer-science-sl": "ib-computer-science-sl/releases/full391-v1-302f6c9461e6/",
+  "ib-business-management-hl": "ib-business-management-hl/releases/full260-v1-4ff98d61200c/",
+  "ib-business-management-sl": "ib-business-management-sl/releases/full218-v1-ada0f6fad25c/",
   "a-level-maths-9709": "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/",
   "a-level-physics-9702": "a-level-physics-9702/releases/full2627-v1-625c919f2ca5/",
   "a-level-chemistry-9701": "a-level-chemistry-9701/releases/full2220-v1-1c9b6408fce8/",

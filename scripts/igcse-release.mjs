@@ -57,6 +57,21 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '371c697e5018afb350ace1b276f26ee2eab953c95ebf32cde4f6767426d3d0a9',
   },
+  // IB Business Management: 260 HL + 218 SL rows (Nov 2020 to May 2026; the Nov 2025 P2 SL TZ1 question paper is missing, so it is held).
+  // A case study's crops are stored once per bank under stimuli/<stimulus_id>/ and a markband set's once under markbands/<markband_id>/;
+  // every question that uses them references the same key. Prefixes carry the row count and the first 12 hex of the candidate seal.
+  'ib-business-management-hl': {
+    prefix: 'ib-business-management-hl/releases/full260-v1-4ff98d61200c',
+    sourceRootEnv: 'PASTPAPERPREP_IB_BUSINESS_MANAGEMENT_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '80144c77f2d9c2c26e45c03ebc7788b30420d82dcc726f33d3a3702cc5d277fe',
+  },
+  'ib-business-management-sl': {
+    prefix: 'ib-business-management-sl/releases/full218-v1-ada0f6fad25c',
+    sourceRootEnv: 'PASTPAPERPREP_IB_BUSINESS_MANAGEMENT_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '8de7e465ac8aa0190cc5f1c08bc701c19b570bfab7fd542f4787a37b058b4578',
+  },
   // Cambridge International A Level Mathematics 9709 rides the same lane: 2,118 rows, crops from one segmentation lane.
   // The prefix is named for the first candidate (191db74b...); crop revision v2 adds .v2.webp keys beside the byte-identical
   // verified crops under it: 23 on 2026-11-15 (masked maths glyphs), 1 on 2026-11-21 (2026-s-12 Q2's clipped axis labels).
@@ -243,6 +258,13 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
   if (bank === 'igcse-computer-science-0478') {
     const lane = Number(paper.split('-')[1]) <= 2022 ? 'extension-2019-2022' : 'full';
     return `data/segmentation/${lane}/assets/${paper}/${kind}/${file}`;
+  }
+  // IB Business Management: own crops are assets/<paper>/questions|markschemes/<file>; a shared case study is
+  // assets/stimuli/<stimulus_id>/<file> and a shared markband set assets/<paper>/markbands/<file> (key markbands/<markband_id>/<file>).
+  if (bank === 'ib-business-management-hl' || bank === 'ib-business-management-sl') {
+    if (kind === 'stimuli') return `data/segmentation/full/assets/stimuli/${paper}/${file}`;
+    if (kind === 'markbands') return `data/segmentation/full/assets/${paper.replace(/-markbands$/, '')}/markbands/${file}`;
+    return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
   // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700, Economics 9708, Computer Science 9618 and Further Mathematics 9231 sources (assets/<paper>/questions|markschemes/<file>).

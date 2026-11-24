@@ -1,0 +1,767 @@
+{
+  "artifact": "ib_business_management_student_taxonomy",
+  "version": "ib_business_management_source_backed_taxonomy@1",
+  "boardcode": "IB Business Management",
+  "note": "Units 1 to 5 (2024 guide subtopics) come first in teaching order, then the business management toolkit (one section per tool, a filter only), then the earlier-syllabus filters. A bank's picker shows only the sections that carry at least one of its questions.",
+  "sourceTaxonomyPath": "data/taxonomy/labels.json",
+  "sourceTaxonomySHA256": "d9ff54d2ee820f35480da75b2d0ea3640b57ef0ff6fe990ff1419db9464338ee",
+  "topics": [
+    {
+      "id": "2024:U1",
+      "code": "1",
+      "label": "Unit 1: Introduction to business management",
+      "official": true,
+      "era": "2024",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-business-management-hl",
+        "ib-business-management-sl"
+      ],
+      "sections": [
+        {
+          "id": "2024:1.1",
+          "code": "1.1",
+          "label": "1.1 What is a business?",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:1.2",
+          "code": "1.2",
+          "label": "1.2 Types of business entities",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:1.3",
+          "code": "1.3",
+          "label": "1.3 Business objectives",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:1.4",
+          "code": "1.4",
+          "label": "1.4 Stakeholders",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:1.5",
+          "code": "1.5",
+          "label": "1.5 Growth and evolution",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:1.6",
+          "code": "1.6",
+          "label": "1.6 Multinational companies (MNCs)",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2024:U2",
+      "code": "2",
+      "label": "Unit 2: Human resource management",
+      "official": true,
+      "era": "2024",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-business-management-hl",
+        "ib-business-management-sl"
+      ],
+      "sections": [
+        {
+          "id": "2024:2.1",
+          "code": "2.1",
+          "label": "2.1 Introduction to human resource management",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:2.2",
+          "code": "2.2",
+          "label": "2.2 Organizational structure",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:2.3",
+          "code": "2.3",
+          "label": "2.3 Leadership and management",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:2.4",
+          "code": "2.4",
+          "label": "2.4 Motivation and demotivation",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:2.5",
+          "code": "2.5",
+          "label": "2.5 Organizational (corporate) culture (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:2.6",
+          "code": "2.6",
+          "label": "2.6 Communication",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:2.7",
+          "code": "2.7",
+          "label": "2.7 Industrial/employee relations (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2024:U3",
+      "code": "3",
+      "label": "Unit 3: Finance and accounts",
+      "official": true,
+      "era": "2024",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-business-management-hl",
+        "ib-business-management-sl"
+      ],
+      "sections": [
+        {
+          "id": "2024:3.1",
+          "code": "3.1",
+          "label": "3.1 Introduction to finance",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:3.2",
+          "code": "3.2",
+          "label": "3.2 Sources of finance",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:3.3",
+          "code": "3.3",
+          "label": "3.3 Costs and revenues",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:3.4",
+          "code": "3.4",
+          "label": "3.4 Final accounts",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:3.5",
+          "code": "3.5",
+          "label": "3.5 Profitability and liquidity ratio analysis",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:3.6",
+          "code": "3.6",
+          "label": "3.6 Debt/equity ratio analysis (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:3.7",
+          "code": "3.7",
+          "label": "3.7 Cash flow",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:3.8",
+          "code": "3.8",
+          "label": "3.8 Investment appraisal",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:3.9",
+          "code": "3.9",
+          "label": "3.9 Budgets (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2024:U4",
+      "code": "4",
+      "label": "Unit 4: Marketing",
+      "official": true,
+      "era": "2024",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-business-management-hl",
+        "ib-business-management-sl"
+      ],
+      "sections": [
+        {
+          "id": "2024:4.1",
+          "code": "4.1",
+          "label": "4.1 Introduction to marketing",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:4.2",
+          "code": "4.2",
+          "label": "4.2 Marketing planning",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:4.3",
+          "code": "4.3",
+          "label": "4.3 Sales forecasting (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:4.4",
+          "code": "4.4",
+          "label": "4.4 Market research",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:4.5",
+          "code": "4.5",
+          "label": "4.5 The seven Ps of the marketing mix",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:4.6",
+          "code": "4.6",
+          "label": "4.6 International marketing (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2024:U5",
+      "code": "5",
+      "label": "Unit 5: Operations management",
+      "official": true,
+      "era": "2024",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-business-management-hl",
+        "ib-business-management-sl"
+      ],
+      "sections": [
+        {
+          "id": "2024:5.1",
+          "code": "5.1",
+          "label": "5.1 Introduction to operations management",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:5.2",
+          "code": "5.2",
+          "label": "5.2 Operations methods",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:5.3",
+          "code": "5.3",
+          "label": "5.3 Lean production and quality management (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:5.4",
+          "code": "5.4",
+          "label": "5.4 Location",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:5.5",
+          "code": "5.5",
+          "label": "5.5 Break-even analysis",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:5.6",
+          "code": "5.6",
+          "label": "5.6 Production planning (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:5.7",
+          "code": "5.7",
+          "label": "5.7 Crisis management and contingency planning (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:5.8",
+          "code": "5.8",
+          "label": "5.8 Research and development (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:5.9",
+          "code": "5.9",
+          "label": "5.9 Management information systems (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2024:toolkit",
+      "code": null,
+      "label": "Business management toolkit",
+      "official": true,
+      "era": "2024",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-business-management-hl",
+        "ib-business-management-sl"
+      ],
+      "sections": [
+        {
+          "id": "2024:tool-swot",
+          "code": "swot",
+          "label": "SWOT analysis",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": []
+        },
+        {
+          "id": "2024:tool-ansoff",
+          "code": "ansoff",
+          "label": "Ansoff matrix",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:tool-steeple",
+          "code": "steeple",
+          "label": "STEEPLE analysis",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:tool-bcg",
+          "code": "bcg",
+          "label": "Boston Consulting Group (BCG) matrix",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:tool-business-plan",
+          "code": "business-plan",
+          "label": "Business plan",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:tool-decision-trees",
+          "code": "decision-trees",
+          "label": "Decision trees",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:tool-descriptive-statistics",
+          "code": "descriptive-statistics",
+          "label": "Descriptive statistics",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:tool-circular-models",
+          "code": "circular-models",
+          "label": "Circular business models",
+          "official": true,
+          "era": "2024",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2024:tool-force-field",
+          "code": "force-field",
+          "label": "Force field analysis (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:tool-gantt",
+          "code": "gantt",
+          "label": "Gantt chart (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:tool-hofstede",
+          "code": "hofstede",
+          "label": "Hofstede’s cultural dimensions (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": []
+        },
+        {
+          "id": "2024:tool-porter",
+          "code": "porter",
+          "label": "Porter's generic strategies (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:tool-contribution",
+          "code": "contribution",
+          "label": "Contribution (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:tool-critical-path",
+          "code": "critical-path",
+          "label": "Critical path analysis (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2024:tool-regression",
+          "code": "regression",
+          "label": "Simple linear regression (HL only)",
+          "official": true,
+          "era": "2024",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2016:earlier",
+      "code": null,
+      "label": "Earlier syllabus",
+      "official": true,
+      "era": "2016",
+      "scope": "SL+HL",
+      "banks": [
+        "ib-business-management-hl",
+        "ib-business-management-sl"
+      ],
+      "sections": [
+        {
+          "id": "2016:1.1",
+          "code": "1.1",
+          "label": "1.1 Introduction to business management (earlier syllabus)",
+          "official": true,
+          "era": "2016",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2016:1.5",
+          "code": "1.5",
+          "label": "1.5 External environment (earlier syllabus)",
+          "official": true,
+          "era": "2016",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2016:1.7",
+          "code": "1.7",
+          "label": "1.7 Organizational planning tools (earlier syllabus, HL only)",
+          "official": true,
+          "era": "2016",
+          "scope": "HL",
+          "banks": [
+            "ib-business-management-hl"
+          ]
+        },
+        {
+          "id": "2016:2.1",
+          "code": "2.1",
+          "label": "2.1 Functions and evolution of human resource management (earlier syllabus)",
+          "official": true,
+          "era": "2016",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        },
+        {
+          "id": "2016:4.8",
+          "code": "4.8",
+          "label": "4.8 E-commerce (earlier syllabus)",
+          "official": true,
+          "era": "2016",
+          "scope": "SL+HL",
+          "banks": [
+            "ib-business-management-hl",
+            "ib-business-management-sl"
+          ]
+        }
+      ]
+    }
+  ]
+}

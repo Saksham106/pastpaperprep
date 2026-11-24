@@ -6,7 +6,7 @@ import { formatQuestionTopic } from "@/lib/presentation";
 
 export type PdfLabelQuestion = {
   id: string; bankSlug: BankSlug; year: number; session: string; paper: number; number: number;
-  component?: string; marks: number | null; primaryTopic: string;
+  component?: string; zone?: string; marks: number | null; primaryTopic: string;
 };
 
 // Cambridge banks store the month, the full series name or the s/w/m file-name code; IB names are already readable.
@@ -23,7 +23,12 @@ export function pdfSessionLabel(bankSlug: BankSlug, session: string): string {
 }
 
 /** Where a question came from, e.g. "2024 May/June · Paper 22 · Q5". */
-export function pdfSourceLabel(question: Pick<PdfLabelQuestion, "bankSlug" | "year" | "session" | "paper" | "component" | "id" | "number">): string {
+export function pdfSourceLabel(question: Pick<PdfLabelQuestion, "bankSlug" | "year" | "session" | "paper" | "component" | "zone" | "id" | "number">): string {
+  // IB Business Management papers run in several time zones with different questions, so the zone is part of the citation (TZ0 is not shown).
+  if (question.bankSlug === "ib-business-management-hl" || question.bankSlug === "ib-business-management-sl") {
+    const zone = /^TZ[1-3]$/.exec(question.zone ?? "")?.[0];
+    return [`${question.year} ${question.session}`, `Paper ${question.paper}`, zone, `Q${question.number}`].filter(Boolean).join(" · ");
+  }
   const component = question.component || question.id.match(/-(\d{2})-q\d+$/)?.[1] || String(question.paper);
   const notSat = isNotSatSeries(question.bankSlug, question.year, question.session) ? " (not sat)" : "";
   return `${question.year} ${pdfSessionLabel(question.bankSlug, question.session)}${notSat} · Paper ${component} · Q${question.number}`;

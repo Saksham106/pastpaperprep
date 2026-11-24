@@ -57,6 +57,27 @@ const PDF_TITLE_FONT_FILE = "YoungSerif-Regular.ttf";
 const WIN_ANSI_EXTRA = new Set(Array.from("€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ").map((character) => character.codePointAt(0)!));
 const isWinAnsi = (code: number) => (code >= 32 && code <= 126) || (code >= 160 && code <= 255) || WIN_ANSI_EXTRA.has(code);
 
+/**
+ * Shared case study: how many leading question images each question job leaves out because the case already printed
+ * on the page run before it. A case prints once, before the first of a run of consecutive question jobs that share it;
+ * any answer job in between ends the run (answers after each question reprint the case so each question stands alone).
+ * The on-screen views are unaffected: they keep the case above every question.
+ */
+export function sharedStimulusSkips<T extends { id: string; bankSlug?: string; stimulusId?: string; stimulusKey?: string; stimulusImageCount?: number }>(jobs: readonly PdfJob<T>[]): Map<string, number> {
+  const skips = new Map<string, number>();
+  let previous: string | null = null;
+  for (const { question, kind } of jobs) {
+    if (kind !== "question") { previous = null; continue; }
+    // Identity is the content of the case crops (bank + ordered crop hashes, as `stimulusKey`), so byte-identical case
+    // books of two variants print once; without it, fall back to the variant-specific id. Variants are never merged.
+    const identity = question.stimulusKey || question.stimulusId;
+    const key = identity && question.stimulusImageCount ? `${question.bankSlug}:${identity}` : null;
+    if (key && key === previous) skips.set(question.id, question.stimulusImageCount!);
+    previous = key;
+  }
+  return skips;
+}
+
 export function orderPdfJobs<T>(questions: T[], content: PdfContent, placement: PdfAnswerPlacement): PdfJob<T>[] {
   const questionJobs = questions.map((question): PdfJob<T> => ({ question, kind: "question" }));
   const answerJobs = questions.map((question): PdfJob<T> => ({ question, kind: "answer" }));
@@ -160,7 +181,9 @@ export function inferredPdfDpiForBank(bank: UnifiedQuestion["bankSlug"]): number
   if (["igcse-biology-0610", "igcse-chemistry-0620", "igcse-physics-0625",
     "igcse-coordinated-sciences-0654", "igcse-economics-0455", "igcse-computer-science-0478",
     // IB Computer Science crops are rendered at 1.5 px/pt (527 pt wide = 791 px), like 0478.
-    "ib-computer-science-hl", "ib-computer-science-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"].includes(bank)) return 108;
+    "ib-computer-science-hl", "ib-computer-science-sl",
+    // IB Business Management crops are rendered the same way (527 pt wide = 791 px).
+    "ib-business-management-hl", "ib-business-management-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"].includes(bank)) return 108;
   if (["ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl",
     "ib-physics-hl", "ib-physics-sl"].includes(bank)) return 126;
   if (bank === "ib-economics-hl" || bank === "ib-economics-sl") return 144;
@@ -442,6 +465,8 @@ export async function downloadQuestionPdf(
     physicalSizePt?: readonly [number, number] | null,
     sourceSegments?: readonly SourcePrintSegment[] | null,
     expectedRaster?: readonly [number, number] | null,
+    /** True for the first crop actually printed for a question (a shared case's skipped crops do not count); default: image 0. */
+    startsQuestion: boolean = imageIndex === 0,
   ) => {
     const excluded = sourceSegments?.filter((part) => part.include === false) ?? [];
     let loaded: HTMLImageElement;
@@ -492,14 +517,14 @@ export async function downloadQuestionPdf(
     const whole = planWholePdfImage(loaded.naturalWidth, visibleHeight, wholeSize, shortAnswerRow, fallbackDpi);
     if (hiddenOnlyAtEnd && (!segments || kept.length === 1 || (whole.scale === 1 && !whole.heldReason))) {
       placeImage(preparePdfImage(loaded, visibleHeight), wholeSize, shortAnswerRow, fallbackDpi,
-        questionId, kind, imageIndex, label, marks, calculator, imageIndex > 0);
+        questionId, kind, imageIndex, label, marks, calculator, !startsQuestion);
       return;
     }
     // Too tall for one A4 page at print size: break only where the exam paper itself breaks,
     // so every source page keeps its printed size and no diagram is ever cut.
     for (const [partIndex, part] of kept.entries()) {
       placeImage(preparePdfImage(loaded, part.sourceHeight, part.sourceY), [physicalSizePt![0], part.physicalHeightPt],
-        false, fallbackDpi, questionId, kind, imageIndex, label, marks, calculator, imageIndex > 0 || partIndex > 0);
+        false, fallbackDpi, questionId, kind, imageIndex, label, marks, calculator, !startsQuestion || partIndex > 0);
     }
   };
 
@@ -671,7 +696,9 @@ export async function downloadQuestionPdf(
 
   const positions = new Map(questions.map((question, index) => [question, index + 1]));
   let completed = 0;
-  for (const { question, kind } of orderPdfJobs(questions, content, answerPlacement)) {
+  const jobs = orderPdfJobs(questions, content, answerPlacement);
+  const stimulusSkips = sharedStimulusSkips(jobs);
+  for (const { question, kind } of jobs) {
     if (content === "both" && answerPlacement === "all-answers-last" && kind === "answer" && currentSection !== "Answers") {
       currentSection = "Answers";
       startAnswerPage = true;
@@ -683,13 +710,18 @@ export async function downloadQuestionPdf(
     const label: PdfLabel = { heading: kind === "question" ? `Question ${position}` : `Question ${position} · Mark scheme`, source: pdfSourceLabel(question) };
     if (kind === "question") {
       if (!question.questionImages.length) throw new Error(`Question image is missing for ${question.id}`);
+      const skipped = Math.min(stimulusSkips.get(question.id) ?? 0, question.questionImages.length - 1);
+      let firstRendered = true;
       for (const [index, source] of question.questionImages.entries()) {
+        if (index < skipped) continue;
+        const startsQuestion = firstRendered;
+        firstRendered = false;
         if (question.bankSlug === "igcse-additional" && question.questionPrintSizesPt?.[index] &&
           question.questionPrintSegments?.[index] && question.questionRasterSizesPx?.[index]) {
           await verify0606PdfMetadata(question, "question", index);
         }
         await addImagePage(question.bankSlug, question.id, "question", index, source, label, question.marks, question.calculator ?? null,
-          question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index]);
+          question.questionPrintSizesPt?.[index], question.questionPrintSegments?.[index], question.questionRasterSizesPx?.[index], startsQuestion);
       }
     } else if (question.mcqAnswer) {
       placeMcqAnswer(question.mcqAnswer, { ...label, heading: `Q${position}` });

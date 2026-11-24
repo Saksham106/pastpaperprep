@@ -159,6 +159,14 @@ export type UnifiedQuestion = {
   markschemeImages: string[];
   questionImageCount: number;
   markschemeImageCount: number;
+  /**
+   * Shared case study: the first `stimulusImageCount` question images are the case study's crops, stored once and
+   * referenced by every question that uses them. A worksheet prints them once, before the first of those questions.
+   */
+  stimulusId?: string;
+  stimulusImageCount?: number;
+  /** Content identity of the case crops (first 16 hex of the sha256 of their ordered hashes): equal across variants that print the same case. */
+  stimulusKey?: string;
   questionAssetPaths: string[];
   markschemeAssetPaths: string[];
   /** True when a verified worked explanation is published for this question. */
@@ -314,7 +322,9 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     ...subtopics,
     ...skills,
     summary,
-    accessibleText,
+    // A bank can name the text to search when its accessible text carries a long shared case (IB Business Management),
+    // so one word from a case does not match every question of that paper.
+    text(raw.searchSourceText) || accessibleText,
     solution ?? "",
   ]
     .join(" ")
@@ -354,6 +364,8 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     markschemeImages,
     questionImageCount: questionImages.length,
     markschemeImageCount: markschemeImages.length,
+    ...(text(raw.stimulusId) && integer(raw.stimulusImageCount) > 0 && integer(raw.stimulusImageCount) < questionImages.length
+      ? { stimulusId: text(raw.stimulusId), stimulusImageCount: integer(raw.stimulusImageCount), ...(text(raw.stimulusKey) ? { stimulusKey: text(raw.stimulusKey) } : {}) } : {}),
     questionAssetPaths: isPrivateRuntimeBank(slug)
       ? questionImages
       : questionImages.map((path) => storageObjectPath(slug, path)),
