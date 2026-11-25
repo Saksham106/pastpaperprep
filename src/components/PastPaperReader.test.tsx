@@ -107,6 +107,7 @@ describe("PastPaperReader", () => {
     let height = 1000;
     Object.defineProperty(first, "offsetHeight", { get: () => height });
     stage.scrollTop = 400; fireEvent.scroll(stage);
+    await act(async () => { await new Promise(resolve => requestAnimationFrame(() => resolve(null))); });
     height = 1500;
     fireEvent.click(screen.getByRole("button", { name: "Focus view" }));
     expect(stage.scrollTop).toBe(600);
@@ -216,6 +217,18 @@ describe("PastPaperReader", () => {
     fireEvent.click(screen.getByRole("button", { name: "Retry PDF" }));
     await waitFor(() => expect(screen.getByRole("img", { name: /Question paper, page 1/ })).toBeInTheDocument());
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+  it("reuses a loaded PDF when switching tabs and back instead of fetching it again", async () => {
+    const view = render(<PastPaperReader />);
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    fireEvent.click(screen.getByRole("tab", { name: "Mark scheme" }));
+    await screen.findByRole("img", { name: /Mark scheme, page 1/ });
+    fireEvent.click(screen.getByRole("tab", { name: "Question paper" }));
+    expect(screen.queryByText("Loading original PDF…")).not.toBeInTheDocument();
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(mocks.getDocument).toHaveBeenCalledTimes(2);
+    view.unmount();
   });
   it("opens native focus view and restores focus and scrolling after Escape", async () => {
     render(<PastPaperReader />);

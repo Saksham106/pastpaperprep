@@ -13,7 +13,7 @@ export function PastPaperPdfPage({ pdf, number, title, zoom = "fit" }: { pdf: PD
   useEffect(() => {
     const node = slot.current;
     if (!node) return;
-    const measure = () => setWidth(Math.max(100, node.clientWidth - 32));
+    const measure = () => setWidth(Math.max(100, Math.round((node.clientWidth - 32) / 8) * 8));
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(node);

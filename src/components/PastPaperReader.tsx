@@ -44,14 +44,18 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
     window.document.body.style.overflow = "hidden";
     return () => { window.document.body.style.overflow = previous; };
   }, [focused]);
-  const [loaded, setLoaded] = useState<{ src: string; retry: number; pdf: PDFDocumentProxy | null; error: boolean } | null>(null);
+  // Loaded documents are kept per source, so switching tabs back and forth never re-fetches or re-parses a PDF.
+  const [loaded, setLoaded] = useState<Record<string, { retry: number; pdf: PDFDocumentProxy | null; error: boolean }>>({});
+  const documents = useRef(new Map<string, PDFDocumentProxy>());
+  const scrollFrame = useRef(0);
   const [retry, setRetry] = useState(0);
   const [ownKind, setOwnKind] = useState<PaperDocumentKind>("question");
   const kinds = paperDocumentKinds(paper);
   const kind = kinds.includes(controlledKind ?? ownKind) ? controlledKind ?? ownKind : "question";
   const title = documentTitle(paper, kind);
   const src = paper.sources[kind] ?? paper.sources.question;
-  const current = loaded?.src === src && loaded.retry === retry ? loaded : null;
+  const entry = loaded[src];
+  const current = entry && (entry.pdf || entry.retry === retry) ? entry : null;
   const pdf = current?.pdf ?? null;
   const error = current?.error ?? false;
   const stageRef = useRef<HTMLDivElement>(null);
@@ -66,7 +70,6 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
   function selectDocument(next: PaperDocumentKind) {
     if (next === kind) return;
     if (onKindChange) onKindChange(next); else setOwnKind(next);
-    setRetry(value => value + 1);
   }
   function goTo(value: number) {
     const next = Math.max(1, Math.min(pdf?.numPages || 1, Number.isFinite(value) ? Math.trunc(value) : pageNumber));
@@ -84,7 +87,9 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
     if (page) scrollAnchors.current.question = { page, fraction: 0 };
   }, [paper.questionPages]);
   useEffect(() => {
+    if (documents.current.has(src)) return;
     let disposed = false;
+    let finished = false;
     let task: ReturnType<typeof import("pdfjs-dist")["getDocument"]> | undefined;
     const abort = new AbortController();
     async function load() {
@@ -98,12 +103,20 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
         pdfjs.GlobalWorkerOptions.workerSrc = "/pdfjs/pdf.worker.min.mjs";
         task = pdfjs.getDocument({ data });
         const document = await task.promise;
-        if (!disposed) setLoaded({ src, retry, pdf: document, error: false });
-      } catch { if (!disposed) setLoaded({ src, retry, pdf: null, error: true }); }
+        if (disposed) return;
+        finished = true;
+        documents.current.set(src, document);
+        setLoaded(previous => ({ ...previous, [src]: { retry, pdf: document, error: false } }));
+      } catch { if (!disposed) setLoaded(previous => ({ ...previous, [src]: { retry, pdf: null, error: true } })); }
     }
     void load();
-    return () => { disposed = true; abort.abort(); void task?.destroy(); };
+    return () => { disposed = true; abort.abort(); if (!finished) void task?.destroy(); };
   }, [src, retry]);
+  useEffect(() => {
+    const cache = documents.current;
+    return () => { for (const document of cache.values()) void document.destroy(); cache.clear(); };
+  }, []);
+  useEffect(() => () => cancelAnimationFrame(scrollFrame.current), []);
   useLayoutEffect(() => {
     const stage = stageRef.current;
     if (!stage || !pdf) return;
@@ -122,7 +135,7 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
       const nearest = [...visible.values()].sort((a, b) => b.intersectionRect.height - a.intersectionRect.height)[0];
       const number = Number((nearest?.target as HTMLElement | undefined)?.dataset.paperPage);
       if (number) setPositions(previous => previous[kind] === number ? previous : { ...previous, [kind]: number });
-    }, { root: stage, threshold: [0, .1, .25, .5, .75, 1] });
+    }, { root: stage, threshold: [0, .25, .5, .75] });
     stage.querySelectorAll("[data-paper-page]").forEach(node => observer.observe(node));
     return () => observer.disconnect();
   }, [pdf, kind, mode]);
@@ -153,8 +166,14 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
         const stage = stageRef.current;
         if (mode !== "scroll" || !stage || !pdf) return;
         scrollPositions.current[kind] = stage.scrollTop;
-        const node = [...stage.querySelectorAll<HTMLElement>("[data-paper-page]")].find(page => page.offsetHeight > 0 && page.offsetTop <= stage.scrollTop && page.offsetTop + page.offsetHeight > stage.scrollTop);
-        if (node) scrollAnchors.current[kind] = { page: Number(node.dataset.paperPage), fraction: (stage.scrollTop - node.offsetTop) / node.offsetHeight };
+        // Layout reads run at most once per frame; the cheap scrollTop read above stays per-event.
+        if (scrollFrame.current) return;
+        scrollFrame.current = requestAnimationFrame(() => {
+          scrollFrame.current = 0;
+          const top = stage.scrollTop;
+          const node = [...stage.querySelectorAll<HTMLElement>("[data-paper-page]")].find(page => page.offsetHeight > 0 && page.offsetTop <= top && page.offsetTop + page.offsetHeight > top);
+          if (node) scrollAnchors.current[kind] = { page: Number(node.dataset.paperPage), fraction: (top - node.offsetTop) / node.offsetHeight };
+        });
       }} className={styles.stage} id="paper-panel" role="tabpanel" tabIndex={0} aria-labelledby={`paper-tab-${kind}`}>
         {error ? <div className={styles.error} role="alert">The PDF could not be loaded. Please try again.<button type="button" onClick={() => setRetry(value => value + 1)}>Retry PDF</button></div> : pdf ? mode === "single" ? <PastPaperPdfPage key={src} pdf={pdf} number={pageNumber} title={title} zoom={zoom} /> : <div className={`${styles.pageStack} ${zoom === "actual" ? styles.actualStack : ""}`}>{Array.from({ length: pdf.numPages }, (_, index) => index + 1).map(number => <div key={`${src}-${number}`} data-paper-page={number} className={styles.scrollPage} aria-label={`${title}, page ${number}`}>
           {Math.abs(number - pageNumber) <= 1 ? <PastPaperPdfPage pdf={pdf} number={number} title={title} zoom={zoom} /> : <span className={styles.pagePlaceholder}>Page {number}</span>}
