@@ -17,7 +17,8 @@ export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" } as const;
-const DEFAULT_MODEL = "claude-opus-5-5";
+/** Sonnet 5.5: plenty for school-level study help and site navigation, at half the price of Opus (owner, 2026-11-25). */
+const DEFAULT_MODEL = "claude-sonnet-5-5";
 const BUSY = "The helper is busy right now. Try again in a minute.";
 const FAILED = "The helper couldn't answer. Try again.";
 const REFUSED = "I can't help with that one. Try asking in a different way.";
