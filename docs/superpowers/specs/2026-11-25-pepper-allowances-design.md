@@ -1,6 +1,6 @@
 # Pepper allowances: weekly credits by plan, plus credit packs
 
-Status: approved by the owner on 2026-11-25 (revision 3) and built on `feat/pepper-allowances`. The production migration has not been applied.
+Status: approved by the owner on 2026-11-25 (revision 3) and built on `feat/pepper-allowances` (PR #531). The production migration was applied on 2026-11-25 with the owner's OK.
 
 ## Cost per message
 
@@ -94,7 +94,7 @@ Credits are a display unit at 10× the message count. They aren't tied to token 
 
 ## Rollout
 
-1. **Migration first, with the owner's OK:** apply `20261126000000_helper_weekly_credits.sql` to production before this code deploys. Until then the code fails closed: Pepper answers "Could not check your credits" and nothing is spent. Read back the ACLs afterwards: only `service_role` may execute the four functions, and students may only select their own rows.
+1. **Migration (done 2026-11-25, owner approved):** `20261126000000_helper_weekly_credits.sql` was applied in one transaction with its `schema_migrations` row. The read-back passed 44 of 44 checks: tables with RLS, the four functions as `SECURITY DEFINER` owned by postgres with a fixed `search_path`, execute for `service_role` only, own-row select policies, no write grants, and the history row. The security advisor flagged nothing new.
 2. **Stripe needs nothing new.** Packs use inline `price_data`. The live webhook already sends `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `charge.refunded` and `charge.dispute.created` (read 2026-11-25).
 3. **Unchanged:** the v2 daily RPCs stay in place so older Pepper previews keep working. Retire them in a later migration.
 4. **First live pack purchase:** the owner does it, then checks the pack row and the /account balance.
