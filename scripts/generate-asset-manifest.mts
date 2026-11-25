@@ -4,11 +4,12 @@
 // bank's server-only search corpus (src/lib/question-search-corpus.ts) for /api/questions/search. Each bank runs in its own
 // child process because the question loader caches every bank for the life of a process.
 import { spawn } from "node:child_process";
-import { mkdir, readdir, unlink, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { getAvailableBanks, type BankSlug } from "@/lib/banks";
 import { assetManifestFileName } from "@/lib/asset-manifest";
 import { buildBankAssetManifest } from "@/lib/asset-manifest-build";
+import { imageSizeLookup, type EncodedImageSizes } from "@/lib/image-sizes";
 import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { buildSearchCorpus } from "@/lib/question-search-corpus-build";
@@ -30,8 +31,11 @@ if (single >= 0) {
   }
   // Unlike the bank itself, bad letters are never skipped: an invalid overlay fails the build.
   const mcqAnswers = await loadBankMcqAnswers(slug);
+  // Pixel sizes from scripts/generate-image-sizes.mts; a bank without a file keeps unsized images.
+  const sizes = await readFile(join(process.cwd(), "src", "data", "image-sizes", `${slug}.json`), "utf8")
+    .then((text) => JSON.parse(text) as EncodedImageSizes, (error: NodeJS.ErrnoException) => { if (error.code === "ENOENT") return null; throw error; });
   const file = join(ASSET_MANIFEST_DIRECTORY, assetManifestFileName(slug));
-  await writeFile(file, JSON.stringify(buildBankAssetManifest(questions, mcqAnswers)));
+  await writeFile(file, JSON.stringify(buildBankAssetManifest(questions, mcqAnswers, imageSizeLookup(sizes))));
   await writeFile(join(SEARCH_CORPUS_DIRECTORY, assetManifestFileName(slug)), JSON.stringify(buildSearchCorpus(questions)));
   console.log(`${slug}: ${questions.length} questions${mcqAnswers.size ? `, ${mcqAnswers.size} MCQ letters` : ""} -> ${assetManifestFileName(slug)}`);
   process.exit(0);

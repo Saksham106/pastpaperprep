@@ -1,7 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { SourceCropImage } from "@/components/SourceCropImage";
+import { AssetPlaceholder, MarkSchemeImage, SourceCropImage } from "@/components/SourceCropImage";
 import approved from "@/data/reviewed-blank-tails-0606.json";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { imageSizeLookup, type EncodedImageSizes } from "@/lib/image-sizes";
+
+/** Checked against the file itself with macOS `sips -g pixelWidth -g pixelHeight`. */
+const KNOWN_9709_Q1_SIZE = [774, 1081] as const;
 
 const { verifyBytes } = vi.hoisted(() => ({ verifyBytes: vi.fn() }));
 vi.mock("@/lib/verified-asset-bytes", () => ({ fetchVerifiedImageBlob: verifyBytes }));
@@ -66,5 +72,41 @@ describe("SourceCropImage", () => {
   it("keeps other images lazy", () => {
     render(<SourceCropImage bankSlug="ib-sl" questionId="q" src="https://assets.example/q.webp" alt="Original question 2" />);
     expect(screen.getByAltText("Original question 2")).toHaveAttribute("loading", "lazy");
+  });
+});
+
+/** Both boxes are width: 100% (max 900px) with height from the shape, so equal shapes mean equal boxes. */
+function shapeOf(element: Element): string {
+  const style = (element as HTMLElement).style.aspectRatio;
+  return style || `${element.getAttribute("width")} / ${element.getAttribute("height")}`;
+}
+
+describe("question image boxes", () => {
+  // A known crop: 9709 March 2026 Paper 12 Q1, as read from its WebP header by scripts/generate-image-sizes.mts.
+  const path = "a-level-maths-9709/releases/full2118-v1-191db74b1cb4/questions/9709-2026-m-12/q1-3-1.webp";
+  const size = imageSizeLookup(JSON.parse(readFileSync(join(process.cwd(), "src/data/image-sizes/a-level-maths-9709.json"), "utf8")) as EncodedImageSizes)(path);
+
+  it("reserves the crop's real size, and its placeholder has exactly that shape", () => {
+    expect(size).toEqual(KNOWN_9709_Q1_SIZE);
+    const { container } = render(<><AssetPlaceholder size={size} label="Loading original question" />
+      <SourceCropImage bankSlug="a-level-maths-9709" questionId="9709-2026-m-12-q1" src="/q1.webp" alt="Q1" size={size} /></>);
+    const image = screen.getByRole("img", { name: "Q1" });
+    expect(image).toHaveAttribute("width", String(KNOWN_9709_Q1_SIZE[0]));
+    expect(image).toHaveAttribute("height", String(KNOWN_9709_Q1_SIZE[1]));
+    expect(shapeOf(container.querySelector(".asset-placeholder")!)).toBe(shapeOf(image));
+  });
+
+  it("keeps placeholder and image the same shape when the size is unknown", () => {
+    const { container } = render(<><AssetPlaceholder />
+      <SourceCropImage bankSlug="igcse" questionId="q" src="/q.webp" alt="Unsized" /></>);
+    expect(shapeOf(container.querySelector(".asset-placeholder")!)).toBe(shapeOf(screen.getByRole("img", { name: "Unsized" })));
+  });
+
+  it("sets a mark-scheme crop's natural width and shape before it loads", () => {
+    render(<MarkSchemeImage src="/ms.webp" alt="MS" size={[1098, 185]} />);
+    const image = screen.getByRole("img", { name: "MS" });
+    expect(image.style.width).toBe("1098px");
+    expect(image.style.height).toBe("auto");
+    expect(shapeOf(image)).toBe("1098 / 185");
   });
 });

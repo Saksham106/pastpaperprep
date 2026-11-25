@@ -411,6 +411,23 @@ Then compose a `verified_readback` receipt over the full regenerated manifest. C
 
 For a corrected asset that keeps the same key, use a separate reviewed replacement operation, verify the remote object hash/content, then exercise the exact question and answer through the signed-URL API before release.
 
+### 8b. Record image sizes
+
+Bank pages reserve each crop's real box before it loads, so cards don't jump while students scroll (CLS). The sizes live in `src/data/image-sizes/<bank>.json`. Re-run the script whenever a bank, a year, or a crop repair is added, after the free copy is published:
+
+```bash
+# Same release gates as the CI build job, so every released bank gets a manifest.
+PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED=true \
+PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION=true PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED=true \
+NODE_ENV=production npm run generate:asset-manifest
+npx tsx scripts/generate-image-sizes.mts            # or --bank <slug>; --no-bucket skips the public bucket
+npm run generate:asset-manifest                     # picks the sizes up (prebuild does this too)
+```
+
+It reads each WebP header only (first 30 bytes), never decodes or changes an image, and writes nothing to storage. Free-year crops are read from `free.pastpaperprep.com` with 64-byte range requests. Paid crops come from the sibling ingestion folders, matched by SHA-256 where a receipt records it (R2 upload logs, `*ImageHashes`, content-addressed repair names), otherwise by file name plus folder, and only when every local copy agrees. A crop found both ways must have the same size in both, or the script fails. A crop with no size keeps the old fixed 1400×1000 box. Sizes reach the page in the static `public/free-assets/<bank>.json` and the `/api/assets/*` responses (`sizesPx`), never in page HTML or RSC.
+
+`../ppp-ingestion-toolkit` already records `width` and `height` for every crop it renders (`ppp_ingest/steps/segment.py`). It could write `src/data/image-sizes/<bank>.json` for a new bank directly.
+
 ### 9. Verify the commercial application
 
 Run the application gates:
