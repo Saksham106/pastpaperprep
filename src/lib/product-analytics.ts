@@ -96,6 +96,12 @@ function withEventContext<T extends { event?: string; properties?: Record<string
   return { ...event, properties: { ...event.properties, ...context, signed_in: browserAccountId() !== undefined } };
 }
 
+// Invite and referral links carry a code in the path; analytics only needs the route.
+const CODE_PATH = /^\/(invite|r)\/[^/]+/;
+function scrubPath(pathname: string): string {
+  return pathname.replace(CODE_PATH, "/$1/:code");
+}
+
 /** Heatmap batches are keyed by the page's full URL; keep only origin and path, merging pages that differ only by query. */
 function scrubHeatmapData(data: unknown): Record<string, unknown[]> | undefined {
   if (!data || typeof data !== "object" || Array.isArray(data)) return undefined;
@@ -106,10 +112,10 @@ function scrubHeatmapData(data: unknown): Record<string, unknown[]> | undefined 
     try {
       const url = new URL(href);
       if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) continue;
-      page = `${url.origin}${url.pathname}`;
+      page = `${url.origin}${scrubPath(url.pathname)}`;
     } catch { continue; }
-    const bounded = points.filter(point => point && typeof point === "object").slice(0, 1000);
-    pages[page] = [...(pages[page] ?? []), ...bounded];
+    const merged = [...(pages[page] ?? []), ...points.filter(point => point && typeof point === "object")];
+    pages[page] = merged.slice(0, 1000);
   }
   return Object.keys(pages).length ? pages : undefined;
 }
@@ -145,9 +151,10 @@ export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, u
       catch { return undefined; }
     }
     if (typeof value === "string" && /(?:url|href|referrer)$/i.test(key)) {
-      try { const url = new URL(value); if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) return undefined; return `${url.origin}${url.pathname}`; }
+      try { const url = new URL(value); if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) return undefined; return `${url.origin}${scrubPath(url.pathname)}`; }
       catch { return undefined; }
     }
+    if (typeof value === "string" && (/pathname$/i.test(key) || key === "path")) return scrubPath(value);
     if (Array.isArray(value)) {
       const items = exception && key === "frames" ? boundExceptionFrames(value.filter(item => item && typeof item === "object") as Record<string, unknown>[]) : value;
       return items.slice(0, exception ? 50 : items.length).map(item => scrub(item, key, depth + 1, exception)).filter(item => item !== undefined);

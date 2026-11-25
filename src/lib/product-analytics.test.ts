@@ -308,6 +308,27 @@ describe("PostHog product analytics", () => {
     expect(JSON.stringify(result)).not.toContain("private");
   });
 
+  it("keeps invite and referral codes out of every path and URL", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const result = sanitizeAnalyticsEvent({ event: "$pageleave", properties: {
+      $current_url: "https://pastpaperprep.com/invite/abc123secret?x=1",
+      $pathname: "/r/friendcode",
+      $prev_pageview_pathname: "/invite/abc123secret",
+      $heatmap_data: { "https://pastpaperprep.com/r/friendcode/": [{ x: 1, y: 2 }] },
+    } });
+    expect(JSON.stringify(result)).not.toMatch(/abc123secret|friendcode/);
+    expect(result?.properties).toMatchObject({ $current_url: "https://pastpaperprep.com/invite/:code", $pathname: "/r/:code", $prev_pageview_pathname: "/invite/:code" });
+  });
+
+  it("caps a page's merged heatmap points", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const points = Array.from({ length: 800 }, (_, x) => ({ x, y: 0 }));
+    const result = sanitizeAnalyticsEvent({ event: "$$heatmap", properties: { $heatmap_data: {
+      "https://pastpaperprep.com/banks/igcse?a=1": points, "https://pastpaperprep.com/banks/igcse?a=2": points,
+    } } });
+    expect((result?.properties?.$heatmap_data as Record<string, unknown[]>)["https://pastpaperprep.com/banks/igcse"]).toHaveLength(1000);
+  });
+
   it("never sends an element's text from dead clicks or other element events", async () => {
     const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
     expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $el_text: "Alex's worksheet", $dead_click_scroll_delay_ms: 1200 } })?.properties)

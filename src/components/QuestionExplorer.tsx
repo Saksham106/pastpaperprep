@@ -325,6 +325,8 @@ access: ExplorerAccess;
   const [indexAttempt, setIndexAttempt] = useState(0);
   const [indexLoaded, setIndexLoaded] = useState(!indexUrl);
   const [searchResult, setSearchResult] = useState<{ query: string; ids: Set<string> } | null>(null);
+  // The query the server search last answered (with results or by failing, which keeps the local match).
+  const [searchAnsweredFor, setSearchAnsweredFor] = useState("");
   const [sort, setSort] = useState<QuestionSort>(initialState.sort);
   const [filters, setFilters] = useState<Pick<QuestionFilters, MultiKey>>(initialState.filters);
   const [visible, setVisible] = useState(initialState.visible);
@@ -489,20 +491,6 @@ access: ExplorerAccess;
     const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
   }, [effectiveFreeOnly, matching, savedIds, savedOnly]);
-  // Dead ends: a student's own filter or search left nothing to practise. Once per settled state; never the search text.
-  const listInteractedRef = useRef(false);
-  const emptyReportedRef = useRef("");
-  useEffect(() => {
-    if (!listInteractedRef.current || !bank || filtered.length > 0) return;
-    const key = JSON.stringify([filters, search.trim().toLocaleLowerCase(), effectiveFreeOnly, savedOnly]);
-    if (emptyReportedRef.current === key) return;
-    const timer = setTimeout(() => {
-      emptyReportedRef.current = key;
-      const activeFilters = Object.values(filters).reduce((count, values) => count + (Array.isArray(values) ? values.length : 0), 0);
-      trackProductEvent("question_list_empty", { bank, filters: activeFilters, search: Boolean(search.trim()), freeOnly: effectiveFreeOnly, savedOnly });
-    }, 800);
-    return () => clearTimeout(timer);
-  }, [bank, filtered, filters, search, effectiveFreeOnly, savedOnly]);
   const savedWorksheetView = Boolean(worksheetId) && !addingQuestions;
   const sharedSetView = !worksheetId && (sharedIds !== null || Boolean(sharedError));
   const sharedSetQuestions = useMemo(() => {
@@ -527,6 +515,26 @@ access: ExplorerAccess;
   const resultYears = useMemo(() => [...new Set(resultQuestions.map((question) => question.year))], [resultQuestions]);
   const anonymous = !resolvedAccess.authenticated && !resolvedAccess.bankAccess;
   const matchingFreeCount = resultQuestions.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length;
+  // Dead ends: the student's own filter or search left nothing to practise. Only once the full bank
+  // index and any server search have answered, outside saved/worksheet/shared lists, once per settled
+  // state (800 ms). Never the search text.
+  const [listInteracted, setListInteracted] = useState(false);
+  const emptyReportedRef = useRef("");
+  const normalizedListSearch = search.trim().toLocaleLowerCase();
+  const activeFilterCount = Object.values(filters).reduce((count, values) => count + (Array.isArray(values) ? values.length : 0), 0);
+  const listSettled = (!indexUrl || indexLoaded) && !indexError && (!normalizedListSearch || !bankSlug || searchAnsweredFor === normalizedListSearch);
+  const deadEnd = listInteracted && Boolean(bank) && listSettled && !savedOnly && !savedWorksheetView && !sharedSetView
+    && (activeFilterCount > 0 || Boolean(normalizedListSearch)) && filtered.length === 0;
+  useEffect(() => {
+    if (!deadEnd || !bank) return;
+    const key = JSON.stringify([filters, normalizedListSearch, effectiveFreeOnly]);
+    if (emptyReportedRef.current === key) return;
+    const timer = setTimeout(() => {
+      emptyReportedRef.current = key;
+      trackProductEvent("question_list_empty", { bank, filters: activeFilterCount, search: Boolean(normalizedListSearch), freeOnly: effectiveFreeOnly });
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [deadEnd, bank, filters, normalizedListSearch, effectiveFreeOnly, activeFilterCount]);
   const accessResolved = locationHydrated && !bootstrapPending;
   const freeGate = getFreeQuestionGate({ resolved: accessResolved, authenticated: resolvedAccess.authenticated, bankAccess: resolvedAccess.bankAccess, freeOnly, freeQuestionCount: matchingFreeCount });
   const shownQuestions = useMemo(() => {
@@ -828,11 +836,11 @@ access: ExplorerAccess;
           return payload.ids as string[];
         })
         .then((ids) => {
-          if (!controller.signal.aborted) setSearchResult({ query: normalizedSearch, ids: new Set(ids) });
+          if (!controller.signal.aborted) { setSearchResult({ query: normalizedSearch, ids: new Set(ids) }); setSearchAnsweredFor(normalizedSearch); }
         })
         .catch((error: unknown) => {
           if (error instanceof DOMException && error.name === "AbortError") return;
-          if (!controller.signal.aborted) setSearchResult(null);
+          if (!controller.signal.aborted) { setSearchResult(null); setSearchAnsweredFor(normalizedSearch); }
         });
     }, 250);
 
@@ -1187,7 +1195,7 @@ access: ExplorerAccess;
   };
 
   const toggle = (key: MultiKey, value: string) => {
-    listInteractedRef.current = true;
+    setListInteracted(true);
     if (key === "topics") setShowAllSubtopics(false);
     setFilters((current) => {
       const values = (current[key] ?? []) as string[];
@@ -1504,7 +1512,7 @@ access: ExplorerAccess;
         <label className="search-field">
           <span className="sr-only">Search questions</span>
           <MagnifyingGlass aria-hidden="true" />
-          <input value={search} onChange={(event) => { listInteractedRef.current = true; setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
+          <input value={search} onChange={(event) => { setListInteracted(true); setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
         </label>
         {routeConfig && <fieldset className={`course-route-picker${routeConfig.options.length > 2 ? " is-paper-tabs" : ""}${routeConfig.options.length > 3 ? " is-wrapping-tabs" : ""}`} role="radiogroup" aria-label={routeConfig.name}>
           <legend className="sr-only">{routeConfig.name}</legend>

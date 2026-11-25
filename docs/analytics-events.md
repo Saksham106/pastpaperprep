@@ -16,7 +16,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 
 **Behaviour capture (anonymous client only, since 2026-11-24).** Autocapture and session replay stay off. The cookieless client also sends:
 - `$pageleave` (`capture_pageleave: true`). It carries `$prev_pageview_duration` and `$prev_pageview_max_scroll_percentage`, and the next `$pageview` carries the same for the page before it. This powers bounce rate and session duration in Web analytics, and the heatmap scroll map.
-- Heatmaps (`capture_heatmaps: true`): click, rage-click and mouse positions per page as `$$heatmap` batches. Heatmap data isn't billed; the free plan shows heatmaps for 3 chosen pages. `sanitizeAnalyticsEvent` re-keys `$heatmap_data` by origin and path, so query strings and auth fragments never leave the page.
+- Heatmaps (`capture_heatmaps: true`): click, rage-click and mouse positions per page as `$$heatmap` batches. Heatmap data isn't billed; the free plan shows heatmaps for 3 chosen pages. `sanitizeAnalyticsEvent` re-keys `$heatmap_data` by origin and path, so query strings and auth fragments never leave the page. Invite and referral codes in paths (`/invite/<code>`, `/r/<code>`) become `:code` in every URL and path property.
 - `$dead_click` (`capture_dead_clicks: true`): a click after which nothing on the page changed (billed as a normal event). The SDK masks element text and attribute values (`mask_all_text`, `mask_all_element_attributes`), and `$el_text` is dropped again in the scrubber. Add the `ph-no-deadclick` class to deliberately inert elements.
 - Every anonymous event except heatmap batches carries `signed_in` (boolean, never the account), plus `connection` (`slow-2g`…`4g`), `save_data` and `release` where the browser exposes them (`analyticsEventContext`). Use them to split Web Vitals by network and to compare before/after a deploy.
 
@@ -27,8 +27,8 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `$pageview` | every page | (path) |
 | `question_filter_change` | bank page | `bank`, `filter` |
 | `question_list_more` | bank page, "Show 24 more questions" | `bank`, `shown` (questions listed after the click) |
-| `question_list_empty` | bank page, when the student's own filter or search leaves no questions; once per settled state (800 ms), never the search text | `bank`, `filters` (number of picked values), `search` (boolean), `freeOnly`, `savedOnly` |
-| `question_image_first_load` | bank page, the first question image finishing loading, once per page load | `bank`, `ms` (since the document started loading), `navigation` (`load` = this page was the one loaded, so `ms` is a page-load time; `client` = reached by in-app navigation), `host` |
+| `question_list_empty` | bank page, when the student's own filter or search leaves no questions, after the full bank index and any server search have answered; not for saved-only, worksheet or shared lists; once per settled state (800 ms), never the search text | `bank`, `filters` (number of picked values), `search` (boolean), `freeOnly` |
+| `question_image_first_load` | bank page, the first question image finishing loading, once per page load | `bank`, `ms` (since the document started loading), `navigation` (`load` = this page was the one loaded, so `ms` is a page-load time; `client` = reached by in-app navigation), `host` (store of the source link), `verifiedCrop` (hash-checked crop, so `ms` includes that check) |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
 | `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |

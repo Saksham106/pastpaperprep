@@ -37,7 +37,7 @@ describe("question list telemetry", () => {
     fireEvent.change(input, { target: { value: "zzqx" } });
     fireEvent.change(input, { target: { value: "zzqxv" } });
     await vi.waitFor(() => expect(eventsNamed("question_list_empty")).toHaveLength(1), { timeout: 3000 });
-    expect(eventsNamed("question_list_empty")[0]).toEqual(["question_list_empty", { bank: "igcse", filters: 0, search: true, freeOnly: false, savedOnly: false }]);
+    expect(eventsNamed("question_list_empty")[0]).toEqual(["question_list_empty", { bank: "igcse", filters: 0, search: true, freeOnly: false }]);
     expect(JSON.stringify(track.mock.calls)).not.toContain("zzqx");
   });
 

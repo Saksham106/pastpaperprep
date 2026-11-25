@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useEffect, useState, type ReactEventHandler, type SyntheticEvent } from "react";
+import { useEffect, useState, type ReactEventHandler } from "react";
 import { assetHost } from "@/lib/asset-host";
 import type { BankSlug } from "@/lib/banks";
 import { trackProductEvent } from "@/lib/product-analytics";
@@ -17,8 +17,9 @@ export function SourceCropImage({ src, alt, crop, bankSlug, questionId, onError,
   /** The first question image on the page: fetch it before anything else below the fold. */
   priority?: boolean;
 }) {
-  const loading = { loading: priority ? "eager" : "lazy", fetchPriority: priority ? "high" : "auto", ...(priority ? { onLoad: reportFirstQuestionImage(bankSlug) } : {}) } as const;
-  if (!crop || !matchesReviewedDisplayCrop(bankSlug, questionId, crop)) {
+  const verified = Boolean(crop && matchesReviewedDisplayCrop(bankSlug, questionId, crop));
+  const loading = { loading: priority ? "eager" : "lazy", fetchPriority: priority ? "high" : "auto", ...(priority ? { onLoad: reportFirstQuestionImage(bankSlug, src, verified) } : {}) } as const;
+  if (!crop || !verified) {
     return <Image unoptimized width={1400} height={1000} src={src} alt={alt} onError={onError} {...loading} />;
   }
   return <VerifiedCrop key={`${src}:${crop.imageSha256}`} src={src} alt={alt} crop={crop} onError={onError} loading={loading} />;
@@ -26,8 +27,9 @@ export function SourceCropImage({ src, alt, crop, bankSlug, questionId, onError,
 
 // The bank page's core moment: how long after navigation start the first question image was on screen.
 let firstQuestionImageReported = false;
-function reportFirstQuestionImage(bank: BankSlug) {
-  return (event: SyntheticEvent<HTMLImageElement>) => {
+// `host` comes from the signed or public source, not a verified crop's local blob: URL.
+function reportFirstQuestionImage(bank: BankSlug, src: string, verifiedCrop: boolean) {
+  return () => {
     if (firstQuestionImageReported || typeof performance === "undefined") return;
     firstQuestionImageReported = true;
     // ms counts from the document's load, so it is only a page-load time when this page was the one loaded.
@@ -36,11 +38,11 @@ function reportFirstQuestionImage(bank: BankSlug) {
       const entry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
       if (entry && new URL(entry.name).pathname === window.location.pathname) navigation = "load";
     } catch { /* keep "client" */ }
-    trackProductEvent("question_image_first_load", { bank, ms: Math.round(performance.now()), navigation, host: assetHost(event.currentTarget.currentSrc || event.currentTarget.src) });
+    trackProductEvent("question_image_first_load", { bank, ms: Math.round(performance.now()), navigation, host: assetHost(src), verifiedCrop });
   };
 }
 
-type ImageLoading = { loading: "eager" | "lazy"; fetchPriority: "high" | "auto"; onLoad?: (event: SyntheticEvent<HTMLImageElement>) => void };
+type ImageLoading = { loading: "eager" | "lazy"; fetchPriority: "high" | "auto"; onLoad?: () => void };
 
 function VerifiedCrop({ src, alt, crop, onError, loading }: { src: string; alt: string; crop: VisibleImageCrop; onError?: ReactEventHandler<HTMLImageElement>; loading: ImageLoading }) {
   const [verifiedUrl, setVerifiedUrl] = useState<string | null>(null);

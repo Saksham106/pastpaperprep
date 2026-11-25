@@ -74,7 +74,7 @@ describe("SourceCropImage", () => {
     const { unmount } = render(<SourceCropImage bankSlug="igcse" questionId="q1" src="https://free.pastpaperprep.com/images/igcse/questions/q1.webp" alt="Q1" priority />);
     fireEvent.load(screen.getByRole("img", { name: "Q1" }));
     await vi.waitFor(() => expect(track).toHaveBeenCalledTimes(1));
-    expect(track).toHaveBeenCalledWith("question_image_first_load", expect.objectContaining({ bank: "igcse", host: "free", ms: expect.any(Number) }));
+    expect(track).toHaveBeenCalledWith("question_image_first_load", expect.objectContaining({ bank: "igcse", host: "free", verifiedCrop: false, ms: expect.any(Number) }));
     expect(JSON.stringify(track.mock.calls)).not.toContain("q1.webp");
     unmount();
     render(<SourceCropImage bankSlug="igcse" questionId="q2" src="https://free.pastpaperprep.com/images/igcse/questions/q2.webp" alt="Q2" priority />);
