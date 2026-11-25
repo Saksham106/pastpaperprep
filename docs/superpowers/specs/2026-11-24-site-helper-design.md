@@ -24,7 +24,7 @@ All tools run on the server, read build-time metadata only, and never return que
 | `bank_details` | One bank's topics (with subtopics and counts), years, papers, sessions, Core/Extended or paper routes | `index.json` + new `public/search/facets.json` + `routeConfigFor` |
 | `find_past_papers` | Full papers in `/past-papers` matching a description ("AA HL May 2024 paper 1 TZ2") | `public/search/papers.json` via `searchSite` |
 | `open_bank` | Opens a bank with filters: topics, subtopics, years, papers, sessions, route, search words, free only | Validated against `bank_details`; URL built with `serializeExplorerState` |
-| `open_page` | Opens any other site page: a full paper, topic page, notes, My worksheets, dashboard, pricing | Path checked against an allowlist |
+| `open_page` | Opens any other site page: a full paper, topic page, article, notes page, My worksheets, dashboard, pricing | Exact match against known destinations: a fixed list, the search index, papers, and `public/search/pages.json` (articles and published notes, written at build) |
 
 The data files are read with `fs` from `public/search/`, shipped to the function with `outputFileTracingIncludes`, and cached per instance. `facets.json` is new: written by `scripts/generate-search-index.mts` next to the other two, with each bank's years, papers and sessions.
 
@@ -37,11 +37,18 @@ Question-level text search ("questions about the photoelectric effect") goes thr
    - Its first segment must be on the allowlist: `banks`, `past-papers`, `revision-notes`, `worksheets`, `dashboard`, `pricing`, `syllabus`, `grade-thresholds`, `articles`, `cambridge-igcse`, `cambridge-a-level`, `ib`, `faq`, `updates`.
    - Never `api`, `auth`, `account`, `login`, `r`, `invite` or `helper`.
 2. The tool result tells the model the page was opened. The server sends a structured action to the browser on the same stream: `{ type: "navigate", path, label }`.
-3. The browser checks the path again with the same allowlist, then calls `router.push(path)`. The panel is mounted in the root layout, so it survives client-side navigation. The conversation is also kept in `sessionStorage`, so a full reload doesn't lose it.
-4. At most **2 navigations per message**, followed as they arrive. Each one also stays in the chat as a link card.
+3. The browser checks the path again with the same allowlist. The panel is mounted in the root layout, so it survives client-side navigation.
+4. **One page per message.** The browser opens it by clicking the page's own link card, so the site's link guards apply exactly as for any other link. In particular, the unsaved-worksheet prompt appears instead of Pepper leaving the editor. The card stays in the chat.
 5. On phones the sheet covers the whole screen, so once a reply has opened a page, the sheet closes to show it. The conversation is kept, and the button reopens it.
 
 **Wire format:** newline-delimited JSON (`application/x-ndjson`): `{"type":"text","text":"…"}`, `{"type":"navigate","path":"…","label":"…"}`, `{"type":"done"}`. The question helper keeps its plain-text stream.
+
+## Conversation and privacy
+
+- **Memory only:** the conversation is never written to browser storage. It survives closing the panel and moving between pages, not a reload.
+- **One account:** it belongs to the signed-in account. Switching accounts or signing out drops it, and any reply still streaming is ignored.
+- **Clear chat:** a button empties it.
+- **Page context:** Pepper is told only the path plus the study filters picked (topic, subtopic, year, paper, session, route, component, option, zone). Search words, worksheet ids, shared-set ids and tracking parameters never leave the browser, and saved-worksheet paths are reduced to `/worksheets`.
 
 ## What it must never do
 

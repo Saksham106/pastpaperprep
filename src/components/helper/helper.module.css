@@ -80,6 +80,19 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.clear {
+  flex: none;
+  align-self: flex-start;
+  min-height: 34px;
+  padding: 0 10px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  font: 600 .78rem/1 var(--font-body);
+  cursor: pointer;
+}
+.clear:hover { background: color-mix(in srgb, var(--surface-raised) 70%, transparent); color: var(--ink); }
 .close:hover { background: color-mix(in srgb, var(--surface-raised) 70%, transparent); }
 
 /* ---------- face ---------- */

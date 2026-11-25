@@ -30,3 +30,19 @@ export function helperPageKind(pathname: string): string {
   if (section === "past-papers") return pathname.split("/").filter(Boolean).length > 2 ? "paper" : "papers";
   return SECTIONS.has(section) ? section : "other";
 }
+
+/** The only query parameters sent to Pepper as page context: the study filters a student has picked. */
+const CONTEXT_PARAMS = ["topic", "subtopic", "year", "paper", "session", "route", "component", "option", "zone"] as const;
+
+/**
+ * What Pepper is told about the current page: the path plus chosen study filters only. Search words, worksheet ids,
+ * shared-set ids, tracking and any other parameter are dropped, and saved-worksheet paths are reduced to their section.
+ */
+export function helperPageContext(pathname: string, search: string): string {
+  const path = pathname.startsWith("/worksheets") ? "/worksheets" : /^\/[A-Za-z0-9\-._~%/]{0,300}$/.test(pathname) ? pathname : "/";
+  const given = new URLSearchParams(search);
+  const kept = new URLSearchParams();
+  for (const key of CONTEXT_PARAMS) for (const value of given.getAll(key).slice(0, 5)) if (value && value.length <= 100) kept.append(key, value);
+  const query = kept.toString();
+  return `${path}${query ? `?${query}` : ""}`.slice(0, 600);
+}

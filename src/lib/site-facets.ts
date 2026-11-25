@@ -16,3 +16,7 @@ export function bankFacets(questions: readonly { year: number; paper: number; se
     sessions: [...sessions].sort((a, b) => b[1] - a[1]).map(([session]) => session),
   };
 }
+
+/** Articles and published notes pages (path and title), for the site helper. Written next to facets.json. */
+export type SearchPage = { path: string; label: string };
+export type SearchPages = { version: typeof SEARCH_INDEX_VERSION; pages: SearchPage[] };

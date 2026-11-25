@@ -11,8 +11,8 @@ export const HELPER_SITE_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcs
 
 /** Model calls per student message: tool rounds plus the final answer. */
 export const HELPER_SITE_MAX_ROUNDS = 5;
-/** Pages Pepper may open for one message; the browser follows the last. */
-export const HELPER_SITE_MAX_NAVIGATIONS = 2;
+/** Pages Pepper may open for one message. */
+export const HELPER_SITE_MAX_NAVIGATIONS = 1;
 
 /** Starters under the greeting. They fill the box rather than send, because each needs the student's subject. */
 export const HELPER_SITE_STARTERS = [
@@ -25,6 +25,3 @@ export const HELPER_SITE_STARTERS = [
 export function siteHelperHidden(pathname: string): boolean {
   return pathname === "/login" || pathname.startsWith("/auth") || pathname.startsWith("/helper/");
 }
-
-/** sessionStorage key for the open conversation, so a full reload keeps it. */
-export const HELPER_SITE_STORAGE_KEY = "ppp:site-helper:v1";
