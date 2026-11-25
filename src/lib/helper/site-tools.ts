@@ -268,6 +268,8 @@ function openPageTool(context: ToolContext, input: Record<string, unknown>): Too
   const path = safeHelperPath(text(input.path, 600));
   if (!path) return error("You can't open that page. Use a link from a tool result, or /past-papers, /revision-notes, /worksheets, /dashboard or /pricing.");
   const pathname = path.split("?")[0];
+  // Deployments built without the paper library (previews) have no /past-papers pages.
+  if (pathname.startsWith("/past-papers") && !context.data.papers.papers.length) return error("The full-paper library isn't available here. Offer the question bank instead.");
   const bank = pathname.startsWith("/banks/") ? pathname.split("/")[2] : undefined;
   if (bank !== undefined && !subjectFor(context.data, bank)) return error(`No bank "${bank}". Use search_site to find the bank id.`);
   return navigate(context, { kind: "page", path, label: text(input.label, 80) || "Page", ...(bank ? { bank } : {}) });

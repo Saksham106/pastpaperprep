@@ -131,6 +131,12 @@ describe("site tools", () => {
     }
   });
 
+  it("doesn't open the paper library on a deployment without one", () => {
+    const context = { data: { ...DATA, papers: { version: 2 as const, papers: [] } }, navigations: 0 };
+    expect(runSiteTool("open_page", { path: "/past-papers", label: "Papers" }, context).isError).toBe(true);
+    expect(run("open_page", { path: "/past-papers", label: "Papers" }).isError).toBeUndefined();
+  });
+
   it("caps navigations per message", () => {
     expect(run("open_page", { path: "/dashboard", label: "Banks" }, 2).isError).toBe(true);
   });
