@@ -1,13 +1,20 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({ query: vi.fn(), rpc: vi.fn(), getClaims: vi.fn(), capture: vi.fn() }));
+const emptyQuery = vi.hoisted(() => () => {
+  const query: Record<string, unknown> = { then: (resolve: (value: unknown) => unknown) => resolve({ data: [], error: null }) };
+  for (const method of ["select", "eq", "gt", "order"]) query[method] = () => query;
+  return query;
+});
 vi.mock("@/lib/server-error-tracking", () => ({ captureServerException: mocks.capture }));
 vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({
   auth: { getClaims: mocks.getClaims, getUser: async () => ({ data: { user: { email: "student@example.com" } } }) },
   // Saved-worksheet titles (used only to number default names) are not part of the entitlement retry.
   from: (table: string) => table === "saved_worksheets"
     ? { select: () => ({ eq: async () => ({ data: [], error: null }) }) }
-    : { select: () => ({ eq: mocks.query }) },
+    // Pepper credits on /account are read after access and are not part of the entitlement retry either.
+    : table.startsWith("helper_") ? emptyQuery()
+      : { select: () => ({ eq: mocks.query }) },
   rpc: mocks.rpc,
 }) }));
 vi.mock("@/app/auth/actions", () => ({ signOut: vi.fn() }));

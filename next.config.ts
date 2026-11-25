@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
     // Question-image shapes for the first page of cards (src/lib/question-image-shapes.ts).
     "/banks/**": ["./src/data/image-shapes/*.json"],
     "/api/private-bank-index/[bank]": ["./src/data/image-shapes/*.json"],
+    "/api/helper": ["./public/search/*.json", "./public/bank-index/*.json"],
     "/past-papers": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
     "/past-papers/**": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
   },
@@ -56,6 +57,8 @@ const nextConfig: NextConfig = {
   // Release IDs are public build metadata; credentials remain server-only.
   env: {
     NEXT_PUBLIC_BUILD_REVISION: process.env.NEXT_PUBLIC_BUILD_REVISION || process.env.VERCEL_GIT_COMMIT_SHA || "local",
+    // Only whether a key exists; the AI helper's button stays hidden on deployments without one.
+    NEXT_PUBLIC_HELPER_ENABLED: process.env.ANTHROPIC_API_KEY ? "1" : "",
   },
   images: {
     // One quality for everything. The landing artwork at 75 looks the same as 90 at display

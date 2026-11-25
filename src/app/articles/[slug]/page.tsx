@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import { pageTitle } from "@/lib/past-paper-seo";
 import { notFound } from "next/navigation";
 import { ArticleContent } from "@/components/Articles";
@@ -83,6 +84,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
+      <ReadingProgress />
       <ArticleContent article={article} />
     </>
   );

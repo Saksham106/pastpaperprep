@@ -8,6 +8,7 @@ import { Blocks } from "./Blocks";
 import { FormulaTagLabel } from "./FormulaBlock";
 import { Inline } from "./Inline";
 import { LessonFooter, PractiseBand } from "./LessonActions";
+import { ReadingProgress } from "@/components/ReadingProgress";
 import { LessonRail, type RailSection } from "./LessonRail";
 import { LessonShell } from "./LessonShell";
 import { MathHtml } from "./MathHtml";
@@ -78,6 +79,7 @@ export function LessonPage({ course, lesson }: { course: Course; lesson: Lesson 
 
   return (
     <LessonShell topic={lesson.topic} lesson={lesson.item}>
+      <ReadingProgress />
       <div className={styles.lessonLayout}>
         <LessonRail item={lesson.item} sections={sections} />
         <article className={styles.lesson}>

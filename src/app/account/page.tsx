@@ -11,6 +11,9 @@ import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getEntitlementBanks } from "@/lib/banks";
 import { createClient } from "@/lib/supabase/server";
+import { PepperCreditsCard } from "@/components/helper/PepperCreditsCard";
+import { readHelperCredits } from "@/lib/helper/allowance";
+import { helperTier } from "@/lib/helper/tier";
 import { CheckoutReturnStatus } from "@/components/CheckoutReturnTracker";
 import { CHECKOUT_PENDING_COOKIE } from "@/lib/checkout-pending";
 import { readCheckoutReturn } from "@/lib/checkout-return";
@@ -21,9 +24,9 @@ export const metadata = { title: "Your account" };
 export default async function AccountPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkout?: string | string[]; session_id?: string | string[] }>;
+  searchParams: Promise<{ checkout?: string | string[]; session_id?: string | string[]; credits?: string | string[] }>;
 }) {
-  const { checkout, session_id: sessionId } = await searchParams;
+  const { checkout, session_id: sessionId, credits: creditsReturn } = await searchParams;
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
 
@@ -47,6 +50,7 @@ export default async function AccountPage({
   }
   const entitlements = accessResult.rows as AccessEntitlement[];
   const hasAnyBankAccess = getEntitlementBanks().some(({ slug }) => hasBankAccess(slug, entitlements));
+  const helperCredits = await readHelperCredits(supabase as never, claimsData.claims.sub, helperTier(entitlements)).catch(() => null);
   // The URL marker is stripped on arrival; the cookie keeps the pending state across refreshes.
   const checkoutReturn = await readCheckoutReturn({
     urlStatus: checkout,
@@ -71,6 +75,7 @@ export default async function AccountPage({
 
       {checkoutReturn ? <CheckoutReturnStatus {...checkoutReturn} /> : null}
       <article className="account-card"><AccountPlanOverview hasBankAccess={hasAnyBankAccess} setupPending={Boolean(checkoutReturn && !checkoutReturn.settled)} /></article>
+      <article className="account-card" id="pepper-credits"><PepperCreditsCard credits={helperCredits} returned={creditsReturn === "success"} /></article>
       <section className="account-setting-row account-appearance-row" role="group" aria-label="Appearance">
         <div><strong>Appearance</strong><span>Choose light or dark mode.</span></div>
         <ThemeToggle showLabel />

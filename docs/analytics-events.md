@@ -32,6 +32,14 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `question_image_first_load` | bank page loaded directly (not reached by in-app navigation): the first question image finishing loading, once per document | `bank`, `ms` (since the document started loading, so a page-load time), `host` (store of the source link), `verifiedCrop` (hash-checked crop, so `ms` includes that check) |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
+| `helper_open` | "Ask" button on an unlocked question card (or the phone page opened from its QR code, `surface: "phone"`) | `bank`, `freePreview`, `surface?` |
+| `helper_chip` | a chip in the helper panel | `bank`, `chip` (`mark`, `hint`, `explain`), `freePreview` |
+| `helper_send` | any helper message | `bank`, `mode` (`mark`, `hint`, `explain`, `chat`), `photo`, `freePreview` |
+| `helper_result` | a helper reply finished | `bank`, `mode`, `freePreview`, `score?`/`total?` (marking only, read from the reply's "Mark: X / Y" line) |
+| `helper_limit` / `helper_error` | a message couldn't be paid for (weekly credits, packs or the daily guard) / a helper message failed | `bank`, `freePreview`, `mode?`, `code?` (HTTP status) |
+| `helper_credits_click` | a button on Pepper's out-of-credits note | `surface`, `action` (`packs`, `upgrade`) |
+| `helper_pack_checkout` | a credit pack button on /account | `pack` (`credits_1000`, `credits_3000`) |
+| `helper_phone_qr` / `helper_signin_click` | "Use your phone's camera" QR shown / sign-in link in the helper panel | `bank`, `freePreview?`, `action?` |
 | `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |
 | `worked_answer_link_copy` | free past-paper page, copy-link icon on a worked-answer row | `bank`, `paper` (archive id), `question` (number) |
 | `question_notes_click` | bank page, "Learn this topic" link on an AA question card; only rendered while the AA notes course is visible | `bank` |

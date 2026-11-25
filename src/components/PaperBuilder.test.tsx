@@ -6,6 +6,9 @@ import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 
 const { exportWorksheetPdf } = vi.hoisted(() => ({ exportWorksheetPdf: vi.fn() }));
 vi.mock("@/lib/worksheet-export", () => ({ exportWorksheetPdf }));
+// The app router's search params, as the page sees them: null (no router) unless a test sets a link.
+const router = vi.hoisted(() => ({ search: null as string | null }));
+vi.mock("next/navigation", () => ({ useSearchParams: () => router.search === null ? null : new URLSearchParams(router.search) }));
 
 import { PaperBuilder } from "@/components/PaperBuilder";
 
@@ -154,6 +157,24 @@ describe("PaperBuilder", () => {
     render(<PaperBuilder banks={[bank]} />);
     await ready();
     await waitFor(() => expect(rowSources()).toEqual(first));
+  });
+
+  it("rebuilds from a different link followed while it is open, instead of writing the old paper over it", async () => {
+    window.history.replaceState({}, "", "/worksheets/build?size=q5&seed=42");
+    router.search = "size=q5&seed=42";
+    const view = render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    await waitFor(() => expect(rows()).toHaveLength(5));
+    router.search = window.location.search.slice(1);
+    view.rerender(<PaperBuilder banks={[bank]} />);
+
+    // Pepper's next set (or any builder link) arrives while the builder is open.
+    window.history.pushState({}, "", "/worksheets/build?size=q3&seed=7");
+    router.search = "size=q3&seed=7";
+    view.rerender(<PaperBuilder banks={[bank]} />);
+    await waitFor(() => expect(rows()).toHaveLength(3));
+    expect(new URLSearchParams(window.location.search).get("size")).toBe("q3");
+    router.search = null;
   });
 
   it("lets Shuffle bring back questions that were swapped out", async () => {

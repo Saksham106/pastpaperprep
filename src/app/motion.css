@@ -28,6 +28,38 @@
   /* Image placeholder sweep: transform instead of background-position, so it stays on the compositor. */
   .asset-placeholder .placeholder-shimmer { background-size: 100% 100%; animation: motion-sweep 1.4s ease-in-out infinite; }
 
+  /* Core / Extended: the highlight glides to the chosen option instead of jumping (3-option pickers only). */
+  @supports selector(:has(*)) {
+    .course-route-picker:not(.is-paper-tabs) .course-route-options { position: relative; isolation: isolate; }
+    .course-route-picker:not(.is-paper-tabs) .course-route-options::before {
+      content: ""; position: absolute; z-index: -1; top: 3px; bottom: 3px; left: 3px;
+      width: calc((100% - 12px) / 3);
+      background: var(--cobalt-faint); border: 1px solid color-mix(in srgb, var(--cobalt) 46%, var(--line)); border-radius: 6px;
+      box-shadow: 0 1px 4px color-mix(in srgb, var(--cobalt) 16%, transparent);
+      transition: transform 260ms cubic-bezier(.3, 1.25, .5, 1);
+    }
+    .course-route-picker:not(.is-paper-tabs) .course-route-options:has(label:nth-child(2) input:checked)::before { transform: translateX(calc(100% + 3px)); }
+    .course-route-picker:not(.is-paper-tabs) .course-route-options:has(label:nth-child(3) input:checked)::before { transform: translateX(calc(200% + 6px)); }
+    .course-route-picker:not(.is-paper-tabs) .course-route-options input:checked + span { background: transparent; border-color: transparent; box-shadow: none; }
+  }
+
+  /* Counts that change under you: the PDF badge pops, the results total fades in, new filter chips grow in. */
+  .save-pdf-count { animation: motion-pop 300ms cubic-bezier(.3, 1.6, .5, 1); }
+  .results-heading .results-count { display: inline-block; animation: motion-fade-up 220ms cubic-bezier(.2, .8, .2, 1) both; }
+  .active-filters button { animation: motion-chip-in 200ms cubic-bezier(.2, 1.2, .4, 1) both; }
+
+  /* Articles and notes: a thin line under the header fills as you read. */
+  @supports (animation-timeline: scroll()) {
+    .reading-progress {
+      position: fixed; z-index: 40; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--cobalt); transform-origin: 0 50%; transform: scaleX(0);
+      animation: motion-grow linear both; animation-timeline: scroll(root);
+    }
+  }
+
+  @keyframes motion-pop { from { transform: scale(.4); } 60% { transform: scale(1.18); } to { transform: none; } }
+  @keyframes motion-chip-in { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+  @keyframes motion-grow { to { transform: scaleX(1); } }
   @keyframes motion-fade-out { to { opacity: 0; } }
   @keyframes motion-fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
   @keyframes motion-fade-in { from { opacity: 0; } to { opacity: 1; } }
