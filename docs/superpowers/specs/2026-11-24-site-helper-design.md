@@ -87,7 +87,7 @@ One site message is one use from the same `consume_helper_allowance` counter: 5 
 
 ## Boards
 
-The site helper works for every board, IB included. It only handles metadata that is already public in the site search index (subject names, topic labels, paper names) and the student's own words; IB question content is never sent. **Owner call:** if the IB legal check should also cover IB topic names in chat, there is a one-line switch (`HELPER_SITE_BOARDS`) that hides IB banks from the tools.
+The site helper works for every board, IB included. The owner switched IB on for the question helper too (2026-11-24). The site helper only ever handles metadata that is already public in the site search index (subject names, topic labels, paper names) and the student's own words. `HELPER_SITE_BOARDS` can hide a board from the tools on its own, separately from the question helper's `HELPER_BOARDS`.
 
 ## Where it shows
 
@@ -115,6 +115,6 @@ Events, never with message text:
 
 - Navigation is automatic, not "tap to open". The student asked for it, it's undoable with Back, and a link card stays in the chat.
 - Signed-in only, sharing the existing counter. No separate site quota.
-- IB on for navigation (metadata only).
+- IB on (the owner also switched it on for the question helper).
 - Chips pre-fill the box rather than sending.
 - Rule-answered messages are free: they don't use the daily allowance, because they cost nothing.

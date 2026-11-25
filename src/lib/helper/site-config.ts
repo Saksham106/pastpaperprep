@@ -3,9 +3,9 @@
 import type { HelperBoard } from "@/lib/helper/config";
 
 /**
- * Boards whose banks, topics and papers the site helper can find and open. It only ever handles names and links that
- * are already public in the site search, never question content, so IB is on here even while the question helper's
- * IB switch is off. Turn IB off here too if the IB terms check says so.
+ * Boards whose banks, topics and papers the site helper can find and open. All on, like the question helper's
+ * HELPER_BOARDS. Separate so navigation can stay on for a board even if its question content is ever switched off:
+ * the site helper only handles names and links already public in the site search.
  */
 export const HELPER_SITE_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: true };
 
