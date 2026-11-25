@@ -7,7 +7,7 @@ import { courseToneForBank } from "@/components/CourseIcon";
 import { HelperFace } from "@/components/helper/HelperFace";
 import { HelperMessage } from "@/components/helper/HelperMessage";
 import { getCatalogBank } from "@/lib/catalog";
-import { HELPER_CHIP_PROMPTS, HELPER_PHOTO_NOTE, HELPER_CHIPS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME, helperPhonePath, type HelperMode } from "@/lib/helper/config";
+import { HELPER_CHIP_PROMPTS, HELPER_PHOTO_NOTE, HELPER_CHIPS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME, helperPhonePath, historyText, type HelperMode } from "@/lib/helper/config";
 import { HelperRequestError, photoToDataUrl, streamHelperReply } from "@/lib/helper/client";
 import { parseMarkLine } from "@/lib/helper/marking";
 import { trackProductEvent } from "@/lib/product-analytics";
@@ -21,6 +21,9 @@ const CHIP_HINTS: Readonly<Record<Exclude<HelperMode, "chat">, string>> = {
   hint: "A nudge, not the answer",
   explain: "Every mark, step by step",
 };
+
+/** Shown before any photo is sent. */
+const PHOTO_NOTICE = "Crop out your name and candidate number. Photos go to Anthropic to be marked, and the score is guidance, not an official mark.";
 
 const toneFor = (bank: string) => {
   const catalog = getCatalogBank(bank as never);
@@ -70,7 +73,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
     if (busyRef.current) return;
     busyRef.current = true;
     // Photos go only with their own message; later turns say one was there, so the model trusts its earlier reading.
-    const history = turns.filter((turn) => turn.text).slice(-HELPER_MAX_TURNS).map(({ role, text: turnText, photo: hadPhoto }) => ({ role, text: hadPhoto ? `${turnText}\n${HELPER_PHOTO_NOTE}` : turnText }));
+    const history = turns.filter((turn) => turn.text).slice(-HELPER_MAX_TURNS).map(({ role, text: turnText, photo: hadPhoto }) => ({ role, text: historyText(hadPhoto ? `${turnText}\n${HELPER_PHOTO_NOTE}` : turnText) }));
     const userTurn: Turn = { role: "user", text, ...(image ? { photo: image } : {}) };
     setTurns((current) => [...current, userTurn, { role: "assistant", text: "" }]);
     setBusy(true);
@@ -205,6 +208,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
                     </button>;
                   })}
                 </div>
+                <p className={styles.notice}>{PHOTO_NOTICE}</p>
                 {variant === "sheet" && <button type="button" className={styles.phone} aria-expanded={qr.open} onClick={toggleQr}><DeviceMobile weight="bold" aria-hidden="true" />On a laptop? <span>Use your phone&apos;s camera</span></button>}
                 {qr.open && (
                   <div className={styles.qr}>
@@ -224,6 +228,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
           {error && <p className={styles.error} role="alert">{error}</p>}
 
           <form className={styles.composer} onSubmit={submit}>
+            {photo && <p className={styles.notice}>{PHOTO_NOTICE}</p>}
             {photo && (
               <div className={styles.attached}>
                 <Image unoptimized width={0} height={0} src={photo} alt="Photo to send" />
