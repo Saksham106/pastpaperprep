@@ -23,11 +23,11 @@ export function helperBoard(bank: string): HelperBoard {
 export const HELPER_MODES = ["hint", "explain", "mark", "chat"] as const;
 export type HelperMode = (typeof HELPER_MODES)[number];
 
-/** The chips under the panel's greeting: each sends a ready-made request. */
+/** The tiles shown before the first message, in this order and with equal weight: each sends a ready-made request. */
 export const HELPER_CHIPS = [
+  { mode: "explain", label: "Explain the whole answer" },
   { mode: "mark", label: "Mark my photo" },
   { mode: "hint", label: "Give me a hint" },
-  { mode: "explain", label: "Explain the whole answer" },
 ] as const satisfies ReadonlyArray<{ mode: HelperMode; label: string }>;
 
 /** The text shown as the student's own message when a chip is used. */

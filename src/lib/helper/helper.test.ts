@@ -41,7 +41,7 @@ describe("helper config", () => {
   });
 
   it("offers the owner's three chips", () => {
-    expect(HELPER_CHIPS.map((chip) => chip.label)).toEqual(["Mark my photo", "Give me a hint", "Explain the whole answer"]);
+    expect(HELPER_CHIPS.map((chip) => chip.label)).toEqual(["Explain the whole answer", "Mark my photo", "Give me a hint"]);
   });
 });
 
