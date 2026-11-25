@@ -27,6 +27,15 @@ let consentEnabled = false;
 function canCapture() { return true; }
 function canCaptureConsented() { return consentEnabled && readBrowserAnalyticsConsent() === true; }
 
+/**
+ * Browser events go to our own domain; vercel.json forwards /ingest/* to PostHog at the edge with
+ * the cookie header removed (no function runs, and the visitor's IP still reaches PostHog through
+ * x-forwarded-for). Tracker blockers that block posthog.com's batch endpoint don't block this.
+ * Server-side code keeps talking to PostHog directly.
+ */
+export const BROWSER_POSTHOG_API_HOST = "/ingest";
+export const POSTHOG_UI_HOST = "https://us.posthog.com";
+
 function projectToken() {
   return process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN?.trim() ?? "";
 }
@@ -41,7 +50,8 @@ function loadClient() {
     .then(([{ default: posthog }, countryFromTimeZone]) => {
       if (!initialized) {
         posthog.init(projectToken(), {
-          api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || "https://us.i.posthog.com",
+          api_host: BROWSER_POSTHOG_API_HOST,
+          ui_host: POSTHOG_UI_HOST,
           defaults: "2026-05-30",
           cookieless_mode: "always",
           autocapture: false,
@@ -263,7 +273,7 @@ function loadConsentedClient() {
     if (!canCaptureConsented() || startedAt !== generation) { consentClientPromise = null; return null; }
     if (!consentInitialized) {
       consentClient = posthog.init(projectToken(), {
-        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || "https://us.i.posthog.com", defaults: "2026-05-30",
+        api_host: BROWSER_POSTHOG_API_HOST, ui_host: POSTHOG_UI_HOST, defaults: "2026-05-30",
         autocapture: false, capture_pageview: false, capture_pageleave: false, person_profiles: "identified_only",
         persistence: "localStorage+cookie", persistence_name: `${projectToken()}_consented`, cookie_expiration: 180, cross_subdomain_cookie: false,
         consent_persistence_name: `__ph_opt_in_out_${projectToken()}_consented`,
