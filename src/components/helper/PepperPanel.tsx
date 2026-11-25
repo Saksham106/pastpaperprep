@@ -23,8 +23,8 @@ import styles from "./helper.module.css";
 // One Pepper on every surface. Opened from a question, it has that question (and its mark scheme) attached and offers
 // hints, explanations and marking; opened from the floating button, it has none. Either way it can find, open and build.
 
-/** The question Pepper was opened from. */
-export type PepperQuestion = { bank: string; questionId: string; label: string; freePreview: boolean };
+export type { PepperQuestion } from "@/lib/helper/site-config";
+import type { PepperQuestion } from "@/lib/helper/site-config";
 
 const CHIP_ICONS: Readonly<Record<Exclude<HelperMode, "chat">, PhosphorIcon>> = { mark: Camera, hint: Lightbulb, explain: PencilSimpleLine };
 const CHIP_HINTS: Readonly<Record<Exclude<HelperMode, "chat">, string>> = {

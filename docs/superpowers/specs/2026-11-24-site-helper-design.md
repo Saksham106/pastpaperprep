@@ -65,8 +65,9 @@ The owner's direction: the question helper and the site helper are **one Pepper*
 - the dated allowance, charged once per message, refunded only before the first words
 - counts-only usage logs and analytics without text
 
-**One panel, `PepperPanel`:**
-- The question's Ask Pepper button, the floating button and the phone QR page all render it.
+**One panel, `PepperPanel`, one instance:**
+- `SiteHelper` in the root layout owns the only panel. A question's Ask Pepper button just sends `pastpaperprep:pepper-open` with its question, so a question chat survives pages Pepper opens from it. Live check: opening the builder from a question chat used to unmount the card's own panel mid-reply.
+- The phone QR page renders the panel directly, full screen.
 - With a question: tiles (Explain, Mark my photo, Hint), photo and QR, score and confetti.
 - Without one: starters.
 - Both: tools, steps, opened/built cards and Clear chat.

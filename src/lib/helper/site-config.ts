@@ -26,3 +26,10 @@ export const HELPER_SITE_STARTERS = [
 export function siteHelperHidden(pathname: string): boolean {
   return pathname === "/login" || pathname.startsWith("/auth") || pathname.startsWith("/helper/");
 }
+
+/** The question Pepper was opened from: attached to the conversation, with its mark scheme. */
+export type PepperQuestion = { bank: string; questionId: string; label: string; freePreview: boolean };
+
+/** Opens the one Pepper (mounted in the root layout): with a question from its Ask Pepper button, or the site chat. */
+export const PEPPER_OPEN_EVENT = "pastpaperprep:pepper-open";
+export type PepperOpenDetail = { question: PepperQuestion | null; opener?: HTMLElement | null };

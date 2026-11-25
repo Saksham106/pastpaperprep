@@ -2,12 +2,11 @@
 
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HelperFace } from "@/components/helper/HelperFace";
-import { OPEN_EVENT } from "@/components/helper/HelperLauncher";
 import { useSheetPresence } from "@/components/helper/useSheetPresence";
 import { HELPER_NAME, helperConfigured } from "@/lib/helper/config";
-import { siteHelperHidden } from "@/lib/helper/site-config";
+import { PEPPER_OPEN_EVENT, siteHelperHidden, type PepperOpenDetail, type PepperQuestion } from "@/lib/helper/site-config";
 import { helperPageKind } from "@/lib/helper/site-paths";
 import { trackProductEvent } from "@/lib/product-analytics";
 import styles from "./helper.module.css";
@@ -18,24 +17,38 @@ const PepperPanel = dynamic(() => import("@/components/helper/PepperPanel").then
 const HELLO_KEY = "ppp:site-helper:hello";
 
 /**
- * The site-wide helper: a floating button on every page that opens Pepper to find questions, papers and topics.
- * Mounted once in the root layout, so an open conversation survives client-side navigation.
+ * The one Pepper: a floating button on every page, and the single panel every Ask Pepper button opens (with its question
+ * attached). Mounted once in the root layout, so a conversation survives client-side navigation, including pages Pepper
+ * opens from a question's chat.
  */
 export function SiteHelper() {
   const pathname = usePathname() ?? "/";
   const sheet = useSheetPresence();
-  const { hide } = sheet;
+  const { hide, show } = sheet;
+  const [question, setQuestion] = useState<PepperQuestion | null>(null);
   const [hello, setHello] = useState(false);
-  const id = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
+  /** Where focus goes back to when the student closes Pepper: the button they opened it with. */
+  const openerRef = useRef<HTMLElement | null>(null);
   const returnFocus = useRef(false);
+  const stateRef = useRef({ open: false, thread: "" });
+  useEffect(() => { stateRef.current = { open: sheet.open, thread: question ? `${question.bank}:${question.questionId}` : "" }; }, [sheet.open, question]);
 
-  // A question's own helper opening closes this one; only one sheet at a time.
+  // Ask Pepper buttons on questions open this same panel with their question attached; again on the same one closes it.
   useEffect(() => {
-    const onOpen = (event: Event) => { if ((event as CustomEvent<string>).detail !== id) hide(); };
-    window.addEventListener(OPEN_EVENT, onOpen);
-    return () => window.removeEventListener(OPEN_EVENT, onOpen);
-  }, [id, hide]);
+    const onOpen = (event: Event) => {
+      const detail = (event as CustomEvent<PepperOpenDetail>).detail;
+      const next = detail?.question ?? null;
+      const thread = next ? `${next.bank}:${next.questionId}` : "";
+      if (stateRef.current.open && stateRef.current.thread === thread) { returnFocus.current = true; hide(); return; }
+      openerRef.current = detail?.opener ?? null;
+      setQuestion(next);
+      trackProductEvent("helper_open", next ? { surface: "question", bank: next.bank, freePreview: next.freePreview } : { surface: "site", page: helperPageKind(window.location.pathname) });
+      show();
+    };
+    window.addEventListener(PEPPER_OPEN_EVENT, onOpen);
+    return () => window.removeEventListener(PEPPER_OPEN_EVENT, onOpen);
+  }, [hide, show]);
 
   useEffect(() => {
     try {
@@ -48,30 +61,33 @@ export function SiteHelper() {
     setHello(true);
   }, []);
 
-  // The button is back once the sheet has slid away: give it focus if the student closed the sheet themselves.
+  // Once the sheet has slid away, focus goes back to the button that opened it (if it is still on the page).
   useEffect(() => {
     if (sheet.mounted || !returnFocus.current) return;
     returnFocus.current = false;
-    buttonRef.current?.focus();
+    const opener = openerRef.current;
+    if (opener?.isConnected) opener.focus(); else buttonRef.current?.focus();
   }, [sheet.mounted]);
 
-  if (!helperConfigured() || siteHelperHidden(pathname)) return null;
+  if (!helperConfigured()) return null;
+  const hidden = siteHelperHidden(pathname);
 
   return <>
-    {!sheet.mounted && <button
+    {!sheet.mounted && !hidden && <button
       ref={buttonRef}
       type="button"
       className={styles.siteLauncher}
       data-hello={hello || undefined}
       aria-label={`Ask ${HELPER_NAME} to find questions and papers`}
       onClick={() => {
-        window.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: id }));
-        trackProductEvent("helper_open", { surface: "site", page: helperPageKind(pathname) });
         setHello(false);
-        sheet.show();
+        window.dispatchEvent(new CustomEvent<PepperOpenDetail>(PEPPER_OPEN_EVENT, { detail: { question: null } }));
       }}
     ><HelperFace size={32} /><span>Ask {HELPER_NAME}</span></button>}
-    {sheet.mounted && <PepperPanel
+    {sheet.mounted && !hidden && <PepperPanel
+      // A different question (or the site chat) is a different conversation.
+      key={question ? `${question.bank}:${question.questionId}` : "site"}
+      {...(question ? { question } : {})}
       closing={sheet.closing}
       onExited={sheet.exited}
       onClose={() => { returnFocus.current = true; hide(); }}
