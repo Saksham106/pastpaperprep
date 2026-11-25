@@ -26,7 +26,7 @@ vi.mock("@/lib/supabase/browser", () => ({
 }));
 
 import { forgetSiteChat } from "@/components/helper/site-chat-memory";
-import { SiteHelperPanel } from "@/components/helper/SiteHelperPanel";
+import { PepperPanel } from "@/components/helper/PepperPanel";
 
 function ndjson(events: unknown[]) {
   const encoder = new TextEncoder();
@@ -57,9 +57,9 @@ function watchLinkClicks(block = false) {
   return { clicks, stop: () => document.removeEventListener("click", listener, true) };
 }
 
-const panel = (onNavigated = () => {}) => <SiteHelperPanel onClose={() => {}} onNavigated={onNavigated} />;
+const panel = (onNavigated = () => {}) => <PepperPanel onClose={() => {}} onNavigated={onNavigated} />;
 
-describe("SiteHelperPanel", () => {
+describe("PepperPanel from the floating button (no question)", () => {
   const fetchMock = vi.fn();
   beforeEach(() => {
     vi.clearAllMocks();
@@ -98,7 +98,7 @@ describe("SiteHelperPanel", () => {
     expect(await screen.findByText("Number")).toBeInTheDocument();
     await waitFor(() => expect(watch.clicks).toEqual(["/banks/igcse?topic=Number&year=2024"]));
     expect(screen.getByRole("link", { name: /Number · 2024/ })).toHaveAttribute("href", "/banks/igcse?topic=Number&year=2024");
-    expect(screen.getByText("4 left today")).toBeInTheDocument();
+    expect(screen.getByText(/4 left today/)).toBeInTheDocument();
     expect(onNavigated).toHaveBeenCalled();
     watch.stop();
   });
@@ -265,7 +265,7 @@ describe("SiteHelperPanel", () => {
     await userEvent.type(await screen.findByRole("textbox"), "banks{Enter}");
     expect(await screen.findByText("banks")).toBeInTheDocument();
 
-    view.rerender(<SiteHelperPanel onClose={() => {}} onNavigated={() => {}} closing />);
+    view.rerender(<PepperPanel onClose={() => {}} onNavigated={() => {}} closing />);
     expect(signal?.aborted).toBe(true);
     expect(view.container.querySelector("section")).toHaveAttribute("inert");
     await act(async () => { finish(); });

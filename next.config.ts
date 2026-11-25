@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     "/api/assets/free": ["./generated/asset-manifest/**"],
     "/api/study-state": ["./generated/asset-manifest/**"],
     "/api/questions/search": ["./generated/question-search/**"],
-    "/api/helper/site": ["./public/search/*.json", "./public/bank-index/*.json"],
+    "/api/helper": ["./public/search/*.json", "./public/bank-index/*.json"],
     "/past-papers": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
     "/past-papers/**": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
   },

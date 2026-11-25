@@ -5,8 +5,11 @@ vi.mock("server-only", () => ({}));
 import { runSiteAgent } from "@/lib/helper/site-agent";
 import { parseSiteEvent } from "@/lib/helper/site-events";
 import { helperPageContext, helperPageKind, safeHelperPath } from "@/lib/helper/site-paths";
-import { buildSiteMessages, HELPER_SITE_SYSTEM_PROMPT } from "@/lib/helper/site-prompt";
-import { parseSiteHelperRequest } from "@/lib/helper/site-request";
+import { buildPepperMessages, PEPPER_SYSTEM_PROMPT } from "@/lib/helper/pepper-prompt";
+import { parsePepperRequest, type PepperRequest } from "@/lib/helper/pepper-request";
+
+const parseSiteHelperRequest = parsePepperRequest;
+const buildSiteMessages = (request: Omit<PepperRequest, "mode">) => buildPepperMessages({ mode: "chat", ...request }, null);
 import { bankPath, loadSiteData, runSiteTool, siteDestinations, SITE_TOOLS, type SiteData } from "@/lib/helper/site-tools";
 import { bankFacets } from "@/lib/site-facets";
 import { siteShortcut } from "@/lib/helper/site-shortcut";
@@ -74,7 +77,7 @@ describe("site tools", () => {
   it("keeps tool definitions strict and in a stable order (they are part of the cached prefix)", () => {
     expect(SITE_TOOLS.map((tool) => ("name" in tool ? tool.name : ""))).toEqual(["search_site", "bank_details", "find_past_papers", "open_bank", "build_practice_set", "open_page"]);
     for (const tool of SITE_TOOLS) expect(tool).toMatchObject({ strict: true, input_schema: { additionalProperties: false } });
-    expect(HELPER_SITE_SYSTEM_PROMPT).not.toMatch(/\d{4}-\d{2}-\d{2}/);
+    expect(PEPPER_SYSTEM_PROMPT).not.toMatch(/\d{4}-\d{2}-\d{2}/);
   });
 
   it("finds subjects and topics with links", () => {
@@ -182,7 +185,7 @@ describe("site tools", () => {
 
 describe("site request and events", () => {
   it("accepts a conversation and the current page", () => {
-    expect(parseSiteHelperRequest({ page: "/banks/igcse?topic=Number", messages: [{ role: "user", text: " hi " }] })).toEqual({ page: "/banks/igcse?topic=Number", messages: [{ role: "user", text: "hi" }] });
+    expect(parseSiteHelperRequest({ page: "/banks/igcse?topic=Number", messages: [{ role: "user", text: " hi " }] })).toEqual({ page: "/banks/igcse?topic=Number", mode: "chat", messages: [{ role: "user", text: "hi" }] });
   });
 
   it("rejects malformed requests", () => {

@@ -43,6 +43,37 @@ Question-level text search ("questions about the photoelectric effect") goes thr
 
 **Wire format:** newline-delimited JSON (`application/x-ndjson`): `{"type":"text","text":"…"}`, `{"type":"navigate","path":"…","label":"…"}`, `{"type":"done"}`. The question helper keeps its plain-text stream.
 
+## One Pepper (added 2026-11-25)
+
+The owner's direction: the question helper and the site helper are **one Pepper**. Opening it from a question just attaches that question and its mark scheme.
+
+**One endpoint, `POST /api/helper`:**
+- Request: `{ messages, page, question?, mode, image? }`.
+- Without a question, `mode` is `chat` and there is no photo. Hints, explanations, marking and photos need a question attached.
+- The response is always the NDJSON stream: text, steps, navigate, done and error events.
+- `/api/helper/site` is gone.
+
+**Caching:**
+- `PEPPER_SYSTEM_PROMPT` and the tool list are identical on every surface and for every student, so they form one shared cached prefix.
+- An attached question's materials (`contextBlocks`) follow as their own cached block, so different questions still share the prefix.
+- The conversation is cached with the top-level marker.
+- Then one operator note: the page and, with a question, the mode instruction. `HELPER_INCOMPLETE_MARKING` replaces the marking rules when `canScore()` is false.
+
+**Kept from the question helper:**
+- the crop budget and `omitted`
+- `historyText()` shortening and the photo note
+- the dated allowance, charged once per message, refunded only before the first words
+- counts-only usage logs and analytics without text
+
+**One panel, `PepperPanel`:**
+- The question's Ask Pepper button, the floating button and the phone QR page all render it.
+- With a question: tiles (Explain, Mark my photo, Hint), photo and QR, score and confetti.
+- Without one: starters.
+- Both: tools, steps, opened/built cards and Clear chat.
+- Chats are kept in memory per account and per thread: the site chat, or each question's chat (up to 8).
+
+**Model:** Sonnet 5.5 at medium effort for everything. `max_tokens` is 8000 per call, enough for a full explanation.
+
 ## Building practice sets (added 2026-11-25)
 
 When a student asks for practice ("10 vectors questions from 2022–2024", "a mock Paper 2"), Pepper builds the set, using the `build_practice_set` tool.

@@ -1,5 +1,6 @@
 // Browser-safe: the site helper's stream, one JSON event per line, and the browser's reader for it.
 import { HelperRequestError } from "@/lib/helper/client";
+import type { HelperMode } from "@/lib/helper/config";
 import type { HelperTurn } from "@/lib/helper/request";
 import { safeHelperPath } from "@/lib/helper/site-paths";
 
@@ -49,12 +50,12 @@ export function parseSiteEvent(line: string): SiteHelperEvent | null {
 }
 
 /** Sends one message and hands each event to onEvent as it arrives. Throws HelperRequestError for HTTP errors. */
-export async function streamSiteHelper(
-  input: { messages: HelperTurn[]; page: string },
+export async function streamPepper(
+  input: { messages: HelperTurn[]; page: string; question?: { bank: string; questionId: string }; mode?: HelperMode; image?: string },
   onEvent: (event: SiteHelperEvent) => void,
   signal?: AbortSignal,
 ): Promise<void> {
-  const response = await fetch("/api/helper/site", {
+  const response = await fetch("/api/helper", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(input),

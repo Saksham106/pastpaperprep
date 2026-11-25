@@ -12,7 +12,7 @@ import { helperPageKind } from "@/lib/helper/site-paths";
 import { trackProductEvent } from "@/lib/product-analytics";
 import styles from "./helper.module.css";
 
-const SiteHelperPanel = dynamic(() => import("@/components/helper/SiteHelperPanel").then((mod) => mod.SiteHelperPanel), { ssr: false });
+const PepperPanel = dynamic(() => import("@/components/helper/PepperPanel").then((mod) => mod.PepperPanel), { ssr: false });
 
 /** Pepper says hello (a hop and a wink) once per browser session, the first time the button appears. */
 const HELLO_KEY = "ppp:site-helper:hello";
@@ -71,7 +71,7 @@ export function SiteHelper() {
         sheet.show();
       }}
     ><HelperFace size={32} /><span>Ask {HELPER_NAME}</span></button>}
-    {sheet.mounted && <SiteHelperPanel
+    {sheet.mounted && <PepperPanel
       closing={sheet.closing}
       onExited={sheet.exited}
       onClose={() => { returnFocus.current = true; hide(); }}

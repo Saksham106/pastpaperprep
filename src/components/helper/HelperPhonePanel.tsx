@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { HelperPanel, type HelperPanelProps } from "@/components/helper/HelperPanel";
+import { PepperPanel } from "@/components/helper/PepperPanel";
 import { trackProductEvent } from "@/lib/product-analytics";
 
-export function HelperPhonePanel(props: Omit<HelperPanelProps, "variant" | "onClose">) {
+/** The phone page opened from a question's QR code: the same Pepper, full screen, with that question attached. */
+export function HelperPhonePanel({ bank, questionId, questionLabel, freePreview }: { bank: string; questionId: string; questionLabel: string; freePreview: boolean; authenticated?: boolean }) {
   useEffect(() => {
-    trackProductEvent("helper_open", { bank: props.bank, freePreview: props.freePreview, surface: "phone" });
-  }, [props.bank, props.freePreview]);
-  return <HelperPanel {...props} variant="page" />;
+    trackProductEvent("helper_open", { bank, freePreview, surface: "phone" });
+  }, [bank, freePreview]);
+  return <PepperPanel question={{ bank, questionId, label: questionLabel, freePreview }} variant="page" />;
 }

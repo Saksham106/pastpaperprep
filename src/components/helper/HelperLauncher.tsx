@@ -8,12 +8,12 @@ import { HELPER_NAME } from "@/lib/helper/config";
 import { trackProductEvent } from "@/lib/product-analytics";
 import styles from "./helper.module.css";
 
-const HelperPanel = dynamic(() => import("@/components/helper/HelperPanel").then((mod) => mod.HelperPanel), { ssr: false });
+const PepperPanel = dynamic(() => import("@/components/helper/PepperPanel").then((mod) => mod.PepperPanel), { ssr: false });
 
 /** One panel at a time: opening one closes any other. */
 export const OPEN_EVENT = "pastpaperprep:helper-open";
 
-export function HelperLauncher({ bank, questionId, questionLabel, authenticated, freePreview }: {
+export function HelperLauncher({ bank, questionId, questionLabel, freePreview }: {
   bank: string;
   questionId: string;
   questionLabel: string;
@@ -49,6 +49,6 @@ export function HelperLauncher({ bank, questionId, questionLabel, authenticated,
         sheet.show();
       }}
     ><HelperFace size={24} />Ask {HELPER_NAME}</button>
-    {sheet.mounted && <HelperPanel bank={bank} questionId={questionId} questionLabel={questionLabel} authenticated={authenticated} freePreview={freePreview} onClose={close} closing={sheet.closing} onExited={sheet.exited} />}
+    {sheet.mounted && <PepperPanel question={{ bank, questionId, label: questionLabel, freePreview }} onClose={close} closing={sheet.closing} onExited={sheet.exited} />}
   </>;
 }

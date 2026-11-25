@@ -2,11 +2,11 @@ import "server-only";
 import type Anthropic from "@anthropic-ai/sdk";
 import { HELPER_SITE_MAX_ROUNDS } from "@/lib/helper/site-config";
 import type { SiteHelperEvent } from "@/lib/helper/site-events";
-import { HELPER_SITE_SYSTEM_PROMPT } from "@/lib/helper/site-prompt";
+import { PEPPER_SYSTEM_PROMPT } from "@/lib/helper/pepper-prompt";
 import { buildPracticeSetTool, runSiteTool, siteToolStep, SITE_TOOLS, type SiteData, type ToolContext } from "@/lib/helper/site-tools";
 
-/** Per model call. Site replies are short; this leaves room for an explanation. */
-const MAX_TOKENS = 4000;
+/** Per model call: room for a full worked explanation or a marking breakdown. Only what is written is billed. */
+const MAX_TOKENS = 8000;
 export const HELPER_SITE_CUT_OFF = "\n\n_Sorry, that answer was cut off. Try again._";
 
 export type Send = (event: SiteHelperEvent) => void;
@@ -22,6 +22,8 @@ export async function runSiteAgent(options: {
   messages: Anthropic.Beta.BetaMessageParam[];
   send: Send;
   signal?: AbortSignal;
+  /** Counts-only log fields (never text): surface, mode, photo, bank. */
+  usage?: Record<string, string | boolean>;
   /** Which banks the student's plan covers, for building practice sets; plus test hooks. */
   tools?: Pick<ToolContext, "canBuild" | "builderQuestions" | "seed">;
 }): Promise<{ sentText: boolean; navigated: boolean; refused: boolean }> {
@@ -34,7 +36,7 @@ export async function runSiteAgent(options: {
     const stream = api.stream({
       model,
       max_tokens: MAX_TOKENS,
-      system: [{ type: "text", text: HELPER_SITE_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+      system: [{ type: "text", text: PEPPER_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
       // Also cache the conversation so far: each tool round re-sends it, and the next round reads it from cache.
       cache_control: { type: "ephemeral" },
       tools: SITE_TOOLS,
@@ -58,7 +60,7 @@ export async function runSiteAgent(options: {
     }
     const final = await stream.finalMessage();
     console.info(JSON.stringify({
-      event: "helper_usage", surface: "site", round, model: final.model, stop: final.stop_reason,
+      event: "helper_usage", surface: "site", ...options.usage, round, model: final.model, stop: final.stop_reason,
       input_tokens: final.usage.input_tokens, output_tokens: final.usage.output_tokens,
       cache_read_tokens: final.usage.cache_read_input_tokens ?? 0, cache_write_tokens: final.usage.cache_creation_input_tokens ?? 0,
     }));

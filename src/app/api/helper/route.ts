@@ -3,30 +3,32 @@ import { NextResponse } from "next/server";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { BANKS, getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { HELPER_BOARDS, HELPER_DAILY_LIMITS, helperBoard } from "@/lib/helper/config";
 import { consumeHelperAllowance, releaseHelperAllowance } from "@/lib/helper/allowance";
-import { HelperAccessError, loadHelperContext } from "@/lib/helper/context";
-import { buildHelperMessages, HELPER_SYSTEM_PROMPT } from "@/lib/helper/prompt";
-import { parseHelperRequest } from "@/lib/helper/request";
+import { HELPER_BOARDS, HELPER_DAILY_LIMITS, helperBoard } from "@/lib/helper/config";
+import { HelperAccessError, loadHelperContext, type HelperContext } from "@/lib/helper/context";
+import { buildPepperMessages } from "@/lib/helper/pepper-prompt";
+import { parsePepperRequest } from "@/lib/helper/pepper-request";
+import { HELPER_SITE_CUT_OFF, runSiteAgent, type Send } from "@/lib/helper/site-agent";
+import { siteShortcut } from "@/lib/helper/site-shortcut";
+import { loadSiteData, type SiteData } from "@/lib/helper/site-tools";
 import { currentQuestionId } from "@/lib/question-id-aliases";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createClient } from "@/lib/supabase/server";
+
+// One endpoint for Pepper on every surface: the floating button (no question) and a question's Ask Pepper button (that
+// question attached). Same prompt, tools, allowance and stream either way.
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" } as const;
-// Owner choice: school-level help does not need Opus. Effort stays explicit (Sonnet 5.5 defaults to high).
+/** Owner choice (2026-11-25): Sonnet 5.5 at medium effort is plenty for school-level help and site navigation. */
 const DEFAULT_MODEL = "claude-sonnet-5-5";
-/** Owner choice: Sonnet 5.5 at medium for every mode. Set explicitly, because Sonnet 5.5 defaults to high. */
-const EFFORT = "medium" as const;
-const CUT_OFF_NOTE = "\n\n_Sorry, that answer was cut off. Try again._";
+const BUSY = "The helper is busy right now. Try again in a minute.";
+const FAILED = "The helper couldn't answer. Try again.";
+const REFUSED = "I can't help with that one. Try asking in a different way.";
 
-const jsonError = (error: string, status: number) => NextResponse.json({ error }, { status, headers: NO_STORE });
-
-function helperModel(): string {
-  return process.env.HELPER_MODEL?.trim() || DEFAULT_MODEL;
-}
+const jsonError = (error: string, status: number, extra: Record<string, unknown> = {}) => NextResponse.json({ error, ...extra }, { status, headers: NO_STORE });
 
 let client: Anthropic | undefined;
 function anthropic(): Anthropic {
@@ -43,11 +45,15 @@ async function handlePOST(request: Request) {
   } catch {
     return jsonError("Invalid JSON", 400);
   }
-  const parsed = parseHelperRequest(body);
-  if (!parsed || !getBank(parsed.bank)) return jsonError("Invalid helper request", 400);
-  const bank = parsed.bank as BankSlug;
-  if (!HELPER_BOARDS[helperBoard(bank)]) return jsonError("The study helper isn't available for this subject yet.", 403);
-  const questionId = currentQuestionId(bank, parsed.questionId);
+  const parsed = parsePepperRequest(body);
+  if (!parsed) return jsonError("Invalid helper request", 400);
+  let question: { bank: BankSlug; questionId: string } | null = null;
+  if (parsed.question) {
+    if (!getBank(parsed.question.bank)) return jsonError("Invalid helper request", 400);
+    const bank = parsed.question.bank as BankSlug;
+    if (!HELPER_BOARDS[helperBoard(bank)]) return jsonError("The study helper isn't available for this subject yet.", 403);
+    question = { bank, questionId: currentQuestionId(bank, parsed.question.questionId) };
+  }
 
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
@@ -58,100 +64,90 @@ async function handlePOST(request: Request) {
   if (accessResult.error) return jsonError("Could not verify access", 503);
   const entitlements = accessResult.rows as AccessEntitlement[];
 
-  let context;
+  let data: SiteData;
+  let context: HelperContext | null = null;
   try {
-    context = await loadHelperContext(bank, questionId, entitlements);
+    [data, context] = await Promise.all([
+      loadSiteData(),
+      question ? loadHelperContext(question.bank, question.questionId, entitlements) : Promise.resolve(null),
+    ]);
   } catch (error) {
     if (error instanceof HelperAccessError) return jsonError("Access required", 403);
-    console.error(JSON.stringify({ event: "helper_context_failed", bank, error: error instanceof Error ? error.message.slice(0, 200) : "unknown" }));
-    return jsonError("The question could not load. Try again.", 503);
+    console.error(JSON.stringify({ event: "helper_context_failed", bank: question?.bank, error: error instanceof Error ? error.message.slice(0, 200) : "unknown" }));
+    return jsonError(question ? "The question could not load. Try again." : FAILED, 503);
+  }
+
+  // Rules first: an exact paper, topic or subject opens with no model call and costs the student nothing.
+  if (!question && !parsed.image) {
+    const last = parsed.messages[parsed.messages.length - 1].text;
+    const shortcut = siteShortcut(data, last, parsed.page, parsed.messages.length > 1);
+    if (shortcut) {
+      console.info(JSON.stringify({ event: "helper_usage", surface: "site", rules: true, kind: shortcut.navigation.kind }));
+      const lines = [{ type: "navigate", ...shortcut.navigation }, { type: "text", text: shortcut.reply }, { type: "done", rules: true }];
+      return new Response(lines.map((line) => JSON.stringify(line)).join("\n") + "\n", { headers: { ...NO_STORE, "Content-Type": "application/x-ndjson; charset=utf-8" } });
+    }
   }
 
   const paid = BANKS.some((entry) => hasBankAccess(entry.slug, entitlements));
   const limit = paid ? HELPER_DAILY_LIMITS.paid : HELPER_DAILY_LIMITS.free;
+  // One charge per message, however many model calls it takes (src/lib/helper/allowance.ts).
   const allowance = await consumeHelperAllowance(supabase as never, limit);
   if (allowance.status !== "ok") {
     if (allowance.status === "disabled") return jsonError("The study helper is paused right now. Try again later.", 503);
     if (allowance.status === "busy") return jsonError("The helper is very busy today. Try again tomorrow.", 503);
     if (allowance.status === "error") return jsonError("Could not check your daily allowance", 503);
-    return NextResponse.json(
-      { error: paid ? "You've used today's helper messages. Try again tomorrow." : `You've used today's ${limit} free helper messages. Try again tomorrow, or upgrade for more.`, limit },
-      { status: 429, headers: NO_STORE },
-    );
+    return jsonError(paid ? "You've used today's helper messages. Try again tomorrow." : `You've used today's ${limit} free helper messages. Try again tomorrow, or upgrade for more.`, 429, { limit });
   }
   const { charge } = allowance;
-  const remaining = charge.remaining;
-
-  const model = helperModel();
-  const stream = anthropic().beta.messages.stream({
-    model,
-    max_tokens: 16000,
-    system: [{ type: "text", text: HELPER_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
-    messages: buildHelperMessages(context, parsed),
-    output_config: { effort: EFFORT },
-    // Haiku has no server-side refusal fallback.
-    ...(model.includes("haiku") ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
-  });
-
-  // Wait for the first words before answering, so a failed or refused call returns a real error and gives the
-  // message back instead of streaming an empty reply.
-  const iterator = stream[Symbol.asyncIterator]();
-  let first = "";
-  try {
-    while (!first) {
-      const next = await iterator.next();
-      if (next.done) break;
-      const event = next.value;
-      if (event.type === "content_block_delta" && event.delta.type === "text_delta") first = event.delta.text;
-    }
-  } catch (error) {
-    await releaseHelperAllowance(userId, charge);
-    const busy = error instanceof Anthropic.RateLimitError || (error instanceof Anthropic.APIError && (error.status ?? 0) >= 500);
-    return jsonError(busy ? "The helper is busy right now. Try again in a minute." : "The helper couldn't answer. Try again.", busy ? 503 : 502);
-  }
-  if (!first) {
-    await releaseHelperAllowance(userId, charge);
-    return jsonError("I can't help with that one. Try asking about the question in a different way.", 422);
-  }
+  const surface = question ? "question" : "site";
 
   const encoder = new TextEncoder();
+  const abort = new AbortController();
   const body$ = new ReadableStream<Uint8Array>({
     async start(controller) {
-      controller.enqueue(encoder.encode(first));
+      const send: Send = (event) => controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
+      let sentText = false;
       try {
-        for (;;) {
-          const next = await iterator.next();
-          if (next.done) break;
-          const event = next.value;
-          if (event.type === "content_block_delta" && event.delta.type === "text_delta") controller.enqueue(encoder.encode(event.delta.text));
+        const result = await runSiteAgent({
+          api: anthropic().beta.messages,
+          model: process.env.HELPER_MODEL?.trim() || DEFAULT_MODEL,
+          data,
+          messages: buildPepperMessages(parsed, context),
+          send: (event) => { if (event.type === "text") sentText = true; send(event); },
+          signal: abort.signal,
+          usage: { surface, mode: parsed.mode, photo: Boolean(parsed.image), ...(question ? { bank: question.bank } : {}) },
+          // Practice sets follow the paper builder's rule: only banks the student's plan covers.
+          tools: { canBuild: (bank) => hasBankAccess(bank as BankSlug, entitlements) },
+        });
+        if (!result.sentText && !result.navigated) {
+          // Nothing reached the student: give the message back (only ever before the first words).
+          await releaseHelperAllowance(userId, charge);
+          send({ type: "error", message: REFUSED, status: 422 });
+        } else {
+          send({ type: "done", remaining: charge.remaining, limit });
         }
-        const final = await stream.finalMessage();
-        if (final.stop_reason === "max_tokens" || final.stop_reason === "refusal") controller.enqueue(encoder.encode(CUT_OFF_NOTE));
-        const usage = final.usage;
-        // Counts only, never message text: lets us watch cost per mode.
-        console.info(JSON.stringify({
-          event: "helper_usage", bank, mode: parsed.mode, model: final.model, photo: Boolean(parsed.image),
-          input_tokens: usage.input_tokens, output_tokens: usage.output_tokens,
-          cache_read_tokens: usage.cache_read_input_tokens ?? 0, cache_write_tokens: usage.cache_creation_input_tokens ?? 0,
-        }));
-      } catch {
-        controller.enqueue(encoder.encode(CUT_OFF_NOTE));
+      } catch (error) {
+        if (abort.signal.aborted) return;
+        if (!sentText) await releaseHelperAllowance(userId, charge);
+        const busy = error instanceof Anthropic.RateLimitError || (error instanceof Anthropic.APIError && (error.status ?? 0) >= 500);
+        if (sentText) send({ type: "text", text: HELPER_SITE_CUT_OFF });
+        send({ type: "error", message: busy ? BUSY : FAILED, status: busy ? 503 : 502 });
       } finally {
-        controller.close();
+        try { controller.close(); } catch { /* already closed by a cancel */ }
       }
     },
     cancel() {
-      stream.abort();
+      abort.abort();
     },
   });
 
   return new Response(body$, {
     headers: {
       ...NO_STORE,
-      "Content-Type": "text/plain; charset=utf-8",
-      "X-Helper-Remaining": String(remaining),
+      "Content-Type": "application/x-ndjson; charset=utf-8",
+      "X-Helper-Remaining": String(charge.remaining),
       "X-Helper-Limit": String(limit),
-      "X-Helper-Free-Preview": context.freePreview ? "1" : "0",
+      ...(context ? { "X-Helper-Free-Preview": context.freePreview ? "1" : "0" } : {}),
     },
   });
 }
