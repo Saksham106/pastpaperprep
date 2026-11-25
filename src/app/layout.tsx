@@ -15,7 +15,9 @@ import { SESSION_HINT_SCRIPT } from "@/lib/supabase/auth-cookie";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 const youngSerif = Young_Serif({ variable: "--font-young-serif", subsets: ["latin"], weight: "400" });
-const mono = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400", "500", "600"] });
+// Small labels only: three weights preloaded at high priority competed with the CSS and the LCP
+// image on every page. They still load (swap, with size-matched fallback metrics), just not first.
+const mono = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400", "500", "600"], preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pastpaperprep.com"),

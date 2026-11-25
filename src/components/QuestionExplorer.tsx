@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
+import { Fragment, useCallback, useDeferredValue, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -480,17 +480,24 @@ access: ExplorerAccess;
     retrievalFacets: unique(catalogQuestions, (q) => q.retrievalFacets ?? []),
   }), [catalogQuestions, routeScopedQuestions, topicSourceQuestions, bank]);
 
+  // Checkbox and search-box clicks paint straight away; the list re-filters and re-renders at
+  // transition priority, which React can interrupt, instead of inside the click (INP).
+  const listFilters = useDeferredValue(filters);
+  const listSearch = useDeferredValue(search);
+  // While the deferred list catches up it still shows the previous filters' questions; don't sign
+  // links for those (paid signatures spend the member's daily allowance).
+  const listPending = listFilters !== filters || listSearch !== search;
   const matching = useMemo(() => {
-    const normalizedSearch = search.trim().toLocaleLowerCase();
+    const normalizedSearch = listSearch.trim().toLocaleLowerCase();
     const remoteSearch = Boolean(
       bankSlug && normalizedSearch && indexLoaded && searchResult?.query === normalizedSearch,
     );
     const routeQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute));
     return remoteSearch
-      ? filterQuestions(routeQuestions, { ...filters, mainTopicOnly: !partialTopics, search: undefined, sort })
+      ? filterQuestions(routeQuestions, { ...listFilters, mainTopicOnly: !partialTopics, search: undefined, sort })
         .filter((question) => searchResult!.ids.has(question.id))
-      : filterQuestions(routeQuestions, { ...filters, mainTopicOnly: !partialTopics, search, sort });
-  }, [bankSlug, catalogQuestions, effectiveCourseRoute, filters, indexLoaded, partialTopics, search, searchResult, sort]);
+      : filterQuestions(routeQuestions, { ...listFilters, mainTopicOnly: !partialTopics, search: listSearch, sort });
+  }, [bankSlug, catalogQuestions, effectiveCourseRoute, listFilters, indexLoaded, partialTopics, listSearch, searchResult, sort]);
   const filtered = useMemo(() => {
     const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
@@ -518,7 +525,7 @@ access: ExplorerAccess;
   [sharedSetView, sharedError, missingSharedCount, sharedSetQuestions, savedWorksheetView, savedSetQuestions, filtered]);
   const resultYears = useMemo(() => [...new Set(resultQuestions.map((question) => question.year))], [resultQuestions]);
   const anonymous = !resolvedAccess.authenticated && !resolvedAccess.bankAccess;
-  const matchingFreeCount = resultQuestions.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length;
+  const matchingFreeCount = useMemo(() => resultQuestions.filter((question) => isPreviewQuestion(question.bankSlug, question.id)).length, [resultQuestions]);
   const accessResolved = locationHydrated && !bootstrapPending;
   const freeGate = getFreeQuestionGate({ resolved: accessResolved, authenticated: resolvedAccess.authenticated, bankAccess: resolvedAccess.bankAccess, freeOnly, freeQuestionCount: matchingFreeCount });
   const shownQuestions = useMemo(() => {
@@ -636,20 +643,20 @@ access: ExplorerAccess;
   const activeCount = Object.values(filters).reduce((count, values) => count + (values?.length ?? 0), (effectiveFreeOnly ? 1 : 0) + (savedOnly ? 1 : 0));
   // Free-year questions sign through the cookie-less, CDN-cached route as soon as the URL state
   // is known; only locked questions wait for the member bootstrap.
-  const freeAssetRequests = useMemo(() => !locationHydrated || localPreview ? [] : shownQuestions
+  const freeAssetRequests = useMemo(() => !locationHydrated || localPreview || listPending ? [] : shownQuestions
     .filter((question) => isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
-  [locationHydrated, localPreview, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
-  const questionAssetRequests = useMemo(() => bootstrapPending || !locationHydrated ? [] : shownQuestions
+  [locationHydrated, localPreview, listPending, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  const questionAssetRequests = useMemo(() => bootstrapPending || !locationHydrated || listPending ? [] : shownQuestions
     .filter((question) => localPreview
       ? resolvedAccess.bankAccess || isPreviewQuestion(question.bankSlug, question.id)
       : resolvedAccess.bankAccess && !isPreviewQuestion(question.bankSlug, question.id))
     .filter((question) => !failedAssetKeys.has(signedAssetKey(question.id, "question")))
     .filter((question) => !isSignedAssetFresh(signedAssets.get(signedAssetKey(question.id, "question")), assetEpoch))
     .map((question) => ({ questionId: question.id, kind: "question" as const })),
-  [bootstrapPending, locationHydrated, localPreview, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
+  [bootstrapPending, locationHydrated, listPending, localPreview, resolvedAccess.bankAccess, assetEpoch, failedAssetKeys, shownQuestions, signedAssets]);
 
   useEffect(() => {
     if (!hydrateFromLocation) return;

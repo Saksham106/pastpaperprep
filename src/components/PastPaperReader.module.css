@@ -7,7 +7,7 @@
 .focusHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 650; font-size: .9rem; }
 .focusHeading button { min-height: 40px; padding: 0 14px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 10px; font-weight: 650; font-size: .84rem; }
 
-.toolbar { position: sticky; z-index: 5; top: 78px; padding: 7px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: color-mix(in srgb, var(--surface-raised) 92%, transparent); backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: 14px; }
+.toolbar { position: sticky; z-index: 5; top: 78px; padding: 7px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 14px; }
 .focused .toolbar { position: static; }
 .tabs { padding: 3px; display: flex; gap: 2px; background: var(--surface); border-radius: 11px; }
 .tabs [role=tab] { min-height: 34px; padding: 0 13px; color: var(--muted); background: transparent; border: 0; border-radius: 8px; font-weight: 700; font-size: .84rem; white-space: nowrap; transition: background-color 150ms ease, color 150ms ease; }
@@ -36,7 +36,7 @@
 .focused > :not(.stage) { flex-shrink: 0; }
 .pageArea { position: relative; min-height: 380px; }
 .canvasSlot { width: 100%; padding: 18px 16px; }
-.canvasSlot canvas { display: block; margin: 0 auto; background: white; border-radius: 2px; box-shadow: 0 10px 28px -14px rgb(24 35 59 / .35); }
+.canvasSlot canvas { display: block; margin: 0 auto; background: white; border-radius: 2px; border: 1px solid var(--line); }
 .pageStack { width: 100%; padding: 4px 0; }
 .actualStack { min-width: 826px; }
 .scrollPage { position: relative; width: min(100%, 852px); margin: 0 auto 4px; aspect-ratio: 595 / 842; min-height: 0; }
