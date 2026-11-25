@@ -20,11 +20,22 @@ describe("HelperMessage", () => {
   });
 });
 
-describe("HelperMessage full marks", () => {
-  it("bursts confetti only for full marks", () => {
-    const { container: full } = render(<HelperMessage text={"Mark: 4 / 4\n✓ M1 good"} />);
-    expect(full.querySelectorAll("[aria-hidden='true'] i")).toHaveLength(10);
-    const { container: part } = render(<HelperMessage text={"Mark: 3 / 4\n✗ A1 sign error"} />);
-    expect(part.querySelectorAll("[aria-hidden='true'] i")).toHaveLength(0);
+describe("HelperMessage score timing and celebration", () => {
+  it("bursts confetti only for a finished marking reply with full marks", () => {
+    const flecks = (node: HTMLElement) => node.querySelectorAll("[aria-hidden='true'] i").length;
+    expect(flecks(render(<HelperMessage text={"Mark: 4 / 4\n✓ M1 good"} celebrate />).container)).toBe(10);
+    expect(flecks(render(<HelperMessage text={"Mark: 3 / 4\n✗ A1 sign error"} celebrate />).container)).toBe(0);
+    // History replay and ordinary answers: no celebrate flag, no confetti.
+    expect(flecks(render(<HelperMessage text={"Mark: 4 / 4\n✓ M1 good"} />).container)).toBe(0);
+    // Still streaming: no confetti yet.
+    expect(flecks(render(<HelperMessage text={"Mark: 4 / 4\n✓ M1 good"} complete={false} celebrate />).container)).toBe(0);
+  });
+
+  it("waits for the whole score line while streaming", () => {
+    const { container, rerender } = render(<HelperMessage text={"Mark: 1 / 1"} complete={false} />);
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    expect(container.textContent).toBe("");
+    rerender(<HelperMessage text={"Mark: 1 / 10\n✓ M1"} complete={false} />);
+    expect(screen.getByRole("img", { name: "Marked 1 out of 10" })).toBeInTheDocument();
   });
 });

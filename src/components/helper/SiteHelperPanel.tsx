@@ -2,37 +2,22 @@
 
 import { ArrowSquareOut, ArrowUp, Check, X } from "@phosphor-icons/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type FormEvent, type SetStateAction } from "react";
 import { HelperFace } from "@/components/helper/HelperFace";
 import { HelperMessage } from "@/components/helper/HelperMessage";
+import { forgetSiteChat, recallSiteChat, rememberSiteChat, type SiteOpened, type SiteTurn } from "@/components/helper/site-chat-memory";
 import { HelperRequestError } from "@/lib/helper/client";
 import { HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME } from "@/lib/helper/config";
-import { HELPER_SITE_STARTERS, HELPER_SITE_STORAGE_KEY } from "@/lib/helper/site-config";
-import { streamSiteHelper, type SiteNavigationEvent } from "@/lib/helper/site-events";
-import { helperPageKind, safeHelperPath } from "@/lib/helper/site-paths";
+import { HELPER_SITE_STARTERS } from "@/lib/helper/site-config";
+import { streamSiteHelper } from "@/lib/helper/site-events";
+import { helperPageContext, helperPageKind } from "@/lib/helper/site-paths";
 import { HELPER_OPENED_NOTE } from "@/lib/helper/site-prompt";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { createClient } from "@/lib/supabase/browser";
 import styles from "./helper.module.css";
 
-type Opened = Pick<SiteNavigationEvent, "path" | "label">;
-type Turn = { role: "user" | "assistant"; text: string; opened?: Opened[]; steps?: string[] };
-
-function loadTurns(): Turn[] {
-  try {
-    const value = JSON.parse(sessionStorage.getItem(HELPER_SITE_STORAGE_KEY) ?? "[]") as unknown;
-    if (!Array.isArray(value)) return [];
-    return value.filter((turn): turn is Turn => Boolean(turn) && (turn.role === "user" || turn.role === "assistant") && typeof turn.text === "string")
-      .map((turn) => ({ ...turn, opened: (turn.opened ?? []).filter((o) => safeHelperPath(o?.path) && typeof o.label === "string") }))
-      .slice(-HELPER_MAX_TURNS * 2);
-  } catch {
-    return [];
-  }
-}
-
 /** What earlier replies send back: their words plus the pages they opened, so "open the next year" makes sense. */
-function historyText(turn: Turn): string {
+function historyText(turn: SiteTurn): string {
   const notes = (turn.opened ?? []).map((o) => HELPER_OPENED_NOTE(o.label, o.path));
   return [turn.text, ...notes].filter(Boolean).join("\n");
 }
@@ -50,52 +35,118 @@ function Working({ steps, opened }: { steps: string[]; opened: boolean }) {
   </div>;
 }
 
-const currentPage = () => `${window.location.pathname}${window.location.search}`.slice(0, 600);
+/** "loading" until the session is read; after that, the signed-in account's id or null. */
+type Identity = { status: "loading" } | { status: "signed-out" } | { status: "user"; id: string };
 
-export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExited }: { onClose: () => void; onNavigated: () => void; closing?: boolean; onExited?: () => void }) {
+export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExited }: {
+  onClose: () => void;
+  onNavigated: () => void;
+  /** The sheet is sliding out: the run is already cancelled and the sheet is inert; only the visuals linger. */
+  closing?: boolean;
+  onExited?: () => void;
+}) {
   // Bumped when a reply lands, so the face gives a small hop.
   const [hop, setHop] = useState(0);
-  const router = useRouter();
-  const [turns, setTurns] = useState<Turn[]>(loadTurns);
+  // What Pepper is doing for the reply in progress (not kept in the chat).
+  const [steps, setSteps] = useState<string[]>([]);
+  const [identity, setIdentity] = useState<Identity>({ status: "loading" });
+  const [turns, setTurnState] = useState<SiteTurn[]>([]);
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [remaining, setRemaining] = useState<number | null>(null);
-  const [authenticated, setAuthenticated] = useState<boolean | null>(null);
+  // A page to open by clicking its card, so the site's own navigation guards (unsaved worksheets) apply.
+  const pendingOpenRef = useRef<string | null>(null);
+  const [openTick, setOpenTick] = useState(0);
+  const userRef = useRef<string | null>(null);
+  /** Bumped to cancel a reply: events from an older run are ignored. */
+  const runRef = useRef(0);
   const abortRef = useRef<AbortController | null>(null);
   const busyRef = useRef(false);
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const titleId = useId();
 
-  useEffect(() => {
-    let active = true;
-    void createClient().auth.getSession().then(({ data }) => { if (active) setAuthenticated(Boolean(data.session?.user)); });
-    return () => { active = false; abortRef.current?.abort(); };
+  /** Updates the chat and keeps the in-memory copy owned by the current account. */
+  const setTurns = useCallback((update: SetStateAction<SiteTurn[]>) => {
+    setTurnState((current) => {
+      const next = typeof update === "function" ? update(current) : update;
+      if (userRef.current) rememberSiteChat(userRef.current, next);
+      return next;
+    });
   }, []);
+
+  /** Stops the reply in flight: its request is aborted and any event still on its way is ignored. */
+  const stopRun = useCallback(() => {
+    runRef.current += 1;
+    abortRef.current?.abort();
+    abortRef.current = null;
+    busyRef.current = false;
+    pendingOpenRef.current = null;
+  }, []);
+  const cancelRun = useCallback(() => {
+    stopRun();
+    setBusy(false);
+  }, [stopRun]);
+
+  // Whose chat this is. Nothing renders until the session is known, and a change of account (or signing out) stops any
+  // reply in flight and shows only that account's conversation.
   useEffect(() => {
+    const supabase = createClient();
+    let active = true;
+    let resolved = false;
+    const apply = (userId: string | null) => {
+      if (!active || (resolved && userRef.current === userId)) return;
+      resolved = true;
+      cancelRun();
+      userRef.current = userId;
+      if (!userId) forgetSiteChat();
+      setTurnState(userId ? recallSiteChat(userId) : []);
+      setRemaining(null);
+      setError("");
+      setDraft("");
+      setIdentity(userId ? { status: "user", id: userId } : { status: "signed-out" });
+    };
+    void supabase.auth.getSession().then(({ data }) => apply(data.session?.user?.id ?? null));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => apply(session?.user?.id ?? null));
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+      runRef.current += 1;
+      abortRef.current?.abort();
+    };
+  }, [cancelRun]);
+  // Close means close: stop the reply now and ignore anything still on its way, before the exit animation ends.
+  useEffect(() => { if (closing) stopRun(); }, [closing, stopRun]);
+  useEffect(() => {
+    if (closing) return;
     const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [onClose, closing]);
   useEffect(() => {
     const list = listRef.current;
     if (list) list.scrollTop = list.scrollHeight;
-    try {
-      // Only finished turns: a reply still streaming is saved when it ends.
-      if (!busyRef.current) sessionStorage.setItem(HELPER_SITE_STORAGE_KEY, JSON.stringify(turns));
-    } catch {
-      // Private mode or full storage: the chat still works, it just won't survive a reload.
-    }
   }, [turns]);
-  useEffect(() => { if (authenticated) inputRef.current?.focus(); }, [authenticated]);
+  useEffect(() => { if (identity.status === "user") inputRef.current?.focus(); }, [identity.status]);
+  useEffect(() => {
+    const path = pendingOpenRef.current;
+    pendingOpenRef.current = null;
+    if (!path) return;
+    const card = [...(listRef.current?.querySelectorAll<HTMLAnchorElement>("a[data-helper-open]") ?? [])].find((link) => link.dataset.helperOpen === path);
+    // A real click on the card's link: the unsaved-worksheet guard and any other link guard see it like any other link.
+    card?.click();
+  }, [openTick]);
 
   const send = async (text: string) => {
-    if (busyRef.current || !text) return;
+    if (busyRef.current || !text || identity.status !== "user") return;
     busyRef.current = true;
-    const page = currentPage();
+    const run = ++runRef.current;
+    const current = () => runRef.current === run;
+    const page = helperPageContext(window.location.pathname, window.location.search);
     const history = turns.filter((turn) => turn.text || turn.opened?.length).slice(-HELPER_MAX_TURNS).map((turn) => ({ role: turn.role, text: historyText(turn) }));
-    setTurns((current) => [...current, { role: "user", text }, { role: "assistant", text: "" }]);
+    setTurns((existing) => [...existing, { role: "user", text }, { role: "assistant", text: "" }]);
+    setSteps([]);
     setBusy(true);
     setError("");
     setDraft("");
@@ -104,25 +155,28 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
     abortRef.current = controller;
     let reply = "";
     let rules = false;
-    const opened: Opened[] = [];
-    const steps: string[] = [];
-    const update = () => setTurns((current) => [...current.slice(0, -1), { role: "assistant", text: reply, opened: [...opened], ...(steps.length ? { steps: [...steps] } : {}) }]);
+    const opened: SiteOpened[] = [];
+    const update = () => setTurns((existing) => [...existing.slice(0, -1), { role: "assistant", text: reply, opened: [...opened] }]);
     try {
       const outcome: { failure: { message: string; status: number } | null } = { failure: null };
       await streamSiteHelper({ messages: [...history.filter((turn) => turn.text), { role: "user", text }], page }, (event) => {
+        if (!current()) return;
         if (event.type === "text") { reply += event.text; update(); }
-        else if (event.type === "step") { steps.push(event.label); update(); }
+        else if (event.type === "step") setSteps((existing) => [...existing, event.label]);
         else if (event.type === "navigate") {
+          // One page per message: anything after the first stays unopened.
+          if (opened.length) return;
           opened.push({ path: event.path, label: event.label });
           update();
           trackProductEvent("helper_navigate", { surface: "site", kind: event.kind, ...(event.bank ? { bank: event.bank } : {}) });
-          router.push(event.path);
+          pendingOpenRef.current = event.path;
+          setOpenTick((tick) => tick + 1);
         } else if (event.type === "done") {
           if (event.remaining !== undefined) setRemaining(event.remaining);
           rules = Boolean(event.rules);
-        }
-        else if (event.type === "error") outcome.failure = { message: event.message, status: event.status };
+        } else if (event.type === "error") outcome.failure = { message: event.message, status: event.status };
       }, controller.signal);
+      if (!current()) return;
       const { failure } = outcome;
       if (failure && !reply && !opened.length) throw new HelperRequestError(failure.message, failure.status);
       if (failure) setError(failure.message);
@@ -130,21 +184,29 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
       setHop((count) => count + 1);
       if (opened.length) onNavigated();
     } catch (caught) {
-      if (controller.signal.aborted) return;
+      if (controller.signal.aborted || !current()) return;
       const status = caught instanceof HelperRequestError ? caught.status : 0;
       // Drop the failed exchange so the next message isn't sent with a half-finished history.
-      setTurns((current) => current.slice(0, -2));
+      setTurns((existing) => existing.slice(0, -2));
       setDraft(text);
       setError(caught instanceof HelperRequestError ? caught.message : "The helper couldn't answer. Check your connection and try again.");
       if (status === 429) { setRemaining(0); trackProductEvent("helper_limit", { surface: "site" }); }
       else trackProductEvent("helper_error", { surface: "site", code: status });
     } finally {
-      busyRef.current = false;
-      abortRef.current = null;
-      setBusy(false);
-      // Save the finished exchange now that streaming is over.
-      setTurns((current) => [...current]);
+      if (current()) {
+        busyRef.current = false;
+        abortRef.current = null;
+        setBusy(false);
+      }
     }
+  };
+
+  const clearChat = () => {
+    cancelRun();
+    setTurns([]);
+    setError("");
+    trackProductEvent("helper_clear", { surface: "site" });
+    inputRef.current?.focus();
   };
 
   const submit = (event: FormEvent) => {
@@ -152,7 +214,7 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
     void send(draft.trim());
   };
 
-  const returnPath = typeof window === "undefined" ? "/" : currentPage();
+  const returnPath = typeof window === "undefined" ? "/" : helperPageContext(window.location.pathname, window.location.search);
   const empty = turns.length === 0;
 
   return (
@@ -160,6 +222,7 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
       className={`${styles.panel} ${styles.sheet}${closing ? ` ${styles.leaving}` : ""}`}
       role="dialog"
       aria-labelledby={titleId}
+      inert={closing}
       onAnimationEnd={(event) => { if (closing && event.target === event.currentTarget) onExited?.(); }}
     >
       <header className={styles.header}>
@@ -168,10 +231,11 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
           <h2 id={titleId}>{HELPER_NAME}</h2>
           <p>Questions · papers · topics</p>
         </div>
+        {identity.status === "user" && !empty && <button type="button" className={styles.clear} onClick={clearChat}>Clear chat</button>}
         <button type="button" className={styles.close} aria-label={`Close ${HELPER_NAME}`} onClick={onClose}><X weight="bold" /></button>
       </header>
 
-      {authenticated === false ? (
+      {identity.status === "signed-out" ? (
         <div className={styles.signin}>
           <p className={styles.greet}>Tell me what to practise. <em>I&apos;ll take you there.</em></p>
           <p className={styles.muted}>Questions by topic and year, full past papers, and quick explanations. Free with an account.</p>
@@ -181,7 +245,7 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
       ) : (
         <>
           <div className={styles.list} ref={listRef} aria-live="polite">
-            {empty && (
+            {identity.status === "user" && empty && (
               <div className={styles.start}>
                 <p className={styles.greet}>What do you want to practise? <em>I&apos;ll open it.</em></p>
                 <div className={styles.starters}>
@@ -198,15 +262,15 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
             {turns.map((turn, index) => turn.role === "user"
               ? <div key={index} className={`${styles.user} ${styles.enter}`}><p>{turn.text}</p></div>
               : <div key={index} className={`${styles.assistant} ${styles.enter}`}>
-                {turn.text && <HelperMessage text={turn.text} />}
+                {turn.text && <HelperMessage text={turn.text} complete={!(busy && index === turns.length - 1)} />}
                 {turn.opened?.map((page) => (
-                  <Link key={page.path} className={styles.opened} href={page.path}>
+                  <Link key={page.path} className={styles.opened} href={page.path} data-helper-open={page.path}>
                     <ArrowSquareOut weight="bold" aria-hidden="true" />
                     <span><small>Opened</small><b>{page.label}</b></span>
                   </Link>
                 ))}
                 {/* Still working until words arrive: what Pepper has done so far, then what it is doing now. */}
-                {busy && index === turns.length - 1 && !turn.text && <Working steps={turn.steps ?? []} opened={Boolean(turn.opened?.length)} />}
+                {busy && index === turns.length - 1 && !turn.text && <Working steps={steps} opened={Boolean(turn.opened?.length)} />}
               </div>)}
           </div>
 
@@ -224,9 +288,9 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
                 onChange={(event) => setDraft(event.target.value)}
                 onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); event.currentTarget.form?.requestSubmit(); } }}
                 aria-label={`Message ${HELPER_NAME}`}
-                disabled={authenticated === null}
+                disabled={identity.status !== "user"}
               />
-              <button type="submit" className={styles.send} aria-label="Send" disabled={busy || !draft.trim()}><ArrowUp weight="bold" /></button>
+              <button type="submit" className={styles.send} aria-label="Send" disabled={busy || !draft.trim() || identity.status !== "user"}><ArrowUp weight="bold" /></button>
             </div>
             <p className={styles.footnote}>{remaining !== null ? `${remaining} left today` : `${HELPER_NAME} can make mistakes. Check the mark scheme.`}</p>
           </form>

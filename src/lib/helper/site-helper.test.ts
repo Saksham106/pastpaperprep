@@ -4,14 +4,14 @@ vi.mock("server-only", () => ({}));
 
 import { runSiteAgent } from "@/lib/helper/site-agent";
 import { parseSiteEvent } from "@/lib/helper/site-events";
-import { helperPageKind, safeHelperPath } from "@/lib/helper/site-paths";
+import { helperPageContext, helperPageKind, safeHelperPath } from "@/lib/helper/site-paths";
 import { buildSiteMessages, HELPER_SITE_SYSTEM_PROMPT } from "@/lib/helper/site-prompt";
 import { parseSiteHelperRequest } from "@/lib/helper/site-request";
-import { bankPath, loadSiteData, runSiteTool, SITE_TOOLS, type SiteData } from "@/lib/helper/site-tools";
+import { bankPath, loadSiteData, runSiteTool, siteDestinations, SITE_TOOLS, type SiteData } from "@/lib/helper/site-tools";
 import { bankFacets } from "@/lib/site-facets";
 import { siteShortcut } from "@/lib/helper/site-shortcut";
 
-const DATA: SiteData = {
+const BASE: Omit<SiteData, "destinations"> = {
   index: {
     version: 2,
     subjects: [
@@ -32,7 +32,12 @@ const DATA: SiteData = {
     ] as SiteData["papers"]["papers"],
   },
   facets: { version: 2, banks: { igcse: { years: [2024, 2023], papers: [1, 2, 3, 4], sessions: ["June", "November", "March"] } } },
+  pages: [
+    { path: "/articles/topic-questions-vs-full-past-papers", label: "Topic Questions vs Full Past Papers: When to Use Each" },
+    { path: "/revision-notes/ib-math-aa/calculus/5-16-integration-by-substitution-and-parts", label: "IB Maths AA notes · Integration by substitution and parts" },
+  ],
 };
+const DATA: SiteData = { ...BASE, destinations: siteDestinations(BASE) };
 
 const run = (name: string, input: unknown, navigations = 0) => runSiteTool(name, input, { data: DATA, navigations });
 
@@ -48,6 +53,12 @@ describe("safeHelperPath", () => {
     for (const bad of ["https://evil.example", "//evil.example", "/account", "/api/helper", "/auth/callback", "/login", "/r/abc", "/invite/x", "/helper/igcse/q1", "/banks/../account", "/banks\\x", "/banks/igcse#x", "javascript:alert(1)", "", 5, null]) {
       expect(safeHelperPath(bad), String(bad)).toBeNull();
     }
+  });
+
+  it("tells Pepper the path and chosen study filters only", () => {
+    expect(helperPageContext("/banks/igcse", "?topic=Number&year=2023&q=my+search&worksheet=ws-1&utm_source=x&save=q1")).toBe("/banks/igcse?topic=Number&year=2023");
+    expect(helperPageContext("/worksheets/build", "?worksheet=ws-1")).toBe("/worksheets");
+    expect(helperPageContext("/banks/igcse", "?route=extended&paper=2")).toBe("/banks/igcse?paper=2&route=extended");
   });
 
   it("names pages for analytics without the query", () => {
@@ -85,6 +96,11 @@ describe("site tools", () => {
     for (const [name, input] of [["search_site", { query: "vectors", bank: "" }], ["bank_details", { bank: "igcse" }], ["find_past_papers", { query: "0580 may june 2024 paper 22" }]] as const) {
       expect(run(name, input).content).not.toMatch(/questionImages|markscheme|\.webp|signed/i);
     }
+  });
+
+  it("finds articles and notes pages", () => {
+    const result = JSON.parse(run("search_site", { query: "integration by parts notes", bank: "" }).content);
+    expect(result.pages).toEqual([{ title: "IB Maths AA notes · Integration by substitution and parts", link: "/revision-notes/ib-math-aa/calculus/5-16-integration-by-substitution-and-parts" }]);
   });
 
   it("finds full papers", () => {
@@ -126,19 +142,22 @@ describe("site tools", () => {
   it("opens allowed pages and refuses everything else", () => {
     expect(run("open_page", { path: "/past-papers", label: "Past papers" }).navigation).toEqual({ kind: "page", path: "/past-papers", label: "Past papers" });
     expect(run("open_page", { path: "/banks/igcse/topics/number", label: "Number" }).navigation).toMatchObject({ bank: "igcse" });
-    for (const path of ["/account", "/api/billing/checkout", "https://example.com", "/banks/made-up"]) {
+    expect(run("open_page", { path: "/articles/topic-questions-vs-full-past-papers", label: "Guide" }).navigation?.path).toBe("/articles/topic-questions-vs-full-past-papers");
+    // Invented pages under an allowed section, and banks without their exact link, are refused.
+    for (const path of ["/account", "/api/billing/checkout", "https://example.com", "/banks/made-up", "/articles/made-up-guide", "/revision-notes/ib-math-aa/made-up", "/banks/igcse", "/past-papers/igcse-maths-0580/made-up"]) {
       expect(run("open_page", { path, label: "x" }).navigation, path).toBeUndefined();
     }
   });
 
   it("doesn't open the paper library on a deployment without one", () => {
-    const context = { data: { ...DATA, papers: { version: 2 as const, papers: [] } }, navigations: 0 };
+    const withoutPapers = { ...BASE, papers: { version: 2 as const, papers: [] } };
+    const context = { data: { ...withoutPapers, destinations: siteDestinations(withoutPapers) }, navigations: 0 };
     expect(runSiteTool("open_page", { path: "/past-papers", label: "Papers" }, context).isError).toBe(true);
     expect(run("open_page", { path: "/past-papers", label: "Papers" }).isError).toBeUndefined();
   });
 
   it("caps navigations per message", () => {
-    expect(run("open_page", { path: "/dashboard", label: "Banks" }, 2).isError).toBe(true);
+    expect(run("open_page", { path: "/dashboard", label: "Banks" }, 1).isError).toBe(true);
   });
 
   it("rejects non-object input and unknown tools", () => {
@@ -151,6 +170,8 @@ describe("site tools", () => {
     const data = await loadSiteData(async (name) => { if (!(name in files)) throw new Error("missing"); return files[name]; });
     expect(data.index.subjects).toHaveLength(2);
     expect(data.facets.banks).toEqual({});
+    expect(data.destinations.has("/banks/igcse/topics/number")).toBe(true);
+    expect(data.destinations.has("/articles/topic-questions-vs-full-past-papers")).toBe(false);
     await expect(loadSiteData(async () => "{}")).rejects.toThrow();
   });
 

@@ -83,6 +83,19 @@
   border-radius: 10px;
   cursor: pointer;
 }
+.clear {
+  flex: none;
+  align-self: flex-start;
+  min-height: 34px;
+  padding: 0 10px;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 0;
+  border-radius: 10px;
+  font: 600 .78rem/1 var(--font-body);
+  cursor: pointer;
+}
+.clear:hover { background: color-mix(in srgb, var(--surface-raised) 70%, transparent); color: var(--ink); }
 .close:hover { background: color-mix(in srgb, var(--surface-raised) 70%, transparent); }
 
 /* ---------- face ---------- */
@@ -516,7 +529,8 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 1.8s linear infinite, rise 200ms ease-out;
+  /* Two sweeps per label, then it rests: the face keeps showing that Pepper is working. */
+  animation: shimmer 1.8s linear 2, rise 200ms ease-out;
 }
 @keyframes shimmer {
   from { background-position: 100% 0; }
@@ -564,7 +578,8 @@
 }
 
 /* The floating button pops in a moment after the page; once per session Pepper hops and winks hello. */
-.siteLauncher { animation: launcher-in 460ms cubic-bezier(.3, 1.45, .5, 1) 250ms backwards; }
+/* Only on the first appearance of a visit (with the hello), not every time the button comes back. */
+.siteLauncher[data-hello] { animation: launcher-in 460ms cubic-bezier(.3, 1.45, .5, 1) 250ms backwards; }
 @keyframes launcher-in {
   from { transform: translateY(12px) scale(.7); opacity: 0; }
   to { transform: none; opacity: 1; }

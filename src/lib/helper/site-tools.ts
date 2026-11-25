@@ -11,12 +11,28 @@ import { HELPER_SITE_BOARDS, HELPER_SITE_MAX_NAVIGATIONS } from "@/lib/helper/si
 import { safeHelperPath } from "@/lib/helper/site-paths";
 import { matchTopics, searchSite, validSearchIndex, validSearchPapers, type SearchIndex, type SearchPapers, type SearchSubject, type SearchTopic } from "@/lib/site-search";
 import { SEARCH_INDEX_VERSION } from "@/lib/site-search";
-import type { BankFacets, SearchFacets } from "@/lib/site-facets";
+import type { BankFacets, SearchFacets, SearchPage, SearchPages } from "@/lib/site-facets";
 
 // The site helper's tools. Every one reads build-time metadata (public/search/*.json): subject names, topic labels,
 // counts, paper names and links. None returns question text, images or mark schemes, so nothing paid can leak here.
 
-export type SiteData = { index: SearchIndex; papers: SearchPapers; facets: SearchFacets };
+/** `pages` are articles and published notes; `destinations` is every exact path open_page may open. */
+export type SiteData = { index: SearchIndex; papers: SearchPapers; facets: SearchFacets; pages: SearchPage[]; destinations: ReadonlySet<string> };
+
+/** Fixed pages open_page may open, besides the generated ones. */
+export const HELPER_STATIC_PAGES: readonly SearchPage[] = [
+  { path: "/", label: "Home" },
+  { path: "/dashboard", label: "All question banks" },
+  { path: "/past-papers", label: "Past-paper library" },
+  { path: "/revision-notes", label: "Revision notes" },
+  { path: "/worksheets", label: "My worksheets" },
+  { path: "/worksheets/build", label: "Build a paper" },
+  { path: "/articles", label: "Articles" },
+  { path: "/pricing", label: "Plans" },
+  { path: "/faq", label: "FAQ" },
+  { path: "/grade-thresholds", label: "Grade thresholds" },
+  { path: "/updates", label: "What's new" },
+];
 export type SiteNavigation = { kind: "bank" | "page"; path: string; label: string; bank?: string };
 
 type Reader = (name: string) => Promise<string>;
@@ -33,17 +49,32 @@ export function loadSiteData(read: Reader = readPublicSearch): Promise<SiteData>
 }
 
 async function parseSiteData(read: Reader): Promise<SiteData> {
-  const [indexText, papersText, facetsText] = await Promise.all([read("index.json"), read("papers.json").catch(() => ""), read("facets.json").catch(() => "")]);
+  const [indexText, papersText, facetsText, pagesText] = await Promise.all([read("index.json"), read("papers.json").catch(() => ""), read("facets.json").catch(() => ""), read("pages.json").catch(() => "")]);
   const index = JSON.parse(indexText) as unknown;
   if (!validSearchIndex(index)) throw new Error("Search index is missing or out of date");
   const papers = papersText ? JSON.parse(papersText) as unknown : null;
   const facets = facetsText ? JSON.parse(facetsText) as SearchFacets | null : null;
+  const pagesFile = pagesText ? JSON.parse(pagesText) as SearchPages | null : null;
   const boardOn = (bank: string) => HELPER_SITE_BOARDS[helperBoard(bank)];
-  return {
+  const kept: Omit<SiteData, "destinations"> = {
     index: { ...index, subjects: index.subjects.filter((s) => boardOn(s.bank)), topics: index.topics.filter((t) => boardOn(t.bank)) },
     papers: validSearchPapers(papers) ? { ...papers, papers: papers.papers.filter((p) => boardOn(p.bankSlug)) } : { version: SEARCH_INDEX_VERSION, papers: [] },
     facets: facets && facets.version === SEARCH_INDEX_VERSION && facets.banks ? facets : { version: SEARCH_INDEX_VERSION, banks: {} },
+    pages: pagesFile && pagesFile.version === SEARCH_INDEX_VERSION && Array.isArray(pagesFile.pages) ? pagesFile.pages.filter((page) => typeof page?.path === "string" && typeof page.label === "string") : [],
   };
+  return { ...kept, destinations: siteDestinations(kept) };
+}
+
+/** Every exact path open_page may open: fixed pages, subjects, topic pages, full papers, articles and notes. */
+export function siteDestinations(data: Omit<SiteData, "destinations">): ReadonlySet<string> {
+  const paths = [
+    ...HELPER_STATIC_PAGES.filter((page) => page.path !== "/past-papers" || data.papers.papers.length).map((page) => page.path),
+    ...data.index.subjects.flatMap((s) => [s.practiceHref, s.papersHref ?? ""]),
+    ...data.index.topics.map((t) => t.href),
+    ...data.papers.papers.map((p) => p.href),
+    ...data.pages.map((page) => page.path),
+  ];
+  return new Set(paths.filter((path) => path && safeHelperPath(path)));
 }
 
 // ---------- tool definitions (stable order and bytes: they sit in the cached prefix) ----------
@@ -54,7 +85,7 @@ const strings = (description: string) => ({ type: "array", items: { type: "strin
 export const SITE_TOOLS: Anthropic.Beta.BetaToolUnion[] = [
   {
     name: "search_site",
-    description: "Find subjects (question banks), syllabus topics and subtopics by the student's words, e.g. \"vectors\", \"igcse physics\", \"0625 electricity\", \"AA HL calculus\". Returns bank ids, topic labels, question counts and links. Use it first whenever you don't already know the exact bank id or topic label.",
+    description: "Find subjects (question banks), syllabus topics and subtopics, plus articles and revision-notes pages, by the student's words, e.g. \"vectors\", \"igcse physics\", \"0625 electricity\", \"AA HL calculus notes\". Returns bank ids, topic labels, question counts and links. Use it first whenever you don't already know the exact bank id, topic label or page.",
     strict: true,
     input_schema: {
       type: "object",
@@ -112,7 +143,7 @@ export const SITE_TOOLS: Anthropic.Beta.BetaToolUnion[] = [
   },
   {
     name: "open_page",
-    description: "Open any other page for the student: a full past paper or topic page link from a tool result, the past-paper library (/past-papers), revision notes (/revision-notes), My worksheets (/worksheets), the dashboard (/dashboard) or plans (/pricing). Only use paths from tool results or this list.",
+    description: "Open a page that is not a filtered question bank: a link from a tool result (full paper, topic page, subject, article or notes page), or one of /dashboard (all question banks), /past-papers, /revision-notes, /worksheets (My worksheets), /worksheets/build, /articles, /pricing, /faq, /grade-thresholds, /updates. The path must match exactly; anything else is refused.",
     strict: true,
     input_schema: {
       type: "object",
@@ -148,6 +179,15 @@ function subjectFor(data: SiteData, bank: string): SearchSubject | undefined {
   return data.index.subjects.find((s) => s.bank === bank && s.practiceHref);
 }
 
+const PAGE_FILLER = new Set(["the", "and", "of", "for", "notes", "note", "article", "articles", "on", "about"]);
+/** Articles and notes whose title contains every word of the query (ignoring filler), shortest titles first. */
+function matchPages(pages: readonly SearchPage[], query: string, limit = 4): SearchPage[] {
+  const words = query.toLowerCase().split(/[^a-z0-9]+/).filter((word) => word.length > 1 && !PAGE_FILLER.has(word));
+  if (!words.length) return [];
+  return pages.filter((page) => { const label = page.label.toLowerCase(); return words.every((word) => label.includes(word)); })
+    .sort((a, b) => a.label.length - b.label.length).slice(0, limit);
+}
+
 function searchSiteTool(data: SiteData, input: Record<string, unknown>): ToolOutcome {
   const query = text(input.query, 120);
   if (!query) return error("Give a few words to search for.");
@@ -159,8 +199,9 @@ function searchSiteTool(data: SiteData, input: Record<string, unknown>): ToolOut
   }
   const results = searchSite(data.index, null, query);
   const topics = results.topics.length ? results.topics : matchTopics(data.index.topics, query, 8);
-  if (!results.subjects.length && !topics.length) return json({ subjects: [], topics: [], note: "Nothing matched. Try a subject name, a syllabus code or a shorter topic word." });
-  return json({ subjects: results.subjects.map(subjectSummary), topics: topics.map(topicSummary) });
+  const pages = matchPages(data.pages, query);
+  if (!results.subjects.length && !topics.length && !pages.length) return json({ subjects: [], topics: [], note: "Nothing matched. Try a subject name, a syllabus code or a shorter topic word." });
+  return json({ subjects: results.subjects.map(subjectSummary), topics: topics.map(topicSummary), ...(pages.length ? { pages: pages.map((page) => ({ title: page.label, link: page.path })) } : {}) });
 }
 
 function bankDetailsTool(data: SiteData, input: Record<string, unknown>): ToolOutcome {
@@ -265,13 +306,15 @@ function openBankTool(context: ToolContext, input: Record<string, unknown>): Too
 }
 
 function openPageTool(context: ToolContext, input: Record<string, unknown>): ToolOutcome {
-  const path = safeHelperPath(text(input.path, 600));
-  if (!path) return error("You can't open that page. Use a link from a tool result, or /past-papers, /revision-notes, /worksheets, /dashboard or /pricing.");
+  const path = text(input.path, 600);
+  // Only exact, known destinations: an invented path under an allowed section is refused, never guessed at.
+  if (!context.data.destinations.has(path) || !safeHelperPath(path)) {
+    if (path.startsWith("/past-papers") && !context.data.papers.papers.length) return error("The full-paper library isn't available here. Offer the question bank instead.");
+    if (path.startsWith("/banks/")) return error("Use open_bank for question banks, or a topic link exactly as a tool returned it.");
+    return error("That page doesn't exist. Use a link exactly as a tool returned it, or one of the pages listed for open_page.");
+  }
   const pathname = path.split("?")[0];
-  // Deployments built without the paper library (previews) have no /past-papers pages.
-  if (pathname.startsWith("/past-papers") && !context.data.papers.papers.length) return error("The full-paper library isn't available here. Offer the question bank instead.");
   const bank = pathname.startsWith("/banks/") ? pathname.split("/")[2] : undefined;
-  if (bank !== undefined && !subjectFor(context.data, bank)) return error(`No bank "${bank}". Use search_site to find the bank id.`);
   return navigate(context, { kind: "page", path, label: text(input.label, 80) || "Page", ...(bank ? { bank } : {}) });
 }
 

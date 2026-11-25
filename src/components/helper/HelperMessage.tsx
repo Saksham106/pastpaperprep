@@ -75,21 +75,30 @@ function Paragraph({ text }: { text: string }) {
 }
 
 /** The score line a marking reply starts with, drawn as an examiner's mark. */
-function Score({ score, total }: { score: number; total: number }) {
+function Score({ score, total, celebrate }: { score: number; total: number; celebrate: boolean }) {
   const tone = score >= total ? styles.scoreFull : score > 0 ? styles.scorePart : styles.scoreNone;
   return <div className={`${styles.score} ${tone}`} role="img" aria-label={`Marked ${score} out of ${total}`}>
     <span className={styles.scoreNumber}>{score}</span><span className={styles.scoreTotal}>/ {total}</span>
     <span className={styles.stamp}>Marked</span>
-    {/* Full marks: a small burst of confetti from the stamp. */}
-    {score >= total && <span className={styles.burst} aria-hidden="true">{Array.from({ length: 10 }, (_, index) => <i key={index} />)}</span>}
+    {/* Full marks on a marking reply that has just finished: a small burst of confetti from the stamp. */}
+    {celebrate && score >= total && <span className={styles.burst} aria-hidden="true">{Array.from({ length: 10 }, (_, index) => <i key={index} />)}</span>}
   </div>;
 }
 
-export function HelperMessage({ text }: { text: string }) {
+/** A reply that opens with a score line ("Mark: 3 / 10"); until that line is finished it may be a misleading prefix. */
+const SCORE_START = /^\s*\**\s*Mark\b/i;
+
+/**
+ * One reply. `complete` is false while it is still streaming: the score is shown only once its line has ended (so
+ * "Mark: 1 / 1" is never read off a streaming "Mark: 1 / 10"). `celebrate` marks a marking reply that has just finished.
+ */
+export function HelperMessage({ text, complete = true, celebrate = false }: { text: string; complete?: boolean; celebrate?: boolean }) {
+  const scoreLineDone = complete || text.includes("\n");
+  if (!scoreLineDone && SCORE_START.test(text)) return <div className={styles.reply} />;
   const mark = parseMarkLine(text);
   const body = mark ? text.replace(/^\s*[^\n]*\n?/, "") : text;
   return <div className={styles.reply}>
-    {mark && <Score score={mark.score} total={mark.total} />}
+    {mark && <Score score={mark.score} total={mark.total} celebrate={celebrate && complete} />}
     {parseHelperText(body).map((block, index) => <Fragment key={index}>
       {block.kind === "p" && <Paragraph text={block.text} />}
       {block.kind === "math" && <ExplanationMath className={styles.display} tex={block.text} />}

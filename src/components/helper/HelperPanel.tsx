@@ -44,6 +44,8 @@ export type HelperPanelProps = {
 export function HelperPanel({ bank, questionId, questionLabel, authenticated, freePreview, variant = "sheet", onClose, closing = false, onExited }: HelperPanelProps) {
   // Bumped when a reply lands, so the face gives a small hop.
   const [hop, setHop] = useState(0);
+  // The reply (by turn index) that just earned full marks on a marking request; only it celebrates.
+  const [celebrate, setCelebrate] = useState<number | null>(null);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState("");
   const [photo, setPhoto] = useState<string | null>(null);
@@ -60,6 +62,8 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
   const busyRef = useRef(false);
 
   useEffect(() => () => abortRef.current?.abort(), []);
+  // Close means close: stop the reply now, before the exit animation ends.
+  useEffect(() => { if (closing) abortRef.current?.abort(); }, [closing]);
   useEffect(() => {
     if (variant !== "sheet") return;
     const onKey = (event: KeyboardEvent) => { if (event.key === "Escape") onClose?.(); };
@@ -77,6 +81,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
     // Photos go only with their own message; later turns say one was there, so the model trusts its earlier reading.
     const history = turns.filter((turn) => turn.text).slice(-HELPER_MAX_TURNS).map(({ role, text: turnText, photo: hadPhoto }) => ({ role, text: hadPhoto ? `${turnText}\n${HELPER_PHOTO_NOTE}` : turnText }));
     const userTurn: Turn = { role: "user", text, ...(image ? { photo: image } : {}) };
+    const replyIndex = turns.length + 1;
     setTurns((current) => [...current, userTurn, { role: "assistant", text: "" }]);
     setBusy(true);
     setError("");
@@ -92,11 +97,14 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
         messages: [...history, { role: "user", text }],
         ...(image ? { image } : {}),
       }, (partial) => {
+        if (controller.signal.aborted) return;
         reply = partial;
         setTurns((current) => [...current.slice(0, -1), { role: "assistant", text: partial }]);
       }, controller.signal);
       if (result.remaining !== null && Number.isFinite(result.remaining)) setRemaining(result.remaining);
+      if (controller.signal.aborted) return;
       const mark = mode === "mark" ? parseMarkLine(reply) : null;
+      if (mark && mark.score >= mark.total) setCelebrate(replyIndex);
       trackProductEvent("helper_result", { bank, mode, freePreview, ...(mark ? { score: mark.score, total: mark.total } : {}) });
       setHop((count) => count + 1);
     } catch (caught) {
@@ -183,6 +191,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
       className={`${styles.panel} ${variant === "page" ? styles.page : styles.sheet}${closing ? ` ${styles.leaving}` : ""}`}
       role={variant === "sheet" ? "dialog" : undefined}
       aria-labelledby={titleId}
+      inert={closing}
       onAnimationEnd={(event) => { if (closing && event.target === event.currentTarget) onExited?.(); }}
     >
       <header className={`${styles.header} course-tone-${tone}`} data-subject-tone={tone}>
@@ -228,7 +237,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
             {turns.map((turn, index) => turn.role === "user"
               ? <div key={index} className={`${styles.user} ${styles.enter}`}>{turn.photo && <Image unoptimized width={0} height={0} src={turn.photo} alt="Your working" className={styles.thumb} />}{turn.text && <p>{turn.text}</p>}</div>
               : <div key={index} className={`${styles.assistant} ${styles.enter}`}>{turn.text
-                ? <HelperMessage text={turn.text} />
+                ? <HelperMessage text={turn.text} complete={!(busy && index === turns.length - 1)} celebrate={celebrate === index} />
                 : <p className={styles.thinking}><HelperFace thinking size={26} /><span className={styles.shimmer}>{lastUser?.photo ? "Reading your working" : "Thinking"}</span></p>}</div>)}
           </div>
 

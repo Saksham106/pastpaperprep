@@ -35,6 +35,20 @@ describe("HelperPanel", () => {
     expect(screen.queryByRole("button", { name: /^Give me a hint/ })).not.toBeInTheDocument();
   });
 
+  it("stops the reply the moment it is closed", async () => {
+    let signal: AbortSignal | undefined;
+    fetchMock.mockImplementationOnce(async (_url: string, init: RequestInit) => {
+      signal = init.signal ?? undefined;
+      return new Response(new ReadableStream<Uint8Array>({ start() { /* never finishes */ } }), { status: 200, headers: { "X-Helper-Remaining": "4", "X-Helper-Limit": "5" } });
+    });
+    const view = render(<HelperPanel {...props} />);
+    await userEvent.click(screen.getByRole("button", { name: /^Give me a hint/ }));
+    await waitFor(() => expect(signal).toBeDefined());
+    view.rerender(<HelperPanel {...props} closing />);
+    expect(signal?.aborted).toBe(true);
+    expect(view.container.querySelector("section")).toHaveAttribute("inert");
+  });
+
   it("sends a chip as the student's message and shows the streamed reply", async () => {
     fetchMock.mockResolvedValueOnce(streamResponse(["Try **expanding** ", "first."]));
     render(<HelperPanel {...props} />);
