@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { BANKS, getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { HELPER_BOARDS, HELPER_DAILY_LIMITS, helperBoard, type HelperMode } from "@/lib/helper/config";
+import { HELPER_BOARDS, HELPER_DAILY_LIMITS, helperBoard } from "@/lib/helper/config";
 import { consumeHelperAllowance, releaseHelperAllowance } from "@/lib/helper/allowance";
 import { HelperAccessError, loadHelperContext } from "@/lib/helper/context";
 import { buildHelperMessages, HELPER_SYSTEM_PROMPT } from "@/lib/helper/prompt";
@@ -16,8 +16,10 @@ export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" } as const;
-const DEFAULT_MODEL = "claude-opus-5-5";
-const EFFORT: Readonly<Record<HelperMode, "low" | "medium">> = { hint: "low", chat: "low", explain: "low", mark: "medium" };
+// Owner choice: school-level help does not need Opus. Effort stays explicit (Sonnet 5.5 defaults to high).
+const DEFAULT_MODEL = "claude-sonnet-5-5";
+/** Owner choice: Sonnet 5.5 at medium for every mode. Set explicitly, because Sonnet 5.5 defaults to high. */
+const EFFORT = "medium" as const;
 const CUT_OFF_NOTE = "\n\n_Sorry, that answer was cut off. Try again._";
 
 const jsonError = (error: string, status: number) => NextResponse.json({ error }, { status, headers: NO_STORE });
@@ -86,7 +88,7 @@ async function handlePOST(request: Request) {
     max_tokens: 16000,
     system: [{ type: "text", text: HELPER_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
     messages: buildHelperMessages(context, parsed),
-    output_config: { effort: EFFORT[parsed.mode] },
+    output_config: { effort: EFFORT },
     // Haiku has no server-side refusal fallback.
     ...(model.includes("haiku") ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
   });
