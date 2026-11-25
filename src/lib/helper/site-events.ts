@@ -7,7 +7,8 @@ export type SiteNavigationEvent = { type: "navigate"; kind: "bank" | "page"; pat
 export type SiteHelperEvent =
   | { type: "text"; text: string }
   | SiteNavigationEvent
-  | { type: "done"; remaining: number; limit: number }
+  /** remaining is absent when the rules answered without AI, so no helper message was used. */
+  | { type: "done"; remaining?: number; limit?: number; rules?: boolean }
   | { type: "error"; message: string; status: number };
 
 /** One line of the stream, or null for anything malformed or unsafe (a navigation to a path we don't allow). */
@@ -30,7 +31,12 @@ export function parseSiteEvent(line: string): SiteHelperEvent | null {
       return { type: "navigate", kind: event.kind, path, label, ...(typeof event.bank === "string" ? { bank: event.bank } : {}) };
     }
     case "done":
-      return typeof event.remaining === "number" && typeof event.limit === "number" ? { type: "done", remaining: event.remaining, limit: event.limit } : null;
+      return {
+        type: "done",
+        ...(typeof event.remaining === "number" ? { remaining: event.remaining } : {}),
+        ...(typeof event.limit === "number" ? { limit: event.limit } : {}),
+        ...(event.rules === true ? { rules: true } : {}),
+      };
     case "error":
       return typeof event.message === "string" ? { type: "error", message: event.message, status: typeof event.status === "number" ? event.status : 0 } : null;
     default:

@@ -404,3 +404,71 @@
   .sheet, .enter, .qr, .attached, .stamp, .faceEyes, .faceThinking, .faceThinking .faceEyes, .dots i, .launcher:hover .face { animation: none; }
   .tile, .send { transition: none; }
 }
+
+/* ---------- site-wide helper: floating button, starters, opened-page cards ---------- */
+
+.siteLauncher {
+  position: fixed;
+  z-index: 55;
+  right: max(20px, env(safe-area-inset-right));
+  bottom: max(20px, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px 7px 7px;
+  color: var(--ink);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px color-mix(in srgb, #14140f 18%, transparent), 0 1px 0 color-mix(in srgb, #000 6%, transparent);
+  font: 700 .95rem/1 var(--font-body);
+  cursor: pointer;
+  animation: rise 260ms cubic-bezier(.2, .8, .2, 1);
+  transition: border-color 140ms ease, transform 140ms ease;
+}
+.siteLauncher:hover { border-color: var(--cobalt); transform: translateY(-1px); }
+.siteLauncher:hover .face { animation: bob 700ms ease-in-out; }
+.siteLauncher:focus-visible { outline: 3px solid color-mix(in srgb, var(--cobalt) 45%, transparent); outline-offset: 2px; }
+/* Any open helper sheet covers the corner, so the button steps aside. */
+:global(body):has(.sheet) .siteLauncher { display: none; }
+
+.starters { display: flex; flex-wrap: wrap; gap: 8px; }
+.starter {
+  min-height: 36px;
+  padding: 0 14px;
+  color: var(--ink);
+  background: var(--surface-raised);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font: 600 .86rem/1 var(--font-body);
+  cursor: pointer;
+  transition: border-color 140ms ease;
+}
+.starter:hover { border-color: var(--cobalt); }
+
+.opened {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 9px 12px;
+  color: var(--ink);
+  background: var(--cobalt-faint);
+  border: 1px solid color-mix(in srgb, var(--cobalt) 28%, transparent);
+  border-radius: 12px;
+  font-size: .88rem;
+  text-decoration: none;
+}
+.opened:hover { border-color: var(--cobalt); }
+.opened svg { flex: none; color: var(--cobalt-strong); }
+.opened b { display: block; font-weight: 650; }
+.opened small { display: block; color: var(--muted); font: 600 .66rem/1.4 var(--font-mono); letter-spacing: .1em; text-transform: uppercase; }
+
+@media (max-width: 640px) {
+  .siteLauncher { padding: 7px; }
+  .siteLauncher span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .siteLauncher, .siteLauncher:hover .face { animation: none; transition: none; }
+}

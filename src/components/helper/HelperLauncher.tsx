@@ -10,7 +10,7 @@ import styles from "./helper.module.css";
 const HelperPanel = dynamic(() => import("@/components/helper/HelperPanel").then((mod) => mod.HelperPanel), { ssr: false });
 
 /** One panel at a time: opening one closes any other. */
-const OPEN_EVENT = "pastpaperprep:helper-open";
+export const OPEN_EVENT = "pastpaperprep:helper-open";
 
 export function HelperLauncher({ bank, questionId, questionLabel, authenticated, freePreview }: {
   bank: string;

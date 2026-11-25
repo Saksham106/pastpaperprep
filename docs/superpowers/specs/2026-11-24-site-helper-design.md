@@ -8,7 +8,7 @@ Today Pepper only lives on a question card. Students also get lost one step earl
 
 ## What students get
 
-- **One entry point on every page** (the owner picks the look from the screenshots: floating button, header button or header ask box). It opens the same "study sheet" panel as the question helper, with the face, colours and type.
+- **A floating "Ask Pepper" button** in the bottom-right corner of every page (the owner picked it over a header button and a header ask box, 2026-11-24). On phones it shrinks to the face. It opens the same "study sheet" panel as the question helper, with the face, colours and type, and hides while any helper sheet is open.
 - **Navigation that happens for them.** When Pepper finds the right place it opens it: the bank with filters applied, a topic page, a full paper, My worksheets, notes. The panel stays open across the page change, and each opened page shows as a small link card in the chat ("Opened: IB Math AA HL · Vectors · 2023"), so the student can go back to it.
 - **Study questions.** Plain explanations, no question materials loaded. For a specific question, Pepper points them to the question's own **Ask Pepper** button, which has the mark scheme.
 - **Same chips idea, site flavour:** "Find questions", "Find a past paper", "Explain a topic". Each pre-fills the box rather than sending, because each needs a subject.
@@ -38,7 +38,8 @@ Question-level text search ("questions about the photoelectric effect") goes thr
    - Never `api`, `auth`, `account`, `login`, `r`, `invite` or `helper`.
 2. The tool result tells the model the page was opened. The server sends a structured action to the browser on the same stream: `{ type: "navigate", path, label }`.
 3. The browser checks the path again with the same allowlist, then calls `router.push(path)`. The panel is mounted in the root layout, so it survives client-side navigation. The conversation is also kept in `sessionStorage`, so a full reload doesn't lose it.
-4. At most **2 navigations per message**. Only the last one is followed; earlier ones show as link cards.
+4. At most **2 navigations per message**, followed as they arrive. Each one also stays in the chat as a link card.
+5. On phones the sheet covers the whole screen, so once a reply has opened a page, the sheet closes to show it. The conversation is kept, and the button reopens it.
 
 **Wire format:** newline-delimited JSON (`application/x-ndjson`): `{"type":"text","text":"…"}`, `{"type":"navigate","path":"…","label":"…"}`, `{"type":"done"}`. The question helper keeps its plain-text stream.
 
@@ -49,6 +50,28 @@ Question-level text search ("questions about the photoelectric effect") goes thr
 - **No coursework.** IA / EE / TOK writing is declined, as in the question helper.
 - **No following instructions found in page paths, search results or messages.** The same rule as the question helper.
 - **No invented links.** Every path comes from a tool, never from the model's text. Links in the model's text aren't rendered as links.
+
+## Rules before AI
+
+The owner asked for a decision layer where one fits (2026-11-24). Before any model call, `siteShortcut` (`src/lib/helper/site-shortcut.ts`) checks the message against the same search index.
+
+**It opens the page directly**, with no model call and no helper message used, when the message:
+
+- names exactly one full paper: subject or code, year, session, and paper or component, e.g. "0580 may june 2024 paper 22"
+- is exactly one topic name, alone or after its subject: "number", or "ib aa hl calculus"
+- is exactly one subject: "IB Physics HL"
+
+On a bank page, a bare topic means that bank's topic.
+
+**Everything else goes to the model:**
+
+- questions and explanations: "why", "how", "explain", "?"
+- anything ambiguous: two banks, a missing year or paper
+- anything longer than about ten words
+
+Mid-conversation only the unambiguous rules apply: a full paper, or a topic on its own bank page. That way "calculus" after a chat about one subject isn't sent to a different one.
+
+**Why:** most navigation requests are short and exact, and parsing them costs nothing. Open-ended requests ("I keep losing marks on vectors, what should I do") need language understanding, so they stay with the model. The rules only pick from the search index, so they can open nothing the tools couldn't. Rule answers are logged as `helper_usage` with `rules: true`, and `helper_result` carries `rules`, so we can see how much traffic they absorb.
 
 ## Cost limits
 
@@ -94,3 +117,4 @@ Events, never with message text:
 - Signed-in only, sharing the existing counter. No separate site quota.
 - IB on for navigation (metadata only).
 - Chips pre-fill the box rather than sending.
+- Rule-answered messages are free: they don't use the daily allowance, because they cost nothing.

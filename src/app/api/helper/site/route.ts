@@ -7,6 +7,7 @@ import { HELPER_DAILY_LIMITS } from "@/lib/helper/config";
 import { HELPER_SITE_CUT_OFF, runSiteAgent, type Send } from "@/lib/helper/site-agent";
 import { buildSiteMessages } from "@/lib/helper/site-prompt";
 import { parseSiteHelperRequest } from "@/lib/helper/site-request";
+import { siteShortcut } from "@/lib/helper/site-shortcut";
 import { loadSiteData, type SiteData } from "@/lib/helper/site-tools";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { createAdminClient } from "@/lib/supabase/admin";
@@ -64,6 +65,15 @@ async function handlePOST(request: Request) {
   } catch (error) {
     console.error(JSON.stringify({ event: "helper_site_data_failed", error: error instanceof Error ? error.message.slice(0, 200) : "unknown" }));
     return jsonError(FAILED, 503);
+  }
+
+  // Rules first: an exact paper, topic or subject opens with no model call and costs the student nothing.
+  const last = parsed.messages[parsed.messages.length - 1].text;
+  const shortcut = siteShortcut(data, last, parsed.page, parsed.messages.length > 1);
+  if (shortcut) {
+    console.info(JSON.stringify({ event: "helper_usage", surface: "site", rules: true, kind: shortcut.navigation.kind }));
+    const lines = [{ type: "navigate", ...shortcut.navigation }, { type: "text", text: shortcut.reply }, { type: "done", rules: true }];
+    return new Response(lines.map((line) => JSON.stringify(line)).join("\n") + "\n", { headers: { ...NO_STORE, "Content-Type": "application/x-ndjson; charset=utf-8" } });
   }
 
   const paid = BANKS.some((entry) => hasBankAccess(entry.slug, entitlements));

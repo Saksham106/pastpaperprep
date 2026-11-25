@@ -9,6 +9,7 @@ import { buildSiteMessages, HELPER_SITE_SYSTEM_PROMPT } from "@/lib/helper/site-
 import { parseSiteHelperRequest } from "@/lib/helper/site-request";
 import { bankPath, loadSiteData, runSiteTool, SITE_TOOLS, type SiteData } from "@/lib/helper/site-tools";
 import { bankFacets } from "@/lib/site-facets";
+import { siteShortcut } from "@/lib/helper/site-shortcut";
 
 const DATA: SiteData = {
   index: {
@@ -231,5 +232,44 @@ describe("runSiteAgent", () => {
     expect(events).toEqual([]);
     const refused = fakeApi([{ stop: "refusal" }]);
     expect(await runSiteAgent({ api: refused.api, model: "m", data: DATA, messages: [{ role: "user", content: "x" }], send: () => {} })).toMatchObject({ refused: true });
+  });
+});
+
+describe("siteShortcut (rules before AI)", () => {
+  it("opens an exactly named paper without the model", () => {
+    expect(siteShortcut(DATA, "0580 may june 2024 paper 22", "/")?.navigation).toMatchObject({ kind: "page", path: "/past-papers/igcse-maths-0580/0580-s24-22" });
+  });
+
+  it("leaves a paper to the model when the year, session or paper is missing", () => {
+    expect(siteShortcut(DATA, "0580 2024 paper 22", "/")).toBeNull();
+    expect(siteShortcut(DATA, "0580 may june 2024", "/")).toBeNull();
+  });
+
+  it("opens a topic named on its own or with its subject", () => {
+    expect(siteShortcut(DATA, "Vectors and transformations", "/")?.navigation).toMatchObject({ path: "/banks/igcse/topics/vectors-and-transformations", label: "IGCSE Maths 0580 · Vectors and transformations" });
+    expect(siteShortcut(DATA, "show me ib aa hl calculus questions", "/")?.navigation.path).toBe("/banks/ib-hl/topics/calculus");
+    expect(siteShortcut(DATA, "calculus", "/banks/ib-hl?free=1")?.navigation.path).toBe("/banks/ib-hl/topics/calculus");
+  });
+
+  it("opens a subject named exactly", () => {
+    expect(siteShortcut(DATA, "IB math AA HL", "/")?.navigation).toMatchObject({ path: "/banks/ib-hl?free=1" });
+  });
+
+  it("sends questions, explanations and ambiguous requests to the model", () => {
+    for (const text of ["what is a vector?", "explain calculus", "how do I revise number", "maths", "number vectors calculus", "I keep losing marks on vectors and I don't know what to practise next week"]) {
+      expect(siteShortcut(DATA, text, "/"), text).toBeNull();
+    }
+  });
+
+  it("is stricter mid-conversation: a bare topic only counts on its own bank page", () => {
+    expect(siteShortcut(DATA, "calculus", "/", true)).toBeNull();
+    expect(siteShortcut(DATA, "calculus", "/banks/ib-hl", true)?.navigation.path).toBe("/banks/ib-hl/topics/calculus");
+    expect(siteShortcut(DATA, "IB math AA HL", "/", true)).toBeNull();
+  });
+
+  it("only ever opens paths the browser accepts", () => {
+    for (const text of ["0580 may june 2024 paper 22", "Vectors and transformations", "IB math AA HL"]) {
+      expect(safeHelperPath(siteShortcut(DATA, text, "/")?.navigation.path)).toBeTruthy();
+    }
   });
 });
