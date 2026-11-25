@@ -1,4 +1,4 @@
-import { HELPER_MAX_TEXT, HELPER_MAX_TURNS } from "@/lib/helper/config";
+import { HELPER_MAX_RAW_TURN_TEXT, HELPER_MAX_TEXT, HELPER_MAX_TURNS, historyText } from "@/lib/helper/config";
 import type { HelperTurn } from "@/lib/helper/request";
 
 export type SiteHelperRequest = {
@@ -21,13 +21,20 @@ export function parseSiteHelperRequest(body: unknown): SiteHelperRequest | null 
   if (typeof page !== "string" || !PAGE.test(page)) return null;
   if (!Array.isArray(messages) || messages.length < 1 || messages.length > HELPER_MAX_TURNS + 1) return null;
   const turns: HelperTurn[] = [];
-  for (const message of messages) {
+  const last = messages.length - 1;
+  for (const [index, message] of messages.entries()) {
     if (!isRecord(message) || (message.role !== "user" && message.role !== "assistant")) return null;
-    if (typeof message.text !== "string") return null;
-    const limit = message.role === "assistant" ? HELPER_MAX_TEXT * 4 : HELPER_MAX_TEXT;
+    if (typeof message.text !== "string" || message.text.length > HELPER_MAX_RAW_TURN_TEXT) return null;
     const text = message.text.trim();
-    if (!text || text.length > limit) return null;
-    turns.push({ role: message.role, text });
+    if (index === last) {
+      // The new message is the student's own text, capped like the input box.
+      if (!text || text.length > HELPER_MAX_TEXT) return null;
+      turns.push({ role: message.role, text });
+      continue;
+    }
+    // Earlier turns are history: shortened rather than rejected, as in the question helper.
+    if (!text) continue;
+    turns.push({ role: message.role, text: historyText(text) });
   }
   if (turns[turns.length - 1].role !== "user") return null;
   // The API needs turns to start with the student; drop a leading greeting-only assistant turn if one slipped in.
