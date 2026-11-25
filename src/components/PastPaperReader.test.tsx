@@ -115,6 +115,26 @@ describe("PastPaperReader", () => {
     fireEvent.click(screen.getByRole("button", { name: "Exit focus view" }));
     expect(stage.scrollTop).toBe(400);
   });
+  it("keeps the position when Focus view opens before the queued scroll read has run", async () => {
+    const frames: FrameRequestCallback[] = [];
+    const raf = vi.spyOn(window, "requestAnimationFrame").mockImplementation(callback => { frames.push(callback); return frames.length; });
+    try {
+      render(<PastPaperReader />);
+      await screen.findByRole("img", { name: /Question paper, page 1/ });
+      const stage = screen.getByRole("tabpanel");
+      const first = document.querySelector('[data-paper-page="1"]') as HTMLElement;
+      // Page height follows the layout: 1,500 px only while Focus view is showing.
+      Object.defineProperty(first, "offsetHeight", { get: () => stage.closest("dialog")?.getAttribute("aria-label")?.includes("Focus view") ? 1500 : 1000 });
+      stage.scrollTop = 400; fireEvent.scroll(stage);
+      // The scroll read is still queued in a held frame; Focus view must not wait for it.
+      fireEvent.click(screen.getByRole("button", { name: "Focus view" }));
+      expect(stage.scrollTop).toBe(600);
+      // A frame that runs late must not overwrite the anchor with the new geometry.
+      for (const frame of frames.splice(0)) frame(0);
+      fireEvent.click(screen.getByRole("button", { name: "Exit focus view" }));
+      expect(stage.scrollTop).toBe(400);
+    } finally { raf.mockRestore(); }
+  });
   it("validates custom minutes and announces expiry without taking away the PDF", async () => {
     const clock = vi.spyOn(Date, "now").mockReturnValue(1000);
     render(<PastPaperReader />);

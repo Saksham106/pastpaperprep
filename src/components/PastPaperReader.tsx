@@ -48,6 +48,7 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
   const [loaded, setLoaded] = useState<Record<string, { retry: number; pdf: PDFDocumentProxy | null; error: boolean }>>({});
   const documents = useRef(new Map<string, PDFDocumentProxy>());
   const scrollFrame = useRef(0);
+  const pendingAnchor = useRef<(() => void) | null>(null);
   const [retry, setRetry] = useState(0);
   const [ownKind, setOwnKind] = useState<PaperDocumentKind>("question");
   const kinds = paperDocumentKinds(paper);
@@ -67,7 +68,17 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
   const [editing, setEditing] = useState({ kind, page: 1, value: "1" });
   const pageNumber = Math.min(positions[kind], pdf?.numPages || positions[kind]);
   const draft = editing.kind === kind && editing.page === pageNumber ? editing.value : String(pageNumber);
+  // Record where the reader is in the current geometry now, rather than in a frame that may run
+  // after Focus view, zoom, mode or the document has already changed the layout.
+  function flushScrollAnchor() {
+    cancelAnimationFrame(scrollFrame.current);
+    scrollFrame.current = 0;
+    const capture = pendingAnchor.current;
+    pendingAnchor.current = null;
+    capture?.();
+  }
   function selectDocument(next: PaperDocumentKind) {
+    flushScrollAnchor();
     if (next === kind) return;
     if (onKindChange) onKindChange(next); else setOwnKind(next);
   }
@@ -120,6 +131,10 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
   useLayoutEffect(() => {
     const stage = stageRef.current;
     if (!stage || !pdf) return;
+    // A read still queued from before this layout change would measure the new geometry; drop it.
+    cancelAnimationFrame(scrollFrame.current);
+    scrollFrame.current = 0;
+    pendingAnchor.current = null;
     const anchor = scrollAnchors.current[kind];
     const target = stage.querySelector<HTMLElement>(`[data-paper-page="${anchor.page}"]`);
     stage.scrollTop = mode === "scroll" ? target && target.offsetHeight > 0 ? target.offsetTop + anchor.fraction * target.offsetHeight : scrollPositions.current[kind] : 0;
@@ -140,8 +155,8 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
     return () => observer.disconnect();
   }, [pdf, kind, mode]);
   return <article className={styles.reader}>
-    <dialog ref={dialogRef} open aria-label={focused ? `${paper.title} · Focus view` : "Paper reader"} aria-modal={focused ? true : undefined} className={`${styles.viewer} ${focused ? styles.focused : ""}`} onCancel={event => { event.preventDefault(); setFocused(false); }} onKeyDown={event => { if (event.key === "Escape" && focused) { event.preventDefault(); setFocused(false); } }}>
-      {focused && <div className={styles.focusHeading}><span>{paper.title}</span><button type="button" ref={exitButton} onClick={() => setFocused(false)}>Exit focus view</button></div>}
+    <dialog ref={dialogRef} open aria-label={focused ? `${paper.title} · Focus view` : "Paper reader"} aria-modal={focused ? true : undefined} className={`${styles.viewer} ${focused ? styles.focused : ""}`} onCancel={event => { event.preventDefault(); flushScrollAnchor(); setFocused(false); }} onKeyDown={event => { if (event.key === "Escape" && focused) { event.preventDefault(); flushScrollAnchor(); setFocused(false); } }}>
+      {focused && <div className={styles.focusHeading}><span>{paper.title}</span><button type="button" ref={exitButton} onClick={() => { flushScrollAnchor(); setFocused(false); }}>Exit focus view</button></div>}
       <div className={styles.toolbar} aria-label="Paper tools">
         <div role="tablist" aria-label="Document" className={styles.tabs}>{kinds.map((type, index) => <button key={type} id={`paper-tab-${type}`} role="tab" aria-selected={kind === type} aria-controls="paper-panel" tabIndex={kind === type ? 0 : -1} onClick={() => selectDocument(type)} onKeyDown={event => {
           if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
@@ -156,24 +171,25 @@ function PastPaperReaderSession({ paper, kind: controlledKind, onKindChange, ana
           <button type="button" aria-label="Next page" disabled={!pdf || pageNumber === pdf.numPages} onClick={() => goTo(pageNumber + 1)}><CaretRight aria-hidden="true" weight="bold" /></button>
         </div>
         <details className={styles.view}><summary aria-label="View options"><SlidersHorizontal aria-hidden="true" /><span>View</span></summary><div className={styles.viewMenu}>
-          <label>Pages<select aria-label="Reading mode" value={mode} onChange={event => setMode(event.target.value as "scroll" | "single")}><option value="scroll">Scroll pages</option><option value="single">Single page</option></select></label>
-          <label>Size<select aria-label="PDF zoom" value={zoom} onChange={event => setZoom(event.target.value as "fit" | "actual")}><option value="fit">Fit width</option><option value="actual">100%</option></select></label>
+          <label>Pages<select aria-label="Reading mode" value={mode} onChange={event => { flushScrollAnchor(); setMode(event.target.value as "scroll" | "single"); }}><option value="scroll">Scroll pages</option><option value="single">Single page</option></select></label>
+          <label>Size<select aria-label="PDF zoom" value={zoom} onChange={event => { flushScrollAnchor(); setZoom(event.target.value as "fit" | "actual"); }}><option value="fit">Fit width</option><option value="actual">100%</option></select></label>
         </div></details>
         <a className={styles.iconButton} href={src} rel="nofollow" download={`${paper.id}_${downloadSuffix(paper, kind)}.pdf`} aria-label={`Download ${title.toLowerCase()} PDF`} title={`Download ${title.toLowerCase()}`}><DownloadSimple aria-hidden="true" weight="bold" /></a>
-        <button className={styles.iconButton} type="button" ref={focusButton} hidden={focused} aria-label="Focus view" title="Focus view" onClick={() => setFocused(true)}><ArrowsOut aria-hidden="true" weight="bold" /></button>
+        <button className={styles.iconButton} type="button" ref={focusButton} hidden={focused} aria-label="Focus view" title="Focus view" onClick={() => { flushScrollAnchor(); setFocused(true); }}><ArrowsOut aria-hidden="true" weight="bold" /></button>
       </div>
       <div ref={stageRef} onScroll={() => {
         const stage = stageRef.current;
         if (mode !== "scroll" || !stage || !pdf) return;
         scrollPositions.current[kind] = stage.scrollTop;
         // Layout reads run at most once per frame; the cheap scrollTop read above stays per-event.
+        // flushScrollAnchor() takes a pending read early, before anything changes the page geometry.
         if (scrollFrame.current) return;
-        scrollFrame.current = requestAnimationFrame(() => {
-          scrollFrame.current = 0;
+        pendingAnchor.current = () => {
           const top = stage.scrollTop;
           const node = [...stage.querySelectorAll<HTMLElement>("[data-paper-page]")].find(page => page.offsetHeight > 0 && page.offsetTop <= top && page.offsetTop + page.offsetHeight > top);
           if (node) scrollAnchors.current[kind] = { page: Number(node.dataset.paperPage), fraction: (top - node.offsetTop) / node.offsetHeight };
-        });
+        };
+        scrollFrame.current = requestAnimationFrame(flushScrollAnchor);
       }} className={styles.stage} id="paper-panel" role="tabpanel" tabIndex={0} aria-labelledby={`paper-tab-${kind}`}>
         {error ? <div className={styles.error} role="alert">The PDF could not be loaded. Please try again.<button type="button" onClick={() => setRetry(value => value + 1)}>Retry PDF</button></div> : pdf ? mode === "single" ? <PastPaperPdfPage key={src} pdf={pdf} number={pageNumber} title={title} zoom={zoom} /> : <div className={`${styles.pageStack} ${zoom === "actual" ? styles.actualStack : ""}`}>{Array.from({ length: pdf.numPages }, (_, index) => index + 1).map(number => <div key={`${src}-${number}`} data-paper-page={number} className={styles.scrollPage} aria-label={`${title}, page ${number}`}>
           {Math.abs(number - pageNumber) <= 1 ? <PastPaperPdfPage pdf={pdf} number={number} title={title} zoom={zoom} /> : <span className={styles.pagePlaceholder}>Page {number}</span>}
