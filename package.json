@@ -32,6 +32,8 @@
     "storage:sync-previews": "tsx scripts/reconcile-supabase-assets.ts --sync-missing-previews",
     "storage:reconcile": "tsx scripts/reconcile-supabase-assets.ts",
     "start": "next start",
+    "dev:agent": "npm run predev && node scripts/agent-server.mjs dev",
+    "preview:agent": "node scripts/agent-server.mjs start",
     "lint": "eslint",
     "typecheck": "node --max-old-space-size=8192 node_modules/typescript/bin/tsc --noEmit",
     "pretest": "npm run generate:bank-index && npm run generate:asset-manifest",
