@@ -56,13 +56,13 @@ describe("POST /api/helper", () => {
     vi.stubEnv("ANTHROPIC_API_KEY", "test-key");
     vi.spyOn(console, "info").mockImplementation(() => {});
     mocks.getClaims.mockResolvedValue({ data: { claims: { sub: "user-1" } } });
-    mocks.rpc.mockResolvedValue({ data: 4, error: null });
+    mocks.rpc.mockResolvedValue({ data: { status: "ok", remaining: 4, usage_date: "2026-11-24" }, error: null });
     mocks.adminRpc.mockResolvedValue({ error: null });
     mocks.createClient.mockResolvedValue({ auth: { getClaims: mocks.getClaims }, rpc: mocks.rpc });
     mocks.fetchAccessEntitlements.mockResolvedValue({ rows: [], error: null });
     mocks.loadHelperContext.mockResolvedValue({
       bank: "igcse", questionId: "q1", freePreview: true, label: "L", subject: "Maths", qualification: "Cambridge IGCSE",
-      marks: 3, questionImages: [], markschemeImages: [], explanation: null,
+      marks: 3, questionImages: [], markschemeImages: [], explanation: null, omitted: { question: 0, markscheme: 0 },
     });
     mocks.stream.mockReturnValue(fakeStream(["Try ", "expanding."]));
   });
@@ -92,7 +92,7 @@ describe("POST /api/helper", () => {
     expect(response.status).toBe(200);
     expect(await response.text()).toBe("Try expanding.");
     expect(response.headers.get("X-Helper-Remaining")).toBe("4");
-    expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance", { p_limit: 5 });
+    expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance_v2", { p_limit: 5 });
     const params = mocks.stream.mock.calls[0][0];
     expect(params.model).toBe("claude-opus-5-5");
     expect(params.output_config).toEqual({ effort: "low" });
@@ -102,11 +102,11 @@ describe("POST /api/helper", () => {
   it("gives paid members the higher limit", async () => {
     mocks.fetchAccessEntitlements.mockResolvedValueOnce({ rows: [{ productId: "bundle_all", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }], error: null });
     await POST(request());
-    expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance", { p_limit: 30 });
+    expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance_v2", { p_limit: 30 });
   });
 
   it("answers 429 at the daily limit without calling the model", async () => {
-    mocks.rpc.mockResolvedValueOnce({ data: -1, error: null });
+    mocks.rpc.mockResolvedValueOnce({ data: { status: "limit" }, error: null });
     const response = await POST(request());
     expect(response.status).toBe(429);
     expect(mocks.stream).not.toHaveBeenCalled();
@@ -115,7 +115,7 @@ describe("POST /api/helper", () => {
   it("gives the message back when the model fails before answering", async () => {
     mocks.stream.mockReturnValueOnce(fakeStream([], { throwFirst: new Error("boom") }));
     expect((await POST(request())).status).toBe(502);
-    expect(mocks.adminRpc).toHaveBeenCalledWith("release_helper_allowance", { p_user_id: "user-1" });
+    expect(mocks.adminRpc).toHaveBeenCalledWith("release_helper_allowance_v2", { p_user_id: "user-1", p_usage_date: "2026-11-24" });
 
     mocks.stream.mockReturnValueOnce(fakeStream([], { stopReason: "refusal" }));
     expect((await POST(request())).status).toBe(422);
@@ -127,5 +127,33 @@ describe("POST /api/helper", () => {
     const response = await POST(request({ ...body, mode: "mark", messages: [{ role: "user", text: "x = 2" }] }));
     expect(await response.text()).toContain("cut off");
     expect(mocks.stream.mock.calls[0][0].output_config).toEqual({ effort: "medium" });
+  });
+
+  it("answers 503 when the helper is paused or the site-wide cap is reached, without calling the model", async () => {
+    mocks.rpc.mockResolvedValueOnce({ data: { status: "disabled" }, error: null });
+    expect((await POST(request())).status).toBe(503);
+    mocks.rpc.mockResolvedValueOnce({ data: { status: "busy" }, error: null });
+    expect((await POST(request())).status).toBe(503);
+    expect(mocks.stream).not.toHaveBeenCalled();
+  });
+
+  it("falls back to the v1 allowance while the v2 migration isn't applied", async () => {
+    mocks.rpc.mockImplementation(async (name: string) => name === "consume_helper_allowance_v2"
+      ? { data: null, error: { code: "PGRST202" } }
+      : { data: 2, error: null });
+    mocks.stream.mockReturnValueOnce(fakeStream([], { throwFirst: new Error("boom") }));
+    expect((await POST(request())).status).toBe(502);
+    expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance", { p_limit: 5 });
+    expect(mocks.adminRpc).toHaveBeenCalledWith("release_helper_allowance", { p_user_id: "user-1" });
+  });
+
+  it("never asks for a score when the mark scheme was cut short", async () => {
+    mocks.loadHelperContext.mockResolvedValueOnce({
+      bank: "igcse", questionId: "q1", freePreview: true, label: "L", subject: "Maths", qualification: "Cambridge IGCSE",
+      marks: 30, questionImages: ["Q"], markschemeImages: ["M"], explanation: null, omitted: { question: 0, markscheme: 1 },
+    });
+    await POST(request({ ...body, mode: "mark", messages: [{ role: "user", text: "x = 2" }] }));
+    const messages = mocks.stream.mock.calls[0][0].messages;
+    expect(messages[messages.length - 1].content).toContain("must not give a score");
   });
 });

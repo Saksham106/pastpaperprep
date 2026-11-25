@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { BANKS } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
+import { consumeHelperAllowance, releaseHelperAllowance } from "@/lib/helper/allowance";
 import { HELPER_DAILY_LIMITS } from "@/lib/helper/config";
 import { HELPER_SITE_CUT_OFF, runSiteAgent, type Send } from "@/lib/helper/site-agent";
 import { buildSiteMessages } from "@/lib/helper/site-prompt";
@@ -10,7 +11,6 @@ import { parseSiteHelperRequest } from "@/lib/helper/site-request";
 import { siteShortcut } from "@/lib/helper/site-shortcut";
 import { loadSiteData, type SiteData } from "@/lib/helper/site-tools";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -28,14 +28,6 @@ let client: Anthropic | undefined;
 function anthropic(): Anthropic {
   client ??= new Anthropic();
   return client;
-}
-
-async function releaseAllowance(userId: string) {
-  try {
-    await createAdminClient().rpc("release_helper_allowance", { p_user_id: userId });
-  } catch {
-    // A lost refund costs the student one message at worst.
-  }
 }
 
 async function handlePOST(request: Request) {
@@ -78,11 +70,15 @@ async function handlePOST(request: Request) {
 
   const paid = BANKS.some((entry) => hasBankAccess(entry.slug, entitlements));
   const limit = paid ? HELPER_DAILY_LIMITS.paid : HELPER_DAILY_LIMITS.free;
-  const { data: remaining, error: quotaError } = await supabase.rpc("consume_helper_allowance", { p_limit: limit });
-  if (quotaError || typeof remaining !== "number") return jsonError("Could not check your daily allowance", 503);
-  if (remaining < 0) {
+  // The shared allowance (src/lib/helper/allowance.ts): same counter, kill switch and site-wide cap as /api/helper.
+  const allowance = await consumeHelperAllowance(supabase as never, limit);
+  if (allowance.status !== "ok") {
+    if (allowance.status === "disabled") return jsonError("The study helper is paused right now. Try again later.", 503);
+    if (allowance.status === "busy") return jsonError("The helper is very busy today. Try again tomorrow.", 503);
+    if (allowance.status === "error") return jsonError("Could not check your daily allowance", 503);
     return jsonError(paid ? "You've used today's helper messages. Try again tomorrow." : `You've used today's ${limit} free helper messages. Try again tomorrow, or upgrade for more.`, 429, { limit });
   }
+  const { charge } = allowance;
 
   const encoder = new TextEncoder();
   const abort = new AbortController();
@@ -101,14 +97,14 @@ async function handlePOST(request: Request) {
         });
         if (!result.sentText && !result.navigated) {
           // Nothing reached the student: give the message back.
-          await releaseAllowance(userId);
+          await releaseHelperAllowance(userId, charge);
           send({ type: "error", message: REFUSED, status: 422 });
         } else {
-          send({ type: "done", remaining, limit });
+          send({ type: "done", remaining: charge.remaining, limit });
         }
       } catch (error) {
         if (abort.signal.aborted) return;
-        if (!sentText) await releaseAllowance(userId);
+        if (!sentText) await releaseHelperAllowance(userId, charge);
         const busy = error instanceof Anthropic.RateLimitError || (error instanceof Anthropic.APIError && (error.status ?? 0) >= 500);
         if (sentText) send({ type: "text", text: HELPER_SITE_CUT_OFF });
         send({ type: "error", message: busy ? BUSY : FAILED, status: busy ? 503 : 502 });
@@ -125,7 +121,7 @@ async function handlePOST(request: Request) {
     headers: {
       ...NO_STORE,
       "Content-Type": "application/x-ndjson; charset=utf-8",
-      "X-Helper-Remaining": String(remaining),
+      "X-Helper-Remaining": String(charge.remaining),
       "X-Helper-Limit": String(limit),
     },
   });

@@ -1,4 +1,4 @@
-import { HELPER_MAX_IMAGE_CHARS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_MODES, type HelperMode } from "@/lib/helper/config";
+import { HELPER_MAX_IMAGE_CHARS, HELPER_MAX_RAW_TURN_TEXT, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_MODES, historyText, type HelperMode } from "@/lib/helper/config";
 
 export type HelperTurn = { role: "user" | "assistant"; text: string };
 export type HelperImage = { mediaType: "image/jpeg" | "image/png" | "image/webp"; data: string };
@@ -27,15 +27,20 @@ export function parseHelperRequest(body: unknown): HelperRequest | null {
   if (typeof mode !== "string" || !(HELPER_MODES as readonly string[]).includes(mode)) return null;
   if (!Array.isArray(messages) || messages.length < 1 || messages.length > HELPER_MAX_TURNS + 1) return null;
   const turns: HelperTurn[] = [];
-  for (const message of messages) {
+  const last = messages.length - 1;
+  for (const [index, message] of messages.entries()) {
     if (!isRecord(message) || (message.role !== "user" && message.role !== "assistant")) return null;
-    if (typeof message.text !== "string") return null;
-    // Earlier assistant turns can run long (a full explanation); student text is capped.
-    const limit = message.role === "assistant" ? HELPER_MAX_TEXT * 4 : HELPER_MAX_TEXT;
+    if (typeof message.text !== "string" || message.text.length > HELPER_MAX_RAW_TURN_TEXT) return null;
     const text = message.text.trim();
-    if (text.length > limit) return null;
-    if (!text && message.role === "assistant") return null;
-    turns.push({ role: message.role, text });
+    if (index === last) {
+      // The new message is the student's own text, capped like the input box.
+      if (text.length > HELPER_MAX_TEXT) return null;
+      turns.push({ role: message.role, text });
+      continue;
+    }
+    // Earlier turns are history: shortened rather than rejected, so a long reply never breaks the thread.
+    if (!text) continue;
+    turns.push({ role: message.role, text: historyText(text) });
   }
   if (turns[turns.length - 1].role !== "user") return null;
   let parsedImage: HelperImage | undefined;

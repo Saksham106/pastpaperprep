@@ -36,6 +36,15 @@ export const HELPER_MODE_INSTRUCTIONS: Readonly<Record<HelperMode, string>> = {
   chat: "Answer the student's message about this question. If they share working, respond to it. If they ask for the answer outright, you may give it, with the reasoning.",
 };
 
+/** Used instead of the marking rules when the official mark scheme couldn't be sent in full. */
+export const HELPER_INCOMPLETE_MARKING = `The student wants their answer marked, but you do not have the complete official mark scheme for this question, so you must not give a score.
+Do not write a "Mark:" line or any total. Start by saying in one sentence that you can't give an official mark for this question here. Then give feedback on their working against what you can see: what looks right, what looks wrong and why, using ✓ and ✗ lines without mark codes. Finish with one line starting "Fix:".`;
+
+/** True when the full official mark scheme (or MCQ key) reached the model, so it may give a score. */
+export function canScore(context: HelperContext): boolean {
+  return context.omitted.question === 0 && context.omitted.markscheme === 0 && Boolean(context.mcqAnswer || context.markschemeImages.length);
+}
+
 function explanationText(explanation: Explanation): string {
   const lines = [`Worked solution (PastPaperPrep, checked against the mark scheme; total ${explanation.totalMarks} marks):`];
   for (const part of explanation.parts) {
@@ -62,11 +71,13 @@ export function contextBlocks(context: HelperContext): ContentBlock[] {
     text: `Question: ${context.qualification} ${context.subject}, ${context.label}${context.marks !== null ? ` (${context.marks} marks)` : ""}.\nOfficial question paper crop(s):`,
   }];
   for (const data of context.questionImages) blocks.push(image(data));
+  if (context.omitted.question) blocks.push({ type: "text", text: `(${context.omitted.question} further question crop(s) could not be included.)` });
   if (context.mcqAnswer) {
     blocks.push({ type: "text", text: `Official multiple-choice key: ${context.mcqAnswer}` });
   } else if (context.markschemeImages.length) {
     blocks.push({ type: "text", text: "Official mark scheme crop(s):" });
     for (const data of context.markschemeImages) blocks.push(image(data));
+    if (context.omitted.markscheme) blocks.push({ type: "text", text: `(${context.omitted.markscheme} further mark scheme crop(s) could not be included, so this mark scheme is incomplete.)` });
   } else {
     blocks.push({ type: "text", text: "No official mark scheme crop is available for this question." });
   }
@@ -94,6 +105,7 @@ export function buildHelperMessages(context: HelperContext, request: HelperReque
     content.push({ type: "text", text: turn.text || "(photo only)" });
     messages.push({ role: "user", content });
   });
-  messages.push({ role: "system", content: HELPER_MODE_INSTRUCTIONS[request.mode] });
+  const instruction = request.mode === "mark" && !canScore(context) ? HELPER_INCOMPLETE_MARKING : HELPER_MODE_INSTRUCTIONS[request.mode];
+  messages.push({ role: "system", content: instruction });
   return messages;
 }

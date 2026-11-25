@@ -39,6 +39,15 @@ export const HELPER_PHOTO_NOTE = "[I attached a photo of my working with this me
 
 export const HELPER_MAX_TURNS = 12;
 export const HELPER_MAX_TEXT = 2000;
+/** Earlier replies are resent shortened to this length, so a long explanation never blocks the next question. */
+export const HELPER_MAX_HISTORY_TEXT = 6000;
+/** Hard cap on one resent turn before shortening; anything longer is not a real reply. */
+export const HELPER_MAX_RAW_TURN_TEXT = 100_000;
+
+/** An earlier turn as it is resent: long replies keep their opening, where the score and key points are. */
+export function historyText(text: string): string {
+  return text.length <= HELPER_MAX_HISTORY_TEXT ? text : `${text.slice(0, HELPER_MAX_HISTORY_TEXT - 20).trimEnd()}\n…(shortened)`;
+}
 /** Data-URL length cap for one photo (about 1.5 MB of JPEG); the browser resizes to fit well under it. */
 export const HELPER_MAX_IMAGE_CHARS = 2_100_000;
 export const HELPER_IMAGE_MAX_EDGE = 1600;

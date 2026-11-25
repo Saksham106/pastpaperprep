@@ -4,12 +4,12 @@ import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { BANKS, getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { HELPER_BOARDS, HELPER_DAILY_LIMITS, helperBoard, type HelperMode } from "@/lib/helper/config";
+import { consumeHelperAllowance, releaseHelperAllowance } from "@/lib/helper/allowance";
 import { HelperAccessError, loadHelperContext } from "@/lib/helper/context";
 import { buildHelperMessages, HELPER_SYSTEM_PROMPT } from "@/lib/helper/prompt";
 import { parseHelperRequest } from "@/lib/helper/request";
 import { currentQuestionId } from "@/lib/question-id-aliases";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export const runtime = "nodejs";
@@ -30,14 +30,6 @@ let client: Anthropic | undefined;
 function anthropic(): Anthropic {
   client ??= new Anthropic();
   return client;
-}
-
-async function releaseAllowance(userId: string) {
-  try {
-    await createAdminClient().rpc("release_helper_allowance", { p_user_id: userId });
-  } catch {
-    // A lost refund costs the student one message at worst.
-  }
 }
 
 async function handlePOST(request: Request) {
@@ -75,14 +67,18 @@ async function handlePOST(request: Request) {
 
   const paid = BANKS.some((entry) => hasBankAccess(entry.slug, entitlements));
   const limit = paid ? HELPER_DAILY_LIMITS.paid : HELPER_DAILY_LIMITS.free;
-  const { data: remaining, error: quotaError } = await supabase.rpc("consume_helper_allowance", { p_limit: limit });
-  if (quotaError || typeof remaining !== "number") return jsonError("Could not check your daily allowance", 503);
-  if (remaining < 0) {
+  const allowance = await consumeHelperAllowance(supabase as never, limit);
+  if (allowance.status !== "ok") {
+    if (allowance.status === "disabled") return jsonError("The study helper is paused right now. Try again later.", 503);
+    if (allowance.status === "busy") return jsonError("The helper is very busy today. Try again tomorrow.", 503);
+    if (allowance.status === "error") return jsonError("Could not check your daily allowance", 503);
     return NextResponse.json(
       { error: paid ? "You've used today's helper messages. Try again tomorrow." : `You've used today's ${limit} free helper messages. Try again tomorrow, or upgrade for more.`, limit },
       { status: 429, headers: NO_STORE },
     );
   }
+  const { charge } = allowance;
+  const remaining = charge.remaining;
 
   const model = helperModel();
   const stream = anthropic().beta.messages.stream({
@@ -107,12 +103,12 @@ async function handlePOST(request: Request) {
       if (event.type === "content_block_delta" && event.delta.type === "text_delta") first = event.delta.text;
     }
   } catch (error) {
-    await releaseAllowance(userId);
+    await releaseHelperAllowance(userId, charge);
     const busy = error instanceof Anthropic.RateLimitError || (error instanceof Anthropic.APIError && (error.status ?? 0) >= 500);
     return jsonError(busy ? "The helper is busy right now. Try again in a minute." : "The helper couldn't answer. Try again.", busy ? 503 : 502);
   }
   if (!first) {
-    await releaseAllowance(userId);
+    await releaseHelperAllowance(userId, charge);
     return jsonError("I can't help with that one. Try asking about the question in a different way.", 422);
   }
 

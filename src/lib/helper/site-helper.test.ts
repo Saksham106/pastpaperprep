@@ -315,3 +315,11 @@ describe("siteShortcut (rules before AI)", () => {
     }
   });
 });
+
+describe("site request history", () => {
+  it("shortens a long earlier reply instead of rejecting the request", () => {
+    const parsed = parseSiteHelperRequest({ page: "/", messages: [{ role: "user", text: "hi" }, { role: "assistant", text: "x".repeat(9000) }, { role: "user", text: "and?" }] });
+    expect(parsed?.messages[1].text.length).toBeLessThan(6100);
+    expect(parsed?.messages[1].text.endsWith("(shortened)")).toBe(true);
+  });
+});

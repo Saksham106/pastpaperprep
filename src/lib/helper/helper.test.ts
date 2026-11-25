@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { parseHelperText } from "@/components/helper/HelperMessage";
-import { HELPER_BOARDS, helperBoard, HELPER_CHIPS } from "@/lib/helper/config";
+import { HELPER_BOARDS, helperBoard, HELPER_CHIPS, HELPER_MAX_HISTORY_TEXT, HELPER_PHOTO_NOTE } from "@/lib/helper/config";
 import type { HelperContext } from "@/lib/helper/context";
 import { parseMarkLine } from "@/lib/helper/marking";
-import { buildHelperMessages, contextBlocks, HELPER_MODE_INSTRUCTIONS, HELPER_SYSTEM_PROMPT } from "@/lib/helper/prompt";
+import { buildHelperMessages, canScore, contextBlocks, HELPER_INCOMPLETE_MARKING, HELPER_MODE_INSTRUCTIONS, HELPER_SYSTEM_PROMPT } from "@/lib/helper/prompt";
 import { parseHelperRequest } from "@/lib/helper/request";
 
 const base = { bank: "igcse", questionId: "0580-2021-s-42-q3", mode: "hint", messages: [{ role: "user", text: "Give me a hint." }] };
@@ -59,6 +59,7 @@ const context: HelperContext = {
     schemaVersion: 1, bank: "igcse", questionId: "q1", totalMarks: 4,
     parts: [{ label: "a", marks: 4, approach: "Expand.", steps: [{ text: "Multiply out", math: "x^2+2x", marks: ["M1"] }], answer: "$x^2+2x$" }],
   },
+  omitted: { question: 0, markscheme: 0 },
 };
 
 describe("prompt building", () => {
@@ -112,5 +113,36 @@ describe("parseHelperText", () => {
       { kind: "math", text: "x^2" },
       { kind: "ol", items: ["one", "two"] },
     ]);
+  });
+});
+
+describe("incomplete materials", () => {
+  it("only scores when the whole mark scheme or MCQ key reached the model", () => {
+    expect(canScore(context)).toBe(true);
+    expect(canScore({ ...context, omitted: { question: 0, markscheme: 1 } })).toBe(false);
+    expect(canScore({ ...context, omitted: { question: 1, markscheme: 0 } })).toBe(false);
+    expect(canScore({ ...context, markschemeImages: [] })).toBe(false);
+    expect(canScore({ ...context, markschemeImages: [], mcqAnswer: "B" })).toBe(true);
+  });
+
+  it("tells the model what was left out and swaps marking for feedback", () => {
+    const short = { ...context, omitted: { question: 0, markscheme: 2 } };
+    expect(contextBlocks(short).some((block) => block.type === "text" && block.text.includes("2 further mark scheme crop(s)"))).toBe(true);
+    const messages = buildHelperMessages(short, { bank: "igcse", questionId: "q1", mode: "mark", messages: [{ role: "user", text: "x = 2" }] });
+    expect(messages[messages.length - 1].content).toBe(HELPER_INCOMPLETE_MARKING);
+  });
+});
+
+describe("long history", () => {
+  it("shortens a long earlier reply instead of rejecting the follow-up", () => {
+    const long = "x".repeat(8799);
+    const parsed = parseHelperRequest({ ...base, mode: "chat", messages: [
+      { role: "user", text: `Mark my working.\n${HELPER_PHOTO_NOTE}` },
+      { role: "assistant", text: long },
+      { role: "user", text: "Why?" },
+    ] });
+    expect(parsed).not.toBeNull();
+    expect(parsed!.messages[1].text.length).toBeLessThanOrEqual(HELPER_MAX_HISTORY_TEXT);
+    expect(parsed!.messages[0].text).toContain(HELPER_PHOTO_NOTE);
   });
 });
