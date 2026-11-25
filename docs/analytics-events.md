@@ -14,12 +14,21 @@ No email, name or account ID is ever sent without consent.
 
 Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous client as `$web_vitals`. It is switched on by PostHog's project setting (Web vitals autocapture), not in code, and nested URLs are scrubbed by `sanitizeAnalyticsEvent`. Code only asks for attribution on CLS, INP and LCP, so each event's `attribution` names the element involved (for CLS, `largestShiftTarget`, a CSS selector). Vercel Web Analytics and Speed Insights were removed in November 2026: they duplicated PostHog and bill per event on Vercel Pro.
 
+**Behaviour capture (anonymous client only, since 2026-11-24).** Autocapture and session replay stay off. The cookieless client also sends:
+- `$pageleave` (`capture_pageleave: true`). It carries `$prev_pageview_duration` and `$prev_pageview_max_scroll_percentage`, and the next `$pageview` carries the same for the page before it. This powers bounce rate and session duration in Web analytics, and the heatmap scroll map.
+- Heatmaps (`capture_heatmaps: true`): click, rage-click and mouse positions per page as `$$heatmap` batches. Heatmap data isn't billed; the free plan shows heatmaps for 3 chosen pages. `sanitizeAnalyticsEvent` re-keys `$heatmap_data` by origin and path, so query strings and auth fragments never leave the page.
+- `$dead_click` (`capture_dead_clicks: true`): a click after which nothing on the page changed (billed as a normal event). The SDK masks element text and attribute values (`mask_all_text`, `mask_all_element_attributes`), and `$el_text` is dropped again in the scrubber. Add the `ph-no-deadclick` class to deliberately inert elements.
+- Every anonymous event except heatmap batches carries `signed_in` (boolean, never the account), plus `connection` (`slow-2g`…`4g`), `save_data` and `release` where the browser exposes them (`analyticsEventContext`). Use them to split Web Vitals by network and to compare before/after a deploy.
+
 ## Browser events (`trackProductEvent`)
 
 | Event | Where | Properties |
 |---|---|---|
 | `$pageview` | every page | (path) |
 | `question_filter_change` | bank page | `bank`, `filter` |
+| `question_list_more` | bank page, "Show 24 more questions" | `bank`, `shown` (questions listed after the click) |
+| `question_list_empty` | bank page, when the student's own filter or search leaves no questions; once per settled state (800 ms), never the search text | `bank`, `filters` (number of picked values), `search` (boolean), `freeOnly`, `savedOnly` |
+| `question_image_first_load` | bank page, the first question image finishing loading, once per page load | `bank`, `ms` (since the document started loading), `navigation` (`load` = this page was the one loaded, so `ms` is a page-load time; `client` = reached by in-app navigation), `host` |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
 | `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |
@@ -44,7 +53,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error), `react_mismatch?` (`text`/`html` for React #418), plus the browser context below |
 | `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`; network failures are skipped while the page unloads, is hidden or offline, and sent once per route per 30 s) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
-| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `other`), `user_id?` |
+| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `blob` (a hash-verified crop), `other`), `user_id?` |
 | `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
 | `home_search` | landing-page search box (Enter or a result) | `found`, `kind` (paper, topic, topics, papers, none), `intent` |
 | `past_paper_open` | free paper page | `bank`, `paper` |

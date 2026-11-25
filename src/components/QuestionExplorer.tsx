@@ -31,7 +31,7 @@ import type { QuestionFilters, QuestionSort, UnifiedQuestion } from "@/lib/quest
 import type { AssetRequest } from "@/lib/asset-access";
 import type { BankSlug } from "@/lib/banks";
 import { fetchFreeAssets, fetchPdfAssets, fetchSignedAssets, PdfSignError, pdfFailureReason, isSignedAssetFresh, signAssetBatches, lapsedSignedAssetExpiry, preferSignedFreeAssets, resetFreeAssetRecovery, signedAssetKey, type SignedAsset } from "@/lib/signed-assets";
-import { FREE_PUBLIC_ASSET_ORIGIN, isFreePublicAssetUrl } from "@/lib/free-asset-index";
+import { isFreePublicAssetUrl } from "@/lib/free-asset-index";
 import { pulseSuccess, shakeElement } from "@/lib/button-feedback";
 import { documentHasSupabaseAuthCookie, subscribeToSessionChanges } from "@/lib/supabase/auth-cookie";
 import { forgetAsset, readCachedAccess, readCachedAssets, rememberAssets, sessionFingerprint, sessionLifecycleOwner, writeCachedAccess } from "@/lib/member-session-cache";
@@ -40,6 +40,7 @@ import { defaultRouteSelection, matchesCourseRoute, readRememberedRoute, remembe
 import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 import { getMathsPickerGroups, getMathsPickerTopics, isCleanMathsBank, isMathsEarlierToken } from "@/lib/maths-picker";
 import { displayedQuestionSubtopics, formatMathsPickerLabel, formatPublicLabel, formatQuestionTopic } from "@/lib/presentation";
+import { assetHost } from "@/lib/asset-host";
 import { browserAccountId, trackProductEvent } from "@/lib/product-analytics";
 import { ANONYMOUS_FREE_QUESTION_LIMIT, getFreeQuestionGate } from "@/lib/free-question-gate";
 import { FreeQuestionSignupGate } from "@/components/FreeQuestionSignupGate";
@@ -198,13 +199,6 @@ const EMPTY_STUDY_STATE: ExplorerStudyState = { savedIds: [], attemptedIds: [] }
 const PLANS_LABEL = "View plans";
 const plansHrefFor = (authenticated: boolean) => (authenticated ? "/pricing" : "/login?next=/pricing");
 const subscribeToNothing = () => () => {};
-/** Which store served a failed image; hostnames and signatures never leave the browser. */
-function assetHost(url: string | undefined) {
-  try {
-    const host = new URL(url ?? "").hostname;
-    return host.endsWith(".r2.cloudflarestorage.com") ? "r2" : host.endsWith(".supabase.co") ? "supabase" : host === new URL(FREE_PUBLIC_ASSET_ORIGIN).hostname ? "free" : host === window.location.hostname ? "self" : "other";
-  } catch { return "unknown"; }
-}
 // R2 signing never checks an object exists, so a missing image is only visible here.
 function trackAssetLoadFailure(bank: string, questionId: string, kind: "question" | "answer", outcome: "expired_resign" | "public_fallback" | "failed", url: string | undefined) {
   trackProductEvent("asset_load_failed", { bank, question_id: questionId.slice(0, 120), kind, outcome, host: assetHost(url), user_id: browserAccountId() });
@@ -495,6 +489,20 @@ access: ExplorerAccess;
     const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
   }, [effectiveFreeOnly, matching, savedIds, savedOnly]);
+  // Dead ends: a student's own filter or search left nothing to practise. Once per settled state; never the search text.
+  const listInteractedRef = useRef(false);
+  const emptyReportedRef = useRef("");
+  useEffect(() => {
+    if (!listInteractedRef.current || !bank || filtered.length > 0) return;
+    const key = JSON.stringify([filters, search.trim().toLocaleLowerCase(), effectiveFreeOnly, savedOnly]);
+    if (emptyReportedRef.current === key) return;
+    const timer = setTimeout(() => {
+      emptyReportedRef.current = key;
+      const activeFilters = Object.values(filters).reduce((count, values) => count + (Array.isArray(values) ? values.length : 0), 0);
+      trackProductEvent("question_list_empty", { bank, filters: activeFilters, search: Boolean(search.trim()), freeOnly: effectiveFreeOnly, savedOnly });
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [bank, filtered, filters, search, effectiveFreeOnly, savedOnly]);
   const savedWorksheetView = Boolean(worksheetId) && !addingQuestions;
   const sharedSetView = !worksheetId && (sharedIds !== null || Boolean(sharedError));
   const sharedSetQuestions = useMemo(() => {
@@ -1179,6 +1187,7 @@ access: ExplorerAccess;
   };
 
   const toggle = (key: MultiKey, value: string) => {
+    listInteractedRef.current = true;
     if (key === "topics") setShowAllSubtopics(false);
     setFilters((current) => {
       const values = (current[key] ?? []) as string[];
@@ -1495,7 +1504,7 @@ access: ExplorerAccess;
         <label className="search-field">
           <span className="sr-only">Search questions</span>
           <MagnifyingGlass aria-hidden="true" />
-          <input value={search} onChange={(event) => { setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
+          <input value={search} onChange={(event) => { listInteractedRef.current = true; setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
         </label>
         {routeConfig && <fieldset className={`course-route-picker${routeConfig.options.length > 2 ? " is-paper-tabs" : ""}${routeConfig.options.length > 3 ? " is-wrapping-tabs" : ""}`} role="radiogroup" aria-label={routeConfig.name}>
           <legend className="sr-only">{routeConfig.name}</legend>
@@ -1581,7 +1590,7 @@ access: ExplorerAccess;
           </div>
           {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
           {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} sentViews={sentUpgradeViews} bankFreeCount={bankFreeCount} bankName={bankShortName} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
-          {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => setVisible((count) => count + EXPLORER_PAGE_SIZE)}>Show 24 more questions</button>}
+          {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => { setVisible((count) => count + EXPLORER_PAGE_SIZE); trackProductEvent("question_list_more", { bank: bank ?? "unknown", shown: Math.min(visible + EXPLORER_PAGE_SIZE, filtered.length) }); }}>Show 24 more questions</button>}
         </div>
       </div>
 

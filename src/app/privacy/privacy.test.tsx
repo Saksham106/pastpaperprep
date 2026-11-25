@@ -18,6 +18,7 @@ describe("analytics privacy disclosure", () => {
     expect(errors).toHaveTextContent(/When you are signed in, these include your account.s random identifier/i);
     expect(errors).toHaveTextContent(/whether the page was translated or changed by a browser extension/i);
     expect(errors).toHaveTextContent(/never include your name, email address, raw error messages, page text or anything you type/i);
-    expect(screen.getByText(/Session replay and automatic click capture are disabled/i)).toBeInTheDocument();
+    expect(screen.getByText(/Session replay is disabled/i)).toBeInTheDocument();
+    expect(screen.getByText(/where people click and how far they scroll \(heatmaps\)/i)).toBeInTheDocument();
   });
 });

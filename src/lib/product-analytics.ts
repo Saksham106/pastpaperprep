@@ -1,6 +1,6 @@
 "use client";
 
-import { browserErrorContext, reactMismatchKind } from "@/lib/browser-error-context";
+import { analyticsEventContext, browserErrorContext, reactMismatchKind } from "@/lib/browser-error-context";
 import { readBrowserAnalyticsConsent, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 import { boundExceptionFrames, safeErrorMessage, scrubStack } from "@/lib/error-privacy";
 import { accountIdFromCookieHeader } from "@/lib/supabase/auth-cookie";
@@ -46,7 +46,15 @@ function loadClient() {
           cookieless_mode: "always",
           autocapture: false,
           capture_pageview: false,
-          capture_pageleave: false,
+          // Leaving a page reports time on page and how far it was scrolled ($prev_pageview_*), which
+          // also gives PostHog's web analytics a real bounce rate and its heatmaps a scroll map.
+          capture_pageleave: true,
+          // Click and scroll positions per page (not billed), plus clicks that changed nothing on the
+          // page ($dead_click). Element text and attribute values are masked for both.
+          capture_heatmaps: true,
+          capture_dead_clicks: true,
+          mask_all_text: true,
+          mask_all_element_attributes: true,
           person_profiles: "never",
           persistence: "memory",
           disable_cookie: true,
@@ -61,7 +69,7 @@ function loadClient() {
           capture_performance: { web_vitals_attribution: ["CLS", "INP", "LCP"] },
           before_send: event => {
             if (!canCapture()) return null;
-            const scrubbed = sanitizeAnalyticsEvent(event);
+            const scrubbed = withEventContext(sanitizeAnalyticsEvent(event));
             if (scrubbed && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("analytics_verification") === "1") {
               scrubbed.properties = { ...scrubbed.properties, analytics_verification: true };
             }
@@ -75,6 +83,35 @@ function loadClient() {
     .catch(() => { clientPromise = null; return null; });
 
   return clientPromise;
+}
+
+/**
+ * Every anonymous event says whether the visitor is signed in (a boolean, never the account), their
+ * network class and the release, so speed and behaviour can be split by those. Heatmap batches skip it.
+ */
+function withEventContext<T extends { event?: string; properties?: Record<string, unknown> }>(event: T | null): T | null {
+  if (!event?.properties || event.event === "$$heatmap" || typeof window === "undefined") return event;
+  let context = {};
+  try { context = analyticsEventContext(window); } catch { /* Context is optional enrichment. */ }
+  return { ...event, properties: { ...event.properties, ...context, signed_in: browserAccountId() !== undefined } };
+}
+
+/** Heatmap batches are keyed by the page's full URL; keep only origin and path, merging pages that differ only by query. */
+function scrubHeatmapData(data: unknown): Record<string, unknown[]> | undefined {
+  if (!data || typeof data !== "object" || Array.isArray(data)) return undefined;
+  const pages: Record<string, unknown[]> = {};
+  for (const [href, points] of Object.entries(data)) {
+    if (!Array.isArray(points)) continue;
+    let page: string;
+    try {
+      const url = new URL(href);
+      if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) continue;
+      page = `${url.origin}${url.pathname}`;
+    } catch { continue; }
+    const bounded = points.filter(point => point && typeof point === "object").slice(0, 1000);
+    pages[page] = [...(pages[page] ?? []), ...bounded];
+  }
+  return Object.keys(pages).length ? pages : undefined;
 }
 
 /**
@@ -95,6 +132,9 @@ export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, u
   if (!event?.properties) return event;
   const scrub = (value: unknown, key = "", depth = 0, inException = false): unknown => {
     if (depth > 8) return undefined;
+    if (depth === 1 && key === "$heatmap_data") return scrubHeatmapData(value);
+    // Masked in the SDK too (mask_all_text); never let an element's text through.
+    if (key === "$el_text") return undefined;
     const exception = inException || /exception/i.test(key);
     // An exception's own `value` survives as its scrubbed message; every other message field is dropped.
     if (exception && key === "value" && depth > 1) return safeErrorMessage(value);
