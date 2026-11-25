@@ -199,7 +199,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
                 <div className={styles.tiles}>
                   {HELPER_CHIPS.map((chip) => {
                     const Icon = CHIP_ICONS[chip.mode];
-                    return <button key={chip.mode} type="button" className={`${styles.tile} ${chip.mode === "mark" ? styles.tileMain : ""}`} disabled={busy} onClick={() => pickChip(chip.mode)}>
+                    return <button key={chip.mode} type="button" className={styles.tile} disabled={busy} onClick={() => pickChip(chip.mode)}>
                       <span className={styles.tileIcon}><Icon weight="fill" aria-hidden="true" /></span>
                       <span><b>{chip.label}</b><span>{CHIP_HINTS[chip.mode]}</span></span>
                     </button>;

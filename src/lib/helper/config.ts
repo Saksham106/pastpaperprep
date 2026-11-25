@@ -8,11 +8,8 @@ export const HELPER_NAME = "Pepper";
 export const HELPER_DAILY_LIMITS = { free: 5, paid: 30 } as const;
 
 export type HelperBoard = "igcse" | "a-level" | "ib";
-/**
- * Boards the helper runs on. IB stays off until the owner has checked the IB's terms on its content being sent to AI
- * tools; switching it on is this one line.
- */
-export const HELPER_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: false };
+/** Boards the helper runs on. The owner switched IB on on 2026-11-24; turning a board off is this one line. */
+export const HELPER_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: true };
 
 export function helperBoard(bank: string): HelperBoard {
   if (bank.startsWith("ib-")) return "ib";
@@ -23,11 +20,11 @@ export function helperBoard(bank: string): HelperBoard {
 export const HELPER_MODES = ["hint", "explain", "mark", "chat"] as const;
 export type HelperMode = (typeof HELPER_MODES)[number];
 
-/** The chips under the panel's greeting: each sends a ready-made request. */
+/** The tiles shown before the first message, in this order and with equal weight: each sends a ready-made request. */
 export const HELPER_CHIPS = [
+  { mode: "explain", label: "Explain the whole answer" },
   { mode: "mark", label: "Mark my photo" },
   { mode: "hint", label: "Give me a hint" },
-  { mode: "explain", label: "Explain the whole answer" },
 ] as const satisfies ReadonlyArray<{ mode: HelperMode; label: string }>;
 
 /** The text shown as the student's own message when a chip is used. */
