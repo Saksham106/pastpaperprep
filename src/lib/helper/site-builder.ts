@@ -122,7 +122,9 @@ export function planPracticeSet(questions: readonly BuilderQuestion[], input: Pr
   const years = chosen.map((question) => question.year);
   const query = serializeBuilderState({
     bank, route, ...(input.yearFrom ? { from: input.yearFrom } : {}), ...(input.yearTo ? { to: input.yearTo } : {}),
-    selection: selection.keys, target, seed: input.seed, ids: [], removed: [], reordered: false, partial: false,
+    // The chosen questions go in the link too: the builder keeps listed questions as they are, so it shows exactly
+    // this set (its first draft runs before the link's topics apply, so the seed alone could pick differently).
+    selection: selection.keys, target, seed: input.seed, ids: draft.ids, removed: [], reordered: false, partial: false,
   });
   const first = input.yearFrom ?? Math.min(...years), last = input.yearTo ?? Math.max(...years);
   const span = input.yearFrom || input.yearTo ? (first === last ? String(first) : `${first}–${last}`) : "";

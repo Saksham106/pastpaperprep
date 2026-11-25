@@ -8,7 +8,8 @@ export const HELPER_OPENABLE_SECTIONS = [
 ] as const;
 
 const SECTIONS = new Set<string>(HELPER_OPENABLE_SECTIONS);
-const MAX_PATH = 600;
+/** Long enough for a built practice set: the builder link lists up to 50 question ids. */
+const MAX_PATH = 4000;
 // Path segments and query: letters, digits and the URL-safe punctuation our routes use. No backslash, no fragment.
 const SAFE = /^\/[A-Za-z0-9\-._~%/]*(?:\?[A-Za-z0-9\-._~%&=+]*)?$/;
 

@@ -39,7 +39,12 @@ describe("planPracticeSet (the paper builder's own logic)", () => {
     expect(first.years[0]).toBeGreaterThanOrEqual(2022);
     expect(first.years[1]).toBeLessThanOrEqual(2024);
     const state = parseBuilderState(new URL(first.path, "https://x").searchParams);
-    expect(state).toMatchObject({ bank: "igcse", route: "extended", from: 2022, to: 2024, selection: ["t:Algebra and graphs"], target: { kind: "questions", amount: 10 }, seed: 42, ids: [] });
+    expect(state).toMatchObject({ bank: "igcse", route: "extended", from: 2022, to: 2024, selection: ["t:Algebra and graphs"], target: { kind: "questions", amount: 10 }, seed: 42 });
+    // The exact questions travel in the link, so the builder shows this set and these marks.
+    expect(state.ids).toHaveLength(10);
+    const byId = new Map(questions.map((question) => [question.id, question]));
+    expect(state.ids.reduce((sum, id) => sum + (byId.get(id)?.marks ?? 0), 0)).toBe(first.marks);
+    expect(state.ids.every((id) => byId.get(id)?.primaryTopic === "Algebra and graphs")).toBe(true);
     expect(first.label).toMatch(/^10 questions · Algebra and graphs · 2022–2024 · \d+ marks$/);
   });
 
@@ -71,7 +76,7 @@ describe("build_practice_set tool", () => {
   it("opens the built set in the paper builder", async () => {
     const outcome = await buildPracticeSetTool(context(), algebra);
     expect(outcome.isError).toBeUndefined();
-    expect(outcome.navigation).toMatchObject({ kind: "build", bank: "igcse", path: expect.stringMatching(/^\/worksheets\/build\?bank=igcse&route=extended&from=2022&to=2024&t=t%3AAlgebra\+and\+graphs&size=q10&seed=42$/) });
+    expect(outcome.navigation).toMatchObject({ kind: "build", bank: "igcse", path: expect.stringMatching(/^\/worksheets\/build\?bank=igcse&route=extended&from=2022&to=2024&t=t%3AAlgebra\+and\+graphs&size=q10&seed=42(&q=[^&]+){10}$/) });
     expect(JSON.parse(outcome.content)).toMatchObject({ questions: 10, note: expect.stringContaining("saves it") });
   });
 
