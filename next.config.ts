@@ -8,7 +8,15 @@ import { bankUrlAliases } from "@/lib/bank-url-aliases";
 // owner's `npm run dev` are unaffected.
 const agentServer = process.env.PASTPAPERPREP_AGENT_SERVER === "1";
 
+/** `/page/` → `/page` (308, query kept), like Next's default, except the PostHog proxy under /ingest. */
+const TRAILING_SLASH_REDIRECT = { source: "/:path((?!ingest(?:/|$)).+)/", destination: "/:path", permanent: true };
+
 const nextConfig: NextConfig = {
+  // PostHog's endpoints end in a slash (/ingest/e/). Next's built-in slash redirect runs before
+  // vercel.json routes, so every analytics request would take an extra 308 round trip. Turn the
+  // built-in redirect off and redirect trailing slashes ourselves for everything except /ingest
+  // (first entry in redirects() below), so page URLs behave exactly as before.
+  skipTrailingSlashRedirect: true,
   experimental: {
     // Vercel exposes two build cores. Using both keeps static-generation workers
     // below the per-worker heap ceiling as the question corpus grows.
@@ -34,6 +42,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      TRAILING_SLASH_REDIRECT,
       // There is no bank index page; the home page lists every bank.
       { source: "/banks", destination: "/#question-banks", permanent: false },
       ...bankUrlAliases().map(({ alias, bank }) => ({ source: `/banks/${alias}/:path*`, destination: `/banks/${bank}/:path*`, permanent: true })),

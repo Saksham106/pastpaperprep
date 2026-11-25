@@ -21,6 +21,8 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 - Invite and referral codes in paths (`/invite/<code>`, `/r/<code>`) become `:code` in every URL and path property.
 - Every anonymous event except heatmap batches carries `signed_in` (boolean, never the account), plus `connection` (`slow-2g`…`4g`), `save_data` and `release` where the browser exposes them (`analyticsEventContext`). Use them to split Web Vitals by network and to compare before/after a deploy.
 
+**Transport (since 2026-11-25).** Both browser clients send to `/ingest` on our own domain (`BROWSER_POSTHOG_API_HOST`), not to posthog.com, because tracker blockers block PostHog's batch endpoint (`/i/v0/e/`), which carries heatmaps and most events. `vercel.json` `routes` forward `/ingest/static/*` and `/ingest/array/*` to `us-assets.i.posthog.com` and everything else to `us.i.posthog.com`. This runs at Vercel's edge (Edge Requests and Fast Data Transfer, no function). Each route **deletes the `cookie` request header**, because same-origin requests would otherwise carry the Supabase session cookies to PostHog. Vercel puts the visitor's real IP in `x-forwarded-for`, which PostHog reads for the cookieless server hash; this only holds while nothing (such as a Cloudflare proxy) sits in front of Vercel. `src/lib/posthog-proxy-routes.test.ts` pins the routes and the cookie removal. `next dev` / `next start` don't read `vercel.json`, so `/ingest` 404s locally; local builds have no project token anyway. Server-side PostHog (`posthog-node`, Logs, conversions) still talks to PostHog directly.
+
 ## Browser events (`trackProductEvent`)
 
 | Event | Where | Properties |
