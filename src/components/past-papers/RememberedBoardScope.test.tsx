@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HeaderNavigation } from "@/components/HeaderNavigation";
-import { QUALIFICATION_KEY } from "@/lib/remembered-board";
+import { QUALIFICATION_KEY, rememberBoard } from "@/lib/remembered-board";
 import { RememberedBoardScope } from "./RememberedBoardScope";
 
 let pathname = "/";
@@ -24,6 +24,14 @@ describe("remembered board on past papers", () => {
     unmount();
     window.localStorage.setItem(QUALIFICATION_KEY, "ib");
     render(<HeaderNavigation authenticated={false} workspaceIcon={null} pastPapers />);
+    expect(papersLink()).toHaveAttribute("href", "/past-papers/ib");
+  });
+
+  it("follows a board the page remembers after the header mounted (A Level page, then the IB hub)", () => {
+    window.localStorage.setItem(QUALIFICATION_KEY, "a-level");
+    render(<HeaderNavigation authenticated={false} workspaceIcon={null} pastPapers />);
+    expect(papersLink()).toHaveAttribute("href", "/past-papers/a-level");
+    act(() => rememberBoard("ib"));
     expect(papersLink()).toHaveAttribute("href", "/past-papers/ib");
   });
 });
