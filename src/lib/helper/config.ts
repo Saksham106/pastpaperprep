@@ -8,11 +8,8 @@ export const HELPER_NAME = "Pepper";
 export const HELPER_DAILY_LIMITS = { free: 5, paid: 30 } as const;
 
 export type HelperBoard = "igcse" | "a-level" | "ib";
-/**
- * Boards the helper runs on. IB stays off until the owner has checked the IB's terms on its content being sent to AI
- * tools; switching it on is this one line.
- */
-export const HELPER_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: false };
+/** Boards the helper runs on. The owner switched IB on on 2026-11-24; turning a board off is this one line. */
+export const HELPER_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: true };
 
 export function helperBoard(bank: string): HelperBoard {
   if (bank.startsWith("ib-")) return "ib";

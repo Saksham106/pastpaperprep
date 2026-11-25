@@ -33,11 +33,11 @@ describe("parseHelperRequest", () => {
 });
 
 describe("helper config", () => {
-  it("maps banks to boards and keeps IB off until the owner's legal check", () => {
+  it("maps banks to boards and runs on every board", () => {
     expect(helperBoard("igcse-physics-0625")).toBe("igcse");
     expect(helperBoard("a-level-maths-9709")).toBe("a-level");
     expect(helperBoard("ib-hl")).toBe("ib");
-    expect(HELPER_BOARDS.ib).toBe(false);
+    expect(Object.values(HELPER_BOARDS).every(Boolean)).toBe(true);
   });
 
   it("offers the owner's three chips", () => {

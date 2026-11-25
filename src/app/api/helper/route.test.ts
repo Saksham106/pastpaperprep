@@ -73,9 +73,9 @@ describe("POST /api/helper", () => {
     expect((await POST(request())).status).toBe(503);
   });
 
-  it("rejects malformed requests and IB banks", async () => {
+  it("rejects malformed requests", async () => {
     expect((await POST(request({ ...body, mode: "essay" }))).status).toBe(400);
-    expect((await POST(request({ ...body, bank: "ib-hl" }))).status).toBe(403);
+    expect((await POST(request({ ...body, bank: "not-a-bank" }))).status).toBe(400);
     expect(mocks.getClaims).not.toHaveBeenCalled();
   });
 
