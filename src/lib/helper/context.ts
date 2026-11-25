@@ -22,12 +22,18 @@ export type HelperContext = {
   markschemeImages: string[];
   mcqAnswer?: string;
   explanation: Explanation | null;
+  /** Crops left out because the question is larger than the request budget. Marking is refused when any are missing. */
+  omitted: { question: number; markscheme: number };
 };
 
 export class HelperAccessError extends Error {}
 
-/** Crops per question kept under the API's image limits and our cost budget. */
-const MAX_IMAGES_PER_KIND = 8;
+/**
+ * Request budget for official crops. The API takes up to 100 images and 32 MB per request; we stay well under both and
+ * leave room for the student's photo. Questions over budget are sent as far as they fit and flagged as incomplete.
+ */
+export const HELPER_MAX_CROPS = 40;
+export const HELPER_MAX_CROP_BASE64 = 16_000_000;
 const FETCH_TIMEOUT_MS = 10_000;
 
 async function fetchOk(url: string): Promise<Response> {
@@ -94,14 +100,17 @@ export async function loadHelperContext(bank: BankSlug, questionId: string, enti
   }
   const [question, answer, explanationRequest] = authorized;
   const free = isPreviewQuestion(bank, questionId);
-  const questionPaths = question.paths.slice(0, MAX_IMAGES_PER_KIND);
-  const answerPaths = answer.paths.slice(0, MAX_IMAGES_PER_KIND);
+  // The question comes first: without it nothing else makes sense. Mark-scheme crops fill what is left.
+  const questionPaths = question.paths.slice(0, HELPER_MAX_CROPS);
+  const answerPaths = answer.paths.slice(0, Math.max(0, HELPER_MAX_CROPS - questionPaths.length));
   const signOptions = free ? previewAssetSignOptions(bank) : premiumAssetSignOptions(bank);
-  const [questionImages, markschemeImages, explanation] = await Promise.all([
+  const [questionLoaded, markschemeLoaded, explanation] = await Promise.all([
     loadImages(questionPaths, free, signOptions),
     loadImages(answerPaths, free, signOptions),
     question.question.hasExplanation ? loadExplanation(bank, questionId, free, explanationRequest.paths) : Promise.resolve(null),
   ]);
+  const { kept: questionImages, rest } = withinBudget(questionLoaded, HELPER_MAX_CROP_BASE64);
+  const { kept: markschemeImages } = withinBudget(markschemeLoaded, rest);
   const meta = getBank(bank);
   const q = question.question;
   return {
@@ -116,7 +125,20 @@ export async function loadHelperContext(bank: BankSlug, questionId: string, enti
     markschemeImages,
     ...(answer.mcqAnswer ? { mcqAnswer: mcqAnswerText(answer.mcqAnswer) } : {}),
     explanation,
+    omitted: { question: question.paths.length - questionImages.length, markscheme: answer.paths.length - markschemeImages.length },
   };
+}
+
+/** The leading images that fit in `budget` base64 characters, and what budget is left. */
+export function withinBudget(images: string[], budget: number): { kept: string[]; rest: number } {
+  const kept: string[] = [];
+  let rest = budget;
+  for (const image of images) {
+    if (image.length > rest) break;
+    kept.push(image);
+    rest -= image.length;
+  }
+  return { kept, rest };
 }
 
 function mcqAnswerText(answer: McqAnswer): string {
