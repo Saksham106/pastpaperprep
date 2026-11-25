@@ -1,15 +1,17 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
-import { BANKS, getBank, type BankSlug } from "@/lib/banks";
+import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
-import { consumeHelperAllowance, releaseHelperAllowance } from "@/lib/helper/allowance";
-import { HELPER_BOARDS, HELPER_DAILY_LIMITS, helperBoard } from "@/lib/helper/config";
+import { consumeHelperCredits, releaseHelperCredits } from "@/lib/helper/allowance";
+import { HELPER_BOARDS, helperBoard } from "@/lib/helper/config";
+import { formatCredits, helperCreditCost, HELPER_DAILY_CREDIT_GUARD } from "@/lib/helper/credits";
 import { HelperAccessError, loadHelperContext, type HelperContext } from "@/lib/helper/context";
 import { buildPepperMessages } from "@/lib/helper/pepper-prompt";
 import { parsePepperRequest } from "@/lib/helper/pepper-request";
 import { HELPER_SITE_CUT_OFF, runSiteAgent, type Send } from "@/lib/helper/site-agent";
 import { siteShortcut } from "@/lib/helper/site-shortcut";
+import { helperTier } from "@/lib/helper/tier";
 import { loadSiteData, type SiteData } from "@/lib/helper/site-tools";
 import { currentQuestionId } from "@/lib/question-id-aliases";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
@@ -27,6 +29,13 @@ const DEFAULT_MODEL = "claude-sonnet-5-5";
 const BUSY = "The helper is busy right now. Try again in a minute.";
 const FAILED = "The helper couldn't answer. Try again.";
 const REFUSED = "I can't help with that one. Try asking in a different way.";
+
+/** Out of credits: the panel adds when they come back and how to get more. */
+function limitMessage(reason: "week" | "day", left: number, cost: number): string {
+  if (reason === "day") return `That's today's limit of ${formatCredits(HELPER_DAILY_CREDIT_GUARD)} credits. Try again tomorrow.`;
+  if (left > 0) return `This message needs ${cost} credits and you have ${formatCredits(left)} left.`;
+  return "You've used this week's credits.";
+}
 
 const jsonError = (error: string, status: number, extra: Record<string, unknown> = {}) => NextResponse.json({ error, ...extra }, { status, headers: NO_STORE });
 
@@ -88,17 +97,18 @@ async function handlePOST(request: Request) {
     }
   }
 
-  const paid = BANKS.some((entry) => hasBankAccess(entry.slug, entitlements));
-  const limit = paid ? HELPER_DAILY_LIMITS.paid : HELPER_DAILY_LIMITS.free;
+  // The plan tier and the cost are the server's: entitlements read above, and whether this message carries a photo.
+  const tier = helperTier(entitlements);
+  const cost = helperCreditCost(Boolean(parsed.image));
   // One charge per message, however many model calls it takes (src/lib/helper/allowance.ts).
-  const allowance = await consumeHelperAllowance(supabase as never, limit);
+  const allowance = await consumeHelperCredits(userId, tier, cost);
   if (allowance.status !== "ok") {
     if (allowance.status === "disabled") return jsonError("The study helper is paused right now. Try again later.", 503);
     if (allowance.status === "busy") return jsonError("The helper is very busy today. Try again tomorrow.", 503);
-    if (allowance.status === "error") return jsonError("Could not check your daily allowance", 503);
-    return jsonError(paid ? "You've used today's helper messages. Try again tomorrow." : `You've used today's ${limit} free helper messages. Try again tomorrow, or upgrade for more.`, 429, { limit });
+    if (allowance.status === "error") return jsonError("Could not check your credits", 503);
+    return jsonError(limitMessage(allowance.reason, allowance.credits.planLeft + allowance.credits.packLeft, cost), 429, { reason: allowance.reason, cost, credits: allowance.credits });
   }
-  const { charge } = allowance;
+  const { charge, credits } = allowance;
   const surface = question ? "question" : "site";
 
   const encoder = new TextEncoder();
@@ -121,14 +131,14 @@ async function handlePOST(request: Request) {
         });
         if (!result.sentText && !result.navigated) {
           // Nothing reached the student: give the message back (only ever before the first words).
-          await releaseHelperAllowance(userId, charge);
+          await releaseHelperCredits(userId, charge);
           send({ type: "error", message: REFUSED, status: 422 });
         } else {
-          send({ type: "done", remaining: charge.remaining, limit });
+          send({ type: "done", credits, cost });
         }
       } catch (error) {
         if (abort.signal.aborted) return;
-        if (!sentText) await releaseHelperAllowance(userId, charge);
+        if (!sentText) await releaseHelperCredits(userId, charge);
         const busy = error instanceof Anthropic.RateLimitError || (error instanceof Anthropic.APIError && (error.status ?? 0) >= 500);
         if (sentText) send({ type: "text", text: HELPER_SITE_CUT_OFF });
         send({ type: "error", message: busy ? BUSY : FAILED, status: busy ? 503 : 502 });
@@ -145,8 +155,7 @@ async function handlePOST(request: Request) {
     headers: {
       ...NO_STORE,
       "Content-Type": "application/x-ndjson; charset=utf-8",
-      "X-Helper-Remaining": String(charge.remaining),
-      "X-Helper-Limit": String(limit),
+      "X-Helper-Credits-Left": String(credits.planLeft + credits.packLeft),
       ...(context ? { "X-Helper-Free-Preview": context.freePreview ? "1" : "0" } : {}),
     },
   });

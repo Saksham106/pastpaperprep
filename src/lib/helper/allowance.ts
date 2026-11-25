@@ -1,46 +1,87 @@
 import "server-only";
+import { HELPER_WEEKLY_CREDITS, helperWeekStart, helperWeeklyReset, type HelperCredits, type HelperTier } from "@/lib/helper/credits";
 import { createAdminClient } from "@/lib/supabase/admin";
 
-/** A spent helper message: which day it was charged to, so a refund goes back to that same day. */
-export type HelperCharge = { remaining: number; usageDate: string | null; version: 1 | 2 };
+/** A charged message: the ledger row a refund names, so it goes back once, to where it was taken from. */
+export type HelperCharge = { chargeId: string };
 export type HelperAllowance =
-  | { status: "ok"; charge: HelperCharge }
-  | { status: "limit" | "busy" | "disabled" | "error" };
+  | { status: "ok"; charge: HelperCharge; credits: HelperCredits }
+  | { status: "limit"; reason: "week" | "day"; credits: HelperCredits }
+  | { status: "busy" } | { status: "disabled" } | { status: "error" };
 
-type RpcClient = { rpc: (name: string, args: Record<string, unknown>) => PromiseLike<{ data: unknown; error: { code?: string } | null }> };
-
-const DATE = /^\d{4}-\d{2}-\d{2}$/;
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const count = (n: unknown): n is number => typeof n === "number" && Number.isSafeInteger(n) && n >= 0;
 
 /**
- * Spends one helper message for the signed-in user (the RPC reads auth.uid()). Uses the dated v2 RPC with its kill
- * switch and site-wide cap, falling back to v1 only while the v2 migration isn't applied (PostgREST PGRST202).
+ * Charges one message for the user. The tier comes from the server's entitlement read and the cost from the request
+ * shape, never from the browser; the service-role RPC spends the week's plan credits first, then a pack.
  */
-export async function consumeHelperAllowance(supabase: RpcClient, limit: number): Promise<HelperAllowance> {
-  const v2 = await supabase.rpc("consume_helper_allowance_v2", { p_limit: limit });
-  if (!v2.error) {
-    const data = v2.data as { status?: unknown; remaining?: unknown; usage_date?: unknown } | null;
-    if (data?.status === "ok" && typeof data.remaining === "number" && typeof data.usage_date === "string" && DATE.test(data.usage_date)) {
-      return { status: "ok", charge: { remaining: data.remaining, usageDate: data.usage_date, version: 2 } };
+export async function consumeHelperCredits(userId: string, tier: HelperTier, cost: number, now = new Date()): Promise<HelperAllowance> {
+  const weekly = HELPER_WEEKLY_CREDITS[tier];
+  const resetsAt = helperWeeklyReset(now).toISOString();
+  try {
+    const { data, error } = await createAdminClient().rpc("consume_helper_credits", { p_user_id: userId, p_weekly_credits: weekly, p_cost: cost });
+    if (error) return { status: "error" };
+    const result = data as Record<string, unknown> | null;
+    const credits = (): HelperCredits | null => count(result?.plan_left) && count(result?.pack_left)
+      ? { tier, weekly, planLeft: result.plan_left, packLeft: result.pack_left, resetsAt }
+      : null;
+    if (result?.status === "ok" && typeof result.charge_id === "string" && UUID.test(result.charge_id)) {
+      const balance = credits();
+      return balance ? { status: "ok", charge: { chargeId: result.charge_id }, credits: balance } : { status: "error" };
     }
-    if (data?.status === "limit" || data?.status === "busy" || data?.status === "disabled") return { status: data.status };
+    if (result?.status === "limit" && (result.reason === "week" || result.reason === "day")) {
+      const balance = credits();
+      return balance ? { status: "limit", reason: result.reason, credits: balance } : { status: "error" };
+    }
+    if (result?.status === "busy" || result?.status === "disabled") return { status: result.status };
+    return { status: "error" };
+  } catch {
     return { status: "error" };
   }
-  if (v2.error.code !== "PGRST202") return { status: "error" };
-  const v1 = await supabase.rpc("consume_helper_allowance", { p_limit: limit });
-  if (v1.error || typeof v1.data !== "number") return { status: "error" };
-  return v1.data < 0 ? { status: "limit" } : { status: "ok", charge: { remaining: v1.data, usageDate: null, version: 1 } };
 }
 
-/** Gives back a message whose reply never reached the student, on the day it was charged. */
-export async function releaseHelperAllowance(userId: string, charge: HelperCharge): Promise<void> {
+/** Gives back a message whose reply never reached the student. */
+export async function releaseHelperCredits(userId: string, charge: HelperCharge): Promise<void> {
   try {
-    const admin = createAdminClient();
-    if (charge.version === 2 && charge.usageDate) {
-      await admin.rpc("release_helper_allowance_v2", { p_user_id: userId, p_usage_date: charge.usageDate });
-    } else {
-      await admin.rpc("release_helper_allowance", { p_user_id: userId });
-    }
+    await createAdminClient().rpc("release_helper_credits", { p_user_id: userId, p_charge_id: charge.chargeId });
   } catch {
     // A lost refund costs the student one message at worst.
   }
+}
+
+type ReadClient = { from: (table: string) => unknown };
+type Query = {
+  select: (columns: string) => Query;
+  eq: (column: string, value: unknown) => Query;
+  gt: (column: string, value: unknown) => Query;
+  order: (column: string, options: { ascending: boolean }) => Query;
+  then: PromiseLike<{ data: unknown; error: unknown }>["then"];
+};
+
+export type HelperPackBalance = { credits: number; expiresAt: string };
+
+/** The signed-in user's balance, read through their own session (RLS lets them see only their rows). */
+export async function readHelperCredits(supabase: ReadClient, userId: string, tier: HelperTier, now = new Date()): Promise<(HelperCredits & { packs: HelperPackBalance[] }) | null> {
+  const weekly = HELPER_WEEKLY_CREDITS[tier];
+  const table = (name: string) => supabase.from(name) as Query;
+  const [week, packs] = await Promise.all([
+    table("helper_usage_weekly").select("credits_used").eq("user_id", userId).eq("week_start", helperWeekStart(now)),
+    table("helper_credit_packs").select("credits_remaining, expires_at").eq("user_id", userId).eq("status", "active").gt("expires_at", now.toISOString()).order("expires_at", { ascending: true }),
+  ]);
+  if (week.error || packs.error || !Array.isArray(week.data) || !Array.isArray(packs.data)) return null;
+  const used = week.data.length ? (week.data[0] as { credits_used?: unknown }).credits_used : 0;
+  if (!count(used)) return null;
+  const balances: HelperPackBalance[] = [];
+  for (const row of packs.data as { credits_remaining?: unknown; expires_at?: unknown }[]) {
+    if (!count(row.credits_remaining) || typeof row.expires_at !== "string") return null;
+    if (row.credits_remaining > 0) balances.push({ credits: row.credits_remaining, expiresAt: row.expires_at });
+  }
+  return {
+    tier, weekly,
+    planLeft: Math.max(weekly - used, 0),
+    packLeft: balances.reduce((sum, pack) => sum + pack.credits, 0),
+    resetsAt: helperWeeklyReset(now).toISOString(),
+    packs: balances,
+  };
 }

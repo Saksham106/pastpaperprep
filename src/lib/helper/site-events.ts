@@ -1,6 +1,7 @@
 // Browser-safe: the site helper's stream, one JSON event per line, and the browser's reader for it.
 import { HelperRequestError } from "@/lib/helper/client";
 import type { HelperMode } from "@/lib/helper/config";
+import { parseHelperCredits, type HelperCredits } from "@/lib/helper/credits";
 import type { HelperTurn } from "@/lib/helper/request";
 import { safeHelperPath } from "@/lib/helper/site-paths";
 
@@ -10,8 +11,8 @@ export type SiteHelperEvent =
   /** What Pepper is doing right now, shown while it works. */
   | { type: "step"; label: string }
   | SiteNavigationEvent
-  /** remaining is absent when the rules answered without AI, so no helper message was used. */
-  | { type: "done"; remaining?: number; limit?: number; rules?: boolean }
+  /** credits is absent when the rules answered without AI, so nothing was spent. */
+  | { type: "done"; credits?: HelperCredits; cost?: number; rules?: boolean }
   | { type: "error"; message: string; status: number };
 
 /** One line of the stream, or null for anything malformed or unsafe (a navigation to a path we don't allow). */
@@ -38,8 +39,8 @@ export function parseSiteEvent(line: string): SiteHelperEvent | null {
     case "done":
       return {
         type: "done",
-        ...(typeof event.remaining === "number" ? { remaining: event.remaining } : {}),
-        ...(typeof event.limit === "number" ? { limit: event.limit } : {}),
+        ...(parseHelperCredits(event.credits) ? { credits: parseHelperCredits(event.credits)! } : {}),
+        ...(typeof event.cost === "number" ? { cost: event.cost } : {}),
         ...(event.rules === true ? { rules: true } : {}),
       };
     case "error":
@@ -63,13 +64,15 @@ export async function streamPepper(
   });
   if (!response.ok || !response.body) {
     let message = "The helper couldn't answer. Try again.";
+    let credits: HelperCredits | null = null;
     try {
-      const body = await response.json() as { error?: unknown };
+      const body = await response.json() as { error?: unknown; credits?: unknown };
       if (typeof body.error === "string") message = body.error;
+      credits = parseHelperCredits(body.credits);
     } catch {
       // Keep the generic message.
     }
-    throw new HelperRequestError(message, response.status);
+    throw new HelperRequestError(message, response.status, credits);
   }
   const reader = response.body.getReader();
   const decoder = new TextDecoder();

@@ -1,8 +1,10 @@
 // Browser side of the study helper: photo resizing and request errors. The stream itself is site-events.ts.
+import type { HelperCredits } from "@/lib/helper/credits";
 import { HELPER_IMAGE_MAX_EDGE } from "@/lib/helper/config";
 
 export class HelperRequestError extends Error {
-  constructor(message: string, readonly status: number) {
+  /** On a 429, the balance the server reported, so the panel can say when credits come back. */
+  constructor(message: string, readonly status: number, readonly credits: HelperCredits | null = null) {
     super(message);
   }
 }

@@ -4,8 +4,6 @@
 /** Stand-in name, not final. */
 export const HELPER_NAME = "Pepper";
 
-/** Helper messages per user per day (one message, photo or not, is one use). */
-export const HELPER_DAILY_LIMITS = { free: 5, paid: 30 } as const;
 
 export type HelperBoard = "igcse" | "a-level" | "ib";
 /** Boards the helper runs on. The owner switched IB on on 2026-11-24; turning a board off is this one line. */

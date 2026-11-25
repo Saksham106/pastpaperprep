@@ -8,6 +8,8 @@ const auth = vi.hoisted(() => ({
   user: { id: "u1" } as { id: string } | null,
   listeners: [] as Array<(event: string, session: { user: { id: string } } | null) => void>,
 }));
+const creditsClient = vi.hoisted(() => ({ load: vi.fn(async (): Promise<unknown> => null) }));
+vi.mock("@/lib/helper/credits-client", () => ({ loadHelperCredits: creditsClient.load }));
 vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: track }));
 // A plain anchor, like the AA snapshot test: navigation is observed through the click it receives.
 vi.mock("next/link", () => ({
@@ -90,7 +92,7 @@ describe("PepperPanel from the floating button (no question)", () => {
     fetchMock.mockResolvedValueOnce(ndjson([
       { type: "navigate", kind: "bank", path: "/banks/igcse?topic=Number&year=2024", label: "Number · 2024", bank: "igcse" },
       { type: "text", text: "Opened **Number** from 2024." },
-      { type: "done", remaining: 4, limit: 5 },
+      { type: "done", cost: 10 },
     ]));
     render(panel(onNavigated));
     await userEvent.type(await screen.findByRole("textbox"), "2024 number questions{Enter}");
@@ -98,7 +100,6 @@ describe("PepperPanel from the floating button (no question)", () => {
     expect(await screen.findByText("Number")).toBeInTheDocument();
     await waitFor(() => expect(watch.clicks).toEqual(["/banks/igcse?topic=Number&year=2024"]));
     expect(screen.getByRole("link", { name: /Number · 2024/ })).toHaveAttribute("href", "/banks/igcse?topic=Number&year=2024");
-    expect(screen.getByText(/4 left today/)).toBeInTheDocument();
     expect(onNavigated).toHaveBeenCalled();
     watch.stop();
   });
@@ -109,7 +110,7 @@ describe("PepperPanel from the floating button (no question)", () => {
     fetchMock.mockResolvedValueOnce(ndjson([
       { type: "navigate", kind: "build", path, label: "10 questions · Algebra and graphs · 2022–2024 · 57 marks", bank: "igcse" },
       { type: "text", text: "Built it. Check it and save it to My worksheets." },
-      { type: "done", remaining: 4, limit: 5 },
+      { type: "done", cost: 10 },
     ]));
     render(panel());
     await userEvent.type(await screen.findByRole("textbox"), "10 algebra questions{Enter}");
@@ -124,7 +125,7 @@ describe("PepperPanel from the floating button (no question)", () => {
       { type: "navigate", kind: "page", path: "/dashboard", label: "Banks" },
       { type: "navigate", kind: "page", path: "/pricing", label: "Plans" },
       { type: "text", text: "Done." },
-      { type: "done", remaining: 4, limit: 5 },
+      { type: "done", cost: 10 },
     ]));
     render(panel());
     await userEvent.type(await screen.findByRole("textbox"), "banks and plans{Enter}");
@@ -139,7 +140,7 @@ describe("PepperPanel from the floating button (no question)", () => {
     fetchMock.mockResolvedValueOnce(ndjson([
       { type: "navigate", kind: "page", path: "/account", label: "Account" },
       { type: "text", text: "Done." },
-      { type: "done", remaining: 4, limit: 5 },
+      { type: "done", cost: 10 },
     ]));
     render(panel());
     await userEvent.type(await screen.findByRole("textbox"), "open my account{Enter}");
@@ -150,7 +151,7 @@ describe("PepperPanel from the floating button (no question)", () => {
 
   it("sends the path and chosen study filters only, never other query parameters", async () => {
     window.history.replaceState(null, "", "/banks/igcse?topic=Number&year=2024&worksheet=ws-123&utm_source=x&q=secret+search");
-    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Sure." }, { type: "done", remaining: 3, limit: 5 }]));
+    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Sure." }, { type: "done", cost: 10 }]));
     render(panel());
     await userEvent.type(await screen.findByRole("textbox"), "harder ones{Enter}");
     await screen.findByText("Sure.");
@@ -161,7 +162,7 @@ describe("PepperPanel from the floating button (no question)", () => {
     fetchMock.mockResolvedValueOnce(ndjson([
       { type: "navigate", kind: "bank", path: "/banks/ib-hl/topics/calculus", label: "Calculus" },
       { type: "text", text: "Here you go." },
-      { type: "done", remaining: 4, limit: 5 },
+      { type: "done", cost: 10 },
     ]));
     const watch = watchLinkClicks();
     const first = render(panel());
@@ -169,7 +170,7 @@ describe("PepperPanel from the floating button (no question)", () => {
     await screen.findByText("Here you go.");
     first.unmount();
 
-    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Sure." }, { type: "done", remaining: 3, limit: 5 }]));
+    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Sure." }, { type: "done", cost: 10 }]));
     render(panel());
     expect(await screen.findByText("AA HL calculus")).toBeInTheDocument();
     await userEvent.type(screen.getByRole("textbox"), "only 2023{Enter}");
@@ -184,14 +185,14 @@ describe("PepperPanel from the floating button (no question)", () => {
   });
 
   it("never shows or sends one account's chat to another", async () => {
-    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Answer for A." }, { type: "done", remaining: 4, limit: 5 }]));
+    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Answer for A." }, { type: "done", cost: 10 }]));
     const first = render(panel());
     await userEvent.type(await screen.findByRole("textbox"), "message from A{Enter}");
     await screen.findByText("Answer for A.");
     first.unmount();
 
     auth.user = { id: "u2" };
-    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Answer for B." }, { type: "done", remaining: 4, limit: 5 }]));
+    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Answer for B." }, { type: "done", cost: 10 }]));
     render(panel());
     await userEvent.type(await screen.findByRole("textbox"), "message from B{Enter}");
     await screen.findByText("Answer for B.");
@@ -228,7 +229,7 @@ describe("PepperPanel from the floating button (no question)", () => {
       start(controller) {
         controller.enqueue(encoder.encode(`${JSON.stringify({ type: "step", label: "Searching “vectors”" })}\n${JSON.stringify({ type: "step", label: "Checking IGCSE Maths 0580" })}\n`));
         finish = () => {
-          controller.enqueue(encoder.encode(`${JSON.stringify({ type: "text", text: "Here you go." })}\n${JSON.stringify({ type: "done", remaining: 4, limit: 5 })}\n`));
+          controller.enqueue(encoder.encode(`${JSON.stringify({ type: "text", text: "Here you go." })}\n${JSON.stringify({ type: "done", cost: 10 })}\n`));
           controller.close();
         };
       },
@@ -285,12 +286,26 @@ describe("PepperPanel from the floating button (no question)", () => {
     expect(screen.getAllByRole("button", { name: "Half height" })).toHaveLength(2);
   });
 
-  it("shows the daily limit and gives the draft back", async () => {
-    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ error: "You've used today's 5 free helper messages." }), { status: 429 }));
+  it("when credits run out, says when they come back, offers packs and an upgrade, and gives the draft back", async () => {
+    const out = { tier: "free", weekly: 150, planLeft: 0, packLeft: 0, resetsAt: "2026-11-30T12:00:00.000Z" };
+    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ error: "You've used this week's credits.", reason: "week", cost: 10, credits: out }), { status: 429 }));
     render(panel());
     await userEvent.type(await screen.findByRole("textbox"), "vectors{Enter}");
-    expect(await screen.findByRole("alert")).toHaveTextContent("5 free helper messages");
+    expect(await screen.findByRole("alert")).toHaveTextContent("You've used this week's credits.");
+    expect(screen.getByText(/Your weekly credits come back Mon/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Get more credits" })).toHaveAttribute("href", "/account#pepper-credits");
+    expect(screen.getByRole("link", { name: "Upgrade" })).toHaveAttribute("href", "/pricing");
     expect(screen.getByRole("textbox")).toHaveValue("vectors");
     expect(track).toHaveBeenCalledWith("helper_limit", { surface: "site" });
+  });
+
+  it("shows the week's credits from the account, then what each reply leaves", async () => {
+    creditsClient.load.mockResolvedValueOnce({ tier: "bank1", weekly: 700, planLeft: 700, packLeft: 0, resetsAt: "2026-11-30T12:00:00.000Z" });
+    fetchMock.mockResolvedValueOnce(ndjson([{ type: "text", text: "Sure." }, { type: "done", cost: 10, credits: { tier: "bank1", weekly: 700, planLeft: 690, packLeft: 1000, resetsAt: "2026-11-30T12:00:00.000Z" } }]));
+    render(panel());
+    expect(await screen.findByText(/100% left · 700 credits · resets Mon/)).toBeInTheDocument();
+    await userEvent.type(screen.getByRole("textbox"), "vectors{Enter}");
+    expect(await screen.findByText(/98% left · 690 \+ 1,000 pack credits · resets Mon/)).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Get more credits" })).not.toBeInTheDocument();
   });
 });

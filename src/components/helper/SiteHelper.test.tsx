@@ -2,6 +2,8 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+const creditsClient = vi.hoisted(() => ({ load: vi.fn(async (): Promise<unknown> => null) }));
+vi.mock("@/lib/helper/credits-client", () => ({ loadHelperCredits: creditsClient.load }));
 vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: vi.fn() }));
 vi.mock("next/navigation", () => ({ usePathname: () => "/banks/igcse" }));
 vi.mock("@/lib/helper/config", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/helper/config")>()), helperConfigured: () => true }));

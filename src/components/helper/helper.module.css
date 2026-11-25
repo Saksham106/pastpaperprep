@@ -664,3 +664,20 @@
 @media (prefers-reduced-motion: reduce) {
   :global(html[data-pepper]) body, .layoutPhone { transition: none; }
 }
+
+/* ---------- credits ---------- */
+
+.credits { margin: 0; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--ink-soft); font-size: .76rem; font-variant-numeric: tabular-nums; }
+.creditsBar { flex: none; width: 44px; height: 4px; overflow: hidden; background: var(--line); border-radius: 999px; }
+.creditsBar > span { display: block; height: 100%; background: var(--cobalt); border-radius: inherit; transition: width 240ms ease; }
+.outOfCredits { margin: 0 18px 10px; padding: 12px 14px; display: grid; gap: 10px; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 14px; }
+.outOfCredits p { margin: 0; color: var(--ink); font-size: .88rem; }
+.outActions { display: flex; flex-wrap: wrap; gap: 8px; }
+.outActions :global(.button) { min-height: 36px; padding: 0 14px; font-size: .86rem; }
+@media (prefers-reduced-motion: reduce) { .creditsBar > span { transition: none; } }
+.creditsCard > div:first-child { display: grid; gap: 6px; }
+.creditsWeek { display: grid; gap: 6px; font-variant-numeric: tabular-nums; }
+.creditsWeek .creditsBar { width: 100%; max-width: 260px; height: 6px; }
+.creditsNote { color: var(--muted); font-size: .86rem; }
+.creditsError { color: var(--danger); }
+.creditsPercent { color: var(--ink); font-weight: 700; }

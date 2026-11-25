@@ -7,10 +7,13 @@ import { useCallback, useEffect, useId, useRef, useState, type FormEvent, type S
 import { courseToneForBank } from "@/components/CourseIcon";
 import { HelperFace } from "@/components/helper/HelperFace";
 import { HelperMessage } from "@/components/helper/HelperMessage";
+import { creditsLeft, CreditsLine, OutOfCredits } from "@/components/helper/PepperCredits";
 import type { PepperLayout } from "@/components/helper/usePepperLayout";
 import { forgetSiteChat, PHOTO_SENT, questionThread, recallSiteChat, rememberSiteChat, siteThread, type SiteOpened, type SiteTurn } from "@/components/helper/site-chat-memory";
 import { getCatalogBank } from "@/lib/catalog";
 import { HelperRequestError, photoToDataUrl } from "@/lib/helper/client";
+import { HELPER_CREDIT_COST, helperCreditCost, type HelperCredits } from "@/lib/helper/credits";
+import { loadHelperCredits } from "@/lib/helper/credits-client";
 import { HELPER_CHIP_PROMPTS, HELPER_CHIPS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME, HELPER_PHOTO_NOTE, helperPhonePath, type HelperMode } from "@/lib/helper/config";
 import { parseMarkLine } from "@/lib/helper/marking";
 import { HELPER_OPENED_NOTE } from "@/lib/helper/pepper-prompt";
@@ -89,7 +92,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
   const [photo, setPhoto] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
-  const [remaining, setRemaining] = useState<number | null>(null);
+  const [credits, setCredits] = useState<HelperCredits | null>(null);
   const [qr, setQr] = useState<{ open: boolean; src?: string }>({ open: false });
   // Bumped when a reply lands, so the face gives a small hop.
   const [hop, setHop] = useState(0);
@@ -146,7 +149,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
       userRef.current = userId;
       if (!userId) forgetSiteChat();
       setTurnState(userId ? recallSiteChat(userId, thread) : []);
-      setRemaining(null);
+      setCredits(null);
       setError("");
       setDraft("");
       setPhoto(null);
@@ -161,6 +164,17 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
       abortRef.current?.abort();
     };
   }, [cancelRun, thread]);
+  // The balance for the footer, read when the account is known; replies and limits keep it current after that.
+  const accountId = identity.status === "user" ? identity.id : null;
+  useEffect(() => {
+    if (!accountId) return;
+    let live = true;
+    void loadHelperCredits().then((balance) => {
+      // Only fills an empty footer: a reply that landed first carries the newer balance.
+      if (live && balance && userRef.current === accountId) setCredits((current) => current ?? balance);
+    });
+    return () => { live = false; };
+  }, [accountId]);
   // Close means close: stop the reply now and ignore anything still on its way, before the exit animation ends.
   useEffect(() => { if (closing) stopRun(); }, [closing, stopRun]);
   useEffect(() => {
@@ -228,7 +242,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           pendingOpenRef.current = event.path;
           setOpenTick((tick) => tick + 1);
         } else if (event.type === "done") {
-          if (event.remaining !== undefined) setRemaining(event.remaining);
+          if (event.credits) setCredits(event.credits);
           rules = Boolean(event.rules);
         } else if (event.type === "error") outcome.failure = { message: event.message, status: event.status };
       }, controller.signal);
@@ -249,7 +263,10 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
       setDraft((Object.values(HELPER_CHIP_PROMPTS) as string[]).includes(text) ? "" : text);
       if (image) setPhoto(image);
       setError(caught instanceof HelperRequestError ? caught.message : "The helper couldn't answer. Check your connection and try again.");
-      if (status === 429) { setRemaining(0); trackProductEvent("helper_limit", analytics); }
+      if (status === 429) {
+        if (caught instanceof HelperRequestError && caught.credits) setCredits(caught.credits);
+        trackProductEvent("helper_limit", analytics);
+      }
       else trackProductEvent("helper_error", { ...analytics, mode, code: status });
     } finally {
       if (current()) {
@@ -446,6 +463,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           </div>
 
           {error && <p className={styles.error} role="alert">{error}</p>}
+          {credits && creditsLeft(credits) < HELPER_CREDIT_COST.message && <OutOfCredits credits={credits} surface={analytics.surface} />}
 
           <form className={styles.composer} onSubmit={submit}>
             {photo && (
@@ -470,7 +488,8 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
               {question && <button type="button" className={styles.iconButton} aria-label="Attach a photo of your working" disabled={busy || identity.status !== "user"} onClick={() => choosePhoto(null)}><Camera weight="bold" /></button>}
               <button type="submit" className={styles.send} aria-label="Send" disabled={busy || (!draft.trim() && !photo) || identity.status !== "user"}><ArrowUp weight="bold" /></button>
             </div>
-            <p className={styles.footnote}>{remaining !== null ? `${remaining} left today · ` : ""}{question ? "The mark scheme has the final say." : `${HELPER_NAME} can make mistakes.`}</p>
+            {credits && <CreditsLine credits={credits} cost={photo ? helperCreditCost(true) : undefined} />}
+            <p className={styles.footnote}>{question ? "The mark scheme has the final say." : `${HELPER_NAME} can make mistakes.`}</p>
           </form>
           {question && <input ref={fileRef} type="file" accept="image/*" hidden onChange={(event) => void onPhotoChosen(event.target.files?.[0])} />}
         </>

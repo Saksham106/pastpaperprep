@@ -42,6 +42,11 @@ import { POST } from "@/app/api/helper/route";
 import { HelperAccessError } from "@/lib/helper/context";
 import { HELPER_INCOMPLETE_MARKING, HELPER_MODE_INSTRUCTIONS } from "@/lib/helper/prompt";
 
+const CHARGE = "11111111-1111-4111-8111-111111111111";
+const charged = { status: "ok", charge_id: CHARGE, week_start: "2026-11-23", plan_left: 140, pack_left: 0 };
+const credits = (tier: string, weekly: number, planLeft = 140, packLeft = 0) => ({ tier, weekly, planLeft, packLeft, resetsAt: expect.any(String) });
+const consumeWith = (data: unknown) => mocks.adminRpc.mockImplementation(async (name: string) => name === "consume_helper_credits" ? { data, error: null } : { data: true, error: null });
+const consumeCalls = () => mocks.adminRpc.mock.calls.filter(([name]) => name === "consume_helper_credits");
 const siteBody = (text = "what is a vector?") => ({ page: "/", messages: [{ role: "user", text }] });
 const questionBody = (mode = "hint", text = "Give me a hint.") => ({ page: "/banks/igcse", question: { bank: "igcse", questionId: "q1" }, mode, messages: [{ role: "user", text }] });
 const request = (body: unknown) => new Request("https://pastpaperprep.com/api/helper", {
@@ -65,8 +70,7 @@ describe("POST /api/helper (one Pepper for every surface)", () => {
     vi.spyOn(console, "info").mockImplementation(() => {});
     mocks.getClaims.mockResolvedValue({ data: { claims: { sub: "user-1" } } });
     mocks.fetchAccessEntitlements.mockResolvedValue({ rows: [], error: null });
-    mocks.rpc.mockResolvedValue({ data: { status: "ok", remaining: 4, usage_date: "2026-11-24" }, error: null });
-    mocks.adminRpc.mockResolvedValue({ error: null });
+    consumeWith(charged);
     mocks.loadHelperContext.mockResolvedValue({
       bank: "igcse", questionId: "q1", freePreview: true, label: "L", subject: "Maths", qualification: "Cambridge IGCSE",
       marks: 3, questionImages: [], markschemeImages: ["ms"], explanation: null, omitted: { question: 0, markscheme: 0 },
@@ -92,7 +96,7 @@ describe("POST /api/helper (one Pepper for every surface)", () => {
     expect((await POST(request(siteBody()))).status).toBe(401);
     mocks.loadHelperContext.mockRejectedValueOnce(new HelperAccessError("no"));
     expect((await POST(request(questionBody()))).status).toBe(403);
-    expect(mocks.rpc).not.toHaveBeenCalled();
+    expect(mocks.adminRpc).not.toHaveBeenCalled();
   });
 
   it("uses one shared cached prefix: the same system prompt and tools with or without a question", async () => {
@@ -109,10 +113,10 @@ describe("POST /api/helper (one Pepper for every surface)", () => {
     expect(JSON.stringify((site.messages as unknown[])[0])).not.toContain("Official question paper");
   });
 
-  it("streams a question reply with the mode instruction and the messages left", async () => {
+  it("streams a question reply with the mode instruction and the credits left", async () => {
     const response = await POST(request(questionBody("hint")));
     expect(response.headers.get("X-Helper-Free-Preview")).toBe("1");
-    expect(await events(response)).toEqual([{ type: "text", text: "Try " }, { type: "text", text: "expanding." }, { type: "done", remaining: 4, limit: 5 }]);
+    expect(await events(response)).toEqual([{ type: "text", text: "Try " }, { type: "text", text: "expanding." }, { type: "done", credits: credits("free", 150), cost: 10 }]);
     const messages = mocks.stream.mock.calls[0][0].messages as Array<{ role: string; content: unknown }>;
     expect(String(messages.at(-1)!.content)).toContain(HELPER_MODE_INSTRUCTIONS.hint);
   });
@@ -128,45 +132,58 @@ describe("POST /api/helper (one Pepper for every surface)", () => {
     expect(note).not.toContain(HELPER_MODE_INSTRUCTIONS.mark);
   });
 
-  it("gives paid members the higher limit", async () => {
-    mocks.fetchAccessEntitlements.mockResolvedValue({ rows: [{ product_id: "all_access", status: "active" }], error: null });
+  it("charges the plan's weekly credits, worked out on the server from entitlements", async () => {
     await (await POST(request(siteBody()))).text();
-    expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance_v2", { p_limit: expect.any(Number) });
+    expect(consumeCalls()[0][1]).toEqual({ p_user_id: "user-1", p_weekly_credits: 150, p_cost: 10 });
+    const allAccess = { productId: "bundle_all", status: "active", startsAt: "2020-01-01T00:00:00Z", expiresAt: null };
+    mocks.fetchAccessEntitlements.mockResolvedValue({ rows: [allAccess], error: null });
+    await (await POST(request(siteBody()))).text();
+    expect(consumeCalls()[1][1]).toEqual({ p_user_id: "user-1", p_weekly_credits: 3000, p_cost: 10 });
   });
 
-  it("maps the allowance: paused and busy are 503, the limit is 429, all without calling the model", async () => {
-    for (const [status, code] of [["disabled", 503], ["busy", 503], ["limit", 429]] as const) {
-      mocks.rpc.mockResolvedValueOnce({ data: { status }, error: null });
+  it("maps the charge: paused and busy are 503, out of credits is 429 with the balance, all without calling the model", async () => {
+    for (const [status, code] of [["disabled", 503], ["busy", 503]] as const) {
+      consumeWith({ status });
       expect((await POST(request(questionBody()))).status, status).toBe(code);
     }
+    consumeWith({ status: "limit", reason: "week", week_start: "2026-11-23", plan_left: 0, pack_left: 0 });
+    const limited = await POST(request(questionBody()));
+    expect(limited.status).toBe(429);
+    expect(await limited.json()).toEqual({ error: "You've used this week's credits.", reason: "week", cost: 10, credits: credits("free", 150, 0, 0) });
+    consumeWith({ status: "limit", reason: "day", week_start: "2026-11-23", plan_left: 0, pack_left: 500 });
+    expect((await (await POST(request(questionBody()))).json()).error).toContain("today's limit");
     expect(mocks.stream).not.toHaveBeenCalled();
   });
 
-  it("falls back to the v1 allowance while the v2 migration isn't applied", async () => {
-    mocks.rpc.mockResolvedValueOnce({ data: null, error: { code: "PGRST202" } }).mockResolvedValueOnce({ data: 3, error: null });
-    expect((await events(await POST(request(siteBody())))).at(-1)).toEqual({ type: "done", remaining: 3, limit: 5 });
-    expect(mocks.rpc.mock.calls.map(([name]) => name)).toEqual(["consume_helper_allowance_v2", "consume_helper_allowance"]);
+  it("fails closed when the credit check errors or answers in an unknown shape", async () => {
+    for (const data of [null, { status: "ok" }, { status: "ok", charge_id: "not-a-uuid", plan_left: 1, pack_left: 0 }, { status: "limit", reason: "month", plan_left: 0, pack_left: 0 }]) {
+      consumeWith(data);
+      expect((await POST(request(siteBody()))).status).toBe(503);
+    }
+    mocks.adminRpc.mockResolvedValueOnce({ data: null, error: { code: "PGRST202" } });
+    expect((await POST(request(siteBody()))).status).toBe(503);
+    expect(mocks.stream).not.toHaveBeenCalled();
   });
 
-  it("charges once and refunds the charged day only when no words reached the student", async () => {
+  it("charges once and refunds that charge only when no words reached the student", async () => {
     mocks.stream.mockImplementation(() => fakeStream([], "refusal"));
     expect((await events(await POST(request(questionBody())))).at(-1)).toMatchObject({ type: "error", status: 422 });
-    expect(mocks.rpc).toHaveBeenCalledTimes(1);
-    expect(mocks.adminRpc).toHaveBeenCalledWith("release_helper_allowance_v2", { p_user_id: "user-1", p_usage_date: "2026-11-24" });
+    expect(consumeCalls()).toHaveLength(1);
+    expect(mocks.adminRpc).toHaveBeenCalledWith("release_helper_credits", { p_user_id: "user-1", p_charge_id: CHARGE });
 
     mocks.adminRpc.mockClear();
     mocks.stream.mockImplementation(() => fakeStream(["Partly "], "max_tokens"));
     await (await POST(request(questionBody()))).text();
-    expect(mocks.adminRpc).not.toHaveBeenCalled();
+    expect(mocks.adminRpc.mock.calls.map(([name]) => name)).toEqual(["consume_helper_credits"]);
   });
 
-  it("answers exact site requests by rules without spending a message", async () => {
+  it("answers exact site requests by rules without spending credits", async () => {
     expect(await events(await POST(request(siteBody("IGCSE Maths 0580"))))).toEqual([
       { type: "navigate", kind: "bank", path: "/banks/igcse?free=1", label: "IGCSE Maths 0580", bank: "igcse" },
       { type: "text", text: expect.any(String) },
       { type: "done", rules: true },
     ]);
-    expect(mocks.rpc).not.toHaveBeenCalled();
+    expect(mocks.adminRpc).not.toHaveBeenCalled();
     expect(mocks.stream).not.toHaveBeenCalled();
   });
 

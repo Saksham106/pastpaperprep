@@ -4,6 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const track = vi.hoisted(() => vi.fn());
 const auth = vi.hoisted(() => ({ user: { id: "u1" } as { id: string } | null }));
+const creditsClient = vi.hoisted(() => ({ load: vi.fn(async (): Promise<unknown> => null) }));
+vi.mock("@/lib/helper/credits-client", () => ({ loadHelperCredits: creditsClient.load }));
 vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: track }));
 vi.mock("@/lib/supabase/browser", () => ({
   createClient: () => ({
@@ -23,13 +25,13 @@ const question = { bank: "igcse", questionId: "q1", label: "2021 June · Paper 4
 const HelperPanel = ({ closing = false }: { closing?: boolean }) => <PepperPanel question={question} closing={closing} />;
 const props = {};
 
-/** Pepper's stream: the reply's words as text events, then the day's count. */
+/** Pepper's stream: the reply's words as text events, then the credits left. */
 function streamResponse(chunks: string[]) {
   const encoder = new TextEncoder();
   const body = new ReadableStream<Uint8Array>({
     start(controller) {
       for (const chunk of chunks) controller.enqueue(encoder.encode(`${JSON.stringify({ type: "text", text: chunk })}\n`));
-      controller.enqueue(encoder.encode(`${JSON.stringify({ type: "done", remaining: 4, limit: 5 })}\n`));
+      controller.enqueue(encoder.encode(`${JSON.stringify({ type: "done", cost: 10, credits: { tier: "free", weekly: 150, planLeft: 140, packLeft: 0, resetsAt: "2026-11-30T12:00:00.000Z" } })}\n`));
       controller.close();
     },
   });
@@ -74,7 +76,7 @@ describe("PepperPanel with a question attached", () => {
 
     expect(await screen.findByText("expanding")).toBeInTheDocument();
     expect(screen.getByText("Give me a hint.")).toBeInTheDocument();
-    expect(screen.getByText(/4 left today/)).toBeInTheDocument();
+    expect(screen.getByText(/93% left · 140 credits · resets Mon/)).toBeInTheDocument();
     const sent = JSON.parse(fetchMock.mock.calls[0][1].body as string);
     expect(sent).toMatchObject({ question: { bank: "igcse", questionId: "q1" }, mode: "hint", messages: [{ role: "user", text: "Give me a hint." }] });
     expect(track).toHaveBeenCalledWith("helper_chip", expect.objectContaining({ chip: "hint" }));
@@ -97,10 +99,10 @@ describe("PepperPanel with a question attached", () => {
   });
 
   it("shows the daily-limit message and keeps the history clean", async () => {
-    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ error: "You've used today's 5 free helper messages." }), { status: 429 }));
+    fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ error: "You've used this week's credits." }), { status: 429 }));
     render(<HelperPanel {...props} />);
     await userEvent.click(await screen.findByRole("button", { name: /^Give me a hint/ }));
-    expect(await screen.findByRole("alert")).toHaveTextContent("today's 5 free helper messages");
+    expect(await screen.findByRole("alert")).toHaveTextContent("this week's credits");
     await waitFor(() => expect(screen.queryByText("Give me a hint.")).not.toBeInTheDocument());
     expect(track).toHaveBeenCalledWith("helper_limit", expect.objectContaining({ bank: "igcse" }));
   });
