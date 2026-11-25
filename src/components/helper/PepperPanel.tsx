@@ -1,13 +1,13 @@
 "use client";
 
-import { ArrowSquareOut, ArrowUp, Camera, Check, DeviceMobile, Lightbulb, PencilSimpleLine, X, type Icon as PhosphorIcon } from "@phosphor-icons/react";
+import { ArrowSquareOut, ArrowUp, Camera, Check, DeviceMobile, X } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState, type FormEvent, type SetStateAction } from "react";
 import { courseToneForBank } from "@/components/CourseIcon";
 import { HelperFace } from "@/components/helper/HelperFace";
 import { HelperMessage } from "@/components/helper/HelperMessage";
-import { forgetSiteChat, questionThread, recallSiteChat, rememberSiteChat, siteThread, type SiteOpened, type SiteTurn } from "@/components/helper/site-chat-memory";
+import { forgetSiteChat, PHOTO_SENT, questionThread, recallSiteChat, rememberSiteChat, siteThread, type SiteOpened, type SiteTurn } from "@/components/helper/site-chat-memory";
 import { getCatalogBank } from "@/lib/catalog";
 import { HelperRequestError, photoToDataUrl } from "@/lib/helper/client";
 import { HELPER_CHIP_PROMPTS, HELPER_CHIPS, HELPER_MAX_TEXT, HELPER_MAX_TURNS, HELPER_NAME, HELPER_PHOTO_NOTE, helperPhonePath, type HelperMode } from "@/lib/helper/config";
@@ -25,15 +25,6 @@ import styles from "./helper.module.css";
 
 export type { PepperQuestion } from "@/lib/helper/site-config";
 import type { PepperQuestion } from "@/lib/helper/site-config";
-
-const CHIP_ICONS: Readonly<Record<Exclude<HelperMode, "chat">, PhosphorIcon>> = { mark: Camera, hint: Lightbulb, explain: PencilSimpleLine };
-const CHIP_HINTS: Readonly<Record<Exclude<HelperMode, "chat">, string>> = {
-  mark: "Snap your working, get it marked point by point",
-  hint: "A nudge, not the answer",
-  explain: "Every mark, step by step",
-};
-/** Shown before any photo is sent. */
-const PHOTO_NOTICE = "Crop out your name and candidate number. Photos go to Anthropic to be marked, and the score is guidance, not an official mark.";
 
 const toneFor = (bank: string) => {
   const catalog = getCatalogBank(bank as never);
@@ -167,7 +158,10 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
     const list = listRef.current;
     if (list) list.scrollTop = list.scrollHeight;
   }, [turns]);
-  useEffect(() => { if (identity.status === "user" && !question) inputRef.current?.focus(); }, [identity.status, question]);
+  // Typing comes first: the message box takes focus on open (not on touch screens, where it would pop the keyboard).
+  useEffect(() => {
+    if (identity.status === "user" && window.matchMedia?.("(pointer: fine)").matches) inputRef.current?.focus();
+  }, [identity.status]);
   useEffect(() => {
     const path = pendingOpenRef.current;
     pendingOpenRef.current = null;
@@ -350,17 +344,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           <div className={styles.list} ref={listRef} aria-live="polite">
             {identity.status === "user" && empty && (question ? (
               <div className={styles.start}>
-                <p className={styles.greet}>I&apos;ve read this question <em>and its mark scheme.</em></p>
-                <div className={styles.tiles}>
-                  {HELPER_CHIPS.map((chip) => {
-                    const Icon = CHIP_ICONS[chip.mode];
-                    return <button key={chip.mode} type="button" className={styles.tile} disabled={busy} onClick={() => pickChip(chip.mode)}>
-                      <span className={styles.tileIcon}><Icon weight="fill" aria-hidden="true" /></span>
-                      <span><b>{chip.label}</b><span>{CHIP_HINTS[chip.mode]}</span></span>
-                    </button>;
-                  })}
-                </div>
-                <p className={styles.notice}>{PHOTO_NOTICE}</p>
+                <p className={styles.greet}>Stuck on this one? <em>Ask me anything.</em></p>
                 {variant === "sheet" && <button type="button" className={styles.phone} aria-expanded={qr.open} onClick={toggleQr}><DeviceMobile weight="bold" aria-hidden="true" />On a laptop? <span>Use your phone&apos;s camera</span></button>}
                 {qr.open && (
                   <div className={styles.qr}>
@@ -384,7 +368,9 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
               </div>
             ))}
             {turns.map((turn, index) => turn.role === "user"
-              ? <div key={index} className={`${styles.user} ${styles.enter}`}>{turn.photo && <Image unoptimized width={0} height={0} src={turn.photo} alt="Your working" className={styles.thumb} />}{turn.text && <p>{turn.text}</p>}</div>
+              ? <div key={index} className={`${styles.user} ${styles.enter}`}>{turn.photo && (turn.photo === PHOTO_SENT
+                ? <span className={styles.photoSent}><Camera weight="bold" aria-hidden="true" />Photo of your working</span>
+                : <Image unoptimized width={0} height={0} src={turn.photo} alt="Your working" className={styles.thumb} />)}{turn.text && <p>{turn.text}</p>}</div>
               : <div key={index} className={`${styles.assistant} ${styles.enter}`}>
                 {turn.text && <HelperMessage text={turn.text} complete={!(busy && index === turns.length - 1)} celebrate={celebrate === index} />}
                 {turn.opened?.map((page) => (
@@ -401,7 +387,12 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           {error && <p className={styles.error} role="alert">{error}</p>}
 
           <form className={styles.composer} onSubmit={submit}>
-            {photo && <p className={styles.notice}>{PHOTO_NOTICE}</p>}
+            {/* With a question: what Pepper can do with it, as light suggestions above the box (typing works too). */}
+            {question && identity.status === "user" && (
+              <div className={styles.starters} aria-label="Suggestions">
+                {HELPER_CHIPS.map((chip) => <button key={chip.mode} type="button" className={styles.starter} disabled={busy} onClick={() => pickChip(chip.mode)}>{chip.label}</button>)}
+              </div>
+            )}
             {photo && (
               <div className={styles.attached}>
                 <Image unoptimized width={0} height={0} src={photo} alt="Photo to send" />

@@ -454,6 +454,9 @@
 :global(body):has(.sheet) .siteLauncher { display: none; }
 
 .starters { display: flex; flex-wrap: wrap; gap: 8px; }
+.starter:disabled { opacity: .5; cursor: default; }
+/* A photo sent earlier and not kept after a reload: named, not shown. */
+.photoSent { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; color: var(--muted); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 12px; font-size: .8rem; }
 .starter {
   min-height: 36px;
   padding: 0 14px;
