@@ -99,6 +99,16 @@ describe("free public assets", () => {
     expect(staleCalls).toHaveLength(2);
   });
 
+  it("publishes each crop's pixel size next to its link and hands it to the page", async () => {
+    const sized = new Map([[FREE, { ...entry(FREE, false), questionAssetPaths: [`bank/questions/${FREE}.webp`, `bank/questions/${FREE}-2.webp`], questionAssetSizes: [[1070, 312], null] as Array<[number, number] | null> }]]);
+    const index = buildFreeAssetIndex("igcse", sized, (_id, value) => value);
+    expect(index.questions[FREE].question?.sizesPx).toEqual([[1070, 312], null]);
+    // No size known: the field is left out, so the index costs no bytes for it.
+    expect(index.questions[FREE].answer).not.toHaveProperty("sizesPx");
+    const result = await fetchFreeAssets("igcse", [{ questionId: FREE, kind: "question" }], async () => Response.json(index));
+    expect(result.assets.get(`${FREE}:question`)?.sizesPx).toEqual([[1070, 312], null]);
+  });
+
   it("encodes known text-only and absent kinds explicitly with projected rich details", () => {
     const index = buildFreeAssetIndex("igcse", new Map([[FREE, {
       ...entry(FREE, false), questionAssetPaths: [], markschemeAssetPaths: [],

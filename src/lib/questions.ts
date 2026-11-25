@@ -159,6 +159,8 @@ export type UnifiedQuestion = {
   markschemeImages: string[];
   questionImageCount: number;
   markschemeImageCount: number;
+  /** Pixel [width, height] per question image (src/data/image-shapes), set only on card metadata sent to the page. */
+  imageSizes?: Array<[number, number] | null>;
   /**
    * Shared case study: the first `stimulusImageCount` question images are the case study's crops, stored once and
    * referenced by every question that uses them. A worksheet prints them once, before the first of those questions.

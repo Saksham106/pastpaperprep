@@ -17,6 +17,15 @@ describe("asset origins", () => {
     ]);
   });
 
+  it("adds the R2 origin when members' paid questions sign from R2 by default", () => {
+    expect(assetOriginsForBank("igcse", { ...env, ASSET_STORAGE_PROVIDER: "r2" })).toEqual([
+      FREE,
+      "https://abc.supabase.co",
+      "https://92278648535014b5231edfe207b9391d.r2.cloudflarestorage.com",
+    ]);
+    expect(assetOriginsForBank("igcse", { ...env, ASSET_STORAGE_PROVIDER: "supabase" })).toEqual([FREE, "https://abc.supabase.co"]);
+  });
+
   it("skips malformed values", () => {
     expect(assetOriginsForBank("igcse-chemistry-0620", { NEXT_PUBLIC_SUPABASE_URL: "nope", R2_ACCOUNT_ID: "x" })).toEqual([FREE]);
   });

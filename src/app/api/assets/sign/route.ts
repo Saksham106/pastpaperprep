@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { annotateFailureResponse, withFailureReporting, type FailureDiagnostics } from "@/lib/route-failure-reporting";
 import { hasBankAccess, isPreviewQuestion, type AccessEntitlement } from "@/lib/access";
 import type { AssetRequest } from "@/lib/asset-access";
+import { sizesPxField } from "@/lib/asset-kinds";
 import { authorizeManifestAssetRequests, loadBankAssetManifest } from "@/lib/asset-manifest";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
@@ -165,6 +166,7 @@ async function handlePOST(request: Request) {
         details: richDetailsFor(body.bank as BankSlug, item.questionId, item.details, entitlements),
         urls: item.paths.map((path) => urlByPath.get(path)),
         displayCrops: item.paths.map((path) => reviewedBlankTailForSignedAsset(body.bank as BankSlug, item.questionId, item.kind, path)),
+        ...sizesPxField(item.sizesPx),
         ...(item.mcqAnswer ? { mcqAnswer: item.mcqAnswer } : {}),
       })),
     }, PRIVATE_RESPONSE_INIT);

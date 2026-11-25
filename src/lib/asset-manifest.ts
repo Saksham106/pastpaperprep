@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { canViewAnswer, canViewQuestionAsset, type AccessEntitlement } from "@/lib/access";
 import type { AssetRequest } from "@/lib/asset-access";
-import { deliveredAssetPaths, isAssetKind } from "@/lib/asset-kinds";
+import { deliveredAssetPaths, deliveredAssetSizes, isAssetKind } from "@/lib/asset-kinds";
 import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import type { BankSlug } from "@/lib/banks";
 import type { McqAnswer } from "@/lib/mcq-answer";
@@ -11,7 +11,11 @@ import type { QuestionRichDetails } from "@/lib/questions";
 // Server-only: entries hold premium text. Nothing here may import the question loader, so the
 // routes that read manifests stay small instead of bundling the whole corpus.
 // `mcqAnswer` is the verified letter of a multiple-choice question; it is released only with an authorized answer.
-export type AssetManifestEntry = { questionAssetPaths: string[]; markschemeAssetPaths: string[]; explanationAssetPaths?: string[]; mcqAnswer?: McqAnswer; details: QuestionRichDetails };
+export type AssetManifestEntry = {
+  questionAssetPaths: string[]; markschemeAssetPaths: string[]; explanationAssetPaths?: string[]; mcqAnswer?: McqAnswer; details: QuestionRichDetails;
+  /** Pixel [width, height] aligned with the paths (src/data/image-sizes); absent when none is known. */
+  questionAssetSizes?: Array<[number, number] | null>; markschemeAssetSizes?: Array<[number, number] | null>;
+};
 export type AssetManifest = ReadonlyMap<string, AssetManifestEntry>;
 
 /** The runtime mode is part of the name, so a flag flip never reads a manifest built for the other mode. */
@@ -39,7 +43,7 @@ export function loadBankAssetManifest(
   return loaded;
 }
 
-export type ManifestAuthorizedAssetRequest = AssetRequest & { paths: string[]; details: QuestionRichDetails; mcqAnswer?: McqAnswer };
+export type ManifestAuthorizedAssetRequest = AssetRequest & { paths: string[]; sizesPx: Array<[number, number] | null>; details: QuestionRichDetails; mcqAnswer?: McqAnswer };
 
 /** Same checks as authorizeAssetRequests, against a prebuilt manifest. */
 export function authorizeManifestAssetRequests(
@@ -71,6 +75,7 @@ export function authorizeManifestAssetRequests(
       kind: request.kind,
       details: entry.details,
       paths: deliveredAssetPaths(entry, request.kind),
+      sizesPx: deliveredAssetSizes(entry, request.kind),
       // Only after the answer check above: a question-only grant never carries the letter.
       ...(request.kind === "answer" && entry.mcqAnswer ? { mcqAnswer: entry.mcqAnswer } : {}),
     };

@@ -24,6 +24,7 @@ describe("Privacy policy", () => {
     expect(screen.getByText(/we also recognise returning visits/i)).toBeInTheDocument();
     expect(screen.getByText(/link your activity to your account and share your email address with our analytics provider/i)).toBeInTheDocument();
     expect(screen.getByText(/earlier analytics acceptance does not authorize email disclosure/i)).toBeInTheDocument();
-    expect(screen.getByText(/session replay and automatic click capture are disabled/i)).toBeInTheDocument();
+    expect(screen.getByText(/session replay is disabled/i)).toBeInTheDocument();
+    expect(screen.getByText(/never includes page text or anything you type/i)).toBeInTheDocument();
   });
 });

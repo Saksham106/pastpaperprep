@@ -1,6 +1,6 @@
 "use client";
 
-import { browserErrorContext, reactMismatchKind } from "@/lib/browser-error-context";
+import { analyticsEventContext, browserErrorContext, reactMismatchKind } from "@/lib/browser-error-context";
 import { readBrowserAnalyticsConsent, stableAnalyticsDistinctId } from "@/lib/analytics-consent";
 import { boundExceptionFrames, safeErrorMessage, scrubStack } from "@/lib/error-privacy";
 import { accountIdFromCookieHeader } from "@/lib/supabase/auth-cookie";
@@ -46,7 +46,16 @@ function loadClient() {
           cookieless_mode: "always",
           autocapture: false,
           capture_pageview: false,
-          capture_pageleave: false,
+          // Leaving a page reports time on page and how far it was scrolled ($prev_pageview_*), which
+          // also gives PostHog's web analytics a real bounce rate and its heatmaps a scroll map.
+          capture_pageleave: true,
+          // Click positions per page (not billed), plus clicks that changed nothing on the page
+          // ($dead_click). Element text and attribute values are masked for both, and only public
+          // study pages send either (BEHAVIOUR_CAPTURE_PATH); mouse movement and swipes are not sent.
+          capture_heatmaps: true,
+          capture_dead_clicks: { capture_dead_swipes: false },
+          mask_all_text: true,
+          mask_all_element_attributes: true,
           person_profiles: "never",
           persistence: "memory",
           disable_cookie: true,
@@ -61,7 +70,7 @@ function loadClient() {
           capture_performance: { web_vitals_attribution: ["CLS", "INP", "LCP"] },
           before_send: event => {
             if (!canCapture()) return null;
-            const scrubbed = sanitizeAnalyticsEvent(event);
+            const scrubbed = withEventContext(sanitizeAnalyticsEvent(event));
             if (scrubbed && typeof window !== "undefined" && new URLSearchParams(window.location.search).get("analytics_verification") === "1") {
               scrubbed.properties = { ...scrubbed.properties, analytics_verification: true };
             }
@@ -78,6 +87,58 @@ function loadClient() {
 }
 
 /**
+ * Every anonymous event says whether the visitor is signed in (a boolean, never the account), their
+ * network class and the release, so speed and behaviour can be split by those. Heatmap batches skip it.
+ */
+function withEventContext<T extends { event?: string; properties?: Record<string, unknown> }>(event: T | null): T | null {
+  if (!event?.properties || event.event === "$$heatmap" || typeof window === "undefined") return event;
+  let context = {};
+  try { context = analyticsEventContext(window); } catch { /* Context is optional enrichment. */ }
+  return { ...event, properties: { ...event.properties, ...context, signed_in: browserAccountId() !== undefined } };
+}
+
+/**
+ * Heatmap and dead-click data only leaves the page on public study pages. Sign-in, account,
+ * dashboard, worksheets, invite/referral and anything else never send click positions.
+ */
+const BEHAVIOUR_CAPTURE_PATH = /^\/(?:$|banks(?:\/|$)|past-papers(?:\/|$)|revision-notes(?:\/|$)|articles(?:\/|$)|pricing\/?$|cambridge-igcse(?:\/|$)|cambridge-a-level(?:\/|$)|ib(?:\/|$)|syllabus(?:\/|$)|grade-thresholds(?:\/|$)|teachers(?:\/|$)|updates(?:\/|$)|faq\/?$)/;
+export function isBehaviourCapturePath(pathname: string): boolean {
+  return BEHAVIOUR_CAPTURE_PATH.test(pathname);
+}
+// Heatmap point types worth sending; mouse-movement traces are dropped.
+const HEATMAP_POINT_TYPES = new Set(["click", "rageclick", "deadclick"]);
+
+function pageviewPath(url: unknown): string | null {
+  try { return typeof url === "string" ? new URL(url).pathname : null; } catch { return null; }
+}
+
+// Invite and referral links carry a code in the path; analytics only needs the route.
+const CODE_PATH = /^\/(invite|r)\/[^/]+/;
+function scrubPath(pathname: string): string {
+  return pathname.replace(CODE_PATH, "/$1/:code");
+}
+
+/** Heatmap batches are keyed by the page's full URL; keep only origin and path, merging pages that differ only by query. */
+function scrubHeatmapData(data: unknown): Record<string, unknown[]> | undefined {
+  if (!data || typeof data !== "object" || Array.isArray(data)) return undefined;
+  const pages: Record<string, unknown[]> = {};
+  for (const [href, points] of Object.entries(data)) {
+    if (!Array.isArray(points)) continue;
+    let page: string;
+    try {
+      const url = new URL(href);
+      if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) continue;
+      if (!isBehaviourCapturePath(url.pathname)) continue;
+      page = `${url.origin}${scrubPath(url.pathname)}`;
+    } catch { continue; }
+    const merged = [...(pages[page] ?? []), ...points.filter(point => point && typeof point === "object" && HEATMAP_POINT_TYPES.has(String((point as { type?: unknown }).type)))];
+    if (!merged.length) continue;
+    pages[page] = merged.slice(0, 1000);
+  }
+  return Object.keys(pages).length ? pages : undefined;
+}
+
+/**
  * Cookieless ingestion discards the IP, so PostHog's GeoIP leaves anonymous events without a country and the
  * web-analytics map stays empty. Fill the country from the browser's time zone instead (no IP, no cookie).
  * Never overrides a real GeoIP value.
@@ -91,10 +152,18 @@ export function withTimeZoneCountry<T extends { properties?: Record<string, unkn
 
 const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError", "UnhandledRejection", "ChunkLoadError"]);
 
-export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, unknown> }>(event: T | null): T | null {
+export function sanitizeAnalyticsEvent<T extends { event?: string; properties?: Record<string, unknown> }>(event: T | null): T | null {
   if (!event?.properties) return event;
+  if (event.event === "$dead_click" || event.event === "$dead_swipe") {
+    const pathname = typeof event.properties.$pathname === "string" ? event.properties.$pathname : pageviewPath(event.properties.$current_url);
+    if (event.event === "$dead_swipe" || !pathname || !isBehaviourCapturePath(pathname)) return null;
+  }
+  if (event.event === "$$heatmap" && !scrubHeatmapData(event.properties.$heatmap_data)) return null;
   const scrub = (value: unknown, key = "", depth = 0, inException = false): unknown => {
     if (depth > 8) return undefined;
+    if (depth === 1 && key === "$heatmap_data") return scrubHeatmapData(value);
+    // Masked in the SDK too (mask_all_text); never let an element's text through.
+    if (key === "$el_text") return undefined;
     const exception = inException || /exception/i.test(key);
     // An exception's own `value` survives as its scrubbed message; every other message field is dropped.
     if (exception && key === "value" && depth > 1) return safeErrorMessage(value);
@@ -105,9 +174,10 @@ export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, u
       catch { return undefined; }
     }
     if (typeof value === "string" && /(?:url|href|referrer)$/i.test(key)) {
-      try { const url = new URL(value); if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) return undefined; return `${url.origin}${url.pathname}`; }
+      try { const url = new URL(value); if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) return undefined; return `${url.origin}${scrubPath(url.pathname)}`; }
       catch { return undefined; }
     }
+    if (typeof value === "string" && (/pathname$/i.test(key) || key === "path")) return scrubPath(value);
     if (Array.isArray(value)) {
       const items = exception && key === "frames" ? boundExceptionFrames(value.filter(item => item && typeof item === "object") as Record<string, unknown>[]) : value;
       return items.slice(0, exception ? 50 : items.length).map(item => scrub(item, key, depth + 1, exception)).filter(item => item !== undefined);

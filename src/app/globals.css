@@ -640,8 +640,8 @@ main { min-height: 72vh; }
 .asset-placeholder .placeholder-bars i { display: block; height: 12px; border-radius: 6px; background: color-mix(in srgb, var(--line) 72%, transparent); }
 .asset-placeholder .placeholder-bars i:first-child { width: 38%; height: 15px; margin-inline: auto; background: color-mix(in srgb, var(--line-strong) 60%, transparent); }
 .asset-placeholder .placeholder-bars i:last-child { width: 22%; margin-inline: auto; }
-/* One box per question image, the size SourceCropImage's 1400×1000 image takes before it loads, so swapping one for the other moves nothing. */
-.question-images .asset-placeholder { width: 100%; max-width: 900px; min-height: 0; margin: 0 auto; aspect-ratio: 1400 / 1000; }
+/* One box per question image, as wide as the image; AssetPlaceholder sets the same aspect ratio the image reserves (its real size when known), so swapping one for the other moves nothing. */
+.question-images .asset-placeholder { width: 100%; max-width: 900px; min-height: 0; margin: 0 auto; }
 .question-locked {
   position: relative;
   margin: 16px 18px 18px;

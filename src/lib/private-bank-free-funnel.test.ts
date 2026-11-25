@@ -21,6 +21,7 @@ import { bankEntryHref, countFreeQuestions, hasFreeTier, isPreviewQuestion, ques
 import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import { createPublicBankIndex, publicBankIndexUrl } from "@/lib/question-index";
+import { loadQuestionImageShapes } from "@/lib/question-image-shapes";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { normalizeBankQuestions } from "@/lib/questions";
 import { ensureAssetManifestForCurrentEnvironment } from "../../test/asset-manifest-fixture";
@@ -186,7 +187,7 @@ describe("private-bank free funnel", () => {
       const questions = pending
         ? normalizeBankQuestions(slug, (economicsRuntime as unknown as { questions: never[] }).questions, { economicsAssetMode: "private", applyReviewedBlankPages: true })
         : await loadBankQuestions(slug);
-      expect(payload).toEqual(createPublicBankIndex(slug, questions));
+      expect(payload).toEqual(createPublicBankIndex(slug, questions, await loadQuestionImageShapes(slug)));
       const serialized = JSON.stringify(payload);
       for (const key of PROTECTED_INDEX_KEYS) expect(serialized).not.toContain(`"${key}"`);
     }

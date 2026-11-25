@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { PUBLIC_BANK_INDEX_FILES } from "../src/lib/bank-index-manifest.ts";
-import { assertSafe, metadataFromRaw } from "./generate-bank-index.mjs";
+import { assertSafe, metadataFromRaw, readQuestionShapes, withImageSizes } from "./generate-bank-index.mjs";
 import { calculatorAllowed } from "../src/lib/calculator-policy.mjs";
 
 describe("public bank index generator", () => {
@@ -40,11 +40,12 @@ describe("public bank index generator", () => {
     expect(currentEdition.subtopics).toEqual(["Sex hormones in humans", "Sexual hormones in humans", "16.5"]);
   });
 
-  it("matches the 0610 public index exactly to the source runtime through the official-era projector", () => {
+  it("matches the 0610 public index exactly to the source runtime through the official-era projector", async () => {
     const slug = "igcse-biology-0610";
+    const shapes = await readQuestionShapes(slug);
     const source = JSON.parse(readFileSync(join(process.cwd(), "src/data/production", `${slug}.json`), "utf8"));
     const published = JSON.parse(readFileSync(join(process.cwd(), "public/bank-index", PUBLIC_BANK_INDEX_FILES[slug]), "utf8"));
-    const expected = new Map(source.questions.map((raw) => [raw.id, metadataFromRaw(raw, { bank: slug, normalizedProduction: true })]));
+    const expected = new Map(source.questions.map((raw) => [raw.id, withImageSizes(metadataFromRaw(raw, { bank: slug, normalizedProduction: true }), shapes)]));
     expect(published.questions).toHaveLength(source.questions.length);
     expect(expected.size).toBe(source.questions.length);
     const namedYears = source.questions.filter((row) => row.year >= 2021 && row.year <= 2025);
@@ -53,6 +54,7 @@ describe("public bank index generator", () => {
     // Every row but the three reviewed no-address rows: 4,910 of the finalized 4,913 plus all 298 May/June 2026 rows.
     expect(published.questions.filter((row) => row.officialCodeRefs?.some((code) => /^(2020_2021|2022|2023_2025|2026_2028):\d+\.\d+$/.test(code)))).toHaveLength(5208);
     for (const row of published.questions) expect(row).toEqual(expected.get(row.id));
+    expect(published.questions.filter((row) => row.imageSizes).length).toBe(source.questions.length);
   });
 
   it("projects reviewed whole BLANK PAGE omissions into public image counts only", () => {
