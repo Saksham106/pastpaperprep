@@ -20,7 +20,7 @@ Students already lean on our worked solutions: most students who reveal an answe
 
 ## Boards
 
-On for Cambridge IGCSE and A Level. **IB is off** (`HELPER_BOARDS` in config) until the owner has checked the IB's terms on its content being used in AI tools. Turning it on is a one-line change.
+On for every board: Cambridge IGCSE, A Level and IB (the owner switched IB on 2026-11-24). `HELPER_BOARDS` in config turns a board off in one line.
 
 ## How it works
 

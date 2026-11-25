@@ -161,10 +161,6 @@
   border-radius: 12px;
   font-size: 1.3rem;
 }
-.tileMain { color: var(--accent-contrast, #fff); background: var(--cobalt); border-color: var(--cobalt); }
-.tileMain:hover:not(:disabled) { border-color: var(--cobalt-strong); background: var(--cobalt-strong); }
-.tileMain span span { color: color-mix(in srgb, var(--accent-contrast, #fff) 82%, transparent); }
-.tileMain .tileIcon { color: var(--accent-contrast, #fff); background: color-mix(in srgb, var(--accent-contrast, #fff) 16%, transparent); }
 
 .phone {
   justify-self: start;
