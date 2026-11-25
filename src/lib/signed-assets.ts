@@ -5,6 +5,7 @@ import type { QuestionRichDetails } from "@/lib/questions";
 import type { BankSlug } from "@/lib/banks";
 import type { SourcePrintSegment } from "@/lib/print-geometry";
 import type { VisibleImageCrop } from "@/lib/reviewed-blank-tails";
+import { isImageSize } from "@/lib/image-sizes";
 import { FREE_ASSET_INDEX_VERSION, freeAssetIndexPath, isFreePublicAssetUrl, type FreeAssetIndex } from "@/lib/free-asset-index";
 
 const SIGN_BATCH_SIZE = 20;
@@ -31,6 +32,8 @@ export type SignedAsset = AssetRequest & {
   printSegments?: Array<SourcePrintSegment[] | null>;
   rasterSizesPx?: Array<[number, number] | null>;
   displayCrops?: Array<VisibleImageCrop | null>;
+  /** Pixel [width, height] per URL (null where unknown), so the page reserves each image's real box. */
+  sizesPx?: Array<[number, number] | null>;
   /** A verified multiple-choice letter, shown instead of the mark-scheme crop. Answer assets only. */
   mcqAnswer?: McqAnswer;
 };
@@ -95,7 +98,7 @@ function validDisplayCrop(value: unknown): value is VisibleImageCrop | null {
     (crop.visibleHeightPx as number) < (crop.fullHeightPx as number);
 }
 
-function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails; printSizesPt?: Array<[number, number] | null>; printSegments?: Array<SourcePrintSegment[] | null>; rasterSizesPx?: Array<[number, number] | null>; displayCrops?: Array<VisibleImageCrop | null>; mcqAnswer?: McqAnswer } {
+function validAsset(value: unknown, localPreview = false): value is AssetRequest & { urls: string[]; details?: QuestionRichDetails; printSizesPt?: Array<[number, number] | null>; printSegments?: Array<SourcePrintSegment[] | null>; rasterSizesPx?: Array<[number, number] | null>; displayCrops?: Array<VisibleImageCrop | null>; sizesPx?: Array<[number, number] | null>; mcqAnswer?: McqAnswer } {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const asset = value as Record<string, unknown>;
   return (
@@ -115,6 +118,8 @@ function validAsset(value: unknown, localPreview = false): value is AssetRequest
           validPrintSegments(parts, (asset.printSizesPt as unknown[])[index], (asset.rasterSizesPx as unknown[])[index])))) &&
     (asset.displayCrops === undefined || (Array.isArray(asset.displayCrops) &&
       asset.displayCrops.length === asset.urls.length && asset.displayCrops.every(validDisplayCrop))) &&
+    (asset.sizesPx === undefined || (Array.isArray(asset.sizesPx) &&
+      asset.sizesPx.length === asset.urls.length && asset.sizesPx.every((size) => size === null || isImageSize(size)))) &&
     (asset.details === undefined || validDetails(asset.details)) &&
     (asset.mcqAnswer === undefined || (asset.kind === "answer" && isMcqAnswer(asset.mcqAnswer)))
   );
@@ -448,7 +453,7 @@ function publicFreeAsset(index: FreeAssetIndex | null, loadedAt: number, request
   const question = index?.questions[request.questionId];
   const entry = question?.[request.kind];
   if (!question || !entry || !validDetails(question.details)) return null;
-  const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, details: question.details, ...(entry.mcqAnswer !== undefined ? { mcqAnswer: entry.mcqAnswer } : {}) };
+  const asset = { questionId: request.questionId, kind: request.kind, urls: entry.urls, displayCrops: entry.displayCrops, ...(entry.sizesPx ? { sizesPx: entry.sizesPx } : {}), details: question.details, ...(entry.mcqAnswer !== undefined ? { mcqAnswer: entry.mcqAnswer } : {}) };
   if (!validAsset(asset) || !asset.urls.every(isFreePublicAssetUrl)) return null;
   return { ...asset, expiresAt: loadedAt + FREE_PUBLIC_ASSET_LIFETIME_MS };
 }
