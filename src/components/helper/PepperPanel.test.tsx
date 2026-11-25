@@ -274,6 +274,17 @@ describe("PepperPanel from the floating button (no question)", () => {
     watch.stop();
   });
 
+  it("on phones, the handle and the expand button switch between half and full height", async () => {
+    const onExpandedChange = vi.fn();
+    const view = render(<PepperPanel onClose={() => {}} layout="phone" onExpandedChange={onExpandedChange} />);
+    // Both the drag handle and the header button say "Full height"; either works.
+    const [handle] = await screen.findAllByRole("button", { name: "Full height" });
+    await userEvent.click(handle);
+    expect(onExpandedChange).toHaveBeenCalledWith(true);
+    view.rerender(<PepperPanel onClose={() => {}} layout="phone" expanded onExpandedChange={onExpandedChange} />);
+    expect(screen.getAllByRole("button", { name: "Half height" })).toHaveLength(2);
+  });
+
   it("shows the daily limit and gives the draft back", async () => {
     fetchMock.mockResolvedValueOnce(new Response(JSON.stringify({ error: "You've used today's 5 free helper messages." }), { status: 429 }));
     render(panel());

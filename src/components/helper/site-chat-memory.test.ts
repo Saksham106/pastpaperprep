@@ -6,11 +6,11 @@ async function reload() {
   return import("@/components/helper/site-chat-memory");
 }
 
-const stored = () => Object.keys(localStorage).filter((key) => key.startsWith("ppp:pepper:"));
+const stored = () => Object.keys(sessionStorage).filter((key) => key.startsWith("ppp:pepper:"));
 
 describe("Pepper chat history", () => {
   beforeEach(() => {
-    localStorage.clear();
+    sessionStorage.clear();
     vi.useFakeTimers();
   });
   afterEach(() => vi.useRealTimers());
@@ -32,7 +32,7 @@ describe("Pepper chat history", () => {
     let memory = await reload();
     memory.rememberSiteChat("u1", [{ role: "user", text: "Mark my working.", photo: "data:image/jpeg;base64,AAAA" }], "q:igcse:q1");
     vi.runAllTimers();
-    expect(localStorage.getItem("ppp:pepper:v1:u1")).not.toContain("base64");
+    expect(sessionStorage.getItem("ppp:pepper:v1:u1")).not.toContain("base64");
     memory = await reload();
     expect(memory.recallSiteChat("u1", "q:igcse:q1")).toEqual([{ role: "user", text: "Mark my working.", photo: memory.PHOTO_SENT }]);
   });

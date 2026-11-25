@@ -1,7 +1,8 @@
-// Pepper's conversations, kept until the student clears them: in memory for this tab, and in this browser's local
-// storage under the signed-in account's id, so a reload keeps them. Each thread is the site chat or one question's
-// chat. Another account never sees them: signing out or switching account deletes every stored chat on the device.
-// Photos are never stored (a turn only remembers that one was sent); they stay in memory for this tab.
+// Pepper's conversations for this browser tab: in memory, and in the tab's session storage under the signed-in
+// account's id, so a reload or moving between pages keeps them; closing the tab or window ends them (safer on shared
+// school computers). Each thread is the site chat or one question's chat. Another account never sees them: signing
+// out or switching account deletes them, and so does Clear chat. Photos are never stored (a turn only remembers that
+// one was sent), which keeps well under storage limits.
 import type { SiteNavigationEvent } from "@/lib/helper/site-events";
 
 export type SiteOpened = Pick<SiteNavigationEvent, "path" | "label"> & { kind?: SiteNavigationEvent["kind"] };
@@ -27,7 +28,7 @@ const storageKey = (userId: string) => `${PREFIX}${userId}`;
 
 function storage(): Storage | null {
   try {
-    return typeof window === "undefined" ? null : window.localStorage;
+    return typeof window === "undefined" ? null : window.sessionStorage;
   } catch {
     return null;
   }

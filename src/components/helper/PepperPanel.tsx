@@ -1,12 +1,13 @@
 "use client";
 
-import { ArrowSquareOut, ArrowUp, Camera, Check, DeviceMobile, X } from "@phosphor-icons/react";
+import { ArrowSquareOut, ArrowsInSimple, ArrowsOutSimple, ArrowUp, Camera, Check, DeviceMobile, Lightbulb, PencilSimpleLine, X, type Icon as PhosphorIcon } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useId, useRef, useState, type FormEvent, type SetStateAction } from "react";
 import { courseToneForBank } from "@/components/CourseIcon";
 import { HelperFace } from "@/components/helper/HelperFace";
 import { HelperMessage } from "@/components/helper/HelperMessage";
+import type { PepperLayout } from "@/components/helper/usePepperLayout";
 import { forgetSiteChat, PHOTO_SENT, questionThread, recallSiteChat, rememberSiteChat, siteThread, type SiteOpened, type SiteTurn } from "@/components/helper/site-chat-memory";
 import { getCatalogBank } from "@/lib/catalog";
 import { HelperRequestError, photoToDataUrl } from "@/lib/helper/client";
@@ -25,6 +26,13 @@ import styles from "./helper.module.css";
 
 export type { PepperQuestion } from "@/lib/helper/site-config";
 import type { PepperQuestion } from "@/lib/helper/site-config";
+
+const CHIP_ICONS: Readonly<Record<Exclude<HelperMode, "chat">, PhosphorIcon>> = { mark: Camera, hint: Lightbulb, explain: PencilSimpleLine };
+const CHIP_HINTS: Readonly<Record<Exclude<HelperMode, "chat">, string>> = {
+  mark: "Snap your working, get it marked point by point",
+  hint: "A nudge, not the answer",
+  explain: "Every mark, step by step",
+};
 
 const toneFor = (bank: string) => {
   const catalog = getCatalogBank(bank as never);
@@ -63,9 +71,16 @@ export type PepperPanelProps = {
   /** The sheet is sliding out: the run is already cancelled and the sheet is inert; only the visuals linger. */
   closing?: boolean;
   onExited?: () => void;
+  /** Where the sheet sits (docked side panel, overlay, phone bottom sheet); the "page" variant ignores it. */
+  layout?: PepperLayout;
+  /** Full screen on desktop, full height on phones. */
+  expanded?: boolean;
+  onExpandedChange?: (expanded: boolean) => void;
+  /** Full screen from a question: that question's card, shown beside the chat (a copy taken when expanding). */
+  beside?: HTMLElement | null;
 };
 
-export function PepperPanel({ question, variant = "sheet", onClose, onNavigated, closing = false, onExited }: PepperPanelProps) {
+export function PepperPanel({ question, variant = "sheet", onClose, onNavigated, closing = false, onExited, layout = "overlay", expanded = false, onExpandedChange, beside = null }: PepperPanelProps) {
   const thread = question ? questionThread(question.bank, question.questionId) : siteThread;
   const analytics = question ? { surface: "question", bank: question.bank, freePreview: question.freePreview } : { surface: "site" };
   const [identity, setIdentity] = useState<Identity>({ status: "loading" });
@@ -308,6 +323,17 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
     }
   };
 
+  // Phones: drag the handle up for full height, down to go back to half height (or close from half).
+  const dragRef = useRef<number | null>(null);
+  const onGrabEnd = (y: number) => {
+    const start = dragRef.current;
+    dragRef.current = null;
+    if (start === null || !onExpandedChange) return;
+    const moved = y - start;
+    if (moved < -40) onExpandedChange(true);
+    else if (moved > 60) { if (expanded) onExpandedChange(false); else onClose?.(); }
+  };
+
   const returnPath = typeof window === "undefined" ? "/" : helperPageContext(window.location.pathname, window.location.search);
   const empty = turns.length === 0;
   const tone = question ? toneFor(question.bank) : null;
@@ -315,12 +341,33 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
 
   return (
     <section
-      className={`${styles.panel} ${variant === "page" ? styles.page : styles.sheet}${closing ? ` ${styles.leaving}` : ""}`}
+      className={[
+        styles.panel,
+        variant === "page" ? styles.page : styles.sheet,
+        variant === "sheet" ? { docked: styles.layoutDocked, overlay: styles.layoutOverlay, phone: styles.layoutPhone }[layout] : "",
+        variant === "sheet" && expanded ? styles.expanded : "",
+        variant === "sheet" && expanded && beside ? styles.withBeside : "",
+        closing ? styles.leaving : "",
+      ].filter(Boolean).join(" ")}
       role={variant === "sheet" ? "dialog" : undefined}
       aria-labelledby={titleId}
       inert={closing}
       onAnimationEnd={(event) => { if (closing && event.target === event.currentTarget) onExited?.(); }}
     >
+      {variant === "sheet" && expanded && beside && <div className={styles.beside} aria-label="The question" ref={(node) => { if (node && node.firstChild !== beside) node.replaceChildren(beside); }} />}
+      <div className={styles.chatCol}>
+      {variant === "sheet" && layout === "phone" && onExpandedChange && (
+        <div
+          className={styles.grab}
+          role="button"
+          tabIndex={0}
+          aria-label={expanded ? "Half height" : "Full height"}
+          onPointerDown={(event) => { dragRef.current = event.clientY; }}
+          onPointerUp={(event) => onGrabEnd(event.clientY)}
+          onClick={() => onExpandedChange(!expanded)}
+          onKeyDown={(event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onExpandedChange(!expanded); } }}
+        ><i aria-hidden="true" /></div>
+      )}
       <header className={`${styles.header}${tone ? ` course-tone-${tone}` : ""}`} data-subject-tone={tone ?? undefined}>
         <span key={hop} className={`${styles.faceWrap}${hop ? ` ${styles.faceHop}` : ""}`}><HelperFace thinking={busy} /></span>
         <div className={styles.heading}>
@@ -328,6 +375,11 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           <p>{question ? question.label : "Questions · papers · topics"}</p>
         </div>
         {identity.status === "user" && !empty && <button type="button" className={styles.clear} onClick={clearChat}>Clear chat</button>}
+        {variant === "sheet" && onExpandedChange && layout !== "overlay" && (
+          <button type="button" className={styles.close} aria-label={expanded ? (layout === "phone" ? "Half height" : "Back to side panel") : (layout === "phone" ? "Full height" : "Full screen")} title={expanded ? "Shrink" : "Expand"} onClick={() => onExpandedChange(!expanded)}>
+            {expanded ? <ArrowsInSimple weight="bold" /> : <ArrowsOutSimple weight="bold" />}
+          </button>
+        )}
         {onClose && <button type="button" className={styles.close} aria-label={`Close ${HELPER_NAME}`} onClick={onClose}><X weight="bold" /></button>}
       </header>
 
@@ -344,7 +396,16 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           <div className={styles.list} ref={listRef} aria-live="polite">
             {identity.status === "user" && empty && (question ? (
               <div className={styles.start}>
-                <p className={styles.greet}>Stuck on this one? <em>Ask me anything.</em></p>
+                <p className={styles.greet}>I&apos;ve read this question <em>and its mark scheme.</em></p>
+                <div className={styles.tiles}>
+                  {HELPER_CHIPS.map((chip) => {
+                    const Icon = CHIP_ICONS[chip.mode];
+                    return <button key={chip.mode} type="button" className={styles.tile} disabled={busy} onClick={() => pickChip(chip.mode)}>
+                      <span className={styles.tileIcon}><Icon weight="fill" aria-hidden="true" /></span>
+                      <span><b>{chip.label}</b><span>{CHIP_HINTS[chip.mode]}</span></span>
+                    </button>;
+                  })}
+                </div>
                 {variant === "sheet" && <button type="button" className={styles.phone} aria-expanded={qr.open} onClick={toggleQr}><DeviceMobile weight="bold" aria-hidden="true" />On a laptop? <span>Use your phone&apos;s camera</span></button>}
                 {qr.open && (
                   <div className={styles.qr}>
@@ -387,12 +448,6 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           {error && <p className={styles.error} role="alert">{error}</p>}
 
           <form className={styles.composer} onSubmit={submit}>
-            {/* With a question: what Pepper can do with it, as light suggestions above the box (typing works too). */}
-            {question && identity.status === "user" && (
-              <div className={styles.starters} aria-label="Suggestions">
-                {HELPER_CHIPS.map((chip) => <button key={chip.mode} type="button" className={styles.starter} disabled={busy} onClick={() => pickChip(chip.mode)}>{chip.label}</button>)}
-              </div>
-            )}
             {photo && (
               <div className={styles.attached}>
                 <Image unoptimized width={0} height={0} src={photo} alt="Photo to send" />
@@ -420,6 +475,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           {question && <input ref={fileRef} type="file" accept="image/*" hidden onChange={(event) => void onPhotoChosen(event.target.files?.[0])} />}
         </>
       )}
+      </div>
     </section>
   );
 }
