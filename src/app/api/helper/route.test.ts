@@ -95,7 +95,7 @@ describe("POST /api/helper", () => {
     expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance_v2", { p_limit: 5 });
     const params = mocks.stream.mock.calls[0][0];
     expect(params.model).toBe("claude-sonnet-5-5");
-    expect(params.output_config).toEqual({ effort: "low" });
+    expect(params.output_config).toEqual({ effort: "medium" });
     expect(params.fallbacks).toBe("default");
   });
 
