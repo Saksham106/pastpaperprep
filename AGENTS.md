@@ -24,6 +24,15 @@ Next.js 16 (App Router), React 19, TypeScript, Tailwind 4, Supabase, Stripe, Clo
 
 Before opening a PR: `npm run lint`, `npm run typecheck`, `npm test`, and `npm run build` must pass. CI runs lint, typecheck, tests, and the full production build on every PR. Vercel preview deployments are opt-in because Pro bills every build: push a commit whose message contains `[preview]` (for example `git commit --allow-empty -m "[preview]"`) when a reviewer needs one.
 
+## Local servers (agents)
+
+The Mac is shared by several sessions. A plain `npm run dev` can grow past 10 GB, so agents don't use it.
+
+- Screenshots or checks only: after the gate `npm run build`, run `npm run preview:agent` (`next start`, ~0.5 GB).
+- Iterating on UI: `npm run dev:agent` (Turbopack, 3 GB heap cap, ~5–7 GB in total).
+- Both serve http://127.0.0.1:3100 (`PORT=` to change), refuse to start if another agent server is running or memory is tight, and stop after 20 minutes.
+- Run one at a time, never alongside tests or a build. Stop it (Ctrl-C) as soon as you have what you need. Numbers: `docs/dev-server-memory.md`.
+
 ## Needs explicit owner approval
 
 - Deploying, promoting, or rolling back production

@@ -3,11 +3,17 @@ import { withPostHogConfig } from "@posthog/nextjs-config";
 import { getPostHogBuildConfig } from "@/lib/posthog-build-config";
 import { bankUrlAliases } from "@/lib/bank-url-aliases";
 
+// Set by scripts/agent-server.mjs (`npm run dev:agent` / `preview:agent`): load pages on
+// first request instead of at start (0.65 -> 0.43 GB for `next start`). Builds and the
+// owner's `npm run dev` are unaffected.
+const agentServer = process.env.PASTPAPERPREP_AGENT_SERVER === "1";
+
 const nextConfig: NextConfig = {
   experimental: {
     // Vercel exposes two build cores. Using both keeps static-generation workers
     // below the per-worker heap ceiling as the question corpus grows.
     cpus: 2,
+    ...(agentServer ? { preloadEntriesOnStart: false } : {}),
   },
   outputFileTracingIncludes: {
     "/api/exam-style/worksheets/[course]/[slug]": ["./private/exam-style/**/*.pdf"],
