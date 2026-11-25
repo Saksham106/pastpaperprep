@@ -315,6 +315,8 @@
   box-shadow: 0 2px 12px color-mix(in srgb, #000 5%, transparent);
   transition: border-color 140ms ease, box-shadow 140ms ease;
 }
+/* The row shows focus; the textarea's own global focus ring would draw a box inside it. */
+.input:focus, .input:focus-visible { outline: none; }
 .inputRow:focus-within { border-color: var(--cobalt); box-shadow: 0 0 0 3px color-mix(in srgb, var(--cobalt) 16%, transparent); }
 .input {
   flex: 1;

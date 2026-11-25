@@ -33,6 +33,8 @@ export async function runSiteAgent(options: {
       model,
       max_tokens: MAX_TOKENS,
       system: [{ type: "text", text: HELPER_SITE_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+      // Also cache the conversation so far: each tool round re-sends it, and the next round reads it from cache.
+      cache_control: { type: "ephemeral" },
       tools: SITE_TOOLS,
       // The last round must answer in words, so a looping model still ends with a reply.
       ...(lastRound ? { tool_choice: { type: "none" as const } } : {}),
@@ -41,8 +43,12 @@ export async function runSiteAgent(options: {
       // Haiku has no server-side refusal fallback.
       ...(model.includes("haiku") ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
     }, { signal });
+    let roundText = false;
     for await (const event of stream) {
       if (event.type === "content_block_delta" && event.delta.type === "text_delta" && event.delta.text) {
+        // Words from an earlier round stay on screen: start this round's on a new paragraph.
+        if (!roundText && sentText) send({ type: "text", text: "\n\n" });
+        roundText = true;
         sentText = true;
         send({ type: "text", text: event.delta.text });
       }

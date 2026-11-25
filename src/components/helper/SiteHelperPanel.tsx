@@ -175,13 +175,15 @@ export function SiteHelperPanel({ onClose, onNavigated }: { onClose: () => void;
             {turns.map((turn, index) => turn.role === "user"
               ? <div key={index} className={`${styles.user} ${styles.enter}`}><p>{turn.text}</p></div>
               : <div key={index} className={`${styles.assistant} ${styles.enter}`}>
-                {turn.text ? <HelperMessage text={turn.text} /> : !turn.opened?.length && <p className={styles.thinking}><HelperFace thinking size={26} />Looking<span className={styles.dots} aria-hidden="true"><i /><i /><i /></span></p>}
+                {turn.text && <HelperMessage text={turn.text} />}
                 {turn.opened?.map((page) => (
                   <Link key={page.path} className={styles.opened} href={page.path}>
                     <ArrowSquareOut weight="bold" aria-hidden="true" />
                     <span><small>Opened</small><b>{page.label}</b></span>
                   </Link>
                 ))}
+                {/* Still working until words arrive, even once a page has opened. */}
+                {busy && index === turns.length - 1 && !turn.text && <p className={styles.thinking}><HelperFace thinking size={26} />{turn.opened?.length ? "Almost done" : "Looking"}<span className={styles.dots} aria-hidden="true"><i /><i /><i /></span></p>}
               </div>)}
           </div>
 

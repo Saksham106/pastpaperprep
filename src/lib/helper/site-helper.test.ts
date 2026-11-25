@@ -216,6 +216,17 @@ describe("runSiteAgent", () => {
     expect(calls[0]).toMatchObject({ output_config: { effort: "low" }, fallbacks: "default" });
   });
 
+  it("keeps words from separate rounds in separate paragraphs and caches the conversation", async () => {
+    const { api, calls } = fakeApi([
+      { text: "Let me look.", tools: [{ name: "search_site", input: { query: "vectors", bank: "" } }], stop: "tool_use" },
+      { text: "Found it.", stop: "end_turn" },
+    ]);
+    const events: Array<{ type: string; text?: string }> = [];
+    await runSiteAgent({ api, model: "claude-opus-5-5", data: DATA, messages: [{ role: "user", content: "x" }], send: (event) => events.push(event) });
+    expect(events.filter((e) => e.type === "text").map((e) => e.text).join("")).toBe("Let me look.\n\nFound it.");
+    expect(calls[0]).toMatchObject({ cache_control: { type: "ephemeral" } });
+  });
+
   it("forces a text answer on the last round", async () => {
     const loop = { tools: [{ name: "search_site", input: { query: "vectors", bank: "" } }], stop: "tool_use" };
     const { api, calls } = fakeApi([loop, loop, loop, loop, { text: "Here you go.", stop: "end_turn" }]);
