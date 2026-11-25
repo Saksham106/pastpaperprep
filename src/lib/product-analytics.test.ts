@@ -70,7 +70,7 @@ describe("PostHog product analytics", () => {
 
     await vi.waitFor(() => expect(posthog.init).toHaveBeenCalledTimes(1));
     expect(posthog.init).toHaveBeenCalledWith("phc_test_project_token", expect.objectContaining({
-      api_host: "/ingest",
+      api_host: "/pp-relay",
       ui_host: "https://us.posthog.com",
       defaults: "2026-05-30",
       autocapture: false,

@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import posthog from "posthog-js";
 import { describe, expect, it } from "vitest";
 
@@ -47,3 +49,25 @@ describe("installed PostHog exception API", () => {
     expect(webVitals?.isEnabled).toBe(false);
   });
 });
+
+describe("installed PostHog capture endpoint", () => {
+  it("keeps batches on /e/ under the relay even when remote config asks for /i/v0/e/", async () => {
+    const { BROWSER_POSTHOG_API_HOST, pinCaptureEndpoint } = await import("@/lib/product-analytics");
+    const client = posthog.init("phc_sdk_endpoint_test", {
+      api_host: BROWSER_POSTHOG_API_HOST, defaults: "2026-05-30", cookieless_mode: "always", persistence: "memory",
+      disable_cookie: true, disable_session_recording: true, autocapture: false, capture_pageview: false,
+      advanced_disable_flags: true, advanced_disable_feature_flags: true,
+    }, "endpoint-compat-test") as unknown as { analyticsDefaultEndpoint: string; requestRouter: { endpointFor: (target: string, path: string) => string } };
+    pinCaptureEndpoint(client);
+    // What the SDK's remote-config handler does with `analytics.endpoint`.
+    client.analyticsDefaultEndpoint = "/i/v0/e/";
+    expect(client.analyticsDefaultEndpoint).toBe("/e/");
+    expect(client.requestRouter.endpointFor("api", client.analyticsDefaultEndpoint)).toMatch(/\/pp-relay\/e\/$/);
+  });
+
+  it("still applies the remote endpoint through the public analyticsDefaultEndpoint property", () => {
+    const bundle = readFileSync(join(process.cwd(), "node_modules/posthog-js/dist/module.mjs"), "utf8");
+    expect(bundle).toMatch(/this\.analyticsDefaultEndpoint=[A-Za-z_$][\w$]*\.analytics\.endpoint/);
+  });
+});
+

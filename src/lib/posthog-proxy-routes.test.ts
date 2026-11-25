@@ -9,11 +9,11 @@ const routes = config.routes ?? [];
 const ingestRoutes = routes.filter((route) => route.src.startsWith(`${BROWSER_POSTHOG_API_HOST}/`));
 
 describe("PostHog reverse proxy (vercel.json)", () => {
-  it("forwards /ingest to PostHog's US hosts, specific paths before the catch-all", () => {
+  it("forwards /pp-relay to PostHog's US hosts, specific paths before the catch-all", () => {
     expect(ingestRoutes.map((route) => [route.src, route.dest])).toEqual([
-      ["/ingest/static/(.*)", "https://us-assets.i.posthog.com/static/$1"],
-      ["/ingest/array/(.*)", "https://us-assets.i.posthog.com/array/$1"],
-      ["/ingest/(.*)", "https://us.i.posthog.com/$1"],
+      ["/pp-relay/static/(.*)", "https://us-assets.i.posthog.com/static/$1"],
+      ["/pp-relay/array/(.*)", "https://us-assets.i.posthog.com/array/$1"],
+      ["/pp-relay/(.*)", "https://us.i.posthog.com/$1"],
     ]);
   });
 
@@ -28,4 +28,14 @@ describe("PostHog reverse proxy (vercel.json)", () => {
     const external = routes.filter((route) => /^https?:\/\//.test(route.dest ?? ""));
     expect(external).toEqual(ingestRoutes);
   });
+
+  // Patterns EasyPrivacy (uBlock Origin's default privacy list) blocks on any host, checked 2026-11-25.
+  it("uses paths that common filter lists don't block", async () => {
+    const { BROWSER_CAPTURE_ENDPOINT } = await import("@/lib/product-analytics");
+    const blocked = ["/ingest/", "/i/v0/", "/relay/", "/stats/", "/beacon/", "/collect", "/analytics", "/track", "posthog", "/telemetry"];
+    for (const path of [`${BROWSER_POSTHOG_API_HOST}/`, `${BROWSER_POSTHOG_API_HOST}${BROWSER_CAPTURE_ENDPOINT}`]) {
+      for (const pattern of blocked) expect(path.toLowerCase(), pattern).not.toContain(pattern);
+    }
+  });
 });
+
