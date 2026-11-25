@@ -73,7 +73,12 @@ function resolveSelection(tree: readonly TopicNode[], topics: readonly string[],
     const node = tree.flatMap((item) => item.subtopics).find((item) => norm(item.label) === norm(wanted) || norm(raw(item.key)) === norm(wanted));
     if (node) { keys.push(node.key); labels.push(node.label); } else unknown.push(wanted);
   }
-  return { keys: [...new Set(keys)], labels: [...new Set(labels)], unknown };
+  // As in the builder, a topic and its own subtopics never combine: the subtopics are the more specific ask, and keeping
+  // the whole topic too would let every question in it match ("indices like this" must not pull in all of Number).
+  const narrowed = new Set(keys.filter((key) => key.startsWith("s:")).map((key) => key.slice(2).split("␟")[0]));
+  const kept = [...new Set(keys)].filter((key) => !(key.startsWith("t:") && narrowed.has(key.slice(2))));
+  const keptLabels = tree.flatMap((node) => [node, ...node.subtopics]).filter((node) => kept.includes(node.key)).map((node) => node.label);
+  return { keys: kept, labels: keptLabels, unknown };
 }
 
 /**

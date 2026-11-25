@@ -48,6 +48,17 @@ describe("planPracticeSet (the paper builder's own logic)", () => {
     expect(first.label).toMatch(/^10 questions · Algebra and graphs · 2022–2024 · \d+ marks$/);
   });
 
+  it("lets a subtopic narrow its own topic, as the builder does", () => {
+    const set = planPracticeSet(questions, { bank: "igcse", topics: ["Number"], subtopics: ["Numerical indices"], yearFrom: 2017, yearTo: 2019, route: "extended", size: { kind: "questions", amount: 5 }, seed: 9 }, "IGCSE Maths 0580");
+    expect(set.ok).toBe(true);
+    if (!set.ok) return;
+    const state = parseBuilderState(new URL(set.path, "https://x").searchParams);
+    expect(state.selection.some((key) => key.startsWith("t:"))).toBe(false);
+    const byId = new Map(questions.map((question) => [question.id, question]));
+    expect(state.ids.every((id) => (byId.get(id)?.subtopics ?? []).some((label) => /indices/i.test(label)))).toBe(true);
+    expect(set.label).not.toMatch(/Number,/);
+  });
+
   it("builds a one-paper mock by marks", () => {
     const mock = planPracticeSet(questions, { bank: "igcse", topics: [], subtopics: [], yearFrom: 2024, yearTo: 2024, route: "extended", paper: 2, size: { kind: "marks", amount: 70 }, seed: 7 }, "IGCSE Maths 0580");
     expect(mock).toMatchObject({ ok: true, marks: 70, papers: [2] });
