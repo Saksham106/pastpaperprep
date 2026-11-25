@@ -19,7 +19,8 @@ describe("question list telemetry", () => {
     window.sessionStorage.clear();
     window.localStorage.clear();
     window.history.replaceState({}, "", "/banks/igcse");
-    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => isFreeAssetRequest(input) ? freeAssetResponse(input) : new Response("{}", { status: 200 })));
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => isFreeAssetRequest(input) ? freeAssetResponse(input)
+      : String(input).includes("/api/questions/search") ? Response.json({ ids: [] }) : new Response("{}", { status: 200 })));
   });
   afterEach(() => { vi.unstubAllGlobals(); });
 
@@ -39,6 +40,15 @@ describe("question list telemetry", () => {
     await vi.waitFor(() => expect(eventsNamed("question_list_empty")).toHaveLength(1), { timeout: 3000 });
     expect(eventsNamed("question_list_empty")[0]).toEqual(["question_list_empty", { bank: "igcse", filters: 0, search: true, freeOnly: false }]);
     expect(JSON.stringify(track.mock.calls)).not.toContain("zzqx");
+  });
+
+  it("does not count a search outage as a dead end", async () => {
+    vi.stubGlobal("fetch", vi.fn(async (input: RequestInfo | URL) => isFreeAssetRequest(input) ? freeAssetResponse(input)
+      : String(input).includes("/api/questions/search") ? new Response("{}", { status: 503 }) : new Response("{}", { status: 200 })));
+    renderExplorer();
+    fireEvent.change(screen.getByRole("textbox", { name: "Search questions" }), { target: { value: "zzqxv" } });
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    expect(eventsNamed("question_list_empty")).toHaveLength(0);
   });
 
   it("stays quiet when the list was never filtered by the student", async () => {

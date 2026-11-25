@@ -76,7 +76,7 @@ describe("PostHog product analytics", () => {
       capture_pageview: false,
       capture_pageleave: true,
       capture_heatmaps: true,
-      capture_dead_clicks: true,
+      capture_dead_clicks: { capture_dead_swipes: false },
       mask_all_text: true,
       mask_all_element_attributes: true,
       cookieless_mode: "always",
@@ -295,44 +295,46 @@ describe("PostHog product analytics", () => {
     const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
     const point = { x: 10, y: 20, target_fixed: false, type: "click" };
     const result = sanitizeAnalyticsEvent({ event: "$$heatmap", properties: { $heatmap_data: {
-      "https://pastpaperprep.com/auth/email-link?token_hash=private#access_token=private": [point],
-      "https://pastpaperprep.com/banks/igcse?topics=Algebra": [point],
+      "https://pastpaperprep.com/banks/igcse?topics=Algebra#top": [point],
       "https://pastpaperprep.com/banks/igcse": [point],
       "javascript:alert(1)": [point],
-      "https://user:pass@pastpaperprep.com/x": [point],
+      "https://user:pass@pastpaperprep.com/banks/igcse": [point],
     } } });
-    expect(result?.properties).toEqual({ $heatmap_data: {
-      "https://pastpaperprep.com/auth/email-link": [point],
-      "https://pastpaperprep.com/banks/igcse": [point, point],
-    } });
-    expect(JSON.stringify(result)).not.toContain("private");
+    expect(result?.properties).toEqual({ $heatmap_data: { "https://pastpaperprep.com/banks/igcse": [point, point] } });
   });
 
-  it("keeps invite and referral codes out of every path and URL", async () => {
+  it("sends heatmap clicks only from public study pages, and never mouse movement", async () => {
     const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
-    const result = sanitizeAnalyticsEvent({ event: "$pageleave", properties: {
-      $current_url: "https://pastpaperprep.com/invite/abc123secret?x=1",
-      $pathname: "/r/friendcode",
-      $prev_pageview_pathname: "/invite/abc123secret",
-      $heatmap_data: { "https://pastpaperprep.com/r/friendcode/": [{ x: 1, y: 2 }] },
-    } });
-    expect(JSON.stringify(result)).not.toMatch(/abc123secret|friendcode/);
-    expect(result?.properties).toMatchObject({ $current_url: "https://pastpaperprep.com/invite/:code", $pathname: "/r/:code", $prev_pageview_pathname: "/invite/:code" });
-  });
-
-  it("caps a page's merged heatmap points", async () => {
-    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
-    const points = Array.from({ length: 800 }, (_, x) => ({ x, y: 0 }));
+    const click = { x: 1, y: 2, target_fixed: false, type: "click" };
+    const move = { x: 3, y: 4, target_fixed: false, type: "mousemove" };
     const result = sanitizeAnalyticsEvent({ event: "$$heatmap", properties: { $heatmap_data: {
-      "https://pastpaperprep.com/banks/igcse?a=1": points, "https://pastpaperprep.com/banks/igcse?a=2": points,
+      "https://pastpaperprep.com/": [click, move],
+      "https://pastpaperprep.com/past-papers/igcse-0580/2024": [move],
+      "https://pastpaperprep.com/auth/email-link?token_hash=private#access_token=private": [click],
+      "https://pastpaperprep.com/invite/abc123": [click],
+      "https://pastpaperprep.com/account": [click],
+      "https://pastpaperprep.com/dashboard": [click],
+      "https://pastpaperprep.com/worksheets/abc": [click],
+      "https://pastpaperprep.com/login": [click],
     } } });
-    expect((result?.properties?.$heatmap_data as Record<string, unknown[]>)["https://pastpaperprep.com/banks/igcse"]).toHaveLength(1000);
+    expect(result?.properties).toEqual({ $heatmap_data: { "https://pastpaperprep.com/": [click] } });
+    expect(sanitizeAnalyticsEvent({ event: "$$heatmap", properties: { $heatmap_data: { "https://pastpaperprep.com/account": [click] } } })).toBeNull();
+  });
+
+  it("sends dead clicks only from public study pages and never dead swipes", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $pathname: "/banks/igcse", $dead_click_scroll_delay_ms: 5 } })?.properties)
+      .toEqual({ $pathname: "/banks/igcse", $dead_click_scroll_delay_ms: 5 });
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $current_url: "https://pastpaperprep.com/account?tab=billing" } })).toBeNull();
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $pathname: "/invite/abc" } })).toBeNull();
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: {} })).toBeNull();
+    expect(sanitizeAnalyticsEvent({ event: "$dead_swipe", properties: { $pathname: "/banks/igcse" } })).toBeNull();
   });
 
   it("never sends an element's text from dead clicks or other element events", async () => {
     const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
-    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $el_text: "Alex's worksheet", $dead_click_scroll_delay_ms: 1200 } })?.properties)
-      .toEqual({ $dead_click_scroll_delay_ms: 1200 });
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $pathname: "/banks/igcse", $el_text: "Alex's worksheet", $dead_click_scroll_delay_ms: 1200 } })?.properties)
+      .toEqual({ $pathname: "/banks/igcse", $dead_click_scroll_delay_ms: 1200 });
   });
 
   it("labels anonymous events with signed-in state and network, but not heatmap batches", async () => {
@@ -342,7 +344,8 @@ describe("PostHog product analytics", () => {
     const beforeSend = posthog.init.mock.calls[0][1].before_send as (event: { event?: string; properties: Record<string, unknown> }) => { properties: Record<string, unknown> } | null;
     expect(beforeSend({ event: "$pageleave", properties: { $prev_pageview_max_scroll_percentage: 0.6 } })?.properties)
       .toEqual({ $prev_pageview_max_scroll_percentage: 0.6, signed_in: false });
-    expect(beforeSend({ event: "$$heatmap", properties: { $heatmap_data: {} } })?.properties).toEqual({});
+    const heatmap = { $heatmap_data: { "https://pastpaperprep.com/banks/igcse": [{ x: 1, y: 2, type: "click" }] } };
+    expect(beforeSend({ event: "$$heatmap", properties: heatmap })?.properties).toEqual(heatmap);
   });
 
   it("drops invalid analytics URLs", async () => {

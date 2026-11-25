@@ -70,18 +70,35 @@ describe("SourceCropImage", () => {
     expect(screen.getByAltText("Original question 2")).toHaveAttribute("loading", "lazy");
   });
 
-  it("reports the first priority image's load time once per page, with only the store's kind", async () => {
-    const { unmount } = render(<SourceCropImage bankSlug="igcse" questionId="q1" src="https://free.pastpaperprep.com/images/igcse/questions/q1.webp" alt="Q1" priority />);
-    fireEvent.load(screen.getByRole("img", { name: "Q1" }));
-    await vi.waitFor(() => expect(track).toHaveBeenCalledTimes(1));
-    expect(track).toHaveBeenCalledWith("question_image_first_load", expect.objectContaining({ bank: "igcse", host: "free", verifiedCrop: false, ms: expect.any(Number) }));
-    expect(JSON.stringify(track.mock.calls)).not.toContain("q1.webp");
-    unmount();
-    render(<SourceCropImage bankSlug="igcse" questionId="q2" src="https://free.pastpaperprep.com/images/igcse/questions/q2.webp" alt="Q2" priority />);
-    fireEvent.load(screen.getByRole("img", { name: "Q2" }));
-    render(<SourceCropImage bankSlug="igcse" questionId="q3" src="/q3.webp" alt="Q3" />);
-    fireEvent.load(screen.getByRole("img", { name: "Q3" }));
-    await new Promise(resolve => setTimeout(resolve, 20));
-    expect(track).toHaveBeenCalledTimes(1);
+  it("reports the first priority image's load time once per directly loaded page, with only the store's kind", async () => {
+    const entries = vi.spyOn(performance, "getEntriesByType").mockReturnValue([{ name: window.location.href } as PerformanceEntry]);
+    try {
+      const { unmount } = render(<SourceCropImage bankSlug="igcse" questionId="q1" src="https://free.pastpaperprep.com/images/igcse/questions/q1.webp" alt="Q1" priority />);
+      fireEvent.load(screen.getByRole("img", { name: "Q1" }));
+      await vi.waitFor(() => expect(track).toHaveBeenCalledTimes(1));
+      expect(track).toHaveBeenCalledWith("question_image_first_load", { bank: "igcse", host: "free", verifiedCrop: false, ms: expect.any(Number) });
+      expect(JSON.stringify(track.mock.calls)).not.toContain("q1.webp");
+      unmount();
+      render(<SourceCropImage bankSlug="igcse" questionId="q2" src="https://free.pastpaperprep.com/images/igcse/questions/q2.webp" alt="Q2" priority />);
+      fireEvent.load(screen.getByRole("img", { name: "Q2" }));
+      render(<SourceCropImage bankSlug="igcse" questionId="q3" src="/q3.webp" alt="Q3" />);
+      fireEvent.load(screen.getByRole("img", { name: "Q3" }));
+      await new Promise(resolve => setTimeout(resolve, 20));
+      expect(track).toHaveBeenCalledTimes(1);
+    } finally { entries.mockRestore(); }
+  });
+
+  it("sends nothing when the bank page was reached by in-app navigation", async () => {
+    vi.resetModules();
+    const { SourceCropImage: FreshImage } = await import("@/components/SourceCropImage");
+    const entries = vi.spyOn(performance, "getEntriesByType").mockReturnValue([{ name: "https://pastpaperprep.com/" } as PerformanceEntry]);
+    const original = window.location.href;
+    window.history.replaceState(null, "", "/banks/igcse");
+    try {
+      render(<FreshImage bankSlug="igcse" questionId="q9" src="https://free.pastpaperprep.com/images/igcse/questions/q9.webp" alt="Q9" priority />);
+      fireEvent.load(screen.getByRole("img", { name: "Q9" }));
+      await new Promise(resolve => setTimeout(resolve, 20));
+      expect(track).not.toHaveBeenCalled();
+    } finally { entries.mockRestore(); window.history.replaceState(null, "", original); }
   });
 });

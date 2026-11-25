@@ -325,7 +325,8 @@ access: ExplorerAccess;
   const [indexAttempt, setIndexAttempt] = useState(0);
   const [indexLoaded, setIndexLoaded] = useState(!indexUrl);
   const [searchResult, setSearchResult] = useState<{ query: string; ids: Set<string> } | null>(null);
-  // The query the server search last answered (with results or by failing, which keeps the local match).
+  // The query the server search last answered successfully. A failed search falls back to local
+  // matching, which is not evidence of a content dead end, so it is never recorded here.
   const [searchAnsweredFor, setSearchAnsweredFor] = useState("");
   const [sort, setSort] = useState<QuestionSort>(initialState.sort);
   const [filters, setFilters] = useState<Pick<QuestionFilters, MultiKey>>(initialState.filters);
@@ -840,7 +841,7 @@ access: ExplorerAccess;
         })
         .catch((error: unknown) => {
           if (error instanceof DOMException && error.name === "AbortError") return;
-          if (!controller.signal.aborted) { setSearchResult(null); setSearchAnsweredFor(normalizedSearch); }
+          if (!controller.signal.aborted) setSearchResult(null);
         });
     }, 250);
 

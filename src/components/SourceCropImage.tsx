@@ -25,20 +25,20 @@ export function SourceCropImage({ src, alt, crop, bankSlug, questionId, onError,
   return <VerifiedCrop key={`${src}:${crop.imageSha256}`} src={src} alt={alt} crop={crop} onError={onError} loading={loading} />;
 }
 
-// The bank page's core moment: how long after navigation start the first question image was on screen.
+// The bank page's core moment: on a page that was loaded directly (not reached by in-app
+// navigation), how long after the document started loading the first question image was on screen.
 let firstQuestionImageReported = false;
 // `host` comes from the signed or public source, not a verified crop's local blob: URL.
 function reportFirstQuestionImage(bank: BankSlug, src: string, verifiedCrop: boolean) {
   return () => {
     if (firstQuestionImageReported || typeof performance === "undefined") return;
     firstQuestionImageReported = true;
-    // ms counts from the document's load, so it is only a page-load time when this page was the one loaded.
-    let navigation: "load" | "client" = "client";
+    // Document age is not route-to-image time after a client navigation, so those are not sent.
     try {
       const entry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
-      if (entry && new URL(entry.name).pathname === window.location.pathname) navigation = "load";
-    } catch { /* keep "client" */ }
-    trackProductEvent("question_image_first_load", { bank, ms: Math.round(performance.now()), navigation, host: assetHost(src), verifiedCrop });
+      if (!entry || new URL(entry.name).pathname !== window.location.pathname) return;
+    } catch { return; }
+    trackProductEvent("question_image_first_load", { bank, ms: Math.round(performance.now()), host: assetHost(src), verifiedCrop });
   };
 }
 

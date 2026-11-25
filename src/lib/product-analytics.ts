@@ -49,10 +49,11 @@ function loadClient() {
           // Leaving a page reports time on page and how far it was scrolled ($prev_pageview_*), which
           // also gives PostHog's web analytics a real bounce rate and its heatmaps a scroll map.
           capture_pageleave: true,
-          // Click and scroll positions per page (not billed), plus clicks that changed nothing on the
-          // page ($dead_click). Element text and attribute values are masked for both.
+          // Click positions per page (not billed), plus clicks that changed nothing on the page
+          // ($dead_click). Element text and attribute values are masked for both, and only public
+          // study pages send either (BEHAVIOUR_CAPTURE_PATH); mouse movement and swipes are not sent.
           capture_heatmaps: true,
-          capture_dead_clicks: true,
+          capture_dead_clicks: { capture_dead_swipes: false },
           mask_all_text: true,
           mask_all_element_attributes: true,
           person_profiles: "never",
@@ -96,6 +97,21 @@ function withEventContext<T extends { event?: string; properties?: Record<string
   return { ...event, properties: { ...event.properties, ...context, signed_in: browserAccountId() !== undefined } };
 }
 
+/**
+ * Heatmap and dead-click data only leaves the page on public study pages. Sign-in, account,
+ * dashboard, worksheets, invite/referral and anything else never send click positions.
+ */
+const BEHAVIOUR_CAPTURE_PATH = /^\/(?:$|banks(?:\/|$)|past-papers(?:\/|$)|revision-notes(?:\/|$)|articles(?:\/|$)|pricing\/?$|cambridge-igcse(?:\/|$)|cambridge-a-level(?:\/|$)|ib(?:\/|$)|syllabus(?:\/|$)|grade-thresholds(?:\/|$)|teachers(?:\/|$)|updates(?:\/|$)|faq\/?$)/;
+export function isBehaviourCapturePath(pathname: string): boolean {
+  return BEHAVIOUR_CAPTURE_PATH.test(pathname);
+}
+// Heatmap point types worth sending; mouse-movement traces are dropped.
+const HEATMAP_POINT_TYPES = new Set(["click", "rageclick", "deadclick"]);
+
+function pageviewPath(url: unknown): string | null {
+  try { return typeof url === "string" ? new URL(url).pathname : null; } catch { return null; }
+}
+
 // Invite and referral links carry a code in the path; analytics only needs the route.
 const CODE_PATH = /^\/(invite|r)\/[^/]+/;
 function scrubPath(pathname: string): string {
@@ -112,9 +128,11 @@ function scrubHeatmapData(data: unknown): Record<string, unknown[]> | undefined 
     try {
       const url = new URL(href);
       if ((url.protocol !== "https:" && url.protocol !== "http:") || url.username || url.password) continue;
+      if (!isBehaviourCapturePath(url.pathname)) continue;
       page = `${url.origin}${scrubPath(url.pathname)}`;
     } catch { continue; }
-    const merged = [...(pages[page] ?? []), ...points.filter(point => point && typeof point === "object")];
+    const merged = [...(pages[page] ?? []), ...points.filter(point => point && typeof point === "object" && HEATMAP_POINT_TYPES.has(String((point as { type?: unknown }).type)))];
+    if (!merged.length) continue;
     pages[page] = merged.slice(0, 1000);
   }
   return Object.keys(pages).length ? pages : undefined;
@@ -134,8 +152,13 @@ export function withTimeZoneCountry<T extends { properties?: Record<string, unkn
 
 const ERROR_CATEGORIES = new Set(["Error", "TypeError", "ReferenceError", "RangeError", "SyntaxError", "URIError", "EvalError", "AggregateError", "AbortError", "NetworkError", "SecurityError", "NotAllowedError", "NotFoundError", "UnhandledRejection", "ChunkLoadError"]);
 
-export function sanitizeAnalyticsEvent<T extends { properties?: Record<string, unknown> }>(event: T | null): T | null {
+export function sanitizeAnalyticsEvent<T extends { event?: string; properties?: Record<string, unknown> }>(event: T | null): T | null {
   if (!event?.properties) return event;
+  if (event.event === "$dead_click" || event.event === "$dead_swipe") {
+    const pathname = typeof event.properties.$pathname === "string" ? event.properties.$pathname : pageviewPath(event.properties.$current_url);
+    if (event.event === "$dead_swipe" || !pathname || !isBehaviourCapturePath(pathname)) return null;
+  }
+  if (event.event === "$$heatmap" && !scrubHeatmapData(event.properties.$heatmap_data)) return null;
   const scrub = (value: unknown, key = "", depth = 0, inException = false): unknown => {
     if (depth > 8) return undefined;
     if (depth === 1 && key === "$heatmap_data") return scrubHeatmapData(value);
