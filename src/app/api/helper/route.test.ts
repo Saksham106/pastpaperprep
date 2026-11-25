@@ -45,7 +45,7 @@ function fakeStream(texts: string[], options: { throwFirst?: Error; stopReason?:
       if (options.throwFirst) throw options.throwFirst;
       for (const text of texts) yield { type: "content_block_delta", delta: { type: "text_delta", text } };
     },
-    finalMessage: async () => ({ model: "claude-opus-5-5", stop_reason: options.stopReason ?? "end_turn", usage: { input_tokens: 10, output_tokens: 5 } }),
+    finalMessage: async () => ({ model: "claude-sonnet-5-5", stop_reason: options.stopReason ?? "end_turn", usage: { input_tokens: 10, output_tokens: 5 } }),
     abort: vi.fn(),
   };
 }
@@ -94,8 +94,8 @@ describe("POST /api/helper", () => {
     expect(response.headers.get("X-Helper-Remaining")).toBe("4");
     expect(mocks.rpc).toHaveBeenCalledWith("consume_helper_allowance_v2", { p_limit: 5 });
     const params = mocks.stream.mock.calls[0][0];
-    expect(params.model).toBe("claude-opus-5-5");
-    expect(params.output_config).toEqual({ effort: "low" });
+    expect(params.model).toBe("claude-sonnet-5-5");
+    expect(params.output_config).toEqual({ effort: "medium" });
     expect(params.fallbacks).toBe("default");
   });
 
