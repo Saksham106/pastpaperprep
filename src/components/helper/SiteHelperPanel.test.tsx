@@ -103,6 +103,21 @@ describe("SiteHelperPanel", () => {
     watch.stop();
   });
 
+  it("shows a built practice set as a card to check and save, opened like any link", async () => {
+    const watch = watchLinkClicks();
+    const path = "/worksheets/build?bank=igcse&route=extended&from=2022&to=2024&t=t%3AAlgebra+and+graphs&size=q10&seed=42";
+    fetchMock.mockResolvedValueOnce(ndjson([
+      { type: "navigate", kind: "build", path, label: "10 questions · Algebra and graphs · 2022–2024 · 57 marks", bank: "igcse" },
+      { type: "text", text: "Built it. Check it and save it to My worksheets." },
+      { type: "done", remaining: 4, limit: 5 },
+    ]));
+    render(panel());
+    await userEvent.type(await screen.findByRole("textbox"), "10 algebra questions{Enter}");
+    expect(await screen.findByText("Built · check and save")).toBeInTheDocument();
+    await waitFor(() => expect(watch.clicks).toEqual([path]));
+    watch.stop();
+  });
+
   it("opens only one page per message", async () => {
     const watch = watchLinkClicks();
     fetchMock.mockResolvedValueOnce(ndjson([

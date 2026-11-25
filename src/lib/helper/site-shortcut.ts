@@ -11,6 +11,8 @@ export type SiteShortcut = { navigation: SiteNavigation; reply: string };
 const MAX_CHARS = 90;
 const MAX_WORDS = 10;
 /** Words that mean the student wants an explanation or a conversation, not a page. */
+/** Words that mean "build me something": a practice set is the model's job (build_practice_set), not a page to open. */
+const BUILD = /\b(?:make|build|create|generate|set|sets|worksheet|worksheets|mock|quiz|test|practi[cs]e|practi[cs]ing)\b/i;
 const CONVERSATIONAL = /\?|\b(?:why|how|what|when|which|explain|help|hint|difference|mean|means|define|solve|mark|check|compare|vs|versus|best|should|can|could|is|are|does|do)\b/i;
 /** Polite and navigational filler around the thing they want. */
 const FILLER = new Set(["open", "show", "me", "take", "go", "to", "the", "find", "get", "practise", "practice", "practicing", "practising", "questions", "question", "on", "about", "for", "please", "pls", "i", "want", "some", "topic", "topics", "bank", "page", "a", "an", "of", "in"]);
@@ -78,6 +80,6 @@ function subjectShortcut(data: SiteData, text: string): SiteShortcut | null {
 /** The page to open without AI, or null when the message needs the model. A follow-up only takes unambiguous rules. */
 export function siteShortcut(data: SiteData, text: string, page: string, followUp = false): SiteShortcut | null {
   const trimmed = text.trim();
-  if (!trimmed || trimmed.length > MAX_CHARS || trimmed.split(/\s+/).length > MAX_WORDS || CONVERSATIONAL.test(trimmed)) return null;
+  if (!trimmed || trimmed.length > MAX_CHARS || trimmed.split(/\s+/).length > MAX_WORDS || CONVERSATIONAL.test(trimmed) || BUILD.test(trimmed)) return null;
   return paperShortcut(data, trimmed) ?? topicShortcut(data, trimmed, page, followUp) ?? (followUp ? null : subjectShortcut(data, trimmed));
 }

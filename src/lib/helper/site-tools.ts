@@ -8,7 +8,9 @@ import { routeConfigFor } from "@/lib/course-route";
 import { serializeExplorerState } from "@/lib/explorer-state";
 import { helperBoard } from "@/lib/helper/config";
 import { HELPER_SITE_BOARDS, HELPER_SITE_MAX_NAVIGATIONS } from "@/lib/helper/site-config";
+import { loadBuilderQuestions, planPracticeSet } from "@/lib/helper/site-builder";
 import { safeHelperPath } from "@/lib/helper/site-paths";
+import type { BuilderQuestion } from "@/lib/builder-topics";
 import { matchTopics, searchSite, validSearchIndex, validSearchPapers, type SearchIndex, type SearchPapers, type SearchSubject, type SearchTopic } from "@/lib/site-search";
 import { SEARCH_INDEX_VERSION } from "@/lib/site-search";
 import type { BankFacets, SearchFacets, SearchPage, SearchPages } from "@/lib/site-facets";
@@ -33,7 +35,7 @@ export const HELPER_STATIC_PAGES: readonly SearchPage[] = [
   { path: "/grade-thresholds", label: "Grade thresholds" },
   { path: "/updates", label: "What's new" },
 ];
-export type SiteNavigation = { kind: "bank" | "page"; path: string; label: string; bank?: string };
+export type SiteNavigation = { kind: "bank" | "page" | "build"; path: string; label: string; bank?: string };
 
 type Reader = (name: string) => Promise<string>;
 const readPublicSearch: Reader = (name) => readFile(join(process.cwd(), "public", "search", name), "utf8");
@@ -142,6 +144,27 @@ export const SITE_TOOLS: Anthropic.Beta.BetaToolUnion[] = [
     },
   },
   {
+    name: "build_practice_set",
+    description: "Build a practice set (a worksheet of real past-paper questions) for the student and open it in the paper builder, ready for them to check and save to My worksheets. Use it when they ask for practice, a set, a worksheet, a mock, or a number of questions on something. Topics and subtopics must be exact labels from bank_details. Questions are picked at random from those that match. Up to 50 questions or 200 marks. For a mock of one paper, set paper and use size_kind \"marks\" with that paper's usual total. There are no difficulty ratings: offer topics, years or marks instead of \"hard\". Building needs a plan that covers the subject.",
+    strict: true,
+    input_schema: {
+      type: "object",
+      properties: {
+        bank: string("The bank id."),
+        topics: strings("Topic labels, or empty for every topic."),
+        subtopics: strings("Subtopic labels, or empty."),
+        year_from: string("First year, e.g. \"2022\", or an empty string."),
+        year_to: string("Last year, or an empty string."),
+        route: string("\"core\", \"extended\" or an empty string (Cambridge Core/Extended banks only)."),
+        paper: string("A paper number for a one-paper mock, e.g. \"2\", or an empty string."),
+        size_kind: { type: "string", enum: ["questions", "marks"], description: "Count questions or marks." },
+        size_amount: { type: "integer", description: "How many questions (1-50) or marks (1-200)." },
+      },
+      required: ["bank", "topics", "subtopics", "year_from", "year_to", "route", "paper", "size_kind", "size_amount"],
+      additionalProperties: false,
+    },
+  },
+  {
     name: "open_page",
     description: "Open a page that is not a filtered question bank: a link from a tool result (full paper, topic page, subject, article or notes page), or one of /dashboard (all question banks), /past-papers, /revision-notes, /worksheets (My worksheets), /worksheets/build, /articles, /pricing, /faq, /grade-thresholds, /updates. The path must match exactly; anything else is refused.",
     strict: true,
@@ -160,7 +183,15 @@ export const SITE_TOOLS: Anthropic.Beta.BetaToolUnion[] = [
 // ---------- execution ----------
 
 export type ToolOutcome = { content: string; isError?: boolean; navigation?: SiteNavigation };
-export type ToolContext = { data: SiteData; navigations: number };
+export type ToolContext = {
+  data: SiteData;
+  navigations: number;
+  /** Whether the student's plan covers a bank (the paper builder's own rule). Missing means no. */
+  canBuild?: (bank: string) => boolean;
+  /** Test hooks: the builder's questions for a bank, and the seed. */
+  builderQuestions?: (bank: BankSlug) => Promise<BuilderQuestion[] | null>;
+  seed?: () => number;
+};
 
 const error = (content: string): ToolOutcome => ({ content, isError: true });
 const json = (value: unknown): ToolOutcome => ({ content: JSON.stringify(value) });
@@ -328,11 +359,51 @@ export function siteToolStep(name: string, input: unknown, data: SiteData): stri
     case "search_site": return `Searching ${quote(fields.query)}`;
     case "bank_details": return `Checking ${subject(fields.bank) ?? "the bank"}`;
     case "find_past_papers": return `Looking for ${quote(fields.query)}`;
+    case "build_practice_set": return `Building a set from ${subject(fields.bank) ?? "the bank"}`;
     case "open_bank": return `Opening ${subject(fields.bank) ?? "the bank"}`;
     case "open_page": return `Opening ${text(fields.label, 40) || "the page"}`;
     default: return "Working";
   }
 }
+
+const year = (value: unknown) => { const raw = text(value, 4); return /^\d{4}$/.test(raw) ? Number(raw) : undefined; };
+
+/** Builds a practice set with the paper builder's own code and opens it in the builder. Saving stays the student's. */
+export async function buildPracticeSetTool(context: ToolContext, input: Record<string, unknown>): Promise<ToolOutcome> {
+  const bank = text(input.bank, 80);
+  const subject = subjectFor(context.data, bank);
+  if (!subject) return error(`No bank "${bank}". Use search_site to find the bank id.`);
+  // Same rule as the builder page: only banks the student's plan covers. Free questions stay on the bank page.
+  if (!context.canBuild?.(bank)) return error(`Building practice sets is part of a plan that covers ${subject.name}. Offer the free questions (open_bank with free_only) or the plans page instead.`);
+  const kind = input.size_kind === "marks" ? "marks" : input.size_kind === "questions" ? "questions" : null;
+  const amount = typeof input.size_amount === "number" ? input.size_amount : NaN;
+  if (!kind) return error("size_kind must be \"questions\" or \"marks\".");
+  const routeValue = text(input.route, 20).toLowerCase();
+  if (routeValue && routeValue !== "core" && routeValue !== "extended") return error("route must be \"core\", \"extended\" or empty.");
+  const paperValue = text(input.paper, 3);
+  if (paperValue && !/^\d{1,2}$/.test(paperValue)) return error("paper must be a paper number or empty.");
+  const questions = await (context.builderQuestions ?? loadBuilderQuestions)(bank as BankSlug);
+  if (!questions) return error(`The paper builder isn't available for ${subject.name}.`);
+  const planned = planPracticeSet(questions, {
+    bank: bank as BankSlug,
+    topics: list(input.topics),
+    subtopics: list(input.subtopics),
+    yearFrom: year(input.year_from),
+    yearTo: year(input.year_to),
+    route: (routeValue || "all") as "all" | "core" | "extended",
+    ...(paperValue ? { paper: Number(paperValue) } : {}),
+    size: { kind, amount },
+    seed: (context.seed ?? randomSeed)(),
+  }, subject.name);
+  if (!planned.ok) return error(planned.error);
+  const path = safeHelperPath(planned.path);
+  if (!path) return error("That set is too large to open as a link. Pick fewer topics.");
+  const outcome = navigate(context, { kind: "build", path, label: planned.label, bank });
+  if (outcome.isError) return outcome;
+  return { ...outcome, content: JSON.stringify({ built: planned.label, questions: planned.questions, marks: planned.marks, years: planned.years, papers: planned.papers, note: "Opened in the paper builder. The student checks it and saves it to My worksheets there." }) };
+}
+
+const randomSeed = () => crypto.getRandomValues(new Uint32Array(1))[0];
 
 /** Runs one tool call. Inputs are untrusted model output: every field is re-checked here, whatever the schema says. */
 export function runSiteTool(name: string, input: unknown, context: ToolContext): ToolOutcome {

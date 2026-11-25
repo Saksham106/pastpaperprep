@@ -72,7 +72,7 @@ describe("safeHelperPath", () => {
 
 describe("site tools", () => {
   it("keeps tool definitions strict and in a stable order (they are part of the cached prefix)", () => {
-    expect(SITE_TOOLS.map((tool) => ("name" in tool ? tool.name : ""))).toEqual(["search_site", "bank_details", "find_past_papers", "open_bank", "open_page"]);
+    expect(SITE_TOOLS.map((tool) => ("name" in tool ? tool.name : ""))).toEqual(["search_site", "bank_details", "find_past_papers", "open_bank", "build_practice_set", "open_page"]);
     for (const tool of SITE_TOOLS) expect(tool).toMatchObject({ strict: true, input_schema: { additionalProperties: false } });
     expect(HELPER_SITE_SYSTEM_PROMPT).not.toMatch(/\d{4}-\d{2}-\d{2}/);
   });
@@ -295,6 +295,10 @@ describe("siteShortcut (rules before AI)", () => {
 
   it("opens a subject named exactly", () => {
     expect(siteShortcut(DATA, "IB math AA HL", "/")?.navigation).toMatchObject({ path: "/banks/ib-hl?free=1" });
+  });
+
+  it("leaves practice requests to the model, which builds a set", () => {
+    for (const text of ["practise number", "number worksheet", "make me a number set", "number mock"]) expect(siteShortcut(DATA, text, "/"), text).toBeNull();
   });
 
   it("sends questions, explanations and ambiguous requests to the model", () => {

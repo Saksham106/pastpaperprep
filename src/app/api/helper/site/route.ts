@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
-import { BANKS } from "@/lib/banks";
+import { BANKS, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { consumeHelperAllowance, releaseHelperAllowance } from "@/lib/helper/allowance";
 import { HELPER_DAILY_LIMITS } from "@/lib/helper/config";
@@ -94,6 +94,8 @@ async function handlePOST(request: Request) {
           messages: buildSiteMessages(parsed),
           send: (event) => { if (event.type === "text") sentText = true; send(event); },
           signal: abort.signal,
+          // Practice sets follow the paper builder's rule: only banks the student's plan covers.
+          tools: { canBuild: (bank) => hasBankAccess(bank as BankSlug, entitlements) },
         });
         if (!result.sentText && !result.navigated) {
           // Nothing reached the student: give the message back.

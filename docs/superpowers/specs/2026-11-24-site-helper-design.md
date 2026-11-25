@@ -43,6 +43,25 @@ Question-level text search ("questions about the photoelectric effect") goes thr
 
 **Wire format:** newline-delimited JSON (`application/x-ndjson`): `{"type":"text","text":"…"}`, `{"type":"navigate","path":"…","label":"…"}`, `{"type":"done"}`. The question helper keeps its plain-text stream.
 
+## Building practice sets (added 2026-11-25)
+
+When a student asks for practice ("10 vectors questions from 2022–2024", "a mock Paper 2"), Pepper builds the set, using the `build_practice_set` tool.
+
+**How it builds:**
+- The tool runs the paper builder's own code on the server: the same public bank index, `buildTopicIndex`, route and year filters, and `reconcileDraft` with a fresh seed.
+- It opens `/worksheets/build` with that exact plan, so the builder shows the same set with real previews.
+- The student checks it and saves it to My worksheets there, with the builder's own name, content and access checks. Saving never uses a download.
+
+**Rules:**
+- **Plan required:** only banks the student's plan covers (the builder page's rule). Otherwise Pepper offers the free questions or plans.
+- **Exact labels:** topics must be exact builder labels. Unknown labels are refused with the real list, never dropped (the builder would silently widen the set).
+- **No underfilling:** an impossible target ("50 questions" when 33 match) is refused with what is available.
+- **Size:** up to 50 questions or 200 marks.
+- **One action per message:** the set is opened through the same link-card click as any page, so the unsaved-worksheet guard applies.
+- **No difficulty ratings:** Pepper offers topics, years or marks instead of "hard".
+
+**Rules shortcut:** practice requests ("make", "set", "worksheet", "mock", "practise") always go to the model.
+
 ## Conversation and privacy
 
 - **Memory only:** the conversation is never written to browser storage. It survives closing the panel and moving between pages, not a reload.

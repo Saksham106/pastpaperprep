@@ -3,7 +3,7 @@ import { HelperRequestError } from "@/lib/helper/client";
 import type { HelperTurn } from "@/lib/helper/request";
 import { safeHelperPath } from "@/lib/helper/site-paths";
 
-export type SiteNavigationEvent = { type: "navigate"; kind: "bank" | "page"; path: string; label: string; bank?: string };
+export type SiteNavigationEvent = { type: "navigate"; kind: "bank" | "page" | "build"; path: string; label: string; bank?: string };
 export type SiteHelperEvent =
   | { type: "text"; text: string }
   /** What Pepper is doing right now, shown while it works. */
@@ -30,7 +30,7 @@ export function parseSiteEvent(line: string): SiteHelperEvent | null {
       return typeof event.label === "string" && event.label.trim() ? { type: "step", label: event.label.trim().slice(0, 80) } : null;
     case "navigate": {
       const path = safeHelperPath(event.path);
-      if (!path || (event.kind !== "bank" && event.kind !== "page")) return null;
+      if (!path || (event.kind !== "bank" && event.kind !== "page" && event.kind !== "build")) return null;
       const label = typeof event.label === "string" && event.label.trim() ? event.label.trim().slice(0, 80) : "Page";
       return { type: "navigate", kind: event.kind, path, label, ...(typeof event.bank === "string" ? { bank: event.bank } : {}) };
     }

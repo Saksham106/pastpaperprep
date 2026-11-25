@@ -3,7 +3,7 @@ import type Anthropic from "@anthropic-ai/sdk";
 import { HELPER_SITE_MAX_ROUNDS } from "@/lib/helper/site-config";
 import type { SiteHelperEvent } from "@/lib/helper/site-events";
 import { HELPER_SITE_SYSTEM_PROMPT } from "@/lib/helper/site-prompt";
-import { runSiteTool, siteToolStep, SITE_TOOLS, type SiteData, type ToolContext } from "@/lib/helper/site-tools";
+import { buildPracticeSetTool, runSiteTool, siteToolStep, SITE_TOOLS, type SiteData, type ToolContext } from "@/lib/helper/site-tools";
 
 /** Per model call. Site replies are short; this leaves room for an explanation. */
 const MAX_TOKENS = 4000;
@@ -22,10 +22,12 @@ export async function runSiteAgent(options: {
   messages: Anthropic.Beta.BetaMessageParam[];
   send: Send;
   signal?: AbortSignal;
+  /** Which banks the student's plan covers, for building practice sets; plus test hooks. */
+  tools?: Pick<ToolContext, "canBuild" | "builderQuestions" | "seed">;
 }): Promise<{ sentText: boolean; navigated: boolean; refused: boolean }> {
   const { api, model, data, send, signal } = options;
   const messages = [...options.messages];
-  const context: ToolContext = { data, navigations: 0 };
+  const context: ToolContext = { data, navigations: 0, ...options.tools };
   let sentText = false;
   for (let round = 0; round < HELPER_SITE_MAX_ROUNDS; round += 1) {
     const lastRound = round === HELPER_SITE_MAX_ROUNDS - 1;
@@ -68,12 +70,16 @@ export async function runSiteAgent(options: {
     }
     if (final.stop_reason !== "tool_use" || !toolUses.length) return { sentText, navigated: context.navigations > 0, refused: false };
     messages.push({ role: "assistant", content: final.content });
-    const results: Anthropic.Beta.BetaToolResultBlockParam[] = toolUses.map((use) => {
+    const results: Anthropic.Beta.BetaToolResultBlockParam[] = [];
+    for (const use of toolUses) {
       send({ type: "step", label: siteToolStep(use.name, use.input, data) });
-      const outcome = runSiteTool(use.name, use.input, context);
+      const input = use.input && typeof use.input === "object" && !Array.isArray(use.input) ? use.input as Record<string, unknown> : null;
+      const outcome = use.name === "build_practice_set"
+        ? input ? await buildPracticeSetTool(context, input) : { content: "Tool input must be an object.", isError: true }
+        : runSiteTool(use.name, use.input, context);
       if (outcome.navigation) send({ type: "navigate", ...outcome.navigation });
-      return { type: "tool_result", tool_use_id: use.id, content: outcome.content, ...(outcome.isError ? { is_error: true } : {}) };
-    });
+      results.push({ type: "tool_result", tool_use_id: use.id, content: outcome.content, ...(outcome.isError ? { is_error: true } : {}) });
+    }
     // All results in one message, so parallel calls stay parallel.
     messages.push({ role: "user", content: results });
   }

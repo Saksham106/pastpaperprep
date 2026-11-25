@@ -16,6 +16,7 @@ export const HELPER_SITE_MAX_NAVIGATIONS = 1;
 
 /** Starters under the greeting. They fill the box rather than send, because each needs the student's subject. */
 export const HELPER_SITE_STARTERS = [
+  { id: "set", label: "Make a practice set", fill: "Make me a 10-question set on " },
   { id: "questions", label: "Find questions", fill: "Find me questions on " },
   { id: "paper", label: "Find a past paper", fill: "Open the past paper for " },
   { id: "explain", label: "Explain a topic", fill: "Explain " },

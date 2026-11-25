@@ -3,7 +3,7 @@
 // signing out, never sees it.
 import type { SiteNavigationEvent } from "@/lib/helper/site-events";
 
-export type SiteOpened = Pick<SiteNavigationEvent, "path" | "label">;
+export type SiteOpened = Pick<SiteNavigationEvent, "path" | "label"> & { kind?: SiteNavigationEvent["kind"] };
 export type SiteTurn = { role: "user" | "assistant"; text: string; opened?: SiteOpened[] };
 
 let memory: { userId: string; turns: SiteTurn[] } | null = null;

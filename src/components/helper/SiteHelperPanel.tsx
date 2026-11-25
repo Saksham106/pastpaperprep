@@ -166,7 +166,7 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
         else if (event.type === "navigate") {
           // One page per message: anything after the first stays unopened.
           if (opened.length) return;
-          opened.push({ path: event.path, label: event.label });
+          opened.push({ path: event.path, label: event.label, kind: event.kind });
           update();
           trackProductEvent("helper_navigate", { surface: "site", kind: event.kind, ...(event.bank ? { bank: event.bank } : {}) });
           pendingOpenRef.current = event.path;
@@ -266,7 +266,7 @@ export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExite
                 {turn.opened?.map((page) => (
                   <Link key={page.path} className={styles.opened} href={page.path} data-helper-open={page.path}>
                     <ArrowSquareOut weight="bold" aria-hidden="true" />
-                    <span><small>Opened</small><b>{page.label}</b></span>
+                    <span><small>{page.kind === "build" ? "Built · check and save" : "Opened"}</small><b>{page.label}</b></span>
                   </Link>
                 ))}
                 {/* Still working until words arrive: what Pepper has done so far, then what it is doing now. */}
