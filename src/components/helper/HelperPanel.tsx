@@ -36,9 +36,14 @@ export type HelperPanelProps = {
   /** "sheet" slides in beside the question; "page" fills the phone page opened from the QR code. */
   variant?: "sheet" | "page";
   onClose?: () => void;
+  /** The sheet is sliding out; it calls onExited when the animation ends. */
+  closing?: boolean;
+  onExited?: () => void;
 };
 
-export function HelperPanel({ bank, questionId, questionLabel, authenticated, freePreview, variant = "sheet", onClose }: HelperPanelProps) {
+export function HelperPanel({ bank, questionId, questionLabel, authenticated, freePreview, variant = "sheet", onClose, closing = false, onExited }: HelperPanelProps) {
+  // Bumped when a reply lands, so the face gives a small hop.
+  const [hop, setHop] = useState(0);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState("");
   const [photo, setPhoto] = useState<string | null>(null);
@@ -93,6 +98,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
       if (result.remaining !== null && Number.isFinite(result.remaining)) setRemaining(result.remaining);
       const mark = mode === "mark" ? parseMarkLine(reply) : null;
       trackProductEvent("helper_result", { bank, mode, freePreview, ...(mark ? { score: mark.score, total: mark.total } : {}) });
+      setHop((count) => count + 1);
     } catch (caught) {
       if (controller.signal.aborted) return;
       const status = caught instanceof HelperRequestError ? caught.status : 0;
@@ -173,9 +179,14 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
   const lastUser = [...turns].reverse().find((turn) => turn.role === "user");
 
   return (
-    <section className={`${styles.panel} ${variant === "page" ? styles.page : styles.sheet}`} role={variant === "sheet" ? "dialog" : undefined} aria-labelledby={titleId}>
+    <section
+      className={`${styles.panel} ${variant === "page" ? styles.page : styles.sheet}${closing ? ` ${styles.leaving}` : ""}`}
+      role={variant === "sheet" ? "dialog" : undefined}
+      aria-labelledby={titleId}
+      onAnimationEnd={(event) => { if (closing && event.target === event.currentTarget) onExited?.(); }}
+    >
       <header className={`${styles.header} course-tone-${tone}`} data-subject-tone={tone}>
-        <span className={styles.faceWrap}><HelperFace thinking={busy} /></span>
+        <span key={hop} className={`${styles.faceWrap}${hop ? ` ${styles.faceHop}` : ""}`}><HelperFace thinking={busy} /></span>
         <div className={styles.heading}>
           <h2 id={titleId}>{HELPER_NAME}</h2>
           <p>{questionLabel}</p>
@@ -218,7 +229,7 @@ export function HelperPanel({ bank, questionId, questionLabel, authenticated, fr
               ? <div key={index} className={`${styles.user} ${styles.enter}`}>{turn.photo && <Image unoptimized width={0} height={0} src={turn.photo} alt="Your working" className={styles.thumb} />}{turn.text && <p>{turn.text}</p>}</div>
               : <div key={index} className={`${styles.assistant} ${styles.enter}`}>{turn.text
                 ? <HelperMessage text={turn.text} />
-                : <p className={styles.thinking}><HelperFace thinking size={26} />{lastUser?.photo ? "Reading your working" : "Thinking"}<span className={styles.dots} aria-hidden="true"><i /><i /><i /></span></p>}</div>)}
+                : <p className={styles.thinking}><HelperFace thinking size={26} /><span className={styles.shimmer}>{lastUser?.photo ? "Reading your working" : "Thinking"}</span></p>}</div>)}
           </div>
 
           {error && <p className={styles.error} role="alert">{error}</p>}

@@ -19,3 +19,12 @@ describe("HelperMessage", () => {
     expect(screen.getByText("Try expanding the bracket first.")).toBeInTheDocument();
   });
 });
+
+describe("HelperMessage full marks", () => {
+  it("bursts confetti only for full marks", () => {
+    const { container: full } = render(<HelperMessage text={"Mark: 4 / 4\n✓ M1 good"} />);
+    expect(full.querySelectorAll("[aria-hidden='true'] i")).toHaveLength(10);
+    const { container: part } = render(<HelperMessage text={"Mark: 3 / 4\n✗ A1 sign error"} />);
+    expect(part.querySelectorAll("[aria-hidden='true'] i")).toHaveLength(0);
+  });
+});

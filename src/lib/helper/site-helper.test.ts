@@ -176,6 +176,8 @@ describe("site request and events", () => {
   });
 
   it("parses stream events and drops unsafe navigations", () => {
+    expect(parseSiteEvent('{"type":"step","label":"Searching vectors"}')).toEqual({ type: "step", label: "Searching vectors" });
+    expect(parseSiteEvent('{"type":"step","label":""}')).toBeNull();
     expect(parseSiteEvent('{"type":"text","text":"Hi"}')).toEqual({ type: "text", text: "Hi" });
     expect(parseSiteEvent('{"type":"navigate","kind":"bank","path":"/banks/igcse?year=2023","label":"2023"}')).toMatchObject({ path: "/banks/igcse?year=2023" });
     expect(parseSiteEvent('{"type":"navigate","kind":"page","path":"/account","label":"x"}')).toBeNull();
@@ -213,6 +215,8 @@ describe("runSiteAgent", () => {
     const result = await runSiteAgent({ api, model: "claude-opus-5-5", data: DATA, messages: buildSiteMessages({ page: "/", messages: [{ role: "user", text: "2024 number questions" }] }), send: (event) => events.push(event) });
     expect(result).toEqual({ sentText: true, navigated: true, refused: false });
     expect(events).toEqual([
+      { type: "step", label: "Checking IGCSE Maths 0580" },
+      { type: "step", label: "Opening IGCSE Maths 0580" },
       { type: "navigate", kind: "bank", path: "/banks/igcse?topic=Number&year=2024&free=0", label: "Number · 2024", bank: "igcse" },
       { type: "text", text: "Opened Number from 2024." },
     ]);

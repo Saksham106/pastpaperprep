@@ -275,6 +275,22 @@ function openPageTool(context: ToolContext, input: Record<string, unknown>): Too
   return navigate(context, { kind: "page", path, label: text(input.label, 80) || "Page", ...(bank ? { bank } : {}) });
 }
 
+const quote = (value: unknown) => `“${text(value, 40)}”`;
+
+/** What Pepper shows while a tool runs: a few plain words, never raw JSON. */
+export function siteToolStep(name: string, input: unknown, data: SiteData): string {
+  const fields = isRecord(input) ? input : {};
+  const subject = (bank: unknown) => data.index.subjects.find((s) => s.bank === bank)?.name;
+  switch (name) {
+    case "search_site": return `Searching ${quote(fields.query)}`;
+    case "bank_details": return `Checking ${subject(fields.bank) ?? "the bank"}`;
+    case "find_past_papers": return `Looking for ${quote(fields.query)}`;
+    case "open_bank": return `Opening ${subject(fields.bank) ?? "the bank"}`;
+    case "open_page": return `Opening ${text(fields.label, 40) || "the page"}`;
+    default: return "Working";
+  }
+}
+
 /** Runs one tool call. Inputs are untrusted model output: every field is re-checked here, whatever the schema says. */
 export function runSiteTool(name: string, input: unknown, context: ToolContext): ToolOutcome {
   if (!isRecord(input)) return error("Tool input must be an object.");

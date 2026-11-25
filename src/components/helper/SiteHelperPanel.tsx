@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowSquareOut, ArrowUp, X } from "@phosphor-icons/react";
+import { ArrowSquareOut, ArrowUp, Check, X } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
@@ -17,7 +17,7 @@ import { createClient } from "@/lib/supabase/browser";
 import styles from "./helper.module.css";
 
 type Opened = Pick<SiteNavigationEvent, "path" | "label">;
-type Turn = { role: "user" | "assistant"; text: string; opened?: Opened[] };
+type Turn = { role: "user" | "assistant"; text: string; opened?: Opened[]; steps?: string[] };
 
 function loadTurns(): Turn[] {
   try {
@@ -37,9 +37,24 @@ function historyText(turn: Turn): string {
   return [turn.text, ...notes].filter(Boolean).join("\n");
 }
 
+/** Finished steps with a tick, then the current one shimmering. Shown only until the reply starts. */
+function Working({ steps, opened }: { steps: string[]; opened: boolean }) {
+  // Once a page has opened every step is done; until then the latest is still running.
+  const done = opened ? steps : steps.slice(0, -1);
+  const current = opened ? "Almost done" : steps.at(-1) ?? "Looking";
+  return <div className={styles.working}>
+    {done.length > 0 && <ol className={styles.steps} aria-label="Done so far">
+      {done.map((step, index) => <li key={index}><Check weight="bold" aria-hidden="true" />{step}</li>)}
+    </ol>}
+    <p className={styles.thinking}><HelperFace thinking size={26} /><span key={current} className={styles.shimmer}>{current}</span></p>
+  </div>;
+}
+
 const currentPage = () => `${window.location.pathname}${window.location.search}`.slice(0, 600);
 
-export function SiteHelperPanel({ onClose, onNavigated }: { onClose: () => void; onNavigated: () => void }) {
+export function SiteHelperPanel({ onClose, onNavigated, closing = false, onExited }: { onClose: () => void; onNavigated: () => void; closing?: boolean; onExited?: () => void }) {
+  // Bumped when a reply lands, so the face gives a small hop.
+  const [hop, setHop] = useState(0);
   const router = useRouter();
   const [turns, setTurns] = useState<Turn[]>(loadTurns);
   const [draft, setDraft] = useState("");
@@ -90,11 +105,13 @@ export function SiteHelperPanel({ onClose, onNavigated }: { onClose: () => void;
     let reply = "";
     let rules = false;
     const opened: Opened[] = [];
-    const update = () => setTurns((current) => [...current.slice(0, -1), { role: "assistant", text: reply, opened: [...opened] }]);
+    const steps: string[] = [];
+    const update = () => setTurns((current) => [...current.slice(0, -1), { role: "assistant", text: reply, opened: [...opened], ...(steps.length ? { steps: [...steps] } : {}) }]);
     try {
       const outcome: { failure: { message: string; status: number } | null } = { failure: null };
       await streamSiteHelper({ messages: [...history.filter((turn) => turn.text), { role: "user", text }], page }, (event) => {
         if (event.type === "text") { reply += event.text; update(); }
+        else if (event.type === "step") { steps.push(event.label); update(); }
         else if (event.type === "navigate") {
           opened.push({ path: event.path, label: event.label });
           update();
@@ -110,6 +127,7 @@ export function SiteHelperPanel({ onClose, onNavigated }: { onClose: () => void;
       if (failure && !reply && !opened.length) throw new HelperRequestError(failure.message, failure.status);
       if (failure) setError(failure.message);
       trackProductEvent("helper_result", { surface: "site", opened: opened.length, rules });
+      setHop((count) => count + 1);
       if (opened.length) onNavigated();
     } catch (caught) {
       if (controller.signal.aborted) return;
@@ -138,9 +156,14 @@ export function SiteHelperPanel({ onClose, onNavigated }: { onClose: () => void;
   const empty = turns.length === 0;
 
   return (
-    <section className={`${styles.panel} ${styles.sheet}`} role="dialog" aria-labelledby={titleId}>
+    <section
+      className={`${styles.panel} ${styles.sheet}${closing ? ` ${styles.leaving}` : ""}`}
+      role="dialog"
+      aria-labelledby={titleId}
+      onAnimationEnd={(event) => { if (closing && event.target === event.currentTarget) onExited?.(); }}
+    >
       <header className={styles.header}>
-        <span className={styles.faceWrap}><HelperFace thinking={busy} /></span>
+        <span key={hop} className={`${styles.faceWrap}${hop ? ` ${styles.faceHop}` : ""}`}><HelperFace thinking={busy} /></span>
         <div className={styles.heading}>
           <h2 id={titleId}>{HELPER_NAME}</h2>
           <p>Questions · papers · topics</p>
@@ -182,8 +205,8 @@ export function SiteHelperPanel({ onClose, onNavigated }: { onClose: () => void;
                     <span><small>Opened</small><b>{page.label}</b></span>
                   </Link>
                 ))}
-                {/* Still working until words arrive, even once a page has opened. */}
-                {busy && index === turns.length - 1 && !turn.text && <p className={styles.thinking}><HelperFace thinking size={26} />{turn.opened?.length ? "Almost done" : "Looking"}<span className={styles.dots} aria-hidden="true"><i /><i /><i /></span></p>}
+                {/* Still working until words arrive: what Pepper has done so far, then what it is doing now. */}
+                {busy && index === turns.length - 1 && !turn.text && <Working steps={turn.steps ?? []} opened={Boolean(turn.opened?.length)} />}
               </div>)}
           </div>
 

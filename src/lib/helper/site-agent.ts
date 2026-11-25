@@ -3,7 +3,7 @@ import type Anthropic from "@anthropic-ai/sdk";
 import { HELPER_SITE_MAX_ROUNDS } from "@/lib/helper/site-config";
 import type { SiteHelperEvent } from "@/lib/helper/site-events";
 import { HELPER_SITE_SYSTEM_PROMPT } from "@/lib/helper/site-prompt";
-import { runSiteTool, SITE_TOOLS, type SiteData, type ToolContext } from "@/lib/helper/site-tools";
+import { runSiteTool, siteToolStep, SITE_TOOLS, type SiteData, type ToolContext } from "@/lib/helper/site-tools";
 
 /** Per model call. Site replies are short; this leaves room for an explanation. */
 const MAX_TOKENS = 4000;
@@ -69,6 +69,7 @@ export async function runSiteAgent(options: {
     if (final.stop_reason !== "tool_use" || !toolUses.length) return { sentText, navigated: context.navigations > 0, refused: false };
     messages.push({ role: "assistant", content: final.content });
     const results: Anthropic.Beta.BetaToolResultBlockParam[] = toolUses.map((use) => {
+      send({ type: "step", label: siteToolStep(use.name, use.input, data) });
       const outcome = runSiteTool(use.name, use.input, context);
       if (outcome.navigation) send({ type: "navigate", ...outcome.navigation });
       return { type: "tool_result", tool_use_id: use.id, content: outcome.content, ...(outcome.isError ? { is_error: true } : {}) };

@@ -6,6 +6,8 @@ import { safeHelperPath } from "@/lib/helper/site-paths";
 export type SiteNavigationEvent = { type: "navigate"; kind: "bank" | "page"; path: string; label: string; bank?: string };
 export type SiteHelperEvent =
   | { type: "text"; text: string }
+  /** What Pepper is doing right now, shown while it works. */
+  | { type: "step"; label: string }
   | SiteNavigationEvent
   /** remaining is absent when the rules answered without AI, so no helper message was used. */
   | { type: "done"; remaining?: number; limit?: number; rules?: boolean }
@@ -24,6 +26,8 @@ export function parseSiteEvent(line: string): SiteHelperEvent | null {
   switch (event.type) {
     case "text":
       return typeof event.text === "string" ? { type: "text", text: event.text } : null;
+    case "step":
+      return typeof event.label === "string" && event.label.trim() ? { type: "step", label: event.label.trim().slice(0, 80) } : null;
     case "navigate": {
       const path = safeHelperPath(event.path);
       if (!path || (event.kind !== "bank" && event.kind !== "page")) return null;

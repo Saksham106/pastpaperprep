@@ -72,6 +72,28 @@ describe("SiteHelperPanel", () => {
     await waitFor(() => expect(JSON.parse(sessionStorage.getItem(HELPER_SITE_STORAGE_KEY) ?? "[]")).toHaveLength(2));
   });
 
+  it("shows what Pepper is doing until the reply starts", async () => {
+    let finish: () => void = () => {};
+    const encoder = new TextEncoder();
+    const body = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(encoder.encode(`${JSON.stringify({ type: "step", label: "Searching “vectors”" })}\n${JSON.stringify({ type: "step", label: "Checking IGCSE Maths 0580" })}\n`));
+        finish = () => {
+          controller.enqueue(encoder.encode(`${JSON.stringify({ type: "text", text: "Here you go." })}\n${JSON.stringify({ type: "done", remaining: 4, limit: 5 })}\n`));
+          controller.close();
+        };
+      },
+    });
+    fetchMock.mockResolvedValueOnce(new Response(body, { status: 200 }));
+    render(<SiteHelperPanel onClose={() => {}} onNavigated={() => {}} />);
+    await userEvent.type(await screen.findByRole("textbox"), "vectors{Enter}");
+    expect(await screen.findByText("Checking IGCSE Maths 0580")).toBeInTheDocument();
+    expect(screen.getByRole("list", { name: "Done so far" })).toHaveTextContent("Searching “vectors”");
+    finish();
+    expect(await screen.findByText("Here you go.")).toBeInTheDocument();
+    expect(screen.queryByText("Checking IGCSE Maths 0580")).not.toBeInTheDocument();
+  });
+
   it("never follows a navigation to a page it may not open", async () => {
     fetchMock.mockResolvedValueOnce(ndjson([
       { type: "navigate", kind: "page", path: "/account", label: "Account" },

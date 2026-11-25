@@ -80,6 +80,8 @@ function Score({ score, total }: { score: number; total: number }) {
   return <div className={`${styles.score} ${tone}`} role="img" aria-label={`Marked ${score} out of ${total}`}>
     <span className={styles.scoreNumber}>{score}</span><span className={styles.scoreTotal}>/ {total}</span>
     <span className={styles.stamp}>Marked</span>
+    {/* Full marks: a small burst of confetti from the stamp. */}
+    {score >= total && <span className={styles.burst} aria-hidden="true">{Array.from({ length: 10 }, (_, index) => <i key={index} />)}</span>}
   </div>;
 }
 

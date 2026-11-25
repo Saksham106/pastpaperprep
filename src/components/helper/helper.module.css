@@ -17,7 +17,8 @@
   border-radius: 18px 0 0 18px;
   overflow: hidden;
   box-shadow: -12px 0 48px color-mix(in srgb, #14140f 22%, transparent);
-  animation: slide-in 220ms cubic-bezier(.2, .8, .2, 1);
+  /* A light spring: it travels a little past and settles. */
+  animation: slide-in 340ms cubic-bezier(.2, 1.12, .32, 1) both;
 }
 
 .page {
@@ -28,9 +29,11 @@
 }
 
 @keyframes slide-in {
-  from { transform: translateX(32px); opacity: 0; }
+  from { transform: translateX(48px); opacity: 0; }
   to { transform: none; opacity: 1; }
 }
+.leaving { animation: slide-out 180ms cubic-bezier(.4, 0, 1, 1) both; pointer-events: none; }
+@keyframes slide-out { to { transform: translateX(40px); opacity: 0; } }
 
 /* ---------- header ---------- */
 
@@ -193,6 +196,12 @@
 .qr p { margin: 0; font-size: .84rem; line-height: 1.45; }
 
 .user { align-self: flex-end; max-width: 82%; display: grid; justify-items: end; gap: 6px; }
+/* The student's message lifts out of the composer it was typed in. */
+.user.enter { transform-origin: 100% 100%; animation: send-up 260ms cubic-bezier(.2, 1.1, .35, 1) both; }
+@keyframes send-up {
+  from { transform: translateY(14px) scale(.94); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
 .user p {
   margin: 0;
   padding: 8px 13px;
@@ -425,7 +434,6 @@
   box-shadow: 0 10px 30px color-mix(in srgb, #14140f 18%, transparent), 0 1px 0 color-mix(in srgb, #000 6%, transparent);
   font: 700 .95rem/1 var(--font-body);
   cursor: pointer;
-  animation: rise 260ms cubic-bezier(.2, .8, .2, 1);
   transition: border-color 140ms ease, transform 140ms ease;
 }
 .siteLauncher:hover { border-color: var(--cobalt); transform: translateY(-1px); }
@@ -473,4 +481,116 @@
 
 @media (prefers-reduced-motion: reduce) {
   .siteLauncher, .siteLauncher:hover .face { animation: none; transition: none; }
+}
+
+/* ---------- motion: thinking, steps, replies ---------- */
+
+/* Full marks: ten flecks burst from the stamp and fall away, once. */
+.score { position: relative; }
+.burst { position: absolute; right: 34px; top: 50%; width: 0; height: 0; pointer-events: none; }
+.burst i {
+  position: absolute;
+  width: 6px;
+  height: 9px;
+  border-radius: 2px;
+  background: var(--fleck, var(--success));
+  opacity: 0;
+  animation: fleck 900ms cubic-bezier(.15, .7, .3, 1) 260ms both;
+}
+.burst i:nth-child(1) { --x: -58px; --y: -46px; --r: -140deg; --fleck: #e8573f; }
+.burst i:nth-child(2) { --x: -30px; --y: -62px; --r: 90deg; --fleck: var(--cobalt); }
+.burst i:nth-child(3) { --x: 4px; --y: -66px; --r: 200deg; --fleck: #f2b134; }
+.burst i:nth-child(4) { --x: 36px; --y: -54px; --r: -80deg; --fleck: var(--success); }
+.burst i:nth-child(5) { --x: 60px; --y: -30px; --r: 160deg; --fleck: #e8573f; }
+.burst i:nth-child(6) { --x: -66px; --y: -12px; --r: 120deg; --fleck: #f2b134; }
+.burst i:nth-child(7) { --x: 66px; --y: 4px; --r: -150deg; --fleck: var(--cobalt); }
+.burst i:nth-child(8) { --x: -44px; --y: 18px; --r: 70deg; --fleck: var(--success); }
+.burst i:nth-child(9) { --x: 40px; --y: 22px; --r: -60deg; --fleck: #e8573f; }
+.burst i:nth-child(10) { --x: -8px; --y: 30px; --r: 220deg; --fleck: #f2b134; }
+@keyframes fleck {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0) scale(.4); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x), calc(var(--y) + 26px)) rotate(var(--r)) scale(1); }
+}
+
+/* "Thinking…" written in light: a soft highlight sweeps across the words. */
+.shimmer {
+  color: var(--muted);
+  background: linear-gradient(100deg, var(--muted) 35%, var(--ink) 50%, var(--muted) 65%) 0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 1.8s linear infinite, rise 200ms ease-out;
+}
+@keyframes shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -150% 0; }
+}
+
+.working { display: grid; gap: 8px; }
+.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.steps li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: .82rem;
+  animation: rise 220ms cubic-bezier(.2, .8, .2, 1) both;
+}
+.steps svg { flex: none; width: 13px; height: 13px; color: var(--success); animation: tick 320ms cubic-bezier(.3, 1.6, .5, 1) both; }
+@keyframes tick {
+  from { transform: scale(0) rotate(-30deg); }
+  to { transform: none; }
+}
+
+/* Each new paragraph or list of a streaming reply fades up as it appears; earlier ones stay put. */
+.reply > * { animation: block-in 280ms cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes block-in {
+  from { transform: translateY(4px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* A small hop when a reply lands. */
+.faceHop { animation: hop 520ms cubic-bezier(.3, 1.5, .5, 1); }
+@keyframes hop {
+  0% { transform: none; }
+  35% { transform: translateY(-5px) rotate(-6deg); }
+  70% { transform: translateY(1px) rotate(2deg); }
+  100% { transform: none; }
+}
+
+.opened { animation: card-in 300ms cubic-bezier(.2, 1.1, .35, 1) both; }
+.opened svg { transition: transform 160ms ease; }
+.opened:hover svg { transform: translate(2px, -2px); }
+@keyframes card-in {
+  from { transform: translateX(-8px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* The floating button pops in a moment after the page; once per session Pepper hops and winks hello. */
+.siteLauncher { animation: launcher-in 460ms cubic-bezier(.3, 1.45, .5, 1) 250ms backwards; }
+@keyframes launcher-in {
+  from { transform: translateY(12px) scale(.7); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.siteLauncher[data-hello] .face { animation: hop 620ms cubic-bezier(.3, 1.5, .5, 1) 900ms both; }
+.siteLauncher[data-hello] .faceEyes { animation: wink 620ms ease 1000ms both, blink 5.5s 2s infinite; }
+@keyframes wink {
+  0%, 100% { transform: none; }
+  40%, 60% { transform: scaleY(.1); }
+}
+
+@media (max-width: 640px) {
+  /* Full-screen on phones: rise from the bottom instead of the side. */
+  .sheet { animation-name: sheet-up; }
+  .leaving { animation-name: sheet-down; }
+  @keyframes sheet-up { from { transform: translateY(32px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @keyframes sheet-down { to { transform: translateY(32px); opacity: 0; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burst { display: none; }
+  .leaving, .user.enter, .steps li, .steps svg, .reply > *, .faceHop, .opened, .siteLauncher, .siteLauncher[data-hello] .face, .siteLauncher[data-hello] .faceEyes { animation: none; }
+  .shimmer { animation: none; -webkit-text-fill-color: currentColor; background: none; }
+  .opened svg { transition: none; }
 }

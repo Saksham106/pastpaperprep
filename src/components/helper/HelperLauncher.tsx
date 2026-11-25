@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef } from "react";
+import { useSheetPresence } from "@/components/helper/useSheetPresence";
 import { HelperFace } from "@/components/helper/HelperFace";
 import { HELPER_NAME } from "@/lib/helper/config";
 import { trackProductEvent } from "@/lib/product-analytics";
@@ -19,18 +20,19 @@ export function HelperLauncher({ bank, questionId, questionLabel, authenticated,
   authenticated: boolean;
   freePreview: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const sheet = useSheetPresence();
+  const { hide } = sheet;
   const id = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onOpen = (event: Event) => { if ((event as CustomEvent<string>).detail !== id) setOpen(false); };
+    const onOpen = (event: Event) => { if ((event as CustomEvent<string>).detail !== id) hide(); };
     window.addEventListener(OPEN_EVENT, onOpen);
     return () => window.removeEventListener(OPEN_EVENT, onOpen);
-  }, [id]);
+  }, [id, hide]);
 
   const close = () => {
-    setOpen(false);
+    hide();
     buttonRef.current?.focus();
   };
 
@@ -39,14 +41,14 @@ export function HelperLauncher({ bank, questionId, questionLabel, authenticated,
       ref={buttonRef}
       type="button"
       className={styles.launcher}
-      aria-expanded={open}
+      aria-expanded={sheet.open}
       onClick={() => {
-        if (open) { close(); return; }
+        if (sheet.open) { close(); return; }
         window.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: id }));
         trackProductEvent("helper_open", { bank, freePreview });
-        setOpen(true);
+        sheet.show();
       }}
     ><HelperFace size={24} />Ask {HELPER_NAME}</button>
-    {open && <HelperPanel bank={bank} questionId={questionId} questionLabel={questionLabel} authenticated={authenticated} freePreview={freePreview} onClose={close} />}
+    {sheet.mounted && <HelperPanel bank={bank} questionId={questionId} questionLabel={questionLabel} authenticated={authenticated} freePreview={freePreview} onClose={close} closing={sheet.closing} onExited={sheet.exited} />}
   </>;
 }
