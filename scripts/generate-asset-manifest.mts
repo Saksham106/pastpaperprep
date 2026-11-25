@@ -9,7 +9,7 @@ import { join } from "node:path";
 import { getAvailableBanks, type BankSlug } from "@/lib/banks";
 import { assetManifestFileName } from "@/lib/asset-manifest";
 import { buildBankAssetManifest } from "@/lib/asset-manifest-build";
-import { imageSizeLookup, type EncodedImageSizes } from "@/lib/image-sizes";
+import { imageSizeLookup, staleQuestionShapes, type EncodedImageSizes, type EncodedQuestionShapes } from "@/lib/image-sizes";
 import { loadBankMcqAnswers } from "@/lib/mcq-answer-letters";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { buildSearchCorpus } from "@/lib/question-search-corpus-build";
@@ -34,8 +34,17 @@ if (single >= 0) {
   // Pixel sizes from scripts/generate-image-sizes.mts; a bank without a file keeps unsized images.
   const sizes = await readFile(join(process.cwd(), "src", "data", "image-sizes", `${slug}.json`), "utf8")
     .then((text) => JSON.parse(text) as EncodedImageSizes, (error: NodeJS.ErrnoException) => { if (error.code === "ENOENT") return null; throw error; });
+  const manifest = buildBankAssetManifest(questions, mcqAnswers, imageSizeLookup(sizes));
+  // The per-question shapes (card placeholders) must describe the images this manifest delivers.
+  const shapes = await readFile(join(process.cwd(), "src", "data", "image-shapes", `${slug}.json`), "utf8")
+    .then((text) => JSON.parse(text) as EncodedQuestionShapes, (error: NodeJS.ErrnoException) => { if (error.code === "ENOENT") return null; throw error; });
+  const stale = staleQuestionShapes(manifest, shapes);
+  if (stale.length) {
+    console.error(`${slug}: src/data/image-shapes disagrees with the delivered question images for ${stale.length} questions (${stale.slice(0, 3).join(", ")}); re-run scripts/generate-image-sizes.mts`);
+    process.exit(1);
+  }
   const file = join(ASSET_MANIFEST_DIRECTORY, assetManifestFileName(slug));
-  await writeFile(file, JSON.stringify(buildBankAssetManifest(questions, mcqAnswers, imageSizeLookup(sizes))));
+  await writeFile(file, JSON.stringify(manifest));
   await writeFile(join(SEARCH_CORPUS_DIRECTORY, assetManifestFileName(slug)), JSON.stringify(buildSearchCorpus(questions)));
   console.log(`${slug}: ${questions.length} questions${mcqAnswers.size ? `, ${mcqAnswers.size} MCQ letters` : ""} -> ${assetManifestFileName(slug)}`);
   process.exit(0);

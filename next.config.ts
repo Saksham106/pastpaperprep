@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
     "/api/assets/free": ["./generated/asset-manifest/**"],
     "/api/study-state": ["./generated/asset-manifest/**"],
     "/api/questions/search": ["./generated/question-search/**"],
+    // Question-image shapes for the first page of cards (src/lib/question-image-shapes.ts).
+    "/banks/**": ["./src/data/image-shapes/*.json"],
+    "/api/private-bank-index/[bank]": ["./src/data/image-shapes/*.json"],
     "/past-papers": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
     "/past-papers/**": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
   },

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAvailableBanks, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { createPublicBankIndex } from "@/lib/question-index";
+import { loadQuestionImageShapes } from "@/lib/question-image-shapes";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 
@@ -43,7 +44,7 @@ async function handleGET(_request: Request, context: RouteContext) {
 
   try {
     return NextResponse.json(
-      createPublicBankIndex(bank, await loadBankQuestions(bank)),
+      createPublicBankIndex(bank, await loadBankQuestions(bank), await loadQuestionImageShapes(bank)),
       CACHEABLE_RESPONSE_INIT,
     );
   } catch {

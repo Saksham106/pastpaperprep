@@ -413,7 +413,7 @@ For a corrected asset that keeps the same key, use a separate reviewed replaceme
 
 ### 8b. Record image sizes
 
-Bank pages reserve each crop's real box before it loads, so cards don't jump while students scroll (CLS). The sizes live in `src/data/image-sizes/<bank>.json`. Re-run the script whenever a bank, a year, or a crop repair is added, after the free copy is published:
+Bank pages reserve each crop's real box before it loads, so cards don't jump while students scroll (CLS). The sizes live in `src/data/image-sizes/<bank>.json` (by storage path) and `src/data/image-shapes/<bank>.json` (question images per question, carried by the card metadata so the loading placeholder already has the image's shape). Re-run the script whenever a bank, a year, or a crop repair is added, after the free copy is published. A crop replaced without a re-run fails `generate:asset-manifest` (prebuild) with a pointer back here:
 
 ```bash
 # Same release gates as the CI build job, so every released bank gets a manifest.
@@ -421,10 +421,10 @@ PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true PASTPAPERPREP_IGCSE_RELEASE_ASSETS
 PASTPAPERPREP_ENABLE_IB_ECONOMICS_PRODUCTION=true PASTPAPERPREP_IB_ECONOMICS_ASSETS_VERIFIED=true \
 NODE_ENV=production npm run generate:asset-manifest
 npx tsx scripts/generate-image-sizes.mts            # or --bank <slug>; --no-bucket skips the public bucket
-npm run generate:asset-manifest                     # picks the sizes up (prebuild does this too)
+npm run generate:bank-index && npm run generate:asset-manifest   # picks the sizes up (prebuild does this too); commit src/lib/bank-index-manifest.ts
 ```
 
-It reads each WebP header only (first 30 bytes), never decodes or changes an image, and writes nothing to storage. Free-year crops are read from `free.pastpaperprep.com` with 64-byte range requests. Paid crops come from the sibling ingestion folders, matched by SHA-256 where a receipt records it (R2 upload logs, `*ImageHashes`, content-addressed repair names), otherwise by file name plus folder, and only when every local copy agrees. A crop found both ways must have the same size in both, or the script fails. A crop with no size keeps the old fixed 1400×1000 box. Sizes reach the page in the static `public/free-assets/<bank>.json` and the `/api/assets/*` responses (`sizesPx`), never in page HTML or RSC.
+It reads each WebP header only (first 30 bytes), never decodes or changes an image, and writes nothing to storage. Free-year crops are read from `free.pastpaperprep.com` with 64-byte range requests. Paid crops come from the sibling ingestion folders, matched by SHA-256 where a receipt records it (R2 upload logs, `*ImageHashes`, content-addressed repair names), otherwise by file name plus folder, and only when every local copy agrees. A crop found both ways must have the same size in both, or the script fails. A crop it cannot measure this run (offline, `--no-bucket`, local copy gone) keeps its committed size; a re-measured size that differs from the committed one fails the run. Nothing is written until every bank has passed. `--allow-coverage-loss` drops unmeasured sizes on purpose, and `--allow-size-changes` accepts a re-measured size after a reviewed replacement. A crop with no size keeps the old fixed 1400×1000 box. Image sizes reach the page in the static `public/free-assets/<bank>.json` and the `/api/assets/*` responses (`sizesPx`); question-image shapes ride in the static `public/bank-index/` files and on the first page of cards (`imageSizes`).
 
 `../ppp-ingestion-toolkit` already records `width` and `height` for every crop it renders (`ppp_ingest/steps/segment.py`). It could write `src/data/image-sizes/<bank>.json` for a new bank directly.
 

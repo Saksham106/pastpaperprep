@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useEffect, useState, type ReactEventHandler } from "react";
 import type { BankSlug } from "@/lib/banks";
-import type { ImageSize } from "@/lib/image-sizes";
+import { isImageSize, type ImageSize } from "@/lib/image-sizes";
 import { matchesReviewedDisplayCrop, type VisibleImageCrop } from "@/lib/reviewed-blank-tails";
 import { fetchVerifiedImageBlob } from "@/lib/verified-asset-bytes";
 
@@ -13,7 +13,7 @@ export const UNSIZED_QUESTION_IMAGE: ImageSize = [1400, 1000];
 
 /** Width and height an image (or its placeholder) reserves: its real pixel size when known. */
 export function questionImageBox(size: ImageSize | null | undefined): ImageSize {
-  return size ?? UNSIZED_QUESTION_IMAGE;
+  return isImageSize(size) ? size : UNSIZED_QUESTION_IMAGE;
 }
 
 /** A loading box exactly the shape of the image that replaces it. */

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { encodeImageSizes, imageSizeLookup, type ImageSize } from "@/lib/image-sizes";
+import { encodeImageSizes, encodeQuestionShapes, imageSizeLookup, mergeMeasuredSizes, questionShapes, staleQuestionShapes, type ImageSize } from "@/lib/image-sizes";
 import { webpSize } from "@/lib/webp-size";
 
 function riff(chunk: string, payload: number[]): Uint8Array {
@@ -51,5 +51,57 @@ describe("image size files", () => {
     expect(lookup("bank/releases/r1/questions/p1/constructor.webp")).toBeNull();
     expect(lookup("other/releases/r1/questions/p1/q1-2-1.webp")).toBeNull();
     expect(imageSizeLookup(null)("bank/releases/r1/questions/p1/q1-2-1.webp")).toBeNull();
+  });
+});
+
+describe("regenerating sizes", () => {
+  const known = new Map<string, ImageSize>([["b/q/a.webp", [1070, 312]], ["b/q/b.webp", [1070, 900]]]);
+  const previous = (path: string) => known.get(path) ?? null;
+
+  it("keeps a committed size the run could not measure (offline, no local crop)", () => {
+    const merged = mergeMeasuredSizes(["b/q/a.webp", "b/q/b.webp"], new Map([["b/q/b.webp", [1070, 900]]]), previous);
+    expect(Object.fromEntries(merged.sizes)).toEqual({ "b/q/a.webp": [1070, 312], "b/q/b.webp": [1070, 900] });
+    expect(merged.retained).toEqual(["b/q/a.webp"]);
+    expect(merged.lost).toEqual([]);
+  });
+
+  it("drops unmeasured sizes only when coverage loss is allowed, and reports each one", () => {
+    const merged = mergeMeasuredSizes(["b/q/a.webp"], new Map(), previous, { allowCoverageLoss: true });
+    expect(merged.sizes.size).toBe(0);
+    expect(merged.lost).toEqual(["b/q/a.webp"]);
+  });
+
+  it("reports a re-measured size that differs from the committed one", () => {
+    const merged = mergeMeasuredSizes(["b/q/a.webp"], new Map([["b/q/a.webp", [1070, 313]]]), previous);
+    expect(merged.changed).toEqual([{ path: "b/q/a.webp", from: [1070, 312], to: [1070, 313] }]);
+  });
+
+  it("forgets paths the bank no longer delivers", () => {
+    expect(mergeMeasuredSizes(["b/q/new.webp"], new Map(), previous).sizes.size).toBe(0);
+  });
+});
+
+describe("per-question shapes", () => {
+  it("round-trips each question's image sizes and leaves out questions with none", () => {
+    const encoded = JSON.parse(JSON.stringify(encodeQuestionShapes([
+      ["q2", [[1070, 300], [774, 90], null]],
+      ["q1", [[1070, 1200]]],
+      ["q3", [null]],
+    ])));
+    expect(encoded).toEqual({ width: 1070, questions: { q1: [1200], q2: [300, [774, 90], null] } });
+    expect(questionShapes(encoded, "q2")).toEqual([[1070, 300], [774, 90], null]);
+    expect(questionShapes(encoded, "q3")).toBeUndefined();
+    expect(questionShapes(encoded, "constructor")).toBeUndefined();
+  });
+
+  it("flags shapes that no longer match the delivered question images", () => {
+    const shapes = encodeQuestionShapes([["q1", [[1070, 1200]]], ["q2", [[1070, 300]]], ["q3", [[1070, 50]]]]);
+    const manifest = {
+      q1: { questionAssetPaths: ["a.webp"], questionAssetSizes: [[1070, 1200]] as Array<[number, number] | null> },
+      q2: { questionAssetPaths: ["b-recut.webp"], questionAssetSizes: [[1070, 340]] as Array<[number, number] | null> },
+      q3: { questionAssetPaths: ["c.webp", "c2.webp"], questionAssetSizes: [[1070, 50], [1070, 60]] as Array<[number, number] | null> },
+    };
+    expect(staleQuestionShapes(manifest, shapes)).toEqual(["q2", "q3"]);
+    expect(staleQuestionShapes(manifest, null)).toEqual([]);
   });
 });

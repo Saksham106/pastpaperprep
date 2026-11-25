@@ -1,35 +1,47 @@
 #!/usr/bin/env tsx
 // Writes src/data/image-sizes/<bank>.json: the pixel width and height of every question and
 // mark-scheme crop, read from each WebP header (first 30 bytes, no decoding). Bank pages use
-// them to reserve each image's real box before it loads, so cards stop jumping (CLS).
+// them to reserve each image's real box before it loads, so cards stop jumping (CLS). It also
+// writes src/data/image-shapes/<bank>.json, the question images' sizes per question, which the
+// card metadata carries so the loading placeholder already has the image's shape.
 //
 //   Free-year crops: 64-byte range requests to the public bucket (free.pastpaperprep.com).
 //   Paid crops:      the local crop files in the sibling ingestion folders, matched by SHA-256
 //                    where a receipt records it (upload logs, *ImageHashes), else by folder + name.
 //   Spot-check:      every crop found both ways must have the same size, or the script fails.
+//   Known sizes:     a crop it cannot measure this run (offline, --no-bucket, local copy gone)
+//                    keeps the size the committed file already has. A measured size that differs
+//                    from the committed one fails the run. Nothing is written until every bank
+//                    has passed. --allow-coverage-loss drops unmeasured sizes on purpose;
+//                    --allow-size-changes accepts a re-measured size (a reviewed replacement).
 //
 // Read-only: nothing is uploaded, replaced or deleted. Paths come from generated/asset-manifest,
 // so generate it first with the CI build env (all released banks), then run:
-//   npx tsx scripts/generate-image-sizes.mts [--bank <slug>] [--no-bucket]
+//   npx tsx scripts/generate-image-sizes.mts [--bank <slug>] [--no-bucket] [--allow-coverage-loss] [--allow-size-changes]
 // Re-run after adding a bank or a year (docs/content-ingestion.md).
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
-import { open, readFile, readdir, stat, writeFile, mkdir } from "node:fs/promises";
+import { open, readFile, readdir, rename, writeFile, mkdir } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 import { isPreviewQuestion } from "@/lib/access";
 import type { AssetManifestEntry } from "@/lib/asset-manifest";
 import { deliveredAssetPaths } from "@/lib/asset-kinds";
 import type { BankSlug } from "@/lib/banks";
 import { freePublicAssetUrl } from "@/lib/free-asset-index";
-import { encodeImageSizes, type ImageSize } from "@/lib/image-sizes";
+import { encodeImageSizes, encodeQuestionShapes, imageSizeLookup, mergeMeasuredSizes, type EncodedImageSizes, type ImageSize } from "@/lib/image-sizes";
 import { webpSize } from "@/lib/webp-size";
 
-const repo = process.cwd();
+// PPP_REPO_ROOT / PPP_INGESTION_ROOT point the script at a fixture in tests.
+const repo = resolve(process.env.PPP_REPO_ROOT ?? process.cwd());
 const siblings = resolve(repo, process.env.PPP_INGESTION_ROOT ?? findSiblingRoot());
 const manifestDirectory = join(repo, "generated", "asset-manifest");
 const outputDirectory = join(repo, "src", "data", "image-sizes");
+const shapesDirectory = join(repo, "src", "data", "image-shapes");
 const onlyBank = process.argv.includes("--bank") ? process.argv[process.argv.indexOf("--bank") + 1] : null;
 const useBucket = !process.argv.includes("--no-bucket");
+const allowCoverageLoss = process.argv.includes("--allow-coverage-loss");
+const allowSizeChanges = process.argv.includes("--allow-size-changes");
+const listDirectory = (directory: string) => readdir(directory).catch((error: NodeJS.ErrnoException) => { if (error.code === "ENOENT") return [] as string[]; throw error; });
 
 /** Sibling ingestion folders holding each bank's crops. */
 const LOCAL_FOLDERS: Record<string, string[]> = {
@@ -110,7 +122,7 @@ async function pool<T>(items: readonly T[], size: number, work: (item: T) => Pro
 async function knownHashes(): Promise<{ byKey: Map<string, string>; byRelative: Map<string, string>; sourceByKey: Map<string, string> }> {
   const byKey = new Map<string, string>();
   const sourceByKey = new Map<string, string>();
-  for (const name of await readdir(join(repo, "data", "storage"))) {
+  for (const name of await listDirectory(join(repo, "data", "storage"))) {
     if (!name.endsWith(".manifest.json")) continue;
     const manifest = JSON.parse(await readFile(join(repo, "data", "storage", name), "utf8")) as { assets?: unknown; objects?: unknown };
     const rows = Array.isArray(manifest.assets) ? manifest.assets : Array.isArray(manifest.objects) ? manifest.objects : [];
@@ -121,7 +133,7 @@ async function knownHashes(): Promise<{ byKey: Map<string, string>; byRelative: 
       if (source) sourceByKey.set(row.objectKey, source);
     }
   }
-  for (const name of await readdir(join(repo, "docs"))) {
+  for (const name of await listDirectory(join(repo, "docs"))) {
     if (!name.endsWith(".jsonl") || !name.includes("upload-log")) continue;
     for (const line of (await readFile(join(repo, "docs", name), "utf8")).split("\n")) {
       if (!line.trim()) continue;
@@ -131,7 +143,7 @@ async function knownHashes(): Promise<{ byKey: Map<string, string>; byRelative: 
   }
   const byRelative = new Map<string, string>();
   for (const folder of ["production", "raw"]) {
-    for (const name of await readdir(join(repo, "src", "data", folder))) {
+    for (const name of await listDirectory(join(repo, "src", "data", folder))) {
       if (!name.endsWith(".json")) continue;
       const data = JSON.parse(await readFile(join(repo, "src", "data", folder, name), "utf8")) as { questions?: Array<Record<string, unknown>> };
       for (const question of data.questions ?? []) {
@@ -255,12 +267,24 @@ async function bucketSize(path: string): Promise<ImageSize | null | "missing"> {
   return null;
 }
 
+async function readPrevious(bank: string): Promise<EncodedImageSizes | null> {
+  return readFile(join(outputDirectory, `${bank}.json`), "utf8")
+    .then((text) => JSON.parse(text) as EncodedImageSizes, (error: NodeJS.ErrnoException) => { if (error.code === "ENOENT") return null; throw error; });
+}
+
+/** Writes beside the target, then renames, so a failed run never leaves a half-written file. */
+async function replaceFile(path: string, text: string) {
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(`${path}.tmp`, text);
+  await rename(`${path}.tmp`, path);
+}
+
 const hashes = await knownHashes();
-await mkdir(outputDirectory, { recursive: true });
-const manifestFiles = (await readdir(manifestDirectory)).filter((name) => name.endsWith(".json"));
+const manifestFiles = (await listDirectory(manifestDirectory)).filter((name) => name.endsWith(".json"));
 if (!manifestFiles.length) throw new Error("generated/asset-manifest is empty; run generate:asset-manifest with the CI build env first");
 const report: string[] = [];
-let mismatches = 0;
+const problems: string[] = [];
+const staged: Array<[string, string]> = [];
 
 for (const name of manifestFiles.sort()) {
   const bank = name.slice(0, name.indexOf(".")) as BankSlug;
@@ -274,7 +298,7 @@ for (const name of manifestFiles.sort()) {
     }
   }
   const index = await localIndex(bank);
-  const sizes = new Map<string, ImageSize>();
+  const measured = new Map<string, ImageSize>();
   let fromBucket = 0, fromLocal = 0, checked = 0, missingFree = 0;
   const unsized: string[] = [];
   await pool([...images], useBucket ? 24 : 32, async ([path, free]) => {
@@ -284,22 +308,30 @@ for (const name of manifestFiles.sort()) {
     const published = remote && remote !== "missing" ? remote : null;
     if (published && local) {
       checked += 1;
-      if (!sameSize(published, local)) { mismatches += 1; console.error(`${bank}: ${path} bucket ${published.join("x")} != local ${local.join("x")}`); }
+      if (!sameSize(published, local)) problems.push(`${bank}: ${path} bucket ${published.join("x")} != local ${local.join("x")}`);
     }
     const size = published ?? local;
     if (!size) { unsized.push(path); return; }
     if (published) fromBucket += 1; else fromLocal += 1;
-    sizes.set(path, size);
+    measured.set(path, size);
   });
+  const merged = mergeMeasuredSizes([...images.keys()], measured, imageSizeLookup(await readPrevious(bank)), { allowCoverageLoss });
+  if (!allowSizeChanges) for (const { path, from, to } of merged.changed) problems.push(`${bank}: ${path} was ${from.join("x")}, now measures ${to.join("x")} (--allow-size-changes if the object was replaced)`);
+  const sizes = merged.sizes;
   const freeCount = [...images.values()].filter(Boolean).length;
   const encoded = JSON.stringify(encodeImageSizes(sizes));
-  await writeFile(join(outputDirectory, `${bank}.json`), `${encoded}\n`);
-  const line = `${bank}: ${sizes.size}/${images.size} sized (${(100 * sizes.size / Math.max(images.size, 1)).toFixed(1)}%); free ${fromBucket}/${freeCount} from bucket${missingFree ? ` (${missingFree} not in bucket)` : ""}, ${fromLocal} from local, ${checked} cross-checked; ${(encoded.length / 1024).toFixed(0)} KiB`;
+  const shapes = JSON.stringify(encodeQuestionShapes(Object.entries(manifest).map(([id, entry]) => [id, entry.questionAssetPaths.map((path) => sizes.get(path) ?? null)])));
+  staged.push([join(outputDirectory, `${bank}.json`), `${encoded}\n`], [join(shapesDirectory, `${bank}.json`), `${shapes}\n`]);
+  const line = `${bank}: ${sizes.size}/${images.size} sized (${(100 * sizes.size / Math.max(images.size, 1)).toFixed(1)}%); free ${fromBucket}/${freeCount} from bucket${missingFree ? ` (${missingFree} not in bucket)` : ""}, ${fromLocal} from local, ${checked} cross-checked${merged.retained.length ? `, ${merged.retained.length} kept from the committed file` : ""}${merged.lost.length ? `, ${merged.lost.length} DROPPED (--allow-coverage-loss)` : ""}${merged.changed.length ? `, ${merged.changed.length} changed` : ""}; ${(encoded.length / 1024).toFixed(0)} KiB sizes, ${(shapes.length / 1024).toFixed(0)} KiB shapes`;
   report.push(line);
   if (process.env.DEBUG_IMAGE_SIZES) console.log(unsized.sort().filter((_, i) => i % Math.max(1, Math.floor(unsized.length / 12)) === 0).join("\n"));
   console.log(line);
 }
 
-if (mismatches) throw new Error(`${mismatches} crops differ between the public bucket and the local crops`);
-await stat(outputDirectory);
-console.log(`\n${report.length} banks written to src/data/image-sizes/`);
+// Nothing is replaced until every bank has passed.
+if (problems.length) {
+  for (const problem of problems.slice(0, 50)) console.error(problem);
+  throw new Error(`${problems.length} size problems; no files were written`);
+}
+for (const [path, text] of staged) await replaceFile(path, text);
+console.log(`\n${report.length} banks written to src/data/image-sizes/ and src/data/image-shapes/`);

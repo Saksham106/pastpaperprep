@@ -6,6 +6,7 @@ import {normalizeBankQuestions} from '@/lib/questions';
 import {readFileSync} from 'node:fs';
 import seal from '../../docs/0580-section-legacy-filter-seal-v3.json';
 import {toPublicQuestionMetadata,publicBankIndexUrl} from '@/lib/question-index';
+import {questionShapes} from '@/lib/image-sizes';
 import {filterQuestions} from '@/lib/question-filter';
 import {getControlledSubtopics,getSubtopicGroups,getTopicOptions} from '@/lib/taxonomy-router';
 import {split0580Raw} from '@/lib/igcse-0580-additions.mjs';
@@ -44,7 +45,9 @@ describe('0580 additive official retrieval',()=>{
   // Added rows are not in the historical seal; their counts come from their own single crops.
   const addedCounts=new Map(added.map(r=>[r.id,[r.questionImages.length,r.markschemeImages.length]]));
   expect(Object.keys(counts).filter(id=>addedIds.has(id))).toEqual([]);
-  for(const row of rows){const count=counts[row.id]??addedCounts.get(row.id)!;expect(generated.get(row.id),row.id).toEqual({...toPublicQuestionMetadata(row),questionImageCount:count[0],markschemeImageCount:count[1]});}
+  // Image sizes are a layout hint for card placeholders (src/data/image-shapes), not classification.
+  const shapes=JSON.parse(readFileSync(`${process.cwd()}/src/data/image-shapes/igcse.json`,'utf8'));
+  for(const row of rows){const count=counts[row.id]??addedCounts.get(row.id)!;expect(generated.get(row.id),row.id).toEqual({...toPublicQuestionMetadata({...row,questionImageCount:count[0],imageSizes:questionShapes(shapes,row.id)}),markschemeImageCount:count[1]});}
  });
  it('keeps official sections under their own parents rather than leaking cross-topic labels',()=>{
   const groups=getSubtopicGroups(normalizeBankQuestions('igcse',source),['Number'],[]);

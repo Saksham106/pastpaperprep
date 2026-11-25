@@ -5,6 +5,7 @@ import approved from "@/data/reviewed-blank-tails-0606.json";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { imageSizeLookup, type EncodedImageSizes } from "@/lib/image-sizes";
+import { visiblePlaceholderSize } from "@/lib/reviewed-blank-tails";
 
 /** Checked against the file itself with macOS `sips -g pixelWidth -g pixelHeight`. */
 const KNOWN_9709_Q1_SIZE = [774, 1081] as const;
@@ -94,6 +95,21 @@ describe("question image boxes", () => {
     expect(image).toHaveAttribute("width", String(KNOWN_9709_Q1_SIZE[0]));
     expect(image).toHaveAttribute("height", String(KNOWN_9709_Q1_SIZE[1]));
     expect(shapeOf(container.querySelector(".asset-placeholder")!)).toBe(shapeOf(image));
+  });
+
+  it("gives a reviewed clipped 0606 crop a placeholder of its clipped shape", async () => {
+    verifyBytes.mockResolvedValue(new Blob(["verified-image"], { type: "image/webp" }));
+    Object.defineProperty(URL, "createObjectURL", { configurable: true, value: vi.fn(() => "blob:verified-q11") });
+    Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: vi.fn() });
+    const placeholder = visiblePlaceholderSize("igcse-additional", id, [crop.fullWidthPx, crop.fullHeightPx]);
+    expect(placeholder).toEqual([1070, 3153]);
+    expect(visiblePlaceholderSize("igcse-additional", id, [1070, 4000])).toEqual([1070, 4000]);
+    const { container } = render(<><AssetPlaceholder size={placeholder} />
+      <SourceCropImage bankSlug="igcse-additional" questionId={id} src="/q11.webp" alt="Q11" crop={crop} size={[crop.fullWidthPx, crop.fullHeightPx]} /></>);
+    const [loading, verifying] = container.querySelectorAll(".asset-placeholder, .source-tail-clipped");
+    expect(shapeOf(loading)).toBe(shapeOf(verifying));
+    await screen.findByRole("img", { name: "Q11" });
+    expect(shapeOf(container.querySelector(".source-tail-clipped")!)).toBe(shapeOf(loading));
   });
 
   it("keeps placeholder and image the same shape when the size is unknown", () => {

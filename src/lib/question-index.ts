@@ -27,6 +27,8 @@ export type PublicQuestionMetadata = {
   marks: number | null;
   questionImageCount: number;
   markschemeImageCount: number;
+  /** Pixel [width, height] of each question image (null where unknown), so its placeholder has the image's shape. */
+  imageSizes?: Array<[number, number] | null>;
   /** Shared case study (IB Business Management): the leading question images that every question of one case repeats. */
   stimulusId?: string;
   stimulusImageCount?: number;
@@ -63,19 +65,26 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
     marks: question.marks,
     questionImageCount: question.questionImageCount,
     markschemeImageCount: question.markschemeImageCount,
+    ...(Array.isArray(question.imageSizes) && question.imageSizes.length === question.questionImageCount && question.imageSizes.some(Boolean)
+      ? { imageSizes: question.imageSizes.map((size) => size && [size[0], size[1]] as [number, number]) } : {}),
     ...(question.stimulusId && question.stimulusImageCount ? { stimulusId: question.stimulusId, stimulusImageCount: question.stimulusImageCount, ...(question.stimulusKey ? { stimulusKey: question.stimulusKey } : {}) } : {}),
     ...(question.hasExplanation ? { hasExplanation: true as const } : {}),
   } satisfies PublicQuestionMetadata;
 }
 
+/**
+ * `imageSizes` (src/data/image-shapes, via loadQuestionImageShapes) gives each card's question
+ * images their real shape, as scripts/generate-bank-index.mjs does for the static index.
+ */
 export function createPublicBankIndex(
   bank: BankSlug,
   questions: readonly UnifiedQuestion[],
+  imageSizes?: (questionId: string) => Array<[number, number] | null> | undefined,
 ): PublicBankIndex {
   return {
     version: PUBLIC_BANK_INDEX_VERSION,
     bank,
-    questions: questions.map(toPublicQuestionMetadata),
+    questions: questions.map((question) => toPublicQuestionMetadata(imageSizes ? { ...question, imageSizes: imageSizes(question.id) } : question)),
   };
 }
 
