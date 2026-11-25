@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { NOTES_HOME_HREF } from "@/lib/course-notes/visibility";
 import { requestPracticeMode } from "@/lib/practice-mode";
-import { readRememberedBoard } from "@/lib/remembered-board";
+import { BOARD_CHANGE_EVENT, readRememberedBoard } from "@/lib/remembered-board";
 
 function current(pathname: string, destination: "papers" | "banks" | "articles" | "pricing" | "account" | "worksheets" | "dashboard" | "login" | "notes") {
   if (destination === "papers") return pathname === "/past-papers" || pathname.startsWith("/past-papers/");
@@ -27,9 +27,14 @@ export function HeaderNavigation({ authenticated, workspaceIcon, menuOpen = fals
   // /past-papers itself stays the all-board index. Re-read on each navigation, after hydration.
   const [papersHref, setPapersHref] = useState("/past-papers");
   useEffect(() => {
-    const board = readRememberedBoard();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is client-only; read after hydration
-    setPapersHref(board ? `/past-papers/${board}` : "/past-papers");
+    const sync = () => {
+      const board = readRememberedBoard();
+      setPapersHref(board ? `/past-papers/${board}` : "/past-papers");
+    };
+    sync();
+    // The page below may remember a new board after this effect runs (a board hub, a bank); follow it.
+    window.addEventListener(BOARD_CHANGE_EVENT, sync);
+    return () => window.removeEventListener(BOARD_CHANGE_EVENT, sync);
   }, [pathname]);
   return (
     <nav id="site-menu" className="site-menu" data-open={menuOpen ? "true" : "false"} aria-label="Main navigation" onClick={(event) => { if ((event.target as Element).closest("a")) onNavigate?.(); }}>

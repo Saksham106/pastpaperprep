@@ -5,6 +5,7 @@ import { EXPLORER_PAGE_SIZE, parseExplorerState, type ExplorerSearchParams } fro
 import { filterQuestions } from "@/lib/question-filter";
 import { getQuestionRichDetails } from "@/lib/question-delivery";
 import { mergeQuestionRichDetails, publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
+import { loadQuestionImageShapes } from "@/lib/question-image-shapes";
 import { loadBankQuestions } from "@/lib/question-loader";
 import { FEED_TEASER_LIMIT, feedTeaserPool, type FeedTeaser } from "@/lib/upgrade-copy";
 
@@ -35,11 +36,15 @@ export async function loadBankExplorer(slug: BankSlug, routePreset: ExplorerSear
     .filter((question) => !initialState.freeOnly || isPreviewQuestion(slug, question.id))
     .filter(() => !initialState.savedOnly);
   const sourceById = new Map(allQuestions.map((question) => [question.id, question]));
+  // The same image sizes the public bank index carries, so first-page placeholders hold each image's shape.
+  const shapesOf = await loadQuestionImageShapes(slug);
   const initialQuestions = initialMatches.slice(0, EXPLORER_PAGE_SIZE).map((question) => {
     const sourceQuestion = sourceById.get(question.id);
+    const imageSizes = shapesOf(question.id);
+    const sized = imageSizes?.length === question.questionImageCount ? { ...question, imageSizes } : question;
     return sourceQuestion
-      ? mergeQuestionRichDetails(question, getQuestionRichDetails(sourceQuestion, [], new Date(), localPreview))
-      : question;
+      ? mergeQuestionRichDetails(sized, getQuestionRichDetails(sourceQuestion, [], new Date(), localPreview))
+      : sized;
   });
   // The page's paid-question teasers, so the feed cards are in the HTML instead of arriving with the full index.
   const initialTeasers = initialState.freeOnly

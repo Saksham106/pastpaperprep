@@ -107,12 +107,33 @@ describe("PastPaperReader", () => {
     let height = 1000;
     Object.defineProperty(first, "offsetHeight", { get: () => height });
     stage.scrollTop = 400; fireEvent.scroll(stage);
+    await act(async () => { await new Promise(resolve => requestAnimationFrame(() => resolve(null))); });
     height = 1500;
     fireEvent.click(screen.getByRole("button", { name: "Focus view" }));
     expect(stage.scrollTop).toBe(600);
     height = 1000;
     fireEvent.click(screen.getByRole("button", { name: "Exit focus view" }));
     expect(stage.scrollTop).toBe(400);
+  });
+  it("keeps the position when Focus view opens before the queued scroll read has run", async () => {
+    const frames: FrameRequestCallback[] = [];
+    const raf = vi.spyOn(window, "requestAnimationFrame").mockImplementation(callback => { frames.push(callback); return frames.length; });
+    try {
+      render(<PastPaperReader />);
+      await screen.findByRole("img", { name: /Question paper, page 1/ });
+      const stage = screen.getByRole("tabpanel");
+      const first = document.querySelector('[data-paper-page="1"]') as HTMLElement;
+      // Page height follows the layout: 1,500 px only while Focus view is showing.
+      Object.defineProperty(first, "offsetHeight", { get: () => stage.closest("dialog")?.getAttribute("aria-label")?.includes("Focus view") ? 1500 : 1000 });
+      stage.scrollTop = 400; fireEvent.scroll(stage);
+      // The scroll read is still queued in a held frame; Focus view must not wait for it.
+      fireEvent.click(screen.getByRole("button", { name: "Focus view" }));
+      expect(stage.scrollTop).toBe(600);
+      // A frame that runs late must not overwrite the anchor with the new geometry.
+      for (const frame of frames.splice(0)) frame(0);
+      fireEvent.click(screen.getByRole("button", { name: "Exit focus view" }));
+      expect(stage.scrollTop).toBe(400);
+    } finally { raf.mockRestore(); }
   });
   it("validates custom minutes and announces expiry without taking away the PDF", async () => {
     const clock = vi.spyOn(Date, "now").mockReturnValue(1000);
@@ -216,6 +237,18 @@ describe("PastPaperReader", () => {
     fireEvent.click(screen.getByRole("button", { name: "Retry PDF" }));
     await waitFor(() => expect(screen.getByRole("img", { name: /Question paper, page 1/ })).toBeInTheDocument());
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+  it("reuses a loaded PDF when switching tabs and back instead of fetching it again", async () => {
+    const view = render(<PastPaperReader />);
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    fireEvent.click(screen.getByRole("tab", { name: "Mark scheme" }));
+    await screen.findByRole("img", { name: /Mark scheme, page 1/ });
+    fireEvent.click(screen.getByRole("tab", { name: "Question paper" }));
+    expect(screen.queryByText("Loading original PDF…")).not.toBeInTheDocument();
+    await screen.findByRole("img", { name: /Question paper, page 1/ });
+    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(mocks.getDocument).toHaveBeenCalledTimes(2);
+    view.unmount();
   });
   it("opens native focus view and restores focus and scrolling after Escape", async () => {
     render(<PastPaperReader />);

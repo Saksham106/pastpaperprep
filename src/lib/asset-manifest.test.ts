@@ -67,8 +67,13 @@ describe("authorizeManifestAssetRequests", () => {
 
   it("returns paths and unrestricted details for allowed assets", () => {
     expect(authorizeManifestAssetRequests("ib-sl", [{ questionId: "2017-may-p1-tz1-q1", kind: "answer" }], [], manifest)).toEqual([
-      { questionId: "2017-may-p1-tz1-q1", kind: "answer", paths: ["m.webp"], details: entry.details },
+      { questionId: "2017-may-p1-tz1-q1", kind: "answer", paths: ["m.webp"], sizesPx: [null], details: entry.details },
     ]);
+  });
+
+  it("returns each delivered image's pixel size, aligned with its path", () => {
+    const sized = new Map([["2017-may-p1-tz1-q1", { ...entry, markschemeAssetSizes: [[1098, 185]] as Array<[number, number] | null> }]]);
+    expect(authorizeManifestAssetRequests("ib-sl", [{ questionId: "2017-may-p1-tz1-q1", kind: "answer" }], [], sized)[0].sizesPx).toEqual([[1098, 185]]);
   });
 
   it("refuses paid assets without an entitlement", () => {

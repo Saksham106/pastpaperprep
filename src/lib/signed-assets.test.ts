@@ -191,6 +191,17 @@ describe("fetchSignedAssets", () => {
       .rejects.toThrow("Invalid signed asset response");
   });
 
+  it("keeps each image's pixel size and rejects sizes that do not line up with the links", async () => {
+    const id = "9709-2026-m-12-q1";
+    const asset = { questionId: id, kind: "question", urls: ["https://signed.test/a.webp", "https://signed.test/b.webp"], sizesPx: [[1070, 312], null] };
+    const signed = await fetchSignedAssets("a-level-maths-9709", [{ questionId: id, kind: "question" }], vi.fn(async () => Response.json({ expiresIn: 600, assets: [asset] })));
+    expect(signed.get(`${id}:question`)?.sizesPx).toEqual([[1070, 312], null]);
+    for (const sizesPx of [[[1070, 312]], [[1070, 0], null], [[1070.5, 312], null], [["1070", 312], null]]) {
+      await expect(fetchSignedAssets("a-level-maths-9709", [{ questionId: id, kind: "question" }], vi.fn(async () => Response.json({ expiresIn: 600, assets: [{ ...asset, sizesPx }] }))))
+        .rejects.toThrow("Invalid signed asset response");
+    }
+  });
+
   it("keeps local preview asset signing explicit and isolated", async () => {
     const fetcher = vi.fn(async (_input: RequestInfo | URL, init?: RequestInit) => {
       const body = JSON.parse(String(init?.body)) as { requests: typeof requests };

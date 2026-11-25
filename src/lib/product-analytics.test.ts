@@ -54,7 +54,7 @@ describe("PostHog product analytics", () => {
       expect(posthog.init).toHaveBeenCalledTimes(1);
       expect(posthog.capture).toHaveBeenCalledWith("checkout_start", {});
       const beforeSend = posthog.init.mock.calls[0][1].before_send as (event: { properties: Record<string, unknown> }) => { properties: Record<string, unknown> } | null;
-      expect(beforeSend({ properties: { $timezone: "Asia/Singapore" } })?.properties).toEqual({ $timezone: "Asia/Singapore" });
+      expect(beforeSend({ properties: { $timezone: "Asia/Singapore" } })?.properties).toEqual({ $timezone: "Asia/Singapore", signed_in: false });
     } finally {
       vi.doUnmock("@/lib/timezone-country");
     }
@@ -74,7 +74,11 @@ describe("PostHog product analytics", () => {
       defaults: "2026-05-30",
       autocapture: false,
       capture_pageview: false,
-      capture_pageleave: false,
+      capture_pageleave: true,
+      capture_heatmaps: true,
+      capture_dead_clicks: { capture_dead_swipes: false },
+      mask_all_text: true,
+      mask_all_element_attributes: true,
       cookieless_mode: "always",
       person_profiles: "never",
       persistence: "memory",
@@ -226,7 +230,7 @@ describe("PostHog product analytics", () => {
       await analytics.initializeProductAnalytics();
       const beforeSend = posthog.init.mock.calls[0][1].before_send;
       const result = beforeSend({ properties: { $current_url: "https://pastpaperprep.com/privacy?token=private" } });
-      expect(result.properties).toEqual({ $current_url: "https://pastpaperprep.com/privacy", analytics_verification: true });
+      expect(result.properties).toEqual({ $current_url: "https://pastpaperprep.com/privacy", signed_in: false, analytics_verification: true });
       await analytics.initializeConsentedAnalytics();
       const consentedBeforeSend = posthog.init.mock.calls[1][1].before_send;
       expect(consentedBeforeSend({ properties: { $current_url: "https://pastpaperprep.com/privacy?token=private" } }).properties).toEqual({ $current_url: "https://pastpaperprep.com/privacy", analytics_verification: true });
@@ -285,6 +289,63 @@ describe("PostHog product analytics", () => {
       $referrer: "https://pastpaperprep.com/login",
       bankCount: 3,
     });
+  });
+
+  it("keys heatmap batches by origin and path only, merging pages that differ by query", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const point = { x: 10, y: 20, target_fixed: false, type: "click" };
+    const result = sanitizeAnalyticsEvent({ event: "$$heatmap", properties: { $heatmap_data: {
+      "https://pastpaperprep.com/banks/igcse?topics=Algebra#top": [point],
+      "https://pastpaperprep.com/banks/igcse": [point],
+      "javascript:alert(1)": [point],
+      "https://user:pass@pastpaperprep.com/banks/igcse": [point],
+    } } });
+    expect(result?.properties).toEqual({ $heatmap_data: { "https://pastpaperprep.com/banks/igcse": [point, point] } });
+  });
+
+  it("sends heatmap clicks only from public study pages, and never mouse movement", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    const click = { x: 1, y: 2, target_fixed: false, type: "click" };
+    const move = { x: 3, y: 4, target_fixed: false, type: "mousemove" };
+    const result = sanitizeAnalyticsEvent({ event: "$$heatmap", properties: { $heatmap_data: {
+      "https://pastpaperprep.com/": [click, move],
+      "https://pastpaperprep.com/past-papers/igcse-0580/2024": [move],
+      "https://pastpaperprep.com/auth/email-link?token_hash=private#access_token=private": [click],
+      "https://pastpaperprep.com/invite/abc123": [click],
+      "https://pastpaperprep.com/account": [click],
+      "https://pastpaperprep.com/dashboard": [click],
+      "https://pastpaperprep.com/worksheets/abc": [click],
+      "https://pastpaperprep.com/login": [click],
+    } } });
+    expect(result?.properties).toEqual({ $heatmap_data: { "https://pastpaperprep.com/": [click] } });
+    expect(sanitizeAnalyticsEvent({ event: "$$heatmap", properties: { $heatmap_data: { "https://pastpaperprep.com/account": [click] } } })).toBeNull();
+  });
+
+  it("sends dead clicks only from public study pages and never dead swipes", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $pathname: "/banks/igcse", $dead_click_scroll_delay_ms: 5 } })?.properties)
+      .toEqual({ $pathname: "/banks/igcse", $dead_click_scroll_delay_ms: 5 });
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $current_url: "https://pastpaperprep.com/account?tab=billing" } })).toBeNull();
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $pathname: "/invite/abc" } })).toBeNull();
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: {} })).toBeNull();
+    expect(sanitizeAnalyticsEvent({ event: "$dead_swipe", properties: { $pathname: "/banks/igcse" } })).toBeNull();
+  });
+
+  it("never sends an element's text from dead clicks or other element events", async () => {
+    const { sanitizeAnalyticsEvent } = await import("@/lib/product-analytics");
+    expect(sanitizeAnalyticsEvent({ event: "$dead_click", properties: { $pathname: "/banks/igcse", $el_text: "Alex's worksheet", $dead_click_scroll_delay_ms: 1200 } })?.properties)
+      .toEqual({ $pathname: "/banks/igcse", $dead_click_scroll_delay_ms: 1200 });
+  });
+
+  it("labels anonymous events with signed-in state and network, but not heatmap batches", async () => {
+    vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "phc_test_project_token");
+    const analytics = await import("@/lib/product-analytics");
+    await analytics.initializeProductAnalytics();
+    const beforeSend = posthog.init.mock.calls[0][1].before_send as (event: { event?: string; properties: Record<string, unknown> }) => { properties: Record<string, unknown> } | null;
+    expect(beforeSend({ event: "$pageleave", properties: { $prev_pageview_max_scroll_percentage: 0.6 } })?.properties)
+      .toEqual({ $prev_pageview_max_scroll_percentage: 0.6, signed_in: false });
+    const heatmap = { $heatmap_data: { "https://pastpaperprep.com/banks/igcse": [{ x: 1, y: 2, type: "click" }] } };
+    expect(beforeSend({ event: "$$heatmap", properties: heatmap })?.properties).toEqual(heatmap);
   });
 
   it("drops invalid analytics URLs", async () => {

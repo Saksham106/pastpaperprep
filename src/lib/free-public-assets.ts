@@ -1,5 +1,5 @@
 import { isPreviewQuestion } from "@/lib/access";
-import { ASSET_KINDS, assetPathsForKind, deliveredAssetPaths, type AssetKind } from "@/lib/asset-kinds";
+import { ASSET_KINDS, assetPathsForKind, deliveredAssetPaths, deliveredAssetSizes, sizesPxField, type AssetKind } from "@/lib/asset-kinds";
 import type { AssetManifest } from "@/lib/asset-manifest";
 import type { BankSlug } from "@/lib/banks";
 import { explanationAssetSignOptions, isR2OnlyObjectPath, previewAssetSignOptions } from "@/lib/private-asset-providers";
@@ -65,6 +65,7 @@ export function buildFreeAssetIndex(
       question[kind] = {
         urls: paths.map(freePublicAssetUrl),
         displayCrops: paths.map((path) => reviewedBlankTailForSignedAsset(bank, questionId, kind, path)),
+        ...sizesPxField(deliveredAssetSizes(entry, kind)),
         ...(mcqAnswer ? { mcqAnswer } : {}),
       };
     }

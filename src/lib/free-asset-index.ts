@@ -10,7 +10,8 @@ export const FREE_PUBLIC_ASSET_PREFIX = "images/";
 export const FREE_ASSET_INDEX_VERSION = 1;
 
 /** `mcqAnswer` appears only on the answer entry of a free-year multiple-choice question. */
-export type FreeAssetIndexEntry = { urls: string[]; displayCrops: Array<VisibleImageCrop | null>; mcqAnswer?: McqAnswer };
+/** `sizesPx`: pixel [width, height] per URL, so pages reserve each image's box before it loads. */
+export type FreeAssetIndexEntry = { urls: string[]; displayCrops: Array<VisibleImageCrop | null>; sizesPx?: Array<[number, number] | null>; mcqAnswer?: McqAnswer };
 export type FreeAssetIndex = {
   version: typeof FREE_ASSET_INDEX_VERSION;
   bank: BankSlug;

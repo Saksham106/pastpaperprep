@@ -3,11 +3,17 @@ import { withPostHogConfig } from "@posthog/nextjs-config";
 import { getPostHogBuildConfig } from "@/lib/posthog-build-config";
 import { bankUrlAliases } from "@/lib/bank-url-aliases";
 
+// Set by scripts/agent-server.mjs (`npm run dev:agent` / `preview:agent`): load pages on
+// first request instead of at start (0.65 -> 0.43 GB for `next start`). Builds and the
+// owner's `npm run dev` are unaffected.
+const agentServer = process.env.PASTPAPERPREP_AGENT_SERVER === "1";
+
 const nextConfig: NextConfig = {
   experimental: {
     // Vercel exposes two build cores. Using both keeps static-generation workers
     // below the per-worker heap ceiling as the question corpus grows.
     cpus: 2,
+    ...(agentServer ? { preloadEntriesOnStart: false } : {}),
   },
   outputFileTracingIncludes: {
     "/api/exam-style/worksheets/[course]/[slug]": ["./private/exam-style/**/*.pdf"],
@@ -15,6 +21,10 @@ const nextConfig: NextConfig = {
     "/api/assets/free": ["./generated/asset-manifest/**"],
     "/api/study-state": ["./generated/asset-manifest/**"],
     "/api/questions/search": ["./generated/question-search/**"],
+    // Question-image shapes for the first page of cards (src/lib/question-image-shapes.ts).
+    "/banks/**": ["./src/data/image-shapes/*.json"],
+    "/api/private-bank-index/[bank]": ["./src/data/image-shapes/*.json"],
+    "/api/helper": ["./public/search/*.json", "./public/bank-index/*.json"],
     "/past-papers": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
     "/past-papers/**": ["./src/data/paper-archives/*.json", "./src/data/paper-archive-readback.json"],
   },
@@ -53,6 +63,8 @@ const nextConfig: NextConfig = {
   // Release IDs are public build metadata; credentials remain server-only.
   env: {
     NEXT_PUBLIC_BUILD_REVISION: process.env.NEXT_PUBLIC_BUILD_REVISION || process.env.VERCEL_GIT_COMMIT_SHA || "local",
+    // Only whether a key exists; the AI helper's button stays hidden on deployments without one.
+    NEXT_PUBLIC_HELPER_ENABLED: process.env.ANTHROPIC_API_KEY ? "1" : "",
   },
   images: {
     // One quality for everything. The landing artwork at 75 looks the same as 90 at display

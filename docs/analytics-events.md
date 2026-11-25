@@ -14,14 +14,32 @@ No email, name or account ID is ever sent without consent.
 
 Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous client as `$web_vitals`. It is switched on by PostHog's project setting (Web vitals autocapture), not in code, and nested URLs are scrubbed by `sanitizeAnalyticsEvent`. Code only asks for attribution on CLS, INP and LCP, so each event's `attribution` names the element involved (for CLS, `largestShiftTarget`, a CSS selector). Vercel Web Analytics and Speed Insights were removed in November 2026: they duplicated PostHog and bill per event on Vercel Pro.
 
+**Behaviour capture (anonymous client only, since 2026-11-24).** Autocapture and session replay stay off. This is part of the disclosed anonymous baseline, not the consent layer: it carries no identifier, and positions are only kept for public pages. The cookieless client also sends:
+- `$pageleave` (`capture_pageleave: true`), on every page. It carries `$prev_pageview_duration` and `$prev_pageview_max_scroll_percentage`; the next `$pageview` carries the same for the page before it. Cookieless mode has no client `$session_id`, so check what PostHog's Web analytics bounce and session figures actually use before relying on them; time on page and scroll depth come from these properties directly.
+- Heatmaps (`capture_heatmaps: true`): `$$heatmap` batches. `sanitizeAnalyticsEvent` keeps only `click`, `rageclick` and `deadclick` points (mouse-movement traces are dropped) on public study pages (`isBehaviourCapturePath`: home, banks, past papers, revision notes, articles, pricing, course landing pages, syllabus, grade thresholds, teachers, updates, FAQ). Sign-in, auth, account, dashboard, worksheets, invite/referral and every other route send no positions. Keys are re-keyed to origin and path. Heatmap data isn't billed; the free plan shows heatmaps for 3 chosen pages.
+- `$dead_click` (`capture_dead_clicks: { capture_dead_swipes: false }`): a click after which nothing on the page changed, from the same public pages only (billed as a normal event). `$dead_swipe` is off and also dropped by the scrubber. The SDK masks element text and attribute values (`mask_all_text`, `mask_all_element_attributes`), so elements carry only tag and position, and `$el_text` is dropped again in the scrubber. Add the `ph-no-deadclick` class to deliberately inert elements.
+- Invite and referral codes in paths (`/invite/<code>`, `/r/<code>`) become `:code` in every URL and path property.
+- Every anonymous event except heatmap batches carries `signed_in` (boolean, never the account), plus `connection` (`slow-2g`…`4g`), `save_data` and `release` where the browser exposes them (`analyticsEventContext`). Use them to split Web Vitals by network and to compare before/after a deploy.
+
 ## Browser events (`trackProductEvent`)
 
 | Event | Where | Properties |
 |---|---|---|
 | `$pageview` | every page | (path) |
 | `question_filter_change` | bank page | `bank`, `filter` |
+| `question_list_more` | bank page, "Show 24 more questions" | `bank`, `shown` (questions listed after the click) |
+| `question_list_empty` | bank page, when the student's own filter or search leaves no questions, after the full bank index has loaded and the server search has answered successfully (a failed search falls back to local matching and is not counted); not for saved-only, worksheet or shared lists; once per settled state (800 ms), never the search text | `bank`, `filters` (number of picked values), `search` (boolean), `freeOnly` |
+| `question_image_first_load` | bank page loaded directly (not reached by in-app navigation): the first question image finishing loading, once per document | `bank`, `ms` (since the document started loading, so a page-load time), `host` (store of the source link), `verifiedCrop` (hash-checked crop, so `ms` includes that check) |
 | `answer_reveal` | bank page | `bank`, `freePreview` |
 | `explanation_open` | bank page, Explanation button | `bank`, `freePreview` |
+| `helper_open` | "Ask" button on an unlocked question card (or the phone page opened from its QR code, `surface: "phone"`) | `bank`, `freePreview`, `surface?` |
+| `helper_chip` | a chip in the helper panel | `bank`, `chip` (`mark`, `hint`, `explain`), `freePreview` |
+| `helper_send` | any helper message | `bank`, `mode` (`mark`, `hint`, `explain`, `chat`), `photo`, `freePreview` |
+| `helper_result` | a helper reply finished | `bank`, `mode`, `freePreview`, `score?`/`total?` (marking only, read from the reply's "Mark: X / Y" line) |
+| `helper_limit` / `helper_error` | a message couldn't be paid for (weekly credits, packs or the daily guard) / a helper message failed | `bank`, `freePreview`, `mode?`, `code?` (HTTP status) |
+| `helper_credits_click` | a button on Pepper's out-of-credits note | `surface`, `action` (`packs`, `upgrade`) |
+| `helper_pack_checkout` | a credit pack button on /account | `pack` (`credits_1000`, `credits_3000`) |
+| `helper_phone_qr` / `helper_signin_click` | "Use your phone's camera" QR shown / sign-in link in the helper panel | `bank`, `freePreview?`, `action?` |
 | `question_full_paper_click` | bank page, "Full paper" link on an unlocked question card | `bank` |
 | `worked_answer_link_copy` | free past-paper page, copy-link icon on a worked-answer row | `bank`, `paper` (archive id), `question` (number) |
 | `question_notes_click` | bank page, "Learn this topic" link on an AA question card; only rendered while the AA notes course is visible | `bank` |
@@ -44,7 +62,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error), `react_mismatch?` (`text`/`html` for React #418), plus the browser context below |
 | `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`; network failures are skipped while the page unloads, is hidden or offline, and sent once per route per 30 s) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
-| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `other`), `user_id?` |
+| `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `blob` (a hash-verified crop), `other`), `user_id?` |
 | `past_paper_search` | past-paper search box (Enter or a suggestion) | `found` |
 | `home_search` | landing-page search box (Enter or a result) | `found`, `kind` (paper, topic, topics, papers, none), `intent` |
 | `past_paper_open` | free paper page | `bank`, `paper` |

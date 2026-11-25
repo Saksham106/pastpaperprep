@@ -48,3 +48,15 @@ export function reviewedBlankSourcePage(questionId: string): number | null {
   const item = (approved.entries as unknown as Record<string, ReviewedTail>)[questionId];
   return item?.blankSourcePage ?? null;
 }
+
+/**
+ * The shape a question's first image shows while loading: a reviewed 0606 crop is shown clipped
+ * to its visible height, so its placeholder is too. Any other size, including a different image
+ * under the same question, is returned unchanged.
+ */
+export function visiblePlaceholderSize(bank: BankSlug, questionId: string, size: readonly [number, number] | null | undefined): readonly [number, number] | null | undefined {
+  if (bank !== "igcse-additional" || !size) return size;
+  const item = (approved.entries as unknown as Record<string, ReviewedTail>)[questionId];
+  return item && size[0] === item.rasterSizePx[0] && size[1] === item.rasterSizePx[1] && item.visibleHeightPx < size[1]
+    ? [size[0], item.visibleHeightPx] : size;
+}

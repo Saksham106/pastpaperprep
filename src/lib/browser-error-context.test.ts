@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { browserErrorContext, reactMismatchKind } from "./browser-error-context";
+import { analyticsEventContext, browserErrorContext, reactMismatchKind } from "./browser-error-context";
 
 function resetDocument() {
   const html = document.documentElement;
@@ -80,6 +80,23 @@ describe("browser error context: environment", () => {
     expect(context).not.toHaveProperty("connection");
     expect(context).not.toHaveProperty("save_data");
     expect(context).not.toHaveProperty("release");
+  });
+});
+
+describe("analytics event context", () => {
+  afterEach(() => { vi.unstubAllEnvs(); });
+
+  it("keeps only connection, data saver and release, in the fixed vocabulary", () => {
+    vi.stubEnv("NEXT_PUBLIC_BUILD_REVISION", "99e8cb22e0de1d7b4154fef0252fa881802db971");
+    const fakeWindow = { navigator: { onLine: true, connection: { effectiveType: "4g", saveData: false } } } as unknown as Window;
+    expect(analyticsEventContext(fakeWindow)).toEqual({ connection: "4g", save_data: false, release: "99e8cb22e0de" });
+  });
+
+  it("drops anything outside it", () => {
+    vi.stubEnv("NEXT_PUBLIC_BUILD_REVISION", "my-branch/alice");
+    const fakeWindow = { navigator: { connection: { effectiveType: "<script>", saveData: "yes" } } } as unknown as Window;
+    expect(analyticsEventContext(fakeWindow)).toEqual({});
+    expect(analyticsEventContext({ navigator: {} } as unknown as Window)).toEqual({});
   });
 });
 

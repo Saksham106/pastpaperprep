@@ -3,6 +3,7 @@ import { Geist, IBM_Plex_Mono, Young_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
+import { SiteHelper } from "@/components/helper/SiteHelper";
 import { notesNavVisible } from "@/lib/course-notes/visibility";
 import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
 import { SiteTelemetry } from "@/components/SiteTelemetry";
@@ -15,7 +16,9 @@ import { SESSION_HINT_SCRIPT } from "@/lib/supabase/auth-cookie";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 const youngSerif = Young_Serif({ variable: "--font-young-serif", subsets: ["latin"], weight: "400" });
-const mono = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400", "500", "600"] });
+// Small labels only: three weights preloaded at high priority competed with the CSS and the LCP
+// image on every page. They still load (swap, with size-matched fallback metrics), just not first.
+const mono = IBM_Plex_Mono({ variable: "--font-mono", subsets: ["latin"], weight: ["400", "500", "600"], preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pastpaperprep.com"),
@@ -70,6 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <main><PageTransition>{children}</PageTransition></main>
           <SiteFooter />
           <SiteTelemetry />
+          <SiteHelper />
         </ThemeProvider>
       </body>
     </html>

@@ -11,6 +11,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
 import { lifetimeCheckoutMetadataIsValid, LIFETIME_OFFER } from "@/lib/lifetime-offer";
 import { finishLifetimeConversion } from "@/lib/lifetime-conversion-fulfillment";
+import { fulfillHelperPack, revokeHelperPackPayment } from "@/lib/helper/pack-fulfillment";
 
 export const runtime = "nodejs";
 
@@ -64,6 +65,10 @@ async function handlePOST(request: Request) {
   }
   if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
     const session = event.data.object as Stripe.Checkout.Session;
+    if (session.metadata?.purchase_type === "helper_credits") {
+      const result = await fulfillHelperPack(stripe, admin, session, event.created);
+      return NextResponse.json(result.body, { status: result.status });
+    }
     if (session.metadata?.purchase_type !== "lifetime") return NextResponse.json({ received: true });
     if (session.metadata.conversion_intent_id !== undefined && session.metadata.conversion_intent_id !== session.metadata.billing_intent_id) return NextResponse.json({ error: "Invalid conversion intent" }, { status: 400 });
     if (!lifetimeCheckoutMetadataIsValid(session.metadata, session.client_reference_id ?? "") || session.mode !== "payment") {
@@ -150,6 +155,12 @@ async function handlePOST(request: Request) {
     const pi = typeof rawPaymentIntent === "string" ? rawPaymentIntent
       : rawPaymentIntent && typeof rawPaymentIntent === "object" ? rawPaymentIntent.id : null;
     if (pi) {
+      // Pepper credit packs: any refund, or a new dispute, removes the pack's unused credits.
+      const packRevocation = event.type === "charge.refunded" ? ((charge as Stripe.Charge).amount_refunded > 0 ? "refunded" : null)
+        : event.type === "charge.dispute.created" ? "disputed" : null;
+      if (packRevocation && !(await revokeHelperPackPayment(stripe, admin, pi, packRevocation))) {
+        return NextResponse.json({ error: "Credit pack revocation failed" }, { status: 500 });
+      }
       const fullRefund = !isDispute && (charge as Stripe.Charge).amount_refunded >= (charge as Stripe.Charge).amount;
       const dispute = isDispute ? charge as Stripe.Dispute : null;
       const disputeId = dispute?.id;

@@ -117,6 +117,8 @@ describe("Chemistry 0620 audited base classification production overlay", () => 
     const historicalIndex = { ...activeIndex, questions: activeIndex.questions.map((published: { id: string; questionImageCount: number; markschemeImageCount: number; hasExplanation?: boolean; marks?: number | null }) => {
       const row = { ...published };
       delete row.hasExplanation;
+      // So are image sizes, a layout hint for card placeholders (src/data/image-shapes).
+      delete (row as { imageSizes?: unknown }).imageSizes;
       if (printedMarks.has(row.id)) row.marks = printedMarks.get(row.id);
       // So is a reviewed removed-part total (docs/igcse-science-removed-part-marks.md).
       const removed = (removedPartMarks.entries as Record<string, Record<string, { old: number | null }>>)["igcse-chemistry-0620"]?.[row.id];

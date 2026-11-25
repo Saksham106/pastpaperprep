@@ -5,7 +5,7 @@ export default function PrivacyPage() {
     <article className="legal-page shell">
       <p className="eyebrow">Legal</p>
       <h1>Privacy policy</h1>
-      <p className="legal-updated">Updated 28 October 2026</p>
+      <p className="legal-updated">Updated 24 November 2026</p>
       <h2>What we collect</h2>
       <p>We collect account details such as your email address, product access, saved questions, study activity, and basic technical logs needed to operate and secure the service. We also collect anonymous, cookieless usage and performance statistics. If you allow optional analytics cookies, we additionally measure returning visits and, when signed in, account-linked activity.</p>
       <h2>How we use it</h2>
@@ -14,11 +14,13 @@ export default function PrivacyPage() {
       <p>We measure pageviews, product use and performance anonymously, without cookies or persistent identifiers. This runs whatever your cookie choice. To see which countries visitors come from, we estimate an approximate country from your browser’s time zone; your IP address is not used for this.</p>
       <p>If you allow optional analytics cookies, we also recognise returning visits. If you are signed in and accept the current analytics choice, we link your activity to your account and share your email address with our analytics provider. Earlier analytics acceptance does not authorize email disclosure.</p>
       <p>To find and fix problems, we record redacted error reports (crashes, failed requests and images that fail to load) and keep server request logs for 14 days. When you are signed in, these include your account&apos;s random identifier, whatever your cookie choice, so we can see who a problem affected. They also note whether the page was translated or changed by a browser extension, and how long it had been open. They never include your name, email address, raw error messages, page text or anything you type.</p>
-      <p>Session replay and automatic click capture are disabled. We never send your answers or payment details to analytics. We keep an acceptance for up to 12 months and a rejection for 3 months, then ask again. If you close the banner without choosing, we ask again after 2 days.</p>
+      <p>To improve pages, the anonymous measurement also records how long a page stays open and how far it is scrolled. On public study pages (not sign-in, account, dashboard or worksheet pages) it records where people click (heatmaps) and clicks that don&apos;t respond. It does not record mouse movement or swipes. Each event notes whether you are signed in (not who you are), your connection speed and the site version. It never includes page text or anything you type.</p>
+      <p>Session replay is disabled. We never send your answers or payment details to analytics. We keep an acceptance for up to 12 months and a rejection for 3 months, then ask again. If you close the banner without choosing, we ask again after 2 days.</p>
       <h2>Referral links</h2>
       <p>When you visit through a customer or partner referral link, we store a first-party referral cookie for up to 30 days. If you create a verified account, we may associate the referral with your account to track a partner commission on your first purchase or a customer invite. Inviting customers see aggregate signup progress and awarded credits, not your identity or payment details. We manually review a referred customer’s first purchase before granting any invite reward.</p>
       <h2>Service providers</h2>
       <p>We use infrastructure, analytics, and payment providers, including Supabase, Vercel, PostHog, and Stripe. They process only the information required to provide their services under their own privacy terms.</p>
+      <p>When you use the study helper, your message, any photo of your working, and the question you are on are sent to Anthropic, which provides the AI model, to produce the reply. PastPaperPrep does not store helper conversations or photos on its servers; we only keep a daily count of helper messages for usage limits. Your browser keeps the text of your conversations in the open tab only, for your account, until you close the tab, use Clear chat or sign out (photos are not kept). Under its standard commercial terms, Anthropic deletes this data within 30 days, except where it must keep it longer for safety or legal reasons, and does not use it to train its models. Crop your name and candidate number out of photos before sending them.</p>
       <p>Our footer and Referrals page load Google’s “Add to Preferred Sources” button from Google (the footer only when you scroll to it), under Google’s privacy terms.</p>
       <h2>Payments</h2>
       <p>Card details are handled by Stripe and are not stored by PastPaperPrep.</p>

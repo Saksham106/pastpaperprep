@@ -76,3 +76,20 @@ export function reactMismatchKind(message: string): "text" | "html" | undefined 
   const kind = message.match(/react\.dev\/errors\/418\?args(?:\[\]|%5B%5D)=(text|HTML)(?:&|\s|$)/)?.[1];
   return kind === "text" ? "text" : kind === "HTML" ? "html" : undefined;
 }
+
+export type AnalyticsEventContext = { connection?: string; save_data?: boolean; release?: string };
+
+/**
+ * The small, fixed-vocabulary slice of the context above that rides on every anonymous event, so
+ * page speed and behaviour can be split by network quality and compared across releases.
+ */
+export function analyticsEventContext(win: Window): AnalyticsEventContext {
+  const navigator = win.navigator as Navigator & { connection?: { effectiveType?: unknown; saveData?: unknown } };
+  const connection = navigator?.connection;
+  const release = process.env.NEXT_PUBLIC_BUILD_REVISION;
+  return {
+    ...(typeof connection?.effectiveType === "string" && CONNECTIONS.has(connection.effectiveType) ? { connection: connection.effectiveType } : {}),
+    ...(typeof connection?.saveData === "boolean" ? { save_data: connection.saveData } : {}),
+    ...(typeof release === "string" && /^[0-9a-f]{7,40}$/.test(release) ? { release: release.slice(0, 12) } : {}),
+  };
+}

@@ -415,6 +415,28 @@ function protectedValues(raw) {
   ];
 }
 
+/** src/data/image-shapes/<bank>.json from scripts/generate-image-sizes.mts; null when the bank has none. */
+export async function readQuestionShapes(bank) {
+  return readFile(join(root, "src", "data", "image-shapes", `${bank}.json`), "utf8")
+    .then((text) => JSON.parse(text), (error) => { if (error.code === "ENOENT") return null; throw error; });
+}
+
+const isSize = (value) => Array.isArray(value) && value.length === 2 && value.every((part) => Number.isSafeInteger(part) && part > 0);
+
+/**
+ * Each question image's pixel size, so a card's loading placeholder has the image's shape. Same
+ * decoding as questionShapes in src/lib/image-sizes.ts; left out unless it covers every image.
+ */
+export function withImageSizes(question, shapes) {
+  const values = shapes && Object.hasOwn(shapes.questions, question.id) ? shapes.questions[question.id] : null;
+  if (!Array.isArray(values) || values.length !== question.questionImageCount) return question;
+  const imageSizes = values.map((value) => {
+    const size = typeof value === "number" ? [shapes.width, value] : value;
+    return isSize(size) ? [size[0], size[1]] : null;
+  });
+  return imageSizes.some(Boolean) ? { ...question, imageSizes } : question;
+}
+
 export async function generateBankIndexes() {
   const source0580 = await readFile(join(root, "src", "data", "raw", "igcse.json"));
   if (createHash("sha256").update(source0580).digest("hex") !== IGCSE_0580_SECTION_OVERLAY.sourceRawSha256 || JSON.parse(source0580).questions.length !== IGCSE_0580_SECTION_OVERLAY.expectedInventoryCount) throw new Error("0580 source bank drift before index generation");
@@ -428,11 +450,12 @@ export async function generateBankIndexes() {
   for (const { bank, directory } of publishedBankSources()) {
     const rawBank = JSON.parse(await readFile(join(root, "src", "data", directory, `${bank}.json`), "utf8"));
     const rawQuestions = rawBank.questions;
+    const shapes = await readQuestionShapes(bank);
     const questions = rawQuestions.map((raw) => metadataFromRaw(raw, {
       bank,
       normalizedProduction: directory === "production",
       localEconomics: bank === "ib-economics-hl" || bank === "ib-economics-sl",
-    })).sort(sortQuestions);
+    })).sort(sortQuestions).map((question) => withImageSizes(question, shapes));
     const payload = { version, bank, questions };
     const serialized = `${JSON.stringify(payload)}\n`;
     assertSafe(serialized, rawQuestions);
