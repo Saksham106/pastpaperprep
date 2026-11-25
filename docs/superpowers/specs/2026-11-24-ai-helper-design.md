@@ -31,7 +31,7 @@ On for every board: Cambridge IGCSE, A Level and IB (the owner switched IB on 20
   - MCQ questions send the key letter instead of a mark-scheme image.
   - The worked solution is sent as text when one exists. Without one, the AI works from the question and mark scheme alone (the owner's call: that's fine).
   - The context block is prompt-cached, so follow-ups within 5 minutes are cheap.
-- **Model:** Claude through the official Anthropic SDK. The default is `claude-opus-5-5` (the most accurate for marking handwriting); `HELPER_MODEL` overrides it. Effort is `medium` for marking and `low` for hints and chat. Server-side refusal fallback is on.
+- **Model:** Claude through the official Anthropic SDK. The default is `claude-sonnet-5-5` (owner choice: school-level help does not need Opus); `HELPER_MODEL` overrides it. Effort is `medium` for marking and `low` for hints and chat. Server-side refusal fallback is on.
 - **Conversation:** kept in the browser while the panel is open, never stored. Up to 12 earlier turns are resent; a photo is sent only with its own turn.
 - **Allowance:** a new table `helper_usage_daily` and the RPC `consume_helper_allowance(p_limit)`, following the atomic `download_usage_daily` pattern. The route passes the limit. Calling the RPC directly can only use up your own allowance faster.
 - **Rendering:** paragraphs, bullets, **bold** and `$maths$` / `$$display$$` through the existing KaTeX renderer (`ExplanationMath`).

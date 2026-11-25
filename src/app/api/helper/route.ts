@@ -16,7 +16,8 @@ export const runtime = "nodejs";
 export const maxDuration = 120;
 
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" } as const;
-const DEFAULT_MODEL = "claude-opus-5-5";
+// Owner choice: school-level help does not need Opus. Effort stays explicit (Sonnet 5.5 defaults to high).
+const DEFAULT_MODEL = "claude-sonnet-5-5";
 const EFFORT: Readonly<Record<HelperMode, "low" | "medium">> = { hint: "low", chat: "low", explain: "low", mark: "medium" };
 const CUT_OFF_NOTE = "\n\n_Sorry, that answer was cut off. Try again._";
 
