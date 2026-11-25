@@ -26,13 +26,8 @@ async function readWorksheetTitles(supabase: Awaited<ReturnType<typeof createCli
   }
 }
 
-function linkKey(params: Record<string, string | string[] | undefined>): string {
-  return Object.keys(params).sort().map((key) => `${key}=${[params[key]].flat().join(",")}`).join("&");
-}
-
-export default async function BuildPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const params = await searchParams;
-  const requested = params.bank;
+export default async function BuildPage({ searchParams }: { searchParams: Promise<{ bank?: string | string[] }> }) {
+  const requested = (await searchParams).bank;
   const requestedBank = typeof requested === "string" && /^[a-z0-9-]{1,40}$/.test(requested) ? requested : undefined;
   const supabase = await createClient();
   const { data } = await supabase.auth.getClaims();
@@ -59,8 +54,6 @@ export default async function BuildPage({ searchParams }: { searchParams: Promis
   return <div className="worksheet-library-page shell">
     <Link className="worksheet-library-back" href="/worksheets" aria-label="Back to my worksheets">← <span>My worksheets</span></Link>
     <header className="worksheet-library-header"><h1>Build a paper</h1></header>
-    {/* Keyed by the link: following a new builder link (Pepper's sets, a shared link) while here rebuilds from it. The
-        builder's own URL updates use history.replaceState, which doesn't re-render this page, so editing never remounts. */}
-    <PaperBuilder key={linkKey(params)} banks={banks} existingTitles={existingTitles} exportMarker={exportMarker} initialBank={banks.some((bank) => bank.slug === requestedBank) ? requestedBank as BankSlug : undefined} />
+    <PaperBuilder banks={banks} existingTitles={existingTitles} exportMarker={exportMarker} initialBank={banks.some((bank) => bank.slug === requestedBank) ? requestedBank as BankSlug : undefined} />
   </div>;
 }

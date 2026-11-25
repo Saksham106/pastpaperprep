@@ -244,7 +244,7 @@ describe("runSiteAgent", () => {
     // Tool results go back in one user message, after the assistant's own content.
     const third = calls[2].messages as Array<{ role: string; content: unknown }>;
     expect(third.at(-1)).toMatchObject({ role: "user", content: [{ type: "tool_result", tool_use_id: "tool_2_0" }] });
-    expect(calls[0]).toMatchObject({ output_config: { effort: "low" }, fallbacks: "default" });
+    expect(calls[0]).toMatchObject({ output_config: { effort: "medium" }, fallbacks: "default" });
   });
 
   it("keeps words from separate rounds in separate paragraphs and caches the conversation", async () => {

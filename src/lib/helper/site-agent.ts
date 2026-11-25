@@ -41,7 +41,8 @@ export async function runSiteAgent(options: {
       // The last round must answer in words, so a looping model still ends with a reply.
       ...(lastRound ? { tool_choice: { type: "none" as const } } : {}),
       messages,
-      output_config: { effort: "low" },
+      // Sonnet 5.5 at medium effort (owner decision, 2026-11-25).
+      output_config: { effort: "medium" },
       // Haiku has no server-side refusal fallback.
       ...(model.includes("haiku") ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
     }, { signal });

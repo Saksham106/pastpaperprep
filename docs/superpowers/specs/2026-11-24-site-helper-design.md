@@ -101,7 +101,7 @@ Mid-conversation only the unambiguous rules apply: a full paper, or a topic on i
 
 ## Cost limits
 
-- **Model:** `claude-sonnet-5-5` by default (owner, 2026-11-25: school-level help and navigation don't need Opus), overridable with `HELPER_MODEL`; effort `low`, adaptive thinking.
+- **Model:** `claude-sonnet-5-5` by default (owner, 2026-11-25: school-level help and navigation don't need Opus), overridable with `HELPER_MODEL`; effort `medium` (owner), adaptive thinking.
 - **Up to 4 tool rounds per message.** After the fourth round the model must answer in text. `max_tokens` is 4000 per call.
 - **Caching:** the system prompt and tool list are cached (stable bytes, no dates or user data before the breakpoint). History is the visible text only: tool calls and results from earlier messages aren't resent. Up to 12 earlier turns are sent.
 - **Rough cost:** about $0.01–0.04 per message (1–3 calls, mostly cached input).

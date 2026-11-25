@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 const { createClient, fetchAccessEntitlements } = vi.hoisted(() => ({ createClient: vi.fn(), fetchAccessEntitlements: vi.fn() }));
 vi.mock("@/lib/supabase/server", () => ({ createClient }));
 vi.mock("@/lib/custom-bundle-access", () => ({ fetchAccessEntitlements }));
-vi.mock("next/navigation", () => ({ redirect: (path: string) => { throw new Error(`REDIRECT:${path}`); } }));
+vi.mock("next/navigation", () => ({ redirect: (path: string) => { throw new Error(`REDIRECT:${path}`); }, useSearchParams: () => null }));
 vi.mock("@/lib/banks", () => ({ getAvailableBanks: () => [
   { slug: "igcse-chemistry-0620", shortName: "Chemistry 0620" },
   { slug: "igcse-physics-0625", shortName: "Physics 0625" },

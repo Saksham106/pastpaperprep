@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import type { BankSlug } from "@/lib/banks";
 import { BuilderChoices, type SizeTarget } from "@/components/BuilderChoices";
@@ -72,25 +73,55 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
   const selectedBank = banks.find((item) => item.slug === bank);
 
-  // Restore the choices from a shared or reloaded link once, after hydration.
-  useEffect(() => {
-    const state = parseBuilderState(new URLSearchParams(window.location.search));
-    /* eslint-disable react-hooks/set-state-in-effect -- one-off restore from the URL */
-    if (state.bank && state.bank !== startBank?.slug && banks.some((item) => item.slug === state.bank)) {
+  // The query this page last wrote, so a link followed while here (Pepper's sets, a shared link) can be told apart.
+  const writtenRef = useRef<string | null>(null);
+  // Set when a followed link is adopted: the state on screen is still the old paper until the next render.
+  const skipWriteRef = useRef(false);
+  const searchParams = useSearchParams();
+  const currentBankRef = useRef(bank);
+  currentBankRef.current = bank;
+
+  // Restore the choices from a link: once after hydration, and again when a different link is followed while here.
+  const restoreFromLink = useCallback((query: string, again: boolean) => {
+    const state = parseBuilderState(new URLSearchParams(query));
+    const fromBank = again ? currentBankRef.current : startBank?.slug;
+    if (state.bank && state.bank !== fromBank && banks.some((item) => item.slug === state.bank)) {
       setBank(state.bank as BankSlug); setQuestions([]); setLoading(true);
     }
     setRoute(state.route); setFrom(state.from); setTo(state.to);
-    if (state.target.kind === "papers") { setPaperTargets(state.target.targets); setPaperMode(state.target.targets[0].mode); } else setSize(state.target);
+    if (state.target.kind === "papers") { setPaperTargets(state.target.targets); setPaperMode(state.target.targets[0].mode); } else { setPaperTargets([]); setSize(state.target); }
     if (state.seed !== undefined) setSeed(state.seed);
-    if (state.selection.length) setPendingKeys(state.selection);
+    // Topics apply once the bank's topic tree is ready; until then every topic counts, so the listed questions fit.
+    setSelection(new Set());
+    setPendingKeys(state.selection.length ? state.selection : null);
     // The paper itself: kept as-is by the first reconcile, since every listed question still fits.
-    if (state.ids.length) setDraftState((current) => ({ ...current, draft: { ...current.draft, ids: state.ids } }));
-    if (state.removed.length) setRemoved(new Set(state.removed));
-    if (state.reordered) setManualOrder(true);
+    if (again) {
+      setDraftState((current) => ({ ...current, pool: null, draft: { ...EMPTY_DRAFT, ids: state.ids } }));
+      setSaved(null); setTitle(""); setTitleEdited(false); setSwaps(0); setMessage(null);
+    } else if (state.ids.length) setDraftState((current) => ({ ...current, draft: { ...current.draft, ids: state.ids } }));
+    setRemoved(new Set(state.removed));
+    setManualOrder(state.reordered);
     setPartial(state.partial);
+  }, [banks, startBank?.slug]);
+
+  useEffect(() => {
+    const query = window.location.search.slice(1);
+    writtenRef.current = query;
+    /* eslint-disable react-hooks/set-state-in-effect -- one-off restore from the URL */
+    restoreFromLink(query, false);
     setHydrated(true);
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [banks, startBank?.slug]);
+  }, [restoreFromLink]);
+
+  // A link followed while the builder is open: rebuild from it rather than writing the old paper over it.
+  // Null outside the app router (tests): nothing to follow then.
+  const linkQuery = searchParams ? searchParams.toString() : null;
+  useEffect(() => {
+    if (!hydrated || linkQuery === null || writtenRef.current === null || linkQuery === writtenRef.current) return;
+    writtenRef.current = linkQuery;
+    skipWriteRef.current = true;
+    restoreFromLink(linkQuery, true);
+  }, [hydrated, linkQuery, restoreFromLink]);
 
   useEffect(() => {
     if (!selectedBank) return;
@@ -169,6 +200,10 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     if (!questions.length) return;
     const query = serializeBuilderState({ bank: bank || undefined, route, from, to, selection: [...selection], target, seed,
       ids: draft.ids, removed: [...removed], reordered: manualOrder, partial });
+    // Never over a link that was followed since the last write: the effect above adopts it first.
+    if (window.location.search.slice(1) !== writtenRef.current) return;
+    if (skipWriteRef.current) { skipWriteRef.current = false; return; }
+    writtenRef.current = query;
     window.history.replaceState(window.history.state, "", `${window.location.pathname}?${query}`);
   }, [hydrated, pendingKeys, questions.length, bank, route, from, to, selection, target, seed, draft.ids, removed, manualOrder, partial]);
 
