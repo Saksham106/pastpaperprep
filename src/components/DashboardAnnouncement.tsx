@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type ReactNode } from "react";
-import { ArrowRight, CalendarCheck, Sparkle, X } from "@phosphor-icons/react/dist/ssr";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ArrowRight, CalendarCheck, Pause, Play, Sparkle, X } from "@phosphor-icons/react/dist/ssr";
 import { CourseIcon, type CourseTone } from "@/components/CourseIcon";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
-import { annualAnnouncement, annualOfferFrom, isDismissed, pickAnnouncement, pruneDismissals, type Announcement, type AnnualOffer, type Dismissals } from "@/lib/announcement-pick";
+import { annualAnnouncement, annualOfferFrom, isDismissed, pruneDismissals, rankAnnouncements, type Announcement, type AnnualOffer, type Dismissals } from "@/lib/announcement-pick";
 import { PEPPER_OPEN_EVENT, type PepperOpenDetail } from "@/lib/helper/site-config";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { readRememberedBoard } from "@/lib/remembered-board";
@@ -54,28 +54,43 @@ export type DashboardAnnouncementProps = {
   fallback?: ReactNode;
 };
 
-/** One dismissible "for you" card: a new bank, new papers, a feature, or the annual-plan nudge. */
+/** How long each card stays before the strip slides on by itself. */
+export const SLIDE_MS = 6000;
+
+function prefersReducedMotion() {
+  try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch { return false; }
+}
+
+/**
+ * Up to three dismissible "for you" cards (new banks, the annual-plan nudge, new papers, features) in one sliding strip.
+ * It moves on by itself once round, unless the reader swipes, points at it, focuses it, pauses it or prefers reduced motion.
+ */
 export function DashboardAnnouncement({ userId, candidates, boards, annualCheck, tones = {}, fallback = null }: DashboardAnnouncementProps) {
   const [ready, setReady] = useState(false);
   const [dismissals, setDismissals] = useState<Dismissals>({});
   const [board, setBoard] = useState<QualificationId | null>(null);
   const [annual, setAnnual] = useState<Announcement | null>(null);
   const [annualChecked, setAnnualChecked] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [index, setIndex] = useState(0);
+  // Auto-slide: on until the reader takes over, pauses or it has gone round once.
+  const [auto, setAuto] = useState(true);
+  const [held, setHeld] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [emptied, setEmptied] = useState(false);
   const viewed = useRef(new Set<string>());
+  const track = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const stored = pruneDismissals(readDismissals(userId));
     // eslint-disable-next-line react-hooks/set-state-in-effect -- one-off restore from localStorage after hydration
     setDismissals(stored);
     setBoard(readRememberedBoard());
+    setReducedMotion(prefersReducedMotion());
     setReady(true);
   }, [userId]);
 
   const readerBoards = boards.length ? boards : board ? [board] : [];
-  const fromUpdates = ready ? pickAnnouncement(candidates, { dismissals, boards: readerBoards }) : null;
-  // The billing read only runs when the annual card could be the one shown (no new bank waiting).
-  const wantsAnnual = ready && annualCheck && !(fromUpdates && fromUpdates.tier < 1) && !isDismissed("annual", dismissals);
+  const wantsAnnual = ready && annualCheck && !isDismissed("annual", dismissals);
   useEffect(() => {
     if (!wantsAnnual) return;
     const controller = new AbortController();
@@ -86,45 +101,103 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
     return () => controller.abort();
   }, [wantsAnnual, userId]);
 
-  // Wait for the billing check, so a lower card never flashes (and counts a view) before the nudge replaces it.
-  const chosen = ready && !hidden && (!wantsAnnual || annualChecked) ? pickAnnouncement(annual ? [...candidates, annual] : candidates, { dismissals, boards: readerBoards }) : null;
-  useEffect(() => {
-    if (!chosen || viewed.current.has(chosen.id)) return;
-    viewed.current.add(chosen.id);
-    trackProductEvent("announcement_view", { updateId: chosen.id, type: chosen.kind, bank: chosen.bank });
-  }, [chosen]);
-  // A dismissal leaves the slot empty for the rest of the visit rather than swapping in another banner.
-  if (!chosen) return hidden ? null : <>{fallback}</>;
+  // Wait for the billing check, so the strip never reorders (and counts views) when the nudge arrives.
+  const slides = useMemo(() => ready && (!wantsAnnual || annualChecked)
+    ? rankAnnouncements(annual ? [...candidates, annual] : candidates, { dismissals, boards: readerBoards })
+    : [],
+  // readerBoards is derived from boards and board.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [ready, wantsAnnual, annualChecked, annual, candidates, dismissals, boards, board]);
+  const active = slides[Math.min(index, slides.length - 1)];
 
-  const track = (name: "announcement_click" | "announcement_dismiss", target?: "primary" | "secondary") =>
-    trackProductEvent(name, { updateId: chosen.id, type: chosen.kind, bank: chosen.bank, target });
-  function dismiss() {
-    if (!chosen) return;
-    const next = { ...dismissals, [chosen.id]: Date.now() };
+  useEffect(() => {
+    if (!active || viewed.current.has(active.id)) return;
+    viewed.current.add(active.id);
+    trackProductEvent("announcement_view", { updateId: active.id, type: active.kind, bank: active.bank, position: slides.indexOf(active) + 1 });
+  }, [active, slides]);
+
+  const stride = () => {
+    const children = track.current?.children;
+    return children && children.length > 1 ? (children[1] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft : track.current?.clientWidth ?? 0;
+  };
+  const goTo = (next: number) => {
+    setIndex(next);
+    const width = stride();
+    if (width) track.current?.scrollTo?.({ left: next * width, behavior: reducedMotion ? "auto" : "smooth" });
+  };
+  const takeOver = () => setAuto(false);
+
+  useEffect(() => {
+    if (!auto || held || reducedMotion || slides.length < 2) return;
+    const timer = window.setTimeout(() => {
+      const next = (index + 1) % slides.length;
+      goTo(next);
+      // Once round: back on the first card, it stays.
+      if (next === 0) setAuto(false);
+    }, SLIDE_MS);
+    return () => window.clearTimeout(timer);
+  // goTo only reads refs and reducedMotion.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auto, held, reducedMotion, slides.length, index]);
+
+  if (!active) return emptied ? null : <>{fallback}</>;
+
+  const log = (name: "announcement_click" | "announcement_dismiss", item: Announcement, target?: "primary" | "secondary") =>
+    trackProductEvent(name, { updateId: item.id, type: item.kind, bank: item.bank, target, position: slides.indexOf(item) + 1 });
+  function dismiss(item: Announcement) {
+    const next = { ...dismissals, [item.id]: Date.now() };
     writeJson(DISMISS_KEY(userId), next);
-    track("announcement_dismiss");
+    log("announcement_dismiss", item);
+    setAuto(false);
     setDismissals(next);
-    // One card per visit: the next one waits for the next dashboard visit.
-    setHidden(true);
+    // The last card going leaves the slot empty for this visit rather than swapping in another banner.
+    if (slides.length === 1) setEmptied(true);
+    else goTo(Math.min(slides.indexOf(item), slides.length - 2));
   }
-  const tone = chosen.bank ? tones[chosen.bank] : undefined;
-  const icon = tone ? <CourseIcon tone={tone} /> : <span className="course-icon" aria-hidden="true">{chosen.kind === "annual" ? <CalendarCheck weight="bold" /> : <Sparkle weight="fill" />}</span>;
-  const cta = chosen.cta;
+  const onScroll = () => {
+    const width = stride();
+    if (!width || !track.current) return;
+    const at = Math.round(track.current.scrollLeft / width);
+    if (at !== index && at >= 0 && at < slides.length) setIndex(at);
+  };
+
   return (
-    <aside className="dashboard-announcement" data-subject-tone={tone} data-kind={chosen.kind} aria-label="For you">
-      {icon}
-      <div className="dashboard-announcement-copy">
-        <p className="dashboard-announcement-eyebrow">{chosen.eyebrow}</p>
-        <strong>{chosen.title}</strong>
-        {chosen.body ? <span>{chosen.body}</span> : null}
+    <aside className="dashboard-announcements" aria-label="For you" aria-roledescription={slides.length > 1 ? "carousel" : undefined}
+      onMouseEnter={() => setHeld(true)} onMouseLeave={() => setHeld(false)}
+      onFocus={() => setHeld(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setHeld(false); }}>
+      <div ref={track} className="dashboard-announcements-track" onScroll={onScroll} onPointerDown={takeOver} onWheel={takeOver} onTouchStart={takeOver}>
+        {slides.map((item, at) => {
+          const tone = item.bank ? tones[item.bank] : undefined;
+          const icon = tone ? <CourseIcon tone={tone} /> : <span className="course-icon" aria-hidden="true">{item.kind === "annual" ? <CalendarCheck weight="bold" /> : <Sparkle weight="fill" />}</span>;
+          const cta = item.cta;
+          const offscreen = at !== index;
+          return (
+            <div key={item.id} className="dashboard-announcement" data-subject-tone={tone} data-kind={item.kind}
+              role={slides.length > 1 ? "group" : undefined} aria-roledescription={slides.length > 1 ? "slide" : undefined} aria-label={slides.length > 1 ? `${at + 1} of ${slides.length}` : undefined}
+              aria-hidden={offscreen || undefined} inert={offscreen || undefined}>
+              {icon}
+              <div className="dashboard-announcement-copy">
+                <p className="dashboard-announcement-eyebrow">{item.eyebrow}</p>
+                <strong>{item.title}</strong>
+                {item.body ? <span>{item.body}</span> : null}
+              </div>
+              <div className="dashboard-announcement-actions">
+                {"action" in cta
+                  ? <button type="button" className="button primary" onClick={(event) => { log("announcement_click", item, "primary"); window.dispatchEvent(new CustomEvent<PepperOpenDetail>(PEPPER_OPEN_EVENT, { detail: { question: null, opener: event.currentTarget } })); }}>{cta.label}</button>
+                  : <Link transitionTypes={PAGE_NAVIGATION} className="button primary" href={cta.href} onClick={() => log("announcement_click", item, "primary")}>{cta.label} <ArrowRight weight="bold" aria-hidden="true" /></Link>}
+                {item.secondary ? <Link transitionTypes={PAGE_NAVIGATION} className="dashboard-announcement-secondary" href={item.secondary.href} onClick={() => log("announcement_click", item, "secondary")}>{item.secondary.label}</Link> : null}
+              </div>
+              <button type="button" className="dashboard-announcement-dismiss" aria-label={`Dismiss: ${item.title}`} onClick={() => dismiss(item)}><X weight="bold" aria-hidden="true" /></button>
+            </div>
+          );
+        })}
       </div>
-      <div className="dashboard-announcement-actions">
-        {"action" in cta
-          ? <button type="button" className="button primary" onClick={(event) => { track("announcement_click", "primary"); window.dispatchEvent(new CustomEvent<PepperOpenDetail>(PEPPER_OPEN_EVENT, { detail: { question: null, opener: event.currentTarget } })); }}>{cta.label}</button>
-          : <Link transitionTypes={PAGE_NAVIGATION} className="button primary" href={cta.href} onClick={() => track("announcement_click", "primary")}>{cta.label} <ArrowRight weight="bold" aria-hidden="true" /></Link>}
-        {chosen.secondary ? <Link transitionTypes={PAGE_NAVIGATION} className="dashboard-announcement-secondary" href={chosen.secondary.href} onClick={() => track("announcement_click", "secondary")}>{chosen.secondary.label}</Link> : null}
-      </div>
-      <button type="button" className="dashboard-announcement-dismiss" aria-label={`Dismiss: ${chosen.title}`} onClick={dismiss}><X weight="bold" aria-hidden="true" /></button>
+      {slides.length > 1 ? (
+        <div className="dashboard-announcements-nav">
+          {slides.map((item, at) => <button key={item.id} type="button" className="dashboard-announcements-dot" aria-label={`Show update ${at + 1} of ${slides.length}`} aria-current={at === index || undefined} onClick={() => { takeOver(); goTo(at); }} />)}
+          {!reducedMotion ? <button type="button" className="dashboard-announcements-pause" aria-label={auto ? "Pause updates" : "Play updates"} onClick={() => setAuto((on) => !on)}>{auto ? <Pause weight="fill" aria-hidden="true" /> : <Play weight="fill" aria-hidden="true" />}</button> : null}
+        </div>
+      ) : null}
     </aside>
   );
 }

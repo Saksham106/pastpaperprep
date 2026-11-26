@@ -23,6 +23,8 @@ export type Announcement = {
 };
 
 export const ANNOUNCEMENT_MAX_AGE_DAYS = 30;
+/** At most this many cards in the dashboard's sliding strip. */
+export const ANNOUNCEMENT_SLIDES = 3;
 /** A dismissed annual nudge comes back after this long, so it stays occasional. */
 export const ANNUAL_SNOOZE_DAYS = 60;
 const DAY = 86_400_000;
@@ -81,9 +83,17 @@ export function isDismissed(id: string, dismissals: Dismissals, now = new Date()
 }
 
 /** The one card to show: not dismissed, on the reader's board when we know it, lowest tier, newest. */
-export function pickAnnouncement(candidates: readonly Announcement[], { dismissals = {}, boards = [], now = new Date() }: { dismissals?: Dismissals; boards?: readonly QualificationId[]; now?: Date }): Announcement | null {
+type RankOptions = { dismissals?: Dismissals; boards?: readonly QualificationId[]; now?: Date };
+
+/** The cards to show, best first: not dismissed, on the reader's board when we know it, lowest tier, newest. */
+export function rankAnnouncements(candidates: readonly Announcement[], { dismissals = {}, boards = [], now = new Date() }: RankOptions, limit = ANNOUNCEMENT_SLIDES): Announcement[] {
   const relevant = candidates.filter((item) => !isDismissed(item.id, dismissals, now) && (!item.board || !boards.length || boards.includes(item.board)));
-  return [...relevant].sort((a, b) => a.tier - b.tier || b.date.localeCompare(a.date))[0] ?? null;
+  return [...relevant].sort((a, b) => a.tier - b.tier || b.date.localeCompare(a.date)).slice(0, limit);
+}
+
+/** The single best card. */
+export function pickAnnouncement(candidates: readonly Announcement[], options: RankOptions): Announcement | null {
+  return rankAnnouncements(candidates, options, 1)[0] ?? null;
 }
 
 /** Keeps the stored list small: dismissals of updates too old to be shown again are forgotten. */
