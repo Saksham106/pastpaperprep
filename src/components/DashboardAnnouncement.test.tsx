@@ -78,7 +78,7 @@ describe("DashboardAnnouncement", () => {
     vi.stubGlobal("fetch", fetchMock);
     const { unmount } = render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={["igcse"]} annualCheck />);
     const card = await screen.findByText("Switch to annual and save 33%");
-    expect(card.closest("aside")).toHaveTextContent("$48 a year instead of $72.");
+    expect(card.closest("aside")).toHaveTextContent("$4 a month instead of $6, billed yearly.");
     expect(screen.getByRole("link", { name: /switch to annual/i })).toHaveAttribute("href", "/pricing?interval=annual&from=announcement");
     expect(fetchMock).toHaveBeenCalledWith("/api/billing/subscription", expect.objectContaining({ cache: "no-store" }));
     // The lower Pepper card never flashed (or counted a view) while billing was checked.
@@ -99,6 +99,18 @@ describe("DashboardAnnouncement", () => {
     render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck={false} />);
     await screen.findByText("Ask Pepper", { selector: "strong" });
     await waitFor(() => expect(fetchMock).not.toHaveBeenCalled());
+  });
+
+  it("shows the fallback (the free plan card) only when there is no card, and leaves the slot empty after a dismissal", async () => {
+    const plan = <p>Free plan</p>;
+    const { unmount } = render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck={false} fallback={plan} />);
+    await screen.findByRole("complementary", { name: "For you" });
+    expect(screen.queryByText("Free plan")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Dismiss: Ask Pepper" }));
+    expect(screen.queryByText("Free plan")).not.toBeInTheDocument();
+    unmount();
+    render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck={false} fallback={plan} />);
+    expect(await screen.findByText("Free plan")).toBeInTheDocument();
   });
 
   it("renders nothing when every card is dismissed", async () => {

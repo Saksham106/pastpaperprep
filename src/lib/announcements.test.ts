@@ -4,19 +4,19 @@ import type { Bank, BankSlug } from "@/lib/banks";
 import type { Update } from "@/lib/updates";
 
 const NOW = new Date("2026-11-26T12:00:00Z");
-const bank = (slug: string, shortName: string) => ({ slug: slug as BankSlug, shortName }) satisfies Pick<Bank, "slug" | "shortName">;
+const bank = (slug: string, shortName: string, years?: string) => ({ slug: slug as BankSlug, shortName, years }) satisfies Pick<Bank, "slug" | "shortName"> & { years?: string };
 const BANKS = [
   bank("igcse", "Mathematics 0580"),
   bank("igcse-biology-0610", "Biology 0610"),
   bank("ib-chemistry-hl", "Chemistry HL"),
   bank("ib-chemistry-sl", "Chemistry SL"),
-  bank("ib-business-management-hl", "Business Management HL"),
-  bank("ib-business-management-sl", "Business Management SL"),
+  bank("ib-business-management-hl", "Business Management HL", "2020-2026"),
+  bank("ib-business-management-sl", "Business Management SL", "2020-2026"),
   bank("a-level-computer-science-9618", "Computer Science 9618"),
 ];
 const pair = (slug: string) => ({ label: "Practise by topic", options: [{ label: "HL", href: `/banks/${slug}-hl` }, { label: "SL", href: `/banks/${slug}-sl` }] });
 const UPDATES: Update[] = [
-  { date: "2026-11-25", tag: "Feature", title: "Ask Pepper", body: "A study helper.", action: "pepper" },
+  { date: "2026-11-25", tag: "Feature", title: "Ask Pepper", body: "A study helper on every page, with a long changelog sentence.", teaser: "Hints and marking on any question.", action: "pepper" },
   { date: "2026-11-24", tag: "New bank", title: "IB Business Management HL and SL", body: "New bank.", links: [pair("ib-business-management")] },
   { date: "2026-11-22", tag: "New papers", title: "Full Computer Science papers", body: "Papers.", links: [{ label: "Computer Science 9618", href: "/past-papers/a-level-computer-science-9618" }] },
   { date: "2026-11-20", tag: "Improvement", title: "A fix", body: "Fixed." },
@@ -32,6 +32,8 @@ describe("announcement candidates", () => {
   it("offers a new bank on the reader's board as an add-on, at the level they study", () => {
     const [card] = candidates(["ib-chemistry-sl"]).filter((item) => item.kind === "bank_add");
     expect(card).toMatchObject({ eyebrow: "New bank", bank: "ib-business-management-sl", board: "ib", id: "2026-11-24-ib-business-management-hl-and-sl" });
+    // One short line, never the changelog paragraph.
+    expect(card.body).toBe("2020–2026 papers · 2020–2021 free");
     expect(card.cta).toEqual({ label: "Add it to your plan", href: "/pricing?product=bank_ib_business_management_sl&from=announcement" });
     expect(card.secondary).toEqual({ label: "Try it free", href: "/banks/ib-business-management-sl?free=1" });
   });
@@ -45,12 +47,13 @@ describe("announcement candidates", () => {
     const launch: Update = { date: "2026-11-22", tag: "New bank", title: "A Level Computer Science 9618 and Further Maths 9231", body: "Both.", links: [{ label: "CS", href: "/banks/a-level-computer-science-9618" }, { label: "FM", href: "/banks/a-level-further-maths-9231" }] };
     const banks = [...BANKS, bank("a-level-further-maths-9231", "Further Maths 9231")];
     const [card] = announcementCandidates({ banks, accessible: ["a-level-computer-science-9618"], allAccess: false, now: NOW, updates: [launch] });
-    expect(card).toMatchObject({ kind: "bank_add", title: "Further Maths 9231", body: undefined, bank: "a-level-further-maths-9231" });
+    expect(card).toMatchObject({ kind: "bank_add", title: "Further Maths 9231", bank: "a-level-further-maths-9231" });
+    expect(card.body).not.toContain("Both");
   });
 
   it("tells All Access and Lifetime readers the bank is already theirs", () => {
     const card = candidates(BANKS.map(({ slug }) => slug), true).find((item) => item.kind === "bank_included");
-    expect(card).toMatchObject({ eyebrow: "Now included", cta: { label: "Open it", href: "/banks/ib-business-management-hl" } });
+    expect(card).toMatchObject({ eyebrow: "Now included", body: "2020–2026 papers", cta: { label: "Open it", href: "/banks/ib-business-management-hl" } });
   });
 
   it("gives free readers the free years plus a way to unlock the rest", () => {
@@ -63,7 +66,8 @@ describe("announcement candidates", () => {
     expect(candidates(["igcse"]).some((item) => item.kind === "new_papers")).toBe(false);
     expect(candidates([]).some((item) => item.kind === "new_papers")).toBe(false);
     const card = candidates(["a-level-computer-science-9618"]).find((item) => item.kind === "new_papers");
-    expect(card).toMatchObject({ eyebrow: "New papers in Computer Science 9618", board: "a-level", cta: { label: "Open papers", href: "/past-papers/a-level-computer-science-9618" } });
+    expect(card).toMatchObject({ eyebrow: "New papers", title: "Computer Science 9618", board: "a-level", cta: { label: "Open papers", href: "/past-papers/a-level-computer-science-9618" } });
+    expect(card?.body).toBeUndefined();
   });
 
   it("skips fixes, entries over a month old and future entries", () => {
@@ -74,7 +78,9 @@ describe("announcement candidates", () => {
   });
 
   it("opens Pepper only when the helper is configured, and tags board-only features with their board", () => {
-    expect(candidates([]).find((item) => item.title === "Ask Pepper")?.cta).toEqual({ label: "Ask Pepper", action: "pepper" });
+    const pepper = candidates([]).find((item) => item.title === "Ask Pepper");
+    expect(pepper).toMatchObject({ body: "Hints and marking on any question.", cta: { label: "Ask Pepper", action: "pepper" }, secondary: { label: "See plans", href: "/pricing?from=announcement" } });
+    expect(candidates(["igcse"]).find((item) => item.title === "Ask Pepper")?.secondary).toBeUndefined();
     expect(candidates([], false, false).some((item) => item.title === "Ask Pepper")).toBe(false);
     expect(candidates([]).find((item) => item.title === "IB Chemistry course notes")).toMatchObject({ board: "ib", cta: { label: "Read the notes", href: "/revision-notes/ib-chemistry" } });
   });
@@ -150,7 +156,10 @@ describe("annual offer", () => {
 
   it("writes the nudge from real prices and links to the plan editor's annual view", () => {
     const card = annualAnnouncement({ percent: 33, monthlyCents: 600, annualCents: 4800 }, NOW);
-    expect(card).toMatchObject({ id: "annual", title: "Switch to annual and save 33%", body: "$48 a year instead of $72.", cta: { label: "Switch to annual", href: "/pricing?interval=annual&from=announcement" } });
+    // Per month, so the yearly total doesn't read as a bigger bill.
+    expect(card).toMatchObject({ id: "annual", title: "Switch to annual and save 33%", body: "$4 a month instead of $6, billed yearly.", cta: { label: "Switch to annual", href: "/pricing?interval=annual&from=announcement" } });
+    expect(annualAnnouncement({ percent: 29, monthlyCents: 1400, annualCents: 12000 }, NOW).body).toBe("$10 a month instead of $14, billed yearly.");
+    expect(annualAnnouncement({ percent: 25, monthlyCents: 999, annualCents: 9000 }, NOW).body).toBe("$7.50 a month instead of $9.99, billed yearly.");
   });
 });
 

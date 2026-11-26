@@ -1,8 +1,8 @@
-import { bankEntryHref, hasFreeTier } from "@/lib/access";
+import { bankEntryHref, freeQuestionYears, hasFreeTier } from "@/lib/access";
 import type { Bank, BankSlug } from "@/lib/banks";
 import { bankForSubjectSlug } from "@/lib/past-paper-catalog";
 import { qualificationIdOfSlug, type QualificationId } from "@/lib/qualifications";
-import { upgradeHref } from "@/lib/upgrade-copy";
+import { upgradeHref, yearRangeLabel } from "@/lib/upgrade-copy";
 import { ANNOUNCEMENT_MAX_AGE_DAYS, type Announcement } from "@/lib/announcement-pick";
 import { UPDATES, updateId, type Update } from "@/lib/updates";
 
@@ -63,7 +63,7 @@ export function newBankSlugs({ banks, now = new Date(), updates = UPDATES }: { b
 }
 
 export type AnnouncementReader = {
-  banks: readonly Pick<Bank, "slug" | "shortName">[];
+  banks: readonly (Pick<Bank, "slug" | "shortName"> & { years?: string })[];
   accessible: readonly BankSlug[];
   /** All Access, Lifetime or a complimentary all-bank grant: new banks are already theirs. */
   allAccess: boolean;
@@ -79,18 +79,26 @@ export function announcementCandidates({ banks, accessible, allAccess, now = new
   const paid = owned.size > 0;
   const ownedBoards = new Set([...accessible].map(qualificationIdOfSlug));
   const name = (slug: BankSlug) => banks.find((bank) => bank.slug === slug)?.shortName ?? slug;
+  // One short line instead of the changelog's paragraph: "2020–2026 papers · 2020–2021 free".
+  const bankLine = (slug: BankSlug, withFree: boolean) => {
+    const years = banks.find((bank) => bank.slug === slug)?.years?.replace("-", "–");
+    const free = withFree && hasFreeTier(slug) ? yearRangeLabel(freeQuestionYears(slug) ?? []) : "";
+    return [years && `${years} papers`, free && `${free} free`].filter(Boolean).join(" · ") || undefined;
+  };
+  // Free readers always get a way to upgrade, since their card takes the plan card's place.
+  const plans = { label: "See plans", href: "/pricing?from=announcement" };
   const result: Announcement[] = [];
   for (const update of updates) {
     if (!withinDays(update.date, ANNOUNCEMENT_MAX_AGE_DAYS, now)) continue;
     const id = updateId(update);
-    const base = { id, title: update.title, body: update.body, date: update.date };
+    const base = { id, title: update.title, date: update.date };
     const linked = banksOfUpdate(update, live);
     if (update.tag === "New bank") {
       if (!linked.length) continue;
       const slugs = linked.map(({ slug }) => slug);
       const board = qualificationIdOfSlug(slugs[0]);
       if (allAccess) {
-        result.push({ ...base, kind: "bank_included", eyebrow: "Now included", tier: 0, board, bank: slugs[0], cta: { label: "Open it", href: `/banks/${preferredVariant(slugs, owned)}` } });
+        result.push({ ...base, body: bankLine(slugs[0], false), kind: "bank_included", eyebrow: "Now included", tier: 0, board, bank: slugs[0], cta: { label: "Open it", href: `/banks/${preferredVariant(slugs, owned)}` } });
       } else if (paid) {
         // Only banks on a board they already study, and only ones they don't have yet.
         const missing = slugs.filter((slug) => !owned.has(slug));
@@ -98,24 +106,23 @@ export function announcementCandidates({ banks, accessible, allAccess, now = new
         const slug = preferredVariant(missing, owned);
         // A launch of several banks where they own one: name only the new one to them.
         const partial = slugs.some((item) => owned.has(item));
-        const text = partial ? { title: name(slug), body: undefined } : {};
-        result.push({ ...base, ...text, kind: "bank_add", eyebrow: "New bank", tier: 0, board, bank: slug, cta: { label: "Add it to your plan", href: upgradeHref(slug, "announcement") }, secondary: hasFreeTier(slug) ? { label: "Try it free", href: bankEntryHref(slug) } : undefined });
+        result.push({ ...base, ...(partial ? { title: name(slug) } : {}), body: bankLine(slug, true), kind: "bank_add", eyebrow: "New bank", tier: 0, board, bank: slug, cta: { label: "Add it to your plan", href: upgradeHref(slug, "announcement") }, secondary: hasFreeTier(slug) ? { label: "Try it free", href: bankEntryHref(slug) } : undefined });
       } else {
         const slug = preferredVariant(slugs, owned);
-        result.push({ ...base, kind: "bank_free", eyebrow: "New bank", tier: 0, board, bank: slug, cta: hasFreeTier(slug) ? { label: "Try it free", href: bankEntryHref(slug) } : { label: "Take a look", href: `/banks/${slug}` }, secondary: { label: "Unlock every year", href: upgradeHref(slug, "announcement") } });
+        result.push({ ...base, body: bankLine(slug, true), kind: "bank_free", eyebrow: "New bank", tier: 0, board, bank: slug, cta: hasFreeTier(slug) ? { label: "Try it free", href: bankEntryHref(slug) } : { label: "Take a look", href: `/banks/${slug}` }, secondary: { label: "Unlock every year", href: upgradeHref(slug, "announcement") } });
       }
     } else if (update.tag === "New papers") {
       const mine = linked.filter(({ slug }) => owned.has(slug));
       if (!mine.length) continue;
       const { slug, href } = mine[0];
-      result.push({ ...base, kind: "new_papers", eyebrow: `New papers in ${name(slug)}`, tier: 2, board: qualificationIdOfSlug(slug), bank: slug, cta: { label: href.startsWith("/past-papers") ? "Open papers" : "Practise", href } });
+      result.push({ ...base, title: name(slug), kind: "new_papers", eyebrow: "New papers", tier: 2, board: qualificationIdOfSlug(slug), bank: slug, cta: { label: href.startsWith("/past-papers") ? "Open papers" : "Practise", href } });
     } else if (update.tag === "Feature") {
       const link = hrefsOf(update)[0];
       if (update.action === "pepper") {
         if (!pepper) continue;
-        result.push({ ...base, kind: "feature", eyebrow: "New", tier: 3, cta: { label: "Ask Pepper", action: "pepper" } });
+        result.push({ ...base, body: update.teaser, kind: "feature", eyebrow: "New", tier: 3, cta: { label: "Ask Pepper", action: "pepper" }, secondary: paid ? undefined : plans });
       } else if (link && !link.href.startsWith("http")) {
-        result.push({ ...base, kind: "feature", eyebrow: "New", tier: 3, board: boardOfUpdate(update), cta: link });
+        result.push({ ...base, body: update.teaser, kind: "feature", eyebrow: "New", tier: 3, board: boardOfUpdate(update), cta: link, secondary: paid ? undefined : plans });
       }
     }
   }

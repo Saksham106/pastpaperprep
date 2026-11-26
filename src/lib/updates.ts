@@ -17,6 +17,8 @@ export type Update = {
   links?: readonly UpdateLink[];
   /** An in-page action for the dashboard card, for features without a page of their own. */
   action?: "pepper";
+  /** One short line for the dashboard card; the body is too long there. */
+  teaser?: string;
 };
 
 export const COMING_SOON: readonly string[] = [
@@ -30,7 +32,7 @@ const CHATGPT_APP = "https://chatgpt.com/plugins/plugin_asdk_app_6abec4a63a28819
 const bank = (label: string, slug: string) => ({ label, href: `/banks/${slug}` });
 
 export const UPDATES: readonly Update[] = [
-  { date: "2026-11-25", tag: "Feature", title: "Ask Pepper", body: "A study helper on every page. Pepper marks your working from a photo, gives hints and finds questions on any topic.", action: "pepper" },
+  { date: "2026-11-25", tag: "Feature", title: "Ask Pepper", body: "A study helper on every page. Pepper marks your working from a photo, gives hints and finds questions on any topic.", teaser: "Hints and marking on any question.", action: "pepper" },
   { date: "2026-11-24", tag: "New bank", title: "IB Business Management HL and SL", body: "260 HL and 218 SL questions from 2020 to 2026, sorted by topic, with the case study shown alongside Paper 1 and Paper 3 questions. 2020 and 2021 are free.", links: [ibBank("Practise by topic", "ib-business-management")] },
   { date: "2026-11-22", tag: "New papers", title: "Full Computer Science and Further Maths papers", body: "266 more free A Level papers: 98 for Computer Science 9618 and 168 for Further Maths 9231, each with its mark scheme.", links: [{ label: "Computer Science 9618", href: "/past-papers/a-level-computer-science-9618" }, { label: "Further Maths 9231", href: "/past-papers/a-level-further-maths-9231" }] },
   { date: "2026-11-22", tag: "New bank", title: "A Level Computer Science 9618 and Further Maths 9231", body: "750 Computer Science questions from 2021 and 813 Further Maths questions from 2020, up to 2026, sorted by paper and topic. Computer Science 2021–2022 and Further Maths 2020–2021 are free.", links: [bank("Computer Science 9618", "a-level-computer-science-9618"), bank("Further Maths 9231", "a-level-further-maths-9231")] },

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, CalendarCheck, Sparkle, X } from "@phosphor-icons/react/dist/ssr";
 import { CourseIcon, type CourseTone } from "@/components/CourseIcon";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
@@ -50,10 +50,12 @@ export type DashboardAnnouncementProps = {
   /** Has a Stripe subscription that might be monthly. */
   annualCheck: boolean;
   tones?: Readonly<Record<string, CourseTone>>;
+  /** Shown when there is no card (the free plan card), so the dashboard never stacks two banners. */
+  fallback?: ReactNode;
 };
 
 /** One dismissible "for you" card: a new bank, new papers, a feature, or the annual-plan nudge. */
-export function DashboardAnnouncement({ userId, candidates, boards, annualCheck, tones = {} }: DashboardAnnouncementProps) {
+export function DashboardAnnouncement({ userId, candidates, boards, annualCheck, tones = {}, fallback = null }: DashboardAnnouncementProps) {
   const [ready, setReady] = useState(false);
   const [dismissals, setDismissals] = useState<Dismissals>({});
   const [board, setBoard] = useState<QualificationId | null>(null);
@@ -91,7 +93,8 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
     viewed.current.add(chosen.id);
     trackProductEvent("announcement_view", { updateId: chosen.id, type: chosen.kind, bank: chosen.bank });
   }, [chosen]);
-  if (!chosen) return null;
+  // A dismissal leaves the slot empty for the rest of the visit rather than swapping in another banner.
+  if (!chosen) return hidden ? null : <>{fallback}</>;
 
   const track = (name: "announcement_click" | "announcement_dismiss", target?: "primary" | "secondary") =>
     trackProductEvent(name, { updateId: chosen.id, type: chosen.kind, bank: chosen.bank, target });

@@ -1,4 +1,4 @@
-import { annualSavingPercent, formatPrice, priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
+import { annualSavingPercent, priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
 import type { BankSlug } from "@/lib/banks";
 import type { QualificationId } from "@/lib/qualifications";
 
@@ -59,11 +59,14 @@ export function annualOfferFrom(snapshot: unknown): AnnualOffer | null {
   return percent >= 5 ? { percent, monthlyCents, annualCents } : null;
 }
 
+const perMonth = (cents: number) => { const value = Math.round(cents) / 100; return `$${Number.isInteger(value) ? value : value.toFixed(2)}`; };
+
+/** Said per month on purpose: a yearly total reads as a bigger bill than the one they pay now. */
 export function annualAnnouncement(offer: AnnualOffer, now = new Date()): Announcement {
   return {
     id: "annual", kind: "annual", eyebrow: "Your plan", tier: 1, date: now.toISOString().slice(0, 10),
     title: `Switch to annual and save ${offer.percent}%`,
-    body: `${formatPrice(offer.annualCents)} a year instead of ${formatPrice(offer.monthlyCents * 12)}.`,
+    body: `${perMonth(offer.annualCents / 12)} a month instead of ${perMonth(offer.monthlyCents)}, billed yearly.`,
     cta: { label: "Switch to annual", href: "/pricing?interval=annual&from=announcement" },
   };
 }
