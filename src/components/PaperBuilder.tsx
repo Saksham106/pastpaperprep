@@ -9,7 +9,7 @@ import { BuilderSheet } from "@/components/BuilderSheet";
 import { PaperPreview } from "@/components/PaperPreview";
 import { buildTopicIndex, countNodes, knownKeys, partlyCovered, selectionMatcher, toggleKey, type BuilderQuestion, type TopicIndex } from "@/lib/builder-topics";
 import { parseBuilderState, serializeBuilderState } from "@/lib/builder-url";
-import { deriveCourseRoute, matchesCourseRoute, routeConfigFor, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
+import { defaultRouteSelection, deriveCourseRoute, matchesCourseRoute, readRememberedRoute, rememberRoute, routeConfigFor, supportsCourseRoute, type CourseRouteSelection } from "@/lib/course-route";
 import { paperCalculator } from "@/lib/paper-builder";
 import { sessionLifecycleOwner } from "@/lib/member-session-cache";
 import { lowerTarget, reconcileDraft, swapCandidate, type DraftResult, type DraftTarget, type PaperDraftTarget } from "@/lib/paper-draft";
@@ -30,7 +30,8 @@ type DraftState = { pool: readonly BuilderQuestion[] | null; target: DraftTarget
 
 const EMPTY_DRAFT: DraftResult = { ids: [], totalMarks: 0, exact: true, shortBy: 0 };
 const EMPTY_INDEX: TopicIndex = { tree: [], keysById: new Map(), mainKeysById: new Map() };
-const ROUTES = [["all", "All papers"], ["core", "Core"], ["extended", "Extended"]] as const;
+/** Students sit Core or Extended, so there is no "All papers" (as on the bank page). */
+const ROUTES = [["core", "Core"], ["extended", "Extended"]] as const;
 const randomSeed = () => crypto.getRandomValues(new Uint32Array(1))[0];
 
 export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMarker }: { banks: BuilderBank[]; initialBank?: BankSlug; existingTitles?: string[]; exportMarker?: string }) {
@@ -150,6 +151,12 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   }
   // Core/Extended only: where the route is the paper (A Level tabs), the paper targets already choose it.
   const routed = supportsCourseRoute(bank || undefined) && !routeConfigFor(bank || undefined)?.hidesPaperFilter;
+  // "All" (a new bank, or an older link) becomes the student's remembered tier, else Extended.
+  useEffect(() => {
+    if (!hydrated || !routed || route !== "all") return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-off read of the remembered tier from localStorage
+    setRoute(readRememberedRoute(bank || undefined) ?? defaultRouteSelection(bank || undefined));
+  }, [hydrated, routed, route, bank]);
   const inRoute = (paper: number) => !routed || route === "all" || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, paper), route);
   const basePool = useMemo(() => questions.filter((question) => inRoute(question.paper) && (!from || question.year >= from) && (!to || question.year <= to)),
     // inRoute only reads bank, route and routed, which are listed.
@@ -232,6 +239,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
 
   function changeRoute(next: CourseRouteSelection) {
     setRoute(next);
+    rememberRoute(bank || undefined, next);
     setPaperTargets((current) => current.filter((item) => next === "all" || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, item.paper), next)));
   }
 

@@ -65,7 +65,8 @@ function implicitRoute(bank: string | undefined, filters: ExplorerFilters, searc
   const papers = (filters.papers ?? []).map(Number);
   const paperRoutes = new Set(papers.map((paper) => config.options.find((option) => option.papers.includes(paper))?.id));
   if (papers.length && paperRoutes.size === 1 && !paperRoutes.has(undefined)) return [...paperRoutes][0]!;
-  if (search || Object.values(filters).some((selected) => selected?.length)) return "all";
+  // Core/Extended has no "All" and doesn't narrow topics, so a filtered link keeps the student's tier.
+  if (config.showAll && (search || Object.values(filters).some((selected) => selected?.length))) return "all";
   return parseRouteSelection(bank, remembered) ?? config.defaultSelection;
 }
 

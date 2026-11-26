@@ -46,19 +46,21 @@ describe("QuestionExplorer", () => {
 
   const fullAccess = { authenticated: true, bankAccess: true, canExportPdf: true };
 
-  it("keeps Core, Extended, and All on the question page and filters both-route banks", async () => {
+  it("offers Core and Extended (no All), opens on Extended, and remembers the tier for every IGCSE bank", async () => {
     window.history.replaceState({}, "", "/banks/igcse");
     const bank = loadBankQuestions("igcse");
     const representatives = [1, 2, 3, 4].map((paper) => bank.find((question) => question.paper === paper)!);
     expect(representatives.every(Boolean)).toBe(true);
     const questions = prepareQuestionsForDelivery(representatives, [{ productId: "bank_igcse", status: "active", startsAt: "2026-01-01T00:00:00Z", expiresAt: null }]);
 
-    render(<QuestionExplorer questions={questions} bankSlug="igcse" access={fullAccess} />);
+    // As the bank page does: the URL (here, none) decides the starting tier.
+    render(<QuestionExplorer questions={questions} bankSlug="igcse" access={fullAccess} hydrateFromLocation />);
 
     const routePicker = screen.getByRole("radiogroup", { name: /course route/i });
     expect(routePicker.closest(".explorer-toolbar")).not.toBeNull();
-    expect(within(routePicker).getByRole("radio", { name: /^all/i })).toBeChecked();
-    expect(screen.getByText("4 questions")).toBeInTheDocument();
+    expect(within(routePicker).queryByRole("radio", { name: /^all/i })).not.toBeInTheDocument();
+    await waitFor(() => expect(within(routePicker).getByRole("radio", { name: /^extended/i })).toBeChecked());
+    expect(screen.getByText("2 questions")).toBeInTheDocument();
 
     fireEvent.click(within(routePicker).getByRole("radio", { name: /^core/i }));
     expect(screen.getByText("2 questions")).toBeInTheDocument();
@@ -70,9 +72,8 @@ describe("QuestionExplorer", () => {
     expect(screen.getAllByText(/paper [24]/i)).toHaveLength(2);
     await waitFor(() => expect(new URLSearchParams(window.location.search).get("route")).toBe("extended"));
 
-    fireEvent.click(within(routePicker).getByRole("radio", { name: /^all/i }));
-    expect(screen.getByText("4 questions")).toBeInTheDocument();
-    await waitFor(() => expect(new URLSearchParams(window.location.search).has("route")).toBe(false));
+    fireEvent.click(within(routePicker).getByRole("radio", { name: /^core/i }));
+    expect(window.localStorage.getItem("ppp-route:igcse-tier")).toBe("core");
   });
 
   it("clears incompatible paper refinements and limits paper choices to the selected route", () => {

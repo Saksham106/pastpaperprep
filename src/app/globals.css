@@ -520,8 +520,10 @@ main { min-height: 72vh; }
 }
 @media (max-width: 420px) { .exam-style-set-list { grid-template-columns: 1fr; } }
 
-.explorer-toolbar { position: sticky; z-index: 6; top: 8px; padding: 0; display: grid; grid-template-columns: minmax(220px, 1fr) minmax(300px, auto) auto 48px auto; gap: 8px; color: var(--ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.explorer-toolbar { position: relative; z-index: 6; padding: 0; display: grid; grid-template-columns: minmax(220px, 1fr) minmax(300px, auto) auto 48px auto; gap: 8px; color: var(--ink); background: transparent; border: 0; border-radius: 0; box-shadow: none; }
 .course-route-picker { min-width: 300px; margin: 0; padding: 0; border: 0; }
+.course-route-picker.is-tier-picker { min-width: 0; }
+.course-route-picker.is-tier-picker .course-route-options { grid-template-columns: repeat(2, minmax(104px, 1fr)); }
 .course-route-options { height: 100%; display: inline-grid; grid-template-columns: repeat(3, minmax(82px, 1fr)); gap: 3px; padding: 3px; background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; }
 .course-route-options label { cursor: pointer; position: relative; }
 .course-route-options input { position: absolute; opacity: 0; pointer-events: none; }
@@ -668,8 +670,10 @@ main { min-height: 72vh; }
 .question-locked > * { position: relative; }
 .question-locked strong { color: var(--ink); }
 .question-locked a { width: fit-content; margin-top: 4px; color: var(--cobalt); font-weight: 850; }
-.question-actions { padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-.question-action-buttons, .source-links { display: flex; align-items: center; gap: 9px 13px; flex-wrap: wrap; }
+.question-card { container: question-card / inline-size; }
+.question-actions { padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.question-action-buttons, .source-links { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.question-action-buttons { min-width: 0; }
 .answer-toggle { min-height: 36px; padding: 0 14px; color: var(--cobalt-strong); background: var(--cobalt-faint); border: 1px solid color-mix(in srgb, var(--cobalt) 40%, var(--line)); border-radius: 8px; font-weight: 750; cursor: pointer; }
 .answer-toggle:hover { border-color: var(--cobalt); }
 .answer-toggle[aria-expanded="true"] { background: transparent; }
@@ -685,11 +689,21 @@ main { min-height: 72vh; }
 .mcq-answer-or { color: var(--muted); font-size: .85rem; }
 .mcq-answer-note { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.45; }
 .source-links a { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); font-size: .78rem; white-space: nowrap; }
-.source-links a:not(.full-paper-button):hover { color: var(--cobalt); }
-.source-links .notes-link { text-decoration: underline; text-underline-offset: 2px; text-decoration-color: color-mix(in srgb, currentColor 35%, transparent); }
+.source-links .notes-link { min-height: 34px; padding: 0 12px; gap: 7px; color: var(--ink); background: var(--surface-raised); border: 1px solid var(--line); border-radius: 9px; font-size: .84rem; font-weight: 650; text-decoration: none; }
+.source-links .notes-link svg { color: var(--muted); }
+.source-links .notes-link:hover { color: var(--cobalt-strong); border-color: var(--cobalt); }
+.source-links .notes-link:hover svg { color: currentColor; }
+/* Narrow cards (tablets, phones, the filter sidebar open): Learn and Full paper become icon buttons, the label stays as their name. */
+@container question-card (max-width: 760px) {
+  .source-links .notes-link, .source-links .full-paper-button { width: 34px; padding: 0; justify-content: center; gap: 0; }
+  .source-links .action-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  .study-state { gap: 0; }
+}
+/* Phones: the icon group drops under the study buttons rather than squeezing them. */
+@container question-card (max-width: 470px) {
+  .question-actions { flex-wrap: wrap; row-gap: 8px; }
+}
 /* Keep the card's quiet links on one line; the whole group wraps below the buttons when space runs out. */
-.source-links { flex-wrap: nowrap; }
-.question-actions { flex-wrap: wrap; row-gap: 8px; }
 .question-actions .source-links { margin-left: auto; }
 .transcript-icon-button, .study-icon-button { width: 34px; height: 34px; display: grid; place-items: center; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 9px; }
 .transcript-icon-button:hover, .transcript-icon-button[aria-expanded="true"], .study-icon-button:hover, .study-icon-button.is-saved { color: var(--cobalt); border-color: var(--cobalt); }
@@ -2304,10 +2318,9 @@ main { min-height: 72vh; }
   .explorer-toolbar .save-pdf-button { grid-column: -2 / -1; grid-row: 1; }
 }
 @media (min-width: 851px) and (max-width: 1100px) {
-  .explorer-toolbar:has(.course-route-picker) { grid-template-columns: minmax(0, 1fr) minmax(190px, auto) 48px auto; }
-  .explorer-toolbar:has(.course-route-picker) .search-field { grid-column: 1 / 3; }
-  .explorer-toolbar:has(.course-route-picker) .course-route-picker { grid-column: 1; grid-row: 2; }
-  .explorer-toolbar:has(.course-route-picker) .sort-field { grid-column: 2 / -1; grid-row: 2; }
+  .explorer-toolbar:has(.is-tier-picker) { grid-template-columns: minmax(180px, 1fr) auto minmax(150px, 180px) 48px auto; }
+  .explorer-toolbar:has(.is-paper-tabs) { grid-template-columns: minmax(0, 1fr) minmax(170px, auto) 48px auto; }
+  .explorer-toolbar:has(.is-paper-tabs) .course-route-picker { grid-column: 1 / -1; grid-row: 2; }
 }
 @media (min-width: 641px) and (max-width: 850px) {
   .explorer-toolbar { grid-template-columns: minmax(0, 1fr) auto minmax(150px, 190px) 48px auto; }
@@ -2318,9 +2331,12 @@ main { min-height: 72vh; }
   .explorer-toolbar .mobile-filter-button { grid-column: 2; grid-row: 2; }
   .explorer-toolbar .sort-field { grid-column: 3 / -1; grid-row: 2; }
   .explorer-toolbar:not(:has(.course-route-picker)) .mobile-filter-button { grid-column: 1 / 3; }
-  .explorer-toolbar:has(.course-route-picker) .course-route-picker { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
-  .explorer-toolbar:has(.course-route-picker) .mobile-filter-button { grid-column: 1 / 3; grid-row: 3; }
-  .explorer-toolbar:has(.course-route-picker) .sort-field { grid-column: 3 / -1; grid-row: 3; }
+  .explorer-toolbar:has(.is-paper-tabs) .course-route-picker { grid-column: 1 / -1; grid-row: 2; min-width: 0; }
+  .explorer-toolbar:has(.is-paper-tabs) .mobile-filter-button { grid-column: 1 / 3; grid-row: 3; }
+  .explorer-toolbar:has(.is-paper-tabs) .sort-field { grid-column: 3 / -1; grid-row: 3; }
+  .explorer-toolbar:has(.is-tier-picker) .course-route-picker { grid-column: 1; grid-row: 2; min-width: 0; }
+  .explorer-toolbar:has(.is-tier-picker) .mobile-filter-button { grid-column: 2; grid-row: 2; }
+  .explorer-toolbar:has(.is-tier-picker) .sort-field { grid-column: 3 / -1; grid-row: 2; }
 }
 
 /* Paper tabs (A Level): one tab per paper on its own full-width row; scrolls sideways when

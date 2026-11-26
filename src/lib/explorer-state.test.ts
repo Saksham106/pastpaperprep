@@ -176,11 +176,14 @@ describe("A Level 9709 paper tabs in the URL", () => {
     expect(reloaded.courseRoute).toBe("pure-1");
   });
 
-  it("leaves Core/Extended URLs unchanged", () => {
-    expect(parseExplorerState({}, { bank: "igcse" }).courseRoute).toBe("all");
-    expect(parseExplorerState({ topic: "Number" }, { bank: "igcse", rememberedRoute: "core" }).courseRoute).toBe("all");
+  it("opens Core/Extended banks on the student's tier, even from a topic link", () => {
+    expect(parseExplorerState({}, { bank: "igcse" }).courseRoute).toBe("extended");
+    expect(parseExplorerState({}, { bank: "igcse", rememberedRoute: "core" }).courseRoute).toBe("core");
+    expect(parseExplorerState({ topic: "Number" }, { bank: "igcse", rememberedRoute: "core" }).courseRoute).toBe("core");
+    // An old "All" link falls back to the tier; a paper filter still picks the tier that paper belongs to.
+    expect(parseExplorerState({ route: "all" }, { bank: "igcse", rememberedRoute: "core" }).courseRoute).toBe("core");
+    expect(parseExplorerState({ paper: "1" }, { bank: "igcse", rememberedRoute: "extended" }).courseRoute).toBe("core");
     expect(parseExplorerState({ route: "core" }, { bank: "igcse" }).courseRoute).toBe("core");
-    expect(serializeExplorerState({ ...base, courseRoute: "all" }, { bank: "igcse" }).toString()).toBe("");
     expect(serializeExplorerState({ ...base, courseRoute: "extended" }, { bank: "igcse" }).toString()).toBe("route=extended");
   });
 });

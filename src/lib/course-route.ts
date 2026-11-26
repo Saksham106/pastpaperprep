@@ -36,12 +36,20 @@ export type BankRouteConfig = {
   defaultSelection: CourseRouteSelection;
   /** Remember the last choice per bank in this browser. */
   remember: boolean;
+  /** Offer the "All" choice. Core/Extended students sit one tier, so they only see Core and Extended. */
+  showAll: boolean;
+  /** Also remember the choice under this key for every bank that shares it (one tier across a student's IGCSE banks). */
+  sharedMemory?: string;
   /** A route limits the topic list as well as the questions. */
   scopesTopics: boolean;
   /** A route fixes the paper, so the paper filter is redundant once one is chosen. */
   hidesPaperFilter: boolean;
 };
 
+/**
+ * IGCSE students sit Core or Extended, so there is no "All": the bank opens on the tier the student last picked on
+ * any IGCSE bank (a pick on this bank wins), else Extended, which most candidates take.
+ */
 const CORE_EXTENDED: BankRouteConfig = {
   name: "Course route",
   allLabel: "All",
@@ -50,8 +58,10 @@ const CORE_EXTENDED: BankRouteConfig = {
     { id: "core", label: "Core", detail: "Papers 1 & 3", papers: [1, 3, 5, 6] },
     { id: "extended", label: "Extended", detail: "Papers 2 & 4", papers: [2, 4, 5, 6] },
   ],
-  defaultSelection: "all",
-  remember: false,
+  defaultSelection: "extended",
+  remember: true,
+  showAll: false,
+  sharedMemory: "igcse-tier",
   scopesTopics: false,
   hidesPaperFilter: false,
 };
@@ -63,6 +73,7 @@ const MATHS_9709_TABS: BankRouteConfig = {
   options: MATHS_9709_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
   defaultSelection: "pure-1",
   remember: true,
+  showAll: true,
   scopesTopics: true,
   hidesPaperFilter: true,
 };
@@ -75,6 +86,7 @@ const PHYSICS_9702_TABS: BankRouteConfig = {
   options: PHYSICS_9702_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
   defaultSelection: "multiple-choice",
   remember: true,
+  showAll: true,
   scopesTopics: true,
   hidesPaperFilter: true,
 };
@@ -87,6 +99,7 @@ const CHEMISTRY_9701_TABS: BankRouteConfig = {
   options: CHEMISTRY_9701_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
   defaultSelection: "multiple-choice",
   remember: true,
+  showAll: true,
   scopesTopics: true,
   hidesPaperFilter: true,
 };
@@ -99,6 +112,7 @@ const BIOLOGY_9700_TABS: BankRouteConfig = {
   options: BIOLOGY_9700_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
   defaultSelection: "multiple-choice",
   remember: true,
+  showAll: true,
   scopesTopics: true,
   hidesPaperFilter: true,
 };
@@ -114,6 +128,7 @@ const ECONOMICS_9708_TABS: BankRouteConfig = {
   options: ECONOMICS_9708_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
   defaultSelection: "as-multiple-choice",
   remember: true,
+  showAll: true,
   scopesTopics: true,
   hidesPaperFilter: true,
 };
@@ -129,6 +144,7 @@ const COMPUTER_SCIENCE_9618_TABS: BankRouteConfig = {
   options: COMPUTER_SCIENCE_9618_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
   defaultSelection: "as-theory",
   remember: true,
+  showAll: true,
   scopesTopics: true,
   hidesPaperFilter: true,
 };
@@ -144,6 +160,7 @@ const FURTHER_MATHS_9231_TABS: BankRouteConfig = {
   options: FURTHER_MATHS_9231_PAPERS.map((paper) => ({ id: paper.route, label: paper.label, detail: `Paper ${paper.paper}`, papers: [paper.paper] })),
   defaultSelection: "further-pure-1",
   remember: true,
+  showAll: true,
   scopesTopics: true,
   hidesPaperFilter: true,
 };
@@ -187,7 +204,7 @@ export function matchesCourseRoute(route: CourseRoute | undefined, selection: Co
 export function parseRouteSelection(bank: string | undefined, value: string | null | undefined): CourseRouteSelection | undefined {
   const config = routeConfigFor(bank);
   if (!config || !value) return undefined;
-  return value === "all" || config.options.some((option) => option.id === value) ? value : undefined;
+  return (value === "all" && config.showAll) || config.options.some((option) => option.id === value) ? value : undefined;
 }
 
 export function defaultRouteSelection(bank: string | undefined): CourseRouteSelection {
@@ -212,11 +229,19 @@ const routeStorageKey = (bank: string) => `ppp-route:${bank}`;
 
 /** The browser's remembered choice for banks that remember one. Safe on the server and in private mode. */
 export function readRememberedRoute(bank: string | undefined): CourseRouteSelection | undefined {
-  if (!bank || !routeConfigFor(bank)?.remember || typeof window === "undefined") return undefined;
-  try { return parseRouteSelection(bank, window.localStorage.getItem(routeStorageKey(bank))); } catch { return undefined; }
+  const config = routeConfigFor(bank);
+  if (!bank || !config?.remember || typeof window === "undefined") return undefined;
+  try {
+    return parseRouteSelection(bank, window.localStorage.getItem(routeStorageKey(bank)))
+      ?? (config.sharedMemory ? parseRouteSelection(bank, window.localStorage.getItem(routeStorageKey(config.sharedMemory))) : undefined);
+  } catch { return undefined; }
 }
 
 export function rememberRoute(bank: string | undefined, selection: CourseRouteSelection): void {
-  if (!bank || !routeConfigFor(bank)?.remember || typeof window === "undefined") return;
-  try { window.localStorage.setItem(routeStorageKey(bank), selection); } catch { /* private mode */ }
+  const config = routeConfigFor(bank);
+  if (!bank || !config?.remember || typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(routeStorageKey(bank), selection);
+    if (config.sharedMemory) window.localStorage.setItem(routeStorageKey(config.sharedMemory), selection);
+  } catch { /* private mode */ }
 }
