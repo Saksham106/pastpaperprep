@@ -141,6 +141,35 @@ export async function pastPaperSitemapPaths(): Promise<string[]> {
   })];
 }
 
+/** When each group of past-paper pages switched to noindex: PR #473 (other years, year lists) and PR #502
+ * (latest-year paper pages, A Level hold). Used only by the temporary /sitemap-noindex.xml. */
+export const NOINDEX_SINCE = { firstCut: '2026-11-07', latestYearCut: '2026-11-21' } as const;
+/** Banks whose paper pages were in the sitemap before the first cut (archives added 2026-10-12 to 10-20).
+ * Banks added later (A Level, IB Business Management) launched noindex, so Google never indexed their pages. */
+export const NOINDEX_SITEMAP_BANKS: ReadonlySet<string> = new Set([
+  'igcse', 'igcse-additional', 'igcse-biology-0610', 'igcse-chemistry-0620', 'igcse-physics-0625', 'igcse-coordinated-sciences-0654', 'igcse-economics-0455', 'igcse-computer-science-0478',
+  'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-physics-hl', 'ib-physics-sl', 'ib-chemistry-hl', 'ib-chemistry-sl', 'ib-biology-hl', 'ib-biology-sl', 'ib-economics-hl', 'ib-economics-sl', 'ib-computer-science-hl', 'ib-computer-science-sl',
+]);
+
+/**
+ * TEMPORARY (2026-11-26): every live /past-papers page that asks not to be indexed, with the date it
+ * switched to noindex. Served at /sitemap-noindex.xml so Google recrawls these pages and processes the
+ * noindex sooner (GSC had processed ~409 of ~2,700 by 2026-11-22). Submitted in GSC only; it is not in
+ * robots.txt, the main sitemap or IndexNow. Delete the route and this helper once GSC "Excluded by
+ * 'noindex' tag" covers them (docs/audits/2026-11-26-seo-review).
+ */
+export async function pastPaperNoindexEntries(): Promise<{ path: string; lastModified: string }[]> {
+  const indexed = new Set(await pastPaperSitemapPaths());
+  const banks = (await availableBanks()).filter(({ bank }) => NOINDEX_SITEMAP_BANKS.has(bank.slug));
+  return banks.flatMap(({ bank, papers }) => {
+    const subject = subjectSlugForBank(bank.slug);
+    const latest = latestYear(papers);
+    const years = [...new Set(papers.map(p => p.year))].map(year => ({ path: `/past-papers/${subject}/${year}`, lastModified: NOINDEX_SINCE.firstCut }));
+    const details = papers.map(p => ({ path: `/past-papers/${subject}/${paperSlug(p)}`, lastModified: p.year === latest ? NOINDEX_SINCE.latestYearCut : NOINDEX_SINCE.firstCut }));
+    return [...years, ...details].filter(({ path }) => !indexed.has(path));
+  });
+}
+
 type IndexQuestion = { id: string; number: number; marks: number | null; primaryTopic: string; secondaryTopics: string[] };
 const BANK_INDEXES = new Map<BankSlug, IndexQuestion[]>();
 /** Pages are pre-rendered at build, after prebuild writes public/bank-index, so this read never runs on a request. */

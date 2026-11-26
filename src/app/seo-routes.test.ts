@@ -12,7 +12,7 @@ describe("search crawler routes", () => {
 
     expect(result.sitemap).toBe("https://pastpaperprep.com/sitemap.xml");
     expect(result.host).toBe("https://pastpaperprep.com");
-    const disallow = ["/api/", "/past-papers/*/*/document"];
+    const disallow = ["/api/", "/past-papers/*/*/document", "/*?_rsc=", "/*&_rsc="];
     expect(result.rules).toEqual([
       { userAgent: "*", allow: "/", disallow },
       { userAgent: [...AI_CRAWLERS], allow: "/", disallow },
