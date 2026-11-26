@@ -98,6 +98,9 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
   const accessUntil = formatDate(periodEnd);
   const resumeDate = (m: PauseMonths) => periodEnd ? formatDate(addBillingMonths(new Date(periodEnd), new Date(periodEnd), m)) : null;
   const offer = decision?.offer ?? null;
+  const bankCount = sub?.bankSelection.kind === "selected" ? sub.bankSelection.banks.length : null;
+  const discountedPrice = offer?.kind === "discount" && typeof item?.recurringSubtotalCents === "number" ? money(Math.round(item.recurringSubtotalCents * (100 - offer.percentOff) / 100)) : null;
+  const oneBankPrice = monthly ? `${formatPrice(priceForBankCount("monthly", 1))}/month` : `${formatPrice(priceForBankCount("annual", 1))}/year`;
   const showPause = pauseEnabled && (decision ? decision.pauseAvailable : true);
 
   function go(next: Step) { setError(""); setStep(next); }
@@ -182,7 +185,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
   const errorBox = error ? <p role="alert" className={styles.error}>{error}</p> : null;
   const pauseCard = <div className={styles.card}>
     <span className={styles.cardIcon} aria-hidden="true"><Pause weight="duotone" /></span>
-    <div className={styles.cardBody}><h2>Need a break? Pause instead</h2><p>Stop paying for 1 to 3 months. Your banks reopen automatically, or resume any time.</p></div>
+    <div className={styles.cardBody}><h2>Need a break?</h2><p>Pause for 1 to 3 months. No charges, resume any time.</p></div>
     <button type="button" className={styles.secondarySmall} onClick={() => go("pause")}>Pause</button>
   </div>;
 
@@ -200,7 +203,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
       {step === "reason" ? <>
         {stepLabel(1)}
         <h1 ref={heading} tabIndex={-1}>Why are you thinking of leaving?</h1>
-        <p className={styles.lede}>Optional. One tap helps us improve.</p>
+        <p className={styles.lede}>Optional, but it helps us improve.</p>
         {recap}
         <fieldset className={styles.reasons}>
           <legend className="sr-only">Reason for cancelling (optional)</legend>
@@ -220,26 +223,26 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
       {step === "offer" ? <>
         {stepLabel(2)}
         <h1 ref={heading} tabIndex={-1}>{offer?.kind === "discount" ? "Stay for less" : offer?.kind === "fewer_banks" ? "Keep just what you need" : offer?.kind === "updates" ? "More subjects are coming" : "Take a break instead"}</h1>
-        <p className={styles.lede}>{offer ? "Before you go, here’s something that might help." : "Pausing keeps your plan and your saved work ready for when you’re back."}</p>
+        {offer ? null : <p className={styles.lede}>Your plan and saved work stay ready for when you’re back.</p>}
         {errorBox}
         {offer?.kind === "discount" ? <div className={`${styles.card} ${styles.featured}`}>
           <span className={styles.cardIcon} aria-hidden="true"><Tag weight="duotone" /></span>
-          <div className={styles.cardBody}><h2>{offer.percentOff}% off your next month</h2><p>Your next payment on {accessUntil ?? "your renewal date"} drops by {offer.percentOff}%. Same plan, cancel any time.</p></div>
+          <div className={styles.cardBody}><h2>{offer.percentOff}% off your next month</h2><p>{discountedPrice && price ? `Pay ${discountedPrice} instead of ${price} on ${accessUntil ?? "your next payment"}.` : `${offer.percentOff}% off your next payment.`} Same plan.</p></div>
           <button type="button" className={styles.primarySmall} onClick={() => void acceptDiscount()} disabled={busy}>{busy ? "Applying…" : `Take ${offer.percentOff}% off`}</button>
         </div> : null}
         {offer?.kind === "fewer_banks" ? <div className={`${styles.card} ${styles.featured}`}>
           <span className={styles.cardIcon} aria-hidden="true"><Stack weight="duotone" /></span>
-          <div className={styles.cardBody}><h2>Drop to the banks you use</h2><p>One Bank is {monthly ? `${formatPrice(priceForBankCount("monthly", 1))}/month` : `${formatPrice(priceForBankCount("annual", 1))}/year`}. You keep everything until {accessUntil ?? "renewal"}, then the smaller plan starts.</p></div>
+          <div className={styles.cardBody}><h2>Keep fewer banks</h2><p>{bankCount ? `You have ${bankCount} banks.` : "You have every bank."} Keep only the ones you still use, from {oneBankPrice}.</p></div>
           <Link className={styles.primarySmall} href="/pricing" onClick={() => trackProductEvent("cancel_flow_offer_accepted", { offer: "fewer_banks", reason: reason ?? "none" })}>Choose banks</Link>
         </div> : null}
         {offer?.kind === "updates" ? <div className={`${styles.card} ${styles.featured}`}>
           <span className={styles.cardIcon} aria-hidden="true"><Sparkle weight="duotone" /></span>
-          <div className={styles.cardBody}><h2>See what’s launching next</h2><p>We add banks often. Tell us yours at <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a> and we’ll let you know when it’s live.</p></div>
+          <div className={styles.cardBody}><h2>Tell us what you need</h2><p>We add subjects often. Email <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a> with yours.</p></div>
           <Link className={styles.primarySmall} href="/updates" onClick={() => trackProductEvent("cancel_flow_offer_accepted", { offer: "updates", reason: reason ?? "none" })}>See updates</Link>
         </div> : null}
         {showPause ? offer ? pauseCard : <div className={`${styles.card} ${styles.featured}`}>
           <span className={styles.cardIcon} aria-hidden="true"><Pause weight="duotone" /></span>
-          <div className={styles.cardBody}><h2>Pause for 1 to 3 months</h2><p>No charges while paused. Your banks reopen automatically, or resume any time.</p></div>
+          <div className={styles.cardBody}><h2>Pause for 1 to 3 months</h2><p>No charges while paused. Resume any time.</p></div>
           <button type="button" className={styles.primarySmall} onClick={() => go("pause")}>Pause instead</button>
         </div> : null}
         <div className={styles.actions}>{keep()}<button type="button" className={styles.secondary} onClick={() => go("confirm")} disabled={busy}>Continue to cancel</button></div>
@@ -248,7 +251,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
       {step === "confirm" ? <>
         {stepLabel(3)}
         <h1 ref={heading} tabIndex={-1}>Cancel your subscription?</h1>
-        <p className={styles.lede}>{sub?.pause?.kind === "paused" ? `You’re on a break, so nothing more is charged. Cancelling means your plan won’t restart on ${formatDate(sub.pause.resumesAt) ?? "the resume date"}.` : `You keep full access until ${accessUntil ?? "the end of your paid period"}. After that your banks lock, and your saved worksheets stay in your account for when you come back.`}</p>
+        <p className={styles.lede}>{sub?.pause?.kind === "paused" ? `Your plan won’t restart on ${formatDate(sub.pause.resumesAt) ?? "the resume date"}. Your saved worksheets stay in your account.` : `You keep access until ${accessUntil ?? "the end of your paid period"}. Your saved worksheets stay in your account.`}</p>
         {recap}
         {errorBox}
         <div className={styles.actions}>{keep()}<button type="button" className={styles.secondary} onClick={() => void confirmCancel()} disabled={busy}>{busy ? "Cancelling…" : "Cancel subscription"}</button></div>
@@ -258,14 +261,14 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
       {step === "cancelled" && sub ? <>
         <span className={styles.doneIcon} aria-hidden="true"><CheckCircle weight="duotone" /></span>
         <h1 ref={heading} tabIndex={-1}>{sub.cancelAtPeriodEnd ? "Your subscription is cancelled" : "You’re all set"}</h1>
-        <p className={styles.lede}>{sub.cancelAtPeriodEnd ? sub.pause?.kind === "paused" ? "Your plan won’t restart after your break. Changed your mind? Undo it from here." : `You keep full access until ${formatDate(result.accessUntil ?? periodEnd) ?? "the end of your paid period"}. Changed your mind? Undo it any time before then.` : result.message ?? "Your plan renews as normal."}</p>
+        <p className={styles.lede}>{sub.cancelAtPeriodEnd ? sub.pause?.kind === "paused" ? "Your plan won’t restart after your break. Changed your mind? Undo it from here." : `You keep access until ${formatDate(result.accessUntil ?? periodEnd) ?? "the end of your paid period"}. Changed your mind? Undo it before then.` : result.message ?? "Your plan renews as normal."}</p>
         {errorBox}
         <div className={styles.actions}>{sub.cancelAtPeriodEnd ? <><button type="button" className={styles.primaryButton} onClick={() => void undoCancel()} disabled={busy}>{busy ? "Undoing…" : "Undo cancellation"}</button><Link className={styles.secondary} href="/account/billing#subscription">Back to your account</Link></> : <Link className={styles.primary} href="/dashboard">Back to studying</Link>}</div>
       </> : null}
 
       {step === "pause" ? <>
         <h1 ref={heading} tabIndex={-1}>Pause your subscription</h1>
-        <p className={styles.lede}>Keep your banks until {accessUntil ?? "your renewal date"}, then take a break. No charges while paused.</p>
+        <p className={styles.lede}>Your banks stay open until {accessUntil ?? "your renewal date"}. No charges while paused.</p>
         {recap}
         <fieldset className={styles.months}>
           <legend className="sr-only">How long to pause</legend>
@@ -275,7 +278,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
             <span className={styles.monthDate}><CalendarBlank aria-hidden="true" /> Back {resumeDate(m) ?? "automatically"}</span>
           </label>)}
         </fieldset>
-        <p className={styles.note}>Your plan restarts on {resumeDate(months) ?? "the resume date"}{priceLabel ? ` at ${priceLabel}` : ""}. Want it sooner? Resume any time and you’re charged that day.</p>
+        <p className={styles.note}>Restarts {resumeDate(months) ?? "automatically"}{priceLabel ? ` at ${priceLabel}` : ""}. Resume earlier any time.</p>
         {errorBox}
         <div className={styles.actions}><button type="button" className={styles.primaryButton} onClick={() => void confirmPause()} disabled={busy}>{busy ? "Pausing…" : `Pause for ${months} ${months === 1 ? "month" : "months"}`}</button><button type="button" className={styles.secondary} onClick={() => go(decision ? "offer" : "reason")} disabled={busy}>Back</button></div>
       </> : null}
@@ -283,7 +286,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
       {step === "paused" ? <>
         <span className={styles.doneIcon} aria-hidden="true"><CheckCircle weight="duotone" /></span>
         <h1 ref={heading} tabIndex={-1}>{sub?.pause?.kind === "paused" ? "You’re on a break" : "Your pause is booked"}</h1>
-        <p className={styles.lede}>{sub?.pause?.kind === "paused" ? "" : `Your banks stay open until ${formatDate(result.accessUntil) ?? "your renewal date"}. `}Your plan restarts on {formatDate(result.resumesAt) ?? "the resume date"}{priceLabel ? ` at ${priceLabel}` : ""}. {sub?.pause?.kind === "paused" ? "Want your banks back sooner? Resume now from Subscription & billing." : "You can undo this or resume early from Subscription & billing."}</p>
+        <p className={styles.lede}>{sub?.pause?.kind === "paused" ? "" : `Banks open until ${formatDate(result.accessUntil) ?? "your renewal date"}. `}Back on {formatDate(result.resumesAt) ?? "the resume date"}{priceLabel ? ` at ${priceLabel}` : ""}. Resume any time from your account.</p>
         <div className={styles.actions}><Link className={styles.primary} href="/account/billing#subscription">Back to your account</Link>{start === "cancel" ? <button type="button" className={styles.secondary} onClick={() => go("confirm")}>Cancel subscription</button> : null}</div>
       </> : null}
     </div>

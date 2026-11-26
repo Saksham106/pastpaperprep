@@ -18,7 +18,7 @@ describe("subscription exit flow", () => {
     expect(keep.compareDocumentPosition(screen.getByRole("button", { name: "Continue" })) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(screen.getAllByRole("radio")).toHaveLength(5);
     expect(screen.getByRole("radio", { name: "I’m switching to another service" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Need a break? Pause instead" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Need a break?" })).toBeInTheDocument();
   });
   it("goes reason → offer → confirm, sending the reason and the 'Something else' comment", async () => {
     const fetch = vi.fn().mockResolvedValueOnce(ok(billing())).mockResolvedValueOnce(ok(decision(null))).mockResolvedValueOnce(ok({ status: "canceling", cancelAtPeriodEnd: true, effectiveAt: "2026-12-26T00:00:00Z" }));
@@ -43,11 +43,21 @@ describe("subscription exit flow", () => {
     render(<SubscriptionExitFlow start="cancel" />);
     fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
     expect(await screen.findByRole("heading", { name: "30% off your next month" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Need a break? Pause instead" })).toBeInTheDocument();
+    expect(screen.getByText(/Pay \$4.20 instead of \$6.00 on Dec 26, 2026/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Need a break?" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Continue to cancel" })).toBeEnabled();
     fireEvent.click(screen.getByRole("button", { name: "Take 30% off" }));
     expect(await screen.findByText(/30% off your next payment on Dec 26, 2026/)).toBeInTheDocument();
     expect(body(fetch, 2)).toEqual({ intent: "accept_discount" });
+  });
+  it("tells multi-bank students how many banks they have when offering fewer", async () => {
+    const three = { kind: "selected", banks: [{ slug: "igcse", name: "IGCSE Mathematics" }, { slug: "ib-hl", name: "IB Math AA HL" }, { slug: "ib-sl", name: "IB Math AA SL" }] };
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(ok(billing({ bankSelection: three })))
+      .mockResolvedValueOnce(ok({ ...decision({ kind: "fewer_banks" }), basis: "not_studying" })));
+    render(<SubscriptionExitFlow start="cancel" />);
+    fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
+    expect(await screen.findByText("You have 3 banks. Keep only the ones you still use, from $6/month.")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Choose banks" })).toHaveAttribute("href", "/pricing");
   });
   it("pauses for the chosen length from the pause page", async () => {
     const fetch = vi.fn().mockResolvedValueOnce(ok(billing())).mockResolvedValueOnce(ok({ status: "pause_scheduled", months: 2, accessUntil: "2026-12-26T00:00:00.000Z", resumesAt: "2027-02-26T00:00:00.000Z" }));
@@ -59,7 +69,7 @@ describe("subscription exit flow", () => {
     fireEvent.click(screen.getByRole("button", { name: "Pause for 2 months" }));
     expect(await screen.findByRole("heading", { name: "Your pause is booked" })).toBeInTheDocument();
     expect(body(fetch, 1)).toEqual({ intent: "pause", months: 2 });
-    expect(screen.getByText(/restarts on Feb 26, 2027 at \$6.00\/month/)).toBeInTheDocument();
+    expect(screen.getByText(/Back on Feb 26, 2027 at \$6.00\/month/)).toBeInTheDocument();
   });
   it("hides pause for annual plans and never blocks cancelling when the offer lookup fails", async () => {
     const fetch = vi.fn().mockResolvedValueOnce(ok(billing({ items: [{ recurringSubtotalCents: 4800, price: { currency: "usd", interval: "year" }, currentPeriodEnd: "2026-12-26T00:00:00Z" }] }))).mockResolvedValueOnce(ok({ error: "down" }, 503));

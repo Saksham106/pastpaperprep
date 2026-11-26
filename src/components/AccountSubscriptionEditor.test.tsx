@@ -270,16 +270,16 @@ describe("account subscription editor", () => {
     rerender(<AccountSubscriptionEditor subscription={{ ...plan(), item: { ...plan().item, price: { interval: "year" } } }} bankOptions={banks} onUpdated={vi.fn()} pauseEnabled />);
     expect(screen.queryByRole("link", { name: "Pause subscription" })).not.toBeInTheDocument();
   });
-  it("undoes a booked pause and locks plan changes meanwhile", async () => {
+  it("resumes a booked pause for free and locks plan changes meanwhile", async () => {
     const fetch = vi.fn().mockResolvedValueOnce(response({ status: "active", renewsAt: "2026-10-25T00:00:00Z" }));
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     render(<AccountSubscriptionEditor subscription={{ ...plan(), pause: { kind: "scheduled", accessUntil: "2026-10-25T00:00:00Z", resumesAt: "2026-11-25T00:00:00Z" } }} bankOptions={banks} onUpdated={updated} pauseEnabled />);
-    expect(screen.getByText(/Pause booked/)).toHaveTextContent("Nov 25, 2026");
+    expect(screen.getByText(/Pausing from/)).toHaveTextContent("Nov 25, 2026");
     expect(screen.getByRole("button", { name: "Switch to All Access" })).toBeDisabled();
     expect(screen.getByRole("link", { name: "Cancel subscription" })).toHaveAttribute("href", "/subscription/cancel");
-    fireEvent.click(screen.getByRole("button", { name: "Undo pause" }));
-    await waitFor(() => expect(updated).toHaveBeenCalledWith("Pause cancelled. Your plan renews as normal."));
+    fireEvent.click(screen.getByRole("button", { name: "Resume now" }));
+    await waitFor(() => expect(updated).toHaveBeenCalledWith("You’re back. Your plan renews on Oct 25, 2026 as usual."));
     expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/pause");
     expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "undo" });
   });
@@ -287,11 +287,11 @@ describe("account subscription editor", () => {
     const fetch = vi.fn().mockResolvedValueOnce(response({ status: "resumed", renewsAt: "2026-11-30T00:00:00Z" }));
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
-    render(<AccountSubscriptionEditor subscription={{ ...plan(), pause: { kind: "paused", accessUntil: "2026-10-25T00:00:00Z", resumesAt: "2026-12-25T00:00:00Z" } }} bankOptions={banks} onUpdated={updated} pauseEnabled />);
+    render(<AccountSubscriptionEditor subscription={{ ...plan(), item: { ...plan().item, recurringSubtotalCents: 600 }, pause: { kind: "paused", accessUntil: "2026-10-25T00:00:00Z", resumesAt: "2026-12-25T00:00:00Z" } }} bankOptions={banks} onUpdated={updated} pauseEnabled />);
     fireEvent.click(screen.getByRole("button", { name: "Resume now" }));
     expect(fetch).not.toHaveBeenCalled();
-    expect(screen.getByText(/charged your usual monthly price today/)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Resume and pay now" }));
+    expect(screen.getByText(/You’ll pay \$6.00 today/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Pay $6.00" }));
     await waitFor(() => expect(updated).toHaveBeenCalledOnce());
     expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "resume_now" });
   });

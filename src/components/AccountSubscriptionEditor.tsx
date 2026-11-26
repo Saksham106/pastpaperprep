@@ -17,7 +17,7 @@ type Plan = {
   cancelAtPeriodEnd: boolean;
   pause?: PauseState;
   bankSelection: { kind: "all" } | { kind: "selected"; banks: Bank[] } | { kind: "unknown" };
-  item: { quantity: number | null; currentPeriodEnd: string | null; price: { interval: string | null } };
+  item: { quantity: number | null; currentPeriodEnd: string | null; recurringSubtotalCents?: number | null; price: { interval: string | null } };
 };
 type Estimate = {
   estimate: { amountDueTodayCents: number; estimatedCreditCents: number; estimatedTaxesCents: number; recurringSubtotalCents: number; currency: string; isEstimate: boolean };
@@ -224,13 +224,14 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       const result = await post("/api/billing/subscription/pause", { intent });
       if ((intent === "undo" ? result.status !== "active" : result.status !== "resumed") || !date(typeof result.renewsAt === "string" ? result.renewsAt : null)) throw new Error("Could not verify the change. Check Billing before trying again.");
       trackProductEvent(intent === "undo" ? "pause_undone" : "pause_resumed_early", {});
-      const message = intent === "undo" ? "Pause cancelled. Your plan renews as normal." : `Welcome back. Your banks are open again; next payment ${date(result.renewsAt as string)}.`;
+      const message = intent === "undo" ? `You’re back. Your plan renews on ${date(result.renewsAt as string)} as usual.` : `You’re back. Your banks are open, and your next payment is ${date(result.renewsAt as string)}.`;
       setView("select"); onUpdated(message);
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not change the pause. Nothing is confirmed."); }
     finally { setBusy(false); }
   }
 
   if (subscription.bankSelection.kind === "unknown" || !bankOptions.length) return null;
+  const resumePrice = money(subscription.item.recurringSubtotalCents ?? Number.NaN, "usd");
   const canPause = pauseEnabled && currentInterval === "monthly" && pause.kind === "none" && !subscription.cancelAtPeriodEnd;
   const pickerBanks: PickerBank[] = bankOptions.map((bank) => {
     const entry = getCatalogBank(bank.slug);
@@ -310,11 +311,11 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       </div> : null}
       {!managementOnly ? <p className="account-plan-timing">{demo ? "Example data only. Select banks or a billing period to see the price; no charge can be made here." : expansion && validSelection ? "Added banks unlock only after Stripe verifies the payment." : renewalChange ? "Removals, swaps and billing-period changes start at renewal after payment is verified." : "Your current plan stays in place until you review and confirm a change."} Displayed prices are standard rates before discounts and taxes; Stripe gives the exact quote before confirmation.</p> : null}
       {subscription.cancelAtPeriodEnd ? <p className="account-plan-timing">Cancellation is scheduled. Undo it before choosing another plan.</p> : null}
-      {pause.kind === "scheduled" ? <p className="account-plan-timing">Pause booked: your banks stay open until {date(pause.accessUntil)}, then your plan restarts on {date(pause.resumesAt)}.</p> : null}
-      {pause.kind === "paused" ? <p className="account-plan-timing">Paused. Your plan restarts on {date(pause.resumesAt)}, or resume now to open your banks today.</p> : null}
+      {pause.kind === "scheduled" ? <p className="account-plan-timing">Pausing from {date(pause.accessUntil)} until {date(pause.resumesAt)}. Your banks stay open until then.</p> : null}
+      {pause.kind === "paused" ? <p className="account-plan-timing">Paused until {date(pause.resumesAt)}.</p> : null}
       <div className="account-editor-actions">{demo ? null : subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button>
         // Cancelling stays one step away while paused, too.
-        : pause.kind === "scheduled" ? <><button type="button" onClick={() => void changePause("undo")} disabled={busy}>{busy ? "Undoing…" : "Undo pause"}</button><Link className="account-cancel-action" href="/subscription/cancel">Cancel subscription</Link></>
+        : pause.kind === "scheduled" ? <><button type="button" onClick={() => void changePause("undo")} disabled={busy}>{busy ? "Resuming…" : "Resume now"}</button><Link className="account-cancel-action" href="/subscription/cancel">Cancel subscription</Link></>
         : pause.kind === "paused" ? <><button type="button" onClick={() => setView("resume-review")} disabled={busy}>Resume now</button><Link className="account-cancel-action" href="/subscription/cancel">Cancel subscription</Link></>
         : <>{canPause ? <Link className="account-pause-action" href="/subscription/pause">Pause subscription</Link> : null}<Link className="account-cancel-action" href="/subscription/cancel">Cancel subscription</Link></>}</div>
     </div> : null}
@@ -344,9 +345,9 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       <div className="account-editor-actions"><button type="button" onClick={() => void confirmRenewal()} disabled={busy}>{busy ? "Scheduling…" : "Schedule change"}</button><button type="button" onClick={() => { setRenewalQuote(null); setView("select"); }} disabled={busy}>Edit plan</button></div>
     </div> : null}
     {view === "resume-review" && pause.kind === "paused" ? <div className="account-editor-review">
-      <h3>Resume your plan today?</h3>
-      <p>Your banks open as soon as the payment goes through. You’re charged your usual {currentInterval === "monthly" ? "monthly" : "annual"} price today, and your billing date moves to today.</p>
-      <div className="account-editor-actions"><button type="button" onClick={() => void changePause("resume_now")} disabled={busy}>{busy ? "Resuming…" : "Resume and pay now"}</button><button type="button" onClick={reset} disabled={busy}>Not yet</button></div>
+      <h3>Resume today</h3>
+      <p>{resumePrice ? `You’ll pay ${resumePrice} today` : "You’ll pay your usual monthly price today"} and your banks open straight away. Your next payment moves to this date next month.</p>
+      <div className="account-editor-actions"><button type="button" onClick={() => void changePause("resume_now")} disabled={busy}>{busy ? "Paying…" : resumePrice ? `Pay ${resumePrice}` : "Pay and resume"}</button><button type="button" onClick={reset} disabled={busy}>Not now</button></div>
     </div> : null}
   </div>;
 }
