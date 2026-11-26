@@ -502,6 +502,16 @@ access: ExplorerAccess;
     return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
   }, [effectiveFreeOnly, matching, savedIds, savedOnly]);
   const savedWorksheetView = Boolean(worksheetId) && !addingQuestions;
+  // Core/Extended has no "All". When a tier has no free questions at all (Maths 0580's free years are Extended papers),
+  // offer the other tier's free questions instead of an empty list.
+  const freeTierFallback = useMemo(() => {
+    if (!effectiveFreeOnly || !routeConfig || routeConfig.showAll || Object.values(filters).some((picked) => Array.isArray(picked) && picked.length) || listSearch.trim()) return null;
+    const freeIn = (route: CourseRouteSelection) => catalogQuestions.some((question) => matchesCourseRoute(question.syllabusRoute, route) && isPreviewQuestion(question.bankSlug, question.id));
+    if (freeIn(effectiveCourseRoute)) return null;
+    const other = routeConfig.options.find((option) => option.id !== effectiveCourseRoute && freeIn(option.id));
+    const current = routeConfig.options.find((option) => option.id === effectiveCourseRoute);
+    return other && current ? { id: other.id, from: current.label, to: other.label } : null;
+  }, [effectiveFreeOnly, routeConfig, filters, listSearch, catalogQuestions, effectiveCourseRoute]);
   const sharedSetView = !worksheetId && (sharedIds !== null || Boolean(sharedError));
   const sharedSetQuestions = useMemo(() => {
     if (!sharedIds || (indexUrl && !indexLoaded) || indexError || bootstrapPending) return [];
@@ -1228,9 +1238,10 @@ access: ExplorerAccess;
     restartResults();
   };
 
-  const changeCourseRoute = (value: CourseRouteSelection) => {
+  // `remember: false` looks at the other tier once (the free-years fallback) without changing the student's saved tier.
+  const changeCourseRoute = (value: CourseRouteSelection, { remember = true }: { remember?: boolean } = {}) => {
     setCourseRoute(value);
-    rememberRoute(bank, value);
+    if (remember) rememberRoute(bank, value);
     // Route is the broad course-level scope. Paper/component filters stay optional
     // refinements, so discard stale refinements rather than mirroring hidden checkbox state.
     // Paper tabs also scope topics: keep only picked topics the new paper has.
@@ -1607,7 +1618,9 @@ access: ExplorerAccess;
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => { if (bootstrapPending) return; if (resolvedAccess.authenticated) void toggleSaved(question.id); else openSigninPrompt({ reason: "save", questionId: question.id }); }} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString("en-US")} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
             })}
           </div>
-          {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
+          {!savedWorksheetView && !sharedSetView && filtered.length === 0 && (freeTierFallback
+            ? <div className="empty-state"><strong>No free {freeTierFallback.from} questions here yet.</strong><span>The free years are {freeTierFallback.to} papers.</span><button type="button" className="text-button" onClick={() => changeCourseRoute(freeTierFallback.id, { remember: false })}>Show free {freeTierFallback.to} questions</button></div>
+            : <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>)}
           {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} sentViews={sentUpgradeViews} bankFreeCount={bankFreeCount} bankName={bankShortName} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
           {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => { setVisible((count) => count + EXPLORER_PAGE_SIZE); trackProductEvent("question_list_more", { bank: bank ?? "unknown", shown: Math.min(visible + EXPLORER_PAGE_SIZE, filtered.length) }); }}>Show 24 more questions</button>}
         </div>

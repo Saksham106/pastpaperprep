@@ -76,6 +76,24 @@ describe("QuestionExplorer", () => {
     expect(window.localStorage.getItem("ppp-route:igcse-tier")).toBe("core");
   });
 
+  it("offers the other tier's free questions when a tier has none, without changing the saved tier", async () => {
+    window.history.replaceState({}, "", "/banks/igcse");
+    window.localStorage.setItem("ppp-route:igcse-tier", "core");
+    const bank = loadBankQuestions("igcse");
+    // Maths 0580's free years are Extended papers only; Core papers start later and are paid.
+    const freeExtended = bank.find((question) => isPreviewQuestion("igcse", question.id) && question.paper === 2)!;
+    const paidCore = bank.find((question) => !isPreviewQuestion("igcse", question.id) && question.paper === 1)!;
+    const questions = prepareQuestionsForDelivery([freeExtended, paidCore], []);
+    render(<QuestionExplorer questions={questions} bankSlug="igcse" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} hydrateFromLocation />);
+
+    expect(await screen.findByText("No free Core questions here yet.")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Show free Extended questions" }));
+    await waitFor(() => expect(screen.getByRole("radio", { name: /^extended/i })).toBeChecked());
+    expect(screen.queryByText("No free Core questions here yet.")).not.toBeInTheDocument();
+    expect(window.localStorage.getItem("ppp-route:igcse-tier")).toBe("core");
+    window.localStorage.clear();
+  });
+
   it("clears incompatible paper refinements and limits paper choices to the selected route", () => {
     const bank = loadBankQuestions("igcse");
     const representatives = [1, 2, 3, 4].map((paper) => bank.find((question) => question.paper === paper)!);
