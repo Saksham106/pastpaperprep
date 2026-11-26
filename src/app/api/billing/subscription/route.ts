@@ -7,6 +7,8 @@ import { createClient } from "@/lib/supabase/server";
 import { describeSubscriptionBanks, recurringPriceSubtotal } from "@/lib/account-billing-view";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { getBillingBanks } from "@/lib/banks";
+import { pauseStateOf } from "@/lib/subscription-pause";
+import { isPauseEnabled } from "@/lib/subscription-lifecycle";
 
 export const runtime = "nodejs";
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" };
@@ -73,6 +75,7 @@ async function handleGET() {
       id: subscription.id, status: subscription.status, cancelAtPeriodEnd: subscription.cancel_at_period_end,
       pendingUpdate: Boolean(subscription.pending_update), scheduledChange: Boolean(subscription.schedule),
       cancelAt: subscription.cancel_at ? new Date(subscription.cancel_at * 1000).toISOString() : null,
+      pause: pauseStateOf(subscription, new Date()),
       bankSelection: describeSubscriptionBanks(subscription.metadata.product_id ?? null, subscription.metadata.selected_bank_ids ?? null),
       items: await Promise.all(subscription.items.data.map(async (item) => {
         let price = item.price;
@@ -109,7 +112,8 @@ async function handleGET() {
       if (candidate.metadata.user_id === user.id && typeof periodEnd === "number" && Number.isSafeInteger(periodEnd) && periodEnd > Math.floor(Date.now() / 1000) &&
         (!candidate.cancel_at || candidate.cancel_at_period_end === true && candidate.cancel_at === periodEnd)) {
         try {
-          readEditableCurrentPlan({ ...candidate, cancel_at: null, cancel_at_period_end: false }, getStripeConfig());
+          // A booked pause is still managed here (undo / resume); plan-change routes refuse while paused.
+          readEditableCurrentPlan({ ...candidate, cancel_at: null, cancel_at_period_end: false, pause_collection: null }, getStripeConfig());
           editable = true;
         } catch { /* Legacy prices and unsupported subscription structures stay read-only. */ }
       }
@@ -120,7 +124,7 @@ async function handleGET() {
       invoicesHasMore: invoices.has_more,
       paymentMethod: methodRecord ? { type: methodRecord.type ?? null, bankName: methodRecord.us_bank_account?.bank_name ?? null, last4: methodRecord.us_bank_account?.last4 ?? methodRecord.card?.last4 ?? null, cardBrand: methodRecord.card?.brand ?? null, cardExpiryMonth: methodRecord.card?.exp_month ?? null, cardExpiryYear: methodRecord.card?.exp_year ?? null } : null,
       bankOptions: editorEnabled ? getBillingBanks().map(({ slug, shortName }) => ({ slug, name: shortName })) : [],
-      management: { editable, reason: editable ? null : "Plan editing is unavailable for this billing arrangement." },
+      management: { editable, pauseEnabled: editable && isPauseEnabled(), reason: editable ? null : "Plan editing is unavailable for this billing arrangement." },
     }, { headers: NO_STORE });
   } catch (error) {
     console.error("Stripe subscription read failed", error instanceof Error ? { name: error.name } : { type: typeof error });

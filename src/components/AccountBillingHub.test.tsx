@@ -63,15 +63,14 @@ describe("Subscription & billing hub", () => {
   expect(container.querySelector(".account-plan-summary-price")).toHaveTextContent("$4.99 / mo");
   expect(within(screen.getByRole("region",{name:"Subscription"})).queryByRole("link",{name:/Manage billing/})).toBeNull();
  });
- it("loads one verified snapshot for both sections and preserves cancellation review", async () => {
+ it("loads one verified snapshot for both sections and links to the cancel page", async () => {
   const fetcher=vi.fn().mockResolvedValue({ok:true,status:200,json:async()=>paid.kind === "loaded" ? paid.data : null}); vi.stubGlobal("fetch",fetcher);
   render(<AccountBillingHub />);
   expect(await screen.findByRole("link",{name:/Change plan/})).toBeVisible();
   expect(fetcher).toHaveBeenCalledTimes(1);
   expect(screen.getByRole("button",{name:"Manage billing"})).toBeEnabled();
-  fireEvent.click(screen.getByRole("button",{name:"Cancel subscription"}));
-  expect(screen.getByRole("heading",{name:"Why are you cancelling?"})).toBeVisible();
-  expect(screen.getByRole("button",{name:"Keep subscription"})).toBeEnabled();
+  // Cancelling happens on its own page; the hub only links there.
+  expect(screen.getByRole("link",{name:"Cancel subscription"})).toHaveAttribute("href","/subscription/cancel");
   expect(fetcher).toHaveBeenCalledTimes(1);
  });
  it("keeps provider invoices in Billing while subscription management stays in Subscription", () => {

@@ -13,7 +13,7 @@ vi.mock("@/lib/stripe", () => ({ createStripeClient: () => ({ subscriptions: { l
 const req = (intent: string = "cancel", origin = "https://app.test", extra: Record<string, unknown> = {}) => new Request("https://app.test/api/billing/subscription/cancellation", { method: "POST", headers: { origin, "content-type": "application/json" }, body: JSON.stringify({ intent, ...extra }) });
 const sub = () => ({ id: "sub_1", customer: "cus_1", status: "active", metadata: { user_id: "user_1", product_id: "bank_igcse" } as Record<string, string>, pending_update: null, schedule: null, discounts: [] as unknown[], cancel_at: null as number | null, cancel_at_period_end: false, items: { data: [{ id: "si_1", current_period_end: 1900000000, price: { recurring: { interval: "month", interval_count: 1 } } }] } });
 const COUPON = { id: "keep30", valid: true, percent_off: 30, amount_off: null, duration: "once" };
-beforeEach(() => { vi.clearAllMocks(); vi.stubEnv("STRIPE_RETENTION_COUPON_ID", "keep30"); m.holdout = false; m.activity = {}; m.coupon.mockResolvedValue(COUPON); m.customer.mockResolvedValue({ id: "cus_1", discount: null }); m.billing = true; m.userId = "user_1"; m.customerId = "cus_1"; m.subscription = sub(); m.getUser.mockResolvedValue({ data: { user: { id: m.userId } } }); m.rpc.mockImplementation(async (name: string) => name === "get_stripe_customer_id" ? { data: m.customerId, error: null } : name === "reserve_billing_checkout" ? { data: m.reserve(), error: null } : name === "release_billing_checkout" ? { data: m.release(), error: null } : { data: true, error: null }); m.reserve.mockReturnValue(true); m.release.mockReturnValue(true); m.listSubs.mockResolvedValue({ data: [m.subscription], has_more: false }); m.listSessions.mockResolvedValue({ data: [], has_more: false }); m.listInvoices.mockResolvedValue({ data: [], has_more: false }); m.update.mockImplementation(async (_id: string, params: { cancel_at_period_end: boolean }) => ({ ...m.subscription, ...params })); m.retrieve.mockImplementation(async () => m.subscription); });
+beforeEach(() => { vi.clearAllMocks(); vi.stubEnv("STRIPE_RETENTION_COUPON_ID", "keep30"); vi.stubEnv("STRIPE_PAUSE_ENABLED", "false"); m.holdout = false; m.activity = {}; m.coupon.mockResolvedValue(COUPON); m.customer.mockResolvedValue({ id: "cus_1", discount: null }); m.billing = true; m.userId = "user_1"; m.customerId = "cus_1"; m.subscription = sub(); m.getUser.mockResolvedValue({ data: { user: { id: m.userId } } }); m.rpc.mockImplementation(async (name: string) => name === "get_stripe_customer_id" ? { data: m.customerId, error: null } : name === "reserve_billing_checkout" ? { data: m.reserve(), error: null } : name === "release_billing_checkout" ? { data: m.release(), error: null } : { data: true, error: null }); m.reserve.mockReturnValue(true); m.release.mockReturnValue(true); m.listSubs.mockResolvedValue({ data: [m.subscription], has_more: false }); m.listSessions.mockResolvedValue({ data: [], has_more: false }); m.listInvoices.mockResolvedValue({ data: [], has_more: false }); m.update.mockImplementation(async (_id: string, params: { cancel_at_period_end: boolean }) => ({ ...m.subscription, ...params })); m.retrieve.mockImplementation(async () => m.subscription); });
 describe("subscription cancellation route", () => {
   it("rejects unauthenticated requests", async () => { m.getUser.mockResolvedValue({ data: { user: null } }); const r = await POST(req()); expect(r.status).toBe(401); expect(m.rpc).not.toHaveBeenCalled(); });
   it("rejects cross-origin requests", async () => { const r = await POST(req("cancel", "https://evil.test")); expect(r.status).toBe(403); expect(m.getUser).not.toHaveBeenCalled(); });
@@ -44,7 +44,7 @@ describe("cancellation reasons and retention offer", () => {
   });
   it("offers the discount for a monthly plan without reserving or writing", async () => {
     const r = await POST(req("offer", undefined, { reason: "too_expensive" }));
-    expect(await r.json()).toEqual({ offer: { kind: "discount", percentOff: 30 }, eligibleOffer: { kind: "discount", percentOff: 30 }, basis: "too_expensive", predicted: false, holdout: false });
+    expect(await r.json()).toEqual({ offer: { kind: "discount", percentOff: 30 }, eligibleOffer: { kind: "discount", percentOff: 30 }, basis: "too_expensive", predicted: false, holdout: false, pauseAvailable: false });
     expect(m.update).not.toHaveBeenCalled();
     expect(m.reserve).not.toHaveBeenCalled();
   });
@@ -94,5 +94,27 @@ describe("cancellation reasons and retention offer", () => {
     m.retrieve.mockImplementation(async () => m.subscription);
     expect((await POST(req("accept_discount"))).status).toBe(503);
     expect(m.release).not.toHaveBeenCalled();
+  });
+  it("treats switching service like price and stores the 'Something else' comment only in Stripe", async () => {
+    expect((await (await POST(req("offer", undefined, { reason: "switched_service" }))).json()).offer).toEqual({ kind: "discount", percentOff: 30 });
+    m.retrieve.mockResolvedValue({ ...m.subscription, cancel_at_period_end: true });
+    expect((await POST(req("cancel", undefined, { reason: "other", comment: "  Moving to a tutor  " }))).status).toBe(200);
+    expect(m.update).toHaveBeenCalledWith("sub_1", { cancel_at_period_end: true, cancellation_details: { feedback: "other", comment: "Moving to a tutor" } }, expect.any(Object));
+  });
+  it("rejects comments that are too long or on the wrong intent", async () => {
+    expect((await POST(req("cancel", undefined, { comment: "x".repeat(501) }))).status).toBe(400);
+    expect((await POST(req("offer", undefined, { comment: "hi" }))).status).toBe(400);
+    expect(m.rpc).not.toHaveBeenCalled();
+  });
+  it("offers pause to everyone on monthly plans when enabled, holdout included", async () => {
+    vi.stubEnv("STRIPE_PAUSE_ENABLED", "true"); m.holdout = true;
+    expect(await (await POST(req("offer"))).json()).toMatchObject({ offer: null, pauseAvailable: true });
+    m.subscription.items.data[0].price.recurring.interval = "year";
+    expect(await (await POST(req("offer"))).json()).toMatchObject({ pauseAvailable: false });
+  });
+  it("never applies the discount to a paused subscription", async () => {
+    (m.subscription as Record<string, unknown>).pause_collection = { behavior: "void" };
+    expect((await POST(req("accept_discount"))).status).toBe(409);
+    expect(m.update).not.toHaveBeenCalled();
   });
 });

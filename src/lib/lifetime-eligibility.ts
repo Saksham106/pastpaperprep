@@ -7,6 +7,7 @@ type Subscription = {
   cancel_at_period_end?: unknown;
   cancel_at?: unknown;
   pending_update?: unknown;
+  pause_collection?: unknown;
   schedule?: unknown;
   items?: { data?: Array<{ id?: unknown; quantity?: unknown; price?: { id?: unknown; currency?: unknown; recurring?: { interval?: unknown } | null } | string | null }> } | null;
 };
@@ -44,7 +45,7 @@ export function classifyLifetimeEligibility(input: Input): LifetimeEligibility {
   let selectedIds: unknown[] = [];
   if (typeof selected === "string") { try { const value: unknown = JSON.parse(selected); if (Array.isArray(value)) selectedIds = value; } catch { /* fail closed */ } }
   const validQuantity = isCustom ? Number.isInteger(quantity) && Number(quantity) >= 2 && Number(quantity) <= 5 && selectedIds.length === quantity && selectedIds.every((id) => typeof id === "string") && new Set(selectedIds).size === selectedIds.length : quantity === 1;
-  if (sub.status !== "active" || sub.cancel_at_period_end !== false || sub.cancel_at != null || sub.pending_update != null || sub.schedule != null ||
+  if (sub.status !== "active" || sub.cancel_at_period_end !== false || sub.cancel_at != null || sub.pending_update != null || sub.pause_collection != null || sub.schedule != null ||
     !Array.isArray(items) || items.length !== 1 || !validQuantity || typeof item?.id !== "string" ||
     !item.price || typeof item.price === "string" || item.price.currency !== "usd" ||
     (item.price.recurring?.interval !== "month" && item.price.recurring?.interval !== "year")) return { state: "billing_support", reason: "billing_support" };

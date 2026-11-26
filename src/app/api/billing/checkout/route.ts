@@ -181,7 +181,7 @@ async function handlePOST(request: Request) {
             if (subscription.metadata?.user_id && subscription.metadata.user_id !== user.id) { billingConflict = true; break; }
             // An unpaid bill blocks every new purchase; the portal is where it gets paid.
             if (LAPSED_SUBSCRIPTION_STATUSES.has(subscription.status)) { billingConflict = true; paymentIssue = true; break; }
-            if (process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && (subscription.schedule != null || subscription.pending_update != null)) { billingConflict = true; break; }
+            if (process.env.STRIPE_PLAN_EDITOR_ENABLED === "true" && (subscription.schedule != null || subscription.pending_update != null || subscription.pause_collection != null)) { billingConflict = true; break; }
             if (!addOnBank && !paidBundle) { billingConflict = true; break; }
             if (subscription.status !== "active" && subscription.status !== "trialing") { billingConflict = true; break; }
             const product = subscription.metadata?.product_id;

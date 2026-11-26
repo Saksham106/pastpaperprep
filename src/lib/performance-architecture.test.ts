@@ -44,6 +44,8 @@ describe("serverless performance boundaries", () => {
       // Source-map denial runs before static serving (see src/proxy.ts).
       "/_next/static/:path(.*(?:\\.|%2[eE])(?:m|%6[dD])(?:a|%61)(?:p|%70))",
       "/account/:path*",
+      // Signed-in cancel / pause pages (no CDN cache; they read the session like /account).
+      "/subscription/:path*",
       "/dashboard/:path*",
       // /pricing is CDN-served; only the dev-only preview fence stays in the proxy.
       "/pricing/preview",

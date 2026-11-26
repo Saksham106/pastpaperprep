@@ -5,7 +5,7 @@
  * Half of accounts (fixed per account) are a holdout that never sees an offer, so the save rate is measurable.
  */
 
-export const CANCEL_REASONS = ["too_expensive", "not_studying", "missing_subject", "other"] as const;
+export const CANCEL_REASONS = ["too_expensive", "not_studying", "missing_subject", "switched_service", "other"] as const;
 export type CancelReason = typeof CANCEL_REASONS[number];
 
 /** Stripe `cancellation_details.feedback` value stored with the cancellation. */
@@ -13,6 +13,7 @@ export const STRIPE_CANCEL_FEEDBACK = {
   too_expensive: "too_expensive",
   not_studying: "unused",
   missing_subject: "missing_features",
+  switched_service: "switched_service",
   other: "other",
 } as const satisfies Record<CancelReason, string>;
 
@@ -23,6 +24,8 @@ export const RETENTION_DISCOUNT_COOLDOWN_DAYS = 365;
 export const INACTIVE_AFTER_DAYS = 30;
 /** Subscription metadata key recording when the retention discount was accepted. */
 export const RETENTION_ACCEPTED_METADATA_KEY = "retention_offer_accepted_at";
+/** "Something else" free text, stored only as the Stripe cancellation comment (never sent to analytics). */
+export const CANCEL_COMMENT_MAX_LENGTH = 500;
 
 export type PlanShape = "single" | "builder" | "all";
 export type RetentionOffer = { kind: "discount"; percentOff: number } | { kind: "fewer_banks" } | { kind: "updates" };
@@ -71,7 +74,8 @@ export function chooseRetentionOffer(input: {
   const decision = (offer: RetentionOffer | null): RetentionDecision => ({ offer: input.holdout ? null : offer, eligibleOffer: offer, basis, predicted, holdout: input.holdout });
   if (basis === "missing_subject") return decision({ kind: "updates" });
   // A one-off discount only on monthly plans: a "once" coupon on an annual renewal would take 30% off a whole year.
-  if (basis === "too_expensive" && input.interval === "monthly" && input.discountEligible) return decision({ kind: "discount", percentOff: RETENTION_DISCOUNT_PERCENT });
+  // Switching away is usually about price, so it gets the same offer as "too expensive".
+  if ((basis === "too_expensive" || basis === "switched_service") && input.interval === "monthly" && input.discountEligible) return decision({ kind: "discount", percentOff: RETENTION_DISCOUNT_PERCENT });
   // Downgrades keep savers longest; nothing is cheaper than One Bank.
   if (input.plan !== "single") return decision({ kind: "fewer_banks" });
   return decision(null);
