@@ -252,7 +252,8 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       if (result.status !== "discount_applied" || typeof result.percentOff !== "number" || !date(typeof result.nextPaymentAt === "string" ? result.nextPaymentAt : null)) throw new Error("Could not verify the discount. Check Billing before trying again.");
       trackProductEvent("cancel_flow_offer_accepted", { offer: "discount", reason: cancelReason ?? "none" });
       const message = `${result.percentOff}% off applied to your next payment on ${date(result.nextPaymentAt as string)}.`;
-      setNotice(message); reset(); onUpdated(message);
+      // The billing page shows this message; a local copy would repeat it (the editor doesn't remount for a discount).
+      reset(); onUpdated(message);
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not apply the discount."); }
     finally { setBusy(false); }
   }
