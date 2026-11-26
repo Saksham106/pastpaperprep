@@ -2389,6 +2389,7 @@ main { min-height: 72vh; }
   .dashboard-announcement { grid-template-columns: auto minmax(0, 1fr) auto; }
   .dashboard-announcement-actions { grid-column: 1 / -1; justify-content: flex-start; }
   .dashboard-announcement-dismiss { grid-column: 3; grid-row: 1; }
+  .dashboard-announcement > .course-icon { align-self: start; }
 }
 .dashboard-plan-card { margin-top: 16px; padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; background: var(--surface-raised); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-sm); }
 .dashboard-plan-card > div { display: grid; gap: 3px; min-width: 0; }

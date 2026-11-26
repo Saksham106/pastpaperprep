@@ -38,11 +38,12 @@ export function DashboardContent({ authenticated, accessibleBanks, availableBank
   const fresh = new Set(newBanks);
   const paperLinks = usePaperLinks();
   const hasPaidAccess = accessibleBanks.length > 0;
+  // Rows show the years a bank covers (students care whether the latest papers are in), not its size.
   // Included courses lead, inside each card and across cards.
   const row = (bank: Bank): CourseRow => {
     const included = accessible.has(bank.slug);
     const free = hasFreeTier(bank.slug);
-    return { slug: bank.slug, name: bank.shortName, topics: { href: included || !free ? `/banks/${bank.slug}` : bankEntryHref(bank.slug), count: bank.questionCount }, papers: paperLinks[bank.slug], tag: included ? "Included" : undefined, freeTier: free, fresh: fresh.has(bank.slug) };
+    return { slug: bank.slug, name: bank.shortName, topics: { href: included || !free ? `/banks/${bank.slug}` : bankEntryHref(bank.slug), count: bank.questionCount, meta: bank.years.replace("-", "–") }, papers: paperLinks[bank.slug] && { ...paperLinks[bank.slug], meta: "" }, tag: included ? "Included" : fresh.has(bank.slug) ? "New" : undefined, freeTier: free, fresh: fresh.has(bank.slug) };
   };
   const byAccess = (banks: readonly Bank[]) => [...banks].sort((a, b) => Number(accessible.has(b.slug)) - Number(accessible.has(a.slug)));
   const groupsFor = (qualification: Bank["qualification"]) => groupCourses(byAccess(availableBanks.filter((bank) => bank.qualification === qualification)), row)

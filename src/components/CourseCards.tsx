@@ -10,14 +10,18 @@ import styles from "./CourseCards.module.css";
 export type CourseRow = {
   slug: string;
   name: string;
-  topics: { href: string; count: number };
-  papers?: { href: string; count: number };
+  /** `meta` replaces the "N questions" / "N papers" count; an empty string shows nothing. */
+  topics: { href: string; count: number; meta?: string };
+  papers?: { href: string; count: number; meta?: string };
   /** Short status beside the name, e.g. "Included" on the dashboard. */
   tag?: string;
   freeTier?: boolean;
-  /** Launched in the last few weeks: a small dot beside the name. */
+  /** Launched in the last few weeks; read out as "new" (the visible tag says New). */
   fresh?: boolean;
 };
+const meta = ({ count, meta }: { count: number; meta?: string }, unit: string) =>
+  meta === undefined ? <span>{count.toLocaleString("en-US")} {unit}</span> : <span>{meta}</span>;
+
 export type CourseGroup = { name: string; tone: CourseTone; rows: CourseRow[] };
 
 const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank) => boolean }[] = [
@@ -53,10 +57,10 @@ export function CourseCards({ groups, pageTransition = false }: { groups: readon
     <header className={styles.head}><h3>{group.name}</h3><span className={styles.mark}><CourseIcon tone={group.tone} /></span></header>
     <div className={styles.rows}>{group.rows.map((row) => <Fragment key={row.slug}>
       <Link className={styles.row} transitionTypes={transition} href={row.topics.href} data-bank-slug={row.slug} data-mode-item={row.papers ? "topics" : undefined} data-has-free-tier={row.freeTier ? "true" : undefined} aria-label={`${row.name}${row.fresh ? ", new" : ""}, practice by topic`}>
-        <strong>{row.name}{row.fresh && <i className={styles.newDot} title="New" />}{row.tag && <em>{row.tag}</em>}</strong><span>{row.topics.count.toLocaleString("en-US")} questions</span><ArrowRight aria-hidden="true" weight="bold" />
+        <strong>{row.name}{row.tag && <em>{row.tag}</em>}</strong>{meta(row.topics, "questions")}<ArrowRight aria-hidden="true" weight="bold" />
       </Link>
       {row.papers && <Link className={styles.row} transitionTypes={transition} href={row.papers.href} data-papers-slug={row.slug} data-mode-item="papers" aria-label={`${row.name}${row.fresh ? ", new" : ""}, full past papers`}>
-        <strong>{row.name}{row.fresh && <i className={styles.newDot} title="New" />}{row.tag && <em>{row.tag}</em>}</strong><span>{row.papers.count.toLocaleString("en-US")} papers</span><ArrowRight aria-hidden="true" weight="bold" />
+        <strong>{row.name}{row.tag && <em>{row.tag}</em>}</strong>{meta(row.papers, "papers")}<ArrowRight aria-hidden="true" weight="bold" />
       </Link>}
     </Fragment>)}</div>
   </section>)}</div>;

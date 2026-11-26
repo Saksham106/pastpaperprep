@@ -41,6 +41,13 @@ describe("announcement candidates", () => {
     expect(candidates(["ib-business-management-hl", "ib-business-management-sl"]).some((item) => item.kind === "bank_add")).toBe(false);
   });
 
+  it("names only the bank that is new to a reader who owns part of a launch", () => {
+    const launch: Update = { date: "2026-11-22", tag: "New bank", title: "A Level Computer Science 9618 and Further Maths 9231", body: "Both.", links: [{ label: "CS", href: "/banks/a-level-computer-science-9618" }, { label: "FM", href: "/banks/a-level-further-maths-9231" }] };
+    const banks = [...BANKS, bank("a-level-further-maths-9231", "Further Maths 9231")];
+    const [card] = announcementCandidates({ banks, accessible: ["a-level-computer-science-9618"], allAccess: false, now: NOW, updates: [launch] });
+    expect(card).toMatchObject({ kind: "bank_add", title: "Further Maths 9231", body: undefined, bank: "a-level-further-maths-9231" });
+  });
+
   it("tells All Access and Lifetime readers the bank is already theirs", () => {
     const card = candidates(BANKS.map(({ slug }) => slug), true).find((item) => item.kind === "bank_included");
     expect(card).toMatchObject({ eyebrow: "Now included", cta: { label: "Open it", href: "/banks/ib-business-management-hl" } });

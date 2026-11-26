@@ -96,7 +96,10 @@ export function announcementCandidates({ banks, accessible, allAccess, now = new
         const missing = slugs.filter((slug) => !owned.has(slug));
         if (!missing.length || !ownedBoards.has(board)) continue;
         const slug = preferredVariant(missing, owned);
-        result.push({ ...base, kind: "bank_add", eyebrow: "New bank", tier: 0, board, bank: slug, cta: { label: "Add it to your plan", href: upgradeHref(slug, "announcement") }, secondary: hasFreeTier(slug) ? { label: "Try it free", href: bankEntryHref(slug) } : undefined });
+        // A launch of several banks where they own one: name only the new one to them.
+        const partial = slugs.some((item) => owned.has(item));
+        const text = partial ? { title: name(slug), body: undefined } : {};
+        result.push({ ...base, ...text, kind: "bank_add", eyebrow: "New bank", tier: 0, board, bank: slug, cta: { label: "Add it to your plan", href: upgradeHref(slug, "announcement") }, secondary: hasFreeTier(slug) ? { label: "Try it free", href: bankEntryHref(slug) } : undefined });
       } else {
         const slug = preferredVariant(slugs, owned);
         result.push({ ...base, kind: "bank_free", eyebrow: "New bank", tier: 0, board, bank: slug, cta: hasFreeTier(slug) ? { label: "Try it free", href: bankEntryHref(slug) } : { label: "Take a look", href: `/banks/${slug}` }, secondary: { label: "Unlock every year", href: upgradeHref(slug, "announcement") } });
