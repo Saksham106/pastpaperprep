@@ -38,5 +38,24 @@ export const SOCIAL_IMAGE_URL = SOCIAL_IMAGE.url;
  */
 export function socialPreview(qualification?: Qualification | PastPaperQualification) {
   const preview = SOCIAL_PREVIEWS[qualificationInfo(qualification).socialPreview];
-  return { images: [preview.image], videos: [preview.video] };
+  // siteName and locale are repeated here because a page-level openGraph drops the layout's.
+  return { siteName: "PastPaperPrep", locale: "en_US", images: [preview.image], videos: [preview.video] };
+}
+
+/**
+ * schema.org Course for the exam course a page is about (the syllabus, not a PastPaperPrep product).
+ * Google's course structured data requires a description; the provider is the exam board that runs the course.
+ */
+export function examCourseJsonLd({ name, qualification, url }: { name: string; qualification: string; url?: string }) {
+  const ib = /^(IB|International Baccalaureate)/i.test(qualification);
+  return {
+    "@type": "Course",
+    name,
+    description: `${name} (${qualification}). PastPaperPrep sorts this course's past-paper questions by syllabus topic, year and paper.`,
+    educationalLevel: qualification,
+    provider: ib
+      ? { "@type": "Organization", name: "International Baccalaureate Organization", sameAs: "https://www.ibo.org" }
+      : { "@type": "Organization", name: "Cambridge International Education", sameAs: "https://www.cambridgeinternational.org" },
+    ...(url ? { url } : {}),
+  };
 }

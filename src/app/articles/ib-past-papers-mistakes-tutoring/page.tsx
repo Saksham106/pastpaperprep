@@ -8,7 +8,8 @@ const path = "/articles/ib-past-papers-mistakes-tutoring";
 const publishedAt = "2026-09-26";
 
 export const metadata: Metadata = {
-  title,
+  // The H1 is 63 characters; the title tag drops the suffix so search results show it whole.
+  title: { absolute: "How to Stop Repeating Mistakes in IB Past Papers" },
   description,
   alternates: { canonical: path },
   openGraph: {

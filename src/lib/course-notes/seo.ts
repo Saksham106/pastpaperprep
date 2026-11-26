@@ -24,7 +24,11 @@ export function notesTitle(title: string, courseName: string): string {
   const long = `${title} | ${courseName} Notes`;
   if (long.length <= MAX_TITLE) return long;
   const short = `${title} | ${courseName}`;
-  return short.length <= 70 ? short : fitTitle(title);
+  if (short.length <= MAX_TITLE) return short;
+  // Shorten the lesson title, never the course name: cutting "| IB Maths AA" to "| IB Maths…" made AA and AI titles identical.
+  const suffix = ` | ${courseName}`;
+  const room = MAX_TITLE - suffix.length - 1;
+  return room >= 20 ? `${title.slice(0, room).trimEnd()}…${suffix}` : fitTitle(title);
 }
 
 export function courseMeta(title: string, description: string, path: string, type: "website" | "article" = "website"): Metadata {

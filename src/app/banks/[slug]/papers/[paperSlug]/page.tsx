@@ -43,7 +43,7 @@ export async function generateMetadata({
         )),
         description: `Practise ${paper.count.toLocaleString()} ${bankSearchName(bank)} ${paper.label} past-paper questions from ${bank.years}. Filter by topic and year, check answers, and build a worksheet.`,
         alternates: { canonical: paperPath(bank.slug, paper) },
-        openGraph: { url: paperPath(bank.slug, paper), ...socialPreview(bank.qualification) },
+        openGraph: { url: paperPath(bank.slug, paper), type: "website", ...socialPreview(bank.qualification) },
       }
     : {};
 }

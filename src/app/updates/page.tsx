@@ -9,9 +9,9 @@ import { socialPreview } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "What's new",
-  description: "New question banks, papers and features on PastPaperPrep, newest first.",
+  description: "Every new question bank, past-paper year, revision-notes course and feature added to PastPaperPrep for IGCSE, A Level and IB, newest first.",
   alternates: { canonical: "/updates" },
-  openGraph: { url: "/updates", ...socialPreview() },
+  openGraph: { url: "/updates", type: "website", ...socialPreview() },
 };
 
 export default function UpdatesPage() {

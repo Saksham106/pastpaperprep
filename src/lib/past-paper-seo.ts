@@ -92,7 +92,11 @@ export function subjectCopy(bank: CatalogBank, papers: readonly WholePaperSummar
   return {
     title: fitTitle(`${name} Past Papers & Mark Schemes (${yearRange(papers)})`, `${name} Past Papers & Mark Schemes`, `${name} Past Papers`),
     h1: `${name} past papers`,
-    description: `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}.${papers.every(p => p.reportAvailable) ? ' Time it, mark it and see which topics to fix.' : papers.some(p => p.reportAvailable) ? ' Time it, and mark supported papers to see which topics to fix.' : ''} Free, no sign-up.`,
+    description: fitDescription(
+      `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}.${papers.every(p => p.reportAvailable) ? ' Time it, mark it and see which topics to fix.' : papers.some(p => p.reportAvailable) ? ' Time it, and mark supported papers to see which topics to fix.' : ''} Free, no sign-up.`,
+      `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}.${papers.every(p => p.reportAvailable) ? ' Time it and mark it.' : papers.some(p => p.reportAvailable) ? ' Time it; mark supported papers.' : ''} Free, no sign-up.`,
+      `Every ${name} past paper from ${yearRange(papers)} with its ${scheme(bank)}. Free, no sign-up.`,
+    ),
     answer: `${n} ${fullName(bank)} past ${n === 1 ? 'paper' : 'papers'} ${fromYears(papers)}, ${n === 1 ? 'with its' : 'each with its'} ${scheme(bank)}. Free, no sign-up.`,
   };
 }
@@ -103,7 +107,11 @@ export function yearCopy(bank: CatalogBank, year: number, papers: readonly Whole
   return {
     title: fitTitle(`${name} Past Papers ${year} & Mark Schemes`, `${name} Past Papers ${year}`),
     h1: `${name} past papers ${year}`,
-    description: `${name} past papers from ${year}: ${sessions}. Every paper and variant by its code, with ${scheme(bank)}s, timings and marks. Free, no sign-up.`,
+    description: fitDescription(
+      `${name} past papers from ${year}: ${sessions}. Every paper and variant by its code, with ${scheme(bank)}s, timings and marks. Free, no sign-up.`,
+      `${name} past papers from ${year}: ${sessions}. Every paper by its code, with ${scheme(bank)}s and marks. Free, no sign-up.`,
+      `${name} past papers from ${year}: every paper by its code, with ${scheme(bank)}s. Free, no sign-up.`,
+    ),
     answer: `${n} ${fullName(bank)} past ${n === 1 ? 'paper' : 'papers'} from ${year}: ${sessions}, ${n === 1 ? 'with its' : 'each with its'} ${scheme(bank)}.`,
   };
 }
@@ -120,7 +128,7 @@ export function paperNumberCopy(bank: CatalogBank, paper: string, papers: readon
   return {
     title: fitTitle(`${name} Paper ${label} Past Papers${note}`, `${name} Paper ${label} Past Papers`),
     h1: `${name} Paper ${label} past papers`,
-    description: fitDescription(...[topics(3, true), topics(2, true), topics(3, false), topics(2, false), `${base}. Free, no sign-up.`].filter((c): c is string => c !== null)),
+    description: fitDescription(...[topics(3, true), topics(2, true), topics(3, false), topics(2, false), `${base}, listed by session and variant code with timings and marks. Free, no sign-up.`, `${base}. Free, no sign-up.`].filter((c): c is string => c !== null)),
     answer: `Every ${name} Paper ${label} ${fromYears(papers)}: ${plural(papers.length, 'paper')}, each with its ${scheme(bank)}.`,
   };
 }
@@ -219,7 +227,7 @@ export function pastPaperMetadata(copy: Pick<PageCopy, 'title' | 'description'>,
     description: copy.description,
     alternates: { canonical: path },
     ...(indexed ? {} : { robots: { index: false, follow: true } }),
-    openGraph: { siteName: 'PastPaperPrep', type: 'website', locale: 'en_US', url: path, title: copy.title, description: copy.description, ...preview },
+    openGraph: { type: 'website', url: path, title: copy.title, description: copy.description, ...preview },
     twitter: { card: 'summary_large_image', title: copy.title, description: copy.description, images: [preview.images[0].url] },
   };
 }

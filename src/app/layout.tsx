@@ -44,11 +44,9 @@ export const metadata: Metadata = {
   publisher: "PastPaperPrep",
   category: "education",
   openGraph: {
-    siteName: "PastPaperPrep",
     title: "PastPaperPrep | IGCSE, A Level & IB Maths, Sciences and Economics Past Papers",
     description: "Topic-by-topic practice across Cambridge IGCSE, Cambridge A Level and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.",
     type: "website",
-    locale: "en_US",
     ...socialPreview(),
   },
   twitter: {
