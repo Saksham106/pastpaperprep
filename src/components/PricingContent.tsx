@@ -217,7 +217,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         {!hasPaidAccess && interval === "annual" ? annualSaleShown
           ? <AnnualSalePrice
             annualCents={isBuilder ? builderAnnualTotalCents : plan.mode === "all" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.oneBank.annualCents}
-            percentOff={ANNUAL_SALE.tiers[isBuilder ? annualSaleTierForBankCount(Math.max(2, builderQuantity)) : plan.mode === "all" ? "all" : "single"].percentOff} />
+            percentOff={ANNUAL_SALE.tiers[isBuilder ? annualSaleTierForBankCount(Math.max(2, builderQuantity)) : plan.mode === "all" ? "all" : "single"].percentOff}
+            percentLabel={isBuilder ? `${ANNUAL_SALE.tiers.builderSmall.percentOff}–${ANNUAL_SALE.tiers.builderLarge.percentOff}%` : undefined} />
           : <p className="plan-billing-note">{billingNote}</p> : null}
         {hasPaidAccess && !canAdd && plan.mode === "all" ? null : plan.mode === "all" ? (
           <PlanCheckout

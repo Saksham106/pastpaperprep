@@ -121,7 +121,7 @@ async function handlePOST(request: Request) {
     const stripe = createStripeClient(config.secretKey);
     // Annual plans only, inside the sale window, with a coupon that matches the sale config.
     const saleNow = Date.now();
-    const saleCouponId = await resolveAnnualSaleCoupon(stripe, plan.interval, plan.productId, saleNow, process.env);
+    const saleCouponId = await resolveAnnualSaleCoupon(stripe, plan.interval, plan.productId, "quantity" in plan ? plan.quantity : undefined, saleNow, process.env);
     const claimCustomerId = async (customerId: string) => {
       const { data: canonicalCustomerId, error } = await admin.rpc("claim_stripe_customer", {
         p_user_id: user.id,

@@ -17,8 +17,8 @@ function stripeErrorCode(error: unknown): string | undefined {
  * back to the normal checkout (promotion codes allowed). Transient Stripe errors throw so the
  * buyer retries instead of silently losing the sale price.
  */
-export async function resolveAnnualSaleCoupon(stripe: CouponReader, interval: "monthly" | "annual", productId: string, now: number, environment: Record<string, string | undefined>): Promise<string | null> {
-  const sale = annualSaleCoupon(interval, productId, now, environment);
+export async function resolveAnnualSaleCoupon(stripe: CouponReader, interval: "monthly" | "annual", productId: string, bankCount: number | undefined, now: number, environment: Record<string, string | undefined>): Promise<string | null> {
+  const sale = annualSaleCoupon(interval, productId, bankCount, now, environment);
   if (!sale) return null;
   const { couponId, percentOff, tier } = sale;
   let coupon: Awaited<ReturnType<CouponReader["coupons"]["retrieve"]>>;

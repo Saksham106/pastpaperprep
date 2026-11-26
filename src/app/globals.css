@@ -873,6 +873,10 @@ main { min-height: 72vh; }
 .plan-billing-note { position: relative; z-index: 1; margin: 7px 0 0; font-size: .78rem; }
 .plan-sale-note s { text-decoration-thickness: 1.5px; }
 .plan-sale-note strong { color: inherit; font-weight: 800; }
+.plan-upgrade-nudge { position: relative; z-index: 1; margin: 0 0 10px; padding: 8px 12px; color: inherit; background: color-mix(in srgb, var(--cobalt-soft) 70%, transparent); border-radius: 9px; font-size: .82rem; line-height: 1.4; }
+.plan-upgrade-nudge a { color: inherit; text-decoration: none; }
+.plan-upgrade-nudge a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.plan-upgrade-nudge-year { opacity: .75; }
 .pricing-sale-note { margin: 10px auto 0; max-width: 46rem; color: var(--ink); font-size: .88rem; font-weight: 650; text-align: center; }
 .plan-description { position: relative; z-index: 1; margin: 11px 0 0; font-size: .9rem; line-height: 1.45; }
 .plan-assurance { position: relative; z-index: 1; margin: 14px 0 0; color: var(--muted); font: 600 .67rem/1.4 var(--font-mono); }

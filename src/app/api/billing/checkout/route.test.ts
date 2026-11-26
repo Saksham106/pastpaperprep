@@ -1089,7 +1089,7 @@ describe("POST /api/billing/checkout", () => {
   describe("annual sale", () => {
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
     const saleCoupon = { id: "bf-40", valid: true, percent_off: 40, amount_off: null, duration: "once" };
-    const coupons: Record<string, typeof saleCoupon> = { "bf-25": { ...saleCoupon, id: "bf-25", percent_off: 25 }, "bf-35": { ...saleCoupon, id: "bf-35", percent_off: 35 }, "bf-40": saleCoupon };
+    const coupons: Record<string, typeof saleCoupon> = { "bf-25": { ...saleCoupon, id: "bf-25", percent_off: 25 }, "bf-30": { ...saleCoupon, id: "bf-30", percent_off: 30 }, "bf-35": { ...saleCoupon, id: "bf-35", percent_off: 35 }, "bf-40": saleCoupon };
     const checkout = (body: Record<string, unknown>) => POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify(body) }));
     const createdSession = () => sessionsCreate.mock.calls[0]?.[0] as Record<string, unknown>;
 
@@ -1097,7 +1097,8 @@ describe("POST /api/billing/checkout", () => {
       vi.useFakeTimers({ toFake: ["Date"] });
       vi.setSystemTime(new Date("2026-11-28T12:00:00Z"));
       vi.stubEnv("STRIPE_SALE_COUPON_SINGLE", "bf-25");
-      vi.stubEnv("STRIPE_SALE_COUPON_BUILDER", "bf-35");
+      vi.stubEnv("STRIPE_SALE_COUPON_BUILDER_SMALL", "bf-30");
+      vi.stubEnv("STRIPE_SALE_COUPON_BUILDER_LARGE", "bf-35");
       vi.stubEnv("STRIPE_SALE_COUPON_ALL", "bf-40");
       getUser.mockResolvedValue({ data: { user } });
       mockAdminRpc("cus_existing");
@@ -1110,9 +1111,9 @@ describe("POST /api/billing/checkout", () => {
       const response = await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["ib-sl", "igcse"] });
 
       expect(response.status).toBe(200);
-      expect(couponsRetrieve).toHaveBeenCalledWith("bf-35", {}, { timeout: 10_000 });
+      expect(couponsRetrieve).toHaveBeenCalledWith("bf-30", {}, { timeout: 10_000 });
       const session = createdSession();
-      expect(session.discounts).toEqual([{ coupon: "bf-35" }]);
+      expect(session.discounts).toEqual([{ coupon: "bf-30" }]);
       expect(session).not.toHaveProperty("allow_promotion_codes");
       expect(session.metadata).toMatchObject({ annual_sale: "black-friday-2026", billing_interval: "annual" });
       // Mid-window, the default 24-hour expiry ends before the sale does.
@@ -1121,6 +1122,9 @@ describe("POST /api/billing/checkout", () => {
 
     it.each([
       ["One Bank", { productId: "bank_ib_hl" }, "bf-25"],
+      ["three banks", { productId: "bundle_custom", selectedBankIds: ["igcse", "ib-hl", "ib-sl"] }, "bf-30"],
+      ["four banks", { productId: "bundle_custom", selectedBankIds: ["igcse", "ib-hl", "ib-sl", "ib-ai-hl"] }, "bf-35"],
+      ["five banks", { productId: "bundle_custom", selectedBankIds: ["igcse", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] }, "bf-35"],
       ["All Access", { productId: "bundle_all" }, "bf-40"],
       ["six banks promoted to All Access", { productId: "bundle_custom", selectedBankIds: ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] }, "bf-40"],
     ])("ladders the coupon for %s", async (_label, body, couponId) => {

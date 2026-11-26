@@ -3,7 +3,7 @@ import { ANNUAL_SALE, ANNUAL_SALE_HINT_SCRIPT, ANNUAL_SALE_MAX_PERCENT, annualSa
 import { PRICING_MODEL, priceForBankCount } from "@/lib/pricing-model";
 
 const at = (iso: string) => Date.parse(iso);
-const env = { STRIPE_SALE_COUPON_SINGLE: "bf-25", STRIPE_SALE_COUPON_BUILDER: "bf-35", STRIPE_SALE_COUPON_ALL: "bf-40" };
+const env = { STRIPE_SALE_COUPON_SINGLE: "bf-25", STRIPE_SALE_COUPON_BUILDER_SMALL: "bf-30", STRIPE_SALE_COUPON_BUILDER_LARGE: "bf-35", STRIPE_SALE_COUPON_ALL: "bf-40" };
 const inside = at("2026-11-28T12:00:00Z");
 
 describe("annual sale", () => {
@@ -15,19 +15,24 @@ describe("annual sale", () => {
     expect(isAnnualSaleWindow(Number.NaN)).toBe(false);
   });
 
-  it("ladders the coupon by plan: One Bank 25%, builder and legacy pairs 35%, All Access 40%", () => {
-    expect(annualSaleCoupon("annual", "bank_igcse", inside, env)).toEqual({ couponId: "bf-25", percentOff: 25, tier: "single" });
-    expect(annualSaleCoupon("annual", "bundle_custom", inside, env)).toEqual({ couponId: "bf-35", percentOff: 35, tier: "builder" });
-    expect(annualSaleCoupon("annual", "bundle_ib_aa", inside, env)).toEqual({ couponId: "bf-35", percentOff: 35, tier: "builder" });
-    expect(annualSaleCoupon("annual", "bundle_all", inside, env)).toEqual({ couponId: "bf-40", percentOff: 40, tier: "all" });
+  it("ladders the coupon: One Bank 25%, 2–3 banks and legacy pairs 30%, 4–5 banks 35%, All Access 40%", () => {
+    expect(annualSaleCoupon("annual", "bank_igcse", undefined, inside, env)).toEqual({ couponId: "bf-25", percentOff: 25, tier: "single" });
+    expect(annualSaleCoupon("annual", "bundle_custom", 2, inside, env)).toEqual({ couponId: "bf-30", percentOff: 30, tier: "builderSmall" });
+    expect(annualSaleCoupon("annual", "bundle_custom", 3, inside, env)).toEqual({ couponId: "bf-30", percentOff: 30, tier: "builderSmall" });
+    expect(annualSaleCoupon("annual", "bundle_custom", 4, inside, env)).toEqual({ couponId: "bf-35", percentOff: 35, tier: "builderLarge" });
+    expect(annualSaleCoupon("annual", "bundle_custom", 5, inside, env)).toEqual({ couponId: "bf-35", percentOff: 35, tier: "builderLarge" });
+    expect(annualSaleCoupon("annual", "bundle_ib_aa", undefined, inside, env)).toEqual({ couponId: "bf-30", percentOff: 30, tier: "builderSmall" });
+    expect(annualSaleCoupon("annual", "bundle_all", 1, inside, env)).toEqual({ couponId: "bf-40", percentOff: 40, tier: "all" });
     expect(ANNUAL_SALE_MAX_PERCENT).toBe(40);
   });
 
   it("gives no coupon to monthly, outside the window, or with any coupon env var missing", () => {
-    expect(annualSaleCoupon("monthly", "bundle_all", inside, env)).toBeNull();
-    expect(annualSaleCoupon("annual", "bundle_all", at("2026-12-02T00:00:00Z"), env)).toBeNull();
-    expect(annualSaleCoupon("annual", "bundle_all", inside, { ...env, STRIPE_SALE_COUPON_SINGLE: " " })).toBeNull();
-    expect(annualSaleCoupon("annual", "bundle_all", inside, {})).toBeNull();
+    expect(annualSaleCoupon("monthly", "bundle_all", 1, inside, env)).toBeNull();
+    expect(annualSaleCoupon("annual", "bundle_all", 1, at("2026-12-02T00:00:00Z"), env)).toBeNull();
+    expect(annualSaleCoupon("annual", "bundle_all", 1, inside, { ...env, STRIPE_SALE_COUPON_BUILDER_SMALL: " " })).toBeNull();
+    expect(annualSaleCoupon("annual", "bundle_all", 1, inside, {})).toBeNull();
+    // A custom bundle without a validated count never guesses a tier.
+    expect(annualSaleCoupon("annual", "bundle_custom", undefined, inside, env)).toBeNull();
   });
 
   it("is configured for the banner only with every coupon and before the end", () => {
@@ -38,7 +43,7 @@ describe("annual sale", () => {
 
   it("prices the first year exactly as each percent_off coupon does", () => {
     const sale = (count: number) => annualSaleCents(priceForBankCount("annual", count), ANNUAL_SALE.tiers[annualSaleTierForBankCount(count)].percentOff);
-    expect([1, 2, 3, 4, 5, 6].map(sale)).toEqual([3600, 5460, 7800, 10140, 12480, 12960]);
+    expect([1, 2, 3, 4, 5, 6].map(sale)).toEqual([3600, 5880, 8400, 10140, 12480, 12960]);
     expect(annualSaleCents(PRICING_MODEL.allAccess.annualCents, ANNUAL_SALE.tiers.all.percentOff)).toBe(12960);
   });
 
@@ -49,7 +54,7 @@ describe("annual sale", () => {
 
   it("formats sale prices with cents only when needed", () => {
     expect(formatSaleCents(3600)).toBe("$36");
-    expect(formatSaleCents(5460)).toBe("$54.60");
+    expect(formatSaleCents(5880)).toBe("$58.80");
     expect(formatSaleCents(12960)).toBe("$129.60");
   });
 

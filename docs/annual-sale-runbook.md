@@ -5,20 +5,22 @@ Seasonal discount on the **first year of annual plans**, laddered by plan size. 
 | Plan | Normal annual | Sale | First year |
 |---|---|---|---|
 | One Bank | $48 | 25% | $36 |
-| Build your plan, 2–5 banks | $84 / $120 / $156 / $192 | 35% | $54.60 / $78 / $101.40 / $124.80 |
+| Build your plan, 2–3 banks | $84 / $120 | 30% | $58.80 / $84 |
+| Build your plan, 4–5 banks | $156 / $192 | 35% | $101.40 / $124.80 |
 | All Access (and 6+ banks) | $216 | 40% | $129.60 |
 
 Window: 2026-11-26 00:00 to 2026-12-01 23:59:59 UTC. Config: `src/lib/annual-sale.ts` (`ANNUAL_SALE`: id, tiers, window, end label). Server: `src/lib/annual-sale-checkout.ts` and `src/app/api/billing/checkout/route.ts`.
 
 ## How it works
 
-- Inert unless **both** hold: the clock is inside `[startsAt, endsAt)` and all three env vars are set (`STRIPE_SALE_COUPON_SINGLE`, `STRIPE_SALE_COUPON_BUILDER`, `STRIPE_SALE_COUPON_ALL`). A partial setup stays off, so no card promises a discount that has no coupon.
-- The tier comes from the server-resolved product: `bank_*` → One Bank; `bundle_all` (including 6+ banks promoted to it) → All Access; `bundle_custom` and legacy subject pairs → Build your plan.
+- Inert unless **both** hold: the clock is inside `[startsAt, endsAt)` and all four env vars are set (`STRIPE_SALE_COUPON_SINGLE`, `STRIPE_SALE_COUPON_BUILDER_SMALL`, `STRIPE_SALE_COUPON_BUILDER_LARGE`, `STRIPE_SALE_COUPON_ALL`). A partial setup stays off, so no card promises a discount that has no coupon.
+- The tier comes from the server-resolved product: `bank_*` → One Bank; `bundle_all` (including 6+ banks promoted to it) → All Access; `bundle_custom` → 2–3 or 4–5 banks by its validated quantity (never a browser count); legacy subject pairs → 2–3 banks.
 - Annual Checkout reads the tier's coupon back from Stripe. It must be `valid`, have `percent_off` equal to the tier's percent and `duration=once`, and have no `amount_off`. If it passes, the session gets `discounts: [{ coupon }]` and no promotion-code box (Stripe rejects both together). If the coupon is missing or doesn't match, the server logs an error and checkout continues at full price with promotion codes. If Stripe is down, the server returns 503 so the buyer retries.
 - Monthly checkout never reads a coupon and keeps promotion codes.
 - `duration=once` means one invoice, which on annual is the first year. Renewal is at full price.
 - Sale sessions carry `metadata.annual_sale`. An open full-price session from before the sale is expired and replaced, and a sale session is not reused after the sale ends. On the last day, sale sessions expire at the sale end (Stripe still keeps its 30-minute minimum).
 - Banner and pricing copy ship in the build only when the env vars are set and the sale hasn't ended at build time. A `<head>` script shows them only inside the window.
+- Upgrade nudge (site-wide, not sale-only): One Bank and Build your plan cards show "Add 1 more bank for $X/mo more ($Y/yr)" above the button, from `src/lib/plan-upgrade-nudge.ts`. Annual shows the yearly difference ÷ 12 with the yearly charge next to it; during the sale it uses first-year sale prices and names the discount the next step unlocks (3 → 4 banks: $1.45/mo, 35% off; 5 → All Access: $0.40/mo). Hidden for subscribers buying add-ons.
 - Copy: the banner and Annual toggle say "up to 40%", and each card shows its exact struck-through price and sale price. UK ad rules (ASA/CTSI) require a significant share of the offer to get the full "up to" discount. All Access is one of the three plans and gets 40%.
 - Plan changes in the account editor (switching monthly to annual) are not discounted. Only new Checkout subscriptions are.
 - Stacking: sale sessions have no promotion codes. Partner referral commission is worked out on the amount actually collected (after the discount). Customer referral credit sits in the customer balance and comes off the next invoice, the same as before.
@@ -33,10 +35,14 @@ Window: 2026-11-26 00:00 to 2026-12-01 23:59:59 UTC. Config: `src/lib/annual-sal
 
 Order matters: the coupons and env vars must exist **before** the production build, because the banner is decided at build time.
 
-1. **Create the three live coupons.** Don't create promotion codes; customers can't type a bare coupon.
+1. **Create the four live coupons.** Don't create promotion codes; customers can't type a bare coupon.
 
    ```bash
    stripe coupons create --live --confirm -d id=bf2026-annual-25 -d percent_off=25 -d duration=once -d redeem_by=1796173200 -d "name=Black Friday: 25% off first year" -d "metadata[sale]=black-friday-2026"
+   ```
+
+   ```bash
+   stripe coupons create --live --confirm -d id=bf2026-annual-30 -d percent_off=30 -d duration=once -d redeem_by=1796173200 -d "name=Black Friday: 30% off first year" -d "metadata[sale]=black-friday-2026"
    ```
 
    ```bash
@@ -58,7 +64,11 @@ Order matters: the coupons and env vars must exist **before** the production bui
    ```
 
    ```bash
-   printf 'bf2026-annual-35' | vercel env add STRIPE_SALE_COUPON_BUILDER production
+   printf 'bf2026-annual-30' | vercel env add STRIPE_SALE_COUPON_BUILDER_SMALL production
+   ```
+
+   ```bash
+   printf 'bf2026-annual-35' | vercel env add STRIPE_SALE_COUPON_BUILDER_LARGE production
    ```
 
    ```bash
@@ -76,7 +86,7 @@ Order matters: the coupons and env vars must exist **before** the production bui
 
 ## After the sale
 
-Nothing is required: after 2026-12-02 00:00 UTC the banner hides and checkout stops applying the coupons. Optional tidy-up (needs approval): remove the three `STRIPE_SALE_COUPON_*` vars from Vercel. The coupons stop redeeming at `redeem_by` on their own.
+Nothing is required: after 2026-12-02 00:00 UTC the banner hides and checkout stops applying the coupons. Optional tidy-up (needs approval): remove the four `STRIPE_SALE_COUPON_*` vars from Vercel. The coupons stop redeeming at `redeem_by` on their own.
 
 ## Next sale
 

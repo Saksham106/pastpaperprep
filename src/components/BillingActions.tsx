@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { getCatalogBank } from "@/lib/catalog";
+import { PlanUpgradeNudge } from "@/components/PlanUpgradeNudge";
 import { annualSaleLiveInBrowser } from "@/lib/annual-sale";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { BankPicker, type PickerBank } from "@/components/BankPicker";
@@ -438,6 +439,7 @@ export function CustomBundleCheckout({
         isDisabled={(slug) => mode === "builder" && hasPaidAccess && selectedBankIds.length >= 5 && !selectedBankIds.includes(slug as BankSlug)}
       />
       {selectionNote ? <p className="custom-bundle-selection-note">{selectionNote}</p> : null}
+      {canCheckout && !hasPaidAccess ? <PlanUpgradeNudge interval={interval} mode={mode} selectedBankIds={bankSelection} /> : null}
       {!canCheckout && pickPrompt ? <div className="billing-actions"><button className="button primary" type="button" disabled>{pickPrompt}</button></div> : null}
       {canCheckout ? <>
         {previewOnly ? <div className="billing-actions"><button className="button primary" type="button" disabled>{resolvedCtaLabel}</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div> : <>

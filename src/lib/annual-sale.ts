@@ -2,11 +2,11 @@
  * Time-boxed discount on the first year of annual plans, laddered by plan size.
  * Monthly and Lifetime are never discounted.
  *
- * Inert unless the clock is inside [startsAt, endsAt) AND the server has all three coupon env
+ * Inert unless the clock is inside [startsAt, endsAt) AND the server has every tier's coupon env
  * vars. The coupons themselves are created by the owner in Stripe (percent_off = the tier's
  * percentOff, duration=once, redeem_by just after endsAt) — see docs/annual-sale-runbook.md.
  */
-export type AnnualSaleTier = "single" | "builder" | "all";
+export type AnnualSaleTier = "single" | "builderSmall" | "builderLarge" | "all";
 
 export const ANNUAL_SALE = {
   id: "black-friday-2026",
@@ -14,7 +14,8 @@ export const ANNUAL_SALE = {
   /** Keep each step monotonic: 5 banks at the builder rate must cost less than All Access. */
   tiers: {
     single: { percentOff: 25, env: "STRIPE_SALE_COUPON_SINGLE", label: "One Bank" },
-    builder: { percentOff: 35, env: "STRIPE_SALE_COUPON_BUILDER", label: "Build your plan" },
+    builderSmall: { percentOff: 30, env: "STRIPE_SALE_COUPON_BUILDER_SMALL", label: "2–3 banks" },
+    builderLarge: { percentOff: 35, env: "STRIPE_SALE_COUPON_BUILDER_LARGE", label: "4–5 banks" },
     all: { percentOff: 40, env: "STRIPE_SALE_COUPON_ALL", label: "All Access" },
   },
   startsAt: Date.parse("2026-11-26T00:00:00Z"),
@@ -30,15 +31,25 @@ export function isAnnualSaleWindow(now: number, sale: Pick<typeof ANNUAL_SALE, "
   return Number.isFinite(now) && now >= sale.startsAt && now < sale.endsAt;
 }
 
-/** Which ladder step a server-resolved product belongs to. Legacy subject pairs count as builder. */
-export function annualSaleTierForProduct(productId: string): AnnualSaleTier {
-  if (productId.startsWith("bank_")) return "single";
-  return productId === "bundle_all" ? "all" : "builder";
+/** Ladder step for a bank count (6+ banks bill as All Access). */
+export function annualSaleTierForBankCount(count: number): AnnualSaleTier {
+  return count <= 1 ? "single" : count <= 3 ? "builderSmall" : count <= 5 ? "builderLarge" : "all";
 }
 
-/** Ladder step for a bank count on the pricing page (6+ banks bill as All Access). */
-export function annualSaleTierForBankCount(count: number): AnnualSaleTier {
-  return count <= 1 ? "single" : count >= 6 ? "all" : "builder";
+/**
+ * Ladder step for a server-resolved plan. `bankCount` is the validated custom-bundle quantity;
+ * legacy subject pairs are two banks.
+ */
+export function annualSaleTierForProduct(productId: string, bankCount?: number): AnnualSaleTier {
+  if (productId.startsWith("bank_")) return "single";
+  if (productId === "bundle_all") return "all";
+  if (productId === "bundle_custom") return annualSaleTierForBankCount(bankCount ?? 0);
+  return "builderSmall";
+}
+
+/** Percent off the first year for a bank count, or null outside the sale. */
+export function annualSalePercentForBankCount(count: number, saleLive: boolean): number | null {
+  return saleLive && count >= 1 ? ANNUAL_SALE.tiers[annualSaleTierForBankCount(count)].percentOff : null;
 }
 
 /** What Stripe charges for the first year with a percent_off coupon (rounded to the cent). */
@@ -55,15 +66,16 @@ function couponIdFor(tier: AnnualSaleTier, environment: Record<string, string | 
   return environment[ANNUAL_SALE.tiers[tier].env]?.trim() || null;
 }
 
-/** All three coupons are set; a partial setup stays inert so no tier promises a missing discount. */
+/** Every tier's coupon is set; a partial setup stays inert so no tier promises a missing discount. */
 function allCouponsConfigured(environment: Record<string, string | undefined>): boolean {
   return (Object.keys(ANNUAL_SALE.tiers) as AnnualSaleTier[]).every((tier) => couponIdFor(tier, environment) !== null);
 }
 
 /** The coupon (and its expected percent) for a new Checkout Session, or null when the sale does not apply. */
-export function annualSaleCoupon(interval: "monthly" | "annual", productId: string, now: number, environment: Record<string, string | undefined>): { couponId: string; percentOff: number; tier: AnnualSaleTier } | null {
+export function annualSaleCoupon(interval: "monthly" | "annual", productId: string, bankCount: number | undefined, now: number, environment: Record<string, string | undefined>): { couponId: string; percentOff: number; tier: AnnualSaleTier } | null {
   if (interval !== "annual" || !isAnnualSaleWindow(now) || !allCouponsConfigured(environment)) return null;
-  const tier = annualSaleTierForProduct(productId);
+  if (productId === "bundle_custom" && (!Number.isSafeInteger(bankCount) || (bankCount ?? 0) < 2)) return null;
+  const tier = annualSaleTierForProduct(productId, bankCount);
   return { couponId: couponIdFor(tier, environment)!, percentOff: ANNUAL_SALE.tiers[tier].percentOff, tier };
 }
 
