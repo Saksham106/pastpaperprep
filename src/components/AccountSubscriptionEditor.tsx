@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { BookOpen, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import { getCatalogBank } from "@/lib/catalog";
 import { BankPicker, type PickerBank } from "@/components/BankPicker";
 import { qualificationIdOf, qualificationIdOfSlug } from "@/lib/qualifications";
 import { annualSavingPercent, formatPrice, maximumAnnualSavingPercent, priceForBankCount, PRICING_MODEL } from "@/lib/pricing-model";
+import { trackProductEvent } from "@/lib/product-analytics";
+import { CANCEL_REASONS, isCancelReason, type CancelReason, type RetentionDecision, type RetentionOffer } from "@/lib/retention-offer";
 
 type Bank = { slug: string; name: string };
 type Plan = {
@@ -21,7 +24,17 @@ type Estimate = {
   snapshot: { prorationDate: number; selectedBankIds: string[]; allAccess: boolean; interval: string; [key: string]: unknown };
 };
 type RenewalQuote = { status: "preview"; snapshot: { subscriptionId: string; currentPeriodStart: number; currentPeriodEnd: number; currentPriceId: string; currentQuantity: number; currentProductId: string; currentSelectedBankIds: string[]; currentInterval: string; targetPriceId: string; quantity: number; recurringSubtotalCents: number; selectedBankIds: string[]; allAccess: boolean; interval: string; quotedAt: number }; effectiveAt: string; currency: string };
-type View = "select" | "review" | "renewal-review" | "demo-review" | "cancel-review";
+type View = "select" | "review" | "renewal-review" | "demo-review" | "cancel-reason" | "cancel-offer" | "cancel-review";
+const REASON_LABELS: Record<CancelReason, string> = {
+  too_expensive: "Too expensive",
+  not_studying: "Exams finished or not studying now",
+  missing_subject: "My subject isn’t here",
+  other: "Something else",
+};
+const OFFER_KINDS = new Set<unknown>(["discount", "fewer_banks", "updates"]);
+const validOffer = (offer: unknown): offer is RetentionOffer | null => offer === null ||
+  typeof offer === "object" && offer !== null && OFFER_KINDS.has((offer as { kind?: unknown }).kind) &&
+  ((offer as { kind: string }).kind !== "discount" || Number.isSafeInteger((offer as { percentOff?: unknown }).percentOff));
 
 const money = (cents: number, currency: string) => currency === "usd" && Number.isSafeInteger(cents) && cents >= 0
   ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100) : null;
@@ -55,6 +68,8 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [pendingRemoval, setPendingRemoval] = useState<string | null>(null);
+  const [cancelReason, setCancelReason] = useState<CancelReason | null>(null);
+  const [retention, setRetention] = useState<RetentionDecision | null>(null);
   const removalTrigger = useRef<HTMLElement | null>(null);
   const removalChipIndex = useRef(0);
   const removalDialog = useRef<HTMLDialogElement | null>(null);
@@ -97,7 +112,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   const input = { selectedBankIds: allAccess ? [] : selectedIds, allAccess, interval };
   const demoRecurringCents = allAccess ? interval === "annual" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.allAccess.monthlyCents
     : priceForBankCount(interval, Math.max(1, selectedIds.length));
-  function reset() { setView("select"); setPendingRemoval(null); setQuote(null); setRenewalQuote(null); setError(""); }
+  function reset() { setView("select"); setPendingRemoval(null); setQuote(null); setRenewalQuote(null); setError(""); setCancelReason(null); setRetention(null); }
   function chooseMode(next: "single" | "builder" | "all") {
     setPendingRemoval(null); setMode(next); setAllAccess(next === "all"); setQuote(null); setRenewalQuote(null); setError("");
     if (next === "single") setSelected([selected[0] ?? currentIds[0] ?? bankOptions[0].slug]);
@@ -202,15 +217,55 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
     if (busy) return;
     setBusy(true); setError("");
     try {
-      const result = await post("/api/billing/subscription/cancellation", { intent });
+      const result = await post("/api/billing/subscription/cancellation", intent === "cancel" && cancelReason ? { intent, reason: cancelReason } : { intent });
       if (result.cancelAtPeriodEnd !== (intent === "cancel") || typeof result.effectiveAt !== "string") throw new Error("Could not verify the cancellation. Check Billing before trying again.");
+      if (intent === "cancel") trackProductEvent("cancel_flow_cancelled", { reason: cancelReason ?? "none", offer: retention?.offer?.kind ?? "none", holdout: retention?.holdout ?? null });
+      setCancelReason(null); setRetention(null);
       const message = intent === "cancel" ? `Cancellation scheduled. Access continues through ${date(result.effectiveAt)}.` : "Cancellation undone. Your subscription remains active.";
       setNotice(message); setView("select"); onUpdated(message);
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not change cancellation. Nothing is confirmed."); }
     finally { setBusy(false); }
   }
 
+  /** Never blocks cancelling: any failure goes straight to the confirm step. */
+  async function continueCancel() {
+    if (demo || busy) return;
+    setBusy(true); setError("");
+    let next: View = "cancel-review";
+    try {
+      const result = await post("/api/billing/subscription/cancellation", { intent: "offer", reason: cancelReason });
+      const basis = result.basis;
+      if (validOffer(result.offer) && validOffer(result.eligibleOffer) && typeof result.holdout === "boolean" && typeof result.predicted === "boolean" && isCancelReason(basis)) {
+        const decision = { offer: result.offer, eligibleOffer: result.eligibleOffer, basis, predicted: result.predicted, holdout: result.holdout } as RetentionDecision;
+        setRetention(decision);
+        trackProductEvent("cancel_flow_offer_decision", { reason: cancelReason ?? "none", basis: decision.basis, predicted: decision.predicted, holdout: decision.holdout, offer: decision.offer?.kind ?? "none", eligible_offer: decision.eligibleOffer?.kind ?? "none" });
+        if (decision.offer) next = "cancel-offer";
+      }
+    } catch { /* No offer; carry on to confirm. */ }
+    finally { setBusy(false); setView(next); }
+  }
+  async function acceptDiscount() {
+    if (demo || busy) return;
+    setBusy(true); setError("");
+    try {
+      const result = await post("/api/billing/subscription/cancellation", { intent: "accept_discount" });
+      if (result.status !== "discount_applied" || typeof result.percentOff !== "number" || !date(typeof result.nextPaymentAt === "string" ? result.nextPaymentAt : null)) throw new Error("Could not verify the discount. Check Billing before trying again.");
+      trackProductEvent("cancel_flow_offer_accepted", { offer: "discount", reason: cancelReason ?? "none" });
+      const message = `${result.percentOff}% off applied to your next payment on ${date(result.nextPaymentAt as string)}.`;
+      setNotice(message); reset(); onUpdated(message);
+    } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not apply the discount."); }
+    finally { setBusy(false); }
+  }
+  function chooseFewerBanks() {
+    trackProductEvent("cancel_flow_offer_accepted", { offer: "fewer_banks", reason: cancelReason ?? "none" });
+    reset();
+    setNotice("Pick the banks to keep, then review. The change starts at renewal.");
+  }
+
   if (subscription.bankSelection.kind === "unknown" || !bankOptions.length) return null;
+  const offer = retention?.offer ?? null;
+  const oneBankPrice = currentInterval === "annual" ? `${formatPrice(priceForBankCount("annual", 1))} a year` : `${formatPrice(priceForBankCount("monthly", 1))} a month`;
+  const continueToCancel = <button type="button" onClick={() => { setError(""); setView("cancel-review"); }} disabled={busy}>Continue to cancel</button>;
   const pickerBanks: PickerBank[] = bankOptions.map((bank) => {
     const entry = getCatalogBank(bank.slug);
     return { slug: bank.slug, name: bank.name, board: entry ? qualificationIdOf(entry.qualification) : qualificationIdOfSlug(bank.slug), subject: entry?.subject };
@@ -289,7 +344,7 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       </div> : null}
       {!managementOnly ? <p className="account-plan-timing">{demo ? "Example data only. Select banks or a billing period to see the price; no charge can be made here." : expansion && validSelection ? "Added banks unlock only after Stripe verifies the payment." : renewalChange ? "Removals, swaps and billing-period changes start at renewal after payment is verified." : "Your current plan stays in place until you review and confirm a change."} Displayed prices are standard rates before discounts and taxes; Stripe gives the exact quote before confirmation.</p> : null}
       {subscription.cancelAtPeriodEnd ? <p className="account-plan-timing">Cancellation is scheduled. Undo it before choosing another plan.</p> : null}
-      <div className="account-editor-actions">{demo ? null : subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button> : <button className="account-cancel-action" type="button" onClick={() => { setNotice(""); setView("cancel-review"); }}>Cancel subscription</button>}</div>
+      <div className="account-editor-actions">{demo ? null : subscription.cancelAtPeriodEnd ? <button type="button" onClick={() => void changeCancellation("undo")} disabled={busy}>Undo cancellation</button> : <button className="account-cancel-action" type="button" onClick={() => { setNotice(""); setCancelReason(null); setRetention(null); setView("cancel-reason"); }}>Cancel subscription</button>}</div>
     </div> : null}
     {view === "demo-review" && demo ? <div className="account-editor-review">
       <h3>Example plan-change quote</h3>
@@ -315,6 +370,28 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
       <p>From {date(renewalQuote.effectiveAt)}: {allAccess ? "All Access" : selectedIds.map((slug) => bankOptions.find((bank) => bank.slug === slug)?.name ?? slug).join(", ")}.</p>
       <p>New base rate: <strong>{money(renewalQuote.snapshot.recurringSubtotalCents, renewalQuote.currency)} / {interval === "monthly" ? "month" : "year"}</strong> before discounts or taxes. Stripe will charge at renewal; bank access changes after that payment is verified.</p>
       <div className="account-editor-actions"><button type="button" onClick={() => void confirmRenewal()} disabled={busy}>{busy ? "Scheduling…" : "Schedule change"}</button><button type="button" onClick={() => { setRenewalQuote(null); setView("select"); }} disabled={busy}>Edit plan</button></div>
+    </div> : null}
+    {view === "cancel-reason" ? <div className="account-editor-review">
+      <fieldset className="account-cancel-reasons">
+        <legend><h3>Why are you cancelling?</h3><span>Optional</span></legend>
+        {CANCEL_REASONS.map((value) => <label key={value}><input type="radio" name="account-cancel-reason" value={value} checked={cancelReason === value} onChange={() => setCancelReason(value)} disabled={busy} />{REASON_LABELS[value]}</label>)}
+      </fieldset>
+      <div className="account-editor-actions"><button type="button" onClick={() => void continueCancel()} disabled={busy}>{busy ? "Loading…" : "Continue"}</button><button type="button" onClick={reset} disabled={busy}>Keep subscription</button></div>
+    </div> : null}
+    {view === "cancel-offer" && offer ? <div className="account-editor-review">
+      {offer.kind === "discount" ? <>
+        <h3>Stay for {offer.percentOff}% off your next month?</h3>
+        <p>{offer.percentOff}% off your next payment on {date(subscription.item.currentPeriodEnd) ?? "your renewal date"}. Your plan stays the same and you can cancel any time.</p>
+        <div className="account-editor-actions"><button type="button" onClick={() => void acceptDiscount()} disabled={busy}>{busy ? "Applying…" : `Take ${offer.percentOff}% off`}</button>{continueToCancel}</div>
+      </> : offer.kind === "fewer_banks" ? <>
+        <h3>Keep fewer banks instead?</h3>
+        <p>One Bank is {oneBankPrice}. Your current banks stay until renewal, then the smaller plan starts.</p>
+        <div className="account-editor-actions">{managementOnly ? <Link href="/pricing" onClick={() => trackProductEvent("cancel_flow_offer_accepted", { offer: "fewer_banks", reason: cancelReason ?? "none" })}>Choose banks</Link> : <button type="button" onClick={chooseFewerBanks} disabled={busy}>Choose banks</button>}{continueToCancel}</div>
+      </> : <>
+        <h3>New subjects are on the way</h3>
+        <p>See what’s coming, or email <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a> with the subject you need.</p>
+        <div className="account-editor-actions"><Link href="/updates" onClick={() => trackProductEvent("cancel_flow_offer_accepted", { offer: "updates", reason: cancelReason ?? "none" })}>See updates</Link>{continueToCancel}</div>
+      </>}
     </div> : null}
     {view === "cancel-review" ? <div className="account-editor-review">
       <h3>Cancel at the end of your paid period?</h3>

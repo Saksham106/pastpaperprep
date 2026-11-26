@@ -8,6 +8,8 @@ const plan = (cancelAtPeriodEnd = false) => ({ id: "sub_one", cancelAtPeriodEnd,
 const snapshot = { prorationDate: Math.floor(Date.now() / 1000), amountDueTodayCents: 380, estimatedCreditCents: 200, estimatedTaxesCents: 0, currency: "usd", currentSubscriptionId: "sub_one", currentItemId: "si_one", currentPriceId: "price_one", currentQuantity: 1, periodEnd: 1792886400, targetPriceId: "price_two", targetQuantity: 2, selectedBankIds: ["ib-hl", "igcse"], allAccess: false, interval: "monthly" };
 const preview = { estimate: { amountDueTodayCents: 380, estimatedCreditCents: 200, estimatedTaxesCents: 0, recurringSubtotalCents: 1000, currency: "usd", isEstimate: true }, target: { productId: "bundle_custom", selectedBankIds: ["ib-hl", "igcse"], interval: "monthly", renewalAt: "2026-10-25T00:00:00Z" }, snapshot };
 const response = (body: unknown, status = 200) => ({ ok: status === 200, status, json: async () => body });
+const noOffer = { offer: null, eligibleOffer: null, basis: "too_expensive", predicted: true, holdout: true };
+const discountOffer = { offer: { kind: "discount", percentOff: 30 }, eligibleOffer: { kind: "discount", percentOff: 30 }, basis: "too_expensive", predicted: false, holdout: false };
 
 describe("account subscription editor", () => {
   it("makes the owned one-bank tier read-only while naming the other tiers as switches", () => {
@@ -252,21 +254,69 @@ describe("account subscription editor", () => {
     expect(screen.getByRole("status")).toHaveTextContent(/after renewal payment is verified/i);
   });
   it("reviews period-end cancellation and offers undo while access is still active", async () => {
-    const fetch = vi.fn().mockResolvedValueOnce(response({ status: "canceling", cancelAtPeriodEnd: true, effectiveAt: "2026-10-25T00:00:00Z" })).mockResolvedValueOnce(response({ status: "active", cancelAtPeriodEnd: false, effectiveAt: "2026-10-25T00:00:00Z" }));
+    const fetch = vi.fn().mockResolvedValueOnce(response(noOffer)).mockResolvedValueOnce(response({ status: "canceling", cancelAtPeriodEnd: true, effectiveAt: "2026-10-25T00:00:00Z" })).mockResolvedValueOnce(response({ status: "active", cancelAtPeriodEnd: false, effectiveAt: "2026-10-25T00:00:00Z" }));
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     const { rerender } = render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
     fireEvent.click(screen.getByRole("button", { name: "Cancel subscription" }));
+    // The reason is optional: Continue works with nothing picked.
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    await screen.findByRole("button", { name: "Confirm cancellation" });
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "offer", reason: null });
     expect(screen.getByText(/oct 25, 2026/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Confirm cancellation" }));
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
-    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "cancel" });
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "cancel" });
     await waitFor(() => expect(updated).toHaveBeenCalledOnce());
     rerender(<AccountSubscriptionEditor subscription={plan(true)} bankOptions={banks} onUpdated={updated} />);
     fireEvent.click(screen.getByRole("button", { name: "Undo cancellation" }));
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
-    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "undo" });
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(3));
+    expect(JSON.parse(fetch.mock.calls[2][1].body)).toEqual({ intent: "undo" });
     await waitFor(() => expect(updated).toHaveBeenCalledTimes(2));
+  });
+  it("shows one offer beside Continue to cancel, then sends the chosen reason with the cancellation", async () => {
+    const fetch = vi.fn().mockResolvedValueOnce(response(discountOffer)).mockResolvedValueOnce(response({ status: "canceling", cancelAtPeriodEnd: true, effectiveAt: "2026-10-25T00:00:00Z" }));
+    vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: "Cancel subscription" }));
+    fireEvent.click(screen.getByRole("radio", { name: "Too expensive" }));
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    await screen.findByRole("heading", { name: /30% off your next month/i });
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "offer", reason: "too_expensive" });
+    expect(screen.getByRole("button", { name: "Take 30% off" })).toBeEnabled();
+    fireEvent.click(screen.getByRole("button", { name: "Continue to cancel" }));
+    fireEvent.click(screen.getByRole("button", { name: "Confirm cancellation" }));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "cancel", reason: "too_expensive" });
+  });
+  it("applies the discount only after the server verifies it", async () => {
+    const fetch = vi.fn().mockResolvedValueOnce(response(discountOffer)).mockResolvedValueOnce(response({ status: "discount_applied", percentOff: 30, nextPaymentAt: "2026-10-25T00:00:00Z" }));
+    vi.stubGlobal("fetch", fetch);
+    const updated = vi.fn();
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
+    fireEvent.click(screen.getByRole("button", { name: "Cancel subscription" }));
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Take 30% off" }));
+    await waitFor(() => expect(updated).toHaveBeenCalledWith("30% off applied to your next payment on Oct 25, 2026."));
+    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "accept_discount" });
+    expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
+  });
+  it("never blocks cancelling when the offer lookup fails", async () => {
+    const fetch = vi.fn().mockResolvedValueOnce(response({ error: "Offer lookup is unavailable" }, 503));
+    vi.stubGlobal("fetch", fetch);
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: "Cancel subscription" }));
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    expect(await screen.findByRole("button", { name: "Confirm cancellation" })).toBeEnabled();
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+  it("sends the account page to Pricing for the fewer-banks offer", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(response({ ...noOffer, offer: { kind: "fewer_banks" }, eligibleOffer: { kind: "fewer_banks" }, basis: "not_studying" })));
+    render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} managementOnly />);
+    fireEvent.click(screen.getByRole("button", { name: "Cancel subscription" }));
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    expect(await screen.findByRole("link", { name: "Choose banks" })).toHaveAttribute("href", "/pricing");
+    expect(screen.getByRole("button", { name: "Continue to cancel" })).toBeEnabled();
   });
   it("requires a new quote after a conflict and does not confirm a stale snapshot", async () => {
     const fetch = vi.fn().mockResolvedValueOnce(response(preview)).mockResolvedValueOnce(response({ error: "Quote changed; preview again" }, 409));

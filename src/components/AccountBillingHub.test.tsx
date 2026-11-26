@@ -70,7 +70,8 @@ describe("Subscription & billing hub", () => {
   expect(fetcher).toHaveBeenCalledTimes(1);
   expect(screen.getByRole("button",{name:"Manage billing"})).toBeEnabled();
   fireEvent.click(screen.getByRole("button",{name:"Cancel subscription"}));
-  expect(screen.getByRole("heading",{name:/Cancel at the end/})).toBeVisible();
+  expect(screen.getByRole("heading",{name:"Why are you cancelling?"})).toBeVisible();
+  expect(screen.getByRole("button",{name:"Keep subscription"})).toBeEnabled();
   expect(fetcher).toHaveBeenCalledTimes(1);
  });
  it("keeps provider invoices in Billing while subscription management stays in Subscription", () => {

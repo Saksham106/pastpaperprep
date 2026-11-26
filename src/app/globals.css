@@ -1180,6 +1180,16 @@ main { min-height: 72vh; }
 .account-editor-actions button:focus-visible, .account-editor-form input:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .account-editor-actions button:disabled { opacity: .55; cursor: wait; }
 .account-editor-review strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+.account-editor-actions a { min-height: 42px; padding: 9px 15px; display: inline-flex; align-items: center; color: var(--ink); background: var(--surface); border: 1px solid var(--line-strong); border-radius: 8px; font-size: .88rem; font-weight: 760; text-decoration: none; }
+.account-editor-actions a:first-child { color: var(--accent-contrast); background: var(--cobalt); border-color: var(--cobalt); }
+.account-editor-actions a:hover { filter: brightness(.93); }
+.account-editor-actions a:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.account-cancel-reasons { min-width: 0; margin: 0; padding: 0; display: grid; border: 0; }
+.account-cancel-reasons legend { margin-bottom: 6px; padding: 0; display: flex; align-items: baseline; gap: 10px; }
+.account-cancel-reasons legend span { color: var(--muted); font-size: .8rem; }
+.account-cancel-reasons label { min-height: 44px; display: flex; align-items: center; gap: 10px; color: var(--ink); font-size: .9rem; }
+.account-cancel-reasons input { width: 17px; height: 17px; accent-color: var(--cobalt); }
+.account-cancel-reasons input:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 .account-subscription-page { max-width: none; }
 .account-overview-page { padding: 0; }
 .account-overview-page .account-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
