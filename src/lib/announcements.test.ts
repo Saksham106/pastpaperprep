@@ -20,7 +20,8 @@ const UPDATES: Update[] = [
   { date: "2026-11-24", tag: "New bank", title: "IB Business Management HL and SL", body: "New bank.", links: [pair("ib-business-management")] },
   { date: "2026-11-22", tag: "New papers", title: "Full Computer Science papers", body: "Papers.", links: [{ label: "Computer Science 9618", href: "/past-papers/a-level-computer-science-9618" }] },
   { date: "2026-11-20", tag: "Improvement", title: "A fix", body: "Fixed." },
-  { date: "2026-11-10", tag: "Feature", title: "IB Chemistry course notes", body: "Notes.", links: [{ label: "Read the notes", href: "/revision-notes/ib-chemistry" }] },
+  { date: "2026-11-10", tag: "Feature", title: "IB Chemistry course notes", body: "Notes.", teaser: "71 lessons.", links: [{ label: "Read the notes", href: "/revision-notes/ib-chemistry" }] },
+  { date: "2026-11-08", tag: "Feature", title: "A page for teachers", body: "For teachers.", links: [{ label: "For teachers", href: "/teachers" }] },
   { date: "2026-10-20", tag: "New bank", title: "Old bank", body: "Too old.", links: [{ label: "Biology", href: "/banks/igcse-biology-0610" }] },
   { date: "2026-12-01", tag: "New bank", title: "Future bank", body: "Not yet.", links: [{ label: "Biology", href: "/banks/igcse-biology-0610" }] },
 ];
@@ -75,6 +76,8 @@ describe("announcement candidates", () => {
     expect(titles).not.toContain("A fix");
     expect(titles).not.toContain("Old bank");
     expect(titles).not.toContain("Future bank");
+    // Features without a dashboard line (written for teachers, not students) get no card.
+    expect(titles).not.toContain("A page for teachers");
   });
 
   it("opens Pepper only when the helper is configured, and tags board-only features with their board", () => {

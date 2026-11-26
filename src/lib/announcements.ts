@@ -116,7 +116,8 @@ export function announcementCandidates({ banks, accessible, allAccess, now = new
       if (!mine.length) continue;
       const { slug, href } = mine[0];
       result.push({ ...base, title: name(slug), kind: "new_papers", eyebrow: "New papers", tier: 2, board: qualificationIdOfSlug(slug), bank: slug, cta: { label: href.startsWith("/past-papers") ? "Open papers" : "Practise", href } });
-    } else if (update.tag === "Feature") {
+    } else if (update.tag === "Feature" && update.teaser) {
+      // Only features written up for students get a card (a teachers' page doesn't).
       const link = hrefsOf(update)[0];
       if (update.action === "pepper") {
         if (!pepper) continue;
