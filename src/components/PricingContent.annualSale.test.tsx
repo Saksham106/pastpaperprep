@@ -54,6 +54,14 @@ describe("annual sale on the pricing page", () => {
     expect(nudge()).toBeNull();
   });
 
+  it("prices the bank-focus card's second-bank and All Access chips at sale prices", () => {
+    const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" initialProductId="bank_igcse" />);
+    const focus = container.querySelector(".pricing-bank-focus") as HTMLElement;
+
+    expect(within(focus).getByText("Add one for just $1.90/month, and get 30% off.")).toBeInTheDocument();
+    expect(focus.querySelector(".pricing-bank-focus-all")?.textContent).toMatch(/banks · \$10\.80\/mo$/);
+  });
+
   it("shows nothing on monthly beyond the annual toggle badge", () => {
     const { container } = render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="monthly" />);
 

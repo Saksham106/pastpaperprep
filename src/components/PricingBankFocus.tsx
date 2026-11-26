@@ -8,7 +8,8 @@ import { trackProductEvent } from "@/lib/product-analytics";
 import { formatPrice, PRICING_MODEL, priceForBankCount } from "@/lib/pricing-model";
 import { bankYearFacts, type UpgradePlacement } from "@/lib/upgrade-copy";
 import { AnnualSalePrice } from "@/components/AnnualSalePrice";
-import { ANNUAL_SALE } from "@/lib/annual-sale";
+import { ANNUAL_SALE, annualSaleCents, formatSaleCents } from "@/lib/annual-sale";
+import { planUpgradeNudge } from "@/lib/plan-upgrade-nudge";
 import { useAnnualSaleLive } from "@/components/useAnnualSaleLive";
 import "./upgrade-nudges.css";
 
@@ -54,6 +55,8 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
   const price = interval === "annual" ? formatPrice(PRICING_MODEL.oneBank.annualCents / 12) : formatPrice(PRICING_MODEL.oneBank.monthlyCents);
   const billing = interval === "annual" ? `Billed ${formatPrice(PRICING_MODEL.oneBank.annualCents)} once a year` : "Billed monthly";
   const annualSaleLive = useAnnualSaleLive();
+  // Same per-month step as the plan cards' nudge (sale prices while the sale is live).
+  const secondBankNudge = planUpgradeNudge(interval, 1, annualSaleLive);
   const perMonth = (cents: number) => formatPrice(interval === "annual" ? cents / 12 : cents);
   const pricingReturn = `/pricing?interval=${interval}&product=${productId}${source ? `&from=${source}` : ""}`;
   const headingId = `pricing-focus-${bank.slug}`;
@@ -91,11 +94,11 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
           <p className="plan-assurance">Secure checkout · Cancel any time</p>
         </div>
         {otherBanks.length ? <div className="pricing-bank-focus-more">
-          <p><strong>Taking another subject too?</strong> <span>Add one for just {perMonth(priceForBankCount(interval, 2) - priceForBankCount(interval, 1))}/month.</span></p>
+          <p><strong>Taking another subject too?</strong> <span>Add one for just {secondBankNudge ? `${formatSaleCents(secondBankNudge.extraPerMonthCents)}/month${secondBankNudge.unlocksPercentOff !== null ? `, and get ${secondBankNudge.unlocksPercentOff}% off` : ""}` : `${perMonth(priceForBankCount(interval, 2) - priceForBankCount(interval, 1))}/month`}.</span></p>
           <div className="pricing-bank-focus-chips">
             {otherBanks.slice(0, 4).map((other) => <Link key={other.slug} className="button secondary" href={addSubjectHref(other)}>+ {other.shortName}</Link>)}
             <a className="button secondary pricing-bank-focus-custom" href="#plan-builder" onClick={openBuilderPicker}>+ Choose another bank</a>
-            <a className="button secondary pricing-bank-focus-all" href="#plan-all">All {allBankCount} banks · {perMonth(interval === "annual" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.allAccess.monthlyCents)}/mo</a>
+            <a className="button secondary pricing-bank-focus-all" href="#plan-all">All {allBankCount} banks · {interval === "annual" && annualSaleLive ? formatSaleCents(Math.round(annualSaleCents(PRICING_MODEL.allAccess.annualCents, ANNUAL_SALE.tiers.all.percentOff) / 12)) : perMonth(interval === "annual" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.allAccess.monthlyCents)}/mo</a>
           </div>
         </div> : null}
       </div>
