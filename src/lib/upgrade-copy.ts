@@ -2,7 +2,7 @@ import { freeQuestionYears, isPreviewQuestion } from "@/lib/access";
 import { BANK_CATALOG, type BankSlug } from "@/lib/catalog";
 import { formatPrice, PRICING_MODEL } from "@/lib/pricing-model";
 
-export type UpgradePlacement = "top_note" | "feed_teaser" | "feed_timeline" | "locked_card" | "practice_milestone" | "signup_gate" | "pdf_dialog" | "dashboard";
+export type UpgradePlacement = "top_note" | "feed_teaser" | "feed_timeline" | "locked_card" | "practice_milestone" | "signup_gate" | "pdf_dialog" | "dashboard" | "announcement";
 
 export type BankYearFacts = {
   freeLabel: string;
@@ -69,7 +69,7 @@ export function feedTeaserPool<Question extends FeedTeaser & { bankSlug: string 
     .sort((a, b) => b.year - a.year || sessionRank(b.session) - sessionRank(a.session));
 }
 
-const PLACEMENTS: readonly UpgradePlacement[] =["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog", "dashboard"];
+const PLACEMENTS: readonly UpgradePlacement[] =["top_note", "feed_teaser", "feed_timeline", "locked_card", "practice_milestone", "signup_gate", "pdf_dialog", "dashboard", "announcement"];
 
 export function isUpgradePlacement(value: unknown): value is UpgradePlacement {
   return typeof value === "string" && (PLACEMENTS as readonly string[]).includes(value);

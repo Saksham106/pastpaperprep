@@ -10,6 +10,7 @@
 .row { min-width: 0; min-height: 52px; padding: 12px 14px; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 10px; color: var(--ink); background: rgb(255 255 255 / .75); border: 1px solid color-mix(in srgb, var(--course-pastel) 80%, #fff); border-radius: 12px; transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease; }
 .row strong { min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font: 650 .98rem/1.25 var(--font-body); }
 .row em { padding: 3px 7px; color: var(--course-accent); background: color-mix(in srgb, var(--course-pastel) 55%, transparent); border-radius: 6px; font: 700 .64rem/1 var(--font-mono); font-style: normal; letter-spacing: .04em; text-transform: uppercase; }
+.newDot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--burgundy); }
 .row span { color: var(--course-accent); font: 600 .7rem/1 var(--font-mono); white-space: nowrap; }
 .row svg { color: var(--course-accent); }
 .row:hover { border-color: var(--course-accent); transform: translateY(-2px); box-shadow: 0 12px 24px -16px var(--course-accent); }
