@@ -28,7 +28,7 @@
   /* Image placeholder sweep: transform instead of background-position, so it stays on the compositor. */
   .asset-placeholder .placeholder-shimmer { background-size: 100% 100%; animation: motion-sweep 1.4s ease-in-out infinite; }
 
-  /* Core / Extended: the highlight glides to the chosen option instead of jumping (3-option pickers only). */
+  /* Core / Extended: the highlight glides to the chosen option instead of jumping (two or three options). */
   @supports selector(:has(*)) {
     .course-route-picker:not(.is-paper-tabs) .course-route-options { position: relative; isolation: isolate; }
     .course-route-picker:not(.is-paper-tabs) .course-route-options::before {
@@ -40,6 +40,8 @@
     }
     .course-route-picker:not(.is-paper-tabs) .course-route-options:has(label:nth-child(2) input:checked)::before { transform: translateX(calc(100% + 3px)); }
     .course-route-picker:not(.is-paper-tabs) .course-route-options:has(label:nth-child(3) input:checked)::before { transform: translateX(calc(200% + 6px)); }
+    /* Core | Extended (no All): two options, so the highlight is half the track. */
+    .course-route-picker.is-tier-picker .course-route-options::before { width: calc((100% - 9px) / 2); }
     .course-route-picker:not(.is-paper-tabs) .course-route-options input:checked + span { background: transparent; border-color: transparent; box-shadow: none; }
   }
 
