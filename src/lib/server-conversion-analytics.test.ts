@@ -66,6 +66,12 @@ describe("captureConversionOutcome consent gating", () => {
     expect(sent.properties).toMatchObject({ outcome: "lifetime_paid", product: "lifetime_all_access" });
   });
 
+  it("records whether a paid invoice was discounted", async () => {
+    await captureConversionOutcome({ ...input, outcome: "payment_initial_paid", eventKey: "stripe:invoice:in_sale", product: "bundle_all", interval: "annual", discounted: true });
+    const sent = JSON.parse(String((fetch as ReturnType<typeof vi.fn>).mock.calls[0][1].body));
+    expect(sent.properties).toMatchObject({ interval: "annual", discounted: true });
+  });
+
   const anonymousIds = async (eventKey: string) => {
     (fetch as ReturnType<typeof vi.fn>).mockClear();
     getUserById.mockResolvedValue({ data: { user: { user_metadata: {} } }, error: null });

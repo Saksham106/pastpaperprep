@@ -24,6 +24,9 @@ import { QualificationTabs } from "@/components/QualificationTabs";
 import { PricingBankFocus, secondSubjectOptions } from "@/components/PricingBankFocus";
 import { TestimonialGrid } from "@/components/Testimonial";
 import { PRICING_TESTIMONIALS } from "@/lib/testimonials";
+import { ANNUAL_SALE, ANNUAL_SALE_MAX_PERCENT, annualSaleLiveInBrowser, annualSaleTierForBankCount } from "@/lib/annual-sale";
+import { AnnualSalePrice } from "@/components/AnnualSalePrice";
+import { useAnnualSaleLive } from "@/components/useAnnualSaleLive";
 
 function bankSlugForProduct(productId: string): BankSlug | undefined {
   return getCatalogBanksForDisplay().find((bank) => bank.productId === productId)?.slug;
@@ -82,6 +85,8 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, manualAccess = false, previewOnly = false, previewStacked = false, addOnIntent = false, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks(), source, checkoutStatus, updated, staticFallback = false }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; manualAccess?: boolean; previewOnly?: boolean; previewStacked?: boolean; addOnIntent?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[]; source?: UpgradePlacement; checkoutStatus?: "cancelled"; updated?: { date: string; label: string }; /** The CDN's signed-out HTML, replaced in the browser before it is interactive. */ staticFallback?: boolean }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
+  const annualSaleLive = useAnnualSaleLive();
+  const annualSaleShown = annualSaleLive && interval === "annual" && !lifetimeSelected;
   // Client navigation (e.g. the "add another subject" chips) changes these props without
   // remounting. When the URL intent changes, re-adopt its billing choice; manual edits
   // stand across unrelated rerenders.
@@ -134,6 +139,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       signedIn: authenticated,
       hasPaidAccess,
       bankCount: hasPaidAccess ? 0 : initialCustomBankIds?.length ?? 0,
+      // Read directly: on this first effect the hook still holds its server value.
+      annualSale: annualSaleLiveInBrowser(),
     });
     if (checkoutStatus === "cancelled") { trackProductEvent("checkout_cancelled", {}); clearCheckoutParam(); }
     // Report the page as it was first opened; later selections are separate events.
@@ -207,7 +214,11 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           {current ? <span className="pricing-badge pricing-badge-current">{plan.mode === "single" && individualBankSubscriptions > 1 ? "Your subscriptions" : "Your access"}</span> : plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
         <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
-        {!hasPaidAccess && interval === "annual" ? <p className="plan-billing-note">{billingNote}</p> : null}
+        {!hasPaidAccess && interval === "annual" ? annualSaleShown
+          ? <AnnualSalePrice
+            annualCents={isBuilder ? builderAnnualTotalCents : plan.mode === "all" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.oneBank.annualCents}
+            percentOff={ANNUAL_SALE.tiers[isBuilder ? annualSaleTierForBankCount(Math.max(2, builderQuantity)) : plan.mode === "all" ? "all" : "single"].percentOff} />
+          : <p className="plan-billing-note">{billingNote}</p> : null}
         {hasPaidAccess && !canAdd && plan.mode === "all" ? null : plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
@@ -241,7 +252,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
   const billingToggle = <div className="billing-toggle" role="group" aria-label="Billing period">
     <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-    <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+    <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">{annualSaleLive ? `Up to ${ANNUAL_SALE_MAX_PERCENT}% off` : `Save up to ${maximumAnnualSavingPercent()}%`}</span></button>
     <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
   </div>;
 
@@ -276,6 +287,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         <div className="pricing-toggle-sticky">
           {billingToggle}
         </div>
+        {annualSaleShown && !hasPaidAccess ? <p className="pricing-sale-note" role="status">{Object.values(ANNUAL_SALE.tiers).map((tier) => `${tier.label} ${tier.percentOff}% off`).join(" · ")} · first year · ends {ANNUAL_SALE.endLabel}</p> : null}
         {lifetimeSelected ? <div className="pricing-toggle-anchor pricing-toggle-anchor-lifetime" data-selected-mode="lifetime">{lifetimeOffer}</div> : null}
 
         {authenticated && !hasPaidAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Free</strong><span>Choose a plan below to unlock every available question.</span></div></section> : null}

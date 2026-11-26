@@ -7,6 +7,9 @@ import type { ProductId } from "@/lib/access";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { formatPrice, PRICING_MODEL, priceForBankCount } from "@/lib/pricing-model";
 import { bankYearFacts, type UpgradePlacement } from "@/lib/upgrade-copy";
+import { AnnualSalePrice } from "@/components/AnnualSalePrice";
+import { ANNUAL_SALE } from "@/lib/annual-sale";
+import { useAnnualSaleLive } from "@/components/useAnnualSaleLive";
 import "./upgrade-nudges.css";
 
 type Props = {
@@ -50,6 +53,7 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
   const label = `Unlock ${bank.shortName}`;
   const price = interval === "annual" ? formatPrice(PRICING_MODEL.oneBank.annualCents / 12) : formatPrice(PRICING_MODEL.oneBank.monthlyCents);
   const billing = interval === "annual" ? `Billed ${formatPrice(PRICING_MODEL.oneBank.annualCents)} once a year` : "Billed monthly";
+  const annualSaleLive = useAnnualSaleLive();
   const perMonth = (cents: number) => formatPrice(interval === "annual" ? cents / 12 : cents);
   const pricingReturn = `/pricing?interval=${interval}&product=${productId}${source ? `&from=${source}` : ""}`;
   const headingId = `pricing-focus-${bank.slug}`;
@@ -73,7 +77,7 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
       <div className="pricing-bank-focus-card">
         <div>
           <div className="plan-price"><strong>{price}</strong><span>/ month</span></div>
-          {interval === "annual" ? <p className="plan-billing-note">{billing}</p> : null}
+          {interval === "annual" ? annualSaleLive ? <AnnualSalePrice annualCents={PRICING_MODEL.oneBank.annualCents} percentOff={ANNUAL_SALE.tiers.single.percentOff} /> : <p className="plan-billing-note">{billing}</p> : null}
           {facts ? <ol className="upgrade-years" aria-label="Exam years">
             {facts.coverage.map((year) => { const free = facts.freeYears.includes(year); return <li key={year} className={free ? "is-free" : "is-paid"}>{year}<span className="sr-only"> {free ? "free" : "on a plan"}</span></li>; })}
           </ol> : null}

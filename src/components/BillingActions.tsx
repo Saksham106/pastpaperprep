@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { getCatalogBank } from "@/lib/catalog";
+import { annualSaleLiveInBrowser } from "@/lib/annual-sale";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { BankPicker, type PickerBank } from "@/components/BankPicker";
 import { qualificationIdOf } from "@/lib/qualifications";
@@ -190,7 +191,7 @@ export function CheckoutButton({
 
   async function start() {
     if (pending) return;
-    trackProductEvent("checkout_start", { interval, productId, bankCount: selectedBankIds?.length ?? 0 });
+    trackProductEvent("checkout_start", { interval, productId, bankCount: selectedBankIds?.length ?? 0, annualSale: annualSaleLiveInBrowser() });
     setPending(true);
     setError(null);
     setNeedsLogin(false);

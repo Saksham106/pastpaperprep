@@ -1,0 +1,83 @@
+# Annual-plan sale runbook
+
+Seasonal discount on the **first year of annual plans**, laddered by plan size. Monthly and Lifetime are never discounted.
+
+| Plan | Normal annual | Sale | First year |
+|---|---|---|---|
+| One Bank | $48 | 25% | $36 |
+| Build your plan, 2–5 banks | $84 / $120 / $156 / $192 | 35% | $54.60 / $78 / $101.40 / $124.80 |
+| All Access (and 6+ banks) | $216 | 40% | $129.60 |
+
+Window: 2026-11-26 00:00 to 2026-12-01 23:59:59 UTC. Config: `src/lib/annual-sale.ts` (`ANNUAL_SALE`: id, tiers, window, end label). Server: `src/lib/annual-sale-checkout.ts` and `src/app/api/billing/checkout/route.ts`.
+
+## How it works
+
+- Inert unless **both** hold: the clock is inside `[startsAt, endsAt)` and all three env vars are set (`STRIPE_SALE_COUPON_SINGLE`, `STRIPE_SALE_COUPON_BUILDER`, `STRIPE_SALE_COUPON_ALL`). A partial setup stays off, so no card promises a discount that has no coupon.
+- The tier comes from the server-resolved product: `bank_*` → One Bank; `bundle_all` (including 6+ banks promoted to it) → All Access; `bundle_custom` and legacy subject pairs → Build your plan.
+- Annual Checkout reads the tier's coupon back from Stripe. It must be `valid`, have `percent_off` equal to the tier's percent and `duration=once`, and have no `amount_off`. If it passes, the session gets `discounts: [{ coupon }]` and no promotion-code box (Stripe rejects both together). If the coupon is missing or doesn't match, the server logs an error and checkout continues at full price with promotion codes. If Stripe is down, the server returns 503 so the buyer retries.
+- Monthly checkout never reads a coupon and keeps promotion codes.
+- `duration=once` means one invoice, which on annual is the first year. Renewal is at full price.
+- Sale sessions carry `metadata.annual_sale`. An open full-price session from before the sale is expired and replaced, and a sale session is not reused after the sale ends. On the last day, sale sessions expire at the sale end (Stripe still keeps its 30-minute minimum).
+- Banner and pricing copy ship in the build only when the env vars are set and the sale hasn't ended at build time. A `<head>` script shows them only inside the window.
+- Copy: the banner and Annual toggle say "up to 40%", and each card shows its exact struck-through price and sale price. UK ad rules (ASA/CTSI) require a significant share of the offer to get the full "up to" discount. All Access is one of the three plans and gets 40%.
+- Plan changes in the account editor (switching monthly to annual) are not discounted. Only new Checkout subscriptions are.
+- Stacking: sale sessions have no promotion codes. Partner referral commission is worked out on the amount actually collected (after the discount). Customer referral credit sits in the customer balance and comes off the next invoice, the same as before.
+
+## Measure
+
+- `pricing_view` and `checkout_start` carry `annualSale` (true while the sale is live in the browser).
+- The server `conversion_outcome` event (`payment_initial_paid`) carries `interval`, `product` and `discounted`.
+- Annual completion during the sale = `conversion_outcome` with `interval=annual, discounted=true` ÷ `checkout_start` with `interval=annual, annualSale=true`. Break it down by `product` to see whether the ladder moved buyers up. Baseline (60 days to 2026-11-26): annual 50 started → 4 paid; monthly 132 → 51.
+
+## Owner checklist (each step needs fresh owner approval)
+
+Order matters: the coupons and env vars must exist **before** the production build, because the banner is decided at build time.
+
+1. **Create the three live coupons.** Don't create promotion codes; customers can't type a bare coupon.
+
+   ```bash
+   stripe coupons create --live --confirm -d id=bf2026-annual-25 -d percent_off=25 -d duration=once -d redeem_by=1796173200 -d "name=Black Friday: 25% off first year" -d "metadata[sale]=black-friday-2026"
+   ```
+
+   ```bash
+   stripe coupons create --live --confirm -d id=bf2026-annual-35 -d percent_off=35 -d duration=once -d redeem_by=1796173200 -d "name=Black Friday: 35% off first year" -d "metadata[sale]=black-friday-2026"
+   ```
+
+   ```bash
+   stripe coupons create --live --confirm -d id=bf2026-annual-40 -d percent_off=40 -d duration=once -d redeem_by=1796173200 -d "name=Black Friday: 40% off first year" -d "metadata[sale]=black-friday-2026"
+   ```
+
+   `redeem_by=1796173200` is 2026-12-02 01:00 UTC, one hour after the app stops applying the coupons. It's a backstop, not the window. Don't set `applies_to`: monthly and annual share products, so it can't tell them apart. The server does that.
+
+   Read each one back with `stripe coupons retrieve <id> --live` and check: `percent_off`, `duration: once`, `valid: true`, `redeem_by: 1796173200`, `livemode: true`.
+
+2. **Set the Vercel env vars (Production only):**
+
+   ```bash
+   printf 'bf2026-annual-25' | vercel env add STRIPE_SALE_COUPON_SINGLE production
+   ```
+
+   ```bash
+   printf 'bf2026-annual-35' | vercel env add STRIPE_SALE_COUPON_BUILDER production
+   ```
+
+   ```bash
+   printf 'bf2026-annual-40' | vercel env add STRIPE_SALE_COUPON_ALL production
+   ```
+
+   Check with `vercel env ls production | grep STRIPE_SALE_COUPON`.
+
+3. **Merge the PR** so `main` builds with the env vars, and wait for the production deployment to be Ready.
+
+4. **Verify:**
+   - Any page shows the banner. `/pricing?interval=annual` shows the struck-through prices and "ends 1 Dec".
+   - Sign in and start an annual checkout for each tier. The Stripe page should show 25%, 35% or 40% off and no promotion-code field. Monthly should show full price with the code field. Don't pay; close the tab.
+   - In the Stripe Dashboard, the session's metadata has `annual_sale=black-friday-2026`.
+
+## After the sale
+
+Nothing is required: after 2026-12-02 00:00 UTC the banner hides and checkout stops applying the coupons. Optional tidy-up (needs approval): remove the three `STRIPE_SALE_COUPON_*` vars from Vercel. The coupons stop redeeming at `redeem_by` on their own.
+
+## Next sale
+
+Change `ANNUAL_SALE` in code (id, name, tiers, window, end label). Keep the ladder monotonic: the test `never makes a bigger plan cheaper than a smaller one` checks it. Create new coupons whose `percent_off` match, point the env vars at them, and deploy. Avoid March–April, the exam-season peak.

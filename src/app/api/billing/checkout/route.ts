@@ -7,6 +7,8 @@ import { getBillingBanks, getEntitlementBanks } from "@/lib/banks";
 import { validateCustomBankIds } from "@/lib/custom-bundles";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { startCheckout } from "@/lib/stripe-checkout";
+import { ANNUAL_SALE } from "@/lib/annual-sale";
+import { annualSaleSessionExpiry, resolveAnnualSaleCoupon } from "@/lib/annual-sale-checkout";
 import { LAPSED_SUBSCRIPTION_STATUSES, type CheckoutErrorCode } from "@/lib/checkout-errors";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
@@ -117,6 +119,9 @@ async function handlePOST(request: Request) {
     });
     if (mappingError) throw mappingError;
     const stripe = createStripeClient(config.secretKey);
+    // Annual plans only, inside the sale window, with a coupon that matches the sale config.
+    const saleNow = Date.now();
+    const saleCouponId = await resolveAnnualSaleCoupon(stripe, plan.interval, plan.productId, saleNow, process.env);
     const claimCustomerId = async (customerId: string) => {
       const { data: canonicalCustomerId, error } = await admin.rpc("claim_stripe_customer", {
         p_user_id: user.id,
@@ -256,6 +261,8 @@ async function handlePOST(request: Request) {
           && metadata.billing_interval === input.interval
           && metadata.price_id === input.priceId
           && metadata.referral_code === (referralCode ?? undefined)
+          // A full-price session opened before the sale (or a sale session after it) is not reused.
+          && metadata.annual_sale === (saleCouponId ? ANNUAL_SALE.id : undefined)
           && metadata.acknowledge_separate_subscription === (paidBundle ? "true" : undefined)
           && metadata.selected_bank_ids === (input.selectedBankIds ? JSON.stringify(input.selectedBankIds) : undefined)
         ));
@@ -290,7 +297,9 @@ async function handlePOST(request: Request) {
           line_items: [{ price: input.priceId, quantity: input.quantity ?? 1 }],
           success_url: input.successUrl,
           cancel_url: input.cancelUrl,
-          allow_promotion_codes: true,
+          // Stripe rejects `discounts` together with promotion codes, so the sale replaces the code box.
+          ...(saleCouponId ? { discounts: [{ coupon: saleCouponId }] } : { allow_promotion_codes: true }),
+          ...(saleCouponId && annualSaleSessionExpiry(saleNow) ? { expires_at: annualSaleSessionExpiry(saleNow) } : {}),
           subscription_data: {
             metadata: input.productId === "bundle_custom"
               ? {
@@ -312,6 +321,7 @@ async function handlePOST(request: Request) {
             billing_interval: input.interval,
             price_id: input.priceId,
             ...(referralCode ? { referral_code: referralCode } : {}),
+            ...(saleCouponId ? { annual_sale: ANNUAL_SALE.id } : {}),
           },
           integration_identifier: `${input.productId === "bundle_custom" ? "pastpaperprep-custom-bundle" : "pastpaperprep-fixed-plan"}-${customIntegrationIdentifier().split("-").at(-1)}`,
         } as Parameters<typeof stripe.checkout.sessions.create>[0], {

@@ -35,6 +35,7 @@ describe("CheckoutButtons", () => {
       interval: "monthly",
       productId: "bank_ib_hl",
       bankCount: 0,
+      annualSale: false,
     });
     expect(navigate).toHaveBeenCalledWith("https://checkout.stripe.com/c/pay/monthly");
   });

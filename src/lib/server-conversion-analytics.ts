@@ -19,6 +19,8 @@ type ConversionInput = {
   interval?: string | null;
   /** Custom bundles only: the banks the buyer picked (Stripe subscription `selected_bank_ids`). */
   selectedBankIds?: unknown;
+  /** Paid invoices only: a coupon or promotion code reduced this invoice (e.g. the annual sale). */
+  discounted?: boolean;
 };
 
 const UUID_NAMESPACE = "a88d86f5-91e9-5c98-bf52-92e5f33193a1";
@@ -87,6 +89,7 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     };
     if (input.product && PRODUCTS.has(input.product)) properties.product = input.product;
     if (input.interval && INTERVALS.has(input.interval)) properties.interval = input.interval;
+    if (typeof input.discounted === "boolean") properties.discounted = input.discounted;
     const covered = input.outcome === "signup_confirmed" ? null : purchasedBanks(input.product, input.selectedBankIds);
     if (covered) {
       properties.bank_scope = covered.scope;

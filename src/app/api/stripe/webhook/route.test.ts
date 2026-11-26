@@ -250,8 +250,18 @@ describe("POST /api/stripe/webhook", () => {
     constructEvent.mockReturnValue({ id: "evt_plain", created: invoice.created, type: "invoice.paid", data: { object: invoice } });
     expect((await POST(request())).status).toBe(200);
     expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: reason === "subscription_create" ? "payment_initial_paid" : "payment_renewal_paid",
-      eventKey: "stripe:invoice:in_plain", userId, occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
+      eventKey: "stripe:invoice:in_plain", userId, occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly", discounted: false });
     expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+  });
+
+  it("marks a paid invoice reduced by a coupon as discounted", async () => {
+    const invoice = { id: "in_sale", status: "paid", amount_paid: 16200, created: 1_800_000_000, customer: "cus_1", billing_reason: "subscription_create",
+      total_discount_amounts: [{ amount: 5400, discount: "di_1" }],
+      parent: { type: "subscription_details", subscription_details: { subscription: "sub_1" } } };
+    retrieveSubscription.mockResolvedValue({ ...subscriptionEvent.data.object, latest_invoice: invoice.id, schedule: null });
+    constructEvent.mockReturnValue({ id: "evt_sale", created: invoice.created, type: "invoice.paid", data: { object: invoice } });
+    expect((await POST(request())).status).toBe(200);
+    expect(captureConversionOutcome).toHaveBeenCalledWith(expect.objectContaining({ outcome: "payment_initial_paid", eventKey: "stripe:invoice:in_sale", discounted: true }));
   });
 
   it("reconciles charge refunds through the signed Stripe event", async () => {
@@ -362,7 +372,7 @@ describe("POST /api/stripe/webhook", () => {
     expect(response.status, JSON.stringify(await response.clone().json())).toBe(200);
     expect(processReferralInvoicePaid).toHaveBeenCalledTimes(1);
     expect(rpc).toHaveBeenCalledWith("apply_stripe_subscription_event", expect.objectContaining({ p_event_id: "evt_renew_paid", p_subscription_id: "sub_1", p_product_id: "bundle_all" }));
-    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "payment_renewal_paid", eventKey: "stripe:invoice:in_renew", userId, occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly" });
+    expect(captureConversionOutcome).toHaveBeenCalledWith({ outcome: "payment_renewal_paid", eventKey: "stripe:invoice:in_renew", userId, occurredAt: new Date(invoice.created * 1000).toISOString(), product: "bundle_all", interval: "monthly", discounted: false });
   });
 
   it("does not count zero-dollar or unpaid invoices as paid conversions", async () => {

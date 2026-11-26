@@ -227,6 +227,7 @@ async function handlePOST(request: Request) {
             product: metadataProductId,
             interval,
             selectedBankIds: current.metadata?.selected_bank_ids,
+            discounted: (invoice.total_discount_amounts ?? []).some((discount) => discount.amount > 0),
           });
         }
       } catch {
