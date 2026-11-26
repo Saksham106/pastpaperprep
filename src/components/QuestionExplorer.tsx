@@ -1528,9 +1528,9 @@ access: ExplorerAccess;
           <legend className="sr-only">{routeConfig.name}</legend>
           <div className="course-route-options">
             {([
-              ...routeConfig.options.map((option) => [option.id, option.label, option.detail]),
-              // "All papers" comes last: students start from the paper they sit.
+              // Core/Extended has no "All": students sit one tier.
               ...(routeConfig.showAll ? [["all", routeConfig.allLabel, routeConfig.allDetail]] : []),
+              ...routeConfig.options.map((option) => [option.id, option.label, option.detail]),
             ] as Array<[CourseRouteSelection, string, string]>).map(([value, label, detail]) => <label key={value}>
               <input type="radio" name="course-route" value={value} checked={courseRoute === value} onChange={() => changeCourseRoute(value)} />
               <span title={detail}><strong>{label}</strong><small>{detail}</small></span>
