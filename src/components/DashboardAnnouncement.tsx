@@ -58,6 +58,7 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
   const [dismissals, setDismissals] = useState<Dismissals>({});
   const [board, setBoard] = useState<QualificationId | null>(null);
   const [annual, setAnnual] = useState<Announcement | null>(null);
+  const [annualChecked, setAnnualChecked] = useState(false);
   const [hidden, setHidden] = useState(false);
   const viewed = useRef(new Set<string>());
 
@@ -76,11 +77,15 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
   useEffect(() => {
     if (!wantsAnnual) return;
     const controller = new AbortController();
-    loadAnnualOffer(userId, controller.signal).then((offer) => { if (!controller.signal.aborted && offer) setAnnual(annualAnnouncement(offer)); }).catch(() => {});
+    loadAnnualOffer(userId, controller.signal)
+      .then((offer) => { if (!controller.signal.aborted && offer) setAnnual(annualAnnouncement(offer)); })
+      .catch(() => {})
+      .finally(() => { if (!controller.signal.aborted) setAnnualChecked(true); });
     return () => controller.abort();
   }, [wantsAnnual, userId]);
 
-  const chosen = ready && !hidden ? pickAnnouncement(annual ? [...candidates, annual] : candidates, { dismissals, boards: readerBoards }) : null;
+  // Wait for the billing check, so a lower card never flashes (and counts a view) before the nudge replaces it.
+  const chosen = ready && !hidden && (!wantsAnnual || annualChecked) ? pickAnnouncement(annual ? [...candidates, annual] : candidates, { dismissals, boards: readerBoards }) : null;
   useEffect(() => {
     if (!chosen || viewed.current.has(chosen.id)) return;
     viewed.current.add(chosen.id);

@@ -81,6 +81,8 @@ describe("DashboardAnnouncement", () => {
     expect(card.closest("aside")).toHaveTextContent("$48 a year instead of $72.");
     expect(screen.getByRole("link", { name: /switch to annual/i })).toHaveAttribute("href", "/pricing?interval=annual&from=announcement");
     expect(fetchMock).toHaveBeenCalledWith("/api/billing/subscription", expect.objectContaining({ cache: "no-store" }));
+    // The lower Pepper card never flashed (or counted a view) while billing was checked.
+    expect(track.mock.calls.filter(([name]) => name === "announcement_view")).toEqual([["announcement_view", { updateId: "annual", type: "annual", bank: undefined }]]);
     unmount();
 
     render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={["igcse"]} annualCheck />);
