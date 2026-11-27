@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
     // Vercel exposes two build cores. Using both keeps static-generation workers
     // below the per-worker heap ceiling as the question corpus grows.
     cpus: 2,
+    // Every build compiles from scratch. A preview that restored production's Turbopack cache
+    // (1.33 GB) sat in "Creating an optimized production build" until Vercel's 45-minute limit
+    // (2026-11-26), and production restores that same cache. A cold compile fits since the corpus
+    // is read from disk (src/lib/corpus-json.ts); dev keeps its own cache.
+    turbopackFileSystemCacheForBuild: false,
     ...(agentServer ? { preloadEntriesOnStart: false } : {}),
   },
   outputFileTracingIncludes: {

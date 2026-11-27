@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
-import economicsHlRuntime from "@/data/production/ib-economics-hl.json";
-import economicsSlRuntime from "@/data/production/ib-economics-sl.json";
+import { join } from "node:path";
+import { readCorpusJson } from "@/lib/corpus-json";
 import runtimeManifest from "@/data/ib-economics-runtime-manifest.json";
 import membershipSeal from "@/data/ib-economics-2026-may-membership-seal.json";
 import type { EconomicsBankSlug } from "@/lib/banks";
@@ -100,9 +100,10 @@ function membershipSealMatches(): boolean {
 const sha256Json = (value: unknown) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const sameList = (a: readonly unknown[], b: readonly unknown[]) => a.length === b.length && a.every((value, index) => value === b[index]);
 
-const ARTIFACTS: Record<EconomicsBankSlug, RuntimeArtifact> = {
-  "ib-economics-hl": economicsHlRuntime as RuntimeArtifact,
-  "ib-economics-sl": economicsSlRuntime as RuntimeArtifact,
+// Read from disk, not imported (see src/lib/corpus-json.ts). Keep each path a literal so file tracing finds it.
+const ARTIFACT_FILES: Record<EconomicsBankSlug, string> = {
+  "ib-economics-hl": join(process.cwd(), "src/data/production/ib-economics-hl.json"),
+  "ib-economics-sl": join(process.cwd(), "src/data/production/ib-economics-sl.json"),
 };
 const EXPECTED_COUNTS = { "ib-economics-hl": [128, 49], "ib-economics-sl": [104, 38] } as const;
 
@@ -184,7 +185,7 @@ function validate(bank: EconomicsBankSlug, artifact: RuntimeArtifact): RuntimeAr
 }
 
 export function getEconomicsRuntimeArtifact(bank: EconomicsBankSlug): RuntimeArtifact {
-  return validate(bank, ARTIFACTS[bank]);
+  return validate(bank, readCorpusJson(ARTIFACT_FILES[bank]) as RuntimeArtifact);
 }
 
 export function getEconomicsRuntimeManifest() {

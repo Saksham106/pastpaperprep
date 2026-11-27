@@ -26,7 +26,7 @@ describe("May 2026 membership seal is independent of the artifact", () => {
 
   describe("runtime fails closed on same-count substitution", () => {
     afterEach(() => {
-      vi.doUnmock("@/data/production/ib-economics-hl.json");
+      vi.doUnmock("@/lib/corpus-json");
       vi.resetModules();
     });
     const load = async (mutate: (artifact: typeof hlRuntime) => void) => {
@@ -35,7 +35,10 @@ describe("May 2026 membership seal is independent of the artifact", () => {
       // Re-seal the self-declared content hash, as the reviewer's replay did.
       artifact.runtimeArtifact.contentSha256 = sha(JSON.stringify(artifact.questions));
       vi.resetModules();
-      vi.doMock("@/data/production/ib-economics-hl.json", () => ({ default: artifact }));
+      vi.doMock("@/lib/corpus-json", async (importOriginal) => {
+        const actual = await importOriginal<typeof import("@/lib/corpus-json")>();
+        return { readCorpusJson: (path: string) => path.endsWith("src/data/production/ib-economics-hl.json") ? artifact : actual.readCorpusJson(path) };
+      });
       return import("@/lib/economics-runtime");
     };
 

@@ -130,7 +130,7 @@ describe("IGCSE Biology 0610 combined 2019-2026 release (4,913 rows + May/June 2
     expect(r.runtimeArtifact.extension2026MayJune.baselineOriginalCandidateRuntimeSha256).toBe("9e97cd0c0455ae865b1d14dc462f74ce22d1c66fb734e7d4a8baaf414e0ff961");
     expect(r.runtimeArtifact.sourceAssemblySha256).toBe("92132de006cb98dcd7f7feef193be05d6cf0233addcaa41b045f6b7771490de1");
     expect(r.runtimeArtifact.sourceReconciliationReceiptSha256).toBe("c708d4b0116b3559fd550481a355d0964a722f7027962dfc6297eea1408bcbbd");
-    expect(getIGCSERuntimeArtifact("igcse-biology-0610", RELEASE_ENVIRONMENT)).toBe(runtime);
+    expect(getIGCSERuntimeArtifact("igcse-biology-0610", RELEASE_ENVIRONMENT)).toEqual(runtime);
     expect(() => getIGCSERuntimeArtifact("igcse-biology-0610", {})).toThrow(/disabled/);
     expect([candidate.releaseStatus, candidate.assetVerification, candidate.runtimeArtifact.storageState]).toEqual(["authorized_production_candidate", "pending_storage_release", "pending_upload"]);
     expect([candidate.runtimeArtifact.storageReceiptSha256, candidate.runtimeArtifact.assetManifestSha256, candidate.runtimeArtifact.finalizedContentSha256]).toEqual([null, null, null]);
