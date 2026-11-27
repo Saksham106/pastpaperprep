@@ -904,6 +904,14 @@ main { min-height: 72vh; }
 .plan-price-was { align-self: center; color: var(--muted); font: 700 clamp(1.3rem, 2.2vw, 1.7rem)/1 var(--font-display); letter-spacing: -.03em; text-decoration-thickness: 2px; text-decoration-color: #d0453b; }
 .plan-sale-tag { position: relative; z-index: 1; width: fit-content; margin: 16px 0 0; padding: 5px 10px; color: #fff; background: #d0453b; border-radius: 999px; font: 800 .78rem/1 var(--font-display); letter-spacing: .01em; box-shadow: 0 6px 14px -8px rgb(208 69 59 / .8); }
 .plan-sale-note strong { color: inherit; font-weight: 800; }
+/* Annual sale: monthly → annual switch panel in the plan editor. */
+.annual-switch-offer { margin: 0 0 20px; padding: 18px 20px; display: grid; gap: 8px; color: var(--ink); background: color-mix(in srgb, #1d7a4b 7%, var(--surface)); border: 1px solid color-mix(in srgb, #1d7a4b 28%, transparent); border-radius: 14px; }
+.annual-switch-offer .plan-sale-tag { margin: 0; }
+.annual-switch-offer h3 { margin: 0; font: 800 1.15rem/1.25 var(--font-display); letter-spacing: -.01em; }
+.annual-switch-price { margin: 0; font-size: 1rem; }
+.annual-switch-price strong { font-weight: 850; }
+.annual-switch-detail { margin: 0; color: var(--muted); font-size: .84rem; }
+.annual-switch-actions { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 8px; }
 .plan-sale-renews { opacity: .62; font-size: .92em; }
 .plan-upgrade-nudge { position: relative; z-index: 1; width: 100%; margin: 4px 0 12px; padding: 12px 14px; display: grid; gap: 8px; color: var(--ink); background: color-mix(in srgb, #1d7a4b 7%, var(--surface)); border: 1px solid color-mix(in srgb, #1d7a4b 28%, transparent); border-radius: 12px; font: inherit; text-align: left; text-decoration: none; cursor: pointer; transition: border-color 160ms ease, box-shadow 160ms ease; }
 .plan-upgrade-nudge:hover { border-color: #1d7a4b; box-shadow: 0 8px 20px -14px rgb(29 122 75 / .7); }

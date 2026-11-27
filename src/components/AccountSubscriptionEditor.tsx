@@ -1,5 +1,6 @@
 "use client";
 
+import { AnnualSaleSwitch } from "@/components/AnnualSaleSwitch";
 import Image from "next/image";
 import Link from "next/link";
 import { BookOpen, CrownSimple, SlidersHorizontal } from "@phosphor-icons/react";
@@ -240,6 +241,8 @@ export function AccountSubscriptionEditor({ subscription, bankOptions, onUpdated
   return <div className="account-plan-editor">
     {notice ? <p role="status" className="account-editor-note">{notice}</p> : null}
     {error ? <p role="alert" className="account-billing-warning">{error}</p> : null}
+    {/* Annual sale: monthly subscribers can move to annual now at their tier's first-year price. */}
+    {view === "select" && !demo && !locked && currentInterval === "monthly" ? <AnnualSaleSwitch disabled={busy} onUpdated={(message) => { if (message) setNotice(message); onUpdated(message); }} /> : null}
     {view === "select" ? <div className="account-plan-chooser">
       {!managementOnly ? <div className="account-pricing-heading"><h2>Choose your plan</h2><p>Choose the banks you need. Your current access is marked; review any change before it takes effect.</p></div> : null}
       {!managementOnly && !controlledInterval ? <div className="billing-toggle" role="group" aria-label="Billing period">
