@@ -287,7 +287,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
         <span className={styles.doneIcon} aria-hidden="true"><CheckCircle weight="duotone" /></span>
         <h1 ref={heading} tabIndex={-1}>{sub?.pause?.kind === "paused" ? "You’re on a break" : "Your pause is booked"}</h1>
         <p className={styles.lede}>{sub?.pause?.kind === "paused" ? "" : `Banks open until ${formatDate(result.accessUntil) ?? "your renewal date"}. `}Back on {formatDate(result.resumesAt) ?? "the resume date"}{priceLabel ? ` at ${priceLabel}` : ""}. Resume any time from your account.</p>
-        <div className={styles.actions}><Link className={styles.primary} href="/account/billing#subscription">Back to your account</Link>{start === "cancel" ? <button type="button" className={styles.secondary} onClick={() => go("confirm")}>Cancel subscription</button> : null}</div>
+        <div className={styles.actions}><Link className={styles.primary} href="/account/billing#subscription">Back to your account</Link>{/* Only when they arrived already paused: no cancel nudge right after booking a pause. */}{start === "cancel" && sub?.pause && sub.pause.kind !== "none" ? <button type="button" className={styles.secondary} onClick={() => go("confirm")}>Cancel subscription</button> : null}</div>
       </> : null}
     </div>
   </main>;

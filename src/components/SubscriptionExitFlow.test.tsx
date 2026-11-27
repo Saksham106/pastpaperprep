@@ -69,6 +69,7 @@ describe("subscription exit flow", () => {
     fireEvent.click(screen.getByRole("button", { name: "Pause for 2 months" }));
     expect(await screen.findByRole("heading", { name: "Your pause is booked" })).toBeInTheDocument();
     expect(body(fetch, 1)).toEqual({ intent: "pause", months: 2 });
+    expect(screen.queryByRole("button", { name: "Cancel subscription" })).not.toBeInTheDocument();
     expect(screen.getByText(/Back on Feb 26, 2027 at \$6.00\/month/)).toBeInTheDocument();
   });
   it("hides pause for annual plans and never blocks cancelling when the offer lookup fails", async () => {
