@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { describe, expect, it } from "vitest";
 import { config } from "@/proxy";
@@ -119,6 +119,29 @@ describe("serverless performance boundaries", () => {
       expect(graph, route).toContain("src/lib/asset-manifest.ts");
       expect(graph, route).not.toContain("src/lib/question-loader.ts");
       expect(graph.some((file) => file.startsWith("src/data/raw/") || file.startsWith("src/data/production/")), route).toBe(false);
+    }
+  });
+
+  it("reads question-bank corpora from disk instead of bundling them", () => {
+    // Bundled, the corpus (~270 MB of JSON) took a cold `next build` past Vercel's 8 GB build machine.
+    const corpusImport = /(?:from\s+|import\(\s*)["'][^"']*data\/(?:production|raw|local-preview)\/[^"']+\.json["']/;
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const entry of readdirSync(join(process.cwd(), dir), { withFileTypes: true })) {
+        const path = `${dir}/${entry.name}`;
+        if (entry.isDirectory()) walk(path);
+        else if (/\.(ts|tsx|mts|mjs|js)$/.test(entry.name) && !/\.test\.|\.d\.json\.ts$/.test(entry.name)) files.push(path);
+      }
+    };
+    walk("src");
+    // question-fixtures.ts is a test helper; nothing in the app imports it.
+    expect(files.filter((file) => file !== "src/lib/question-fixtures.ts" && corpusImport.test(source(file)))).toEqual([]);
+    for (const loader of ["src/lib/question-loader.ts", "src/lib/igcse-runtime.ts", "src/lib/economics-runtime.ts"]) {
+      // A literal path per bank keeps file tracing exact: each route ships the banks its loader can read.
+      const paths = [...source(loader).matchAll(/join\(process\.cwd\(\), "(src\/data\/[^"]+\.json)"\)/g)].map((match) => match[1]);
+      expect(paths.length, loader).toBeGreaterThan(0);
+      for (const path of paths) expect(existsSync(join(process.cwd(), path)), path).toBe(true);
+      expect(source(loader), loader).not.toMatch(/join\(process\.cwd\(\), [^")]/);
     }
   });
 

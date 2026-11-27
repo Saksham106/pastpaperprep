@@ -35,7 +35,7 @@ it('runs an empty portable cohort deterministically with private-only bindings a
   const dir=await fs.mkdtemp(path.join(process.env.TMPDIR??process.cwd(),'whole-paper-fixture-'));
   try {
     const runtime=path.join(dir,runtimeRelativeFile(bank.slug));await fs.mkdir(path.dirname(runtime),{recursive:true});await fs.writeFile(runtime,JSON.stringify({questions:[]}));
-    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`import('@/data/production/${bank.slug}.json')`);
+    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`join(process.cwd(), "src/data/production/${bank.slug}.json")`);
     const inventoryFile=path.join(dir,'inventory.json');await fs.writeFile(inventoryFile,JSON.stringify({banks:[{...bank,runtimeFile:runtime,pairs:[]}]}));
     const cli=execFileSync(path.resolve('node_modules/.bin/tsx'),['--tsconfig',path.resolve('tsconfig.json'),path.resolve('scripts/build-whole-paper-archives.mts'),'--inventory',inventoryFile],{cwd:dir,encoding:'utf8'});
     expect(JSON.parse(cli.trim())).toMatchObject([{bankSlug:bank.slug,paired:0}]);
@@ -203,7 +203,7 @@ it('reads report holds on every build and rejects malformed, duplicate or unused
     // A hold for a bank being built must match one of its papers, so a stale hold can't linger silently.
     await write([hold]);
     const runtime=path.join(dir,runtimeRelativeFile(bank.slug));await fs.mkdir(path.dirname(runtime),{recursive:true});await fs.writeFile(runtime,JSON.stringify({questions:[]}));
-    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`import('@/data/production/${bank.slug}.json')`);
+    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`join(process.cwd(), "src/data/production/${bank.slug}.json")`);
     const inventoryFile=path.join(dir,'inventory.json');await fs.writeFile(inventoryFile,JSON.stringify({banks:[{...bank,runtimeFile:runtime,pairs:[]}]}));
     await expect(buildWholePaperArchives({root:dir,inventoryFiles:[inventoryFile]})).rejects.toThrow(`Report holds match no built paper: ${pair.id}`);
   } finally {await fs.rm(dir,{recursive:true,force:true});}
@@ -301,7 +301,7 @@ it('reads MCQ key reviews on every build and rejects malformed, duplicate or unk
     // A review naming a paper that is not built for its bank fails the build.
     await write([{...review,bankSlug:bank.slug,paperId:'0620-2023-w-99'}]);
     const runtime=path.join(dir,runtimeRelativeFile(bank.slug));await fs.mkdir(path.dirname(runtime),{recursive:true});await fs.writeFile(runtime,JSON.stringify({questions:[]}));
-    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`import('@/data/production/${bank.slug}.json')`);
+    await fs.mkdir(path.join(dir,'src/lib'),{recursive:true});await fs.writeFile(path.join(dir,'src/lib/question-loader.ts'),`join(process.cwd(), "src/data/production/${bank.slug}.json")`);
     const inventoryFile=path.join(dir,'inventory.json');await fs.writeFile(inventoryFile,JSON.stringify({banks:[{...bank,runtimeFile:runtime,pairs:[]}]}));
     await expect(buildWholePaperArchives({root:dir,inventoryFiles:[inventoryFile]})).rejects.toThrow('MCQ key reviews match no built paper: 0620-2023-w-99');
   } finally {await fs.rm(dir,{recursive:true,force:true});}

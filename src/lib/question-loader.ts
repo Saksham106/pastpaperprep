@@ -3,42 +3,47 @@ import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import { getEconomicsRuntimeArtifact } from "@/lib/economics-runtime";
 import { normalizeBankQuestions, type UnifiedQuestion } from "@/lib/questions";
 import { isPendingStoragePreview } from "@/lib/catalog";
+import { join } from "node:path";
+import { readCorpusJson } from "@/lib/corpus-json";
 
 type RawBank = { questions: Array<Record<string, unknown>> };
 
+// Banks are read from disk, not imported (see src/lib/corpus-json.ts). Keep each path a literal so file tracing finds it.
+const corpus = (path: string) => async () => readCorpusJson(path) as RawBank;
+
 const loaders: Record<BankSlug, () => Promise<RawBank>> = {
-  igcse: async () => (await import("@/data/raw/igcse.json")).default as RawBank,
-  "igcse-additional": async () => (await import("@/data/raw/igcse-additional.json")).default as RawBank,
-  "ib-hl": async () => (await import("@/data/raw/ib-hl.json")).default as RawBank,
-  "ib-sl": async () => (await import("@/data/raw/ib-sl.json")).default as RawBank,
-  "ib-ai-hl": async () => (await import("@/data/raw/ib-ai-hl.json")).default as RawBank,
-  "ib-ai-sl": async () => (await import("@/data/raw/ib-ai-sl.json")).default as RawBank,
-  "ib-chemistry-hl": async () => (await import("@/data/raw/ib-chemistry-hl.json")).default as RawBank,
-  "ib-chemistry-sl": async () => (await import("@/data/raw/ib-chemistry-sl.json")).default as RawBank,
-  "ib-physics-hl": async () => (await import("@/data/raw/ib-physics-hl.json")).default as RawBank,
-  "ib-physics-sl": async () => (await import("@/data/raw/ib-physics-sl.json")).default as RawBank,
-  "ib-biology-hl": async () => (await import("@/data/raw/ib-biology-hl.json")).default as RawBank,
-  "ib-biology-sl": async () => (await import("@/data/raw/ib-biology-sl.json")).default as RawBank,
-  "ib-economics-hl": async () => (await import("@/data/local-preview/ib-economics-hl.json")).default as RawBank,
-  "ib-economics-sl": async () => (await import("@/data/local-preview/ib-economics-sl.json")).default as RawBank,
-  "igcse-biology-0610": async () => (await import("@/data/production/igcse-biology-0610.json")).default as RawBank,
-  "igcse-economics-0455": async () => (await import("@/data/production/igcse-economics-0455.json")).default as RawBank,
-  "igcse-chemistry-0620": async () => (await import("@/data/production/igcse-chemistry-0620.json")).default as RawBank,
-  "igcse-physics-0625": async () => (await import("@/data/production/igcse-physics-0625.json")).default as RawBank,
-  "igcse-coordinated-sciences-0654": async () => (await import("@/data/production/igcse-coordinated-sciences-0654.json")).default as RawBank,
-  "igcse-computer-science-0478": async () => (await import("@/data/production/igcse-computer-science-0478.json")).default as RawBank,
-  "ib-computer-science-hl": async () => (await import("@/data/production/ib-computer-science-hl.json")).default as RawBank,
-  "ib-computer-science-sl": async () => (await import("@/data/production/ib-computer-science-sl.json")).default as RawBank,
-  "ib-business-management-hl": async () => (await import("@/data/production/ib-business-management-hl.json")).default as RawBank,
-  "ib-business-management-sl": async () => (await import("@/data/production/ib-business-management-sl.json")).default as RawBank,
+  igcse: corpus(join(process.cwd(), "src/data/raw/igcse.json")),
+  "igcse-additional": corpus(join(process.cwd(), "src/data/raw/igcse-additional.json")),
+  "ib-hl": corpus(join(process.cwd(), "src/data/raw/ib-hl.json")),
+  "ib-sl": corpus(join(process.cwd(), "src/data/raw/ib-sl.json")),
+  "ib-ai-hl": corpus(join(process.cwd(), "src/data/raw/ib-ai-hl.json")),
+  "ib-ai-sl": corpus(join(process.cwd(), "src/data/raw/ib-ai-sl.json")),
+  "ib-chemistry-hl": corpus(join(process.cwd(), "src/data/raw/ib-chemistry-hl.json")),
+  "ib-chemistry-sl": corpus(join(process.cwd(), "src/data/raw/ib-chemistry-sl.json")),
+  "ib-physics-hl": corpus(join(process.cwd(), "src/data/raw/ib-physics-hl.json")),
+  "ib-physics-sl": corpus(join(process.cwd(), "src/data/raw/ib-physics-sl.json")),
+  "ib-biology-hl": corpus(join(process.cwd(), "src/data/raw/ib-biology-hl.json")),
+  "ib-biology-sl": corpus(join(process.cwd(), "src/data/raw/ib-biology-sl.json")),
+  "ib-economics-hl": corpus(join(process.cwd(), "src/data/local-preview/ib-economics-hl.json")),
+  "ib-economics-sl": corpus(join(process.cwd(), "src/data/local-preview/ib-economics-sl.json")),
+  "igcse-biology-0610": corpus(join(process.cwd(), "src/data/production/igcse-biology-0610.json")),
+  "igcse-economics-0455": corpus(join(process.cwd(), "src/data/production/igcse-economics-0455.json")),
+  "igcse-chemistry-0620": corpus(join(process.cwd(), "src/data/production/igcse-chemistry-0620.json")),
+  "igcse-physics-0625": corpus(join(process.cwd(), "src/data/production/igcse-physics-0625.json")),
+  "igcse-coordinated-sciences-0654": corpus(join(process.cwd(), "src/data/production/igcse-coordinated-sciences-0654.json")),
+  "igcse-computer-science-0478": corpus(join(process.cwd(), "src/data/production/igcse-computer-science-0478.json")),
+  "ib-computer-science-hl": corpus(join(process.cwd(), "src/data/production/ib-computer-science-hl.json")),
+  "ib-computer-science-sl": corpus(join(process.cwd(), "src/data/production/ib-computer-science-sl.json")),
+  "ib-business-management-hl": corpus(join(process.cwd(), "src/data/production/ib-business-management-hl.json")),
+  "ib-business-management-sl": corpus(join(process.cwd(), "src/data/production/ib-business-management-sl.json")),
   // Candidate runtime; the bank stays hidden (pendingStorage) until its crops are uploaded and it is finalized.
-  "a-level-maths-9709": async () => (await import("@/data/production/a-level-maths-9709.json")).default as RawBank,
-  "a-level-physics-9702": async () => (await import("@/data/production/a-level-physics-9702.json")).default as RawBank,
-  "a-level-chemistry-9701": async () => (await import("@/data/production/a-level-chemistry-9701.json")).default as RawBank,
-  "a-level-biology-9700": async () => (await import("@/data/production/a-level-biology-9700.json")).default as RawBank,
-  "a-level-economics-9708": async () => (await import("@/data/production/a-level-economics-9708.json")).default as RawBank,
-  "a-level-computer-science-9618": async () => (await import("@/data/production/a-level-computer-science-9618.json")).default as RawBank,
-  "a-level-further-maths-9231": async () => (await import("@/data/production/a-level-further-maths-9231.json")).default as RawBank,
+  "a-level-maths-9709": corpus(join(process.cwd(), "src/data/production/a-level-maths-9709.json")),
+  "a-level-physics-9702": corpus(join(process.cwd(), "src/data/production/a-level-physics-9702.json")),
+  "a-level-chemistry-9701": corpus(join(process.cwd(), "src/data/production/a-level-chemistry-9701.json")),
+  "a-level-biology-9700": corpus(join(process.cwd(), "src/data/production/a-level-biology-9700.json")),
+  "a-level-economics-9708": corpus(join(process.cwd(), "src/data/production/a-level-economics-9708.json")),
+  "a-level-computer-science-9618": corpus(join(process.cwd(), "src/data/production/a-level-computer-science-9618.json")),
+  "a-level-further-maths-9231": corpus(join(process.cwd(), "src/data/production/a-level-further-maths-9231.json")),
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();

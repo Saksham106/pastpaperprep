@@ -130,7 +130,7 @@ export async function buildWholePaperArchives(options:BuildOptions) {
     if(await fs.realpath(bank.runtimeFile)!==await fs.realpath(expectedRuntime))throw new Error(`Inventory runtimeFile does not match question-loader cohort: ${bank.slug} expected ${relativeRuntime}`);
     const loaderFile=bank.slug.startsWith('ib-economics-')?'src/lib/economics-runtime.ts':'src/lib/question-loader.ts';
     const loaderBytes=await fs.readFile(path.join(root,loaderFile));
-    if(!loaderBytes.toString().includes(`@/data/${relativeRuntime.slice('src/data/'.length)}`))throw new Error(`Loader trace no longer contains ${relativeRuntime}; review runtime mapping`);
+    if(!loaderBytes.toString().includes(`"${relativeRuntime}"`))throw new Error(`Loader trace no longer contains ${relativeRuntime}; review runtime mapping`);
     const runtimeBytes=await fs.readFile(expectedRuntime),runtime=JSON.parse(runtimeBytes.toString());
     if(!Array.isArray(runtime.questions))throw new Error(`Missing runtime questions: ${bank.slug}`);
     const rawIds=runtime.questions.map((q:{id:string})=>q.id);

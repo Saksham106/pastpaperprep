@@ -8,7 +8,12 @@ const { normalizeBankQuestions, getEconomicsRuntimeArtifact, runtimeMode } = vi.
 
 vi.mock("@/lib/questions", () => ({ normalizeBankQuestions }));
 vi.mock("@/lib/economics-runtime", () => ({ getEconomicsRuntimeArtifact }));
-vi.mock("@/data/local-preview/ib-economics-sl.json", () => ({ default: { questions: [{ id: "preview" }] } }));
+vi.mock("@/lib/corpus-json", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/corpus-json")>();
+  return {
+    readCorpusJson: (path: string) => path.endsWith("src/data/local-preview/ib-economics-sl.json") ? { questions: [{ id: "preview" }] } : actual.readCorpusJson(path),
+  };
+});
 vi.mock("@/lib/banks", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/lib/banks")>();
   return {
