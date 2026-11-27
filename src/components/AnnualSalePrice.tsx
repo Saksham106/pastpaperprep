@@ -28,5 +28,5 @@ export function AnnualSaleHeadline({ annualCents, percentOff, live }: { annualCe
 export function AnnualSalePrice({ annualCents, percentOff, percentLabel }: { annualCents: number | null; percentOff: number; percentLabel?: string }) {
   if (annualCents === null) return <p className="plan-billing-note plan-sale-note"><strong>{percentLabel ?? `${percentOff}%`} off</strong> your first year</p>;
   const quote = annualSaleQuote(annualCents, percentOff);
-  return <p className="plan-billing-note plan-sale-note"><strong>{quote.firstYear}</strong> for your first year, then {quote.renews}/yr</p>;
+  return <p className="plan-billing-note plan-sale-note"><strong>{quote.firstYear}</strong> for your first year <span className="plan-sale-renews">then {quote.renews}/yr</span></p>;
 }

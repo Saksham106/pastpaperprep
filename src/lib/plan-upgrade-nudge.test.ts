@@ -25,6 +25,19 @@ describe("plan upgrade nudge", () => {
     ]);
   });
 
+  it("aims at the next sale discount step, or All Access one bank before it", () => {
+    const goal = (interval: "monthly" | "annual", count: number, sale: boolean) => planUpgradeNudge(interval, count, sale)?.goal ?? null;
+    expect([1, 2, 3, 4, 5].map((count) => goal("annual", count, true))).toEqual([
+      { count: 2, banksAway: 1, allAccess: false, percentOff: 30 },
+      { count: 4, banksAway: 2, allAccess: false, percentOff: 35 },
+      { count: 4, banksAway: 1, allAccess: false, percentOff: 35 },
+      { count: 6, banksAway: 2, allAccess: true, percentOff: 40 },
+      { count: 6, banksAway: 1, allAccess: true, percentOff: 40 },
+    ]);
+    expect([1, 2, 3, 4].map((count) => goal("annual", count, false))).toEqual([null, null, null, null]);
+    expect(goal("monthly", 5, true)).toEqual({ count: 6, banksAway: 1, allAccess: true, percentOff: null });
+  });
+
   it("never discounts monthly, even during the sale", () => {
     expect(step("monthly", 3, true)).toEqual(step("monthly", 3, false));
   });

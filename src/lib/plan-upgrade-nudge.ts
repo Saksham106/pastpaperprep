@@ -11,7 +11,15 @@ export type PlanUpgradeNudge = {
   extraPerYearCents: number | null;
   /** Sale only: the bigger first-year discount the next step unlocks. */
   unlocksPercentOff: number | null;
+  /**
+   * The next reward to aim for ("1 bank away from 35% off"): during the sale the next discount
+   * step (2, 4 or 6 banks); otherwise only All Access, one bank before it. Null when there is none.
+   */
+  goal: { count: number; banksAway: number; allAccess: boolean; percentOff: number | null } | null;
 };
+
+/** Sale discount steps by bank count: 2 (30%), 4 (35%), 6 = All Access (40%). */
+const SALE_GOALS = [2, 4, PRICING_MODEL.allAccess.minBanks] as const;
 
 /** What a plan of `count` banks is charged: the sale's first-year price when it applies. */
 function chargeForBankCount(interval: BillingInterval, count: number, saleLive: boolean): number {
@@ -31,11 +39,21 @@ export function planUpgradeNudge(interval: BillingInterval, count: number, saleL
   if (extra <= 0) return null;
   const currentPercent = interval === "annual" ? annualSalePercentForBankCount(count, saleLive) : null;
   const nextPercent = interval === "annual" ? annualSalePercentForBankCount(nextCount, saleLive) : null;
+  const saleGoals = interval === "annual" && saleLive && currentPercent !== null;
+  const goalCount = saleGoals
+    ? SALE_GOALS.find((threshold) => threshold > count) ?? null
+    : nextCount >= PRICING_MODEL.allAccess.minBanks ? PRICING_MODEL.allAccess.minBanks : null;
   return {
     nextCount,
     toAllAccess: nextCount >= PRICING_MODEL.allAccess.minBanks,
     extraPerMonthCents: interval === "annual" ? Math.round(extra / 12) : extra,
     extraPerYearCents: interval === "annual" ? extra : null,
     unlocksPercentOff: nextPercent !== null && currentPercent !== null && nextPercent > currentPercent ? nextPercent : null,
+    goal: goalCount === null ? null : {
+      count: goalCount,
+      banksAway: goalCount - count,
+      allAccess: goalCount >= PRICING_MODEL.allAccess.minBanks,
+      percentOff: saleGoals ? annualSalePercentForBankCount(goalCount, true) : null,
+    },
   };
 }

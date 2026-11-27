@@ -247,6 +247,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             initialBankIds={preselectedBankIds}
             availableBanks={cardBanks}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
+            // Someone building a 2+ bank plan is not nudged from One Bank as well.
+            upgradeNudge={isBuilder || builderBankIds.length < 2}
             ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
           />
         )}
@@ -292,7 +294,6 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         <div className="pricing-toggle-sticky">
           {billingToggle}
         </div>
-        {annualSaleShown && !hasPaidAccess ? <p className="pricing-sale-note" role="status">{Object.values(ANNUAL_SALE.tiers).map((tier) => `${tier.label} ${tier.percentOff}% off`).join(" · ")} · first year · ends {ANNUAL_SALE.endLabel}</p> : null}
         {lifetimeSelected ? <div className="pricing-toggle-anchor pricing-toggle-anchor-lifetime" data-selected-mode="lifetime">{lifetimeOffer}</div> : null}
 
         {authenticated && !hasPaidAccess ? <section className="pricing-current-plan" aria-labelledby="current-plan-heading"><div><span className="eyebrow">Account</span><h2 id="current-plan-heading">Your current access</h2></div><div className="pricing-current-plan-details"><strong>Free</strong><span>Choose a plan below to unlock every available question.</span></div></section> : null}

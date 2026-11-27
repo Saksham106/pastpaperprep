@@ -101,8 +101,8 @@ main { min-height: 72vh; }
 .site-header::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: inherit; background: var(--header-overlay); backdrop-filter: blur(14px) saturate(1.15); transition: backdrop-filter 180ms ease; pointer-events: none; }
 /* Seasonal annual-plan sale strip: hidden unless the head script marks the sale live. */
 .annual-sale-banner { display: none; }
-:root[data-annual-sale="live"] .annual-sale-banner { display: block; position: relative; overflow: hidden; color: #fff; background: #18233b; background-image: radial-gradient(120% 220% at 50% 120%, rgb(59 91 219 / .55), transparent 60%); }
-.annual-sale-banner-inner { min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 10px 18px; padding: 7px 16px; }
+:root[data-annual-sale="live"] .annual-sale-banner { display: block; position: relative; z-index: 31; overflow: hidden; color: #fff; background: #18233b; background-image: radial-gradient(120% 220% at 50% 120%, rgb(59 91 219 / .55), transparent 60%); }
+.annual-sale-banner-inner { min-height: 58px; display: flex; align-items: center; justify-content: center; gap: 10px 20px; padding: 10px 16px; }
 .annual-sale-banner-copy { margin: 0; font-size: .95rem; line-height: 1.25; }
 .annual-sale-banner-copy strong { color: #ffd66b; font-weight: 850; }
 .annual-sale-banner-name { margin-right: 8px; font: 400 1.08rem/1 var(--font-serif); letter-spacing: .01em; }
@@ -114,24 +114,13 @@ main { min-height: 72vh; }
 .annual-sale-banner-cta:hover { transform: translateY(-1px); }
 .annual-sale-banner-cta::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .7) 50%, transparent 70%); transform: translateX(-120%); animation: sale-shine 3.2s ease-in-out infinite; }
 @keyframes sale-shine { 0%, 55% { transform: translateX(-120%); } 85%, 100% { transform: translateX(120%); } }
-/* Option B (ticker), switched on with :root[data-sale-banner="ticker"] while options are compared. */
-.annual-sale-banner-ticker { display: none; color: inherit; text-decoration: none; }
-:root[data-sale-banner="ticker"] .annual-sale-banner-countdown { display: none; }
-:root[data-sale-banner="ticker"] .annual-sale-banner-ticker { display: flex; justify-content: flex-start; padding-inline: 0; }
-.annual-sale-ticker-track { display: flex; width: max-content; animation: sale-ticker 32s linear infinite; }
-.annual-sale-ticker-run { display: flex; }
-.annual-sale-ticker-run > span { display: inline-flex; align-items: center; gap: 22px; padding-right: 22px; font-weight: 750; font-size: .95rem; white-space: nowrap; }
-.annual-sale-ticker-run > span:first-child { font: 400 1.05rem/1 var(--font-serif); color: #ffd66b; }
-.annual-sale-ticker-run i { color: #ffd66b; font-style: normal; font-size: .75rem; }
-.annual-sale-banner-ticker:hover .annual-sale-ticker-track { animation-play-state: paused; }
-@keyframes sale-ticker { to { transform: translateX(-50%); } }
 @media (max-width: 640px) {
   .annual-sale-banner-inner { gap: 6px 10px; padding: 8px 12px; flex-wrap: wrap; }
   .annual-sale-banner-copy { width: 100%; text-align: center; font-size: .88rem; }
   .sale-countdown-unit { min-width: 34px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .annual-sale-banner-cta::after, .annual-sale-ticker-track { animation: none; }
+  .annual-sale-banner-cta::after { animation: none; }
 }
 .header-scroll-sentinel { position: absolute; top: -1px; width: 1px; height: 1px; pointer-events: none; }
 .site-header.is-scrolled, .site-header.menu-open { box-shadow: 0 16px 36px -20px rgb(24 35 59 / .5); }
@@ -905,28 +894,30 @@ main { min-height: 72vh; }
 .plan-price-was { align-self: center; color: var(--muted); font: 700 clamp(1.3rem, 2.2vw, 1.7rem)/1 var(--font-display); letter-spacing: -.03em; text-decoration-thickness: 2px; text-decoration-color: #d0453b; }
 .plan-sale-tag { position: relative; z-index: 1; width: fit-content; margin: 16px 0 0; padding: 5px 10px; color: #fff; background: #d0453b; border-radius: 999px; font: 800 .78rem/1 var(--font-display); letter-spacing: .01em; box-shadow: 0 6px 14px -8px rgb(208 69 59 / .8); }
 .plan-sale-note strong { color: inherit; font-weight: 800; }
-.plan-upgrade-nudge { position: relative; z-index: 1; margin: 2px 0 12px; }
-.plan-upgrade-nudge-row { width: 100%; padding: 11px 12px; display: flex; align-items: center; gap: 11px; color: var(--ink); background: var(--surface); border: 1.5px dashed color-mix(in srgb, var(--cobalt) 55%, transparent); border-radius: 12px; font: inherit; text-align: left; text-decoration: none; cursor: pointer; transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease; }
-.plan-upgrade-nudge-row:hover { background: color-mix(in srgb, var(--cobalt) 6%, var(--surface)); border-color: var(--cobalt); border-style: solid; transform: translateY(-1px); }
-.plan-upgrade-nudge-row:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 2px; }
-.plan-upgrade-nudge-icon { flex: 0 0 auto; width: 32px; height: 32px; display: grid; place-items: center; color: #fff; background: var(--cobalt); border-radius: 9px; }
-.plan-upgrade-nudge-text { flex: 1 1 auto; display: grid; gap: 2px; font-size: .88rem; line-height: 1.3; }
-.plan-upgrade-nudge-text strong { font-weight: 850; }
-.plan-upgrade-nudge-reward { color: #1d7a4b; font-weight: 800; font-size: .82rem; }
-:root[data-theme="dark"] .plan-upgrade-nudge-reward { color: #6fd6a0; }
-.plan-upgrade-nudge-arrow { flex: 0 0 auto; color: var(--cobalt); transition: transform 160ms ease; }
-.plan-upgrade-nudge-row:hover .plan-upgrade-nudge-arrow { transform: translateX(3px); }
-.plan-sale-ladder { margin: 0 0 12px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; list-style: none; }
-.plan-sale-ladder li { padding: 6px 8px 7px; display: grid; gap: 1px; color: var(--muted); background: color-mix(in srgb, var(--ink) 5%, transparent); border-radius: 8px; border-top: 3px solid color-mix(in srgb, var(--ink) 14%, transparent); font-size: .72rem; line-height: 1.2; }
-.plan-sale-ladder li strong { color: var(--ink); font: 800 .86rem/1.1 var(--font-display); }
-.plan-sale-ladder li[data-state="passed"] { border-top-color: color-mix(in srgb, #1d7a4b 45%, transparent); }
-.plan-sale-ladder li[data-state="current"] { color: var(--ink); background: color-mix(in srgb, #1d7a4b 10%, transparent); border-top-color: #1d7a4b; }
-.plan-sale-ladder li[data-state="current"] strong { color: #1d7a4b; }
-:root[data-theme="dark"] .plan-sale-ladder li[data-state="current"] strong { color: #6fd6a0; }
-/* Option B (no ladder) while options are compared. */
-:root[data-sale-nudge="plain"] .plan-sale-ladder { display: none; }
-.pricing-sale-note { width: fit-content; max-width: calc(100% - 24px); margin: 12px auto 26px; padding: 8px 18px; color: #fff; background: #18233b; border-radius: 999px; font-size: .86rem; font-weight: 700; line-height: 1.35; text-align: center; box-shadow: 0 10px 24px -16px rgb(24 35 59 / .7); }
-.pricing-sale-note::before { content: "✦ "; color: #ffd66b; }
+.plan-sale-renews { opacity: .62; font-size: .92em; }
+.plan-upgrade-nudge { position: relative; z-index: 1; width: 100%; margin: 4px 0 12px; padding: 12px 14px; display: grid; gap: 8px; color: var(--ink); background: color-mix(in srgb, #1d7a4b 7%, var(--surface)); border: 1px solid color-mix(in srgb, #1d7a4b 28%, transparent); border-radius: 12px; font: inherit; text-align: left; text-decoration: none; cursor: pointer; transition: border-color 160ms ease, box-shadow 160ms ease; }
+.plan-upgrade-nudge:hover { border-color: #1d7a4b; box-shadow: 0 8px 20px -14px rgb(29 122 75 / .7); }
+.plan-upgrade-nudge:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 2px; }
+.plan-upgrade-nudge-goal { font-size: .95rem; font-weight: 650; line-height: 1.25; }
+.plan-upgrade-nudge-goal strong { color: #1d7a4b; font-weight: 850; }
+:root[data-theme="dark"] .plan-upgrade-nudge-goal strong { color: #6fd6a0; }
+.plan-upgrade-nudge-track { display: flex; gap: 4px; }
+.plan-upgrade-nudge-track i { flex: 1 1 0; height: 6px; background: color-mix(in srgb, #1d7a4b 16%, transparent); border-radius: 999px; }
+.plan-upgrade-nudge-track i[data-filled] { background: #1d7a4b; }
+:root[data-theme="dark"] .plan-upgrade-nudge-track i[data-filled] { background: #6fd6a0; }
+.plan-upgrade-nudge-add { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: .84rem; line-height: 1.3; }
+.plan-upgrade-nudge-add strong { color: var(--ink); font-weight: 800; }
+.plan-upgrade-nudge-add > svg:first-child { flex: 0 0 auto; width: 14px; height: 14px; color: #1d7a4b; }
+.plan-upgrade-nudge-add-only { color: var(--ink); font-size: .9rem; }
+.plan-upgrade-nudge-arrow { flex: 0 0 auto; width: 15px; height: 15px; margin-left: auto; color: #1d7a4b; transition: transform 160ms ease; }
+.plan-upgrade-nudge:hover .plan-upgrade-nudge-arrow { transform: translateX(3px); }
+/* Selected banks on pricing cards: a tidy list under the picker, not a wrap of pills. */
+.pricing-option .bank-chip-tray { display: grid; gap: 0; overflow: hidden; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+.pricing-option .bank-chip-tray li + li { border-top: 1px solid var(--line); }
+.pricing-option .bank-chip { width: 100%; min-height: 36px; padding: 0 12px; justify-content: space-between; background: transparent; border: 0; border-radius: 0; font: 650 .8rem/1.2 var(--font-body); }
+.pricing-option .bank-chip svg { color: var(--muted); }
+.pricing-option .bank-chip:hover { background: color-mix(in srgb, var(--cobalt) 6%, transparent); }
+.pricing-option .bank-chip:hover svg { color: #d0453b; }
 .plan-description { position: relative; z-index: 1; margin: 11px 0 0; font-size: .9rem; line-height: 1.45; }
 .plan-assurance { position: relative; z-index: 1; margin: 14px 0 0; color: var(--muted); font: 600 .67rem/1.4 var(--font-mono); }
 .plan-checkout { position: relative; z-index: 2; margin-top: auto; display: grid; gap: 9px; }
