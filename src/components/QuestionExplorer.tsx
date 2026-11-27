@@ -6,7 +6,7 @@ import { Fragment, useCallback, useDeferredValue, useEffect, useId, useLayoutEff
 import { CALCULATOR_FILTER_BANKS } from "@/lib/calculator-policy.mjs";
 import dynamic from "next/dynamic";
 import { IntentPrefetchLink } from "@/components/IntentPrefetchLink";
-import { BookmarkSimple, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, FileText, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
+import { BookmarkSimple, BookOpenText, CaretDown, Check, CheckCircle, DownloadSimple, FilePlus, FileText, Funnel, MagnifyingGlass, ShareNetwork, X } from "@phosphor-icons/react";
 import type { PdfAnswerPlacement, PdfContent } from "@/lib/pdf-export";
 import { AnswerPlacementPrompt } from "@/components/AnswerPlacementPrompt";
 import { LargeExportConfirm } from "@/components/LargeExportConfirm";
@@ -486,22 +486,32 @@ access: ExplorerAccess;
   // While the deferred list catches up it still shows the previous filters' questions; don't sign
   // links for those (paid signatures spend the member's daily allowance).
   const listPending = listFilters !== filters || listSearch !== search;
-  const matching = useMemo(() => {
+  // The list for a route with the current filters, search, free-only and saved-only choices.
+  const listFor = useCallback((route: CourseRouteSelection) => {
     const normalizedSearch = listSearch.trim().toLocaleLowerCase();
     const remoteSearch = Boolean(
       bankSlug && normalizedSearch && indexLoaded && searchResult?.query === normalizedSearch,
     );
-    const routeQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute));
-    return remoteSearch
+    const routeQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, route));
+    const matched = remoteSearch
       ? filterQuestions(routeQuestions, { ...listFilters, mainTopicOnly: !partialTopics, search: undefined, sort })
         .filter((question) => searchResult!.ids.has(question.id))
       : filterQuestions(routeQuestions, { ...listFilters, mainTopicOnly: !partialTopics, search: listSearch, sort });
-  }, [bankSlug, catalogQuestions, effectiveCourseRoute, listFilters, indexLoaded, partialTopics, listSearch, searchResult, sort]);
-  const filtered = useMemo(() => {
-    const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
-    return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
-  }, [effectiveFreeOnly, matching, savedIds, savedOnly]);
+    const accessible = effectiveFreeOnly ? matched.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matched;
+    return { matched, shown: savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible };
+  }, [bankSlug, catalogQuestions, listFilters, indexLoaded, partialTopics, listSearch, searchResult, sort, effectiveFreeOnly, savedOnly, savedIds]);
+  const { matched: matching, shown: filtered } = useMemo(() => listFor(effectiveCourseRoute), [listFor, effectiveCourseRoute]);
   const savedWorksheetView = Boolean(worksheetId) && !addingQuestions;
+  // Core/Extended has no "All". When the student's tier lists nothing but the other tier would with the same filters
+  // (Maths 0580's free years are Extended papers; a link into the other tier's topics), offer that tier, keeping the filters.
+  const otherTierFallback = useMemo(() => {
+    if (filtered.length || !routeConfig || routeConfig.showAll) return null;
+    const current = routeConfig.options.find((option) => option.id === effectiveCourseRoute);
+    const other = routeConfig.options.find((option) => option.id !== effectiveCourseRoute && listFor(option.id).shown.length > 0);
+    if (!current || !other) return null;
+    const narrowed = Object.values(listFilters).some((picked) => Array.isArray(picked) && picked.length) || Boolean(listSearch.trim()) || savedOnly;
+    return { id: other.id, from: current.label, to: other.label, count: listFor(other.id).shown.length, narrowed };
+  }, [filtered.length, routeConfig, effectiveCourseRoute, listFor, listFilters, listSearch, savedOnly]);
   const sharedSetView = !worksheetId && (sharedIds !== null || Boolean(sharedError));
   const sharedSetQuestions = useMemo(() => {
     if (!sharedIds || (indexUrl && !indexLoaded) || indexError || bootstrapPending) return [];
@@ -1228,9 +1238,10 @@ access: ExplorerAccess;
     restartResults();
   };
 
-  const changeCourseRoute = (value: CourseRouteSelection) => {
+  // `remember: false` looks at the other tier once (the free-years fallback) without changing the student's saved tier.
+  const changeCourseRoute = (value: CourseRouteSelection, { remember = true }: { remember?: boolean } = {}) => {
     setCourseRoute(value);
-    rememberRoute(bank, value);
+    if (remember) rememberRoute(bank, value);
     // Route is the broad course-level scope. Paper/component filters stay optional
     // refinements, so discard stale refinements rather than mirroring hidden checkbox state.
     // Paper tabs also scope topics: keep only picked topics the new paper has.
@@ -1524,11 +1535,12 @@ access: ExplorerAccess;
           <MagnifyingGlass aria-hidden="true" />
           <input value={search} onChange={(event) => { setListInteracted(true); setSearch(event.target.value); setVisible(EXPLORER_PAGE_SIZE); }} placeholder="Search questions, topics, or methods" aria-label="Search questions" />
         </label>
-        {routeConfig && <fieldset className={`course-route-picker${routeConfig.options.length > 2 ? " is-paper-tabs" : ""}${routeConfig.options.length > 3 ? " is-wrapping-tabs" : ""}`} role="radiogroup" aria-label={routeConfig.name}>
+        {routeConfig && <fieldset className={`course-route-picker${routeConfig.options.length > 2 ? " is-paper-tabs" : " is-tier-picker"}${routeConfig.options.length > 3 ? " is-wrapping-tabs" : ""}`} role="radiogroup" aria-label={routeConfig.name}>
           <legend className="sr-only">{routeConfig.name}</legend>
           <div className="course-route-options">
             {([
-              ["all", routeConfig.allLabel, routeConfig.allDetail],
+              // Core/Extended has no "All": students sit one tier.
+              ...(routeConfig.showAll ? [["all", routeConfig.allLabel, routeConfig.allDetail]] : []),
               ...routeConfig.options.map((option) => [option.id, option.label, option.detail]),
             ] as Array<[CourseRouteSelection, string, string]>).map(([value, label, detail]) => <label key={value}>
               <input type="radio" name="course-route" value={value} checked={courseRoute === value} onChange={() => changeCourseRoute(value)} />
@@ -1606,7 +1618,12 @@ access: ExplorerAccess;
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => { if (bootstrapPending) return; if (resolvedAccess.authenticated) void toggleSaved(question.id); else openSigninPrompt({ reason: "save", questionId: question.id }); }} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString("en-US")} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
             })}
           </div>
-          {!savedWorksheetView && !sharedSetView && filtered.length === 0 && <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>}
+          {!savedWorksheetView && !sharedSetView && filtered.length === 0 && (otherTierFallback
+            ? <div className="empty-state">{otherTierFallback.narrowed || !effectiveFreeOnly
+              ? <><strong>No {otherTierFallback.from} questions match.</strong><span>{otherTierFallback.count.toLocaleString("en-US")} {otherTierFallback.to} {otherTierFallback.count === 1 ? "question does" : "questions do"}.</span></>
+              : <><strong>No free {otherTierFallback.from} questions here yet.</strong><span>The free years are {otherTierFallback.to} papers.</span></>}
+              <button type="button" className="text-button" onClick={() => changeCourseRoute(otherTierFallback.id, { remember: false })}>Show {effectiveFreeOnly ? "free " : ""}{otherTierFallback.to} questions</button></div>
+            : <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>)}
           {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} sentViews={sentUpgradeViews} bankFreeCount={bankFreeCount} bankName={bankShortName} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
           {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => { setVisible((count) => count + EXPLORER_PAGE_SIZE); trackProductEvent("question_list_more", { bank: bank ?? "unknown", shown: Math.min(visible + EXPLORER_PAGE_SIZE, filtered.length) }); }}>Show 24 more questions</button>}
         </div>
@@ -1831,7 +1848,7 @@ function QuestionCard({ question, notesLink, fullPaperHref, unlocked, authentica
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} size={questionAsset.sizesPx?.[index] ?? question.imageSizes?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <><AssetPlaceholder size={visiblePlaceholderSize(question.bankSlug, question.id, question.imageSizes?.[0])} label="Loading original question" />{Array.from({ length: Math.max(0, question.questionImageCount - 1) }, (_, index) => <AssetPlaceholder key={index} size={question.imageSizes?.[index + 1]} />)}</>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><IntentPrefetchLink className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</IntentPrefetchLink></div>}
       <div className="question-actions">
         <div className="question-action-buttons">{unlocked ? ((question.solution || question.markschemeImageCount > 0) ? <button className="answer-toggle" disabled={answerLoading} aria-expanded={answerOpen} onClick={toggleAnswer} onPointerEnter={prefetchAnswer} onFocus={prefetchAnswer} onTouchStart={prefetchAnswer}>{answerLoading ? "Loading answer..." : answerOpen ? "Hide answer" : "Show answer"}</button> : <span className="muted">Answer coming soon</span>) : null}{showExplanationButton && <button className="answer-toggle" disabled={explanationLoading} aria-expanded={explanationOpen} onClick={toggleExplanation}>{explanationLoading ? "Loading explanation..." : explanationOpen ? "Hide explanation" : "Explanation"}</button>}{unlocked && !localPreview && helperEnabledForBank(question.bankSlug) && <HelperLauncher bank={question.bankSlug} questionId={question.id} questionLabel={`${question.year} ${question.session} · Paper ${question.paper} · Question ${question.number}`} authenticated={authenticated} freePreview={freeAnswer} />}{answerError && <span className="muted" role="alert">{answerError}</span>}{explanationError && <span className="muted" role="alert">{explanationError}</span>}</div>
-        <div className="source-links">{attempted && <span className="study-state"><CheckCircle weight="fill" /> Practised</span>}{notesLink && <IntentPrefetchLink className="notes-link" href={notesLink.href} title={notesLink.label} onClick={() => trackProductEvent("question_notes_click", { bank: question.bankSlug })}>Learn this topic</IntentPrefetchLink>}{unlocked && fullPaperHref && <IntentPrefetchLink className="full-paper-button" href={fullPaperHref} title="Open the whole paper at this question, with its mark scheme" onClick={() => trackProductEvent("question_full_paper_click", { bank: question.bankSlug })}><FileText aria-hidden="true" weight="bold" />Full paper</IntentPrefetchLink>}{unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>
+        <div className="source-links">{attempted && <span className="study-state" title="Practised"><CheckCircle weight="fill" aria-hidden="true" /><span className="action-label">Practised</span></span>}{notesLink && <IntentPrefetchLink className="notes-link" href={notesLink.href} title={notesLink.label} onClick={() => trackProductEvent("question_notes_click", { bank: question.bankSlug })}><BookOpenText aria-hidden="true" weight="bold" /><span className="action-label">Learn this topic</span></IntentPrefetchLink>}{unlocked && fullPaperHref && <IntentPrefetchLink className="full-paper-button" href={fullPaperHref} title="Open the whole paper at this question, with its mark scheme" onClick={() => trackProductEvent("question_full_paper_click", { bank: question.bankSlug })}><FileText aria-hidden="true" weight="bold" /><span className="action-label">Full paper</span></IntentPrefetchLink>}{unlocked && <button className={`study-icon-button ${saved ? "is-saved" : ""}`} title={saved ? "Remove from saved" : "Save question"} aria-label={saved ? `Remove question from saved ${question.id}` : `Save question ${question.id}`} onClick={onToggleSaved}><BookmarkSimple weight={saved ? "fill" : "regular"} aria-hidden="true" /></button>}{unlocked && <QuestionReport bank={question.bankSlug} questionId={question.id} hasExplanation={Boolean(question.hasExplanation)} freePreview={isPreviewQuestion(question.bankSlug, question.id)} />}</div>
       </div>
       {answerOpen && <div className="answer-panel">{answerAsset?.mcqAnswer ? <McqAnswerView answer={answerAsset.mcqAnswer} /> : <>{answerAsset?.urls.length ? <p className="answer-panel-label">Mark scheme</p> : null}{answerAsset?.urls.map((source, index) => <MarkSchemeImage key={source} src={source} size={answerAsset.sizesPx?.[index]} alt={`Official mark scheme page ${index + 1}`} onError={answerAssetFailed} />)}</>}{question.solution && (answerAsset?.urls.length || answerAsset?.mcqAnswer ? <div className="solution-wrap"><button className="text-button" aria-expanded={solutionOpen} onClick={() => setSolutionOpen((open) => !open)}>{solutionOpen ? "Hide worked text" : "Show worked text"}</button>{solutionOpen && <p>{question.solution}</p>}</div> : <p>{question.solution}</p>)}</div>}
       {explanationOpen && explanation && <div className="answer-panel explanation-panel"><p className="answer-panel-label">Explanation</p><ExplanationPanel explanation={explanation} revise={notesLink} /></div>}

@@ -69,6 +69,18 @@ describe("PaperBuilder", () => {
     expect(empty.every((input) => input.disabled)).toBe(true);
   });
 
+  it("offers Core and Extended (no All papers), starts on the remembered tier, and remembers a change", async () => {
+    window.localStorage.setItem("ppp-route:igcse-tier", "core");
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const routes = screen.getByRole("group", { name: "Your Cambridge route" });
+    expect(within(routes).queryByRole("button", { name: "All papers" })).not.toBeInTheDocument();
+    await waitFor(() => expect(within(routes).getByRole("button", { name: "Core" })).toHaveAttribute("aria-pressed", "true"));
+    fireEvent.click(within(routes).getByRole("button", { name: "Extended" }));
+    expect(window.localStorage.getItem("ppp-route:igcse-tier")).toBe("extended");
+    window.localStorage.clear();
+  });
+
   it("builds only from the topics picked", async () => {
     render(<PaperBuilder banks={[bank]} />);
     await ready();
@@ -86,8 +98,9 @@ describe("PaperBuilder", () => {
     const item = within(topicList()).getAllByRole("listitem").find((row) => row.querySelector("label span")?.textContent === topic)!;
     const count = () => Number(item.querySelector(".builder-count")!.textContent);
     const mainCount = count();
-    expect(mainCount).toBe(chemistry.questions.filter((question: { primaryTopic: string; questionImageCount: number; marks: number | null }) =>
-      question.primaryTopic === topic && question.questionImageCount > 0 && Number.isInteger(question.marks) && question.marks! > 0).length);
+    // The builder opens on Extended (no "All papers"), so only Extended and shared papers count.
+    expect(mainCount).toBe(chemistry.questions.filter((question: { primaryTopic: string; questionImageCount: number; marks: number | null; paper: number }) =>
+      question.primaryTopic === topic && question.questionImageCount > 0 && Number.isInteger(question.marks) && question.marks! > 0 && [2, 4, 5, 6].includes(question.paper)).length);
     fireEvent.click(within(item).getAllByRole("checkbox")[0]);
     fireEvent.change(screen.getByLabelText("Number of questions"), { target: { value: "50" } });
     expect(rows().length).toBe(Math.min(50, mainCount));
@@ -193,6 +206,19 @@ describe("PaperBuilder", () => {
     fireEvent.click(screen.getByRole("button", { name: "Shuffle" }));
     fireEvent.change(screen.getByLabelText("Number of questions"), { target: { value: String(count) } });
     expect(rows()).toHaveLength(count);
+  });
+
+  it("keeps a link's own paper target and question, taking its tier from them over the remembered one", async () => {
+    window.localStorage.setItem("ppp-route:igcse-tier", "extended");
+    const core = chemistry.questions.find((question: { paper: number; questionImageCount: number; marks: number | null }) => question.paper === 1 && question.questionImageCount > 0 && Number.isInteger(question.marks) && question.marks! > 0)!;
+    window.history.replaceState({}, "", `/worksheets/build?papers=1q1&q=${core.id}`);
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const routes = screen.getByRole("group", { name: "Your Cambridge route" });
+    await waitFor(() => expect(within(routes).getByRole("button", { name: "Core" })).toHaveAttribute("aria-pressed", "true"));
+    expect(rows()).toHaveLength(1);
+    expect(new URLSearchParams(window.location.search).getAll("q")).toEqual([core.id]);
+    window.localStorage.clear();
   });
 
   it("drops paper targets a link names that this bank or route cannot use", async () => {

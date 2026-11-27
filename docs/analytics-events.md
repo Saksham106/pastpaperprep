@@ -59,6 +59,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `pdf_export_attempt` / `_success` / `_error` / `_blocked` | Download PDF. Since 2026-10-20 `_error` and `_blocked` carry `reason` (`daily_limit`, `auth`, `sign_unavailable`, `network`, `build`, `other`) and `status?`; hitting the daily limit is `pdf_export_blocked`, not an error | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card, `builder`) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
 | `upgrade_prompt_view` / `_click` / `_dismiss` | upgrade prompts | `bank`, `placement` |
+| `announcement_view` / `_click` / `_dismiss` | dashboard "For you" strip (signed in, up to 3 sliding cards; since 2026-11-26). `_view` fires once per card per page load, when that card is the one on show | `updateId` (the `/updates` anchor id, or `annual`), `type` (`bank_add`, `bank_included`, `bank_free`, `new_papers`, `feature`, `annual`), `bank?`, `position` (1–3 in the strip), `target?` (`primary`, `secondary`; click only) |
 | `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt. Since 2026-10-15 `free_gate_view` fires once per page when the prompt first scrolls into view (it used to fire on mount, which overcounted it). | `bank`, `limit`, `remainingCount` |
 | `auth_page_view` | sign-in / sign-up page, once per mode shown (switching modes counts again) | `mode` (`sign-in`, `sign-up`), `from` (`bank`, `pricing`, `worksheets`, `past_papers`, `notes`, `account`, `dashboard`, `home`, `other`), `bank?` |
 | `google_auth_click` | Continue with Google | `mode` |
@@ -135,9 +136,10 @@ Browser events and server conversions never share an ID. Browser events are cook
 
 **Everyone (trends and ratios of totals, not funnels):**
 4. **Prompt effectiveness:** `upgrade_prompt_click` ÷ `upgrade_prompt_view`, broken down by `placement` and `bank`.
-5. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
-6. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
-7. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
+5. **Announcement CTR:** `announcement_click` ÷ `announcement_view` by `type` and `updateId`. Compare with `/updates` pageviews. Upgrades from the card land on `pricing_view` with `from = announcement`.
+6. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
+7. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
+8. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
 
 **Problem reports (data-quality queue):** a Trends insight on `question_report` (total count), broken down by `bank`, `questionId` and `issue`, shown as a table over the last 30 days. Sort by count; a question reported by several students is the first to check. `consented_question_report` duplicates these for consented visitors, so count only `question_report`.
 

@@ -54,6 +54,12 @@ function boundedPage(value: string | string[] | undefined): number {
   return Number.isFinite(parsed) && parsed > 0 ? Math.min(parsed, MAX_SHARED_PAGES) : 1;
 }
 
+/** "current_2025:C1.1" → core, "current_2025:E1.18" → extended; anything else has no tier. */
+export function officialCodeTier(ref: string): "core" | "extended" | undefined {
+  const code = ref.slice(ref.lastIndexOf(":") + 1);
+  return /^C\d/.test(code) ? "core" : /^E\d/.test(code) ? "extended" : undefined;
+}
+
 /**
  * The route for a bank whose URL names none. Banks that open on one route (A Level paper tabs)
  * follow a paper filter that sits in one route, open on "all" for any other filtered link (a topic
@@ -65,7 +71,15 @@ function implicitRoute(bank: string | undefined, filters: ExplorerFilters, searc
   const papers = (filters.papers ?? []).map(Number);
   const paperRoutes = new Set(papers.map((paper) => config.options.find((option) => option.papers.includes(paper))?.id));
   if (papers.length && paperRoutes.size === 1 && !paperRoutes.has(undefined)) return [...paperRoutes][0]!;
-  if (search || Object.values(filters).some((selected) => selected?.length)) return "all";
+  // A link's own content decides before any remembered tier: an official Core (C…) or Extended (E…) syllabus code,
+  // as revision-notes links carry, opens on that tier.
+  const codeTiers = new Set((filters.officialCodeRefs ?? []).map((ref) => officialCodeTier(ref)));
+  if (!config.showAll && codeTiers.size === 1 && !codeTiers.has(undefined)) {
+    const tier = [...codeTiers][0]!;
+    if (config.options.some((option) => option.id === tier)) return tier;
+  }
+  // Core/Extended has no "All" and doesn't narrow topics, so any other filtered link falls back to the student's tier.
+  if (config.showAll && (search || Object.values(filters).some((selected) => selected?.length))) return "all";
   return parseRouteSelection(bank, remembered) ?? config.defaultSelection;
 }
 

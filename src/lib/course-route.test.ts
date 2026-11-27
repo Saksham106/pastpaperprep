@@ -56,9 +56,11 @@ describe("A Level 9709 paper tabs", () => {
     expect(routePapers("a-level-maths-9709", "all")).toBeUndefined();
   });
 
-  it("leaves Core/Extended exactly as before: default all, nothing remembered, topics unscoped", () => {
-    expect(defaultRouteSelection("igcse")).toBe("all");
-    expect(routeConfigFor("igcse")).toMatchObject({ allLabel: "All", allDetail: "Core + Extended", remember: false, scopesTopics: false, hidesPaperFilter: false });
+  it("gives Core/Extended students their tier: no All, Extended by default, remembered, topics unscoped", () => {
+    expect(defaultRouteSelection("igcse")).toBe("extended");
+    expect(routeConfigFor("igcse")).toMatchObject({ showAll: false, remember: true, sharedMemory: "igcse-tier", scopesTopics: false, hidesPaperFilter: false });
+    expect(parseRouteSelection("igcse", "all")).toBeUndefined();
+    expect(parseRouteSelection("a-level-maths-9709", "all")).toBe("all");
     expect(routeConfigFor("igcse")?.options.map(({ id, label, detail }) => [id, label, detail])).toEqual([["core", "Core", "Papers 1 & 3"], ["extended", "Extended", "Papers 2 & 4"]]);
     expect(routeLabel("igcse", "both")).toBe("");
   });
@@ -72,8 +74,15 @@ describe("A Level 9709 paper tabs", () => {
       expect(readRememberedRoute("a-level-maths-9709")).toBeUndefined();
       rememberRoute("a-level-maths-9709", "ps-1");
       expect(readRememberedRoute("a-level-maths-9709")).toBe("ps-1");
+      // IGCSE tiers: a pick on one bank becomes every IGCSE bank's default, and a bank's own pick wins.
+      expect(readRememberedRoute("igcse")).toBeUndefined();
       rememberRoute("igcse", "core");
-      expect(store.has("ppp-route:igcse")).toBe(false);
+      expect(readRememberedRoute("igcse")).toBe("core");
+      expect(readRememberedRoute("igcse-chemistry-0620")).toBe("core");
+      rememberRoute("igcse-chemistry-0620", "extended");
+      expect(readRememberedRoute("igcse-physics-0625")).toBe("extended");
+      expect(readRememberedRoute("igcse")).toBe("core");
+      expect(store.has("ppp-route:igcse-tier")).toBe(true);
       store.set("ppp-route:a-level-maths-9709", "nonsense");
       expect(readRememberedRoute("a-level-maths-9709")).toBeUndefined();
     } finally {

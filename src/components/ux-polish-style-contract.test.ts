@@ -287,11 +287,18 @@ describe("toolbar keeps Save PDF in its own track on every bank", () => {
     expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:not(:has(.course-route-picker))", wide)["grid-template-columns"])).toBe("minmax(220px, 1fr) minmax(190px, auto) 48px auto");
   });
 
-  it("gives the Core/Extended picker its own row on tablets", () => {
-    const picker = styleFor(globalBlocks, ".explorer-toolbar:has(.course-route-picker) .course-route-picker", tablet);
-    expect(normalize(picker["grid-column"])).toBe("1 / -1");
-    expect(normalize(picker["grid-row"])).toBe("2");
-    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:has(.course-route-picker) .sort-field", tablet)["grid-row"])).toBe("3");
+  it("puts Core/Extended, Filters and Sort on one row on tablets, and gives paper tabs their own row", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:has(.is-tier-picker) .course-route-picker", tablet)["grid-row"])).toBe("2");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:has(.is-tier-picker) .mobile-filter-button", tablet)["grid-row"])).toBe("2");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:has(.is-tier-picker) .sort-field", tablet)["grid-row"])).toBe("2");
+    const tabs = styleFor(globalBlocks, ".explorer-toolbar:has(.is-paper-tabs) .course-route-picker", tablet);
+    expect(normalize(tabs["grid-column"])).toBe("1 / -1");
+    expect(normalize(tabs["grid-row"])).toBe("2");
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar:has(.is-paper-tabs) .sort-field", tablet)["grid-row"])).toBe("3");
+  });
+
+  it("doesn't stick under the floating header", () => {
+    expect(normalize(styleFor(globalBlocks, ".explorer-toolbar", "base").position)).not.toBe("sticky");
   });
 
   it("moves share and Save PDF beside search on tablets", () => {
