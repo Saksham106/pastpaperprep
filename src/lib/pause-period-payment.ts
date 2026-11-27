@@ -1,5 +1,6 @@
 import type Stripe from "stripe";
 import { isPauseRelevant, PAUSE_ACCESS_UNTIL_KEY } from "@/lib/subscription-pause";
+import { verifyResumeInvoice } from "@/lib/pause-resume-charge";
 
 const idOf = (value: unknown): string | null => typeof value === "string" ? value : value && typeof value === "object" && typeof (value as { id?: unknown }).id === "string" ? (value as { id: string }).id : null;
 
@@ -48,5 +49,6 @@ export async function verifyCurrentPeriodPaid(stripe: Stripe, subscription: Stri
     if (lines.has_more) continue;
     if (lines.data.some((line) => paysCurrentPeriod(line, subscription, item))) return true;
   }
-  return false;
+  // Flexible-mode early resume pays the restarted period with a separate one-off invoice.
+  return verifyResumeInvoice(stripe, subscription);
 }

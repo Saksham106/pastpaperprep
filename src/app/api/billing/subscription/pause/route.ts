@@ -6,6 +6,8 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { verifyCurrentPeriodPaid } from "@/lib/pause-period-payment";
+import { chargeAndResumeFlexible, ResumePaymentDeclined, ResumeUnavailable } from "@/lib/pause-resume-charge";
+import { recurringPriceSubtotal } from "@/lib/account-billing-view";
 import { isPauseMonths, pauseStateOf, pauseWindow, PAUSE_ACCESS_UNTIL_KEY, PAUSE_RESUME_MARGIN_MS, PAUSE_RESUMES_AT_KEY, type PauseMonths } from "@/lib/subscription-pause";
 import {
   assertNoOpenBilling, isPauseEnabled, lifecycleJson as json, LifecycleConflict as Conflict, loadActiveSubscription, monthlyOrAnnual, releaseReservation,
@@ -88,31 +90,53 @@ async function handlePOST(request: Request) {
     }
 
     // resume_now: the pause has started. Restart billing today at full price (no credit for the voided period),
-    // and only if the payment goes through. Moving the resume marker in the same write means that if Stripe did
-    // not start a new paid period, the current (voided) period stays capped instead of granting free access.
+    // and only if the payment goes through. The resume marker moves with the restart, so the period it starts is
+    // the only one the payment can prove; access then comes from the webhook's exact-period proof.
     if (state.kind !== "paused") throw new Conflict(state.kind === "scheduled" ? "Your pause hasn't started yet. Undo it instead." : "This subscription isn't paused");
-    // Only classic billing mode charges for an anchor reset in the same call (with error_if_incomplete, the
-    // unpause and the payment then succeed or fail together). Flexible mode would unpause without invoicing.
-    if (sub.billing_mode?.type !== "classic" || sub.collection_method !== "charge_automatically") throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
+    if (sub.collection_method !== "charge_automatically") throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
+    const mode = sub.billing_mode?.type;
+    if (mode !== "classic" && mode !== "flexible") throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
     const requestedAt = Date.now();
-    const marker = new Date(requestedAt - SKEW_MS + PAUSE_RESUME_MARGIN_MS).toISOString();
-    providerAttempted = true;
-    try {
-      await stripe.subscriptions.update(sub.id, {
-        pause_collection: "",
-        billing_cycle_anchor: "now",
-        proration_behavior: "none",
-        payment_behavior: "error_if_incomplete",
-        metadata: { [PAUSE_RESUMES_AT_KEY]: marker },
-      }, { idempotencyKey: `pastpaperprep-pause-resume-${intentId}`, timeout: 30000 });
-    } catch (error) {
-      // error_if_incomplete: the card was declined or needs authentication, and nothing was changed.
-      if ((error as { type?: string })?.type === "StripeCardError") {
-        await releaseReservation(admin, user.id, intentId);
-        held = false;
-        return json({ error: "Payment didn't go through. Update your card in Billing, then try again." }, 402);
+    const declined = async () => {
+      await releaseReservation(admin, user.id, intentId);
+      held = false;
+      return json({ error: "Payment didn't go through. Update your card in Billing, then try again." }, 402);
+    };
+    if (mode === "classic") {
+      // Classic: the anchor reset invoices and charges in the same call (error_if_incomplete: all or nothing).
+      const marker = new Date(requestedAt - SKEW_MS + PAUSE_RESUME_MARGIN_MS).toISOString();
+      providerAttempted = true;
+      try {
+        await stripe.subscriptions.update(sub.id, {
+          pause_collection: "",
+          billing_cycle_anchor: "now",
+          proration_behavior: "none",
+          payment_behavior: "error_if_incomplete",
+          metadata: { [PAUSE_RESUMES_AT_KEY]: marker },
+        }, { idempotencyKey: `pastpaperprep-pause-resume-${intentId}`, timeout: 30000 });
+      } catch (error) {
+        // error_if_incomplete: the card was declined or needs authentication, and nothing was changed.
+        if ((error as { type?: string })?.type === "StripeCardError") return declined();
+        throw error;
       }
-      throw error;
+    } else {
+      // Flexible: Stripe counts the voided month as billed, so charge the month on its own invoice first,
+      // then lift the pause without another charge.
+      // The one-off charge is the base price; a plan with a discount would pay the wrong amount, so it's manual.
+      if (Array.isArray(sub.discounts) && sub.discounts.length) throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
+      const item = sub.items.data[0];
+      const price = item.price.billing_scheme === "tiered" && !item.price.tiers ? await stripe.prices.retrieve(item.price.id, { expand: ["tiers"] }) : item.price;
+      const amountCents = price.id === item.price.id ? recurringPriceSubtotal(price, item.quantity ?? 0) : null;
+      if (amountCents === null || amountCents <= 0) throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
+      providerAttempted = true;
+      try {
+        await chargeAndResumeFlexible(stripe, sub, { intentId, amountCents, currency: price.currency, nowMs: requestedAt });
+      } catch (error) {
+        // A declined card voids the one-off invoice before anything else changes.
+        if (error instanceof ResumePaymentDeclined) return declined();
+        if (error instanceof ResumeUnavailable) { providerAttempted = false; throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you."); }
+        throw error;
+      }
     }
     const verified = await stripe.subscriptions.retrieve(sub.id);
     const item = verified.items?.data?.[0];
