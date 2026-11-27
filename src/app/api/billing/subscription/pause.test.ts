@@ -3,14 +3,17 @@ import { POST } from "./pause/route";
 
 const NOW = Date.parse("2026-11-26T12:00:00Z");
 const PERIOD_END = Date.parse("2026-12-26T00:00:00Z") / 1000;
-const m = vi.hoisted(() => ({ getUser: vi.fn(), rpc: vi.fn(), reserve: vi.fn(), release: vi.fn(), listSubs: vi.fn(), listSessions: vi.fn(), listInvoices: vi.fn(), listPaid: vi.fn(), update: vi.fn(), retrieve: vi.fn(), subscription: null as unknown as Record<string, unknown> & { metadata: Record<string, string>; items: { data: Record<string, unknown>[] } } }));
+const m = vi.hoisted(() => ({ getUser: vi.fn(), rpc: vi.fn(), reserve: vi.fn(), release: vi.fn(), listSubs: vi.fn(), listSessions: vi.fn(), listInvoices: vi.fn(), listPaid: vi.fn(), retrieveInvoice: vi.fn(), charge: vi.fn(), update: vi.fn(), retrieve: vi.fn(), subscription: null as unknown as Record<string, unknown> & { metadata: Record<string, string>; items: { data: Record<string, unknown>[] } } }));
 vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({ auth: { getUser: m.getUser } }) }));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: () => ({ rpc: m.rpc }) }));
 vi.mock("node:crypto", async (importOriginal) => ({ ...(await importOriginal<typeof import("node:crypto")>()), randomUUID: () => "intent_1" }));
 vi.mock("@/lib/stripe-config", () => ({ isStripeBillingEnabled: () => true, getStripeConfig: () => ({ secretKey: "sk_test_fake" }) }));
-vi.mock("@/lib/stripe", () => ({ createStripeClient: () => ({ subscriptions: { list: m.listSubs, update: m.update, retrieve: m.retrieve }, checkout: { sessions: { list: m.listSessions } }, invoices: { list: (params: { status?: string }) => params.status === "paid" ? m.listPaid(params) : m.listInvoices(params) } }) }));
+vi.mock("@/lib/stripe", () => ({ createStripeClient: () => ({ subscriptions: { list: m.listSubs, update: m.update, retrieve: m.retrieve }, checkout: { sessions: { list: m.listSessions } }, invoices: { list: (params: { status?: string }) => params.status === "paid" ? m.listPaid(params) : m.listInvoices(params), retrieve: m.retrieveInvoice } }) }));
+// The flexible-mode charge has its own unit tests; the route's proof check (verifyCurrentPeriodPaid) stays real.
+vi.mock("@/lib/pause-resume-charge", async (importOriginal) => ({ ...(await importOriginal<typeof import("@/lib/pause-resume-charge")>()), chargeAndResumeFlexible: m.charge }));
+import { ResumePaymentDeclined, ResumeUnavailable } from "@/lib/pause-resume-charge";
 const req = (body: unknown, origin = "https://app.test") => new Request("https://app.test/api/billing/subscription/pause", { method: "POST", headers: { origin, "content-type": "application/json" }, body: JSON.stringify(body) });
-const sub = () => ({ id: "sub_1", customer: "cus_1", status: "active", billing_mode: { type: "classic" }, collection_method: "charge_automatically", billing_cycle_anchor: Date.parse("2026-08-26T00:00:00Z") / 1000, metadata: { user_id: "user_1", product_id: "bank_igcse" } as Record<string, string>, pending_update: null, schedule: null, pause_collection: null as unknown, cancel_at: null, cancel_at_period_end: false, items: { data: [{ id: "si_1", quantity: 1, current_period_start: PERIOD_END - 30 * 86400, current_period_end: PERIOD_END, price: { id: "price_single_m", recurring: { interval: "month", interval_count: 1 } } }] as Record<string, unknown>[] } });
+const sub = () => ({ id: "sub_1", customer: "cus_1", status: "active", billing_mode: { type: "classic" }, collection_method: "charge_automatically", billing_cycle_anchor: Date.parse("2026-08-26T00:00:00Z") / 1000, metadata: { user_id: "user_1", product_id: "bank_igcse" } as Record<string, string>, pending_update: null, schedule: null, pause_collection: null as unknown, cancel_at: null, cancel_at_period_end: false, items: { data: [{ id: "si_1", quantity: 1, current_period_start: PERIOD_END - 30 * 86400, current_period_end: PERIOD_END, price: { id: "price_single_m", billing_scheme: "per_unit", unit_amount: 600, currency: "usd", recurring: { interval: "month", interval_count: 1 } } }] as Record<string, unknown>[] } });
 const pausedMeta = { pause_access_until: "2026-12-26T00:00:00.000Z", pause_resumes_at: "2027-01-26T00:00:00.000Z" };
 
 beforeEach(() => {
@@ -94,11 +97,46 @@ describe("pause route", () => {
       expect((await r.json()).status).toBe("resumed");
       expect(m.release).toHaveBeenCalled();
     });
-    it("refuses early resume in flexible billing mode, where Stripe wouldn't charge in the same call", async () => {
-      m.subscription.billing_mode = { type: "flexible" };
-      const r = await POST(req({ intent: "resume_now" }));
-      expect(r.status).toBe(409); expect((await r.json()).error).toMatch(/hello@pastpaperprep.com/);
-      expect(m.update).not.toHaveBeenCalled();
+    describe("on flexible billing (every live plan)", () => {
+      const nowS = Date.parse("2027-01-05T10:00:00Z") / 1000;
+      beforeEach(() => { m.subscription.billing_mode = { type: "flexible" }; m.charge.mockReset().mockResolvedValue({ invoiceId: "in_resume" }); });
+      it("charges the full month on its own invoice, then grants access from that invoice's proof", async () => {
+        m.retrieve.mockImplementation(async () => ({ ...m.subscription, pause_collection: null, metadata: { ...m.subscription.metadata, pause_resume_invoice: "in_resume" },
+          items: { data: [{ ...m.subscription.items.data[0], current_period_start: nowS, current_period_end: nowS + 31 * 86400 }] } }));
+        m.retrieveInvoice.mockResolvedValue({ id: "in_resume", status: "paid", customer: "cus_1", amount_paid: 600, status_transitions: { paid_at: nowS - 5 }, metadata: { purpose: "pause_resume", subscription_id: "sub_1", expected_amount: "600" } });
+        const r = await POST(req({ intent: "resume_now" }));
+        expect(r.status).toBe(200);
+        expect(m.charge).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ id: "sub_1" }), expect.objectContaining({ amountCents: 600, currency: "usd", intentId: "intent_1" }));
+        expect(m.update).not.toHaveBeenCalled();
+        expect(m.release).toHaveBeenCalled();
+      });
+      it("keeps the lease when the resume can't be proven paid", async () => {
+        m.retrieve.mockImplementation(async () => ({ ...m.subscription, pause_collection: null, metadata: { ...m.subscription.metadata, pause_resume_invoice: "in_resume" },
+          items: { data: [{ ...m.subscription.items.data[0], current_period_start: nowS, current_period_end: nowS + 31 * 86400 }] } }));
+        m.retrieveInvoice.mockResolvedValue({ id: "in_resume", status: "void", customer: "cus_1", amount_paid: 0, status_transitions: { paid_at: null }, metadata: { purpose: "pause_resume", subscription_id: "sub_1", expected_amount: "600" } });
+        expect((await POST(req({ intent: "resume_now" }))).status).toBe(503);
+        expect(m.release).not.toHaveBeenCalled();
+      });
+      it("tells the student when the card is declined, with nothing changed", async () => {
+        m.charge.mockRejectedValue(new ResumePaymentDeclined("declined"));
+        const r = await POST(req({ intent: "resume_now" }));
+        expect(r.status).toBe(402); expect(m.retrieve).not.toHaveBeenCalled(); expect(m.release).toHaveBeenCalled();
+      });
+      it("sends discounted plans to email instead of charging the base price", async () => {
+        (m.subscription as Record<string, unknown>).discounts = ["di_1"];
+        expect((await POST(req({ intent: "resume_now" }))).status).toBe(409);
+        expect(m.charge).not.toHaveBeenCalled(); expect(m.release).toHaveBeenCalled();
+      });
+      it("sends plans without a saved card to email, releasing the lock", async () => {
+        m.charge.mockRejectedValue(new ResumeUnavailable("no card"));
+        const r = await POST(req({ intent: "resume_now" }));
+        expect(r.status).toBe(409); expect(m.release).toHaveBeenCalled();
+      });
+    });
+    it("refuses early resume in an unknown billing mode before any write", async () => {
+      m.subscription.billing_mode = { type: "something_new" };
+      expect((await POST(req({ intent: "resume_now" }))).status).toBe(409);
+      expect(m.update).not.toHaveBeenCalled(); expect(m.charge).not.toHaveBeenCalled();
     });
     it("tells the student when the card is declined and changes nothing", async () => {
       m.update.mockRejectedValue(Object.assign(new Error("declined"), { type: "StripeCardError" }));
