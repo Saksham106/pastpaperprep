@@ -75,4 +75,25 @@ describe("bank question lookup cache", () => {
     expect(productionResult).not.toBe(previewResult);
     expect(getEconomicsRuntimeArtifact).toHaveBeenCalledWith("ib-economics-sl");
   });
+
+  it("rejects, instead of throwing, when the production Economics artifact can't be read", async () => {
+    runtimeMode.economicsProduction = true;
+    getEconomicsRuntimeArtifact.mockImplementation(() => {
+      throw new Error("ENOENT: ib-economics-sl.json");
+    });
+    const { loadBankQuestions, loadBankRawQuestions } = await import("@/lib/question-loader");
+
+    let raw: Promise<unknown> | undefined;
+    let questions: Promise<unknown> | undefined;
+    expect(() => { raw = loadBankRawQuestions("ib-economics-sl"); }).not.toThrow();
+    expect(() => { questions = loadBankQuestions("ib-economics-sl"); }).not.toThrow();
+    await expect(raw).rejects.toThrow("ENOENT");
+    // The bank explorer's .catch(() => null) fallback now sees the failure.
+    await expect(questions!.catch(() => null)).resolves.toBeNull();
+
+    // A failed read isn't cached: the next call reads again.
+    getEconomicsRuntimeArtifact.mockReturnValue({ questions: [{ id: "recovered" }] });
+    normalizeBankQuestions.mockImplementation((_slug, rows) => rows);
+    await expect(loadBankQuestions("ib-economics-sl")).resolves.toEqual([{ id: "recovered" }]);
+  });
 });

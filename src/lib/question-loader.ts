@@ -70,7 +70,8 @@ export function loadBankRawQuestions(slug: BankSlug): Promise<ReadonlyArray<Reco
   const productionEconomics = isLocalEconomicsBank(slug) && isEconomicsProductionEnabled();
   const productionIGCSE = isIGCSEReleaseBank(slug) && isIGCSEReleaseEnabled() && !isPendingStoragePreview(slug);
   return (productionEconomics
-    ? Promise.resolve(getEconomicsRuntimeArtifact(slug) as unknown as RawBank)
+    // Deferred: the artifact is read from disk, and a failed read must reject, not throw past callers' .catch().
+    ? Promise.resolve().then(() => getEconomicsRuntimeArtifact(slug) as unknown as RawBank)
     : productionIGCSE
       ? import("@/lib/igcse-runtime").then(({ getIGCSERuntimeArtifact }) => getIGCSERuntimeArtifact(slug) as unknown as RawBank)
     : loaders[slug]())
