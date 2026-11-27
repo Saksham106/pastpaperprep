@@ -239,46 +239,50 @@ export function PaymentFailedNotice({ placement, className, navigate = defaultNa
 type StepState =
   | { kind: "loading" }
   | { kind: "ready"; notice: Notice | null }
-  | { kind: "clear"; paid: boolean };
+  | { kind: "paid" };
 
 /**
  * The one step in a checkout that a failed renewal blocks: pay that bill. Opens Stripe's hosted
  * invoice, or the billing portal when Stripe gives no invoice link (for example a first payment
- * that never completed). On return it asks the server whether the original bill is paid and
- * whether checkout would still refuse; it only says so when the server confirms, then calls
- * `onResolved` so the parent can re-check its own eligibility.
+ * that never completed). Each click binds verification to the bill on show at that moment; on
+ * return the server must confirm that exact bill is paid and that checkout would no longer refuse
+ * before this says so and calls `onResolved` (so the parent re-checks its own eligibility).
+ * Without that proof nothing is announced and the step stays.
  */
 export function PayFailedRenewalButton({ navigate = defaultNavigate, onResolved }: { navigate?: (url: string) => void; onResolved?: () => void }) {
   const [state, setState] = useState<StepState>({ kind: "loading" });
   const [portalPending, setPortalPending] = useState(false);
   const [portalError, setPortalError] = useState(false);
   const request = useRef(0);
-  const awaitingPayment = useRef(false);
-  const original = useRef<{ invoiceId: string; accountId: string | undefined } | null>(null);
+  /** The bill whose button was clicked last, and for which account; the only bill a return check may prove. */
+  const clickedBill = useRef<{ invoiceId: string | null; accountId: string | undefined } | null>(null);
   const resolved = useRef(onResolved);
   useEffect(() => { resolved.current = onResolved; }, [onResolved]);
 
   const check = useCallback(async () => {
     const id = ++request.current;
     const accountId = currentAccount();
-    const asked = original.current;
-    const invoiceId = awaitingPayment.current && asked && asked.accountId === accountId ? asked.invoiceId : undefined;
+    const bill = clickedBill.current?.accountId === accountId ? clickedBill.current : null;
+    const invoiceId = bill?.invoiceId ?? undefined;
     const result = await fetchNotice(invoiceId);
-    if (id !== request.current || accountId !== currentAccount()) return;
+    // Stale: a newer check started, the account changed, or a newer click rebound the proof.
+    if (id !== request.current || accountId !== currentAccount() || clickedBill.current !== bill) return;
     if (!result.ok) {
       // A failed first check falls back to the portal; a failed re-check keeps the verified link.
       setState((current) => current.kind === "loading" ? { kind: "ready", notice: null } : current);
       return;
     }
-    if (awaitingPayment.current && !result.purchaseBlocked) {
-      setState({ kind: "clear", paid: Boolean(invoiceId) && result.invoicePaid });
+    const proven = Boolean(invoiceId) && result.invoicePaid;
+    if (proven && !result.purchaseBlocked) {
+      setState({ kind: "paid" });
       resolved.current?.();
       return;
     }
-    if (!original.current && result.notice) original.current = { invoiceId: result.notice.invoiceId, accountId };
+    // That bill is paid but something else still blocks: its proof is spent; the next bill needs its own click.
+    if (proven) clickedBill.current = null;
     setState((current) => {
-      // Keep the link we had unless the server says that bill is paid (then the next blocker, or the portal).
-      const kept = current.kind === "ready" && !result.invoicePaid ? current.notice : null;
+      // Keep the link we had unless the server proved that bill paid (then the next blocker, or the portal).
+      const kept = current.kind === "ready" && !proven ? current.notice : null;
       const notice = result.notice ?? kept;
       if (current.kind === "loading") track("payment_failed_notice_view", "checkout", notice);
       return { kind: "ready", notice };
@@ -287,8 +291,7 @@ export function PayFailedRenewalButton({ navigate = defaultNavigate, onResolved 
 
   const reset = useCallback(() => {
     request.current += 1;
-    awaitingPayment.current = false;
-    original.current = null;
+    clickedBill.current = null;
     setState({ kind: "loading" });
     void check();
   }, [check]);
@@ -296,15 +299,19 @@ export function PayFailedRenewalButton({ navigate = defaultNavigate, onResolved 
   useEffect(() => { void check(); }, [check]);
   useAccountChange(reset);
   useOnReturn(useCallback(() => {
-    if (original.current && original.current.accountId !== currentAccount()) reset();
-    else if (awaitingPayment.current) void check();
+    const bill = clickedBill.current;
+    if (!bill) return;
+    if (bill.accountId !== currentAccount()) reset();
+    else void check();
   }, [reset, check]));
 
-  if (state.kind === "clear") return <p className={styles.paid} role="status">{state.paid ? "Payment received. You can continue now." : "You can continue now."}</p>;
+  if (state.kind === "paid") return <p className={styles.paid} role="status">Payment received. You can continue now.</p>;
   const notice = state.kind === "ready" ? state.notice : null;
 
   function clicked() {
-    awaitingPayment.current = true;
+    // Rebind verification to this bill; any earlier proof (and any check still in flight for it) no longer counts.
+    clickedBill.current = { invoiceId: notice?.invoiceId ?? null, accountId: currentAccount() };
+    request.current += 1;
     track("payment_failed_notice_click", "checkout", notice);
   }
 

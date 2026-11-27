@@ -237,11 +237,61 @@ describe("PayFailedRenewalButton (checkout step)", () => {
     expect(screen.getByRole("link", { name: "Pay now" })).toHaveAttribute("href", grace.payUrl);
     expect(onResolved).not.toHaveBeenCalled();
 
-    // Not paid, but nothing blocks checkout any more: no payment claim.
+    // Not proven paid, even though nothing blocks checkout any more: still no success and no eligibility refresh.
     respond(null, { purchaseBlocked: false, invoicePaid: false });
     await act(async () => { window.dispatchEvent(new Event("focus")); });
-    expect(await screen.findByRole("status")).toHaveTextContent(/^You can continue now\.$/);
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Pay now" })).toBeInTheDocument();
+    expect(onResolved).not.toHaveBeenCalled();
+  });
+
+  it("two failed bills: paying the first then closing the second unpaid shows no success", async () => {
+    const onResolved = vi.fn();
+    const second: Notice = { ...grace, invoiceId: "in_2", payUrl: "https://invoice.stripe.com/i/acct_1/second" };
+    let paidInvoices = new Set<string>();
+    fetchMock.mockImplementation(async (url: string) => {
+      const asked = new URL(url, "https://pastpaperprep.com").searchParams.get("invoice");
+      const outstanding = [grace, second].filter((bill) => !paidInvoices.has(bill.invoiceId));
+      return body(outstanding[0] ?? null, { purchaseBlocked: outstanding.length > 0, invoicePaid: asked ? paidInvoices.has(asked) : false });
+    });
+    render(<PayFailedRenewalButton onResolved={onResolved} />);
+
+    fireEvent.click(await screen.findByRole("link", { name: "Pay now" }));
+    paidInvoices = new Set(["in_1"]);
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    const next = await screen.findByRole("link", { name: "Pay now" });
+    expect(next).toHaveAttribute("href", second.payUrl);
+    expect(screen.queryByText(/Payment received/)).not.toBeInTheDocument();
+
+    // Opens the second bill, closes it unpaid. The check must ask about in_2, not reuse in_1's proof.
+    fireEvent.click(next);
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    expect(fetchMock).toHaveBeenLastCalledWith("/api/billing/payment-notice?invoice=in_2", { cache: "no-store" });
+    expect(screen.queryByText(/Payment received/)).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Pay now" })).toHaveAttribute("href", second.payUrl);
+    expect(onResolved).not.toHaveBeenCalled();
+
+    // Pays it: now, and only now, success.
+    paidInvoices = new Set(["in_1", "in_2"]);
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    expect(await screen.findByRole("status")).toHaveTextContent("Payment received. You can continue now.");
     expect(onResolved).toHaveBeenCalledTimes(1);
+  });
+
+  it("ignores a proof still in flight for an earlier bill once a newer bill is clicked", async () => {
+    const second: Notice = { ...grace, invoiceId: "in_2", payUrl: "https://invoice.stripe.com/i/acct_1/second" };
+    respond(grace);
+    render(<PayFailedRenewalButton />);
+    fireEvent.click(await screen.findByRole("link", { name: "Pay now" }));
+    const slow = deferred();
+    fetchMock.mockImplementationOnce(() => slow.promise);
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    respond(second, { invoicePaid: true });
+    // The page showed the second bill meanwhile (another tab); simulate by a fresh check then a click.
+    await act(async () => { window.dispatchEvent(new Event("focus")); });
+    fireEvent.click(await screen.findByRole("link", { name: "Pay now" }));
+    await act(async () => { slow.resolve(body(null, { purchaseBlocked: false, invoicePaid: true })); });
+    expect(screen.queryByText(/Payment received/)).not.toBeInTheDocument();
   });
 
   it("moves to the next blocker once the first bill is paid", async () => {
