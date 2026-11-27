@@ -136,7 +136,7 @@ describe("DashboardAnnouncement", () => {
     window.removeEventListener(PEPPER_OPEN_EVENT, opened);
   });
 
-  it("nudges a monthly subscriber to annual from their real price, and checks billing at most weekly", async () => {
+  it("nudges a monthly subscriber to annual from their real price, read fresh each visit", async () => {
     const fetchMock = vi.fn(async () => new Response(JSON.stringify(monthlySnapshot), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
     const { unmount } = render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={["igcse"]} annualCheck />);
@@ -150,6 +150,33 @@ describe("DashboardAnnouncement", () => {
 
     render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={["igcse"]} annualCheck />);
     await screen.findByText("Switch to annual and save 33%");
+    // The figures are never served from a cache: a coupon added since would make them wrong.
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("never shows savings figures from an earlier visit once a coupon applies", async () => {
+    // An older build cached the offer itself; this one must ignore it and ask billing again.
+    window.localStorage.setItem("ppp-annual-offer:u1", JSON.stringify({ at: Date.now(), offer: { percent: 33, monthlyCents: 600, annualCents: 4800 } }));
+    const discounted = { ...monthlySnapshot, subscriptions: [{ ...monthlySnapshot.subscriptions[0], discounted: true }] };
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify(discounted), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck />);
+    expect(await screen.findByText("Ask Pepper", { selector: "strong" })).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText(/save 33%/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/instead of \$6/)).not.toBeInTheDocument();
+  });
+
+  it("keeps a no-offer answer for a week, so most subscribers aren't re-read on every visit", async () => {
+    const annualPlan = { ...monthlySnapshot, subscriptions: [{ ...monthlySnapshot.subscriptions[0], items: [{ recurringSubtotalCents: 4800, price: { currency: "usd", interval: "year", intervalCount: 1 } }] }] };
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify(annualPlan), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+    const { unmount } = render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck />);
+    await screen.findByText("Ask Pepper", { selector: "strong" });
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    unmount();
+    render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck />);
+    await screen.findByText("Ask Pepper", { selector: "strong" });
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
@@ -176,7 +203,7 @@ describe("DashboardAnnouncement", () => {
   });
 
   it("drops the offer when the subscription check no longer applies", async () => {
-    window.localStorage.setItem("ppp-annual-offer:u1", JSON.stringify({ at: Date.now(), offer: { percent: 33, monthlyCents: 600, annualCents: 4800 } }));
+    vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify(monthlySnapshot), { status: 200 })));
     const { rerender } = render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck />);
     expect(await screen.findByText("Switch to annual and save 33%")).toBeInTheDocument();
     rerender(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck={false} />);

@@ -13,7 +13,7 @@ import type { QualificationId } from "@/lib/qualifications";
 
 const DISMISS_KEY = (userId: string) => `ppp-announcements:${userId}`;
 const ANNUAL_KEY = (userId: string) => `ppp-annual-offer:${userId}`;
-/** The billing read calls Stripe, so a subscriber's monthly/annual state is re-checked at most weekly. */
+/** The billing read calls Stripe, so a "no offer" answer (annual already, no subscription, a coupon) is kept for a week. */
 const ANNUAL_CHECK_MS = 7 * 86_400_000;
 
 function readJson<T>(key: string): T | null {
@@ -28,17 +28,21 @@ function readDismissals(userId: string): Dismissals {
   return Object.fromEntries(Object.entries(value).filter(([, at]) => typeof at === "number")) as Dismissals;
 }
 
-type CachedOffer = { at: number; offer: AnnualOffer | null };
+/** Only "no offer" is cached: the savings figures always come from a fresh read of what they pay now. */
+type CachedNoOffer = { at: number; offer: null };
 
-/** Reads (and caches) whether this subscriber pays monthly on a plan that can switch to annual. */
+/** Whether this subscriber pays monthly, at full price, on a plan that can switch to annual. */
 async function loadAnnualOffer(userId: string, signal: AbortSignal): Promise<AnnualOffer | null> {
-  const cached = readJson<CachedOffer>(ANNUAL_KEY(userId));
-  if (cached && typeof cached.at === "number" && Date.now() - cached.at < ANNUAL_CHECK_MS) return cached.offer ?? null;
+  // An older entry holding an offer is ignored: only a fresh read may show figures.
+  const cached = readJson<{ at?: unknown; offer?: unknown }>(ANNUAL_KEY(userId));
+  if (cached && cached.offer === null && typeof cached.at === "number" && Date.now() - cached.at < ANNUAL_CHECK_MS) return null;
   const response = await fetch("/api/billing/subscription", { cache: "no-store", signal });
   // 404: no billing account. Anything else unexpected: try again on a later visit.
   if (!response.ok && response.status !== 404) return null;
   const offer = response.ok ? annualOfferFrom(await response.json()) : null;
-  writeJson(ANNUAL_KEY(userId), { at: Date.now(), offer } satisfies CachedOffer);
+  // A cached "yes" could outlive a coupon or a plan change and show savings they no longer get, so only "no" is kept.
+  if (offer) { try { window.localStorage.removeItem(ANNUAL_KEY(userId)); } catch { /* private mode */ } }
+  else writeJson(ANNUAL_KEY(userId), { at: Date.now(), offer: null } satisfies CachedNoOffer);
   return offer;
 }
 
