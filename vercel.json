@@ -68,5 +68,12 @@
         }
       ]
     }
-  ]
+  ],
+  "schedules": {
+    "access-end-reminders": {
+      "schedule": "17 9,15 * * *",
+      "path": "/api/cron/access-end-reminders",
+      "requestMethod": "GET"
+    }
+  }
 }

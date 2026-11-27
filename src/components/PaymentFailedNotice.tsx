@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { X } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
+import type { AccessEndingNotice } from "@/lib/access-end-reminder";
 import type { PaymentFailedNotice as Notice } from "@/lib/payment-failed-notice";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { accountIdFromCookieHeader, documentHasSupabaseAuthCookie } from "@/lib/supabase/auth-cookie";
@@ -96,16 +98,31 @@ async function openBillingPortal(navigate: (url: string) => void) {
   }
 }
 
-type NoticeResponse = { ok: false } | { ok: true; notice: Notice | null; purchaseBlocked: boolean; invoicePaid: boolean };
+type NoticeResponse = { ok: false } | { ok: true; notice: Notice | null; ending: AccessEndingNotice | null; purchaseBlocked: boolean; invoicePaid: boolean };
+
+/** The plan-ending strip shows where students study and on their account, not on pricing. */
+const ENDING_PLACEMENTS = new Set<PaymentNoticePlacement>(["dashboard", "account", "bank"]);
+
+function readEnding(value: unknown): AccessEndingNotice | null {
+  if (!value || typeof value !== "object") return null;
+  const { endsAt, interval } = value as { endsAt?: unknown; interval?: unknown };
+  if (typeof endsAt !== "string" || !Number.isFinite(Date.parse(endsAt)) || (interval !== "monthly" && interval !== "annual")) return null;
+  return { endsAt, interval };
+}
+
+export function endingCopy(ending: AccessEndingNotice) {
+  const date = shortDate(ending.endsAt);
+  return date ? `Your plan ends on ${date} and won't renew.` : "Your plan ends soon and won't renew.";
+}
 
 async function fetchNotice(invoiceId?: string): Promise<NoticeResponse> {
   try {
     const url = invoiceId ? `/api/billing/payment-notice?invoice=${encodeURIComponent(invoiceId)}` : "/api/billing/payment-notice";
     const response = await fetch(url, { cache: "no-store" });
     if (!response.ok) return { ok: false };
-    const body = await response.json() as { notice?: Notice | null; purchaseBlocked?: unknown; invoicePaid?: unknown };
+    const body = await response.json() as { notice?: Notice | null; ending?: unknown; purchaseBlocked?: unknown; invoicePaid?: unknown };
     if (!body || typeof body !== "object" || typeof body.purchaseBlocked !== "boolean") return { ok: false };
-    return { ok: true, notice: body.notice ?? null, purchaseBlocked: body.purchaseBlocked, invoicePaid: body.invoicePaid === true };
+    return { ok: true, notice: body.notice ?? null, ending: readEnding(body.ending), purchaseBlocked: body.purchaseBlocked, invoicePaid: body.invoicePaid === true };
   } catch {
     return { ok: false };
   }
@@ -151,6 +168,7 @@ function useAccountChange(onChange: () => void) {
  */
 export function PaymentFailedNotice({ placement, className, navigate = defaultNavigate }: { placement: PaymentNoticePlacement; className?: string; navigate?: (url: string) => void }) {
   const [shown, setShown] = useState<{ notice: Notice; accountId: string | undefined } | null>(null);
+  const [ending, setEnding] = useState<{ ending: AccessEndingNotice; accountId: string | undefined } | null>(null);
   const [portalPending, setPortalPending] = useState(false);
   const [portalError, setPortalError] = useState(false);
   const request = useRef(0);
@@ -163,20 +181,25 @@ export function PaymentFailedNotice({ placement, className, navigate = defaultNa
     const accountId = currentAccount();
     if (!documentHasSupabaseAuthCookie(document.cookie) || recentlyClear(accountId)) {
       setShown(null);
+      setEnding(null);
       return;
     }
     const result = await fetchNotice();
     if (id !== request.current || accountId !== currentAccount() || !result.ok) return; // Best effort.
     const next = result.notice;
-    if (!next && accountId) write("sessionStorage", CLEAR_KEY, `${accountId}|${Date.now() + CLEAR_TTL_MS}`);
-    if (next) write("sessionStorage", CLEAR_KEY, null);
+    // A plan-ending strip hidden for today needs no re-check on every page, like "nothing to pay".
+    const endingLive = result.ending && read("localStorage", DISMISS_KEY) !== dismissalKey(accountId, `ending:${result.ending.endsAt}`) ? result.ending : null;
+    if (!next && !endingLive && accountId) write("sessionStorage", CLEAR_KEY, `${accountId}|${Date.now() + CLEAR_TTL_MS}`);
+    if (next || endingLive) write("sessionStorage", CLEAR_KEY, null);
     setShown(next && read("localStorage", DISMISS_KEY) !== dismissalKey(accountId, next.invoiceId) ? { notice: next, accountId } : null);
-  }, []);
+    setEnding(!next && endingLive && ENDING_PLACEMENTS.has(placement) ? { ending: endingLive, accountId } : null);
+  }, [placement]);
 
   const reset = useCallback(() => {
     request.current += 1; // Drops any answer still in flight for the previous account.
     awaitingPayment.current = false;
     setShown(null);
+    setEnding(null);
     setPortalError(false);
     void check();
   }, [check]);
@@ -186,9 +209,9 @@ export function PaymentFailedNotice({ placement, className, navigate = defaultNa
   useAccountChange(reset);
   // Back in this tab: another account may have signed in elsewhere, or the bill may now be paid.
   useOnReturn(useCallback(() => {
-    if (shown && shown.accountId !== currentAccount()) reset();
+    if ((shown && shown.accountId !== currentAccount()) || (ending && ending.accountId !== currentAccount())) reset();
     else if (awaitingPayment.current) void check();
-  }, [shown, reset, check]));
+  }, [shown, ending, reset, check]));
 
   useEffect(() => {
     if (!shown) return;
@@ -198,6 +221,26 @@ export function PaymentFailedNotice({ placement, className, navigate = defaultNa
     track("payment_failed_notice_view", placement, shown.notice);
   }, [shown, placement]);
 
+  useEffect(() => {
+    if (!ending) return;
+    const key = `${ending.accountId ?? ""}|ending:${ending.ending.endsAt}`;
+    if (viewed.current === key) return;
+    viewed.current = key;
+    trackProductEvent("access_ending_notice_view", { placement, interval: ending.ending.interval });
+  }, [ending, placement]);
+
+  if (!shown && ending) {
+    const { ending: plan, accountId } = ending;
+    return (
+      <div className={[styles.slot, className].filter(Boolean).join(" ")} data-placement={placement}>
+        <div className={styles.notice} role="status" data-state="ending">
+          <p className={styles.message}>{endingCopy(plan)}</p>
+          <Link className={`button primary ${styles.action}`} href="/subscription/cancel?from=notice" onClick={() => trackProductEvent("access_ending_notice_click", { placement, interval: plan.interval })}>Keep my plan</Link>
+          <button className={styles.dismiss} type="button" aria-label="Hide for today" onClick={() => { write("localStorage", DISMISS_KEY, dismissalKey(accountId, `ending:${plan.endsAt}`)); setEnding(null); }}><X weight="bold" aria-hidden="true" /></button>
+        </div>
+      </div>
+    );
+  }
   if (!shown) return null;
   const { notice, accountId } = shown;
   const state = noticeState(notice);

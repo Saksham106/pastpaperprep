@@ -1,10 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("server-only", () => ({}));
-const getUser = vi.fn(); const adminRpc = vi.fn(); const subscriptionsList = vi.fn(); const invoicesRetrieve = vi.fn();
+const getUser = vi.fn(); const adminRpc = vi.fn(); const subscriptionsList = vi.fn(); const invoicesRetrieve = vi.fn(); const entitlementsEq = vi.fn();
 let billingEnabled = true;
 vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn(async () => ({ auth: { getUser } })) }));
-vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: vi.fn(() => ({ rpc: adminRpc })) }));
+vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: vi.fn(() => ({ rpc: adminRpc, from: () => ({ select: () => ({ eq: entitlementsEq }) }) })) }));
 vi.mock("@/lib/stripe", () => ({ createStripeClient: vi.fn(() => ({ subscriptions: { list: subscriptionsList }, invoices: { retrieve: invoicesRetrieve } })) }));
+// Current-price checks are covered by account-plan-target's own tests; here a legacy product stands in for "not editable".
+vi.mock("@/lib/account-plan-target", () => ({ readEditableCurrentPlan: (sub: { metadata?: { product_id?: string } }) => { if (sub.metadata?.product_id === "bundle_igcse") throw new Error("legacy"); return {}; } }));
 vi.mock("@/lib/stripe-config", () => ({ isStripeBillingEnabled: () => billingEnabled, getStripeConfig: () => ({ secretKey: "«redacted:sk_test_…»" }) }));
 import { GET } from "@/app/api/billing/payment-notice/route";
 
@@ -23,7 +25,7 @@ function signedInWithCustomer() {
 }
 
 describe("GET /api/billing/payment-notice", () => {
-  beforeEach(() => { vi.clearAllMocks(); billingEnabled = true; });
+  beforeEach(() => { vi.clearAllMocks(); vi.unstubAllEnvs(); billingEnabled = true; entitlementsEq.mockResolvedValue({ data: [], error: null }); });
 
   it("rejects signed-out reads before touching the database or Stripe", async () => {
     getUser.mockResolvedValue({ data: { user: null } });
@@ -45,14 +47,14 @@ describe("GET /api/billing/payment-notice", () => {
   it("skips Stripe for accounts that never started a checkout", async () => {
     getUser.mockResolvedValue({ data: { user: { id: USER } } });
     adminRpc.mockResolvedValue({ data: null, error: null });
-    expect(await (await GET(request())).json()).toEqual({ notice: null, purchaseBlocked: false });
+    expect(await (await GET(request())).json()).toEqual({ notice: null, ending: null, purchaseBlocked: false });
     expect(subscriptionsList).not.toHaveBeenCalled();
   });
 
   it("returns nothing while billing is switched off", async () => {
     billingEnabled = false;
     getUser.mockResolvedValue({ data: { user: { id: USER } } });
-    expect(await (await GET(request())).json()).toEqual({ notice: null, purchaseBlocked: false });
+    expect(await (await GET(request())).json()).toEqual({ notice: null, ending: null, purchaseBlocked: false });
     expect(adminRpc).not.toHaveBeenCalled();
   });
 
@@ -83,14 +85,14 @@ describe("GET /api/billing/payment-notice", () => {
   it("reports a purchase block for an incomplete first payment, with no renewal notice", async () => {
     signedInWithCustomer();
     subscriptionsList.mockResolvedValue({ data: [{ id: "sub_i", status: "incomplete", customer: "cus_a", metadata: { user_id: USER }, latest_invoice: null }], has_more: false });
-    expect(await (await GET(request())).json()).toEqual({ notice: null, purchaseBlocked: true });
+    expect(await (await GET(request())).json()).toEqual({ notice: null, ending: null, purchaseBlocked: true });
   });
 
   it("confirms payment only for the exact invoice under this account's customer", async () => {
     signedInWithCustomer();
     subscriptionsList.mockResolvedValue({ data: [{ ...pastDue, status: "active" }], has_more: false });
     invoicesRetrieve.mockResolvedValueOnce({ id: "in_aaaaaaaa", customer: "cus_a", status: "paid" });
-    expect(await (await GET(request("?invoice=in_aaaaaaaa"))).json()).toEqual({ notice: null, purchaseBlocked: false, invoicePaid: true });
+    expect(await (await GET(request("?invoice=in_aaaaaaaa"))).json()).toEqual({ notice: null, ending: null, purchaseBlocked: false, invoicePaid: true });
     expect(invoicesRetrieve).toHaveBeenCalledWith("in_aaaaaaaa");
 
     invoicesRetrieve.mockResolvedValueOnce({ id: "in_aaaaaaaa", customer: "cus_other", status: "paid" });
@@ -108,7 +110,7 @@ describe("GET /api/billing/payment-notice", () => {
   it("returns no notice and no block once the renewal is paid", async () => {
     signedInWithCustomer();
     subscriptionsList.mockResolvedValue({ data: [{ ...pastDue, status: "active" }], has_more: false });
-    expect(await (await GET(request())).json()).toEqual({ notice: null, purchaseBlocked: false });
+    expect(await (await GET(request())).json()).toEqual({ notice: null, ending: null, purchaseBlocked: false });
   });
 
   it("answers 503 without detail when a lookup fails", async () => {
@@ -130,5 +132,55 @@ describe("GET /api/billing/payment-notice", () => {
     subscriptionsList.mockImplementation(async ({ starting_after }: { starting_after?: string }) => ({ data: [{ id: `sub_${starting_after ?? "0"}x`, status: "canceled", customer: "cus_a" }], has_more: true }));
     expect((await GET(request())).status).toBe(503);
     expect(subscriptionsList).toHaveBeenCalledTimes(5);
+  });
+});
+
+describe("GET /api/billing/payment-notice: plan ending", () => {
+  const ending = {
+    id: "sub_e", status: "active", customer: "cus_a", metadata: { user_id: USER, product_id: "bank_igcse" }, cancel_at_period_end: true, cancel_at: now + 2 * 86_400,
+    items: { data: [{ current_period_start: now - 28 * 86_400, current_period_end: now + 2 * 86_400, price: { recurring: { interval: "month", interval_count: 1 } } }] },
+    latest_invoice: null,
+  };
+  beforeEach(() => {
+    vi.clearAllMocks();
+    billingEnabled = true;
+    vi.stubEnv("ACCESS_END_REMINDER_MODE", "send");
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    entitlementsEq.mockResolvedValue({ data: [], error: null });
+    signedInWithCustomer();
+  });
+
+  it("says when a cancelled plan ends, inside the reminder window", async () => {
+    subscriptionsList.mockResolvedValue({ data: [ending], has_more: false });
+    const body = await (await GET(request())).json();
+    expect(body.ending).toEqual({ endsAt: new Date((now + 2 * 86_400) * 1000).toISOString(), interval: "monthly" });
+    expect(JSON.stringify(body)).not.toContain("sub_e");
+  });
+
+  it("stays silent when Keep my plan wouldn't work (legacy plan)", async () => {
+    subscriptionsList.mockResolvedValue({ data: [{ ...ending, metadata: { ...ending.metadata, product_id: "bundle_igcse" } }], has_more: false });
+    expect((await (await GET(request())).json()).ending).toBeNull();
+  });
+
+  it("stays silent while reminders are off", async () => {
+    vi.stubEnv("ACCESS_END_REMINDER_MODE", "dry_run");
+    subscriptionsList.mockResolvedValue({ data: [ending], has_more: false });
+    expect((await (await GET(request())).json()).ending).toBeNull();
+    expect(entitlementsEq).not.toHaveBeenCalled();
+  });
+
+  it("stays silent for Lifetime and when the access read fails", async () => {
+    subscriptionsList.mockResolvedValue({ data: [ending], has_more: false });
+    entitlementsEq.mockResolvedValueOnce({ data: [{ product_id: "lifetime_all_access", status: "active", source: "stripe", expires_at: null }], error: null });
+    expect((await (await GET(request())).json()).ending).toBeNull();
+    entitlementsEq.mockResolvedValueOnce({ data: null, error: new Error("db") });
+    expect((await (await GET(request())).json()).ending).toBeNull();
+  });
+
+  it("an unpaid bill takes the place of the ending strip", async () => {
+    subscriptionsList.mockResolvedValue({ data: [ending, pastDue], has_more: false });
+    const body = await (await GET(request())).json();
+    expect(body.notice).toMatchObject({ invoiceId: "in_a" });
+    expect(body.ending).toBeNull();
   });
 });

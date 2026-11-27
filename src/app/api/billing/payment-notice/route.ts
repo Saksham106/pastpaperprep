@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { findAccessEndingNotice, otherAccessOutlasts, planEditableWith, reminderMode, type ReminderSubscription } from "@/lib/access-end-reminder";
 import { LAPSED_SUBSCRIPTION_STATUSES } from "@/lib/checkout-errors";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
 import { findPaymentFailedNotice, hasLapsedSubscription, type SubscriptionLike } from "@/lib/payment-failed-notice";
@@ -27,7 +28,7 @@ async function handleGET(request: Request) {
   if (!user) return NextResponse.json({ error: "Authentication required" }, { status: 401, headers: NO_STORE });
   const invoiceParam = new URL(request.url).searchParams.get("invoice");
   if (invoiceParam !== null && !INVOICE_ID.test(invoiceParam)) return NextResponse.json({ error: "Invalid invoice" }, { status: 400, headers: NO_STORE });
-  const clear = { notice: null, purchaseBlocked: false, ...(invoiceParam ? { invoicePaid: false } : {}) };
+  const clear = { notice: null, ending: null, purchaseBlocked: false, ...(invoiceParam ? { invoicePaid: false } : {}) };
   if (!isStripeBillingEnabled()) return NextResponse.json(clear, { headers: NO_STORE });
 
   try {
@@ -36,7 +37,8 @@ async function handleGET(request: Request) {
     if (error) throw error;
     if (typeof customerId !== "string" || !customerId) return NextResponse.json(clear, { headers: NO_STORE });
 
-    const stripe = createStripeClient(getStripeConfig().secretKey);
+    const stripeConfig = getStripeConfig();
+    const stripe = createStripeClient(stripeConfig.secretKey);
     const subscriptions: SubscriptionLike[] = [];
     let startingAfter: string | undefined;
     for (let page = 0; ; page += 1) {
@@ -64,9 +66,20 @@ async function handleGET(request: Request) {
       }
     }
 
-    const notice = findPaymentFailedNotice(subscriptions, { customerId, userId: user.id, nowSeconds: Math.floor(Date.now() / 1000) });
+    const nowSeconds = Math.floor(Date.now() / 1000);
+    const notice = findPaymentFailedNotice(subscriptions, { customerId, userId: user.id, nowSeconds });
+    // "Your plan ends soon": only with reminders switched on, and never beside an unpaid bill.
+    let ending = !notice && reminderMode() === "send" && process.env.STRIPE_PLAN_EDITOR_ENABLED === "true"
+      ? findAccessEndingNotice(subscriptions as unknown as ReminderSubscription[], { customerId, userId: user.id, nowSeconds }, planEditableWith(stripeConfig))
+      : null;
+    if (ending) {
+      // Lifetime or complimentary All Access keeps the student studying: nothing is ending for them.
+      const { data: entitlements, error: entitlementError } = await admin.from("entitlements").select("product_id,status,source,expires_at").eq("user_id", user.id);
+      if (entitlementError || otherAccessOutlasts(entitlements ?? [], Date.parse(ending.endsAt) / 1000)) ending = null;
+    }
     return NextResponse.json({
       notice,
+      ending,
       purchaseBlocked: hasLapsedSubscription(subscriptions, LAPSED_SUBSCRIPTION_STATUSES),
       ...(invoiceParam ? { invoicePaid } : {}),
     }, { headers: NO_STORE });

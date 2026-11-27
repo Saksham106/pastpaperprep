@@ -209,6 +209,56 @@ describe("PaymentFailedNotice", () => {
   });
 });
 
+describe("PaymentFailedNotice: plan ending", () => {
+  const ending = { endsAt: "2026-12-01T09:00:00.000Z", interval: "monthly" };
+
+  it("shows the end date and a Keep my plan link where students study", async () => {
+    respond(null, { ending });
+    render(<PaymentFailedNotice placement="bank" />);
+    const strip = await screen.findByRole("status");
+    expect(strip).toHaveAttribute("data-state", "ending");
+    expect(strip).toHaveTextContent(/Your plan ends on Dec 1 and won't renew\./);
+    const keep = screen.getByRole("link", { name: "Keep my plan" });
+    expect(keep).toHaveAttribute("href", "/subscription/cancel?from=notice");
+    expect(trackProductEvent).toHaveBeenCalledWith("access_ending_notice_view", { placement: "bank", interval: "monthly" });
+    fireEvent.click(keep);
+    expect(trackProductEvent).toHaveBeenCalledWith("access_ending_notice_click", { placement: "bank", interval: "monthly" });
+  });
+
+  it("isn't shown on pricing, and an unpaid bill always wins", async () => {
+    respond(null, { ending });
+    const pricing = render(<PaymentFailedNotice placement="pricing" />);
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    pricing.unmount();
+    respond(grace, { ending });
+    render(<PaymentFailedNotice placement="dashboard" />);
+    expect(await screen.findByRole("status")).not.toHaveAttribute("data-state", "ending");
+  });
+
+  it("hides for the rest of the day; once hidden, other pages skip the request", async () => {
+    respond(null, { ending });
+    const first = render(<PaymentFailedNotice placement="dashboard" />);
+    fireEvent.click(await screen.findByRole("button", { name: "Hide for today" }));
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    first.unmount();
+    const second = render(<PaymentFailedNotice placement="dashboard" />);
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    second.unmount();
+    render(<PaymentFailedNotice placement="bank" />);
+    await act(async () => {});
+    expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it("ignores a malformed ending", async () => {
+    respond(null, { ending: { endsAt: "soon", interval: "weekly" } });
+    render(<PaymentFailedNotice placement="dashboard" />);
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+  });
+});
+
 describe("PayFailedRenewalButton (checkout step)", () => {
   it("says payment was received only when the server confirms that invoice is paid and nothing else blocks", async () => {
     const onResolved = vi.fn();

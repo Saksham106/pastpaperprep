@@ -10,6 +10,7 @@ export default function PrivacyPage() {
       <p>We collect account details such as your email address, product access, saved questions, study activity, and basic technical logs needed to operate and secure the service. We also collect anonymous, cookieless usage and performance statistics. If you allow optional analytics cookies, our analytics provider also recognises returning visits and, when you are signed in, links your activity to your account.</p>
       <h2>How we use it</h2>
       <p>We use this information to authenticate you, provide purchased access, save progress, support the service, prevent abuse, and improve the product.</p>
+      <p>We email you about your account and subscription, for example a reminder a few days before a plan you cancelled ends. These emails are based on your billing details only, never your study activity, and contain no offers.</p>
       <h2>Account activity</h2>
       <p>When you are signed in, we record in our own database which days you use PastPaperPrep, how many pages you open, and which parts of the site you use (for example question banks, past papers, notes or the study helper). We use it in aggregate to understand what helps students and to improve the product, not to make decisions about you or to contact you. It is linked to your account, is not shared with analytics providers and does not depend on your cookie choice. We keep it for 13 months and delete it with your account. To ask us to stop recording it and delete what we have, email hello@pastpaperprep.com.</p>
       <h2>Analytics</h2>

@@ -80,3 +80,9 @@
     width: 100%;
   }
 }
+
+/* A plan that won't renew: calm, not an error. */
+.notice[data-state="ending"] {
+  background: var(--cobalt-faint);
+  border-color: color-mix(in srgb, var(--cobalt) 24%, transparent);
+}
