@@ -141,6 +141,8 @@ describe('structured data', () => {
     expect(breadcrumbJsonLd([{ name: 'Past papers', path: '/past-papers' }, { name: 'IGCSE Maths 0580', path: '/past-papers/igcse-maths-0580' }])).toMatchObject({ '@type': 'BreadcrumbList', itemListElement: [{ position: 1, name: 'Past papers', item: 'https://pastpaperprep.com/past-papers' }, { position: 2 }] });
     const copy = subjectCopy(bank, [ext]);
     expect(collectionJsonLd(copy, '/past-papers/igcse-maths-0580', [{ name: 'Paper 42', path: '/p' }])).toMatchObject({ '@type': 'CollectionPage', name: copy.title, mainEntity: { '@type': 'ItemList', numberOfItems: 1, itemListElement: [{ '@type': 'ListItem', position: 1, url: 'https://pastpaperprep.com/p' }] } });
+    expect(collectionJsonLd(copy, '/past-papers/igcse-maths-0580', [], '2026-11-07')).toMatchObject({ dateModified: '2026-11-07' });
+    expect(collectionJsonLd(copy, '/past-papers/igcse-maths-0580', [])).not.toHaveProperty('dateModified');
     expect(faqJsonLd([{ q: 'Q?', a: 'A.' }])).toMatchObject({ '@type': 'FAQPage', mainEntity: [{ '@type': 'Question', name: 'Q?', acceptedAnswer: { '@type': 'Answer', text: 'A.' } }] });
   });
 });

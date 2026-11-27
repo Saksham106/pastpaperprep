@@ -12,7 +12,7 @@ import { getGradeThresholds } from '@/lib/grade-thresholds';
 import { getNotesSubject } from '@/lib/revision-notes';
 import { aLevelSuccessors, takenAlongside } from '@/lib/next-step-banks';
 import { articlesForBank } from '@/lib/article-links';
-import { formatUpdateDate, lastUpdated } from '@/lib/updates';
+import { lastUpdated } from '@/lib/updates';
 import { paperNumberThresholds, seriesThresholds, topicFrequency } from '@/lib/past-paper-insights';
 import styles from './PastPaperPages.module.css';
 
@@ -140,7 +140,7 @@ export function PastPaperListPage({ view }: { view: ListView }) {
   return <article className={styles.page} data-subject-tone={tone}>
     <JsonLd data={breadcrumbJsonLd(crumbs)} />
     <RememberedBoardScope board={qualificationOfBank(bank.slug)} />
-    <JsonLd data={collectionJsonLd(copy, here?.path ?? subjectPath, listed)} />
+    <JsonLd data={collectionJsonLd(copy, here?.path ?? subjectPath, listed, updated)} />
     {faq.length > 0 && <JsonLd data={faqJsonLd(faq)} />}
     <nav aria-label="Breadcrumb" className={styles.crumbs}>
       <Link href="/past-papers">Past papers</Link><span aria-hidden="true">/</span>
@@ -151,7 +151,6 @@ export function PastPaperListPage({ view }: { view: ListView }) {
       <span className={styles.iconTile}><CourseIcon tone={tone} /></span>
       <h1>{copy.h1}</h1>
       <p>{copy.answer}</p>
-      {updated && <p className={styles.updated}>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></p>}
     </header>
     <PaperLibraryTools data={buildPaperMatrix(view.papers, subject)} papers={all.map(paperRef)} />
     {view.kind === 'paperNumber' && <PaperNumberTopics label={view.paper.toUpperCase()} view={view} />}

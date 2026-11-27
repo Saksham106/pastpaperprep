@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 
@@ -21,5 +23,15 @@ describe("site theme default", () => {
     const html = renderToStaticMarkup(<RootLayout><p>Page</p></RootLayout>);
     expect(html).toContain('data-default-theme="light"');
     expect(html).toContain('data-storage-key="pastpaperprep-theme"');
+  });
+});
+describe("route-change scroll", () => {
+  it("opens new pages at the top while in-page scrolling stays smooth", () => {
+    // Next 16 leaves CSS smooth scrolling on during route changes unless <html> opts out with
+    // data-scroll-behavior="smooth"; the scroll to top then animated part-way (bank pages opened scrolled down).
+    const css = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+    expect(css).toMatch(/html\s*\{[^}]*scroll-behavior:\s*smooth/);
+    const html = renderToStaticMarkup(<RootLayout><p>Page</p></RootLayout>);
+    expect(html).toMatch(/<html[^>]*data-scroll-behavior="smooth"/);
   });
 });

@@ -196,8 +196,9 @@ const absolute = (path: string) => `${SITE_URL}${path}`;
 export function breadcrumbJsonLd(items: { name: string; path: string }[]): Record<string, unknown> {
   return { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, item: absolute(item.path) })) };
 }
-export function collectionJsonLd(copy: PageCopy, path: string, items: { name: string; path: string }[]): Record<string, unknown> {
-  return { '@context': 'https://schema.org', '@type': 'CollectionPage', name: copy.title, description: copy.description, url: absolute(path), mainEntity: { '@type': 'ItemList', numberOfItems: items.length, itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, url: absolute(item.path) })) } };
+/** `dateModified` is the newest changelog date for the page (never a build stamp); the page shows no visible date. */
+export function collectionJsonLd(copy: PageCopy, path: string, items: { name: string; path: string }[], dateModified?: string): Record<string, unknown> {
+  return { '@context': 'https://schema.org', '@type': 'CollectionPage', name: copy.title, description: copy.description, url: absolute(path), ...(dateModified ? { dateModified } : {}), mainEntity: { '@type': 'ItemList', numberOfItems: items.length, itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, url: absolute(item.path) })) } };
 }
 export function faqJsonLd(faq: FaqItem[]): Record<string, unknown> {
   return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
