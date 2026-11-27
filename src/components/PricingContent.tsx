@@ -25,7 +25,7 @@ import { PricingBankFocus, secondSubjectOptions } from "@/components/PricingBank
 import { TestimonialGrid } from "@/components/Testimonial";
 import { PRICING_TESTIMONIALS } from "@/lib/testimonials";
 import { ANNUAL_SALE, ANNUAL_SALE_MAX_PERCENT, annualSaleLiveInBrowser, annualSaleTierForBankCount } from "@/lib/annual-sale";
-import { AnnualSalePrice } from "@/components/AnnualSalePrice";
+import { AnnualSaleHeadline, AnnualSalePrice } from "@/components/AnnualSalePrice";
 import { useAnnualSaleLive } from "@/components/useAnnualSaleLive";
 
 function bankSlugForProduct(productId: string): BankSlug | undefined {
@@ -200,6 +200,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           : `Billed ${plan.annual} once a year. Save ${plan.annualSaving}`
         : "Billed monthly";
 
+    const saleShown = annualSaleShown && !hasPaidAccess;
+    const saleAnnualCents = saleShown ? isBuilder ? builderAnnualTotalCents : plan.mode === "all" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.oneBank.annualCents : null;
+    const salePercent = ANNUAL_SALE.tiers[isBuilder ? annualSaleTierForBankCount(Math.max(2, builderQuantity)) : plan.mode === "all" ? "all" : "single"].percentOff;
+
     const current = hasPaidAccess && currentPlanMode === plan.mode;
     const currentAllAccess = ownsAllAccess || !addOnBanks.length;
     const canAdd = hasPaidAccess && !currentAllAccess && !manualAccess;
@@ -213,11 +217,11 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           </div>
           {current ? <span className="pricing-badge pricing-badge-current">{plan.mode === "single" && individualBankSubscriptions > 1 ? "Your subscriptions" : "Your access"}</span> : plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
-        <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
-        {!hasPaidAccess && interval === "annual" ? annualSaleShown
-          ? <AnnualSalePrice
-            annualCents={isBuilder ? builderAnnualTotalCents : plan.mode === "all" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.oneBank.annualCents}
-            percentOff={ANNUAL_SALE.tiers[isBuilder ? annualSaleTierForBankCount(Math.max(2, builderQuantity)) : plan.mode === "all" ? "all" : "single"].percentOff}
+        {saleAnnualCents !== null
+          ? <AnnualSaleHeadline annualCents={saleAnnualCents} percentOff={salePercent} live={isBuilder} />
+          : <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>}
+        {!hasPaidAccess && interval === "annual" ? saleShown
+          ? <AnnualSalePrice annualCents={saleAnnualCents} percentOff={salePercent}
             percentLabel={isBuilder ? `${ANNUAL_SALE.tiers.builderSmall.percentOff}–${ANNUAL_SALE.tiers.builderLarge.percentOff}%` : undefined} />
           : <p className="plan-billing-note">{billingNote}</p> : null}
         {hasPaidAccess && !canAdd && plan.mode === "all" ? null : plan.mode === "all" ? (

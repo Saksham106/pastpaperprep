@@ -1,11 +1,32 @@
 import { annualSaleCents, formatSaleCents } from "@/lib/annual-sale";
 import { formatPrice } from "@/lib/pricing-model";
 
-/** Real annual charge struck through, the first-year sale charge, then what it renews at. */
-/** `annualCents` null = no selection yet; `percentLabel` then names the range (e.g. "30–35%"). */
+/** First-year sale price for an annual charge: per-month headline, yearly charge and renewal. */
+export function annualSaleQuote(annualCents: number, percentOff: number) {
+  const firstYearCents = annualSaleCents(annualCents, percentOff);
+  return {
+    wasPerMonth: formatSaleCents(Math.round(annualCents / 12)),
+    perMonth: formatSaleCents(Math.round(firstYearCents / 12)),
+    firstYear: formatSaleCents(firstYearCents),
+    renews: formatPrice(annualCents),
+  };
+}
+
+/** Struck standard per-month price, the sale per-month price and the discount tag. */
+export function AnnualSaleHeadline({ annualCents, percentOff, live }: { annualCents: number; percentOff: number; live?: boolean }) {
+  const quote = annualSaleQuote(annualCents, percentOff);
+  return <>
+    <p className="plan-sale-tag">−{percentOff}% first year</p>
+    <div className="plan-price plan-price-sale">
+      <s className="plan-price-was" aria-label={`was ${quote.wasPerMonth}`}>{quote.wasPerMonth}</s>
+      <strong aria-live={live ? "polite" : undefined}>{quote.perMonth}</strong><span>/ month</span>
+    </div>
+  </>;
+}
+
+/** Under the headline: what is charged now and what it renews at. */
 export function AnnualSalePrice({ annualCents, percentOff, percentLabel }: { annualCents: number | null; percentOff: number; percentLabel?: string }) {
-  if (annualCents === null) return <p className="plan-billing-note plan-sale-note">{percentLabel ?? `${percentOff}%`} off your first year</p>;
-  return <p className="plan-billing-note plan-sale-note">
-    <s aria-label={`was ${formatPrice(annualCents)}`}>{formatPrice(annualCents)}</s> <strong>{formatSaleCents(annualSaleCents(annualCents, percentOff))}</strong> for your first year ({percentOff}% off), then {formatPrice(annualCents)}/yr
-  </p>;
+  if (annualCents === null) return <p className="plan-billing-note plan-sale-note"><strong>{percentLabel ?? `${percentOff}%`} off</strong> your first year</p>;
+  const quote = annualSaleQuote(annualCents, percentOff);
+  return <p className="plan-billing-note plan-sale-note"><strong>{quote.firstYear}</strong> for your first year, then {quote.renews}/yr</p>;
 }

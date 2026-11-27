@@ -7,7 +7,7 @@ import type { ProductId } from "@/lib/access";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { formatPrice, PRICING_MODEL, priceForBankCount } from "@/lib/pricing-model";
 import { bankYearFacts, type UpgradePlacement } from "@/lib/upgrade-copy";
-import { AnnualSalePrice } from "@/components/AnnualSalePrice";
+import { AnnualSaleHeadline, AnnualSalePrice } from "@/components/AnnualSalePrice";
 import { ANNUAL_SALE, annualSaleCents, formatSaleCents } from "@/lib/annual-sale";
 import { planUpgradeNudge } from "@/lib/plan-upgrade-nudge";
 import { useAnnualSaleLive } from "@/components/useAnnualSaleLive";
@@ -79,7 +79,9 @@ export function PricingBankFocus({ bank, productId, interval, authenticated, pre
       <p className="pricing-bank-focus-lead">{facts ? `A plan opens ${facts.paidLabel}, including ${facts.latestYear}’s papers.` : "A plan opens every year of this bank."}</p>
       <div className="pricing-bank-focus-card">
         <div>
-          <div className="plan-price"><strong>{price}</strong><span>/ month</span></div>
+          {interval === "annual" && annualSaleLive
+            ? <AnnualSaleHeadline annualCents={PRICING_MODEL.oneBank.annualCents} percentOff={ANNUAL_SALE.tiers.single.percentOff} />
+            : <div className="plan-price"><strong>{price}</strong><span>/ month</span></div>}
           {interval === "annual" ? annualSaleLive ? <AnnualSalePrice annualCents={PRICING_MODEL.oneBank.annualCents} percentOff={ANNUAL_SALE.tiers.single.percentOff} /> : <p className="plan-billing-note">{billing}</p> : null}
           {facts ? <ol className="upgrade-years" aria-label="Exam years">
             {facts.coverage.map((year) => { const free = facts.freeYears.includes(year); return <li key={year} className={free ? "is-free" : "is-paid"}>{year}<span className="sr-only"> {free ? "free" : "on a plan"}</span></li>; })}
