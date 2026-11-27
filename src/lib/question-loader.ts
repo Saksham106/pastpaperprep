@@ -44,6 +44,13 @@ const loaders: Record<BankSlug, () => Promise<RawBank>> = {
   "a-level-economics-9708": corpus(join(process.cwd(), "src/data/production/a-level-economics-9708.json")),
   "a-level-computer-science-9618": corpus(join(process.cwd(), "src/data/production/a-level-computer-science-9618.json")),
   "a-level-further-maths-9231": corpus(join(process.cwd(), "src/data/production/a-level-further-maths-9231.json")),
+  // CBSE: read only by the dev-only held-bank preview until each bank joins the private release lane.
+  "cbse-10-maths": corpus(join(process.cwd(), "src/data/production/cbse-10-maths.json")),
+  "cbse-10-science": corpus(join(process.cwd(), "src/data/production/cbse-10-science.json")),
+  "cbse-12-physics": corpus(join(process.cwd(), "src/data/production/cbse-12-physics.json")),
+  "cbse-12-chemistry": corpus(join(process.cwd(), "src/data/production/cbse-12-chemistry.json")),
+  "cbse-12-maths": corpus(join(process.cwd(), "src/data/production/cbse-12-maths.json")),
+  "cbse-12-biology": corpus(join(process.cwd(), "src/data/production/cbse-12-biology.json")),
 };
 
 const cache = new Map<string, Promise<UnifiedQuestion[]>>();

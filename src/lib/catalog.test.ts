@@ -3,12 +3,14 @@ import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay, isCatalogBankB
 
 describe("canonical bank catalog", () => {
   it("contains every known bank once with stable identity and routes", () => {
-    expect(BANK_CATALOG).toHaveLength(31);
-    expect(new Set(BANK_CATALOG.map((bank) => bank.slug)).size).toBe(31);
+    expect(BANK_CATALOG).toHaveLength(37);
+    expect(new Set(BANK_CATALOG.map((bank) => bank.slug)).size).toBe(37);
     for (const bank of BANK_CATALOG) {
       expect(bank.subject).toBeTruthy();
       expect(bank.title).not.toMatch(/^Cambridge IGCSE |^International Baccalaureate /);
       expect(bank.route).toBe(`/banks/${bank.slug}`);
+      // Held banks (the six CBSE banks) keep placeholder counts of 0 until their runtimes land.
+      if ("pendingStorage" in bank && bank.pendingStorage) continue;
       expect(bank.questionCount).toBeGreaterThan(0);
       expect(bank.paperCount).toBeGreaterThan(0);
     }

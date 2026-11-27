@@ -68,6 +68,16 @@ const COURSE_OVERVIEWS: Record<string, string> = {
   "Mathematics AI": "Applications and interpretation emphasises modelling, statistics, technology, and mathematics in context. The course still needs algebra, functions, geometry, and calculus, but questions often ask you to interpret a model or result rather than stop at a calculation.",
 };
 
+/** CBSE courses share subject names with Cambridge ones but not their content, so they are described per bank. */
+const CBSE_COURSE_OVERVIEWS: Partial<Record<BankSlug, string>> = {
+  "cbse-10-maths": "Class 10 Mathematics covers real numbers, polynomials, linear and quadratic equations, arithmetic progressions, coordinate geometry, triangles and circles, trigonometry, mensuration, statistics and probability. Standard and Basic share the syllabus and sit different papers.",
+  "cbse-10-science": "Class 10 Science combines chemistry (reactions, acids, bases and salts, metals, carbon compounds), biology (life processes, control and coordination, reproduction, heredity, environment) and physics (light, electricity, magnetic effects of current) in one paper.",
+  "cbse-12-physics": "Class 12 Physics runs from electrostatics and current electricity through magnetism, electromagnetic induction and alternating current, electromagnetic waves and optics to dual nature, atoms, nuclei and semiconductor electronics.",
+  "cbse-12-chemistry": "Class 12 Chemistry covers solutions, electrochemistry and chemical kinetics, the d- and f-block elements and coordination compounds, then organic chemistry from haloalkanes to amines and biomolecules.",
+  "cbse-12-maths": "Class 12 Mathematics covers relations and functions, inverse trigonometric functions, matrices and determinants, calculus, differential equations, vectors and three-dimensional geometry, linear programming and probability.",
+  "cbse-12-biology": "Class 12 Biology covers reproduction, genetics and evolution, biology and human welfare, biotechnology and ecology.",
+};
+
 /** Pilot banks where every syllabus topic with real inventory gets its own landing page. */
 const FULL_TOPIC_LANDING_BANKS = new Set<BankSlug>(["igcse"]);
 
@@ -195,13 +205,15 @@ export function paperFilterHref(bankSlug: string, paper: number) {
 export function officialQualificationSource(bank: CatalogBank) {
   return bank.qualification === "IB Diploma"
     ? "https://www.ibo.org/programmes/diploma-programme/curriculum/"
+    : bank.qualification === "CBSE"
+    ? "https://cbseacademic.nic.in/"
     : CAMBRIDGE_OFFICIAL_PAGES[bank.slug] ?? (bank.qualification === "Cambridge A Level"
       ? "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-advanced/cambridge-international-as-and-a-levels/"
       : "https://www.cambridgeinternational.org/programmes-and-qualifications/cambridge-upper-secondary/cambridge-igcse/subjects/");
 }
 
 export function courseOverview(bank: CatalogBank) {
-  return COURSE_OVERVIEWS[bank.subject]
+  return CBSE_COURSE_OVERVIEWS[bank.slug] ?? COURSE_OVERVIEWS[bank.subject]
     ?? `${bank.title} is organised into connected syllabus areas that should be practised first in focused sets and later in mixed, timed work.`;
 }
 

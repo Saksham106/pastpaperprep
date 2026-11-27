@@ -433,8 +433,9 @@ access: ExplorerAccess;
   const routeScopesTopics = Boolean(routeConfig?.scopesTopics);
   const hidePaperFilter = Boolean(routeConfig?.hidesPaperFilter) && effectiveCourseRoute !== "all";
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
-  // Cambridge papers come in variants (values "Variant 1/2/3"); only IB has real time zones.
-  const zoneLabel = bank && qualificationIdOfSlug(bank) !== "ib" ? "Variant" : "Time zone";
+  // Cambridge papers come in variants (values "Variant 1/2/3"); only IB has real time zones; CBSE prints sets ("55/1/1").
+  const board = bank ? qualificationIdOfSlug(bank) : undefined;
+  const zoneLabel = board === "cbse" ? "Set" : board && board !== "ib" ? "Variant" : "Time zone";
   const pdfQuote = testimonialForBank(bank, PDF_TESTIMONIAL);
   const calculatorFilter = (CALCULATOR_FILTER_BANKS as readonly string[]).includes(bank);
   const plansHref = plansHrefFor(resolvedAccess.authenticated);

@@ -29,6 +29,7 @@ export function NotesHome({ banks }: { banks: readonly Bank[] }) {
   const cambridge = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ib = banks.filter((bank) => bank.qualification === "International Baccalaureate");
   const aLevel = banks.filter((bank) => bank.qualification === "Cambridge A Level");
+  const cbse = banks.filter((bank) => bank.qualification === "CBSE");
   return (
     <div className={`${styles.page} shell`}>
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Notes" }]} />
@@ -41,6 +42,7 @@ export function NotesHome({ banks }: { banks: readonly Bank[] }) {
         ...(ib.length ? [{ id: "notes-ib", label: "IB Diploma", qualification: "ib" as const, panel: <NotesCards banks={ib} /> }] : []),
         // A board appears here once it has notes: no tab of "Coming soon" rows.
         ...(notesRows(aLevel).some((row) => row.notes) ? [{ id: "notes-a-level", label: "Cambridge A Level", qualification: "a-level" as const, panel: <NotesCards banks={aLevel} /> }] : []),
+        ...(notesRows(cbse).some((row) => row.notes) ? [{ id: "notes-cbse", label: "CBSE", qualification: "cbse" as const, panel: <NotesCards banks={cbse} /> }] : []),
       ]} />
     </div>
   );

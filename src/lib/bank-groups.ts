@@ -28,6 +28,8 @@ function aliasesFor(text: string): string[] {
   if (/additional/i.test(text)) aliases.push("addmaths", "add");
   if (/computer science/i.test(text)) aliases.push("cs", "compsci", "computing");
   if (/co-?ordinated/i.test(text)) aliases.push("combined", "coord");
+  if (/\bclass 10\b/i.test(text)) aliases.push("10th", "x");
+  if (/\bclass 12\b/i.test(text)) aliases.push("12th", "xii");
   return aliases;
 }
 

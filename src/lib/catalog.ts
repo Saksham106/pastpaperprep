@@ -3,7 +3,7 @@ import { BOARD_SUBJECT_ORDER, qualificationInfo, type QualificationLabel } from 
 
 export type Qualification = QualificationLabel;
 export type DeliveryMode = "hosted" | "local-preview";
-export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "ib-business-management-hl" | "ib-business-management-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618" | "a-level-further-maths-9231";
+export type BankSlug = "igcse" | "igcse-additional" | "ib-hl" | "ib-sl" | "ib-ai-hl" | "ib-ai-sl" | "ib-chemistry-hl" | "ib-chemistry-sl" | "ib-physics-hl" | "ib-physics-sl" | "ib-biology-hl" | "ib-biology-sl" | "ib-economics-hl" | "ib-economics-sl" | "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "ib-business-management-hl" | "ib-business-management-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618" | "a-level-further-maths-9231" | "cbse-10-maths" | "cbse-10-science" | "cbse-12-physics" | "cbse-12-chemistry" | "cbse-12-maths" | "cbse-12-biology";
 
 export type CatalogBank = {
   slug: BankSlug;
@@ -90,6 +90,18 @@ export const BANK_CATALOG = [
   // Crops uploaded and read back, runtime finalized, free-year crops in the free bucket: served under the shared release
   // gate like the other private-storage banks (switched on 2026-11-18).
   bank({ slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", shortName: "Mathematics 9709", syllabusCode: "9709", level: "AS & A Level", questionCount: 2118, paperCount: 256, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_maths_9709", release: "gated", delivery: "hosted" }),
+  // CBSE (Central Board of Secondary Education, India): Class 10 and Class 12 board exams, 2023-2026 main and
+  // compartment papers. Hidden (pendingStorage) until each bank's runtime is built, its crops are uploaded and read back
+  // and the owner switches it on. Question and paper counts are placeholders (0) until then. Class 10 Mathematics has
+  // Standard (041) and Basic (241) level tabs; the other five are one paper each, browsed by chapter.
+  ...([
+    ["cbse-10-maths", "Mathematics", "Class 10 Mathematics", "041/241", "Class 10"],
+    ["cbse-10-science", "Science", "Class 10 Science", "086", "Class 10"],
+    ["cbse-12-physics", "Physics", "Class 12 Physics", "042", "Class 12"],
+    ["cbse-12-chemistry", "Chemistry", "Class 12 Chemistry", "043", "Class 12"],
+    ["cbse-12-maths", "Mathematics", "Class 12 Mathematics", "041", "Class 12"],
+    ["cbse-12-biology", "Biology", "Class 12 Biology", "044", "Class 12"],
+  ] as const).map(([slug, subject, title, syllabusCode, level]) => bank({ slug, qualification: "CBSE", subject, title, shortName: title, syllabusCode, level, questionCount: 0, paperCount: 0, years: "2023-2026", access: "paid-bank", productId: `bank_${slug.replaceAll("-", "_")}`, release: "gated", delivery: "hosted", pendingStorage: true })),
 ] as const satisfies readonly CatalogBank[];
 
 export function getCatalogBank(slug: string) { return BANK_CATALOG.find((entry) => entry.slug === slug); }
@@ -152,7 +164,8 @@ export function catalogBankToRuntimeBank(entry: CatalogBank): Bank {
     title: entry.title,
     description: `${entry.title} questions organised by topic, paper, and session.`,
     qualification: qualificationInfo(entry.qualification).runtimeLabel,
-    subject: entry.subject + (entry.level === "HL" || entry.level === "SL" ? ` ${entry.level}` : entry.syllabusCode ? ` ${entry.syllabusCode}` : ""),
+    // CBSE subject codes repeat across classes (041 is Maths in both), so CBSE banks are named by class instead.
+    subject: entry.subject + (entry.level === "HL" || entry.level === "SL" || entry.qualification === "CBSE" ? ` ${entry.level}` : entry.syllabusCode ? ` ${entry.syllabusCode}` : ""),
     questionCount: entry.questionCount,
     paperCount: entry.paperCount,
     years: entry.years,

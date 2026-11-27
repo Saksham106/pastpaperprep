@@ -6,12 +6,15 @@ import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_PAPERS } from "@/lib/a-level-9700";
 import { A_LEVEL_ECONOMICS_9708, ECONOMICS_9708_PAPERS } from "@/lib/a-level-9708";
 import { A_LEVEL_COMPUTER_SCIENCE_9618, COMPUTER_SCIENCE_9618_PAPERS } from "@/lib/a-level-9618";
 import { A_LEVEL_FURTHER_MATHS_9231, FURTHER_MATHS_9231_PAPERS } from "@/lib/a-level-9231";
+import { CBSE_10_MATHS, CBSE_10_MATHS_LEVELS, CBSE_10_SCIENCE, CBSE_10_SCIENCE_GROUPS } from "@/lib/cbse";
 
 /**
  * Per-bank route options: the top-level scope a student picks before topics and filters.
  * - Cambridge IGCSE Core / Extended: shared practicals (Papers 5–6) belong to both routes.
  * - A Level Maths 9709 paper tabs: each paper is its own route, because students sit specific papers.
- * A question's `syllabusRoute` is the route id its paper belongs to ("both" = every route).
+ * - CBSE Class 10 Maths Standard / Basic: each level sits its own paper.
+ * A question's `syllabusRoute` is the route id its paper belongs to ("both" = every route), unless its row declares
+ * "both" (a CBSE question printed in both levels' papers; see resolveCourseRoute).
  */
 export type CourseRoute = string;
 /** "all", or one of the bank's route option ids. */
@@ -24,6 +27,8 @@ export type RouteOption = {
   detail: string;
   /** Papers in this route. Papers listed under several routes count as "both". */
   papers: readonly number[];
+  /** Set when routes split one paper by topic (CBSE Class 10 Science): a question's route is the option naming its primary topic. */
+  topics?: readonly string[];
 };
 
 export type BankRouteConfig = {
@@ -165,6 +170,39 @@ const FURTHER_MATHS_9231_TABS: BankRouteConfig = {
   hidesPaperFilter: true,
 };
 
+/**
+ * CBSE Class 10 Maths: students sit Standard or Basic, so the bank opens on the level last picked (else Standard, which
+ * most candidates take). "All" stays for students still choosing a level. Both levels share the chapters, so a level
+ * never narrows the topic list, and it fixes the paper.
+ */
+const CBSE_10_MATHS_LEVEL_TABS: BankRouteConfig = {
+  name: "Level",
+  allLabel: "All",
+  allDetail: "Standard + Basic",
+  options: CBSE_10_MATHS_LEVELS.map((level) => ({ id: level.route, label: level.label, detail: `Code ${level.code}`, papers: [level.paper] })),
+  defaultSelection: "standard",
+  remember: true,
+  showAll: true,
+  scopesTopics: false,
+  hidesPaperFilter: true,
+};
+
+/**
+ * CBSE Class 10 Science: one paper in Biology, Chemistry and Physics sections, so the tabs split it by chapter. Students
+ * revise the whole paper, so it opens on All; a science tab lists only its own chapters.
+ */
+const CBSE_10_SCIENCE_TABS: BankRouteConfig = {
+  name: "Science",
+  allLabel: "All",
+  allDetail: "Whole paper",
+  options: CBSE_10_SCIENCE_GROUPS.map((group) => ({ id: group.route, label: group.label, detail: `${group.chapters.length} chapters`, papers: [1], topics: group.chapters })),
+  defaultSelection: "all",
+  remember: true,
+  showAll: true,
+  scopesTopics: true,
+  hidesPaperFilter: false,
+};
+
 const ROUTE_CONFIGS: Partial<Record<BankSlug, BankRouteConfig>> = {
   igcse: CORE_EXTENDED,
   "igcse-biology-0610": CORE_EXTENDED,
@@ -178,6 +216,8 @@ const ROUTE_CONFIGS: Partial<Record<BankSlug, BankRouteConfig>> = {
   [A_LEVEL_ECONOMICS_9708]: ECONOMICS_9708_TABS,
   [A_LEVEL_COMPUTER_SCIENCE_9618]: COMPUTER_SCIENCE_9618_TABS,
   [A_LEVEL_FURTHER_MATHS_9231]: FURTHER_MATHS_9231_TABS,
+  [CBSE_10_MATHS]: CBSE_10_MATHS_LEVEL_TABS,
+  [CBSE_10_SCIENCE]: CBSE_10_SCIENCE_TABS,
 };
 
 export function routeConfigFor(bank: string | undefined): BankRouteConfig | undefined {
@@ -194,6 +234,19 @@ export function deriveCourseRoute(bank: string, paper: number): CourseRoute {
   if (!config) return "";
   const routes = config.options.filter((option) => option.papers.includes(paper));
   return routes.length === 1 ? routes[0].id : routes.length > 1 ? "both" : "";
+}
+
+/**
+ * A row's route: "both" when the row declares it (one canonical question printed in every route's papers, such as a
+ * CBSE Class 10 Maths question set in both the Standard and the Basic paper); the option naming its primary topic where
+ * routes split a paper by topic; else the route its paper belongs to.
+ */
+export function resolveCourseRoute(bank: string, paper: number, declared?: unknown, primaryTopic?: string): CourseRoute {
+  const config = routeConfigFor(bank);
+  if (!config) return "";
+  if (declared === "both") return "both";
+  if (config.options.some((option) => option.topics)) return config.options.find((option) => option.topics?.includes(primaryTopic ?? ""))?.id ?? "";
+  return deriveCourseRoute(bank, paper);
 }
 
 export function matchesCourseRoute(route: CourseRoute | undefined, selection: CourseRouteSelection): boolean {

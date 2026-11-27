@@ -11,10 +11,11 @@ import { ScopeSwitch } from './ScopeSwitch';
 import { formatUpdateDate, lastUpdated } from '@/lib/updates';
 import styles from './PastPaperPages.module.css';
 
-const GROUPS: [CourseTone, string][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences'], ['economics', 'Economics'], ['computer-science', 'Computer Science']];
+// Co-ordinated Sciences and CBSE Science share a tone, so those two cards also split by board.
+const GROUPS: [CourseTone, string, ((bank: HubBank) => boolean)?][] = [['math', 'Mathematics'], ['chemistry', 'Chemistry'], ['physics', 'Physics'], ['biology', 'Biology'], ['coordinated', 'Co-ordinated Sciences', (bank) => bank.qualification !== 'cbse'], ['coordinated', 'Science', (bank) => bank.qualification === 'cbse'], ['economics', 'Economics'], ['computer-science', 'Computer Science']];
 // No "All" tab: students sit one board. /past-papers itself still lists every board, reached by the breadcrumb.
-const SCOPES: [string, string, PastPaperQualification][] = [['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib'], ['A Level', '/past-papers/a-level', 'a-level']];
-const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB', 'a-level': 'Cambridge A Level' } as const;
+const SCOPES: [string, string, PastPaperQualification][] = [['IGCSE', '/past-papers/igcse', 'igcse'], ['IB', '/past-papers/ib', 'ib'], ['A Level', '/past-papers/a-level', 'a-level'], ['CBSE', '/past-papers/cbse', 'cbse']];
+const QUALIFICATION_NAME = { igcse: 'Cambridge IGCSE', ib: 'IB', 'a-level': 'Cambridge A Level', cbse: 'CBSE' } as const;
 const GUIDE = {
   igcse: {
     title: 'How Cambridge IGCSE papers are named',
@@ -23,6 +24,10 @@ const GUIDE = {
   'a-level': {
     title: 'How Cambridge A Level papers are named',
     body: 'Cambridge sits AS & A Level exams in three series: February/March, May/June and October/November. Each paper has a code like 9709/12/M/J/24: syllabus 9709, Paper 1 variant 2, May/June 2024. Pick your subject above, then search a session and paper.',
+  },
+  cbse: {
+    title: 'How CBSE papers are organised',
+    body: 'CBSE holds the Class 10 and Class 12 board exams in February and March, with supplementary (compartment) exams in the summer. Each paper is printed in several sets with a code like 55/1/1 (Class 12 Physics). Pick your subject above, then search a year and set.',
   },
   ib: {
     title: 'How IB papers are organised',
@@ -41,7 +46,8 @@ const HUB_GUIDES: Partial<Record<PastPaperQualification, { href: string; label: 
 /** `boards` lists the qualifications that have papers, so a board-filtered page still links to the others. */
 export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[]; qualification?: PastPaperQualification; boards?: PastPaperQualification[] }) {
   const available = new Set<PastPaperQualification>(['igcse', 'ib', ...(boards ?? banks.map(b => b.qualification))]);
-  const scopes = SCOPES.filter(([, , scope]) => scope !== 'a-level' || available.has('a-level') || qualification === 'a-level');
+  // Boards added after IGCSE and IB show their tab only once they have papers.
+  const scopes = SCOPES.filter(([, , scope]) => scope === 'igcse' || scope === 'ib' || available.has(scope) || qualification === scope);
   const copy = hubCopy(banks.reduce((n, b) => n + b.paperCount, 0), qualification);
   const path = qualification ? `/past-papers/${qualification}` : '/past-papers';
   const crumbs = [{ name: 'Past papers', path: '/past-papers' }, ...(qualification ? [{ name: QUALIFICATION_NAME[qualification], path }] : [])];
@@ -62,9 +68,9 @@ export function PastPaperHub({ banks, qualification, boards }: { banks: HubBank[
         <PaperFinder mode="subjects" subjects={banks.map(b => ({ name: b.name, code: /\b([09]\d{3})$/.exec(b.name)?.[1] ?? '', href: `/past-papers/${b.subjectSlug}` }))} />
       </div>
     </header>
-    <div className={styles.subjectGrid}>{GROUPS.map(([tone, name]) => {
-      const group = banks.filter(b => b.tone === tone);
-      return group.length > 0 && <section key={tone} className={styles.subjectCard} data-subject-tone={tone} aria-label={name}>
+    <div className={styles.subjectGrid}>{GROUPS.map(([tone, name, matches]) => {
+      const group = banks.filter(b => b.tone === tone && (!matches || matches(b)));
+      return group.length > 0 && <section key={name} className={styles.subjectCard} data-subject-tone={tone} aria-label={name}>
         <header className={styles.subjectHead}><h2>{name}</h2><span className={styles.subjectMark}><CourseIcon tone={tone} /></span></header>
         <div className={styles.bankRows}>{group.map(b => <Link key={b.bankSlug} className={styles.bankRow} href={`/past-papers/${b.subjectSlug}`}>
           <strong>{b.name}</strong><span>{b.paperCount.toLocaleString('en-US')} papers</span><ArrowRight aria-hidden="true" weight="bold" />

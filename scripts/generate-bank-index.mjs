@@ -359,6 +359,8 @@ export function metadataFromRaw(raw, { bank, normalizedProduction = false, local
       : strings(raw.markschemeImages).length + strings(officialMarkscheme.images).length),
     ...(typeof raw.stimulusId === "string" && raw.stimulusId && integer(raw.stimulusImageCount) > 0 ? { stimulusId: raw.stimulusId, stimulusImageCount: integer(raw.stimulusImageCount), ...(typeof raw.stimulusKey === "string" && raw.stimulusKey ? { stimulusKey: raw.stimulusKey } : {}) } : {}),
     ...(explanationIds.get(bank)?.has(raw.id) ? { hasExplanation: true } : {}),
+    // A question printed in every route's papers (CBSE Class 10 Maths Standard and Basic); see resolveCourseRoute.
+    ...(raw.syllabusRoute === "both" ? { syllabusRoute: "both" } : {}),
   };
   return metadata;
 }

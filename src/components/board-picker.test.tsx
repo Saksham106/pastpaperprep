@@ -11,8 +11,9 @@ import { QUALIFICATION_KEY, readRememberedBoard, rememberBoardOfBank } from "@/l
 
 afterEach(() => window.localStorage.clear());
 
-// Every sellable board, so the picker shows IGCSE · A Level · IB whatever the test env's release flags say.
-const allBanks = BANK_CATALOG.filter((bank) => isCatalogBankBillable(bank)).map(catalogBankToRuntimeBank);
+// Every sellable board, so the picker shows IGCSE · A Level · IB whatever the test env's release flags say. Held
+// (pendingStorage) banks, such as the CBSE banks before launch, never reach the picker.
+const allBanks = BANK_CATALOG.filter((bank) => isCatalogBankBillable(bank) && !("pendingStorage" in bank && bank.pendingStorage)).map(catalogBankToRuntimeBank);
 const boardOf = (slug: string) => slug.startsWith("igcse") ? "igcse" as const : slug.startsWith("a-level") ? "a-level" as const : "ib" as const;
 
 const tab = (name: string) => screen.getByRole("tab", { name: new RegExp(`^${name}(,|$)`) });

@@ -96,6 +96,11 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
           {physicsNotesHref ? <p><Link transitionTypes={PAGE_NAVIGATION} href={physicsNotesHref}>Notes: IB Physics course notes</Link> with worked examples and checks for every topic.</p> : null}
           <p>Comparing revision platforms? Read <Link transitionTypes={PAGE_NAVIGATION} href="/articles/revisiondojo-vs-save-my-exams">RevisionDojo vs Save My Exams</Link> or our <Link transitionTypes={PAGE_NAVIGATION} href="/articles/best-revision-village-alternatives">Revision Village alternatives</Link> guide alongside the official course resources.</p>
         </section>
+      ) : qualification === "CBSE" ? (
+        <section className="landing-method" aria-labelledby="cbse-resources-heading">
+          <div><Target aria-hidden="true" /><h2 id="cbse-resources-heading">Practise chapter by chapter</h2></div>
+          <p>Each bank sorts real CBSE board questions by chapter, with the marking scheme for every question. Class 10 Maths has a tab for Standard and for Basic.</p>
+        </section>
       ) : qualification === "Cambridge A Level" ? (
         <section className="landing-method" aria-labelledby="a-level-resources-heading">
           <div><Target aria-hidden="true" /><h2 id="a-level-resources-heading">Practise the papers you will sit</h2></div>

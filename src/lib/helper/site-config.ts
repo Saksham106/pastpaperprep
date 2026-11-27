@@ -7,7 +7,7 @@ import type { HelperBoard } from "@/lib/helper/config";
  * HELPER_BOARDS. Separate so navigation can stay on for a board even if its question content is ever switched off:
  * the site helper only handles names and links already public in the site search.
  */
-export const HELPER_SITE_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: true };
+export const HELPER_SITE_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: true, cbse: false };
 
 /** Model calls per student message: tool rounds plus the final answer. */
 export const HELPER_SITE_MAX_ROUNDS = 5;

@@ -23,6 +23,7 @@ import { A_LEVEL_BIOLOGY_9700, BIOLOGY_9700_SUBTOPICS, BIOLOGY_9700_TOPIC_ORDER 
 import { A_LEVEL_ECONOMICS_9708, ECONOMICS_9708_SUBTOPICS, ECONOMICS_9708_TOPIC_ORDER } from "@/lib/a-level-9708";
 import { A_LEVEL_COMPUTER_SCIENCE_9618, COMPUTER_SCIENCE_9618_SUBTOPICS, COMPUTER_SCIENCE_9618_TOPIC_ORDER } from "@/lib/a-level-9618";
 import { A_LEVEL_FURTHER_MATHS_9231, FURTHER_MATHS_9231_PAPERS, FURTHER_MATHS_9231_SECTION_ORDER, FURTHER_MATHS_9231_SUBTOPICS } from "@/lib/a-level-9231";
+import { CBSE_SUBTOPICS, cbseChapterOrder, isCbseTopicBank } from "@/lib/cbse";
 import { IGCSE_0580_TOPICS, IGCSE_0580_SECTIONS } from "@/lib/igcse-0580-syllabus.mjs";
 import { PHYSICS_0625_EARLIER, PHYSICS_0625_EARLIER_TOPIC, PHYSICS_0625_PRACTICAL_TOPIC, PHYSICS_0625_REVIEW, PHYSICS_0625_REVIEW_TOPIC, PHYSICS_0625_SECTIONS, PHYSICS_0625_TOPICS, display0625Sections } from "@/lib/igcse-0625-official.mjs";
 import { CHEMISTRY_0620_EARLIER, CHEMISTRY_0620_EARLIER_TOPIC, CHEMISTRY_0620_PRACTICAL_TOPIC, CHEMISTRY_0620_REVIEW, CHEMISTRY_0620_REVIEW_TOPIC, CHEMISTRY_0620_SECTIONS, CHEMISTRY_0620_TOPICS, display0620Sections } from "@/lib/igcse-0620-official.mjs";
@@ -149,6 +150,8 @@ function isCoordinatedBank(bank: string | undefined): boolean {
 }
 
 export function getControlledSubtopics(bankSlug: string, topic: string): readonly string[] {
+  // CBSE never reaches the legacy fallback (whose default vocabulary is another board's).
+  if (isCbseTopicBank(bankSlug)) return CBSE_SUBTOPICS[bankSlug]?.[topic] ?? [];
   if (bankSlug === "igcse") return [...IGCSE_0580_SECTIONS.filter((section) => section.topic === topic).map((section) => section.displayTitle), ...getLegacyControlledSubtopics(bankSlug, topic)];
   if (bankSlug === "igcse-additional") return topic === EARLIER_0606_TOPIC ? EARLIER_0606_SUBTOPICS : [...numbered0606.sections.filter(section => section.topic === topic).map(section => section.displayTitle), ...(OFFICIAL_0606_TOPICS.includes(topic) ? [topic] : [])];
   if (bankSlug === "igcse-physics-0625") return topic === PHYSICS_0625_EARLIER_TOPIC ? [PHYSICS_0625_EARLIER] : topic === PHYSICS_0625_REVIEW_TOPIC ? [PHYSICS_0625_REVIEW] : topic === PHYSICS_0625_PRACTICAL_TOPIC ? [PHYSICS_0625_PRACTICAL_TOPIC] : PHYSICS_0625_SECTIONS.filter((section) => section.topic === topic).map((section) => section.title);
@@ -185,6 +188,12 @@ export function getTopicOptions(questions: UnifiedQuestion[]): string[] {
   }
   if (isCoordinatedBank(bank)) {
     return [...COORDINATED_TOPIC_ORDER, ...(questions.some((question) => [question.primaryTopic, ...question.secondaryTopics].includes(COORDINATED_0654_EARLIER_TOPIC)) ? [COORDINATED_0654_EARLIER_TOPIC] : []), ...(questions.some((question) => question.primaryTopic === COORDINATED_0654_PRACTICAL_TOPIC) ? [COORDINATED_0654_PRACTICAL_TOPIC] : [])];
+  }
+  // CBSE: chapters in curriculum order, then any named earlier-syllabus topics (sorted) after them.
+  if (isCbseTopicBank(bank)) {
+    const order = cbseChapterOrder(bank);
+    const available = new Set(questions.flatMap((question) => [question.primaryTopic, ...question.secondaryTopics]).filter(Boolean));
+    return [...order.filter((topic) => available.has(topic)), ...[...available].filter((topic) => !order.includes(topic)).sort()];
   }
   if (isComputerScienceBank(bank)) return [...COMPUTER_SCIENCE_TOPIC_ORDER];
   if (isIbComputerScienceBank(bank)) return ibComputerScienceTopics(bank!).map((topic) => topic.label);
@@ -250,6 +259,19 @@ const A_LEVEL_SECTIONS: Partial<Record<string, Readonly<Record<string, readonly 
   [A_LEVEL_FURTHER_MATHS_9231]: FURTHER_MATHS_9231_SUBTOPICS,
 };
 
+/**
+ * Until a CBSE bank's curriculum subtopic order is pinned (CBSE_SUBTOPICS), a chapter's subtopics are the ones its
+ * questions carry, in label order: the picker still narrows to the chosen chapter's subtopics.
+ */
+function cbseSubtopicsByQuestion(questions: UnifiedQuestion[]): Record<string, readonly string[]> {
+  const byTopic = new Map<string, Set<string>>();
+  for (const question of questions) for (const label of question.subtopics) {
+    const set = byTopic.get(question.primaryTopic) ?? new Set<string>();
+    byTopic.set(question.primaryTopic, set.add(label));
+  }
+  return Object.fromEntries([...byTopic].map(([topic, labels]) => [topic, [...labels].sort()]));
+}
+
 function aLevelSubtopicGroups(sections: Readonly<Record<string, readonly string[]>>, questions: UnifiedQuestion[], selectedTopics: string[], selectedSubtopics: string[]) {
   const available = new Set(questions.flatMap((question) => question.subtopics));
   const ordered = Object.values(sections).flat();
@@ -267,6 +289,7 @@ export function getSubtopicGroups(
   const bank = questions[0]?.bankSlug;
   const aLevelSections = bank ? A_LEVEL_SECTIONS[bank] : undefined;
   if (aLevelSections) return aLevelSubtopicGroups(aLevelSections, questions, selectedTopics, selectedSubtopics);
+  if (isCbseTopicBank(bank)) return aLevelSubtopicGroups(CBSE_SUBTOPICS[bank] ?? cbseSubtopicsByQuestion(questions), questions, selectedTopics, selectedSubtopics);
   if (bank === "igcse") {
     // Keep 0580's picker cleanup outside the sealed shared taxonomy source:
     // archived production audits bind its exact bytes for other banks.

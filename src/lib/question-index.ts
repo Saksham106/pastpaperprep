@@ -1,7 +1,7 @@
 import { isIGCSEReleaseBank, isLocalEconomicsBank, type BankSlug } from "@/lib/banks";
 import { PUBLIC_BANK_INDEX_FILES } from "@/lib/bank-index-manifest";
 import type { QuestionRichDetails, UnifiedQuestion } from "@/lib/questions";
-import { deriveCourseRoute } from "@/lib/course-route";
+import { resolveCourseRoute } from "@/lib/course-route";
 
 export const PUBLIC_BANK_INDEX_VERSION = 1 as const;
 
@@ -34,6 +34,8 @@ export type PublicQuestionMetadata = {
   stimulusImageCount?: number;
   stimulusKey?: string;
   hasExplanation?: true;
+  /** Only "both", and only where the paper alone would give one route (see resolveCourseRoute). */
+  syllabusRoute?: "both";
 };
 
 export type PublicBankIndex = {
@@ -69,6 +71,7 @@ export function toPublicQuestionMetadata(question: UnifiedQuestion): PublicQuest
       ? { imageSizes: question.imageSizes.map((size) => size && [size[0], size[1]] as [number, number]) } : {}),
     ...(question.stimulusId && question.stimulusImageCount ? { stimulusId: question.stimulusId, stimulusImageCount: question.stimulusImageCount, ...(question.stimulusKey ? { stimulusKey: question.stimulusKey } : {}) } : {}),
     ...(question.hasExplanation ? { hasExplanation: true as const } : {}),
+    ...(question.syllabusRoute === "both" && resolveCourseRoute(question.bankSlug, question.paper, undefined, question.primaryTopic) !== "both" ? { syllabusRoute: "both" as const } : {}),
   } satisfies PublicQuestionMetadata;
 }
 
@@ -116,7 +119,7 @@ export function publicMetadataToQuestion(question: PublicQuestionMetadata, bank:
     ...question,
     courseEra: "",
     secondarySubtopics: [],
-    syllabusRoute: deriveCourseRoute(bank, question.paper),
+    syllabusRoute: resolveCourseRoute(bank, question.paper, question.syllabusRoute, question.primaryTopic),
     bankSlug: bank,
     officialCodeRefs: [...(question.officialCodeRefs ?? [])],
     retrievalFacets: [...(question.retrievalFacets ?? [])],

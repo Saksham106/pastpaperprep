@@ -26,6 +26,11 @@ const SOCIAL_PREVIEWS = {
     image: { url: "/social/do-better-ib.png", width: 1200, height: 630, alt: "PastPaperPrep: a marked practice paper with the grade rising from 4 to 7" },
     video: { url: `${SITE}/social/do-better-ib.mp4`, secureUrl: `${SITE}/social/do-better-ib.mp4`, type: "video/mp4", width: 1200, height: 630 },
   },
+  // CBSE's top grade is A1. A still card for now: no looping video yet.
+  cbse: {
+    image: { url: "/social/do-better-cbse.png", width: 1200, height: 630, alt: "PastPaperPrep: a marked practice paper with the grade A1 circled" },
+    video: null,
+  },
 } as const;
 
 export const SOCIAL_IMAGE = SOCIAL_PREVIEWS.igcse.image;
@@ -39,7 +44,7 @@ export const SOCIAL_IMAGE_URL = SOCIAL_IMAGE.url;
 export function socialPreview(qualification?: Qualification | PastPaperQualification) {
   const preview = SOCIAL_PREVIEWS[qualificationInfo(qualification).socialPreview];
   // siteName and locale are repeated here because a page-level openGraph drops the layout's.
-  return { siteName: "PastPaperPrep", locale: "en_US", images: [preview.image], videos: [preview.video] };
+  return { siteName: "PastPaperPrep", locale: "en_US", images: [preview.image], ...(preview.video ? { videos: [preview.video] } : {}) };
 }
 
 /**

@@ -43,6 +43,12 @@ export const SUBJECT_SLUGS: Record<BankSlug, string> = {
   'a-level-economics-9708': 'a-level-economics-9708',
   'a-level-computer-science-9618': 'a-level-computer-science-9618',
   'a-level-further-maths-9231': 'a-level-further-maths-9231',
+  'cbse-10-maths': 'cbse-class-10-maths',
+  'cbse-10-science': 'cbse-class-10-science',
+  'cbse-12-physics': 'cbse-class-12-physics',
+  'cbse-12-chemistry': 'cbse-class-12-chemistry',
+  'cbse-12-maths': 'cbse-class-12-maths',
+  'cbse-12-biology': 'cbse-class-12-biology',
 };
 const BANK_BY_SUBJECT = new Map(Object.entries(SUBJECT_SLUGS).map(([bank, subject]) => [subject, bank as BankSlug]));
 export const subjectSlugForBank = (bank: BankSlug) => SUBJECT_SLUGS[bank];
