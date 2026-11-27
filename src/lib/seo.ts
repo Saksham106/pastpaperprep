@@ -43,19 +43,10 @@ export function socialPreview(qualification?: Qualification | PastPaperQualifica
 }
 
 /**
- * schema.org Course for the exam course a page is about (the syllabus, not a PastPaperPrep product).
- * Google's course structured data requires a description; the provider is the exam board that runs the course.
+ * What a bank or syllabus page is about: the exam syllabus, named as a plain Thing. These pages are PastPaperPrep
+ * resources about a Cambridge or IB course, not the course itself, so they don't use Course markup (Google's
+ * course structured data is for real curricula from their actual provider).
  */
-export function examCourseJsonLd({ name, qualification, url }: { name: string; qualification: string; url?: string }) {
-  const ib = /^(IB|International Baccalaureate)/i.test(qualification);
-  return {
-    "@type": "Course",
-    name,
-    description: `${name} (${qualification}). PastPaperPrep sorts this course's past-paper questions by syllabus topic, year and paper.`,
-    educationalLevel: qualification,
-    provider: ib
-      ? { "@type": "Organization", name: "International Baccalaureate Organization", sameAs: "https://www.ibo.org" }
-      : { "@type": "Organization", name: "Cambridge International Education", sameAs: "https://www.cambridgeinternational.org" },
-    ...(url ? { url } : {}),
-  };
+export function syllabusSubjectJsonLd(name: string) {
+  return { "@type": "Thing", name };
 }

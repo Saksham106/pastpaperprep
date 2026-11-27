@@ -144,28 +144,39 @@ export async function pastPaperSitemapPaths(): Promise<string[]> {
 /** When each group of past-paper pages switched to noindex: PR #473 (other years, year lists) and PR #502
  * (latest-year paper pages, A Level hold). Used only by the temporary /sitemap-noindex.xml. */
 export const NOINDEX_SINCE = { firstCut: '2026-11-07', latestYearCut: '2026-11-21' } as const;
-/** Banks whose paper pages were in the sitemap before the first cut (archives added 2026-10-12 to 10-20).
- * Banks added later (A Level, IB Business Management) launched noindex, so Google never indexed their pages. */
-export const NOINDEX_SITEMAP_BANKS: ReadonlySet<string> = new Set([
-  'igcse', 'igcse-additional', 'igcse-biology-0610', 'igcse-chemistry-0620', 'igcse-physics-0625', 'igcse-coordinated-sciences-0654', 'igcse-economics-0455', 'igcse-computer-science-0478',
-  'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-physics-hl', 'ib-physics-sl', 'ib-chemistry-hl', 'ib-chemistry-sl', 'ib-biology-hl', 'ib-biology-sl', 'ib-economics-hl', 'ib-economics-sl', 'ib-computer-science-hl', 'ib-computer-science-sl',
-]);
+/**
+ * Pages that were in the main sitemap before a cut and are noindex now:
+ * - 'all': banks whose paper archives went live 2026-10-12 to 10-20, before the first cut (#473);
+ * - 'latest-year': the five A Level banks whose archives went live in #501 (2026-11-20 22:14 UTC). Under the
+ *   rule then, their latest-year paper pages were indexable for about five hours until #502 held them back.
+ *   Their other pages, 9618, 9231 and IB Business Management launched noindex and were never listed.
+ * Listing a page here means it was eligible for indexing, not that Google indexed it.
+ */
+export const NOINDEX_SITEMAP_SCOPE: Readonly<Record<string, 'all' | 'latest-year'>> = {
+  ...Object.fromEntries([
+    'igcse', 'igcse-additional', 'igcse-biology-0610', 'igcse-chemistry-0620', 'igcse-physics-0625', 'igcse-coordinated-sciences-0654', 'igcse-economics-0455', 'igcse-computer-science-0478',
+    'ib-hl', 'ib-sl', 'ib-ai-hl', 'ib-ai-sl', 'ib-physics-hl', 'ib-physics-sl', 'ib-chemistry-hl', 'ib-chemistry-sl', 'ib-biology-hl', 'ib-biology-sl', 'ib-economics-hl', 'ib-economics-sl', 'ib-computer-science-hl', 'ib-computer-science-sl',
+  ].map(slug => [slug, 'all' as const])),
+  ...Object.fromEntries(['a-level-maths-9709', 'a-level-physics-9702', 'a-level-chemistry-9701', 'a-level-biology-9700', 'a-level-economics-9708'].map(slug => [slug, 'latest-year' as const])),
+};
 
 /**
- * TEMPORARY (2026-11-26): every live /past-papers page that asks not to be indexed, with the date it
- * switched to noindex. Served at /sitemap-noindex.xml so Google recrawls these pages and processes the
- * noindex sooner (GSC had processed ~409 of ~2,700 by 2026-11-22). Submitted in GSC only; it is not in
- * robots.txt, the main sitemap or IndexNow. Delete the route and this helper once GSC "Excluded by
- * 'noindex' tag" covers them (docs/audits/2026-11-26-seo-review).
+ * TEMPORARY, time-boxed experiment (2026-11-26): the live /past-papers pages that used to be listed in the main
+ * sitemap and now ask not to be indexed (NOINDEX_SITEMAP_SCOPE), dated when each switched. Served at
+ * /sitemap-noindex.xml as a recrawl hint, so Google sees the noindex sooner (GSC had processed ~409 by
+ * 2026-11-22); it is not expected to boost rankings by itself. The pages stay crawlable, which Google needs to
+ * read the noindex. Submitted in GSC only; not in robots.txt, the main sitemap or IndexNow. Delete the route and
+ * this helper once GSC "Excluded by 'noindex' tag" covers them, or by 2026-12-31 (docs/audits/2026-11-26-seo-review).
  */
 export async function pastPaperNoindexEntries(): Promise<{ path: string; lastModified: string }[]> {
   const indexed = new Set(await pastPaperSitemapPaths());
-  const banks = (await availableBanks()).filter(({ bank }) => NOINDEX_SITEMAP_BANKS.has(bank.slug));
+  const banks = (await availableBanks()).filter(({ bank }) => bank.slug in NOINDEX_SITEMAP_SCOPE);
   return banks.flatMap(({ bank, papers }) => {
+    const scope = NOINDEX_SITEMAP_SCOPE[bank.slug];
     const subject = subjectSlugForBank(bank.slug);
     const latest = latestYear(papers);
-    const years = [...new Set(papers.map(p => p.year))].map(year => ({ path: `/past-papers/${subject}/${year}`, lastModified: NOINDEX_SINCE.firstCut }));
-    const details = papers.map(p => ({ path: `/past-papers/${subject}/${paperSlug(p)}`, lastModified: p.year === latest ? NOINDEX_SINCE.latestYearCut : NOINDEX_SINCE.firstCut }));
+    const years = scope === 'all' ? [...new Set(papers.map(p => p.year))].map(year => ({ path: `/past-papers/${subject}/${year}`, lastModified: NOINDEX_SINCE.firstCut })) : [];
+    const details = papers.filter(p => scope === 'all' || p.year === latest).map(p => ({ path: `/past-papers/${subject}/${paperSlug(p)}`, lastModified: p.year === latest ? NOINDEX_SINCE.latestYearCut : NOINDEX_SINCE.firstCut }));
     return [...years, ...details].filter(({ path }) => !indexed.has(path));
   });
 }
