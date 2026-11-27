@@ -463,7 +463,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
           </div>
 
           {error && <p className={styles.error} role="alert">{error}</p>}
-          {credits && creditsLeft(credits) < HELPER_CREDIT_COST.message && <OutOfCredits credits={credits} surface={analytics.surface} />}
+          {credits && creditsLeft(credits) < (photo ? helperCreditCost(true) : HELPER_CREDIT_COST.message) && <OutOfCredits credits={credits} surface={analytics.surface} />}
 
           <form className={styles.composer} onSubmit={submit}>
             {photo && (
@@ -488,7 +488,7 @@ export function PepperPanel({ question, variant = "sheet", onClose, onNavigated,
               {question && <button type="button" className={styles.iconButton} aria-label="Attach a photo of your working" disabled={busy || identity.status !== "user"} onClick={() => choosePhoto(null)}><Camera weight="bold" /></button>}
               <button type="submit" className={styles.send} aria-label="Send" disabled={busy || (!draft.trim() && !photo) || identity.status !== "user"}><ArrowUp weight="bold" /></button>
             </div>
-            {credits && <CreditsLine credits={credits} cost={photo ? helperCreditCost(true) : undefined} />}
+            {credits && <CreditsLine credits={credits} cost={photo ? helperCreditCost(true) : undefined} surface={analytics.surface} />}
             <p className={styles.footnote}>{question ? "The mark scheme has the final say." : `${HELPER_NAME} can make mistakes.`}</p>
           </form>
           {question && <input ref={fileRef} type="file" accept="image/*" hidden onChange={(event) => void onPhotoChosen(event.target.files?.[0])} />}
