@@ -73,11 +73,20 @@ export function rowKeyNote(raw: RawQuestion): string | null {
   return note;
 }
 
-/** The source's own letter, trusted only with official provenance for that same question, with any disputed-key note. */
+/**
+ * The source's own letter, trusted only with official provenance for that same question, with any disputed-key note.
+ * `acceptedAnswers` (CBSE settled keys) lists every letter that scores; it must start with `answer`.
+ */
 export function productionMcqAnswer(raw: RawQuestion): McqAnswer | null {
   const provenance = raw.answerProvenance as Record<string, unknown> | null | undefined;
   if (typeof raw.answer !== "string" || !(MCQ_ANSWER_LETTERS as readonly string[]).includes(raw.answer)) return null;
   if (!provenance || typeof provenance !== "object" || provenance.status !== "official" || provenance.questionId !== raw.id) return null;
+  const accepted = raw.acceptedAnswers;
+  if (accepted !== undefined) {
+    const answer = { answers: accepted, note: rowKeyNote(raw) };
+    if (!Array.isArray(accepted) || accepted[0] !== raw.answer || accepted.length < 2 || !isMcqAnswer(answer)) throw new Error(`Invalid acceptedAnswers on ${String(raw.id)}`);
+    return answer as McqAnswer;
+  }
   return { answers: [raw.answer as McqLetter], note: rowKeyNote(raw) };
 }
 

@@ -13,6 +13,9 @@ const OUT = 'src/data/reprint-question-aliases.json';
 export function reprintAliases(runtimes) {
   const banks = {};
   for (const [slug, runtime] of runtimes) {
+    // CBSE aliases are the same question printed in another set ("-q21-or" ids); CBSE has no whole-paper library yet,
+    // which is all this map serves. Extend the id pattern here when it gets one.
+    if (slug.startsWith('cbse-')) continue;
     for (const q of runtime.questions ?? []) for (const alias of q.aliasIds ?? []) {
       const match = /^(.*)-q(\d+)$/.exec(alias);
       if (!match) throw new Error(`Unreadable alias ${alias} on ${q.id}`);

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "cbse-12-chemistry",
+  "date": "2026-11-27",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "cbse-12-chemistry/releases/full1844-v1-f34054df3005/",
+  "objects": 4072,
+  "bytes": 36957014,
+  "uniqueKeys": 4072,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 4072,
+  "sha256MatchesSegmentationRecord": 4072,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "f34054df3005f67b3aa77090e5109d4c3a6c405812da6a14add691586b72c71e",
+  "sourceCommit": "33bc420",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (scripts/r2-upload-worker) against data/storage/cbse-12-chemistry.manifest.json, then generate-igcse-release.mjs --finalize cbse-12-chemistry. Free year 2023 (448 questions) goes to the free bucket with scripts/free-copy after the upload is read back."
+}

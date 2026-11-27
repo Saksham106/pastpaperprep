@@ -34,6 +34,16 @@ const bank = (entry: Omit<CatalogBank, "route">): CatalogBank => ({
   route: `/banks/${entry.slug}`,
 });
 
+/** CBSE question and set counts from each bank's runtime; 0 until it lands. Class 12 Chemistry: 1,844 questions, 75 sets. */
+const CBSE_COUNTS: Record<string, { questionCount: number; paperCount: number }> = {
+  "cbse-10-maths": { questionCount: 0, paperCount: 0 },
+  "cbse-10-science": { questionCount: 0, paperCount: 0 },
+  "cbse-12-physics": { questionCount: 0, paperCount: 0 },
+  "cbse-12-chemistry": { questionCount: 1844, paperCount: 75 },
+  "cbse-12-maths": { questionCount: 0, paperCount: 0 },
+  "cbse-12-biology": { questionCount: 0, paperCount: 0 },
+};
+
 export const BANK_CATALOG = [
   bank({ slug: "igcse", qualification: "Cambridge IGCSE", subject: "Mathematics", title: "Mathematics 0580", shortName: "Mathematics 0580", syllabusCode: "0580", level: "Core and Extended", questionCount: 4174, paperCount: 225, years: "2016-2026", access: "paid-bank", productId: "bank_igcse", release: "published", delivery: "hosted" }),
   bank({ slug: "igcse-additional", qualification: "Cambridge IGCSE", subject: "Additional Mathematics", title: "Additional Mathematics 0606", shortName: "Additional Mathematics 0606", syllabusCode: "0606", level: "Extended", questionCount: 1656, paperCount: 147, years: "2016-2026", access: "paid-bank", productId: "bank_igcse_additional", release: "published", delivery: "hosted" }),
@@ -92,8 +102,9 @@ export const BANK_CATALOG = [
   bank({ slug: "a-level-maths-9709", qualification: "Cambridge A Level", subject: "Mathematics", title: "Mathematics 9709", shortName: "Mathematics 9709", syllabusCode: "9709", level: "AS & A Level", questionCount: 2118, paperCount: 256, years: "2020-2026", access: "paid-bank", productId: "bank_a_level_maths_9709", release: "gated", delivery: "hosted" }),
   // CBSE (Central Board of Secondary Education, India): Class 10 and Class 12 board exams, 2023-2026 main and
   // compartment papers. Hidden (pendingStorage) until each bank's runtime is built, its crops are uploaded and read back
-  // and the owner switches it on. Question and paper counts are placeholders (0) until then. Class 10 Mathematics has
+  // and the owner switches it on. Question and paper counts are placeholders (0) until then (CBSE_COUNTS). Class 10 Mathematics has
   // Standard (041) and Basic (241) level tabs; the other five are one paper each, browsed by chapter.
+  // Counts: questions served, and printed sets (a "paper" here is one set, such as 56/1/1).
   ...([
     ["cbse-10-maths", "Mathematics", "Class 10 Mathematics", "041/241", "Class 10"],
     ["cbse-10-science", "Science", "Class 10 Science", "086", "Class 10"],
@@ -101,7 +112,7 @@ export const BANK_CATALOG = [
     ["cbse-12-chemistry", "Chemistry", "Class 12 Chemistry", "043", "Class 12"],
     ["cbse-12-maths", "Mathematics", "Class 12 Mathematics", "041", "Class 12"],
     ["cbse-12-biology", "Biology", "Class 12 Biology", "044", "Class 12"],
-  ] as const).map(([slug, subject, title, syllabusCode, level]) => bank({ slug, qualification: "CBSE", subject, title, shortName: title, syllabusCode, level, questionCount: 0, paperCount: 0, years: "2023-2026", access: "paid-bank", productId: `bank_${slug.replaceAll("-", "_")}`, release: "gated", delivery: "hosted", pendingStorage: true })),
+  ] as const).map(([slug, subject, title, syllabusCode, level]) => bank({ slug, qualification: "CBSE", subject, title, shortName: title, syllabusCode, level, ...CBSE_COUNTS[slug], years: "2023-2026", access: "paid-bank", productId: `bank_${slug.replaceAll("-", "_")}`, release: "gated", delivery: "hosted", pendingStorage: true })),
 ] as const satisfies readonly CatalogBank[];
 
 export function getCatalogBank(slug: string) { return BANK_CATALOG.find((entry) => entry.slug === slug); }

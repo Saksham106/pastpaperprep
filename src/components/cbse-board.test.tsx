@@ -50,8 +50,8 @@ describe("CBSE board registration", () => {
       expect(bank.bundleProductId).toBeUndefined();
       expect(HELD_BANKS).toContain(bank.slug);
       expect(isCbseBank(bank.slug)).toBe(true);
-      // The private release lane is joined with each bank's runtime pins, not before.
-      expect(isIGCSEReleaseBank(bank.slug)).toBe(false);
+      // The private release lane is joined with each bank's runtime pins, not before (Class 12 Chemistry first).
+      expect(isIGCSEReleaseBank(bank.slug)).toBe(bank.slug === "cbse-12-chemistry");
     }
   });
 

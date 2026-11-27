@@ -1,0 +1,481 @@
+{
+  "artifact": "cbse_12_chemistry_student_taxonomy",
+  "version": "cbse12c_curriculum_taxonomy@1",
+  "qualification": "CBSE Class 12 Chemistry (043)",
+  "era": "2023",
+  "note": "Topics are the curriculum's ten chapters (units), in curriculum order; subtopics are its content clauses. One theory paper; no earlier-syllabus topics.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "e186036140c4433457f01b7f8ed8bcaa2d31bdf03dc01c8a35fe69ec00ee499b",
+  "chapters": [
+    {
+      "id": "cbse12c:2023:1",
+      "code": "1",
+      "label": "Solutions",
+      "era": "2023",
+      "official": true,
+      "questions": 176,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Types of solutions",
+          "curriculumTitle": "Types of solutions"
+        },
+        {
+          "code": "1.2",
+          "label": "Expression of concentration of solutions",
+          "curriculumTitle": "Expression of concentration of solutions"
+        },
+        {
+          "code": "1.3",
+          "label": "Solubility",
+          "curriculumTitle": "Solubility"
+        },
+        {
+          "code": "1.4",
+          "label": "Vapour pressure of liquid solutions",
+          "curriculumTitle": "Vapour pressure of liquid solutions"
+        },
+        {
+          "code": "1.5",
+          "label": "Ideal and non-ideal solutions",
+          "curriculumTitle": "Ideal and non-ideal solutions"
+        },
+        {
+          "code": "1.6",
+          "label": "Colligative properties and determination of molar mass",
+          "curriculumTitle": "Colligative properties and determination of molar mass"
+        },
+        {
+          "code": "1.7",
+          "label": "Abnormal molecular masses",
+          "curriculumTitle": "Abnormal molecular masses"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:2",
+      "code": "2",
+      "label": "Electrochemistry",
+      "era": "2023",
+      "official": true,
+      "questions": 205,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Electrochemical cells",
+          "curriculumTitle": "Electrochemical cells"
+        },
+        {
+          "code": "2.2",
+          "label": "Galvanic cells",
+          "curriculumTitle": "Galvanic cells"
+        },
+        {
+          "code": "2.3",
+          "label": "Nernst equation",
+          "curriculumTitle": "Nernst equation"
+        },
+        {
+          "code": "2.4",
+          "label": "Conductance of electrolytic solutions",
+          "curriculumTitle": "Conductance of electrolytic solutions"
+        },
+        {
+          "code": "2.5",
+          "label": "Electrolytic cells and electrolysis",
+          "curriculumTitle": "Electrolytic cells and electrolysis"
+        },
+        {
+          "code": "2.6",
+          "label": "Batteries",
+          "curriculumTitle": "Batteries"
+        },
+        {
+          "code": "2.7",
+          "label": "Fuel cells",
+          "curriculumTitle": "Fuel cells"
+        },
+        {
+          "code": "2.8",
+          "label": "Corrosion",
+          "curriculumTitle": "Corrosion"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:3",
+      "code": "3",
+      "label": "Chemical Kinetics",
+      "era": "2023",
+      "official": true,
+      "questions": 200,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Rate of a chemical reaction",
+          "curriculumTitle": "Rate of a chemical reaction"
+        },
+        {
+          "code": "3.2",
+          "label": "Factors influencing rate of reaction",
+          "curriculumTitle": "Factors influencing rate of reaction"
+        },
+        {
+          "code": "3.3",
+          "label": "Integrated rate equations",
+          "curriculumTitle": "Integrated rate equations"
+        },
+        {
+          "code": "3.4",
+          "label": "Temperature dependence of the rate of a reaction",
+          "curriculumTitle": "Temperature dependence of the rate of a reaction"
+        },
+        {
+          "code": "3.5",
+          "label": "Collision theory of chemical reactions",
+          "curriculumTitle": "Collision theory of chemical reactions"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:4",
+      "code": "4",
+      "label": "d- and f-Block Elements",
+      "era": "2023",
+      "official": true,
+      "questions": 194,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Position in the periodic table",
+          "curriculumTitle": "Position in the periodic table"
+        },
+        {
+          "code": "4.2",
+          "label": "Electronic configuration of the d-block elements",
+          "curriculumTitle": "Electronic configuration of the d-block elements"
+        },
+        {
+          "code": "4.3",
+          "label": "General properties of the transition elements",
+          "curriculumTitle": "General properties of the transition elements"
+        },
+        {
+          "code": "4.4",
+          "label": "Some important compounds of transition elements",
+          "curriculumTitle": "Some important compounds of transition elements"
+        },
+        {
+          "code": "4.5",
+          "label": "The lanthanoids",
+          "curriculumTitle": "The lanthanoids"
+        },
+        {
+          "code": "4.6",
+          "label": "The actinoids",
+          "curriculumTitle": "The actinoids"
+        },
+        {
+          "code": "4.7",
+          "label": "Applications of d- and f-block elements",
+          "curriculumTitle": "Applications of d- and f-block elements"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:5",
+      "code": "5",
+      "label": "Coordination Compounds",
+      "era": "2023",
+      "official": true,
+      "questions": 183,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Werner's theory of coordination compounds",
+          "curriculumTitle": "Werner's theory of coordination compounds"
+        },
+        {
+          "code": "5.2",
+          "label": "Important terms pertaining to coordination compounds",
+          "curriculumTitle": "Important terms pertaining to coordination compounds"
+        },
+        {
+          "code": "5.3",
+          "label": "Nomenclature of coordination compounds",
+          "curriculumTitle": "Nomenclature of coordination compounds"
+        },
+        {
+          "code": "5.4",
+          "label": "Isomerism in coordination compounds",
+          "curriculumTitle": "Isomerism in coordination compounds"
+        },
+        {
+          "code": "5.5",
+          "label": "Bonding in coordination compounds",
+          "curriculumTitle": "Bonding in coordination compounds"
+        },
+        {
+          "code": "5.6",
+          "label": "Bonding in metal carbonyls",
+          "curriculumTitle": "Bonding in metal carbonyls"
+        },
+        {
+          "code": "5.7",
+          "label": "Importance and applications of coordination compounds",
+          "curriculumTitle": "Importance and applications of coordination compounds"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:6",
+      "code": "6",
+      "label": "Haloalkanes and Haloarenes",
+      "era": "2023",
+      "official": true,
+      "questions": 169,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Classification (Haloalkanes and Haloarenes)",
+          "curriculumTitle": "Classification"
+        },
+        {
+          "code": "6.2",
+          "label": "Nomenclature (Haloalkanes and Haloarenes)",
+          "curriculumTitle": "Nomenclature"
+        },
+        {
+          "code": "6.3",
+          "label": "Nature of the C–X bond",
+          "curriculumTitle": "Nature of the C–X bond"
+        },
+        {
+          "code": "6.4",
+          "label": "Methods of preparation of haloalkanes",
+          "curriculumTitle": "Methods of preparation of haloalkanes"
+        },
+        {
+          "code": "6.5",
+          "label": "Preparation of haloarenes",
+          "curriculumTitle": "Preparation of haloarenes"
+        },
+        {
+          "code": "6.6",
+          "label": "Physical properties",
+          "curriculumTitle": "Physical properties"
+        },
+        {
+          "code": "6.7",
+          "label": "Chemical reactions",
+          "curriculumTitle": "Chemical reactions"
+        },
+        {
+          "code": "6.8",
+          "label": "Polyhalogen compounds",
+          "curriculumTitle": "Polyhalogen compounds"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:7",
+      "code": "7",
+      "label": "Alcohols, Phenols and Ethers",
+      "era": "2023",
+      "official": true,
+      "questions": 181,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Classification (Alcohols, Phenols and Ethers)",
+          "curriculumTitle": "Classification"
+        },
+        {
+          "code": "7.2",
+          "label": "Nomenclature (Alcohols, Phenols and Ethers)",
+          "curriculumTitle": "Nomenclature"
+        },
+        {
+          "code": "7.3",
+          "label": "Structures of functional groups",
+          "curriculumTitle": "Structures of functional groups"
+        },
+        {
+          "code": "7.4",
+          "label": "Preparation of alcohols and phenols",
+          "curriculumTitle": "Preparation of alcohols and phenols"
+        },
+        {
+          "code": "7.5",
+          "label": "Physical properties of alcohols and phenols",
+          "curriculumTitle": "Physical properties of alcohols and phenols"
+        },
+        {
+          "code": "7.6",
+          "label": "Chemical reactions of alcohols and phenols",
+          "curriculumTitle": "Chemical reactions of alcohols and phenols"
+        },
+        {
+          "code": "7.7",
+          "label": "Some commercially important alcohols",
+          "curriculumTitle": "Some commercially important alcohols"
+        },
+        {
+          "code": "7.8",
+          "label": "Ethers",
+          "curriculumTitle": "Ethers"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:8",
+      "code": "8",
+      "label": "Aldehydes, Ketones and Carboxylic Acids",
+      "era": "2023",
+      "official": true,
+      "questions": 178,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Nomenclature and structure of the carbonyl group",
+          "curriculumTitle": "Nomenclature and structure of the carbonyl group"
+        },
+        {
+          "code": "8.2",
+          "label": "Preparation of aldehydes and ketones",
+          "curriculumTitle": "Preparation of aldehydes and ketones"
+        },
+        {
+          "code": "8.3",
+          "label": "Physical properties and chemical reactions of aldehydes and ketones",
+          "curriculumTitle": "Physical properties and chemical reactions of aldehydes and ketones"
+        },
+        {
+          "code": "8.4",
+          "label": "Uses of aldehydes and ketones",
+          "curriculumTitle": "Uses of aldehydes and ketones"
+        },
+        {
+          "code": "8.5",
+          "label": "Nomenclature and structure of the carboxyl group",
+          "curriculumTitle": "Nomenclature and structure of the carboxyl group"
+        },
+        {
+          "code": "8.6",
+          "label": "Methods of preparation of carboxylic acids",
+          "curriculumTitle": "Methods of preparation of carboxylic acids"
+        },
+        {
+          "code": "8.7",
+          "label": "Physical properties and chemical reactions of carboxylic acids",
+          "curriculumTitle": "Physical properties and chemical reactions of carboxylic acids"
+        },
+        {
+          "code": "8.8",
+          "label": "Uses of carboxylic acids",
+          "curriculumTitle": "Uses of carboxylic acids"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:9",
+      "code": "9",
+      "label": "Amines",
+      "era": "2023",
+      "official": true,
+      "questions": 177,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Structure of amines",
+          "curriculumTitle": "Structure of amines"
+        },
+        {
+          "code": "9.2",
+          "label": "Classification (Amines)",
+          "curriculumTitle": "Classification"
+        },
+        {
+          "code": "9.3",
+          "label": "Nomenclature (Amines)",
+          "curriculumTitle": "Nomenclature"
+        },
+        {
+          "code": "9.4",
+          "label": "Preparation of amines",
+          "curriculumTitle": "Preparation of amines"
+        },
+        {
+          "code": "9.5",
+          "label": "Physical properties of amines",
+          "curriculumTitle": "Physical properties of amines"
+        },
+        {
+          "code": "9.6",
+          "label": "Chemical reactions of amines",
+          "curriculumTitle": "Chemical reactions of amines"
+        },
+        {
+          "code": "9.7",
+          "label": "Methods of preparation of diazonium salts",
+          "curriculumTitle": "Methods of preparation of diazonium salts"
+        },
+        {
+          "code": "9.8",
+          "label": "Physical properties of diazonium salts",
+          "curriculumTitle": "Physical properties of diazonium salts"
+        },
+        {
+          "code": "9.9",
+          "label": "Chemical reactions of diazonium salts",
+          "curriculumTitle": "Chemical reactions of diazonium salts"
+        },
+        {
+          "code": "9.10",
+          "label": "Importance of diazonium salts in synthesis of aromatic compounds",
+          "curriculumTitle": "Importance of diazonium salts in synthesis of aromatic compounds"
+        }
+      ]
+    },
+    {
+      "id": "cbse12c:2023:10",
+      "code": "10",
+      "label": "Biomolecules",
+      "era": "2023",
+      "official": true,
+      "questions": 207,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "Carbohydrates",
+          "curriculumTitle": "Carbohydrates"
+        },
+        {
+          "code": "10.2",
+          "label": "Proteins",
+          "curriculumTitle": "Proteins"
+        },
+        {
+          "code": "10.3",
+          "label": "Enzymes",
+          "curriculumTitle": "Enzymes"
+        },
+        {
+          "code": "10.4",
+          "label": "Vitamins",
+          "curriculumTitle": "Vitamins"
+        },
+        {
+          "code": "10.5",
+          "label": "Nucleic acids",
+          "curriculumTitle": "Nucleic acids"
+        },
+        {
+          "code": "10.6",
+          "label": "Hormones",
+          "curriculumTitle": "Hormones"
+        }
+      ]
+    }
+  ]
+}

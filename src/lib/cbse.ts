@@ -102,6 +102,20 @@ export const CBSE_10_SCIENCE_GROUPS = (["Biology", "Chemistry", "Physics"] as co
  * A bank not listed yet groups subtopics by the questions that carry them.
  */
 export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonly<Record<string, readonly string[]>>>> = {
+  // Curriculum clauses in taxonomy order (cbse-12-chemistry-topic-practice 33bc420; a title several chapters share carries
+  // its chapter, as in the runtime: scripts/generate-cbse-12-chemistry-runtime.mjs).
+  "cbse-12-chemistry": {
+    "Solutions": ["Types of solutions", "Expression of concentration of solutions", "Solubility", "Vapour pressure of liquid solutions", "Ideal and non-ideal solutions", "Colligative properties and determination of molar mass", "Abnormal molecular masses"],
+    "Electrochemistry": ["Electrochemical cells", "Galvanic cells", "Nernst equation", "Conductance of electrolytic solutions", "Electrolytic cells and electrolysis", "Batteries", "Fuel cells", "Corrosion"],
+    "Chemical Kinetics": ["Rate of a chemical reaction", "Factors influencing rate of reaction", "Integrated rate equations", "Temperature dependence of the rate of a reaction", "Collision theory of chemical reactions"],
+    "d- and f-Block Elements": ["Position in the periodic table", "Electronic configuration of the d-block elements", "General properties of the transition elements", "Some important compounds of transition elements", "The lanthanoids", "The actinoids", "Applications of d- and f-block elements"],
+    "Coordination Compounds": ["Werner's theory of coordination compounds", "Important terms pertaining to coordination compounds", "Nomenclature of coordination compounds", "Isomerism in coordination compounds", "Bonding in coordination compounds", "Bonding in metal carbonyls", "Importance and applications of coordination compounds"],
+    "Haloalkanes and Haloarenes": ["Classification (Haloalkanes and Haloarenes)", "Nomenclature (Haloalkanes and Haloarenes)", "Nature of the C–X bond", "Methods of preparation of haloalkanes", "Preparation of haloarenes", "Physical properties", "Chemical reactions", "Polyhalogen compounds"],
+    "Alcohols, Phenols and Ethers": ["Classification (Alcohols, Phenols and Ethers)", "Nomenclature (Alcohols, Phenols and Ethers)", "Structures of functional groups", "Preparation of alcohols and phenols", "Physical properties of alcohols and phenols", "Chemical reactions of alcohols and phenols", "Some commercially important alcohols", "Ethers"],
+    "Aldehydes, Ketones and Carboxylic Acids": ["Nomenclature and structure of the carbonyl group", "Preparation of aldehydes and ketones", "Physical properties and chemical reactions of aldehydes and ketones", "Uses of aldehydes and ketones", "Nomenclature and structure of the carboxyl group", "Methods of preparation of carboxylic acids", "Physical properties and chemical reactions of carboxylic acids", "Uses of carboxylic acids"],
+    "Amines": ["Structure of amines", "Classification (Amines)", "Nomenclature (Amines)", "Preparation of amines", "Physical properties of amines", "Chemical reactions of amines", "Methods of preparation of diazonium salts", "Physical properties of diazonium salts", "Chemical reactions of diazonium salts", "Importance of diazonium salts in synthesis of aromatic compounds"],
+    "Biomolecules": ["Carbohydrates", "Proteins", "Enzymes", "Vitamins", "Nucleic acids", "Hormones"],
+  },
   // NCERT section titles in chapter-tree.json order (cbse-10-science-topic-practice, sha256 483c25c02503…, 2026-11-27).
   "cbse-10-science": {
 "Chemical Reactions and Equations": ["Chemical Equations", "Types of Chemical Reactions", "Have You Observed the Effects of Oxidation Reactions in Everyday Life?"],
