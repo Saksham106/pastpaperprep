@@ -17,7 +17,7 @@ export type PaymentFailedNotice = {
 
 type InvoiceLike = {
   id?: unknown; object?: unknown; status?: unknown; customer?: unknown; amount_remaining?: unknown; currency?: unknown;
-  attempt_count?: unknown; next_payment_attempt?: unknown; hosted_invoice_url?: unknown;
+  attempt_count?: unknown; next_payment_attempt?: unknown; hosted_invoice_url?: unknown; billing_reason?: unknown; created?: unknown;
 };
 export type SubscriptionLike = {
   id: string;
@@ -25,6 +25,7 @@ export type SubscriptionLike = {
   customer: unknown;
   metadata?: Record<string, string> | null;
   pause_collection?: unknown;
+  schedule?: unknown;
   latest_invoice?: unknown;
   items?: { data?: { current_period_start?: unknown; current_period_end?: unknown }[] };
 };
@@ -56,20 +57,36 @@ export function trustedHostedInvoiceUrl(value: unknown): string | null {
   }
 }
 
+/** Ownership rule shared with /api/billing/subscription: the mapped customer, and no conflicting owner. */
+function ownedBy(subscription: SubscriptionLike, customerId: string, userId: string) {
+  const owner = subscription.metadata?.user_id;
+  return customerIdOf(subscription.customer) === customerId && (owner === undefined || owner === userId);
+}
+
 /**
- * The failed renewal to show, if any. Reads subscriptions listed for this customer with
- * `latest_invoice` expanded. Display only: anything unexpected (another owner, a different
- * customer, an invoice that is not open with a failed attempt) shows nothing.
+ * Would checkout refuse a new purchase for this account? Mirrors the checkout gate, which blocks on
+ * any past_due, unpaid or incomplete subscription under the customer (not only the one shown).
+ */
+export function hasLapsedSubscription(subscriptions: readonly SubscriptionLike[], lapsedStatuses: ReadonlySet<string>) {
+  return subscriptions.some((subscription) => lapsedStatuses.has(subscription.status));
+}
+
+type Candidate = { notice: PaymentFailedNotice; renewal: boolean; created: number };
+
+/**
+ * The failed renewal to show, if any. Reads every subscription listed for this customer with
+ * `latest_invoice` expanded, and picks deliberately: a renewal (`subscription_cycle`) before
+ * other bills such as a proration, then one Stripe can take payment for on its hosted page,
+ * then the newest. Display only: anything unexpected (another owner, a different customer, an
+ * invoice that is not open with a failed attempt) shows nothing.
  */
 export function findPaymentFailedNotice(
   subscriptions: readonly SubscriptionLike[],
   { customerId, userId, nowSeconds }: { customerId: string; userId: string; nowSeconds: number },
 ): PaymentFailedNotice | null {
+  const candidates: Candidate[] = [];
   for (const subscription of subscriptions) {
-    if (!LAPSED.has(subscription.status)) continue;
-    if (customerIdOf(subscription.customer) !== customerId) continue;
-    const owner = subscription.metadata?.user_id;
-    if (owner !== undefined && owner !== userId) continue;
+    if (!LAPSED.has(subscription.status) || !ownedBy(subscription, customerId, userId)) continue;
 
     const invoice = subscription.latest_invoice as InvoiceLike | null | undefined;
     if (!invoice || typeof invoice !== "object" || typeof invoice.id !== "string") continue;
@@ -81,28 +98,38 @@ export function findPaymentFailedNotice(
     if (typeof invoice.attempt_count !== "number" || invoice.attempt_count < 1) continue;
 
     let accessEndsAt: string | null = null;
+    // Stripe stopped retrying: the webhook revokes an `unpaid` subscription.
     let accessEnded = subscription.status === "unpaid";
     const items = subscription.items?.data;
     const item = Array.isArray(items) && items.length === 1 ? items[0] : null;
     const periodStart = unixSeconds(item?.current_period_start);
     const periodEnd = unixSeconds(item?.current_period_end);
-    // Mirrors the webhook's past-due grace (buildSubscriptionSync). A pause changes that rule, so no date then.
-    if (subscription.status === "past_due" && !subscription.pause_collection && periodStart && periodEnd) {
+    // Mirrors the webhook's past-due grace (buildSubscriptionSync). A pause or a scheduled plan change
+    // can change what the webhook grants (an unpaid scheduled target gets no grace), so no date then.
+    if (subscription.status === "past_due" && !subscription.pause_collection && subscription.schedule == null && periodStart && periodEnd) {
       const graceEnd = Math.min(periodStart + PAST_DUE_GRACE_SECONDS, periodEnd);
       accessEndsAt = iso(graceEnd);
       if (graceEnd <= nowSeconds) accessEnded = true;
     }
     const retry = unixSeconds(invoice.next_payment_attempt);
 
-    return {
-      invoiceId: invoice.id,
-      amountCents: amount,
-      currency: invoice.currency,
-      accessEndsAt: accessEnded ? null : accessEndsAt,
-      accessEnded,
-      nextRetryAt: retry && retry > nowSeconds ? iso(retry) : null,
-      payUrl: trustedHostedInvoiceUrl(invoice.hosted_invoice_url),
-    };
+    candidates.push({
+      renewal: invoice.billing_reason === "subscription_cycle",
+      created: unixSeconds(invoice.created) ?? 0,
+      notice: {
+        invoiceId: invoice.id,
+        amountCents: amount,
+        currency: invoice.currency,
+        accessEndsAt: accessEnded ? null : accessEndsAt,
+        accessEnded,
+        nextRetryAt: retry && retry > nowSeconds ? iso(retry) : null,
+        payUrl: trustedHostedInvoiceUrl(invoice.hosted_invoice_url),
+      },
+    });
   }
-  return null;
+  candidates.sort((a, b) =>
+    Number(b.renewal) - Number(a.renewal) ||
+    Number(Boolean(b.notice.payUrl)) - Number(Boolean(a.notice.payUrl)) ||
+    b.created - a.created);
+  return candidates[0]?.notice ?? null;
 }

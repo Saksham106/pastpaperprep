@@ -5,6 +5,7 @@ import { X } from "@phosphor-icons/react/dist/ssr";
 import type { PaymentFailedNotice as Notice } from "@/lib/payment-failed-notice";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { accountIdFromCookieHeader, documentHasSupabaseAuthCookie } from "@/lib/supabase/auth-cookie";
+import { createClient } from "@/lib/supabase/browser";
 import styles from "./PaymentFailedNotice.module.css";
 
 export type PaymentNoticePlacement = "dashboard" | "account" | "bank" | "pricing";
@@ -30,11 +31,21 @@ function write(storage: "localStorage" | "sessionStorage", key: string, value: s
   } catch { /* Storage blocked: the notice simply shows again. */ }
 }
 
+/** The signed-in account per the session cookie (decoded, not verified; the server authorizes every read). */
+function currentAccount() {
+  return accountIdFromCookieHeader(document.cookie);
+}
+
 /** A recent "nothing to pay" answer for this account, so healthy subscribers don't ask on every page. */
 function recentlyClear(accountId: string | undefined) {
   if (!accountId) return false;
   const [id, until] = (read("sessionStorage", CLEAR_KEY) ?? "").split("|");
   return id === accountId && Number(until) > Date.now();
+}
+
+/** "Hide for today" covers one account's one bill, never another account's or a newer bill. */
+function dismissalKey(accountId: string | undefined, invoiceId: string) {
+  return `${accountId ?? ""}|${invoiceId}|${today()}`;
 }
 
 function money(cents: number, currency: string) {
@@ -55,10 +66,11 @@ export function noticeCopy(notice: Notice, placement: PaymentNoticePlacement) {
   const payment = amount ? `Your latest renewal payment of ${amount} didn't go through` : "Your latest renewal payment didn't go through";
   const ends = notice.accessEndsAt ? shortDate(notice.accessEndsAt) : null;
   // On pricing the student came to buy: say that paying is also the way to change plan.
-  const plan = placement === "pricing" ? " and change your plan" : "";
-  return notice.accessEnded
-    ? `${payment}, so your access has stopped. Pay now to restore it${plan}.`
-    : ends ? `${payment}. Pay by ${ends} to keep access${plan}.` : `${payment}. Pay now to keep access${plan}.`;
+  const plan = placement === "pricing";
+  if (notice.accessEnded) return `${payment}, so your access has stopped. Pay now to restore it${plan ? " and change your plan" : ""}.`;
+  if (ends) return `${payment}. Pay by ${ends} to keep access${plan ? " and change your plan" : ""}.`;
+  // No date we can stand behind (a pause or a scheduled change): don't promise anything about access.
+  return `${payment}. Pay now to keep your plan${plan ? " or change it" : ""}.`;
 }
 
 function trustedPortalUrl(value: unknown) {
@@ -84,14 +96,18 @@ async function openBillingPortal(navigate: (url: string) => void) {
   }
 }
 
-async function fetchNotice(): Promise<{ ok: boolean; notice: Notice | null }> {
+type NoticeResponse = { ok: false } | { ok: true; notice: Notice | null; purchaseBlocked: boolean; invoicePaid: boolean };
+
+async function fetchNotice(invoiceId?: string): Promise<NoticeResponse> {
   try {
-    const response = await fetch("/api/billing/payment-notice", { cache: "no-store" });
-    if (!response.ok) return { ok: false, notice: null };
-    const body = await response.json() as { notice?: Notice | null };
-    return { ok: true, notice: body?.notice ?? null };
+    const url = invoiceId ? `/api/billing/payment-notice?invoice=${encodeURIComponent(invoiceId)}` : "/api/billing/payment-notice";
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) return { ok: false };
+    const body = await response.json() as { notice?: Notice | null; purchaseBlocked?: unknown; invoicePaid?: unknown };
+    if (!body || typeof body !== "object" || typeof body.purchaseBlocked !== "boolean") return { ok: false };
+    return { ok: true, notice: body.notice ?? null, purchaseBlocked: body.purchaseBlocked, invoicePaid: body.invoicePaid === true };
   } catch {
-    return { ok: false, notice: null };
+    return { ok: false };
   }
 }
 
@@ -99,57 +115,91 @@ function track(name: "payment_failed_notice_view" | "payment_failed_notice_click
   trackProductEvent(name, { placement, state: notice ? noticeState(notice) : "no_date", action: notice?.payUrl ? "pay" : "portal" });
 }
 
-/** Re-runs `check` when the student returns to this tab after opening Stripe in another. */
-function useRecheckOnReturn(check: () => void, armed: { current: boolean }) {
+/** Re-runs `onReturn` when the student comes back to this tab (after paying in another). */
+function useOnReturn(onReturn: () => void) {
   useEffect(() => {
-    function onReturn() {
-      if (!armed.current || document.visibilityState === "hidden") return;
-      check();
-    }
-    window.addEventListener("focus", onReturn);
-    document.addEventListener("visibilitychange", onReturn);
+    function handle() { if (document.visibilityState !== "hidden") onReturn(); }
+    window.addEventListener("focus", handle);
+    document.addEventListener("visibilitychange", handle);
     return () => {
-      window.removeEventListener("focus", onReturn);
-      document.removeEventListener("visibilitychange", onReturn);
+      window.removeEventListener("focus", handle);
+      document.removeEventListener("visibilitychange", handle);
     };
-  }, [check, armed]);
+  }, [onReturn]);
+}
+
+/** Calls `onChange` when the signed-in account changes in this tab (sign-out, or sign-in as someone else). */
+function useAccountChange(onChange: () => void) {
+  useEffect(() => {
+    let last = currentAccount();
+    let subscription: { unsubscribe(): void } | undefined;
+    try {
+      subscription = createClient().auth.onAuthStateChange((_event, session) => {
+        const id = session?.user?.id?.toLowerCase();
+        if (id === last) return;
+        last = id;
+        onChange();
+      }).data.subscription;
+    } catch { /* No auth client: account changes are still caught on return to the tab. */ }
+    return () => subscription?.unsubscribe();
+  }, [onChange]);
 }
 
 /**
  * Shown only to signed-in accounts whose latest renewal failed. Silent everywhere else:
- * nothing renders until the server confirms an unpaid renewal.
+ * nothing renders until the server confirms an unpaid renewal for the account signed in now.
  */
 export function PaymentFailedNotice({ placement, className, navigate = defaultNavigate }: { placement: PaymentNoticePlacement; className?: string; navigate?: (url: string) => void }) {
-  const [notice, setNotice] = useState<Notice | null>(null);
+  const [shown, setShown] = useState<{ notice: Notice; accountId: string | undefined } | null>(null);
   const [portalPending, setPortalPending] = useState(false);
   const [portalError, setPortalError] = useState(false);
-  const viewed = useRef(false);
+  const request = useRef(0);
+  const viewed = useRef<string | null>(null);
   const awaitingPayment = useRef(false);
 
   const check = useCallback(async () => {
-    if (!documentHasSupabaseAuthCookie(document.cookie) || read("localStorage", DISMISS_KEY) === today()) return;
-    const accountId = accountIdFromCookieHeader(document.cookie);
-    if (recentlyClear(accountId)) return;
-    const { ok, notice: next } = await fetchNotice();
-    if (!ok) return; // Best effort: no notice when the check can't run.
-    setNotice(next);
+    // Latest request wins, and only for the account that asked: a slow answer never restores a stale bill.
+    const id = ++request.current;
+    const accountId = currentAccount();
+    if (!documentHasSupabaseAuthCookie(document.cookie) || recentlyClear(accountId)) {
+      setShown(null);
+      return;
+    }
+    const result = await fetchNotice();
+    if (id !== request.current || accountId !== currentAccount() || !result.ok) return; // Best effort.
+    const next = result.notice;
     if (!next && accountId) write("sessionStorage", CLEAR_KEY, `${accountId}|${Date.now() + CLEAR_TTL_MS}`);
     if (next) write("sessionStorage", CLEAR_KEY, null);
+    setShown(next && read("localStorage", DISMISS_KEY) !== dismissalKey(accountId, next.invoiceId) ? { notice: next, accountId } : null);
   }, []);
+
+  const reset = useCallback(() => {
+    request.current += 1; // Drops any answer still in flight for the previous account.
+    awaitingPayment.current = false;
+    setShown(null);
+    setPortalError(false);
+    void check();
+  }, [check]);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect -- state is only set after the network answer, once per mount
   useEffect(() => { void check(); }, [check]);
-
-  // After "Pay now" opens Stripe in another tab, re-check on return so a paid bill clears at once.
-  useRecheckOnReturn(check, awaitingPayment);
+  useAccountChange(reset);
+  // Back in this tab: another account may have signed in elsewhere, or the bill may now be paid.
+  useOnReturn(useCallback(() => {
+    if (shown && shown.accountId !== currentAccount()) reset();
+    else if (awaitingPayment.current) void check();
+  }, [shown, reset, check]));
 
   useEffect(() => {
-    if (!notice || viewed.current) return;
-    viewed.current = true;
-    track("payment_failed_notice_view", placement, notice);
-  }, [notice, placement]);
+    if (!shown) return;
+    const key = `${shown.accountId ?? ""}|${shown.notice.invoiceId}`;
+    if (viewed.current === key) return;
+    viewed.current = key;
+    track("payment_failed_notice_view", placement, shown.notice);
+  }, [shown, placement]);
 
-  if (!notice) return null;
+  if (!shown) return null;
+  const { notice, accountId } = shown;
   const state = noticeState(notice);
 
   function clicked() {
@@ -166,8 +216,8 @@ export function PaymentFailedNotice({ placement, className, navigate = defaultNa
   }
 
   function dismiss() {
-    write("localStorage", DISMISS_KEY, today());
-    setNotice(null);
+    write("localStorage", DISMISS_KEY, dismissalKey(accountId, notice.invoiceId));
+    setShown(null);
   }
 
   return (
@@ -186,31 +236,71 @@ export function PaymentFailedNotice({ placement, className, navigate = defaultNa
   );
 }
 
+type StepState =
+  | { kind: "loading" }
+  | { kind: "ready"; notice: Notice | null }
+  | { kind: "clear"; paid: boolean };
+
 /**
- * The one step in a checkout or plan change that a failed renewal blocks: pay that bill.
- * Opens Stripe's hosted invoice, or the billing portal when Stripe gives no invoice link
- * (for example a first payment that never completed). Re-checks on return and says when it's paid.
+ * The one step in a checkout that a failed renewal blocks: pay that bill. Opens Stripe's hosted
+ * invoice, or the billing portal when Stripe gives no invoice link (for example a first payment
+ * that never completed). On return it asks the server whether the original bill is paid and
+ * whether checkout would still refuse; it only says so when the server confirms, then calls
+ * `onResolved` so the parent can re-check its own eligibility.
  */
-export function PayFailedRenewalButton({ navigate = defaultNavigate }: { navigate?: (url: string) => void }) {
-  const [state, setState] = useState<{ kind: "loading" } | { kind: "ready"; notice: Notice | null } | { kind: "paid" }>({ kind: "loading" });
+export function PayFailedRenewalButton({ navigate = defaultNavigate, onResolved }: { navigate?: (url: string) => void; onResolved?: () => void }) {
+  const [state, setState] = useState<StepState>({ kind: "loading" });
   const [portalPending, setPortalPending] = useState(false);
   const [portalError, setPortalError] = useState(false);
+  const request = useRef(0);
   const awaitingPayment = useRef(false);
+  const original = useRef<{ invoiceId: string; accountId: string | undefined } | null>(null);
+  const resolved = useRef(onResolved);
+  useEffect(() => { resolved.current = onResolved; }, [onResolved]);
 
   const check = useCallback(async () => {
-    const { ok, notice } = await fetchNotice();
-    // Back from Stripe with nothing left to pay: the purchase can go ahead.
-    if (awaitingPayment.current && ok && !notice) { setState({ kind: "paid" }); return; }
+    const id = ++request.current;
+    const accountId = currentAccount();
+    const asked = original.current;
+    const invoiceId = awaitingPayment.current && asked && asked.accountId === accountId ? asked.invoiceId : undefined;
+    const result = await fetchNotice(invoiceId);
+    if (id !== request.current || accountId !== currentAccount()) return;
+    if (!result.ok) {
+      // A failed first check falls back to the portal; a failed re-check keeps the verified link.
+      setState((current) => current.kind === "loading" ? { kind: "ready", notice: null } : current);
+      return;
+    }
+    if (awaitingPayment.current && !result.purchaseBlocked) {
+      setState({ kind: "clear", paid: Boolean(invoiceId) && result.invoicePaid });
+      resolved.current?.();
+      return;
+    }
+    if (!original.current && result.notice) original.current = { invoiceId: result.notice.invoiceId, accountId };
     setState((current) => {
+      // Keep the link we had unless the server says that bill is paid (then the next blocker, or the portal).
+      const kept = current.kind === "ready" && !result.invoicePaid ? current.notice : null;
+      const notice = result.notice ?? kept;
       if (current.kind === "loading") track("payment_failed_notice_view", "checkout", notice);
       return { kind: "ready", notice };
     });
   }, []);
 
-  useEffect(() => { void check(); }, [check]);
-  useRecheckOnReturn(check, awaitingPayment);
+  const reset = useCallback(() => {
+    request.current += 1;
+    awaitingPayment.current = false;
+    original.current = null;
+    setState({ kind: "loading" });
+    void check();
+  }, [check]);
 
-  if (state.kind === "paid") return <p className={styles.paid} role="status">Payment received. You can continue now.</p>;
+  useEffect(() => { void check(); }, [check]);
+  useAccountChange(reset);
+  useOnReturn(useCallback(() => {
+    if (original.current && original.current.accountId !== currentAccount()) reset();
+    else if (awaitingPayment.current) void check();
+  }, [reset, check]));
+
+  if (state.kind === "clear") return <p className={styles.paid} role="status">{state.paid ? "Payment received. You can continue now." : "You can continue now."}</p>;
   const notice = state.kind === "ready" ? state.notice : null;
 
   function clicked() {

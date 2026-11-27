@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findPaymentFailedNotice, trustedHostedInvoiceUrl, type SubscriptionLike } from "@/lib/payment-failed-notice";
+import { findPaymentFailedNotice, hasLapsedSubscription, trustedHostedInvoiceUrl, type SubscriptionLike } from "@/lib/payment-failed-notice";
 
 const USER = "11111111-1111-4111-8111-111111111111";
 const DAY = 86_400;
@@ -46,8 +46,11 @@ describe("findPaymentFailedNotice", () => {
     expect(findPaymentFailedNotice([sub({ status: "unpaid" }, { next_payment_attempt: null })], ctx)).toMatchObject({ accessEnded: true, accessEndsAt: null });
   });
 
-  it("gives no date while a pause changes the access rules", () => {
+  it("gives no date while a pause or a scheduled plan change can change what the webhook grants", () => {
     expect(findPaymentFailedNotice([sub({ pause_collection: { behavior: "void" } })], ctx)).toMatchObject({ accessEndsAt: null, accessEnded: false });
+    expect(findPaymentFailedNotice([sub({ schedule: "sub_sched_1" })], ctx)).toMatchObject({ accessEndsAt: null, accessEnded: false });
+    // Past the grace with a schedule: no date and no claim that access ended (the webhook may differ).
+    expect(findPaymentFailedNotice([sub({ schedule: "sub_sched_1" })], { ...ctx, nowSeconds: START + 20 * DAY })).toMatchObject({ accessEndsAt: null, accessEnded: false });
   });
 
   it("shows nothing for healthy, cancelled or unattempted bills", () => {
@@ -76,6 +79,31 @@ describe("findPaymentFailedNotice", () => {
 
   it("finds the lapsed subscription among healthy ones", () => {
     expect(findPaymentFailedNotice([sub({ id: "sub_0", status: "active" }), sub({ id: "sub_1" })], ctx)?.invoiceId).toBe("in_1");
+  });
+
+  it("prefers the renewal over another failed bill, whatever the list order", () => {
+    const proration = sub({ id: "sub_p" }, { id: "in_proration", billing_reason: "subscription_update", hosted_invoice_url: null, created: START + 2 * DAY });
+    const renewal = sub({ id: "sub_r" }, { id: "in_renewal", billing_reason: "subscription_cycle", created: START });
+    expect(findPaymentFailedNotice([proration, renewal], ctx)?.invoiceId).toBe("in_renewal");
+    expect(findPaymentFailedNotice([renewal, proration], ctx)?.invoiceId).toBe("in_renewal");
+  });
+
+  it("then prefers a bill Stripe can take payment for, then the newest", () => {
+    const noLink = sub({ id: "sub_a" }, { id: "in_no_link", billing_reason: "subscription_cycle", hosted_invoice_url: null, created: START + 5 * DAY });
+    const payable = sub({ id: "sub_b" }, { id: "in_payable", billing_reason: "subscription_cycle", created: START });
+    expect(findPaymentFailedNotice([noLink, payable], ctx)?.invoiceId).toBe("in_payable");
+    const older = sub({ id: "sub_c" }, { id: "in_older", billing_reason: "subscription_cycle", created: START });
+    const newer = sub({ id: "sub_d" }, { id: "in_newer", billing_reason: "subscription_cycle", created: START + DAY });
+    expect(findPaymentFailedNotice([older, newer], ctx)?.invoiceId).toBe("in_newer");
+  });
+});
+
+describe("hasLapsedSubscription", () => {
+  const lapsed = new Set(["past_due", "unpaid", "incomplete"]);
+  it("matches the checkout gate, including a first payment that never completed", () => {
+    expect(hasLapsedSubscription([sub({ status: "incomplete", latest_invoice: null })], lapsed)).toBe(true);
+    expect(hasLapsedSubscription([sub({ status: "past_due" })], lapsed)).toBe(true);
+    expect(hasLapsedSubscription([sub({ status: "active" }), sub({ status: "canceled" })], lapsed)).toBe(false);
   });
 });
 

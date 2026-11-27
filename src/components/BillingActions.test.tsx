@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const analytics = vi.hoisted(() => ({ trackProductEvent: vi.fn() }));
@@ -164,7 +164,7 @@ describe("CheckoutButtons", () => {
 
   it("asks a lapsed subscriber to pay the failed renewal before buying", async () => {
     fetchMock.mockResolvedValueOnce({ ok: false, status: 409, json: async () => ({ error: "unpaid invoice", code: "PAYMENT_ISSUE" }) });
-    fetchMock.mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ notice: { invoiceId: "in_1", amountCents: 1000, currency: "usd", accessEndsAt: null, accessEnded: false, nextRetryAt: null, payUrl: "https://invoice.stripe.com/i/acct_1/x" } }) });
+    fetchMock.mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ notice: { invoiceId: "in_1", amountCents: 1000, currency: "usd", accessEndsAt: null, accessEnded: false, nextRetryAt: null, payUrl: "https://invoice.stripe.com/i/acct_1/x" }, purchaseBlocked: true }) });
     render(<CheckoutButton interval="monthly" productId="bank_ib_hl" />);
     fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
     expect(await screen.findByRole("alert")).toHaveTextContent("Your last payment didn’t go through. Pay it first, then you can change your plan.");
@@ -176,7 +176,7 @@ describe("CheckoutButtons", () => {
   it("falls back to the billing portal when there is no invoice to pay", async () => {
     const navigate = vi.fn();
     fetchMock.mockResolvedValueOnce({ ok: false, status: 409, json: async () => ({ error: "unpaid invoice", code: "PAYMENT_ISSUE" }) });
-    fetchMock.mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ notice: null }) });
+    fetchMock.mockResolvedValueOnce({ ok: true, status: 200, json: async () => ({ notice: null, purchaseBlocked: true }) });
     render(<CheckoutButton interval="monthly" productId="bank_ib_hl" navigate={navigate} />);
     fireEvent.click(screen.getByRole("button", { name: /choose monthly/i }));
     const portal = await screen.findByRole("button", { name: "Update payment method" });
@@ -352,6 +352,30 @@ describe("PlanCheckout", () => {
     expect(screen.queryByRole("button", { name: /lifetime/i })).not.toBeInTheDocument();
     // No hosted invoice in this response, so the step is the billing portal.
     expect(await screen.findByRole("button", { name: "Update payment method" })).toBeEnabled();
+  });
+
+  it("brings Lifetime checkout back once the server confirms the failed renewal is paid", async () => {
+    document.cookie = `sb-project-auth-token=${encodeURIComponent(JSON.stringify({ user: { id: "11111111-1111-4111-8111-111111111111" } }))}; path=/`;
+    let paid = false;
+    const notice = { invoiceId: "in_1", amountCents: 1000, currency: "usd", accessEndsAt: null, accessEnded: false, nextRetryAt: null, payUrl: "https://invoice.stripe.com/i/acct_1/x" };
+    fetchMock.mockImplementation(async (url: string) => {
+      if (url.startsWith("/api/billing/payment-notice")) return { ok: true, status: 200, json: async () => paid ? { notice: null, purchaseBlocked: false, invoicePaid: true } : { notice, purchaseBlocked: true } };
+      return { ok: true, status: 200, json: async () => paid
+        ? { state: "eligible", priceCents: 29900, currency: "usd", creditCents: 0, renewalStopsAfterPayment: false }
+        : { state: "billing_support", reason: "payment_issue" } };
+    });
+    try {
+      render(<LifetimeCheckout authenticated />);
+      const pay = await screen.findByRole("link", { name: "Pay now" });
+      pay.addEventListener("click", (event) => event.preventDefault());
+      fireEvent.click(pay);
+      paid = true;
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      expect(await screen.findByRole("button", { name: "Unlock lifetime access" })).toBeEnabled();
+      expect(fetchMock).toHaveBeenCalledWith("/api/billing/payment-notice?invoice=in_1", { cache: "no-store" });
+    } finally {
+      document.cookie = "sb-project-auth-token=; Max-Age=0; path=/";
+    }
   });
 
   it("maps Lifetime checkout failures to short copy", async () => {
