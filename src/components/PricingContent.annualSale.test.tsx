@@ -34,7 +34,8 @@ describe("annual sale on the pricing page", () => {
     render(<PricingContent authenticated={false} hasPaidAccess={false} initialInterval="annual" />);
     const checkboxes = within(card("Build Your Plan")).getAllByRole("checkbox");
 
-    expect(saleNote("Build Your Plan")).toBe("30–35% off your first year");
+    expect(headline("Build Your Plan")).toEqual({ was: "$7", now: "$4.90", tag: "−30–35% first year" });
+    expect(saleNote("Build Your Plan")).toBe("From $58.80 for your first year then $84/yr");
     checkboxes.slice(0, 3).forEach((checkbox) => fireEvent.click(checkbox));
     expect(headline("Build Your Plan")).toEqual({ was: "$10", now: "$7", tag: "−30% first year" });
     expect(saleNote("Build Your Plan")).toBe("$84 for your first year then $120/yr");

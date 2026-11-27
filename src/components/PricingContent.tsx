@@ -201,7 +201,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
         : "Billed monthly";
 
     const saleShown = annualSaleShown && !hasPaidAccess;
-    const saleAnnualCents = saleShown ? isBuilder ? builderAnnualTotalCents : plan.mode === "all" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.oneBank.annualCents : null;
+    // Before 2 banks are picked, the builder shows its starting (2-bank) price like the other cards.
+    const builderSaleFrom = isBuilder && builderAnnualTotalCents === null;
+    const saleAnnualCents = saleShown ? isBuilder ? builderAnnualTotalCents ?? PRICING_MODEL.builder.baseAnnualCents : plan.mode === "all" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.oneBank.annualCents : null;
+    const builderSalePercentRange = `${ANNUAL_SALE.tiers.builderSmall.percentOff}–${ANNUAL_SALE.tiers.builderLarge.percentOff}`;
     const salePercent = ANNUAL_SALE.tiers[isBuilder ? annualSaleTierForBankCount(Math.max(2, builderQuantity)) : plan.mode === "all" ? "all" : "single"].percentOff;
 
     const current = hasPaidAccess && currentPlanMode === plan.mode;
@@ -218,11 +221,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           {current ? <span className="pricing-badge pricing-badge-current">{plan.mode === "single" && individualBankSubscriptions > 1 ? "Your subscriptions" : "Your access"}</span> : plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
         {saleAnnualCents !== null
-          ? <AnnualSaleHeadline annualCents={saleAnnualCents} percentOff={salePercent} live={isBuilder} />
+          ? <AnnualSaleHeadline annualCents={saleAnnualCents} percentOff={salePercent} live={isBuilder} tagPercent={builderSaleFrom ? builderSalePercentRange : undefined} />
           : <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>}
         {!hasPaidAccess && interval === "annual" ? saleShown
-          ? <AnnualSalePrice annualCents={saleAnnualCents} percentOff={salePercent}
-            percentLabel={isBuilder ? `${ANNUAL_SALE.tiers.builderSmall.percentOff}–${ANNUAL_SALE.tiers.builderLarge.percentOff}%` : undefined} />
+          ? <AnnualSalePrice annualCents={saleAnnualCents} percentOff={salePercent} from={builderSaleFrom} />
           : <p className="plan-billing-note">{billingNote}</p> : null}
         {hasPaidAccess && !canAdd && plan.mode === "all" ? null : plan.mode === "all" ? (
           <PlanCheckout
