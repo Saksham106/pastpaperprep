@@ -30,6 +30,11 @@
   font-weight: 500;
 }
 
+.paid {
+  margin: 0;
+  font-weight: 600;
+}
+
 .action {
   flex: 0 0 auto;
   min-height: 42px;

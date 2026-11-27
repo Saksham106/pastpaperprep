@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const trackProductEvent = vi.fn();
 vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: (...args: unknown[]) => trackProductEvent(...args) }));
-import { PaymentFailedNotice, noticeCopy } from "@/components/PaymentFailedNotice";
+import { PayFailedRenewalButton, PaymentFailedNotice, noticeCopy } from "@/components/PaymentFailedNotice";
 import type { PaymentFailedNotice as Notice } from "@/lib/payment-failed-notice";
 
 const grace: Notice = {
@@ -66,10 +66,11 @@ describe("PaymentFailedNotice", () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
-  it("explains lost access and the checkout block on pricing", () => {
+  it("explains lost access, and on pricing that paying is how to change plan", () => {
     const ended = { ...grace, accessEnded: true, accessEndsAt: null };
     expect(noticeCopy(ended, "bank")).toBe("Your latest renewal payment of $10.00 didn't go through, so your access has stopped. Pay now to restore it.");
-    expect(noticeCopy(grace, "pricing")).toBe("Your latest renewal payment of $10.00 didn't go through. Pay by Dec 10 to keep access. New plans unlock once it's paid.");
+    expect(noticeCopy(grace, "pricing")).toBe("Your latest renewal payment of $10.00 didn't go through. Pay by Dec 10 to keep access and change your plan.");
+    expect(noticeCopy(ended, "pricing")).toBe("Your latest renewal payment of $10.00 didn't go through, so your access has stopped. Pay now to restore it and change your plan.");
     expect(noticeCopy({ ...grace, accessEndsAt: null }, "account")).toBe("Your latest renewal payment of $10.00 didn't go through. Pay now to keep access.");
   });
 
@@ -121,5 +122,27 @@ describe("PaymentFailedNotice", () => {
     await waitFor(() => expect(fetchMock).toHaveBeenCalled());
     expect(container).toBeEmptyDOMElement();
     expect(trackProductEvent).not.toHaveBeenCalled();
+  });
+
+  describe("PayFailedRenewalButton (checkout step)", () => {
+    it("links to the invoice, then says the purchase can go ahead once it's paid", async () => {
+      respond(grace);
+      render(<PayFailedRenewalButton />);
+      const pay = await screen.findByRole("link", { name: "Pay now" });
+      expect(pay).toHaveAttribute("href", grace.payUrl);
+      expect(trackProductEvent).toHaveBeenCalledWith("payment_failed_notice_view", { placement: "checkout", state: "grace", action: "pay" });
+      fireEvent.click(pay);
+      expect(trackProductEvent).toHaveBeenCalledWith("payment_failed_notice_click", { placement: "checkout", state: "grace", action: "pay" });
+      respond(null);
+      await act(async () => { window.dispatchEvent(new Event("focus")); });
+      expect(await screen.findByRole("status")).toHaveTextContent("Payment received. You can continue now.");
+    });
+
+    it("offers the billing portal when the check fails or finds no invoice", async () => {
+      fetchMock.mockResolvedValue(new Response("{}", { status: 503 }));
+      render(<PayFailedRenewalButton />);
+      expect(await screen.findByRole("button", { name: "Update payment method" })).toBeEnabled();
+      expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    });
   });
 });
