@@ -5,6 +5,7 @@ import { getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { withFailureReporting } from "@/lib/route-failure-reporting";
+import { verifyCurrentPeriodPaid } from "@/lib/pause-period-payment";
 import { isPauseMonths, pauseStateOf, pauseWindow, PAUSE_ACCESS_UNTIL_KEY, PAUSE_RESUME_MARGIN_MS, PAUSE_RESUMES_AT_KEY, type PauseMonths } from "@/lib/subscription-pause";
 import {
   assertNoOpenBilling, isPauseEnabled, lifecycleJson as json, LifecycleConflict as Conflict, loadActiveSubscription, monthlyOrAnnual, releaseReservation,
@@ -92,7 +93,7 @@ async function handlePOST(request: Request) {
     if (state.kind !== "paused") throw new Conflict(state.kind === "scheduled" ? "Your pause hasn't started yet. Undo it instead." : "This subscription isn't paused");
     // Only classic billing mode charges for an anchor reset in the same call (with error_if_incomplete, the
     // unpause and the payment then succeed or fail together). Flexible mode would unpause without invoicing.
-    if (sub.billing_mode?.type !== "classic") throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
+    if (sub.billing_mode?.type !== "classic" || sub.collection_method !== "charge_automatically") throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
     const requestedAt = Date.now();
     const marker = new Date(requestedAt - SKEW_MS + PAUSE_RESUME_MARGIN_MS).toISOString();
     providerAttempted = true;
@@ -113,11 +114,11 @@ async function handlePOST(request: Request) {
       }
       throw error;
     }
-    const verified = await stripe.subscriptions.retrieve(sub.id, { expand: ["latest_invoice"] });
+    const verified = await stripe.subscriptions.retrieve(sub.id);
     const item = verified.items?.data?.[0];
-    const invoice = typeof verified.latest_invoice === "object" ? verified.latest_invoice : null;
+    // Same exact-period proof the webhook uses: an earlier paid invoice can't stand in for today's charge.
     if (!owned(verified) || verified.pause_collection || !item || item.current_period_start * 1000 < requestedAt - SKEW_MS ||
-      !invoice || invoice.status !== "paid" || !(invoice.amount_paid > 0)) throw new Error("Stripe early resume readback mismatch");
+      !(await verifyCurrentPeriodPaid(stripe, verified))) throw new Error("Stripe early resume readback mismatch");
     await releaseReservation(admin, user.id, intentId);
     held = false;
     return json({ status: "resumed", renewsAt: new Date(item.current_period_end * 1000).toISOString() });

@@ -1,5 +1,5 @@
 import type Stripe from "stripe";
-import { isPauseRelevant } from "@/lib/subscription-pause";
+import { isPauseRelevant, PAUSE_ACCESS_UNTIL_KEY } from "@/lib/subscription-pause";
 
 const idOf = (value: unknown): string | null => typeof value === "string" ? value : value && typeof value === "object" && typeof (value as { id?: unknown }).id === "string" ? (value as { id: string }).id : null;
 
@@ -10,22 +10,43 @@ export function subscriptionPauseRelevant(subscription: Stripe.Subscription): bo
   return isPauseRelevant(Boolean(subscription.pause_collection), subscription.metadata, item.current_period_start);
 }
 
+/** A paid invoice's snapshot of subscription metadata says it was billed while the app's pause window existed. */
+export function invoiceFromPausedSubscription(invoice: Stripe.Invoice): boolean {
+  const metadata = invoice.parent?.type === "subscription_details" ? invoice.parent.subscription_details?.metadata : null;
+  return typeof metadata?.[PAUSE_ACCESS_UNTIL_KEY] === "string" && metadata[PAUSE_ACCESS_UNTIL_KEY] !== "";
+}
+
 /**
- * True only when the latest invoice is a paid invoice of this subscription with a line ending exactly at the
- * current period end. Voided pause invoices, drafts and open renewals return false. Lookup failures throw, so the
- * webhook retries instead of guessing.
+ * A non-prorated line that bills exactly this item for exactly its current recurring period, at its current price
+ * and quantity. Partial periods, credits and other items never count as paying for the period.
+ */
+function paysCurrentPeriod(line: Stripe.InvoiceLineItem, subscription: Stripe.Subscription, item: Stripe.SubscriptionItem): boolean {
+  const details = line.parent?.type === "subscription_item_details" ? line.parent.subscription_item_details : null;
+  const linePrice = line.pricing?.type === "price_details" ? idOf(line.pricing.price_details?.price) : null;
+  return details !== null && details !== undefined && details.proration === false &&
+    idOf(details.subscription) === subscription.id && details.subscription_item === item.id &&
+    line.period.start === item.current_period_start && line.period.end === item.current_period_end &&
+    linePrice === item.price.id && line.quantity === item.quantity && typeof line.amount === "number" && line.amount >= 0;
+}
+
+/**
+ * True when a paid invoice of this subscription contains a line paying for exactly the current period. Searches the
+ * subscription's paid invoices instead of trusting the latest one, so a newer unrelated invoice can't hide the
+ * period's payment. Zero-due (fully discounted) invoices count. Lookup failures throw so the webhook retries.
  */
 export async function verifyCurrentPeriodPaid(stripe: Stripe, subscription: Stripe.Subscription): Promise<boolean> {
   const item = subscription.items?.data?.length === 1 ? subscription.items.data[0] : null;
-  const invoiceId = idOf(subscription.latest_invoice);
-  if (!item || !invoiceId) return false;
-  const invoice = await stripe.invoices.retrieve(invoiceId, {}, { timeout: 60_000 });
-  if (invoice.id !== invoiceId || idOf(invoice.customer) !== idOf(subscription.customer) || invoice.status !== "paid") return false;
-  if (invoice.parent?.type !== "subscription_details" || idOf(invoice.parent.subscription_details?.subscription) !== subscription.id) return false;
-  if (invoice.lines.has_more) return false;
-  const coversPeriod = invoice.lines.data.some((line) =>
-    line.parent?.type === "subscription_item_details" &&
-    idOf(line.parent.subscription_item_details?.subscription) === subscription.id &&
-    line.period.end === item.current_period_end && line.period.start >= item.current_period_start);
-  return coversPeriod && Number.isSafeInteger(invoice.amount_due) && Number.isSafeInteger(invoice.amount_paid) && invoice.amount_due >= 0 && invoice.amount_paid >= invoice.amount_due;
+  if (!item) return false;
+  const invoices = await stripe.invoices.list({ subscription: subscription.id, status: "paid", limit: 100 }, { timeout: 60_000 });
+  for (const invoice of invoices.data) {
+    if (invoice.status !== "paid" || idOf(invoice.customer) !== idOf(subscription.customer)) continue;
+    if (invoice.parent?.type !== "subscription_details" || idOf(invoice.parent.subscription_details?.subscription) !== subscription.id) continue;
+    if (!Number.isSafeInteger(invoice.amount_due) || !Number.isSafeInteger(invoice.amount_paid) || invoice.amount_due < 0 || invoice.amount_paid < invoice.amount_due) continue;
+    const lines = invoice.lines.has_more
+      ? await stripe.invoices.listLineItems(invoice.id, { limit: 100 }, { timeout: 60_000 })
+      : invoice.lines;
+    if (lines.has_more) continue;
+    if (lines.data.some((line) => paysCurrentPeriod(line, subscription, item))) return true;
+  }
+  return false;
 }

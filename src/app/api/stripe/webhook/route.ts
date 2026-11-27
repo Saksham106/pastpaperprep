@@ -6,7 +6,7 @@ import { processReferralInvoicePaid, processReferralChargeRefunded, processRefer
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
-import { subscriptionPauseRelevant, verifyCurrentPeriodPaid } from "@/lib/pause-period-payment";
+import { invoiceFromPausedSubscription, subscriptionPauseRelevant, verifyCurrentPeriodPaid } from "@/lib/pause-period-payment";
 import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
@@ -237,7 +237,10 @@ async function handlePOST(request: Request) {
     // Most paid invoices have nothing to do with entitlements. Two kinds reconcile them: the app editor's exact
     // scheduled renewal, and a renewal (or early-resume charge) for a period a pause touches, whose access
     // waits for this payment.
-    if (invoice.status !== "paid" || (invoice.billing_reason !== "subscription_cycle" && invoice.billing_reason !== "subscription_update") || typeof subscriptionId !== "string") {
+    // An off-cycle (`subscription_update`) payment matters only as an early-resume charge: the invoice's own
+    // metadata snapshot shows the app's pause window, so unrelated paid invoices skip any extra Stripe read.
+    const earlyResumeCharge = invoice.billing_reason === "subscription_update" && invoiceFromPausedSubscription(invoice);
+    if (invoice.status !== "paid" || (invoice.billing_reason !== "subscription_cycle" && !earlyResumeCharge) || typeof subscriptionId !== "string") {
       return NextResponse.json({ received: true });
     }
     try {
@@ -341,8 +344,11 @@ async function handlePOST(request: Request) {
 
       // A pause keeps Stripe's status `active` while voiding invoices: for a period it touches, access needs
       // a verified paid invoice for that exact period.
+      // Proof is only needed to grant access: a canceled/deleted/unpaid subscription is revoked without it, so a
+      // slow invoice lookup can never delay a terminal revocation.
       let pausePeriodPaid = false;
-      if (subscriptionPauseRelevant(currentSubscription as Stripe.Subscription)) {
+      const wouldGrant = event.type !== "customer.subscription.deleted" && (currentSubscription.status === "active" || currentSubscription.status === "trialing");
+      if (wouldGrant && subscriptionPauseRelevant(currentSubscription as Stripe.Subscription)) {
         try {
           pausePeriodPaid = await verifyCurrentPeriodPaid(stripe, currentSubscription as Stripe.Subscription);
         } catch {
