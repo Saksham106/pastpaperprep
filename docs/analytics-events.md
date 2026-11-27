@@ -23,7 +23,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 
 **Transport (since 2026-11-25).** Both browser clients send to `/pp-relay` on our own domain (`BROWSER_POSTHOG_API_HOST`), not to posthog.com. Tracker blockers block posthog.com, and EasyPrivacy (uBlock Origin's default list) also blocks the usual proxy paths (`/ingest/i/v0/*`, `/ingest/array/*/config.js`), PostHog's batch path `/i/v0/e/` on any host, and the add-on scripts `dead-clicks-autocapture.js` / `web-vitals-with-attribution.js` by name. So:
 - `vercel.json` `routes` forward `/pp-relay/static/*` and `/pp-relay/array/*` to `us-assets.i.posthog.com` and everything else to `us.i.posthog.com`. This runs at Vercel's edge (Edge Requests and Fast Data Transfer, no function).
-- Each route **deletes the `cookie` request header**, because same-origin requests would otherwise carry the Supabase session cookies to PostHog.
+- Each route **deletes the `cookie` and `referer` request headers**. Same-origin requests would otherwise carry the Supabase session cookies, and a Referer with the full page URL (query string included), to PostHog. The event scrubber never sees HTTP headers.
 - Vercel puts the visitor's real IP first in `x-forwarded-for`, which PostHog reads for the cookieless server hash. This only holds while nothing (such as a Cloudflare proxy) sits in front of Vercel.
 - `pinCaptureEndpoint` keeps the SDK on the classic `/e/` endpoint (PostHog's remote config would move it to `/i/v0/e/`).
 - The two add-on scripts are bundled into the lazy analytics chunk, so the SDK never fetches them by name.

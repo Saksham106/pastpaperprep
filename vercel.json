@@ -9,26 +9,6 @@
   },
   "routes": [
     {
-      "src": "/__relay-check/(.*)",
-      "dest": "https://httpbin.org/anything/$1",
-      "transforms": [
-        {
-          "type": "request.headers",
-          "op": "delete",
-          "target": {
-            "key": "cookie"
-          }
-        },
-        {
-          "type": "request.headers",
-          "op": "delete",
-          "target": {
-            "key": "referer"
-          }
-        }
-      ]
-    },
-    {
       "src": "/pp-relay/static/(.*)",
       "dest": "https://us-assets.i.posthog.com/static/$1",
       "transforms": [
