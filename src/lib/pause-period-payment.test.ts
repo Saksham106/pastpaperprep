@@ -46,7 +46,10 @@ describe("paused period payment", () => {
     await expect(verifyCurrentPeriodPaid(failing, sub())).rejects.toThrow("timeout");
   });
   it("detects pause-touched periods and early-resume invoices", () => {
-    expect(subscriptionPauseRelevant(sub())).toBe(true);
+    const appPause = { pause_access_until: "2026-12-26T00:00:00.000Z", pause_resumes_at: "2027-01-26T00:00:00.000Z" };
+    expect(subscriptionPauseRelevant(sub({ metadata: appPause }))).toBe(true);
+    // Only app-owned pauses: a pause_collection set elsewhere keeps the usual rules.
+    expect(subscriptionPauseRelevant(sub())).toBe(false);
     expect(subscriptionPauseRelevant(sub({ pause_collection: null }))).toBe(false);
     expect(invoiceFromPausedSubscription(invoice([], { parent: { type: "subscription_details", subscription_details: { subscription: "sub_1", metadata: { pause_access_until: "2026-12-26T00:00:00.000Z" } } } }) as unknown as Stripe.Invoice)).toBe(true);
     expect(invoiceFromPausedSubscription(invoice([]) as unknown as Stripe.Invoice)).toBe(false);

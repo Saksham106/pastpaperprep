@@ -62,26 +62,28 @@ export function readPauseWindow(metadata: MetadataLike): { accessUntil: Date; re
 export const PAUSE_PAYMENT_PROOF_TAIL_MS = 3 * DAY_MS;
 
 /**
- * Whether the current period is touched by a pause: a collection pause is set (by this app or anyone else), or the
- * period starts before the app's resume boundary (plus a short tail covering the first resumed renewal).
+ * Whether an app-owned pause touches the current period: the app's pause window exists, and either collection is
+ * paused or the period starts before the resume boundary (plus a short tail covering the first resumed renewal).
  * For these periods Stripe's `active` status proves nothing, because voided invoices keep it active.
+ * A `pause_collection` set outside the app (no window) is deliberately out of scope and keeps the usual rules.
  */
 export function isPauseRelevant(pauseCollectionSet: boolean, metadata: MetadataLike, periodStartUnix: number): boolean {
-  if (pauseCollectionSet) return true;
   const window = readPauseWindow(metadata);
-  return window !== null && periodStartUnix * 1000 < window.resumesAt.getTime() + PAUSE_PAYMENT_PROOF_TAIL_MS;
+  if (!window) return false;
+  return pauseCollectionSet || periodStartUnix * 1000 < window.resumesAt.getTime() + PAUSE_PAYMENT_PROOF_TAIL_MS;
 }
 
 /**
- * Access for a pause-relevant period. With a verified paid invoice for this exact period, the full period stands
- * (this keeps already-paid access for pauses made outside the app). Without one, access stops at the app's
- * paid-through date, or, with no app record, at the period start: a voided or unpaid renewal never grants access.
+ * Access for a period an app-owned pause touches. With a verified paid invoice for this exact period, the full
+ * period stands. Without one, access still runs to the app's recorded paid-through date (a missing match is not
+ * proof of nonpayment for that time), but a voided or unpaid renewal after it never grants access.
  */
 export function pauseAccessExpiry(input: { expiresAt: string | null; periodStartUnix: number; metadata: MetadataLike; pauseCollectionSet: boolean; periodPaid: boolean }): string | null {
   const { expiresAt } = input;
   if (expiresAt === null || !isPauseRelevant(input.pauseCollectionSet, input.metadata, input.periodStartUnix) || input.periodPaid) return expiresAt;
   const window = readPauseWindow(input.metadata);
-  const cap = window ? window.accessUntil.getTime() : input.periodStartUnix * 1000;
+  if (!window) return expiresAt;
+  const cap = window.accessUntil.getTime();
   return Date.parse(expiresAt) <= cap ? expiresAt : new Date(cap).toISOString();
 }
 

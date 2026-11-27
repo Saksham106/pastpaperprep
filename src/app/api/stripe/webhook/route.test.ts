@@ -444,16 +444,29 @@ describe("POST /api/stripe/webhook", () => {
     const paidList = (...invoices: unknown[]) => listInvoices.mockResolvedValue({ data: invoices, has_more: false });
     const applied = () => rpc.mock.calls.find(([name]) => name === "apply_stripe_subscription_event")?.[1] as { p_status: string; p_expires_at: string | null };
 
-    it("keeps already-paid access for an outside pause even when a newer unrelated invoice is latest", async () => {
+    // App-owned pause: paid through START (the period before), resuming after this period.
+    const appPause = { user_id: userId, product_id: "bundle_all", pause_access_until: new Date(START * 1000).toISOString(), pause_resumes_at: new Date((END + 30 * 86400) * 1000).toISOString() };
+
+    it("keeps the usual rules for a pause made outside the app, even after a paid mid-cycle plan change", async () => {
+      // Renewal paid the period at the old price; a paid proration covered the change. No app pause metadata.
       retrieveSubscription.mockResolvedValue(pausedSub());
+      paidList(invoiceWith("paid", { lines: { has_more: false, data: [periodLine({ pricing: { type: "price_details", price_details: { price: "price_old" } } })] } }),
+        invoiceWith("paid", { id: "in_proration", billing_reason: "subscription_update", lines: { has_more: false, data: [periodLine({ period: { start: START + 500, end: END } })] } }));
+      constructEvent.mockReturnValue(subscriptionEvent);
+      expect((await POST(request())).status).toBe(200);
+      expect(listInvoices).not.toHaveBeenCalled();
+      expect(applied()).toMatchObject({ p_status: "active", p_expires_at: new Date(END * 1000).toISOString() });
+    });
+    it("keeps paid access inside an app pause even when a newer unrelated invoice is latest", async () => {
+      retrieveSubscription.mockResolvedValue(pausedSub({ metadata: appPause }));
       paidList(invoiceWith("paid"));
       constructEvent.mockReturnValue(subscriptionEvent);
       expect((await POST(request())).status).toBe(200);
       expect(listInvoices).toHaveBeenCalledWith({ subscription: "sub_1", status: "paid", limit: 100 }, expect.any(Object));
       expect(applied()).toMatchObject({ p_status: "active", p_expires_at: new Date(END * 1000).toISOString() });
     });
-    it("grants nothing for a voided paused period, or for a partial-period credit", async () => {
-      retrieveSubscription.mockResolvedValue(pausedSub());
+    it("grants nothing for a voided app-paused period, or for a partial-period credit", async () => {
+      retrieveSubscription.mockResolvedValue(pausedSub({ metadata: appPause }));
       paidList(invoiceWith("paid", { lines: { has_more: false, data: [periodLine({ period: { start: START + 500, end: END } })] } }));
       constructEvent.mockReturnValue(subscriptionEvent);
       expect((await POST(request())).status).toBe(200);
@@ -475,14 +488,14 @@ describe("POST /api/stripe/webhook", () => {
       expect(applied()).toMatchObject({ p_status: "active", p_expires_at: new Date(END * 1000).toISOString() });
     });
     it("retries a grant when the invoice lookup fails", async () => {
-      retrieveSubscription.mockResolvedValue(pausedSub());
+      retrieveSubscription.mockResolvedValue(pausedSub({ metadata: appPause }));
       listInvoices.mockRejectedValue(new Error("timeout"));
       constructEvent.mockReturnValue(subscriptionEvent);
       expect((await POST(request())).status).toBe(500);
       expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
     });
     it("still revokes a canceled paused subscription when the invoice lookup would fail", async () => {
-      retrieveSubscription.mockResolvedValue(pausedSub({ status: "canceled" }));
+      retrieveSubscription.mockResolvedValue(pausedSub({ status: "canceled", metadata: appPause }));
       listInvoices.mockRejectedValue(new Error("timeout"));
       constructEvent.mockReturnValue({ ...subscriptionEvent, type: "customer.subscription.deleted" });
       expect((await POST(request())).status).toBe(200);
@@ -494,6 +507,15 @@ describe("POST /api/stripe/webhook", () => {
       expect((await POST(request())).status).toBe(200);
       expect(retrieveSubscription).not.toHaveBeenCalled();
       expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+    });
+    it("restores access from a paid renewal after an app pause even when a newer unrelated invoice is latest", async () => {
+      const metadata = { user_id: userId, product_id: "bundle_all", pause_access_until: new Date((START - 30 * 86400) * 1000).toISOString(), pause_resumes_at: new Date(START * 1000).toISOString() };
+      const renewal = invoiceWith("paid", { id: "in_renewal" });
+      retrieveSubscription.mockResolvedValue(pausedSub({ pause_collection: null, metadata, latest_invoice: "in_newer_unrelated" }));
+      paidList(renewal);
+      constructEvent.mockReturnValue({ id: "evt_renewal_paid", created: 1_800_000_002, type: "invoice.paid", data: { object: renewal } });
+      expect((await POST(request())).status).toBe(200);
+      expect(applied()).toMatchObject({ p_event_id: "evt_renewal_paid", p_status: "active", p_expires_at: new Date(END * 1000).toISOString() });
     });
     it("re-syncs on an early-resume charge, recognised from the invoice's own metadata", async () => {
       const metadata = { user_id: userId, product_id: "bundle_all", pause_access_until: new Date((START - 30 * 86400) * 1000).toISOString(), pause_resumes_at: new Date((START + 86400 - 60) * 1000).toISOString() };

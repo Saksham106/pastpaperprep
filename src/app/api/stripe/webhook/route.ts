@@ -246,13 +246,14 @@ async function handlePOST(request: Request) {
     try {
       const current = await stripe.subscriptions.retrieve(subscriptionId, {}, { timeout: 60_000 });
       const latestInvoiceId = typeof current.latest_invoice === "string" ? current.latest_invoice : current.latest_invoice?.id;
-      if (latestInvoiceId !== invoice.id) return NextResponse.json({ received: true });
       const scheduleId = typeof current.schedule === "string" ? current.schedule : current.schedule?.id;
       if (!scheduleId) {
+        // App-owned pause: re-sync, and let the sync verify the current period's payment under its lease.
+        // This paid event needn't be the latest invoice (a newer unrelated invoice must not block recovery).
         if (!subscriptionPauseRelevant(current)) return NextResponse.json({ received: true });
         invoicePaidReference = subscriptionId;
-        invoicePaidId = invoice.id;
       } else {
+        if (latestInvoiceId !== invoice.id) return NextResponse.json({ received: true });
         if (invoice.billing_reason !== "subscription_cycle") return NextResponse.json({ received: true });
         const schedule = await stripe.subscriptionSchedules.retrieve(scheduleId, {}, { timeout: 60_000 });
         if (schedule.metadata?.owner !== "pastpaperprep") return NextResponse.json({ received: true });

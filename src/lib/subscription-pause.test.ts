@@ -28,9 +28,10 @@ describe("subscription pause", () => {
     // ...and full access once it is.
     expect(expiry("2027-03-26T00:00:00.000Z", "2027-02-26T00:00:00Z", metadata, false, true)).toBe("2027-03-26T00:00:00.000Z");
   });
-  it("keeps paid access for a pause made outside the app, but never grants its voided renewals", () => {
-    expect(expiry("2026-12-26T00:00:00.000Z", "2026-11-26T00:00:00Z", {}, true, true)).toBe("2026-12-26T00:00:00.000Z");
-    expect(expiry("2027-01-26T00:00:00.000Z", "2026-12-26T00:00:00Z", {}, true, false)).toBe("2026-12-26T00:00:00.000Z");
+  it("leaves a pause made outside the app to the usual rules", () => {
+    // No app pause window: a missing exact match is never treated as nonpayment.
+    expect(isPauseRelevant(true, {}, unix("2026-12-26T00:00:00Z"))).toBe(false);
+    expect(expiry("2027-01-26T00:00:00.000Z", "2026-12-26T00:00:00Z", {}, true, false)).toBe("2027-01-26T00:00:00.000Z");
   });
   it("only applies near a pause", () => {
     expect(isPauseRelevant(false, {}, unix("2026-12-26T00:00:00Z"))).toBe(false);
