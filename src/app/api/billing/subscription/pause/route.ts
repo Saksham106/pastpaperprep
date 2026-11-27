@@ -18,7 +18,7 @@ const SKEW_MS = 60_000;
 
 async function handlePOST(request: Request) {
   if (request.headers.get("origin") !== new URL(request.url).origin) return json({ error: "Origin not allowed" }, 403);
-  if (process.env.STRIPE_PLAN_EDITOR_ENABLED !== "true" || !isPauseEnabled()) return json({ error: "Pausing is unavailable" }, 404);
+  if (process.env.STRIPE_PLAN_EDITOR_ENABLED !== "true") return json({ error: "Pausing is unavailable" }, 404);
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return json({ error: "Authentication required" }, 401);
@@ -30,6 +30,8 @@ async function handlePOST(request: Request) {
     if (!body || typeof body !== "object" || Array.isArray(body) || !INTENTS.has(body.intent)) return json({ error: "Invalid pause intent" }, 400);
     intent = body.intent as Intent;
     if (intent === "pause") {
+      // The flag only stops new bookings: anyone already paused can always undo or resume.
+      if (!isPauseEnabled()) return json({ error: "Pausing is unavailable" }, 404);
       if (!isPauseMonths(body.months)) return json({ error: "Choose 1, 2 or 3 months" }, 400);
       months = body.months;
     } else if (body.months !== undefined) return json({ error: "Invalid pause intent" }, 400);
@@ -88,6 +90,9 @@ async function handlePOST(request: Request) {
     // and only if the payment goes through. Moving the resume marker in the same write means that if Stripe did
     // not start a new paid period, the current (voided) period stays capped instead of granting free access.
     if (state.kind !== "paused") throw new Conflict(state.kind === "scheduled" ? "Your pause hasn't started yet. Undo it instead." : "This subscription isn't paused");
+    // Only classic billing mode charges for an anchor reset in the same call (with error_if_incomplete, the
+    // unpause and the payment then succeed or fail together). Flexible mode would unpause without invoicing.
+    if (sub.billing_mode?.type !== "classic") throw new Conflict("Resuming early isn't available for this plan yet. Email hello@pastpaperprep.com and we'll resume it for you.");
     const requestedAt = Date.now();
     const marker = new Date(requestedAt - SKEW_MS + PAUSE_RESUME_MARGIN_MS).toISOString();
     providerAttempted = true;

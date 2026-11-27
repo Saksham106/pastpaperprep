@@ -105,7 +105,7 @@ async function handlePOST(request: Request) {
       if (verified.id !== sub.id || verified.customer !== customerId || verified.metadata?.user_id !== user.id || verified.status !== "active" || verified.cancel_at_period_end || !applied || verified.items?.data?.[0]?.current_period_end !== periodEnd) throw new Error("Stripe retention discount readback mismatch");
       await releaseReservation(admin, user.id, intentId);
       held = false;
-      return json({ status: "discount_applied", percentOff: RETENTION_DISCOUNT_PERCENT, nextPaymentAt: new Date(periodEnd * 1000).toISOString() });
+      return json({ status: "discount_applied", percentOff: RETENTION_DISCOUNT_PERCENT });
     }
 
     const desired = intent === "cancel";

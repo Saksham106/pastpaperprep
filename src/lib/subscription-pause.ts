@@ -58,19 +58,31 @@ export function readPauseWindow(metadata: MetadataLike): { accessUntil: Date; re
   return { accessUntil: new Date(a), resumesAt: new Date(b) };
 }
 
+/** Periods starting up to this long after the resume boundary still need a verified payment (the first resumed renewal). */
+export const PAUSE_PAYMENT_PROOF_TAIL_MS = 3 * DAY_MS;
+
 /**
- * Access cap for the webhook sync. A period that starts before the resume boundary (less the margin) is a
- * paused period: its invoice was voided, so access stops at the paid-through date. Returns the capped expiry.
+ * Whether the current period is touched by a pause: a collection pause is set (by this app or anyone else), or the
+ * period starts before the app's resume boundary (plus a short tail covering the first resumed renewal).
+ * For these periods Stripe's `active` status proves nothing, because voided invoices keep it active.
  */
-export function capExpiryForPause(expiresAt: string | null, periodStartUnix: number, metadata: MetadataLike, pauseCollectionSet: boolean): string | null {
-  if (expiresAt === null) return null;
+export function isPauseRelevant(pauseCollectionSet: boolean, metadata: MetadataLike, periodStartUnix: number): boolean {
+  if (pauseCollectionSet) return true;
   const window = readPauseWindow(metadata);
-  if (!window) {
-    // A pause set outside this app has no paid-through record: don't grant the voided periods.
-    return pauseCollectionSet ? new Date(Math.min(Date.parse(expiresAt), periodStartUnix * 1000)).toISOString() : expiresAt;
-  }
-  if (periodStartUnix * 1000 >= window.resumesAt.getTime() - PAUSE_RESUME_MARGIN_MS) return expiresAt;
-  return Date.parse(expiresAt) <= window.accessUntil.getTime() ? expiresAt : window.accessUntil.toISOString();
+  return window !== null && periodStartUnix * 1000 < window.resumesAt.getTime() + PAUSE_PAYMENT_PROOF_TAIL_MS;
+}
+
+/**
+ * Access for a pause-relevant period. With a verified paid invoice for this exact period, the full period stands
+ * (this keeps already-paid access for pauses made outside the app). Without one, access stops at the app's
+ * paid-through date, or, with no app record, at the period start: a voided or unpaid renewal never grants access.
+ */
+export function pauseAccessExpiry(input: { expiresAt: string | null; periodStartUnix: number; metadata: MetadataLike; pauseCollectionSet: boolean; periodPaid: boolean }): string | null {
+  const { expiresAt } = input;
+  if (expiresAt === null || !isPauseRelevant(input.pauseCollectionSet, input.metadata, input.periodStartUnix) || input.periodPaid) return expiresAt;
+  const window = readPauseWindow(input.metadata);
+  const cap = window ? window.accessUntil.getTime() : input.periodStartUnix * 1000;
+  return Date.parse(expiresAt) <= cap ? expiresAt : new Date(cap).toISOString();
 }
 
 export type PauseState =

@@ -6,7 +6,7 @@ import { ArrowLeft, CalendarBlank, CheckCircle, Pause, Sparkle, Stack, Tag } fro
 import { formatPrice, priceForBankCount } from "@/lib/pricing-model";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { CANCEL_COMMENT_MAX_LENGTH, CANCEL_REASONS, isCancelReason, type CancelReason, type RetentionDecision, type RetentionOffer } from "@/lib/retention-offer";
-import { addBillingMonths, PAUSE_MONTH_OPTIONS, type PauseMonths, type PauseState } from "@/lib/subscription-pause";
+import { PAUSE_MONTH_OPTIONS, type PauseMonths, type PauseState } from "@/lib/subscription-pause";
 import styles from "./SubscriptionExitFlow.module.css";
 
 /**
@@ -18,6 +18,8 @@ import styles from "./SubscriptionExitFlow.module.css";
 type Selection = { kind: "all" } | { kind: "selected"; banks: { slug: string; name: string }[] } | { kind: "unknown" };
 type LoadedSubscription = {
   id: string; status: string; cancelAtPeriodEnd: boolean; pause?: PauseState; bankSelection: Selection;
+  /** Server-computed from the billing anchor; null when the plan can't pause. */
+  pauseResumeDates?: Partial<Record<PauseMonths, string>> | null;
   items: { recurringSubtotalCents: number | null; price: { currency: string; interval: string | null }; currentPeriodEnd: string | null }[];
 };
 type Step = "loading" | "unavailable" | "reason" | "offer" | "confirm" | "cancelled" | "pause" | "paused";
@@ -40,8 +42,11 @@ const formatDate = (value: string | Date | null | undefined) => {
 const money = (cents: number | null | undefined) => typeof cents === "number" && Number.isSafeInteger(cents) && cents >= 0
   ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100) : null;
 
-async function post(path: string, body: unknown): Promise<Record<string, unknown>> {
-  const response = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), credentials: "same-origin", cache: "no-store" });
+/** The offer is optional: a slow lookup must never hold the student back from cancelling. */
+export const OFFER_TIMEOUT_MS = 4000;
+
+async function post(path: string, body: unknown, signal?: AbortSignal): Promise<Record<string, unknown>> {
+  const response = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body), credentials: "same-origin", cache: "no-store", signal });
   const result = await response.json().catch(() => ({})) as Record<string, unknown>;
   if (!response.ok) throw new Error(typeof result.error === "string" ? result.error : "Billing is temporarily unavailable. Nothing has been changed.");
   return result;
@@ -62,6 +67,8 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
 
   useEffect(() => {
     const controller = new AbortController();
+    let timedOut = false;
+    const timer = setTimeout(() => { timedOut = true; controller.abort(); }, 10_000);
     void (async () => {
       try {
         const response = await fetch("/api/billing/subscription", { cache: "no-store", credentials: "same-origin", signal: controller.signal });
@@ -76,9 +83,10 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
         else if (loaded.pause && loaded.pause.kind !== "none") { setResult({ accessUntil: loaded.pause.accessUntil, resumesAt: loaded.pause.resumesAt }); setStep("paused"); }
         else setStep(start === "pause" && canPause ? "pause" : "reason");
         trackProductEvent(start === "pause" ? "pause_flow_started" : "cancel_flow_started", {});
-      } catch { if (!controller.signal.aborted) setStep("unavailable"); }
+      } catch { if (timedOut || !controller.signal.aborted) setStep("unavailable"); }
+      finally { clearTimeout(timer); }
     })();
-    return () => controller.abort();
+    return () => { clearTimeout(timer); controller.abort(); };
   }, [start]);
   // Move focus to the new step's heading so screen readers and keyboards follow the flow.
   // Each step starts at the top (on phones the previous tap is far down the page).
@@ -96,7 +104,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
   const planName = !sub ? "" : sub.bankSelection.kind === "all" ? "All Access" : sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.length === 1 ? "One Bank" : "Build Your Plan" : "Your plan";
   const bankLine = !sub ? "" : sub.bankSelection.kind === "all" ? "Every question bank" : sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map((bank) => bank.name).join(" · ") : "";
   const accessUntil = formatDate(periodEnd);
-  const resumeDate = (m: PauseMonths) => periodEnd ? formatDate(addBillingMonths(new Date(periodEnd), new Date(periodEnd), m)) : null;
+  const resumeDate = (m: PauseMonths) => formatDate(sub?.pauseResumeDates?.[m] ?? null);
   const offer = decision?.offer ?? null;
   const bankCount = sub?.bankSelection.kind === "selected" ? sub.bankSelection.banks.length : null;
   const discountedPrice = offer?.kind === "discount" && typeof item?.recurringSubtotalCents === "number" ? money(Math.round(item.recurringSubtotalCents * (100 - offer.percentOff) / 100)) : null;
@@ -109,8 +117,10 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
     if (busy) return;
     setBusy(true); setError("");
     let next: Step = "confirm";
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), OFFER_TIMEOUT_MS);
     try {
-      const response = await post("/api/billing/subscription/cancellation", { intent: "offer", reason });
+      const response = await post("/api/billing/subscription/cancellation", { intent: "offer", reason }, controller.signal);
       const basis = response.basis;
       if (validOffer(response.offer) && validOffer(response.eligibleOffer) && typeof response.holdout === "boolean" && typeof response.predicted === "boolean" && isCancelReason(basis)) {
         const loaded = { offer: response.offer, eligibleOffer: response.eligibleOffer, basis, predicted: response.predicted, holdout: response.holdout, pauseAvailable: response.pauseAvailable === true } as RetentionDecision & { pauseAvailable: boolean };
@@ -118,8 +128,8 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
         trackProductEvent("cancel_flow_offer_decision", { reason: reason ?? "none", basis: loaded.basis, predicted: loaded.predicted, holdout: loaded.holdout, offer: loaded.offer?.kind ?? "none", eligible_offer: loaded.eligibleOffer?.kind ?? "none", pause_available: loaded.pauseAvailable });
         if (loaded.offer || (pauseEnabled && loaded.pauseAvailable)) next = "offer";
       }
-    } catch { /* Never block cancelling: go straight to confirm. */ }
-    finally { setBusy(false); go(next); }
+    } catch { /* Failed or timed out: never block cancelling, go straight to confirm. */ }
+    finally { clearTimeout(timer); setBusy(false); go(next); }
   }
 
   async function acceptDiscount() {
@@ -127,9 +137,9 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
     setBusy(true); setError("");
     try {
       const response = await post("/api/billing/subscription/cancellation", { intent: "accept_discount" });
-      if (response.status !== "discount_applied" || typeof response.percentOff !== "number" || !formatDate(typeof response.nextPaymentAt === "string" ? response.nextPaymentAt : null)) throw new Error("Could not verify the discount. Check Billing before trying again.");
+      if (response.status !== "discount_applied" || typeof response.percentOff !== "number") throw new Error("Could not verify the discount. Check Billing before trying again.");
       trackProductEvent("cancel_flow_offer_accepted", { offer: "discount", reason: reason ?? "none" });
-      setResult({ message: `${response.percentOff}% off your next payment on ${formatDate(response.nextPaymentAt as string)}. Your plan stays exactly as it is.` });
+      setResult({ message: `${response.percentOff}% off your next payment. Your plan stays exactly as it is.` });
       go("cancelled"); setSub((current) => current && { ...current, cancelAtPeriodEnd: false });
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not apply the discount."); }
     finally { setBusy(false); }
@@ -196,7 +206,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
 
       {step === "unavailable" ? <>
         <h1 ref={heading} tabIndex={-1}>We can’t change this plan here</h1>
-        <p className={styles.lede}>Manage it from Subscription &amp; billing, or email <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a> and we’ll sort it out.</p>
+        <p className={styles.lede}>You can still cancel in the secure billing portal under Subscription &amp; billing, or email <a href="mailto:hello@pastpaperprep.com">hello@pastpaperprep.com</a> and we’ll sort it out.</p>
         <div className={styles.actions}><Link className={styles.primary} href="/account/billing#subscription">Back to your account</Link></div>
       </> : null}
 
@@ -227,7 +237,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
         {errorBox}
         {offer?.kind === "discount" ? <div className={`${styles.card} ${styles.featured}`}>
           <span className={styles.cardIcon} aria-hidden="true"><Tag weight="duotone" /></span>
-          <div className={styles.cardBody}><h2>{offer.percentOff}% off your next month</h2><p>{discountedPrice && price ? `Pay ${discountedPrice} instead of ${price} on ${accessUntil ?? "your next payment"}.` : `${offer.percentOff}% off your next payment.`} Same plan.</p></div>
+          <div className={styles.cardBody}><h2>{offer.percentOff}% off your next month</h2><p>{discountedPrice && price ? `Your next payment: ${discountedPrice} instead of ${price}.` : `${offer.percentOff}% off your next payment.`} Same plan.</p></div>
           <button type="button" className={styles.primarySmall} onClick={() => void acceptDiscount()} disabled={busy}>{busy ? "Applying…" : `Take ${offer.percentOff}% off`}</button>
         </div> : null}
         {offer?.kind === "fewer_banks" ? <div className={`${styles.card} ${styles.featured}`}>

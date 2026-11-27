@@ -10,13 +10,13 @@ vi.mock("node:crypto", async (importOriginal) => ({ ...(await importOriginal<typ
 vi.mock("@/lib/stripe-config", () => ({ isStripeBillingEnabled: () => true, getStripeConfig: () => ({ secretKey: "sk_test_fake" }) }));
 vi.mock("@/lib/stripe", () => ({ createStripeClient: () => ({ subscriptions: { list: m.listSubs, update: m.update, retrieve: m.retrieve }, checkout: { sessions: { list: m.listSessions } }, invoices: { list: m.listInvoices } }) }));
 const req = (body: unknown, origin = "https://app.test") => new Request("https://app.test/api/billing/subscription/pause", { method: "POST", headers: { origin, "content-type": "application/json" }, body: JSON.stringify(body) });
-const sub = () => ({ id: "sub_1", customer: "cus_1", status: "active", billing_cycle_anchor: Date.parse("2026-08-26T00:00:00Z") / 1000, metadata: { user_id: "user_1", product_id: "bank_igcse" } as Record<string, string>, pending_update: null, schedule: null, pause_collection: null as unknown, cancel_at: null, cancel_at_period_end: false, items: { data: [{ id: "si_1", current_period_start: PERIOD_END - 30 * 86400, current_period_end: PERIOD_END, price: { recurring: { interval: "month", interval_count: 1 } } }] as Record<string, unknown>[] } });
+const sub = () => ({ id: "sub_1", customer: "cus_1", status: "active", billing_mode: { type: "classic" }, billing_cycle_anchor: Date.parse("2026-08-26T00:00:00Z") / 1000, metadata: { user_id: "user_1", product_id: "bank_igcse" } as Record<string, string>, pending_update: null, schedule: null, pause_collection: null as unknown, cancel_at: null, cancel_at_period_end: false, items: { data: [{ id: "si_1", current_period_start: PERIOD_END - 30 * 86400, current_period_end: PERIOD_END, price: { recurring: { interval: "month", interval_count: 1 } } }] as Record<string, unknown>[] } });
 const pausedMeta = { pause_access_until: "2026-12-26T00:00:00.000Z", pause_resumes_at: "2027-01-26T00:00:00.000Z" };
 
 beforeEach(() => {
   vi.clearAllMocks(); vi.useFakeTimers({ now: NOW, toFake: ["Date"] });
   vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true"); vi.stubEnv("STRIPE_PAUSE_ENABLED", "true");
-  m.subscription = sub(); m.update.mockReset().mockResolvedValue({}); m.retrieve.mockReset();
+  m.subscription = sub() as typeof m.subscription; m.update.mockReset().mockResolvedValue({}); m.retrieve.mockReset();
   m.getUser.mockResolvedValue({ data: { user: { id: "user_1" } } });
   m.rpc.mockImplementation(async (name: string) => name === "get_stripe_customer_id" ? { data: "cus_1", error: null } : name === "reserve_billing_checkout" ? { data: m.reserve(), error: null } : name === "release_billing_checkout" ? { data: m.release(), error: null } : { data: true, error: null });
   m.reserve.mockReturnValue(true); m.release.mockReturnValue(true);
@@ -25,10 +25,16 @@ beforeEach(() => {
 });
 
 describe("pause route", () => {
-  it("stays off until the release flag is set, before any billing call", async () => {
+  it("blocks new bookings until the release flag is set, before any billing call", async () => {
     vi.stubEnv("STRIPE_PAUSE_ENABLED", "false");
     expect((await POST(req({ intent: "pause", months: 1 }))).status).toBe(404);
-    expect(m.getUser).not.toHaveBeenCalled();
+    expect(m.rpc).not.toHaveBeenCalled();
+  });
+  it("still lets an already-paused student undo while new bookings are off", async () => {
+    vi.stubEnv("STRIPE_PAUSE_ENABLED", "false");
+    m.subscription.pause_collection = { behavior: "void" }; m.subscription.metadata = { ...m.subscription.metadata, ...pausedMeta };
+    m.retrieve.mockImplementation(async () => ({ ...m.subscription, pause_collection: null, metadata: { user_id: "user_1", product_id: "bank_igcse" } }));
+    expect((await POST(req({ intent: "undo" }))).status).toBe(200);
   });
   it("rejects bad input before any billing call", async () => {
     for (const body of [null, [], { intent: "pause", months: 4 }, { intent: "pause", months: "1" }, { intent: "undo", months: 1 }, { intent: "freeze" }]) expect((await POST(req(body))).status).toBe(400);
@@ -83,6 +89,12 @@ describe("pause route", () => {
       expect(m.update).toHaveBeenCalledWith("sub_1", { pause_collection: "", billing_cycle_anchor: "now", proration_behavior: "none", payment_behavior: "error_if_incomplete", metadata: { pause_resumes_at: new Date((now - 60) * 1000 + 86_400_000).toISOString() } }, expect.objectContaining({ idempotencyKey: "pastpaperprep-pause-resume-intent_1" }));
       expect((await r.json()).status).toBe("resumed");
       expect(m.release).toHaveBeenCalled();
+    });
+    it("refuses early resume in flexible billing mode, where Stripe wouldn't charge in the same call", async () => {
+      m.subscription.billing_mode = { type: "flexible" };
+      const r = await POST(req({ intent: "resume_now" }));
+      expect(r.status).toBe(409); expect((await r.json()).error).toMatch(/hello@pastpaperprep.com/);
+      expect(m.update).not.toHaveBeenCalled();
     });
     it("tells the student when the card is declined and changes nothing", async () => {
       m.update.mockRejectedValue(Object.assign(new Error("declined"), { type: "StripeCardError" }));

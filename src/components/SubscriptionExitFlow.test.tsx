@@ -1,10 +1,13 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { SubscriptionExitFlow } from "@/components/SubscriptionExitFlow";
+import { OFFER_TIMEOUT_MS, SubscriptionExitFlow } from "@/components/SubscriptionExitFlow";
 
+// jsdom has no scrolling; the flow scrolls to the top on each step.
+beforeAll(() => { window.scrollTo = vi.fn() as unknown as typeof window.scrollTo; });
 afterEach(() => vi.unstubAllGlobals());
 const ok = (body: unknown, status = 200) => ({ ok: status === 200, status, json: async () => body });
-const billing = (overrides: Record<string, unknown> = {}, pauseEnabled = true) => ({ subscriptions: [{ id: "sub_1", status: "active", cancelAtPeriodEnd: false, pause: { kind: "none" }, bankSelection: { kind: "selected", banks: [{ slug: "igcse", name: "IGCSE Mathematics" }] }, items: [{ recurringSubtotalCents: 600, price: { currency: "usd", interval: "month" }, currentPeriodEnd: "2026-12-26T00:00:00Z" }], ...overrides }], management: { editable: true, pauseEnabled } });
+const hang = (_url: string, init?: { signal?: AbortSignal }) => new Promise((_resolve, reject) => init?.signal?.addEventListener("abort", () => reject(new DOMException("aborted", "AbortError"))));
+const billing = (overrides: Record<string, unknown> = {}, pauseEnabled = true) => ({ subscriptions: [{ id: "sub_1", status: "active", cancelAtPeriodEnd: false, pause: { kind: "none" }, bankSelection: { kind: "selected", banks: [{ slug: "igcse", name: "IGCSE Mathematics" }] }, items: [{ recurringSubtotalCents: 600, price: { currency: "usd", interval: "month" }, currentPeriodEnd: "2026-12-26T00:00:00Z" }], pauseResumeDates: { 1: "2027-01-26T00:00:00Z", 2: "2027-02-26T00:00:00Z", 3: "2027-03-26T00:00:00Z" }, ...overrides }], management: { editable: true, pauseEnabled } });
 const decision = (offer: unknown, pauseAvailable = true) => ({ offer, eligibleOffer: offer, basis: "too_expensive", predicted: false, holdout: offer === null, pauseAvailable });
 const body = (fetch: ReturnType<typeof vi.fn>, call: number) => JSON.parse(fetch.mock.calls[call][1].body);
 
@@ -43,11 +46,11 @@ describe("subscription exit flow", () => {
     render(<SubscriptionExitFlow start="cancel" />);
     fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
     expect(await screen.findByRole("heading", { name: "30% off your next month" })).toBeInTheDocument();
-    expect(screen.getByText(/Pay \$4.20 instead of \$6.00 on Dec 26, 2026/)).toBeInTheDocument();
+    expect(screen.getByText(/Your next payment: \$4.20 instead of \$6.00/)).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Need a break?" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Continue to cancel" })).toBeEnabled();
     fireEvent.click(screen.getByRole("button", { name: "Take 30% off" }));
-    expect(await screen.findByText(/30% off your next payment on Dec 26, 2026/)).toBeInTheDocument();
+    expect(await screen.findByText(/30% off your next payment\. Your plan stays/)).toBeInTheDocument();
     expect(body(fetch, 2)).toEqual({ intent: "accept_discount" });
   });
   it("tells multi-bank students how many banks they have when offering fewer", async () => {
@@ -80,6 +83,23 @@ describe("subscription exit flow", () => {
     expect(await screen.findByRole("heading", { name: "Cancel your subscription?" })).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "Pause instead" })).not.toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+  });
+  it("goes to confirm when the offer lookup hangs, so cancelling is never blocked", async () => {
+    const fetch = vi.fn().mockResolvedValueOnce(ok(billing())).mockImplementationOnce(hang);
+    vi.stubGlobal("fetch", fetch);
+    render(<SubscriptionExitFlow start="cancel" />);
+    const next = await screen.findByRole("button", { name: "Continue" });
+    vi.useFakeTimers();
+    try {
+      fireEvent.click(next);
+      await vi.advanceTimersByTimeAsync(OFFER_TIMEOUT_MS + 10);
+    } finally { vi.useRealTimers(); }
+    expect(await screen.findByRole("heading", { name: "Cancel your subscription?" })).toBeInTheDocument();
+  });
+  it("uses the server's restart dates for each pause length", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(ok(billing({ currentPeriodEnd: "2027-01-31T00:00:00Z", pauseResumeDates: { 1: "2027-02-28T00:00:00Z", 2: "2027-03-31T00:00:00Z", 3: "2027-04-30T00:00:00Z" } }))));
+    render(<SubscriptionExitFlow start="pause" />);
+    expect((await screen.findByRole("radio", { name: /2 months/ })).closest("label")).toHaveTextContent("Back Mar 31, 2027");
   });
   it("shows a booked pause or cancellation instead of starting over", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(ok(billing({ cancelAtPeriodEnd: true }))));

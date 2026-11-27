@@ -253,16 +253,18 @@ describe("Stripe subscription event normalization", () => {
       .toThrow("Stripe price does not match product");
   });
 
-  it("revokes access for a paused period and restores it on the first paid period after the pause", () => {
-    const paused = (start: number, end: number, pauseCollection: unknown) => event({ data: { object: { ...event().data.object,
+  it("needs a verified payment for paused periods and gives them no past-due grace", () => {
+    const paused = (start: number, end: number, pauseCollection: unknown, status = "active") => event({ data: { object: { ...event().data.object, status,
       pause_collection: pauseCollection,
       metadata: { user_id: userId, product_id: "bundle_all", pause_access_until: new Date(1_801_000_000 * 1000).toISOString(), pause_resumes_at: new Date(1_806_000_000 * 1000).toISOString() },
       items: { data: [{ ...event().data.object.items.data[0], current_period_start: start, current_period_end: end }] } } } });
     // Still in the paid period with the pause booked: unchanged.
-    expect(buildSubscriptionSync(paused(1_799_000_000, 1_801_000_000, { behavior: "void" }), allowedPrice)).toMatchObject({ status: "active", expiresAt: new Date(1_801_000_000 * 1000).toISOString() });
+    expect(buildSubscriptionSync(paused(1_799_000_000, 1_801_000_000, { behavior: "void" }), allowedPrice, { pausePeriodPaid: true })).toMatchObject({ status: "active", expiresAt: new Date(1_801_000_000 * 1000).toISOString() });
     // Voided period: no access, even though Stripe still says active.
     expect(buildSubscriptionSync(paused(1_801_000_000, 1_803_500_000, { behavior: "void" }), allowedPrice)).toMatchObject({ status: "revoked", expiresAt: null });
-    // First period from the resume boundary: normal access.
-    expect(buildSubscriptionSync(paused(1_806_000_000, 1_808_500_000, null), allowedPrice)).toMatchObject({ status: "active", expiresAt: new Date(1_808_500_000 * 1000).toISOString() });
+    // First resumed renewal: draft or past due gets nothing (no grace); paid opens the period.
+    expect(buildSubscriptionSync(paused(1_806_000_000, 1_808_500_000, null), allowedPrice)).toMatchObject({ status: "revoked", expiresAt: null });
+    expect(buildSubscriptionSync(paused(1_806_000_000, 1_808_500_000, null, "past_due"), allowedPrice)).toMatchObject({ status: "revoked", expiresAt: null });
+    expect(buildSubscriptionSync(paused(1_806_000_000, 1_808_500_000, null), allowedPrice, { pausePeriodPaid: true })).toMatchObject({ status: "active", expiresAt: new Date(1_808_500_000 * 1000).toISOString() });
   });
 });

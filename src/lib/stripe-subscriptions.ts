@@ -1,7 +1,7 @@
 import type { ProductId } from "@/lib/access";
 import { validateCustomBankIds } from "@/lib/custom-bundles";
 import type { BillingInterval } from "@/lib/stripe-config";
-import { capExpiryForPause } from "@/lib/subscription-pause";
+import { isPauseRelevant, pauseAccessExpiry } from "@/lib/subscription-pause";
 
 const SUBSCRIPTION_EVENT_TYPES = new Set([
   "customer.subscription.created",
@@ -65,7 +65,11 @@ export function getSubscriptionEventReference(eventValue: unknown): Subscription
 export function buildSubscriptionSync(
   eventValue: unknown,
   isPriceAllowed: (productId: ProductId, priceId: string, interval?: BillingInterval) => boolean,
-  { allowPastDueGrace = true }: { allowPastDueGrace?: boolean } = {},
+  { allowPastDueGrace = true, pausePeriodPaid = false }: {
+    allowPastDueGrace?: boolean;
+    /** The webhook verified a paid invoice for this exact period. Only consulted when a pause touches the period. */
+    pausePeriodPaid?: boolean;
+  } = {},
 ): SubscriptionSync | null {
   const event = record(eventValue, "Invalid Stripe event");
   if (typeof event.type !== "string" || !SUBSCRIPTION_EVENT_TYPES.has(event.type)) return null;
@@ -135,14 +139,17 @@ export function buildSubscriptionSync(
   const startsAt = unixDate(item.current_period_start);
   const deleted = event.type === "customer.subscription.deleted";
   let entitled = !deleted && (subscription.status === "active" || subscription.status === "trialing");
+  const pauseCollectionSet = Boolean(subscription.pause_collection);
+  // While a pause touches this period, Stripe's status proves nothing (voided invoices keep it `active`), so
+  // access needs a verified paid invoice, and an unpaid `past_due` renewal gets no grace.
+  const pauseTouched = isPauseRelevant(pauseCollectionSet, metadata as Record<string, string>, item.current_period_start as number);
   // Stripe is still retrying a failed renewal. Keep access for a bounded grace
   // window from the renewal date; unpaid/canceled after the last retry revokes.
   // Callers disable grace when the current metadata is an unpaid scheduled target.
-  const inGrace = allowPastDueGrace && !deleted && subscription.status === "past_due";
+  const inGrace = allowPastDueGrace && !pauseTouched && !deleted && subscription.status === "past_due";
   let expiresAt: string | null = null;
   if (entitled) {
-    // A paused subscription stays `active` in Stripe while its invoices are voided: cap access at the paid-through date.
-    expiresAt = capExpiryForPause(unixDate(item.current_period_end), item.current_period_start as number, metadata as Record<string, string>, Boolean(subscription.pause_collection));
+    expiresAt = pauseAccessExpiry({ expiresAt: unixDate(item.current_period_end), periodStartUnix: item.current_period_start as number, metadata: metadata as Record<string, string>, pauseCollectionSet, periodPaid: pausePeriodPaid });
     // Wholly inside a pause: no access this period (the database also rejects an expiry at or before the start).
     if (expiresAt !== null && expiresAt <= startsAt) { entitled = false; expiresAt = null; }
   }

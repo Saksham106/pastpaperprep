@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { describeSubscriptionBanks, recurringPriceSubtotal } from "@/lib/account-billing-view";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { getBillingBanks } from "@/lib/banks";
-import { pauseStateOf } from "@/lib/subscription-pause";
+import { PAUSE_MONTH_OPTIONS, pauseStateOf, pauseWindow } from "@/lib/subscription-pause";
 import { isPauseEnabled } from "@/lib/subscription-lifecycle";
 
 export const runtime = "nodejs";
@@ -76,6 +76,11 @@ async function handleGET() {
       pendingUpdate: Boolean(subscription.pending_update), scheduledChange: Boolean(subscription.schedule),
       cancelAt: subscription.cancel_at ? new Date(subscription.cancel_at * 1000).toISOString() : null,
       pause: pauseStateOf(subscription, new Date()),
+      // Restart dates for 1/2/3-month pauses, from the subscription's real billing anchor (31st → Feb 28 → Mar 31).
+      pauseResumeDates: subscription.status === "active" && subscription.items.data.length === 1 && subscription.items.data[0].price.recurring?.interval === "month" &&
+        Number.isSafeInteger(subscription.items.data[0].current_period_end) && Number.isSafeInteger(subscription.billing_cycle_anchor)
+        ? Object.fromEntries(PAUSE_MONTH_OPTIONS.map((months) => [months, pauseWindow(subscription.items.data[0].current_period_end, subscription.billing_cycle_anchor, months).resumesAt.toISOString()]))
+        : null,
       bankSelection: describeSubscriptionBanks(subscription.metadata.product_id ?? null, subscription.metadata.selected_bank_ids ?? null),
       items: await Promise.all(subscription.items.data.map(async (item) => {
         let price = item.price;
