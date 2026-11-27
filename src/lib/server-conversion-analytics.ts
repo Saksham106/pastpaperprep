@@ -124,7 +124,7 @@ function anonymousIdSource(eventKey: string): string {
 }
 
 /** True only for an accepted v2 consent recorded in the last twelve months. Any lookup problem is "no". */
-async function hasCurrentConsent(userId: string): Promise<boolean> {
+export async function hasCurrentConsent(userId: string): Promise<boolean> {
   try {
     const lookup = createAdminClient().auth.admin.getUserById(userId);
     let lookupTimer: ReturnType<typeof setTimeout> | undefined;

@@ -1,5 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { hasBankAccess, type AccessEntitlement } from "@/lib/access";
 import { getBank, type BankSlug } from "@/lib/banks";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
@@ -7,6 +7,8 @@ import { consumeHelperCredits, releaseHelperCredits } from "@/lib/helper/allowan
 import { HELPER_BOARDS, helperBoard } from "@/lib/helper/config";
 import { formatCredits, helperCreditCost, HELPER_DAILY_CREDIT_GUARD } from "@/lib/helper/credits";
 import { HelperAccessError, loadHelperContext, type HelperContext } from "@/lib/helper/context";
+import { ANALYTICS_CONSENT_COOKIE, parseAnalyticsConsent } from "@/lib/analytics-consent";
+import { captureHelperGenerations, type HelperRoundStats } from "@/lib/helper/llm-analytics";
 import { buildPepperMessages } from "@/lib/helper/pepper-prompt";
 import { parsePepperRequest } from "@/lib/helper/pepper-request";
 import { HELPER_SITE_CUT_OFF, runSiteAgent, type Send } from "@/lib/helper/site-agent";
@@ -43,6 +45,11 @@ let client: Anthropic | undefined;
 function anthropic(): Anthropic {
   client ??= new Anthropic();
   return client;
+}
+
+function requestCookie(request: Request, name: string): string | undefined {
+  const prefix = `${name}=`;
+  return request.headers.get("cookie")?.split(";").map((part) => part.trim()).find((part) => part.startsWith(prefix))?.slice(prefix.length);
 }
 
 async function handlePOST(request: Request) {
@@ -111,6 +118,23 @@ async function handlePOST(request: Request) {
   const { charge, credits } = allowance;
   const surface = question ? "question" : "site";
 
+  // Model-call analytics (counts only, never text): collected per round, sent after the response has finished.
+  const rounds: HelperRoundStats[] = [];
+  const outcome = { refused: false, navigated: false, creditsSpent: cost };
+  const browserConsent = parseAnalyticsConsent(requestCookie(request, ANALYTICS_CONSENT_COOKIE)) === true;
+  let finishAnalytics: () => void = () => {};
+  const analyticsDone = new Promise<void>((resolve) => { finishAnalytics = resolve; });
+  try {
+    after(analyticsDone.then(() => captureHelperGenerations({
+      userId,
+      browserConsent,
+      rounds,
+      meta: { surface, mode: parsed.mode, photo: Boolean(parsed.image), ...(question ? { bank: question.bank } : {}), refused: outcome.refused, navigated: outcome.navigated, creditsReserved: cost, creditsSpent: outcome.creditsSpent, tier },
+    })));
+  } catch {
+    finishAnalytics();
+  }
+
   const encoder = new TextEncoder();
   const abort = new AbortController();
   const body$ = new ReadableStream<Uint8Array>({
@@ -125,24 +149,29 @@ async function handlePOST(request: Request) {
           messages: buildPepperMessages(parsed, context),
           send: (event) => { if (event.type === "text") sentText = true; send(event); },
           signal: abort.signal,
+          onRound: (stats) => { rounds.push(stats); },
           usage: { surface, mode: parsed.mode, photo: Boolean(parsed.image), ...(question ? { bank: question.bank } : {}) },
           // Practice sets follow the paper builder's rule: only banks the student's plan covers.
           tools: { canBuild: (bank) => hasBankAccess(bank as BankSlug, entitlements) },
         });
+        outcome.refused = result.refused;
+        outcome.navigated = result.navigated;
         if (!result.sentText && !result.navigated) {
           // Nothing reached the student: give the message back (only ever before the first words).
           await releaseHelperCredits(userId, charge);
+          outcome.creditsSpent = 0;
           send({ type: "error", message: REFUSED, status: 422 });
         } else {
           send({ type: "done", credits, cost });
         }
       } catch (error) {
         if (abort.signal.aborted) return;
-        if (!sentText) await releaseHelperCredits(userId, charge);
+        if (!sentText) { await releaseHelperCredits(userId, charge); outcome.creditsSpent = 0; }
         const busy = error instanceof Anthropic.RateLimitError || (error instanceof Anthropic.APIError && (error.status ?? 0) >= 500);
         if (sentText) send({ type: "text", text: HELPER_SITE_CUT_OFF });
         send({ type: "error", message: busy ? BUSY : FAILED, status: busy ? 503 : 502 });
       } finally {
+        finishAnalytics();
         try { controller.close(); } catch { /* already closed by a cancel */ }
       }
     },

@@ -100,10 +100,22 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 
 **Country.** Cookieless ingestion drops the IP, so PostHog's GeoIP can't place anonymous events. The anonymous client fills `$geoip_country_code` / `$geoip_country_name` from the browser time zone (`src/lib/timezone-country.ts`, generated from the IANA tz database) and adds `country_source: timezone`. It never overrides a real GeoIP country (consented events keep theirs). Approximate: e.g. Asia/Singapore → SG.
 
+## Account activity (our database, every signed-in account)
+
+PostHog sees accounts only with analytics consent. Per-account activity for **all** signed-in accounts (days active, page views, areas used) is kept first-party in Supabase (`account_activity_daily`) and never sent to PostHog. See `docs/account-activity.md` for the table, the report queries and what to do with each.
+
 ## Server events
 
 | Event | Source | Properties |
 |---|---|---|
+| `$ai_generation` | each Pepper model call (`/api/helper`, sent after the reply with `after()`, `src/lib/helper/llm-analytics.ts`) | PostHog LLM analytics:
+- `$ai_trace_id` (one per reply), `$ai_span_id`, `$ai_model`, `$ai_provider`;
+- input/output/cache token counts, `$ai_latency` (s), `$ai_stop_reason`;
+- `$ai_is_error` (false for a reply the student stopped, which carries `cancelled: true` instead), `$ai_http_status?`;
+- `surface`, `mode`, `photo`, `bank?`, `tier?`, `round`, `rounds_total`, `refused`, `navigated`;
+- `credits_reserved` and `credits_spent` (0 when the credits were given back).
+
+**Never** prompts, replies, tool data or photos. Account-linked only when the request's browser has opted in (`ppp_analytics_consent` = v2 accepted) **and** the account's acceptance is current; otherwise a random per-reply `anon:` id with no person profile |
 | `conversion_outcome` | sign-up confirmation, Stripe `invoice.paid`, lifetime checkout | `outcome` (`signup_confirmed`, `payment_initial_paid`, `payment_renewal_paid`, `lifetime_paid`), `product?`, `interval?`, `identified`; purchases also `bank_scope` (`banks` or `all`), `bank_count`, `banks` (bank slugs the purchase covers, by the same rule as access checks; custom bundles from `selected_bank_ids`; omitted for all-access) |
 | `$exception` | unhandled server errors (`onRequestError`) | scrubbed message, `route`, `router_kind`, `route_type`, `method?`, `error_code?`, `digest?`, `correlation_id`, plus `release?` (first 12 of the commit SHA) and `region?` (e.g. `iad1`) on every server exception |
 | `$exception` with `error_source: handled_response` | an API route answered 5xx (`withFailureReporting`) | `route`, `http_status`, `error_code`, `bank?`, `stage?`, `storage_provider?`, `correlation_id` (also sent as the `x-correlation-id` response header) |
