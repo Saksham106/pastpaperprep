@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ExamStyleCoursePage } from "@/components/ExamStyleCoursePage";
 
 export const metadata: Metadata = {
-  title: "IB Economics Exam-Style Practice | PastPaperPrep",
+  title: "IB Economics Exam-Style Practice",
   description: "IB Economics revision notes, topic slides and activities, and exam-style/data-response practice for SL and HL.",
   robots: { index: false, follow: false },
 };

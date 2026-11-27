@@ -37,7 +37,7 @@ export async function generateMetadata({
     title: { absolute: fitTitle(`${name} Syllabus: Topics, Papers and Marks`, `${name} Syllabus: Topics and Papers`, `${name} Syllabus`) },
     description,
     alternates: { canonical: `/syllabus/${bank.slug}` },
-    openGraph: { url: `/syllabus/${bank.slug}`, ...socialPreview(bank.qualification) },
+    openGraph: { url: `/syllabus/${bank.slug}`, type: "website", ...socialPreview(bank.qualification) },
   };
 }
 export default async function SyllabusPage({

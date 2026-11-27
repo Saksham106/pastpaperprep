@@ -5,7 +5,7 @@ const archive = vi.hoisted(() => ({ enabled: vi.fn(), summaries: vi.fn(), find: 
 vi.mock('./whole-paper-archive', () => ({ wholePaperArchiveEnabled: archive.enabled, getWholePaperSummaries: archive.summaries, findWholePaperBySlug: archive.find }));
 const explanations = vi.hoisted(() => ({ get: vi.fn() }));
 vi.mock('./free-explanations', () => ({ freeExplanations: () => ({ get: explanations.get }) }));
-import { paperQuestions, pastPaperFallback, pastPaperSitemapPaths, resolveEntry, resolveSubject } from './past-paper-pages';
+import { NOINDEX_SITEMAP_SCOPE, paperQuestions, pastPaperFallback, pastPaperNoindexEntries, pastPaperSitemapPaths, resolveEntry, resolveSubject } from './past-paper-pages';
 import { completeInventory } from './past-paper-insights';
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
@@ -23,6 +23,30 @@ describe('practice links only where a bank page exists', () => {
     vi.stubEnv('PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS', 'false');
     expect((await resolveSubject('igcse-biology-0610'))?.practice).toBe(false);
     expect((await resolveEntry('igcse-biology-0610', '2024'))?.practice).toBe(false);
+  });
+});
+
+describe('temporary noindex sitemap scope', () => {
+  it('names only real banks whose pages were once in the main sitemap', async () => {
+    const { BANK_CATALOG } = await import('./catalog');
+    const slugs = new Set<string>(BANK_CATALOG.map(b => b.slug));
+    for (const slug of Object.keys(NOINDEX_SITEMAP_SCOPE)) expect(slugs.has(slug)).toBe(true);
+    // A Level banks from #501 had indexable latest-year pages for ~5 hours before #502; later banks never did.
+    expect(Object.entries(NOINDEX_SITEMAP_SCOPE).filter(([s]) => s.startsWith('a-level')).map(([, scope]) => scope)).toEqual(Array(5).fill('latest-year'));
+    for (const never of ['a-level-computer-science-9618', 'a-level-further-maths-9231', 'ib-business-management-hl', 'ib-business-management-sl']) expect(never in NOINDEX_SITEMAP_SCOPE).toBe(false);
+  });
+
+  it('lists only the latest-year paper pages of a latest-year-scope bank', async () => {
+    vi.stubEnv('PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS', 'true');
+    vi.stubEnv('PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED', 'true');
+    const older = { ...paper('a-level-maths-9709'), id: '9709-2024-s-12', year: 2024, qualification: 'Cambridge A Level', syllabusCode: '9709', component: '12', paper: '1', variant: '2' } as WholePaperSummary;
+    const latest = { ...older, id: '9709-2026-s-12', year: 2026 } as WholePaperSummary;
+    archive.summaries.mockImplementation((bank: WholePaperSummary['bankSlug']) => bank === 'a-level-maths-9709' ? [older, latest] : []);
+    archive.find.mockReturnValue(null);
+    const paths = (await pastPaperNoindexEntries()).map(e => e.path).filter(p => p.includes('9709'));
+    expect(paths.length).toBeGreaterThan(0);
+    expect(paths.every(p => p.includes('/2026-'))).toBe(true);
+    expect(paths.some(p => /\/2024/.test(p))).toBe(false);
   });
 });
 
@@ -60,6 +84,15 @@ describe('indexing measures worked answers against the whole paper', () => {
     expect(paths).toContain('/past-papers/igcse-chemistry-0620/2024');
     expect(paths).toContain('/past-papers/igcse-chemistry-0620/paper-2');
     expect(paths).not.toContain('/past-papers/igcse-chemistry-0620/2019');
+    // The temporary noindex sitemap lists exactly the pages left out, dated when each switched to noindex.
+    const noindex = await pastPaperNoindexEntries();
+    expect(noindex).toEqual(expect.arrayContaining([
+      { path: '/past-papers/igcse-chemistry-0620/2019', lastModified: '2026-11-07' },
+      { path: '/past-papers/igcse-chemistry-0620/2019-may-june-23', lastModified: '2026-11-07' },
+      { path: '/past-papers/igcse-chemistry-0620/2024-may-june-23', lastModified: '2026-11-21' },
+    ]));
+    for (const { path } of noindex) expect(paths).not.toContain(path);
+    expect(noindex.map(e => e.path)).not.toContain('/past-papers/igcse-chemistry-0620/2024');
   });
 
   it('indexes the same paper once its whole inventory is answered, and treats an unknown count conservatively', async () => {

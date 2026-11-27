@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ExamStyleAASLPage } from "@/components/ExamStyleAASLPage";
 
 export const metadata: Metadata = {
-  title: "IB Mathematics AA SL Exam-Style Practice | PastPaperPrep",
+  title: "IB Mathematics AA SL Exam-Style Practice",
   description: "IB Mathematics AA SL exam-style PDF practice for trigonometry and probability distributions.",
   robots: { index: false, follow: false },
 };
