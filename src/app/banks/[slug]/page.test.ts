@@ -70,6 +70,9 @@ describe("bank route fail-closed behaviour", () => {
     expect(hero).not.toContain("{bank.description}");
     expect(hero).not.toContain("Want whole papers instead?");
     expect(hero).not.toContain("printable practice set");
+    // Freshness stays machine-readable (dateModified, sitemap) instead of a visible "Updated" stamp.
+    expect(hero).not.toContain("Updated");
+    expect(source).toContain("dateModified: updated");
     // Full papers is a button beside Build a paper, so it shows on phones too.
     const actions = hero.slice(hero.indexOf('className="bank-hero-actions"'));
     expect(actions).toContain(">Full past papers</Link>");

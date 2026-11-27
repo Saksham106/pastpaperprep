@@ -67,7 +67,10 @@ const annualSale = annualSaleConfigured(process.env, Date.now());
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${mono.variable} ${youngSerif.variable}`} suppressHydrationWarning>
+    // globals.css makes in-page scrolling smooth. Next 16 only switches that off for route changes
+    // when this attribute is set; without it, opening a page from deep in a list animated part-way
+    // and left the new page scrolled down (e.g. a bank opened from the home page's bank list).
+    <html lang="en" className={`${geist.variable} ${mono.variable} ${youngSerif.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head><script dangerouslySetInnerHTML={{ __html: SESSION_HINT_SCRIPT }} />{annualSale ? <script dangerouslySetInnerHTML={{ __html: ANNUAL_SALE_HINT_SCRIPT }} /> : null}</head>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>

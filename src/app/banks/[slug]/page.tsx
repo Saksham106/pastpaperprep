@@ -18,7 +18,7 @@ import { fitTitle, pageTitle, subjectSearchName } from "@/lib/past-paper-seo";
 import { getLandingManifest, topicFilterHref, topicPath } from "@/lib/search-landing";
 import { socialPreview, syllabusSubjectJsonLd } from "@/lib/seo";
 import { hasPublishedExplanations } from "@/lib/explanations";
-import { bankLastUpdated, formatUpdateDate } from "@/lib/updates";
+import { bankLastUpdated } from "@/lib/updates";
 import { bankFacts } from "@/lib/quick-facts";
 import { QuickFacts } from "@/components/QuickFacts";
 import { notesLinksForBank } from "@/lib/course-notes/group-lessons";
@@ -125,7 +125,7 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
           <p className="eyebrow">{bank.qualification}</p>
           <h1>{topical.name}: questions by topic</h1>
           <div className="bank-hero-meta">
-            <p className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong></span>{updated ? <span>Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></span> : null}</p>
+            <p className="bank-hero-stats"><span><strong>{bank.questionCount.toLocaleString()}</strong> questions</span><span><strong>{bank.paperCount}</strong> papers</span><span><strong>{bank.years}</strong></span></p>
             <div className="bank-hero-actions">
               {fullPapers ? <Link className="button secondary" href={`/past-papers/${subjectSlugForBank(slug)}`}>Full past papers</Link> : null}
               {/* The <head> session hint shows one of these before paint; signed-out visitors skip the builder's sign-in redirect. */}

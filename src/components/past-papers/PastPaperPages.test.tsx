@@ -16,6 +16,13 @@ const hubBanks: HubBank[] = [
   { bankSlug: 'ib-hl', subjectSlug: 'ib-math-aa-hl', name: 'IB Math AA HL', qualification: 'ib', paperCount: 98, years: '2017–2026', tone: 'math' },
 ];
 const ldTypes = (container: HTMLElement) => [...container.querySelectorAll('script[type="application/ld+json"]')].map(s => JSON.parse(s.textContent ?? '{}')['@type']);
+const collectionLd = (container: HTMLElement) => [...container.querySelectorAll('script[type="application/ld+json"]')].map(s => JSON.parse(s.textContent ?? '{}')).find(d => d['@type'] === 'CollectionPage');
+// The changelog date stays machine-readable (CollectionPage dateModified, sitemap lastmod); no visible "Updated" line.
+const expectNoVisibleDate = (container: HTMLElement) => {
+  expect(screen.queryByText(/^Updated\b/)).not.toBeInTheDocument();
+  expect(container.querySelector('time')).toBeNull();
+  expect(collectionLd(container)?.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+};
 
 describe('PastPaperHub', () => {
   it('groups subjects into pastel cards that open each subject page', () => {
@@ -33,6 +40,7 @@ describe('PastPaperHub', () => {
     expect(screen.getByRole('heading', { name: 'Questions and answers together' })).toBeInTheDocument();
     expect(screen.queryByText(/Paper and scheme together/)).not.toBeInTheDocument();
     expect(ldTypes(container)).toEqual(['BreadcrumbList', 'CollectionPage']);
+    expectNoVisibleDate(container);
   });
 
   it('shows one qualification on its own page', () => {
@@ -54,6 +62,7 @@ describe('PastPaperListPage', () => {
     expect(screen.getByText('Which 0580 papers do Core and Extended students take?')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /Practise IGCSE Maths 0580 questions by topic/ })).toHaveAttribute('href', '/banks/igcse');
     expect(ldTypes(container)).toEqual(['BreadcrumbList', 'CollectionPage', 'FAQPage']);
+    expectNoVisibleDate(container);
   });
 
   it('renders a year page with neighbouring years and no FAQ', () => {

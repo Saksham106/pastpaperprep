@@ -19,7 +19,7 @@ import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { qualificationInfo, qualifiedBankTitle } from "@/lib/qualifications";
 import { aLevelSuccessors, igcsePredecessors, IGCSE_TO_A_LEVEL_ARTICLE, takenAlongside } from "@/lib/next-step-banks";
 import { articlesForBank, articlesForExam } from "@/lib/article-links";
-import { bankLastUpdated, formatUpdateDate, lastUpdated } from "@/lib/updates";
+import { bankLastUpdated, lastUpdated } from "@/lib/updates";
 import { paperFacts, topicFacts } from "@/lib/quick-facts";
 import { hasPublishedExplanations } from "@/lib/explanations";
 import { QuickFacts } from "@/components/QuickFacts";
@@ -81,7 +81,7 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: title }]} />
       <header className="landing-hero landing-hero-hub">
         <div><p className="eyebrow">Qualification hub</p><h1>{title}</h1></div>
-        <div className="landing-hero-aside"><p>{intro}</p><strong>{banks.length}</strong><span>question banks</span>{updated ? <small className="updated-note">Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></small> : null}</div>
+        <div className="landing-hero-aside"><p>{intro}</p><strong>{banks.length}</strong><span>question banks</span></div>
       </header>
       <div className="search-bank-grid">
         {banks.map((bank) => <BankLandingCard key={bank.slug} bank={bank} />)}
@@ -128,14 +128,12 @@ export function BankLandingCard({ bank }: { bank: CatalogBank }) {
 }
 
 function ArchiveStats({ bank, manifest }: { bank: CatalogBank; manifest: LandingManifest }) {
-  const updated = bankLastUpdated(bank.slug);
   return <aside className="landing-hero-aside archive-stats" aria-label="Archive coverage">
     <div><strong>{manifest.questionCount.toLocaleString()}</strong><span>questions</span></div>
     <div><strong>{manifest.paperCount.toLocaleString()}</strong><span>archive papers</span></div>
     <div><strong>{manifest.years}</strong><span>coverage</span></div>
     <Link transitionTypes={PAGE_NAVIGATION} className="button primary" href={`/banks/${bank.slug}?free=0`}>Open the question bank <ArrowRight weight="bold" /></Link>
     <small><LockKey weight="bold" /> Public metadata; paid questions stay locked.</small>
-    {updated ? <small className="updated-note">Updated <time dateTime={updated}>{formatUpdateDate(updated)}</time></small> : null}
   </aside>;
 }
 
@@ -143,6 +141,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   const notesSubject = notesSubjectForBank(bank.slug);
   const subjectSlug = subjectSlugForBank(bank.slug);
   const canonicalPath = `/syllabus/${bank.slug}`;
+  const updated = bankLastUpdated(bank.slug); // machine-readable only (dateModified); no visible stamp
   const hubPath = qualificationInfo(bank.qualification).hubPath;
   const successors = aLevelSuccessors(bank.slug);
   // Further Maths 9231 is taken with Maths 9709, not instead of it.
@@ -157,7 +156,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   return (
     <div className={`search-landing shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@graph": [
-        { "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@type": "CollectionPage", url: `${SITE_URL}${hubPath}` }, educationalLevel: bank.qualification, about: syllabusSubjectJsonLd(bank.title) },
+        { "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, ...(updated ? { dateModified: updated } : {}), isPartOf: { "@type": "CollectionPage", url: `${SITE_URL}${hubPath}` }, educationalLevel: bank.qualification, about: syllabusSubjectJsonLd(bank.title) },
         { "@type": "BreadcrumbList", itemListElement: [
           { "@type": "ListItem", position: 1, name: "PastPaperPrep", item: `${SITE_URL}/` },
           { "@type": "ListItem", position: 2, name: bank.qualification, item: `${SITE_URL}${hubPath}` },
