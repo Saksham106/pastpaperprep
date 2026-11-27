@@ -98,8 +98,24 @@ export const CBSE_10_SCIENCE_GROUPS = (["Biology", "Chemistry", "Physics"] as co
 }));
 
 /**
- * Subtopic labels in curriculum order, topic -> its subtopics, per bank. Empty until each bank's runtime lands (the
- * wiring step fills it from the content session's syllabus tree); until then the picker groups subtopics by the
- * questions that carry them.
+ * Subtopic labels in curriculum order, topic -> its subtopics, per bank, from each content session's syllabus tree.
+ * A bank not listed yet groups subtopics by the questions that carry them.
  */
-export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonly<Record<string, readonly string[]>>>> = {};
+export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonly<Record<string, readonly string[]>>>> = {
+  // NCERT section titles in chapter-tree.json order (cbse-10-science-topic-practice, sha256 483c25c02503…, 2026-11-27).
+  "cbse-10-science": {
+"Chemical Reactions and Equations": ["Chemical Equations", "Types of Chemical Reactions", "Have You Observed the Effects of Oxidation Reactions in Everyday Life?"],
+    "Acids, Bases and Salts": ["Understanding the Chemical Properties of Acids and Bases", "What Do All Acids and All Bases Have in Common?", "How Strong Are Acid or Base Solutions?", "More About Salts"],
+    "Metals and Non-metals": ["Physical Properties", "Chemical Properties of Metals", "How do Metals and Non-metals React?", "Occurrence of Metals", "Corrosion"],
+    "Carbon and its Compounds": ["Bonding in Carbon – The Covalent Bond", "Versatile Nature of Carbon", "Chemical Properties of Carbon Compounds", "Some Important Carbon Compounds – Ethanol and Ethanoic Acid", "Soaps and Detergents"],
+    "Life Processes": ["What are Life Processes?", "Nutrition", "Respiration", "Transportation", "Excretion"],
+    "Control and Coordination": ["Animals – Nervous System", "Coordination in Plants", "Hormones in Animals"],
+    "How do Organisms Reproduce?": ["Do Organisms Create Exact Copies of Themselves?", "Modes of Reproduction Used by Single Organisms", "Sexual Reproduction"],
+    "Heredity": ["Accumulation of Variation During Reproduction", "Heredity"],
+    "Light – Reflection and Refraction": ["Reflection of Light", "Spherical Mirrors", "Refraction of Light"],
+    "The Human Eye and the Colourful World": ["The Human Eye", "Defects of Vision and Their Correction", "Refraction of Light through a Prism", "Dispersion of White Light by a Glass Prism", "Atmospheric Refraction", "Scattering of Light"],
+    "Electricity": ["Electric Current and Circuit", "Electric Potential and Potential Difference", "Circuit Diagram", "Ohm's Law", "Factors on which the Resistance of a Conductor Depends", "Resistance of a System of Resistors", "Heating Effect of Electric Current", "Electric Power"],
+    "Magnetic Effects of Electric Current": ["Magnetic Field and Field Lines", "Magnetic Field due to a Current-Carrying Conductor", "Force on a Current-Carrying Conductor in a Magnetic Field", "Domestic Electric Circuits"],
+    "Our Environment": ["Eco-system — What are its Components?", "How do our Activities affect the Environment?"],
+  },
+};

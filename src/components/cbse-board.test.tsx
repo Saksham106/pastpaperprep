@@ -10,7 +10,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { freeQuestionYears, questionYear } from "@/lib/access";
 import { isCbseBank, isIGCSEReleaseBank } from "@/lib/banks";
 import { BANK_CATALOG, getCatalogBank, getCatalogBanksForDisplay, getCatalogBillingBanks, getCatalogRuntimeBanks } from "@/lib/catalog";
-import { CBSE_BANKS, CBSE_TOPICS, cbseChapterOrder } from "@/lib/cbse";
+import { CBSE_BANKS, CBSE_SUBTOPICS, CBSE_TOPICS, cbseChapterOrder } from "@/lib/cbse";
 import { defaultRouteSelection, deriveCourseRoute, matchesCourseRoute, parseRouteSelection, resolveCourseRoute, routeConfigFor } from "@/lib/course-route";
 import { HELD_BANKS } from "@/lib/held-banks.mjs";
 import { pdfSourceLabel } from "@/lib/pdf-labels";
@@ -164,6 +164,13 @@ describe("CBSE chapters", () => {
     expect(groups.relevant).toEqual(["Integration by parts"]);
     expect(groups.other).toEqual(["Types of matrices"]);
     expect(getControlledSubtopics("cbse-12-maths", "Integrals")).toEqual([]);
+  });
+
+  it("pins Class 10 Science sections under their chapters, in NCERT order", () => {
+    const sections = CBSE_SUBTOPICS["cbse-10-science"]!;
+    expect(Object.keys(sections)).toEqual([...cbseChapterOrder("cbse-10-science")]);
+    expect(Object.values(sections).flat()).toHaveLength(53);
+    expect(getControlledSubtopics("cbse-10-science", "Chemical Reactions and Equations")[1]).toBe("Types of Chemical Reactions");
   });
 
   it("splits Class 10 Science into Biology, Chemistry and Physics tabs by chapter, opening on the whole paper", () => {
