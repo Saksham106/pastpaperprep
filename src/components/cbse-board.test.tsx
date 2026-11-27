@@ -14,6 +14,7 @@ import { CBSE_BANKS, CBSE_SUBTOPICS, CBSE_TOPICS, cbseChapterOrder } from "@/lib
 import { defaultRouteSelection, deriveCourseRoute, matchesCourseRoute, parseRouteSelection, resolveCourseRoute, routeConfigFor } from "@/lib/course-route";
 import { HELD_BANKS } from "@/lib/held-banks.mjs";
 import { pdfSourceLabel } from "@/lib/pdf-labels";
+import { formatPublicLabel } from "@/lib/presentation";
 import { helperBoard, HELPER_BOARDS } from "@/lib/helper/config";
 import { publicMetadataToQuestion, toPublicQuestionMetadata } from "@/lib/question-index";
 import { normalizeBankQuestions } from "@/lib/questions";
@@ -85,6 +86,11 @@ describe("CBSE board registration", () => {
     // The ingestion toolkit's id form.
     expect(questionYear("cbse12p-2025-m-111-q5-or")).toBe(2025);
     expect(questionYear("cbse10m-2023-c-30-1-1-q2")).toBe(2023);
+  });
+
+  it("keeps orbital block names lowercase on cards and in the picker", () => {
+    expect(formatPublicLabel("d- and f-Block Elements")).toBe("d- and f-Block Elements");
+    expect(formatPublicLabel("amines")).toBe("Amines");
   });
 
   it("cites a CBSE question by its set on worksheets", () => {

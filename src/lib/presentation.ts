@@ -28,6 +28,8 @@ export function formatPublicLabel(value: string): string {
 
   const spaced = value.replace(/_/g, " ").replace(/\s+/g, " ").trim();
   if (!spaced) return spaced;
+  // Orbital block names keep their lowercase letter: "d- and f-Block Elements", never "D- and f-Block".
+  if (/^[spdf]-/.test(spaced)) return spaced;
   return spaced.charAt(0).toLocaleUpperCase() + spaced.slice(1);
 }
 
