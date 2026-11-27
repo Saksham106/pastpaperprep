@@ -52,7 +52,10 @@ async function post(path: string, body: unknown, signal?: AbortSignal): Promise<
   return result;
 }
 
-export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
+/** Where a student came from to this flow: the access-end email or the on-site "plan ends" strip. */
+export type ExitFlowSource = "reminder" | "notice";
+
+export function SubscriptionExitFlow({ start, source }: { start: "cancel" | "pause"; source?: ExitFlowSource }) {
   const [step, setStep] = useState<Step>("loading");
   const [sub, setSub] = useState<LoadedSubscription | null>(null);
   const [pauseEnabled, setPauseEnabled] = useState(false);
@@ -169,6 +172,7 @@ export function SubscriptionExitFlow({ start }: { start: "cancel" | "pause" }) {
       if (response.cancelAtPeriodEnd !== false) throw new Error("Could not verify the undo. Check Billing before trying again.");
       setSub((current) => current && { ...current, cancelAtPeriodEnd: false });
       setResult({ message: "You’re staying. Your plan renews as normal." });
+      trackProductEvent("cancel_undone", { source: source ?? "account" });
     } catch (cause) { setError(cause instanceof Error ? cause.message : "Could not undo. Nothing has been changed."); }
     finally { setBusy(false); }
   }

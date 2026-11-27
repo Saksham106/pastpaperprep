@@ -1,5 +1,7 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+const trackProductEvent = vi.fn();
+vi.mock("@/lib/product-analytics", () => ({ trackProductEvent: (...args: unknown[]) => trackProductEvent(...args) }));
 import { OFFER_TIMEOUT_MS, SubscriptionExitFlow } from "@/components/SubscriptionExitFlow";
 
 // jsdom has no scrolling; the flow scrolls to the top on each step.
@@ -12,6 +14,16 @@ const decision = (offer: unknown, pauseAvailable = true) => ({ offer, eligibleOf
 const body = (fetch: ReturnType<typeof vi.fn>, call: number) => JSON.parse(fetch.mock.calls[call][1].body);
 
 describe("subscription exit flow", () => {
+  it("from the access-end reminder, opens on the undo and tags a kept plan with its source", async () => {
+    trackProductEvent.mockClear();
+    const fetch = vi.fn().mockResolvedValueOnce(ok(billing({ cancelAtPeriodEnd: true }))).mockResolvedValueOnce(ok({ status: "active", cancelAtPeriodEnd: false, effectiveAt: "2026-12-26T00:00:00Z" }));
+    vi.stubGlobal("fetch", fetch);
+    render(<SubscriptionExitFlow start="cancel" source="reminder" />);
+    fireEvent.click(await screen.findByRole("button", { name: "Undo cancellation" }));
+    expect(await screen.findByText("You’re staying. Your plan renews as normal.")).toBeInTheDocument();
+    expect(body(fetch, 1)).toEqual({ intent: "undo" });
+    expect(trackProductEvent).toHaveBeenCalledWith("cancel_undone", { source: "reminder" });
+  });
   it("makes keeping the subscription the primary action and the reason optional", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValueOnce(ok(billing())));
     render(<SubscriptionExitFlow start="cancel" />);
