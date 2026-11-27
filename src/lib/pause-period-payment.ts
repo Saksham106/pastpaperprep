@@ -3,10 +3,10 @@ import { isPauseRelevant, PAUSE_ACCESS_UNTIL_KEY } from "@/lib/subscription-paus
 
 const idOf = (value: unknown): string | null => typeof value === "string" ? value : value && typeof value === "object" && typeof (value as { id?: unknown }).id === "string" ? (value as { id: string }).id : null;
 
-/** Whether a pause touches the subscription's current period (see `isPauseRelevant`). */
+/** Whether an app-owned pause touches the subscription's current period (see `isPauseRelevant`). */
 export function subscriptionPauseRelevant(subscription: Stripe.Subscription): boolean {
   const item = subscription.items?.data?.length === 1 ? subscription.items.data[0] : null;
-  if (!item || !Number.isSafeInteger(item.current_period_start)) return Boolean(subscription.pause_collection);
+  if (!item || !Number.isSafeInteger(item.current_period_start)) return false;
   return isPauseRelevant(Boolean(subscription.pause_collection), subscription.metadata, item.current_period_start);
 }
 
