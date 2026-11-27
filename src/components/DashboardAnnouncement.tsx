@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, CalendarCheck, Pause, Play, Sparkle, X } from "@phosphor-icons/react/dist/ssr";
 import { CourseIcon, type CourseTone } from "@/components/CourseIcon";
 import { PAGE_NAVIGATION } from "@/components/PageTransition";
-import { annualAnnouncement, annualOfferFrom, isDismissed, pruneDismissals, rankAnnouncements, type Announcement, type AnnualOffer, type Dismissals } from "@/lib/announcement-pick";
+import { ANNOUNCEMENT_SLIDES, annualAnnouncement, annualOfferFrom, isDismissed, pruneDismissals, rankAnnouncements, type Announcement, type AnnualOffer, type Dismissals } from "@/lib/announcement-pick";
 import { PEPPER_OPEN_EVENT, type PepperOpenDetail } from "@/lib/helper/site-config";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { readRememberedBoard } from "@/lib/remembered-board";
@@ -56,6 +56,10 @@ export type DashboardAnnouncementProps = {
 
 /** How long each card stays before the strip slides on by itself. */
 export const SLIDE_MS = 6000;
+/** The longest the strip waits for the billing read before showing the cards it already has. */
+export const ANNUAL_WAIT_MS = 1500;
+/** Scrolling counts as settled on a card after this long without scroll events (smooth scrolls pass through others). */
+const SCROLL_SETTLE_MS = 140;
 
 function prefersReducedMotion() {
   try { return window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch { return false; }
@@ -77,8 +81,12 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
   const [held, setHeld] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [emptied, setEmptied] = useState(false);
+  const [waitedForAnnual, setWaitedForAnnual] = useState(false);
+  const [shownFrom, setShownFrom] = useState<"start" | "late" | null>(null);
   const viewed = useRef(new Set<string>());
   const track = useRef<HTMLDivElement>(null);
+  const settle = useRef<number | undefined>(undefined);
+  const refocus = useRef(false);
 
   useEffect(() => {
     const stored = pruneDismissals(readDismissals(userId));
@@ -101,13 +109,36 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
     return () => controller.abort();
   }, [wantsAnnual, userId]);
 
-  // Wait for the billing check, so the strip never reorders (and counts views) when the nudge arrives.
-  const slides = useMemo(() => ready && (!wantsAnnual || annualChecked)
-    ? rankAnnouncements(annual ? [...candidates, annual] : candidates, { dismissals, boards: readerBoards })
-    : [],
+  // The cards that need no billing read. A new bank leads regardless, so it shows at once; otherwise the strip waits
+  // briefly for the nudge (it ranks ahead of papers and features), but never longer than ANNUAL_WAIT_MS.
+  const withoutOffer = useMemo(() => ready ? rankAnnouncements(candidates, { dismissals, boards: readerBoards }) : [],
   // readerBoards is derived from boards and board.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  [ready, wantsAnnual, annualChecked, annual, candidates, dismissals, boards, board]);
+  [ready, candidates, dismissals, boards, board]);
+  const holding = wantsAnnual && !annualChecked && !waitedForAnnual && withoutOffer[0]?.tier !== 0;
+  useEffect(() => {
+    if (!holding) return;
+    const timer = window.setTimeout(() => setWaitedForAnnual(true), ANNUAL_WAIT_MS);
+    return () => window.clearTimeout(timer);
+  }, [holding]);
+  // The nudge only while it still applies (a later render can turn the billing check off).
+  const offer = wantsAnnual ? annual : null;
+  const slides = useMemo(() => {
+    if (!ready || holding) return [];
+    if (!offer) return withoutOffer;
+    // Arriving after the strip was on screen, the nudge joins at the end instead of reordering what the reader sees.
+    return shownFrom === "late"
+      ? [...withoutOffer.filter((item) => item.id !== offer.id), ...rankAnnouncements([offer], { dismissals })].slice(0, ANNOUNCEMENT_SLIDES)
+      : rankAnnouncements([...candidates, offer], { dismissals, boards: readerBoards });
+  // readerBoards is derived from boards and board.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, holding, offer, withoutOffer, shownFrom, candidates, dismissals, boards, board]);
+  // Remember whether the strip first appeared with the billing answer in or without it.
+  useEffect(() => {
+    if (shownFrom || !slides.length) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- records the first paint's order once
+    setShownFrom(wantsAnnual && !annualChecked ? "late" : "start");
+  }, [slides.length, shownFrom, wantsAnnual, annualChecked]);
   const active = slides[Math.min(index, slides.length - 1)];
 
   useEffect(() => {
@@ -121,6 +152,7 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
     return children && children.length > 1 ? (children[1] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft : track.current?.clientWidth ?? 0;
   };
   const goTo = (next: number) => {
+    window.clearTimeout(settle.current);
     setIndex(next);
     const width = stride();
     if (width) track.current?.scrollTo?.({ left: next * width, behavior: reducedMotion ? "auto" : "smooth" });
@@ -140,6 +172,14 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auto, held, reducedMotion, slides.length, index]);
 
+  // After a dismissal, focus goes to the card now on show rather than falling to <body>.
+  useEffect(() => {
+    if (!refocus.current) return;
+    refocus.current = false;
+    track.current?.querySelector<HTMLElement>(".dashboard-announcement:not([inert]) .dashboard-announcement-dismiss")?.focus();
+  }, [slides, index]);
+  useEffect(() => () => window.clearTimeout(settle.current), []);
+
   if (!active) return emptied ? null : <>{fallback}</>;
 
   const log = (name: "announcement_click" | "announcement_dismiss", item: Announcement, target?: "primary" | "secondary") =>
@@ -150,15 +190,26 @@ export function DashboardAnnouncement({ userId, candidates, boards, annualCheck,
     log("announcement_dismiss", item);
     setAuto(false);
     setDismissals(next);
-    // The last card going leaves the slot empty for this visit rather than swapping in another banner.
-    if (slides.length === 1) setEmptied(true);
-    else goTo(Math.min(slides.indexOf(item), slides.length - 2));
+    // The last card going leaves the slot empty for this visit rather than swapping in another banner;
+    // focus moves to the page heading rather than falling to <body>.
+    if (slides.length === 1) {
+      setEmptied(true);
+      const heading = document.querySelector<HTMLElement>("main h1, h1");
+      if (heading) { if (!heading.hasAttribute("tabindex")) heading.setAttribute("tabindex", "-1"); heading.focus(); }
+    } else {
+      refocus.current = true;
+      goTo(Math.min(slides.indexOf(item), slides.length - 2));
+    }
   }
+  // Only the card the scroll settles on counts, not the ones a smooth scroll passes.
   const onScroll = () => {
-    const width = stride();
-    if (!width || !track.current) return;
-    const at = Math.round(track.current.scrollLeft / width);
-    if (at !== index && at >= 0 && at < slides.length) setIndex(at);
+    window.clearTimeout(settle.current);
+    settle.current = window.setTimeout(() => {
+      const width = stride();
+      if (!width || !track.current) return;
+      const at = Math.round(track.current.scrollLeft / width);
+      if (at >= 0 && at < slides.length) setIndex(at);
+    }, SCROLL_SETTLE_MS);
   };
 
   return (

@@ -40,6 +40,8 @@ async function handleGET() {
     const method = typeof paymentMethod === "object" && paymentMethod !== null ? paymentMethod : null;
     const methodRecord = method as (typeof method & { type?: string; us_bank_account?: { bank_name?: string | null; last4?: string | null }; card?: { brand?: string; last4?: string; exp_month?: number; exp_year?: number } }) | null;
     const priceCache = new Map<string, ReturnType<typeof stripe.prices.retrieve>>();
+    // A customer-level coupon discounts every invoice, like a subscription or item discount.
+    const customerDiscounted = Boolean((customer as { discount?: unknown }).discount);
     const editorEnabled = process.env.STRIPE_PLAN_EDITOR_ENABLED === "true";
     const detailedSubscriptions = await Promise.all(subscriptions.data.map(async (subscription) => {
       let scheduledPlan: { id: string; effectiveAt: string; interval: string; bankSelection: ReturnType<typeof describeSubscriptionBanks> } | null = null;
@@ -72,6 +74,10 @@ async function handleGET() {
       return ({
       id: subscription.id, status: subscription.status, cancelAtPeriodEnd: subscription.cancel_at_period_end,
       pendingUpdate: Boolean(subscription.pending_update), scheduledChange: Boolean(subscription.schedule),
+      // Whether a coupon lowers what they actually pay below the item prices; null when Stripe didn't say.
+      discounted: Array.isArray(subscription.discounts)
+        ? subscription.discounts.length > 0 || customerDiscounted || subscription.items.data.some((item) => Array.isArray(item.discounts) && item.discounts.length > 0)
+        : null,
       cancelAt: subscription.cancel_at ? new Date(subscription.cancel_at * 1000).toISOString() : null,
       bankSelection: describeSubscriptionBanks(subscription.metadata.product_id ?? null, subscription.metadata.selected_bank_ids ?? null),
       items: await Promise.all(subscription.items.data.map(async (item) => {

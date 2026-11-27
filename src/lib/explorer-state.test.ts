@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseExplorerState, preserveClearedRoutePreset, serializeExplorerState, stripRoutePreset, withRoutePreset } from "@/lib/explorer-state";
+import { officialCodeTier, parseExplorerState, preserveClearedRoutePreset, serializeExplorerState, stripRoutePreset, withRoutePreset } from "@/lib/explorer-state";
 
 describe("question explorer URL state", () => {
   it("parses shareable filters, sort, saved-only mode, and pagination", () => {
@@ -185,5 +185,15 @@ describe("A Level 9709 paper tabs in the URL", () => {
     expect(parseExplorerState({ paper: "1" }, { bank: "igcse", rememberedRoute: "extended" }).courseRoute).toBe("core");
     expect(parseExplorerState({ route: "core" }, { bank: "igcse" }).courseRoute).toBe("core");
     expect(serializeExplorerState({ ...base, courseRoute: "extended" }, { bank: "igcse" }).toString()).toBe("route=extended");
+  });
+
+  it("lets a link's official syllabus code pick the tier before any remembered one", () => {
+    // Revision-notes links: Core codes (C…) are only on Core papers, Extended codes (E…) only on Extended ones.
+    expect(parseExplorerState({ officialCode: "current_2025:C1.1" }, { bank: "igcse", rememberedRoute: "extended" }).courseRoute).toBe("core");
+    expect(parseExplorerState({ officialCode: "current_2025:E1.18" }, { bank: "igcse", rememberedRoute: "core" }).courseRoute).toBe("extended");
+    expect(parseExplorerState({ officialCode: ["current_2025:C1.1", "current_2025:E1.1"] }, { bank: "igcse", rememberedRoute: "core" }).courseRoute).toBe("core");
+    expect(parseExplorerState({ officialCode: "current_2025:C1.1", route: "extended" }, { bank: "igcse" }).courseRoute).toBe("extended");
+    expect(officialCodeTier("source_image_model_0580_v4:E5.5")).toBe("extended");
+    expect(officialCodeTier("current_2025:1.1")).toBeUndefined();
   });
 });

@@ -486,32 +486,32 @@ access: ExplorerAccess;
   // While the deferred list catches up it still shows the previous filters' questions; don't sign
   // links for those (paid signatures spend the member's daily allowance).
   const listPending = listFilters !== filters || listSearch !== search;
-  const matching = useMemo(() => {
+  // The list for a route with the current filters, search, free-only and saved-only choices.
+  const listFor = useCallback((route: CourseRouteSelection) => {
     const normalizedSearch = listSearch.trim().toLocaleLowerCase();
     const remoteSearch = Boolean(
       bankSlug && normalizedSearch && indexLoaded && searchResult?.query === normalizedSearch,
     );
-    const routeQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, effectiveCourseRoute));
-    return remoteSearch
+    const routeQuestions = catalogQuestions.filter((question) => matchesCourseRoute(question.syllabusRoute, route));
+    const matched = remoteSearch
       ? filterQuestions(routeQuestions, { ...listFilters, mainTopicOnly: !partialTopics, search: undefined, sort })
         .filter((question) => searchResult!.ids.has(question.id))
       : filterQuestions(routeQuestions, { ...listFilters, mainTopicOnly: !partialTopics, search: listSearch, sort });
-  }, [bankSlug, catalogQuestions, effectiveCourseRoute, listFilters, indexLoaded, partialTopics, listSearch, searchResult, sort]);
-  const filtered = useMemo(() => {
-    const accessible = effectiveFreeOnly ? matching.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matching;
-    return savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible;
-  }, [effectiveFreeOnly, matching, savedIds, savedOnly]);
+    const accessible = effectiveFreeOnly ? matched.filter((question) => isPreviewQuestion(question.bankSlug, question.id)) : matched;
+    return { matched, shown: savedOnly ? accessible.filter((question) => savedIds.has(question.id)) : accessible };
+  }, [bankSlug, catalogQuestions, listFilters, indexLoaded, partialTopics, listSearch, searchResult, sort, effectiveFreeOnly, savedOnly, savedIds]);
+  const { matched: matching, shown: filtered } = useMemo(() => listFor(effectiveCourseRoute), [listFor, effectiveCourseRoute]);
   const savedWorksheetView = Boolean(worksheetId) && !addingQuestions;
-  // Core/Extended has no "All". When a tier has no free questions at all (Maths 0580's free years are Extended papers),
-  // offer the other tier's free questions instead of an empty list.
-  const freeTierFallback = useMemo(() => {
-    if (!effectiveFreeOnly || !routeConfig || routeConfig.showAll || Object.values(filters).some((picked) => Array.isArray(picked) && picked.length) || listSearch.trim()) return null;
-    const freeIn = (route: CourseRouteSelection) => catalogQuestions.some((question) => matchesCourseRoute(question.syllabusRoute, route) && isPreviewQuestion(question.bankSlug, question.id));
-    if (freeIn(effectiveCourseRoute)) return null;
-    const other = routeConfig.options.find((option) => option.id !== effectiveCourseRoute && freeIn(option.id));
+  // Core/Extended has no "All". When the student's tier lists nothing but the other tier would with the same filters
+  // (Maths 0580's free years are Extended papers; a link into the other tier's topics), offer that tier, keeping the filters.
+  const otherTierFallback = useMemo(() => {
+    if (filtered.length || !routeConfig || routeConfig.showAll) return null;
     const current = routeConfig.options.find((option) => option.id === effectiveCourseRoute);
-    return other && current ? { id: other.id, from: current.label, to: other.label } : null;
-  }, [effectiveFreeOnly, routeConfig, filters, listSearch, catalogQuestions, effectiveCourseRoute]);
+    const other = routeConfig.options.find((option) => option.id !== effectiveCourseRoute && listFor(option.id).shown.length > 0);
+    if (!current || !other) return null;
+    const narrowed = Object.values(listFilters).some((picked) => Array.isArray(picked) && picked.length) || Boolean(listSearch.trim()) || savedOnly;
+    return { id: other.id, from: current.label, to: other.label, count: listFor(other.id).shown.length, narrowed };
+  }, [filtered.length, routeConfig, effectiveCourseRoute, listFor, listFilters, listSearch, savedOnly]);
   const sharedSetView = !worksheetId && (sharedIds !== null || Boolean(sharedError));
   const sharedSetQuestions = useMemo(() => {
     if (!sharedIds || (indexUrl && !indexLoaded) || indexError || bootstrapPending) return [];
@@ -1618,8 +1618,11 @@ access: ExplorerAccess;
               }} selected={selectedIds.has(question.id)} selectable={!savedWorksheetView && !sharedSetView} onSelect={() => toggleQuestion(question.id)} saved={savedIds.has(question.id)} attempted={attemptedIds.has(question.id)} onToggleSaved={() => { if (bootstrapPending) return; if (resolvedAccess.authenticated) void toggleSaved(question.id); else openSigninPrompt({ reason: "save", questionId: question.id }); }} onAttempt={() => recordAttempt(question.id)} onReveal={() => recordReveal(question.id)} locked={nudgesActive ? { title: `${question.year} paper · on any plan`, body: indexLoaded ? `Unlock ${paidCount.toLocaleString("en-US")} more ${bankShortName} questions with mark schemes and PDFs.` : `Unlock every ${bankShortName} question with mark schemes and PDFs.`, href: upgradeLink("locked_card"), onClick: () => trackUpgrade("click", nudgeBank, "locked_card") } : undefined} />{nudgesActive && milestoneQuestionId === question.id && <PracticeMilestone bank={nudgeBank} facts={yearFacts} href={upgradeLink("practice_milestone")} onDismiss={() => setMilestoneQuestionId("")} />}{renderFeedSlot(index + 1, index === shownQuestions.length - 1)}</Fragment>;
             })}
           </div>
-          {!savedWorksheetView && !sharedSetView && filtered.length === 0 && (freeTierFallback
-            ? <div className="empty-state"><strong>No free {freeTierFallback.from} questions here yet.</strong><span>The free years are {freeTierFallback.to} papers.</span><button type="button" className="text-button" onClick={() => changeCourseRoute(freeTierFallback.id, { remember: false })}>Show free {freeTierFallback.to} questions</button></div>
+          {!savedWorksheetView && !sharedSetView && filtered.length === 0 && (otherTierFallback
+            ? <div className="empty-state">{otherTierFallback.narrowed || !effectiveFreeOnly
+              ? <><strong>No {otherTierFallback.from} questions match.</strong><span>{otherTierFallback.count.toLocaleString("en-US")} {otherTierFallback.to} {otherTierFallback.count === 1 ? "question does" : "questions do"}.</span></>
+              : <><strong>No free {otherTierFallback.from} questions here yet.</strong><span>The free years are {otherTierFallback.to} papers.</span></>}
+              <button type="button" className="text-button" onClick={() => changeCourseRoute(otherTierFallback.id, { remember: false })}>Show {effectiveFreeOnly ? "free " : ""}{otherTierFallback.to} questions</button></div>
             : <div className="empty-state"><strong>No questions match that combination.</strong><span>Clear a filter and try again.</span></div>)}
           {!savedWorksheetView && !sharedError && !missingSharedCount && freeGate.active && bankSlug && <FreeQuestionSignupGate bankSlug={bankSlug} sentViews={sentUpgradeViews} bankFreeCount={bankFreeCount} bankName={bankShortName} remainingCount={freeGate.remainingCount} signupHref={signupHref} signinHref={signinHref} plansHref={upgradeLink("signup_gate")} plansLine={yearFacts ? `Want ${yearFacts.newerPaidLabel} too? Plans start at ${UPGRADE_PRICE_MONTH}.` : `Want every year? Plans start at ${UPGRADE_PRICE_MONTH}.`} />}
           {!savedWorksheetView && !sharedSetView && !freeGate.active && visible < filtered.length && <button className="load-more" onPointerEnter={prefetchNextPage} onFocus={prefetchNextPage} onTouchStart={prefetchNextPage} onClick={() => { setVisible((count) => count + EXPLORER_PAGE_SIZE); trackProductEvent("question_list_more", { bank: bank ?? "unknown", shown: Math.min(visible + EXPLORER_PAGE_SIZE, filtered.length) }); }}>Show 24 more questions</button>}

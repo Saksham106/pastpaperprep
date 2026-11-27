@@ -82,6 +82,8 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   const currentBankRef = useRef(bank);
   currentBankRef.current = bank;
 
+  // What the last link asked for (its paper targets and questions), so settling a tier never drops any of it.
+  const linkContent = useRef<{ papers: number[]; ids: string[] }>({ papers: [], ids: [] });
   // Restore the choices from a link: once after hydration, and again when a different link is followed while here.
   const restoreFromLink = useCallback((query: string, again: boolean) => {
     const state = parseBuilderState(new URLSearchParams(query));
@@ -90,6 +92,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
       setBank(state.bank as BankSlug); setQuestions([]); setLoading(true);
     }
     setRoute(state.route); setFrom(state.from); setTo(state.to);
+    linkContent.current = { papers: state.target.kind === "papers" ? state.target.targets.map((item) => item.paper) : [], ids: state.ids };
     if (state.target.kind === "papers") { setPaperTargets(state.target.targets); setPaperMode(state.target.targets[0].mode); } else { setPaperTargets([]); setSize(state.target); }
     if (state.seed !== undefined) setSeed(state.seed);
     // Topics apply once the bank's topic tree is ready; until then every topic counts, so the listed questions fit.
@@ -151,12 +154,22 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
   }
   // Core/Extended only: where the route is the paper (A Level tabs), the paper targets already choose it.
   const routed = supportsCourseRoute(bank || undefined) && !routeConfigFor(bank || undefined)?.hidesPaperFilter;
-  // "All" (a new bank, or an older link) becomes the student's remembered tier, else Extended.
+  // "All" (a new bank, or an older link) settles on a tier once the bank's questions are in. A link's own content
+  // decides first: its paper targets and picked questions name the tier (a link mixing both keeps "All", so nothing
+  // it holds is dropped); only an empty start takes the student's remembered tier, else Extended.
   useEffect(() => {
     if (!hydrated || !routed || route !== "all") return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-off read of the remembered tier from localStorage
+    const { papers: linkPapers, ids: linkIds } = linkContent.current;
+    // A link's questions name their papers only once the bank's questions are in.
+    if (linkIds.length && !questions.length) return;
+    const papersInLink = [...linkPapers, ...linkIds.flatMap((id) => { const paper = questions.find((question) => question.id === id)?.paper; return paper === undefined ? [] : [paper]; })];
+    if (papersInLink.length) {
+      const tiers = new Set(papersInLink.map((paper) => deriveCourseRoute(bank as BankSlug, paper)).filter((tier) => tier && tier !== "both"));
+      if (tiers.size === 1) setRoute([...tiers][0]);
+      return;
+    }
     setRoute(readRememberedRoute(bank || undefined) ?? defaultRouteSelection(bank || undefined));
-  }, [hydrated, routed, route, bank]);
+  }, [hydrated, routed, route, bank, questions]);
   const inRoute = (paper: number) => !routed || route === "all" || matchesCourseRoute(deriveCourseRoute(bank as BankSlug, paper), route);
   const basePool = useMemo(() => questions.filter((question) => inRoute(question.paper) && (!from || question.year >= from) && (!to || question.year <= to)),
     // inRoute only reads bank, route and routed, which are listed.
@@ -232,6 +245,7 @@ export function PaperBuilder({ banks, initialBank, existingTitles = [], exportMa
     if (!next || next.slug === bank) return;
     setBank(next.slug); setQuestions([]); setLoading(true); setLoadError("");
     setRoute("all"); setFrom(undefined); setTo(undefined); setSelection(new Set()); setPendingKeys(null);
+    linkContent.current = { papers: [], ids: [] };
     setPaperTargets([]); setRemoved(new Set()); setManualOrder(false); setSeed(randomSeed());
     setTitleEdited(false); setTitle(""); setSaved(null); setMessage(null);
     setDraftState({ pool: null, target: null, seed, manualOrder: false, draft: EMPTY_DRAFT });

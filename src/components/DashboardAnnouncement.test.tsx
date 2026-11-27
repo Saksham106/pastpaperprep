@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { DashboardAnnouncement, SLIDE_MS } from "@/components/DashboardAnnouncement";
+import { ANNUAL_WAIT_MS, DashboardAnnouncement, SLIDE_MS } from "@/components/DashboardAnnouncement";
 import type { Announcement } from "@/lib/announcement-pick";
 import { PEPPER_OPEN_EVENT } from "@/lib/helper/site-config";
 
@@ -17,7 +17,7 @@ const pepperCard: Announcement = { id: "2026-11-25-ask-pepper", kind: "feature",
 const papersCard: Announcement = { id: "2026-11-22-papers", kind: "new_papers", eyebrow: "New papers", title: "Computer Science 9618", tier: 2, date: "2026-11-22", cta: { label: "Open papers", href: "/past-papers/a-level-computer-science-9618" } };
 const monthlySnapshot = {
   management: { editable: true },
-  subscriptions: [{ status: "active", cancelAtPeriodEnd: false, bankSelection: { kind: "selected", banks: [{ slug: "igcse", name: "Mathematics 0580" }] }, items: [{ recurringSubtotalCents: 600, price: { currency: "usd", interval: "month", intervalCount: 1 } }] }],
+  subscriptions: [{ status: "active", cancelAtPeriodEnd: false, discounted: false, bankSelection: { kind: "selected", banks: [{ slug: "igcse", name: "Mathematics 0580" }] }, items: [{ recurringSubtotalCents: 600, price: { currency: "usd", interval: "month", intervalCount: 1 } }] }],
 };
 /** The slide on show: the others are hidden from assistive tech and can't be focused. */
 const shown = () => screen.getByRole("group");
@@ -151,6 +151,60 @@ describe("DashboardAnnouncement", () => {
     render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={["igcse"]} annualCheck />);
     await screen.findByText("Switch to annual and save 33%");
     expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows a ready new-bank card at once while billing is still being read", async () => {
+    vi.stubGlobal("fetch", vi.fn(() => new Promise<Response>(() => {})));
+    render(<DashboardAnnouncement userId="u1" candidates={[bankCard, pepperCard]} boards={["ib"]} annualCheck />);
+    expect(await screen.findByText("IB Business Management HL and SL")).toBeInTheDocument();
+  });
+
+  it("waits only briefly for a slow billing read, then shows what it has and adds the offer at the end", async () => {
+    vi.useFakeTimers();
+    let answer: (response: Response) => void = () => {};
+    vi.stubGlobal("fetch", vi.fn(() => new Promise<Response>((resolve) => { answer = resolve; })));
+    render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck />);
+    await act(async () => {});
+    expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
+    act(() => { vi.advanceTimersByTime(ANNUAL_WAIT_MS); });
+    expect(screen.getByRole("complementary")).toHaveTextContent("Ask Pepper");
+    await act(async () => { answer(new Response(JSON.stringify(monthlySnapshot), { status: 200 })); });
+    // Late: it joins after the card already on show instead of jumping ahead of it.
+    expect(shown()).toHaveTextContent("Ask Pepper");
+    expect(screen.getByRole("complementary")).toHaveTextContent("Switch to annual and save 33%");
+    expect(screen.getByRole("button", { name: "Show update 2 of 2" })).toBeInTheDocument();
+  });
+
+  it("drops the offer when the subscription check no longer applies", async () => {
+    window.localStorage.setItem("ppp-annual-offer:u1", JSON.stringify({ at: Date.now(), offer: { percent: 33, monthlyCents: 600, annualCents: 4800 } }));
+    const { rerender } = render(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck />);
+    expect(await screen.findByText("Switch to annual and save 33%")).toBeInTheDocument();
+    rerender(<DashboardAnnouncement userId="u1" candidates={[pepperCard]} boards={[]} annualCheck={false} />);
+    await waitFor(() => expect(screen.queryByText("Switch to annual and save 33%")).not.toBeInTheDocument());
+    expect(screen.getByRole("complementary")).toHaveTextContent("Ask Pepper");
+  });
+
+  it("moves focus to the next card's dismiss button, or the page heading when none are left", async () => {
+    render(<main><h1>Your study desk</h1><DashboardAnnouncement userId="u1" candidates={[pepperCard, bankCard]} boards={[]} annualCheck={false} /></main>);
+    fireEvent.click(await screen.findByRole("button", { name: "Dismiss: IB Business Management HL and SL" }));
+    await waitFor(() => expect(screen.getByRole("button", { name: "Dismiss: Ask Pepper" })).toHaveFocus());
+    fireEvent.click(screen.getByRole("button", { name: "Dismiss: Ask Pepper" }));
+    expect(screen.getByRole("heading", { name: "Your study desk" })).toHaveFocus();
+  });
+
+  it("counts only the card a swipe settles on, not the ones it passes", async () => {
+    vi.useFakeTimers();
+    const offset = vi.spyOn(HTMLElement.prototype, "offsetLeft", "get").mockImplementation(function (this: HTMLElement) {
+      return this.classList.contains("dashboard-announcement") ? [...(this.parentElement?.children ?? [])].indexOf(this) * 500 : 0;
+    });
+    render(<DashboardAnnouncement userId="u1" candidates={[pepperCard, papersCard, bankCard]} boards={[]} annualCheck={false} />);
+    await act(async () => {});
+    const strip = screen.getByRole("complementary").querySelector<HTMLElement>(".dashboard-announcements-track")!;
+    for (const left of [250, 500, 750, 1000]) { strip.scrollLeft = left; fireEvent.scroll(strip); act(() => { vi.advanceTimersByTime(30); }); }
+    act(() => { vi.advanceTimersByTime(500); });
+    expect(shown()).toHaveTextContent("Ask Pepper");
+    expect(views()).toEqual([bankCard.id, pepperCard.id]);
+    offset.mockRestore();
   });
 
   it("never reads billing for accounts without a subscription", async () => {

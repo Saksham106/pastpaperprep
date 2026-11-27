@@ -130,7 +130,7 @@ describe("annual offer", () => {
   const snapshot = (overrides: { sub?: Record<string, unknown>; item?: Record<string, unknown>; editable?: boolean; extra?: unknown[] } = {}) => ({
     management: { editable: overrides.editable ?? true },
     subscriptions: [{
-      status: "active", cancelAtPeriodEnd: false, pendingUpdate: false, scheduledChange: false,
+      status: "active", cancelAtPeriodEnd: false, pendingUpdate: false, scheduledChange: false, discounted: false,
       bankSelection: { kind: "selected", banks: [{ slug: "igcse", name: "Mathematics 0580" }] },
       items: [{ recurringSubtotalCents: 600, price: { currency: "usd", interval: "month", intervalCount: 1 }, ...overrides.item }],
       ...overrides.sub,
@@ -150,6 +150,9 @@ describe("annual offer", () => {
     expect(annualOfferFrom(snapshot({ sub: { cancelAtPeriodEnd: true } }))).toBeNull();
     expect(annualOfferFrom(snapshot({ sub: { scheduledChange: true } }))).toBeNull();
     expect(annualOfferFrom(snapshot({ sub: { pendingUpdate: true } }))).toBeNull();
+    // A coupon (or not knowing) means the real charge may be below the item price: no savings claim.
+    expect(annualOfferFrom(snapshot({ sub: { discounted: true } }))).toBeNull();
+    expect(annualOfferFrom(snapshot({ sub: { discounted: undefined } }))).toBeNull();
     expect(annualOfferFrom(snapshot({ sub: { bankSelection: { kind: "unknown" } } }))).toBeNull();
     expect(annualOfferFrom(snapshot({ extra: [{ status: "active", items: [] }] }))).toBeNull();
     expect(annualOfferFrom(snapshot({ extra: [{ status: "canceled", items: [] }] }))).not.toBeNull();

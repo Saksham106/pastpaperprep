@@ -32,7 +32,7 @@ const DAY = 86_400_000;
 export type AnnualOffer = { percent: number; monthlyCents: number; annualCents: number };
 
 type BillingSnapshot = {
-  subscriptions?: { status?: unknown; cancelAtPeriodEnd?: unknown; pendingUpdate?: unknown; scheduledChange?: unknown; bankSelection?: { kind?: unknown; banks?: unknown }; items?: { recurringSubtotalCents?: unknown; price?: { currency?: unknown; interval?: unknown; intervalCount?: unknown } }[] }[];
+  subscriptions?: { status?: unknown; cancelAtPeriodEnd?: unknown; pendingUpdate?: unknown; scheduledChange?: unknown; discounted?: unknown; bankSelection?: { kind?: unknown; banks?: unknown }; items?: { recurringSubtotalCents?: unknown; price?: { currency?: unknown; interval?: unknown; intervalCount?: unknown } }[] }[];
   management?: { editable?: unknown };
 };
 
@@ -49,6 +49,8 @@ export function annualOfferFrom(snapshot: unknown): AnnualOffer | null {
   if (current.length !== 1) return null;
   const [sub] = current;
   if (sub.status !== "active" || sub.cancelAtPeriodEnd !== false || sub.pendingUpdate || sub.scheduledChange || sub.items?.length !== 1) return null;
+  // A coupon means they pay less than the item price, so "save N% / instead of $X" would overstate it. Unknown counts as discounted.
+  if (sub.discounted !== false) return null;
   const [item] = sub.items;
   const monthlyCents = item.recurringSubtotalCents;
   if (item.price?.interval !== "month" || (item.price.intervalCount != null && item.price.intervalCount !== 1) || item.price.currency !== "usd") return null;

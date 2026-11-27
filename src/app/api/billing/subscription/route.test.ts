@@ -32,6 +32,19 @@ describe("GET /api/billing/subscription", () => {
   expect(customersRetrieve).toHaveBeenCalledWith("cus_a", { expand: ["invoice_settings.default_payment_method"] });
   await expect(response.json()).resolves.toMatchObject({ subscriptions: [{ id: "sub_a", metadata: { productId: "bundle_custom" } }], invoices: [{ id: "in_a", amountPaid: 2000 }], paymentMethod: { type: "us_bank_account", bankName: "Example Bank", last4: "4321" } });
  });
+ it("reports whether a coupon lowers the charge (subscription, item or customer), and null when Stripe doesn't say", async () => {
+  getUser.mockResolvedValue({ data: { user: { id: "user-a", email: "a@example.com" } } });
+  adminRpc.mockResolvedValue({ data: "cus_a", error: null });
+  const sub = (id: string, extra: Record<string, unknown>, itemExtra: Record<string, unknown> = {}) => ({ id, customer: "cus_a", status: "canceled", current_period_start: 10, current_period_end: 20, cancel_at_period_end: false, items: { data: [{ id: `si_${id}`, quantity: 1, current_period_start: 10, current_period_end: 20, price: { id: "price_a", unit_amount: 600, currency: "usd", recurring: { interval: "month", interval_count: 1 } }, ...itemExtra }] }, metadata: { user_id: "user-a" }, ...extra });
+  subscriptionsList.mockResolvedValue({ data: [sub("plain", { discounts: [] }, { discounts: [] }), sub("coupon", { discounts: ["di_1"] }), sub("item", { discounts: [] }, { discounts: ["di_2"] }), sub("unknown", {})] });
+  invoicesList.mockResolvedValue({ data: [] });
+  customersRetrieve.mockResolvedValue({ id: "cus_a", invoice_settings: { default_payment_method: null } });
+  const plain = await (await GET()).json();
+  expect(plain.subscriptions.map((item: { id: string; discounted: unknown }) => [item.id, item.discounted])).toEqual([["plain", false], ["coupon", true], ["item", true], ["unknown", null]]);
+  customersRetrieve.mockResolvedValue({ id: "cus_a", discount: { id: "di_customer" }, invoice_settings: { default_payment_method: null } });
+  const customerCoupon = await (await GET()).json();
+  expect(customerCoupon.subscriptions[0]).toMatchObject({ id: "plain", discounted: true });
+ });
  it("fails closed if a subscription under the mapped customer belongs to a different user", async () => {
   getUser.mockResolvedValue({ data: { user: { id: "user-a" } } });
   adminRpc.mockResolvedValue({ data: "cus_a", error: null });

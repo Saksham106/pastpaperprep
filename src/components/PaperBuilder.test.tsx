@@ -208,6 +208,19 @@ describe("PaperBuilder", () => {
     expect(rows()).toHaveLength(count);
   });
 
+  it("keeps a link's own paper target and question, taking its tier from them over the remembered one", async () => {
+    window.localStorage.setItem("ppp-route:igcse-tier", "extended");
+    const core = chemistry.questions.find((question: { paper: number; questionImageCount: number; marks: number | null }) => question.paper === 1 && question.questionImageCount > 0 && Number.isInteger(question.marks) && question.marks! > 0)!;
+    window.history.replaceState({}, "", `/worksheets/build?papers=1q1&q=${core.id}`);
+    render(<PaperBuilder banks={[bank]} />);
+    await ready();
+    const routes = screen.getByRole("group", { name: "Your Cambridge route" });
+    await waitFor(() => expect(within(routes).getByRole("button", { name: "Core" })).toHaveAttribute("aria-pressed", "true"));
+    expect(rows()).toHaveLength(1);
+    expect(new URLSearchParams(window.location.search).getAll("q")).toEqual([core.id]);
+    window.localStorage.clear();
+  });
+
   it("drops paper targets a link names that this bank or route cannot use", async () => {
     window.history.replaceState({}, "", "/worksheets/build?papers=9q5");
     render(<PaperBuilder banks={[bank]} />);

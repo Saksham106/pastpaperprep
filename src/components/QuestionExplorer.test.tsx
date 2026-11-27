@@ -94,6 +94,24 @@ describe("QuestionExplorer", () => {
     window.localStorage.clear();
   });
 
+  it("keeps a filtered link's filters when offering the other tier, and the saved tier stays", async () => {
+    const bank = loadBankQuestions("igcse");
+    const freeExtended = bank.find((question) => isPreviewQuestion("igcse", question.id) && question.paper === 2)!;
+    const paidCore = bank.find((question) => !isPreviewQuestion("igcse", question.id) && question.paper === 1)!;
+    window.history.replaceState({}, "", `/banks/igcse?free=1&topic=${encodeURIComponent(freeExtended.primaryTopic)}`);
+    window.localStorage.setItem("ppp-route:igcse-tier", "core");
+    const questions = prepareQuestionsForDelivery([freeExtended, paidCore], []);
+    render(<QuestionExplorer questions={questions} bankSlug="igcse" access={{ authenticated: false, bankAccess: false, canExportPdf: false }} hydrateFromLocation />);
+
+    expect(await screen.findByText("No Core questions match.")).toBeInTheDocument();
+    expect(screen.getByText("1 Extended question does.")).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Show free Extended questions" }));
+    await waitFor(() => expect(screen.getByRole("radio", { name: /^extended/i })).toBeChecked());
+    expect(new URLSearchParams(window.location.search).get("topic")).toBe(freeExtended.primaryTopic);
+    expect(window.localStorage.getItem("ppp-route:igcse-tier")).toBe("core");
+    window.localStorage.clear();
+  });
+
   it("clears incompatible paper refinements and limits paper choices to the selected route", () => {
     const bank = loadBankQuestions("igcse");
     const representatives = [1, 2, 3, 4].map((paper) => bank.find((question) => question.paper === paper)!);
