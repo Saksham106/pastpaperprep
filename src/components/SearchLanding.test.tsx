@@ -137,4 +137,16 @@ describe("SearchLanding", () => {
     view.rerender(<SyllabusLanding bank={bank} manifest={manifest} aaNotes={[{ name: "Series", topic: "Calculus", href: "/revision-notes/ib-math-aa/calculus/5-16-x", label: "Lesson" }]} />);
     expect(screen.getByRole("link", { name: /Series/ })).toHaveAttribute("href", "/revision-notes/ib-math-aa/calculus/5-16-x");
   });
+
+  it("keeps freshness machine-readable on hubs and course guides, with no visible Updated stamp", () => {
+    const hub = render(<QualificationHub qualification="Cambridge IGCSE" title="IGCSE practice" intro="Browse IGCSE banks." />);
+    const ld = (container: HTMLElement) => [...container.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent ?? "{}"));
+    expect(hub.container.textContent).not.toMatch(/Updated \d/);
+    expect(ld(hub.container).find((d) => d["@type"] === "CollectionPage")?.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    hub.unmount();
+    const guide = render(<SyllabusLanding bank={bank} manifest={manifest} />);
+    expect(guide.container.textContent).not.toMatch(/Updated \d/);
+    const page = ld(guide.container).flatMap((d) => d["@graph"] ?? [d]).find((d: Record<string, unknown>) => d["@type"] === "CollectionPage");
+    expect(page?.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
 });
