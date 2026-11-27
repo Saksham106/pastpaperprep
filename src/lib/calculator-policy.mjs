@@ -32,9 +32,13 @@
 // May/June 2026) print "You should use a calculator where appropriate" on the cover (text layer, checked 2026-11-22), and the
 // 2026-2027 syllabus (section 4, "Calculators", as in 2020-2022 and 2023-2025) expects a scientific calculator in all the
 // examinations; graphical and symbolic-algebra calculators are not permitted.
+//
+// CBSE Class 12 Physics (042): no paper allows a calculator. The General Instructions of every set read by the content
+// session, 2023 to 2026, main and compartment, say "Use of calculators is not allowed" (2026 main 55/1/1: "Use of
+// calculator is NOT allowed"), checked 2026-11-27. Other CBSE banks are added as their covers are read.
 
 /** Banks whose questions carry a calculator status. */
-export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231"]);
+export const CALCULATOR_POLICY_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231", "cbse-12-physics"]);
 /** Banks where both values occur, so a calculator filter is useful. */
 export const CALCULATOR_FILTER_BANKS = Object.freeze(["igcse", "igcse-additional", "ib-hl", "ib-sl"]);
 
@@ -58,6 +62,7 @@ export function calculatorAllowed(bank, { paper, year }) {
     case "a-level-economics-9708": return true;
     case "a-level-computer-science-9618": return false;
     case "a-level-further-maths-9231": return true;
+    case "cbse-12-physics": return false;
     default: return null;
   }
 }
