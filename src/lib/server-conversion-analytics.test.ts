@@ -72,6 +72,14 @@ describe("captureConversionOutcome consent gating", () => {
     expect(sent.properties).toMatchObject({ interval: "annual", discounted: true });
   });
 
+  it("records a sale campaign slug and drops anything else", async () => {
+    await captureConversionOutcome({ ...input, outcome: "payment_initial_paid", eventKey: "stripe:invoice:in_c1", campaign: "black-friday-2026" });
+    await captureConversionOutcome({ ...input, outcome: "payment_initial_paid", eventKey: "stripe:invoice:in_c2", campaign: "<script>" });
+    const calls = (fetch as ReturnType<typeof vi.fn>).mock.calls.map((call) => JSON.parse(String(call[1].body)).properties);
+    expect(calls.at(-2)).toMatchObject({ campaign: "black-friday-2026" });
+    expect(calls.at(-1)).not.toHaveProperty("campaign");
+  });
+
   const anonymousIds = async (eventKey: string) => {
     (fetch as ReturnType<typeof vi.fn>).mockClear();
     getUserById.mockResolvedValue({ data: { user: { user_metadata: {} } }, error: null });

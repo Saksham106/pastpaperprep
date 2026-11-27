@@ -1116,6 +1116,8 @@ describe("POST /api/billing/checkout", () => {
       expect(session.discounts).toEqual([{ coupon: "bf-30" }]);
       expect(session).not.toHaveProperty("allow_promotion_codes");
       expect(session.metadata).toMatchObject({ annual_sale: "black-friday-2026", billing_interval: "annual" });
+      // The subscription carries the campaign so its first paid invoice can be attributed.
+      expect((session.subscription_data as { metadata: Record<string, string> }).metadata).toMatchObject({ annual_sale: "black-friday-2026" });
       // Mid-window, the default 24-hour expiry ends before the sale does.
       expect(session).not.toHaveProperty("expires_at");
     });
@@ -1143,6 +1145,7 @@ describe("POST /api/billing/checkout", () => {
       expect(session).not.toHaveProperty("discounts");
       expect(session.allow_promotion_codes).toBe(true);
       expect(session.metadata).not.toHaveProperty("annual_sale");
+      expect((session.subscription_data as { metadata: Record<string, string> }).metadata).not.toHaveProperty("annual_sale");
     });
 
     it.each([
@@ -1169,27 +1172,29 @@ describe("POST /api/billing/checkout", () => {
     });
 
     it.each([
-      ["a different percentage", { ...saleCoupon, percent_off: 25 }],
-      ["an expired coupon", { ...saleCoupon, valid: false }],
-      ["a repeating coupon", { ...saleCoupon, duration: "forever" }],
-    ])("falls back to full price for %s", async (_label, coupon) => {
-      couponsRetrieve.mockImplementation(async () => coupon);
+      ["a different percentage", async () => ({ ...saleCoupon, percent_off: 25 })],
+      ["an expired coupon", async () => ({ ...saleCoupon, valid: false })],
+      ["a repeating coupon", async () => ({ ...saleCoupon, duration: "forever" })],
+      ["a deleted coupon", async () => { throw Object.assign(new Error("No such coupon"), { code: "resource_missing" }); }],
+    ])("stops with SALE_UNAVAILABLE instead of a full-price Checkout for %s", async (_label, lookup) => {
+      couponsRetrieve.mockImplementation(lookup);
       const error = vi.spyOn(console, "error").mockImplementation(() => undefined);
       const response = await checkout({ interval: "annual", productId: "bundle_all" });
 
-      expect(response.status).toBe(200);
-      expect(createdSession()).not.toHaveProperty("discounts");
-      expect(createdSession().allow_promotion_codes).toBe(true);
+      expect(response.status).toBe(503);
+      await expect(response.json()).resolves.toMatchObject({ code: "SALE_UNAVAILABLE" });
+      expect(sessionsCreate).not.toHaveBeenCalled();
+      expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", expect.objectContaining({ p_user_id: user.id }));
       expect(error).toHaveBeenCalled();
     });
 
-    it("falls back to full price when the coupon does not exist", async () => {
+    it("still sells monthly at full price while a sale coupon is broken", async () => {
       couponsRetrieve.mockRejectedValue(Object.assign(new Error("No such coupon"), { code: "resource_missing" }));
-      vi.spyOn(console, "error").mockImplementation(() => undefined);
-      const response = await checkout({ interval: "annual", productId: "bundle_all" });
+      const response = await checkout({ interval: "monthly", productId: "bundle_all" });
 
       expect(response.status).toBe(200);
-      expect(createdSession()).not.toHaveProperty("discounts");
+      expect(couponsRetrieve).not.toHaveBeenCalled();
+      expect(createdSession().allow_promotion_codes).toBe(true);
     });
 
     it("fails without creating a session and releases the reservation when Stripe cannot be reached", async () => {

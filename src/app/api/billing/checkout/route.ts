@@ -8,7 +8,7 @@ import { validateCustomBankIds } from "@/lib/custom-bundles";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import { startCheckout } from "@/lib/stripe-checkout";
 import { ANNUAL_SALE } from "@/lib/annual-sale";
-import { annualSaleSessionExpiry, resolveAnnualSaleCoupon } from "@/lib/annual-sale-checkout";
+import { AnnualSaleUnavailableError, annualSaleSessionExpiry, resolveAnnualSaleCoupon } from "@/lib/annual-sale-checkout";
 import { LAPSED_SUBSCRIPTION_STATUSES, type CheckoutErrorCode } from "@/lib/checkout-errors";
 import { getBillingPlan, getStripeConfig, isStripeBillingEnabled } from "@/lib/stripe-config";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
@@ -310,8 +310,10 @@ async function handlePOST(request: Request) {
                 price_id: input.priceId,
                 ...(paidBundle ? { billing_intent_id: intentId, acknowledge_separate_subscription: "true" } : {}),
                 ...(referralCode ? { referral_code: referralCode } : {}),
+                // Campaign attribution for the first paid invoice (webhook → conversion_outcome).
+                ...(saleCouponId ? { annual_sale: ANNUAL_SALE.id } : {}),
               }
-              : { user_id: input.userId, product_id: input.productId, ...(paidBundle ? { billing_intent_id: intentId, acknowledge_separate_subscription: "true" } : {}), ...(referralCode ? { referral_code: referralCode } : {}) },
+              : { user_id: input.userId, product_id: input.productId, ...(paidBundle ? { billing_intent_id: intentId, acknowledge_separate_subscription: "true" } : {}), ...(referralCode ? { referral_code: referralCode } : {}), ...(saleCouponId ? { annual_sale: ANNUAL_SALE.id } : {}) },
           },
           metadata: {
             user_id: input.userId,
@@ -349,6 +351,9 @@ async function handlePOST(request: Request) {
         p_intent_id: reservation.intentId,
       });
       if (releaseError) console.error("Stripe checkout reservation release failed", safeBillingError(releaseError));
+    }
+    if (error instanceof AnnualSaleUnavailableError) {
+      return NextResponse.json({ error: "The sale price is not available right now", code: "SALE_UNAVAILABLE" }, { status: 503 });
     }
     if (error instanceof BillingStateConflictError) {
       if (error instanceof ManageExistingPlanError) return NextResponse.json({ error: error.message, code: "MANAGE_EXISTING_PLAN", manageUrl: "/account/subscription" }, { status: 409 });

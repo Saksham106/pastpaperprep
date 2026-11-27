@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
@@ -21,6 +21,10 @@ export function SaleCountdown({ endsAt }: { endsAt: number }) {
     m: Math.floor(left / 60_000) % 60,
     s: Math.floor(left / 1000) % 60,
   };
+  // At zero the sale is over: drop the <html> flag so the banner (CSS) and sale prices (useAnnualSaleLive) go.
+  useEffect(() => {
+    if (left === 0) document.documentElement.removeAttribute("data-annual-sale");
+  }, [left]);
   const units = [["d", "days"], ["h", "hrs"], ["m", "min"], ["s", "sec"]] as const;
   return <span className="sale-countdown" role="timer" aria-label={parts ? `Ends in ${parts.d} days ${parts.h} hours ${parts.m} minutes` : "Sale countdown"}>
     {units.map(([key, label]) => <span className="sale-countdown-unit" key={key} aria-hidden="true">

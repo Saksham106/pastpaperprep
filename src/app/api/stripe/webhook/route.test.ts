@@ -264,6 +264,20 @@ describe("POST /api/stripe/webhook", () => {
     expect(captureConversionOutcome).toHaveBeenCalledWith(expect.objectContaining({ outcome: "payment_initial_paid", eventKey: "stripe:invoice:in_sale", discounted: true }));
   });
 
+  it.each([
+    ["subscription_create", "black-friday-2026"],
+    ["subscription_cycle", undefined],
+  ])("attributes the sale campaign only to the first paid invoice (%s)", async (reason, campaign) => {
+    const invoice = { id: `in_${reason}`, status: "paid", amount_paid: 12960, created: 1_800_000_000, customer: "cus_1", billing_reason: reason,
+      total_discount_amounts: [{ amount: 8640, discount: "di_1" }],
+      parent: { type: "subscription_details", subscription_details: { subscription: "sub_1" } } };
+    retrieveSubscription.mockResolvedValue({ ...subscriptionEvent.data.object, metadata: { ...subscriptionEvent.data.object.metadata, annual_sale: "black-friday-2026" }, latest_invoice: invoice.id, schedule: null });
+    constructEvent.mockReturnValue({ id: `evt_${reason}`, created: invoice.created, type: "invoice.paid", data: { object: invoice } });
+    expect((await POST(request())).status).toBe(200);
+    const call = captureConversionOutcome.mock.calls.at(-1)?.[0] as Record<string, unknown>;
+    expect(call.campaign).toBe(campaign);
+  });
+
   it("reconciles charge refunds through the signed Stripe event", async () => {
     constructEvent.mockReturnValue({ id: "evt_refund", type: "charge.refunded", data: { object: { id: "ch_first" } } });
     processReferralChargeRefunded.mockResolvedValue(undefined);
