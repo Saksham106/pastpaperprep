@@ -1,5 +1,6 @@
 import "server-only";
 import type Anthropic from "@anthropic-ai/sdk";
+import type { HelperRoundStats } from "@/lib/helper/llm-analytics";
 import { HELPER_SITE_MAX_ROUNDS } from "@/lib/helper/site-config";
 import type { SiteHelperEvent } from "@/lib/helper/site-events";
 import { PEPPER_SYSTEM_PROMPT } from "@/lib/helper/pepper-prompt";
@@ -24,6 +25,8 @@ export async function runSiteAgent(options: {
   signal?: AbortSignal;
   /** Counts-only log fields (never text): surface, mode, photo, bank. */
   usage?: Record<string, string | boolean>;
+  /** Called once per model call (also when it throws) with counts and timing only, never text. */
+  onRound?: (stats: HelperRoundStats) => void;
   /** Which banks the student's plan covers, for building practice sets; plus test hooks. */
   tools?: Pick<ToolContext, "canBuild" | "builderQuestions" | "seed">;
 }): Promise<{ sentText: boolean; navigated: boolean; refused: boolean }> {
@@ -33,6 +36,10 @@ export async function runSiteAgent(options: {
   let sentText = false;
   for (let round = 0; round < HELPER_SITE_MAX_ROUNDS; round += 1) {
     const lastRound = round === HELPER_SITE_MAX_ROUNDS - 1;
+    const startedAt = Date.now();
+    let final: Anthropic.Beta.BetaMessage;
+    let roundText = false;
+    try {
     const stream = api.stream({
       model,
       max_tokens: MAX_TOKENS,
@@ -48,7 +55,6 @@ export async function runSiteAgent(options: {
       // Haiku has no server-side refusal fallback.
       ...(model.includes("haiku") ? {} : { betas: ["server-side-fallback-2026-07-01"], fallbacks: "default" as const }),
     }, { signal });
-    let roundText = false;
     for await (const event of stream) {
       if (event.type === "content_block_delta" && event.delta.type === "text_delta" && event.delta.text) {
         // Words from an earlier round stay on screen: start this round's on a new paragraph.
@@ -58,7 +64,20 @@ export async function runSiteAgent(options: {
         send({ type: "text", text: event.delta.text });
       }
     }
-    const final = await stream.finalMessage();
+    final = await stream.finalMessage();
+    } catch (error) {
+      const status = (error as { status?: unknown } | null)?.status;
+      options.onRound?.({
+        round, model, stopReason: null, inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0,
+        latencyMs: Date.now() - startedAt, error: true, ...(typeof status === "number" ? { httpStatus: status } : {}),
+      });
+      throw error;
+    }
+    options.onRound?.({
+      round, model: final.model, stopReason: final.stop_reason, inputTokens: final.usage.input_tokens, outputTokens: final.usage.output_tokens,
+      cacheReadTokens: final.usage.cache_read_input_tokens ?? 0, cacheWriteTokens: final.usage.cache_creation_input_tokens ?? 0,
+      latencyMs: Date.now() - startedAt, error: false,
+    });
     console.info(JSON.stringify({
       event: "helper_usage", surface: "site", ...options.usage, round, model: final.model, stop: final.stop_reason,
       input_tokens: final.usage.input_tokens, output_tokens: final.usage.output_tokens,

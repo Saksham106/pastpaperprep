@@ -7,9 +7,13 @@ const mocks = vi.hoisted(() => ({
   fetchAccessEntitlements: vi.fn(),
   loadHelperContext: vi.fn(),
   stream: vi.fn(),
+  after: vi.fn(),
+  capture: vi.fn<(input: unknown) => Promise<void>>(async () => {}),
 }));
 
 vi.mock("server-only", () => ({}));
+vi.mock("next/server", async (importOriginal) => ({ ...(await importOriginal<typeof import("next/server")>()), after: mocks.after }));
+vi.mock("@/lib/helper/llm-analytics", () => ({ captureHelperGenerations: mocks.capture }));
 vi.mock("@/lib/supabase/server", () => ({ createClient: async () => ({ auth: { getClaims: mocks.getClaims }, rpc: mocks.rpc }) }));
 vi.mock("@/lib/supabase/admin", () => ({ createAdminClient: () => ({ rpc: mocks.adminRpc }) }));
 vi.mock("@/lib/custom-bundle-access", () => ({ fetchAccessEntitlements: mocks.fetchAccessEntitlements }));
@@ -198,5 +202,32 @@ describe("POST /api/helper (one Pepper for every surface)", () => {
     const logged = info.mock.calls.map(([line]) => String(line)).join("\n");
     expect(logged).toContain('"surface":"question"');
     expect(logged).not.toContain("secret");
+  });
+
+  it("schedules one analytics capture with after(), carrying per-round counts and no text", async () => {
+    const response = await POST(request(siteBody()));
+    await events(response);
+    expect(mocks.after).toHaveBeenCalledTimes(1);
+    await mocks.after.mock.calls[0][0];
+    expect(mocks.capture).toHaveBeenCalledTimes(1);
+    const arg = mocks.capture.mock.calls[0][0] as { userId: string; rounds: Array<Record<string, unknown>>; meta: Record<string, unknown> };
+    expect(arg.userId).toBe("user-1");
+    expect(arg.rounds).toHaveLength(1);
+    expect(arg.rounds[0]).toMatchObject({ round: 0, stopReason: "end_turn", inputTokens: 1, outputTokens: 1, error: false });
+    expect(arg.meta).toMatchObject({ surface: "site", photo: false, refused: false, navigated: false, creditsCost: expect.any(Number) });
+    expect(JSON.stringify(arg)).not.toContain("expanding");
+  });
+
+  it("still resolves the capture when the model call fails, flagging the round as an error", async () => {
+    mocks.stream.mockImplementation(() => { throw Object.assign(new Error("api"), { status: 529 }); });
+    await events(await POST(request(siteBody())));
+    await mocks.after.mock.calls[0][0];
+    const arg = mocks.capture.mock.calls[0][0] as { rounds: Array<Record<string, unknown>> };
+    expect(arg.rounds).toEqual([expect.objectContaining({ error: true, httpStatus: 529 })]);
+  });
+
+  it("sends no analytics for the rules shortcut", async () => {
+    await POST(request({ page: "/", messages: [{ role: "user", text: "igcse maths 0580" }] }));
+    expect(mocks.capture).not.toHaveBeenCalled();
   });
 });

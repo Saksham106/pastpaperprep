@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
+import { recordAccountActivity } from "@/lib/account-activity";
 import { createClient } from "@/lib/supabase/browser";
 import { ANALYTICS_CONSENT_VERSION, analyticsChoiceMaxAgeSeconds, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
 import { disableProductAnalytics, initializeProductAnalytics, initializeConsentedAnalytics, setProductAnalyticsIdentity, trackConsentedProductEvent, trackProductEvent } from "@/lib/product-analytics";
@@ -172,6 +173,7 @@ export function SiteTelemetry() {
     if (!pathname || lastBaselinePath.current === pathname) return;
     lastBaselinePath.current = pathname;
     trackProductEvent("$pageview", { path: pathname });
+    recordAccountActivity(pathname);
   }, [pathname]);
 
   useEffect(() => {

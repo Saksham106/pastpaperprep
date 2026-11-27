@@ -329,4 +329,19 @@ describe("site request history", () => {
     expect(parsed?.messages[1].text.length).toBeLessThan(6100);
     expect(parsed?.messages[1].text.endsWith("(shortened)")).toBe(true);
   });
+
+  it("reports every model call through onRound, including one that throws", async () => {
+    const { api } = fakeApi([
+      { text: "Let me look.", tools: [{ name: "search_site", input: { query: "vectors", bank: "" } }], stop: "tool_use" },
+      { text: "Found it.", stop: "end_turn" },
+    ]);
+    const rounds: Array<{ round: number; stopReason: string | null; error: boolean; latencyMs: number }> = [];
+    await runSiteAgent({ api, model: "m", data: DATA, messages: [{ role: "user", content: "x" }], send: () => {}, onRound: (r) => rounds.push(r) });
+    expect(rounds.map((r) => [r.round, r.stopReason, r.error])).toEqual([[0, "tool_use", false], [1, "end_turn", false]]);
+    expect(rounds.every((r) => r.latencyMs >= 0)).toBe(true);
+    const failing = { stream: () => { throw Object.assign(new Error("boom"), { status: 429 }); } } as never;
+    const failed: unknown[] = [];
+    await expect(runSiteAgent({ api: failing, model: "m", data: DATA, messages: [{ role: "user", content: "x" }], send: () => {}, onRound: (r) => failed.push(r) })).rejects.toThrow("boom");
+    expect(failed).toEqual([expect.objectContaining({ round: 0, error: true, httpStatus: 429 })]);
+  });
 });

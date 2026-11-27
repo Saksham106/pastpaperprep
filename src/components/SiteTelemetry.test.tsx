@@ -5,7 +5,7 @@ const { getUser, authListener, initialize, initializeOptional, disable, identify
 const navigation = vi.hoisted(() => ({ pathname: "/" }));
 vi.mock("next/navigation", () => ({ usePathname: () => navigation.pathname }));
 vi.mock("@/lib/supabase/browser", () => ({ createClient: () => ({ auth: { getUser, onAuthStateChange: (cb: (event: string, session: unknown) => void) => { authListener.mockImplementation(cb); return { data: { subscription: { unsubscribe: vi.fn() } } }; } } }) }));
-vi.mock("@/lib/product-analytics", () => ({ initializeProductAnalytics: initialize, initializeConsentedAnalytics: initializeOptional, disableProductAnalytics: disable, setProductAnalyticsIdentity: identify, trackProductEvent: track, trackConsentedProductEvent: trackOptional }));
+vi.mock("@/lib/product-analytics", () => ({ browserAccountId: () => undefined, initializeProductAnalytics: initialize, initializeConsentedAnalytics: initializeOptional, disableProductAnalytics: disable, setProductAnalyticsIdentity: identify, trackProductEvent: track, trackConsentedProductEvent: trackOptional }));
 import { SiteTelemetry } from "./SiteTelemetry";
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 beforeEach(() => { vi.clearAllMocks(); document.cookie = "ppp_analytics_consent=; Max-Age=0; path=/"; sessionStorage.clear(); localStorage.clear(); navigation.pathname = "/"; getUser.mockResolvedValue({ data: { user: null }, error: null }); initialize.mockResolvedValue(undefined); identify.mockResolvedValue(undefined); vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: async () => ({ accepted: true, version: 2 }) })); });
