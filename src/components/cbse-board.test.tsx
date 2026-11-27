@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { GET as llms } from "@/app/llms.txt/route";
-import CbsePage from "@/app/cbse/page";
+import CbsePage, { generateMetadata } from "@/app/cbse/page";
 import sitemap from "@/app/sitemap";
 import { MarketingHome } from "@/components/MarketingHome";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -201,8 +201,9 @@ describe("CBSE surfaces before launch", () => {
     expect(screen.queryByRole("tab", { name: "CBSE" })).not.toBeInTheDocument();
   });
 
-  it("returns 404 from the hub", () => {
+  it("returns 404 from the hub, with no CBSE title or canonical", () => {
     expect(() => CbsePage()).toThrow(/NEXT_HTTP_ERROR_FALLBACK;404|NEXT_NOT_FOUND/);
+    expect(generateMetadata()).toEqual({});
   });
 });
 
@@ -224,6 +225,7 @@ describe("CBSE surfaces once a bank is displayed (dev preview)", () => {
     expect(screen.getByRole("link", { name: "CBSE hub" })).toHaveAttribute("href", "/cbse");
     expect(await (await llms()).text()).toContain("## CBSE question banks");
     expect((await sitemap()).some((entry) => entry.url === "https://pastpaperprep.com/cbse")).toBe(true);
+    expect(generateMetadata().alternates?.canonical).toBe("/cbse");
   });
 });
 

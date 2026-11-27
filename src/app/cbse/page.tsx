@@ -5,7 +5,10 @@ import { getCatalogBanksForDisplay } from "@/lib/catalog";
 import { socialPreview } from "@/lib/seo";
 
 // CBSE students search for "previous year questions" (PYQs) "chapter-wise", so the hub uses their words.
-export const metadata: Metadata = {
+const hasCbse = () => getCatalogBanksForDisplay().some((bank) => bank.qualification === "CBSE");
+
+// No CBSE title or canonical while the hub is a 404.
+export const generateMetadata = (): Metadata => !hasCbse() ? {} : ({
   title: "CBSE Previous Year Questions Chapter-wise: Class 10 & 12",
   description: "Real CBSE Class 10 and Class 12 board questions sorted by chapter, with the marking scheme for each.",
   alternates: { canonical: "/cbse" },
@@ -16,11 +19,11 @@ export const metadata: Metadata = {
     type: "website",
     ...socialPreview("CBSE"),
   },
-};
+});
 
 export default function CbsePage() {
   // Hidden (404, so never indexed) until a CBSE bank is displayed.
-  if (!getCatalogBanksForDisplay().some((bank) => bank.qualification === "CBSE")) notFound();
+  if (!hasCbse()) notFound();
   return (
     <QualificationHub
       qualification="CBSE"
