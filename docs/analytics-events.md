@@ -21,6 +21,17 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 - Invite and referral codes in paths (`/invite/<code>`, `/r/<code>`) become `:code` in every URL and path property.
 - Every anonymous event except heatmap batches carries `signed_in` (boolean, never the account), plus `connection` (`slow-2g`…`4g`), `save_data` and `release` where the browser exposes them (`analyticsEventContext`). Use them to split Web Vitals by network and to compare before/after a deploy.
 
+**Transport (since 2026-11-25).** Both browser clients send to `/pp-relay` on our own domain (`BROWSER_POSTHOG_API_HOST`), not to posthog.com. Tracker blockers block posthog.com, and EasyPrivacy (uBlock Origin's default list) also blocks the usual proxy paths (`/ingest/i/v0/*`, `/ingest/array/*/config.js`), PostHog's batch path `/i/v0/e/` on any host, and the add-on scripts `dead-clicks-autocapture.js` / `web-vitals-with-attribution.js` by name. So:
+- `vercel.json` `routes` forward `/pp-relay/static/*` and `/pp-relay/array/*` to `us-assets.i.posthog.com` and everything else to `us.i.posthog.com`. This runs at Vercel's edge (Edge Requests and Fast Data Transfer, no function).
+- Each route **deletes the `cookie` and `referer` request headers**. Same-origin requests would otherwise carry the Supabase session cookies, and a Referer with the full page URL (query string included), to PostHog. The event scrubber never sees HTTP headers.
+- Vercel puts the visitor's real IP first in `x-forwarded-for`, which PostHog reads for the cookieless server hash. This only holds while nothing (such as a Cloudflare proxy) sits in front of Vercel.
+- `pinCaptureEndpoint` keeps the SDK on the classic `/e/` endpoint (PostHog's remote config would move it to `/i/v0/e/`).
+- The two add-on scripts are bundled into the lazy analytics chunk, so the SDK never fetches them by name.
+- `skipTrailingSlashRedirect` is on, with our own `/page/` → `/page` redirect for every other path, because Next's built-in slash redirect would add a 308 in front of every `/pp-relay/e/` request.
+- `posthog-proxy-routes.test.ts` and `posthog-sdk.compat.test.ts` pin all of this.
+- `next dev` / `next start` don't read `vercel.json`, so `/pp-relay` 404s locally; local builds have no project token anyway.
+- Server-side PostHog (`posthog-node`, Logs, conversions) still talks to PostHog directly.
+
 ## Browser events (`trackProductEvent`)
 
 | Event | Where | Properties |
@@ -48,6 +59,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `pdf_export_attempt` / `_success` / `_error` / `_blocked` | Download PDF. Since 2026-10-20 `_error` and `_blocked` carry `reason` (`daily_limit`, `auth`, `sign_unavailable`, `network`, `build`, `other`) and `status?`; hitting the daily limit is `pdf_export_blocked`, not an error | `bank`, `questionCount`, `content`, `source` (`worksheet` = My Worksheets, `save_dialog` = icon in the Save PDF card, `builder`) |
 | `pdf_upgrade_view` | PDF prompt for people without access | `bank` |
 | `upgrade_prompt_view` / `_click` / `_dismiss` | upgrade prompts | `bank`, `placement` |
+| `announcement_view` / `_click` / `_dismiss` | dashboard "For you" strip (signed in, up to 3 sliding cards; since 2026-11-26). `_view` fires once per card per page load, when that card is the one on show | `updateId` (the `/updates` anchor id, or `annual`), `type` (`bank_add`, `bank_included`, `bank_free`, `new_papers`, `feature`, `annual`), `bank?`, `position` (1–3 in the strip), `target?` (`primary`, `secondary`; click only) |
 | `free_gate_view` / `_elevated` / `_dismiss` / `_signup_click` / `_signin_click` | 20-question sign-up prompt. Since 2026-10-15 `free_gate_view` fires once per page when the prompt first scrolls into view (it used to fire on mount, which overcounted it). | `bank`, `limit`, `remainingCount` |
 | `auth_page_view` | sign-in / sign-up page, once per mode shown (switching modes counts again) | `mode` (`sign-in`, `sign-up`), `from` (`bank`, `pricing`, `worksheets`, `past_papers`, `notes`, `account`, `dashboard`, `home`, `other`), `bank?` |
 | `google_auth_click` | Continue with Google | `mode` |
@@ -60,6 +72,7 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 | `checkout_start` / `checkout_auth_required` / `checkout_redirect` / `checkout_error` | checkout buttons | `interval`, `productId` |
 | `checkout_cancelled` | pricing with `?checkout=cancelled` (Stripe cancel) | none |
 | `checkout_returned` | account with `?checkout=success` or `lifetime-pending` | `status` |
+| `payment_failed_notice_view` / `_click` | failed-renewal notice on the dashboard, account, bank and pricing pages, and the Pay now step when checkout or Lifetime is refused because a payment failed (`placement: checkout`). Only for signed-in accounts whose latest renewal invoice is open after a failed attempt (`/api/billing/payment-notice`, read live from Stripe). `_view` once per bill shown per page; `_click` on Pay now (Stripe hosted invoice, new tab) or Update payment method (billing portal, when Stripe gives no hosted invoice link). No amounts or ids | `placement` (`dashboard`, `account`, `bank`, `pricing`, `checkout`), `state` (`grace` = access still on, `ended` = access stopped, `no_date`), `action` (`pay`, `portal`) |
 | `$exception` | uncaught browser errors, unhandled rejections, error boundaries | scrubbed message (`safeErrorMessage`), stack, `digest?` (matches the server render error), `react_mismatch?` (`text`/`html` for React #418), plus the browser context below |
 | `api_request_failed` | any own `/api/*` call answering 5xx, 400, 408, 413 or 429, or failing on the network (`api-failure-monitor`; network failures are skipped while the page unloads, is hidden or offline, and sent once per route per 30 s) | `route` (ids as `[id]`), `method`, `status` (0 = network), `outcome`, `duration_ms`, `correlation_id?`, `user_id?` |
 | `asset_load_failed` | a question or mark-scheme image failing to load | `bank`, `question_id`, `kind`, `outcome` (`expired_resign`, `public_fallback` when a free.pastpaperprep.com link failed and the bank switched to signed links, or `failed`), `host` (`r2`, `supabase`, `free`, `self`, `blob` (a hash-verified crop), `other`), `user_id?` |
@@ -89,10 +102,22 @@ Page-speed data (Web Vitals: LCP, INP, CLS, FCP, TTFB) comes from the anonymous 
 
 **Country.** Cookieless ingestion drops the IP, so PostHog's GeoIP can't place anonymous events. The anonymous client fills `$geoip_country_code` / `$geoip_country_name` from the browser time zone (`src/lib/timezone-country.ts`, generated from the IANA tz database) and adds `country_source: timezone`. It never overrides a real GeoIP country (consented events keep theirs). Approximate: e.g. Asia/Singapore → SG.
 
+## Account activity (our database, every signed-in account)
+
+PostHog sees accounts only with analytics consent. Per-account activity for **all** signed-in accounts (days active, page views, areas used) is kept first-party in Supabase (`account_activity_daily`) and never sent to PostHog. See `docs/account-activity.md` for the table, the report queries and what to do with each.
+
 ## Server events
 
 | Event | Source | Properties |
 |---|---|---|
+| `$ai_generation` | each Pepper model call (`/api/helper`, sent after the reply with `after()`, `src/lib/helper/llm-analytics.ts`) | PostHog LLM analytics:
+- `$ai_trace_id` (one per reply), `$ai_span_id`, `$ai_model`, `$ai_provider`;
+- input/output/cache token counts, `$ai_latency` (s), `$ai_stop_reason`;
+- `$ai_is_error` (false for a reply the student stopped, which carries `cancelled: true` instead), `$ai_http_status?`;
+- `surface`, `mode`, `photo`, `bank?`, `tier?`, `round`, `rounds_total`, `refused`, `navigated`;
+- `credits_reserved` and `credits_spent` (0 when the credits were given back).
+
+**Never** prompts, replies, tool data or photos. Account-linked only when the request's browser has opted in (`ppp_analytics_consent` = v2 accepted) **and** the account's acceptance is current; otherwise a random per-reply `anon:` id with no person profile |
 | `conversion_outcome` | sign-up confirmation, Stripe `invoice.paid`, lifetime checkout | `outcome` (`signup_confirmed`, `payment_initial_paid`, `payment_renewal_paid`, `lifetime_paid`), `product?`, `interval?`, `identified`; purchases also `bank_scope` (`banks` or `all`), `bank_count`, `banks` (bank slugs the purchase covers, by the same rule as access checks; custom bundles from `selected_bank_ids`; omitted for all-access) |
 | `$exception` | unhandled server errors (`onRequestError`) | scrubbed message, `route`, `router_kind`, `route_type`, `method?`, `error_code?`, `digest?`, `correlation_id`, plus `release?` (first 12 of the commit SHA) and `region?` (e.g. `iad1`) on every server exception |
 | `$exception` with `error_source: handled_response` | an API route answered 5xx (`withFailureReporting`) | `route`, `http_status`, `error_code`, `bank?`, `stage?`, `storage_provider?`, `correlation_id` (also sent as the `x-correlation-id` response header) |
@@ -112,9 +137,10 @@ Browser events and server conversions never share an ID. Browser events are cook
 
 **Everyone (trends and ratios of totals, not funnels):**
 4. **Prompt effectiveness:** `upgrade_prompt_click` ÷ `upgrade_prompt_view`, broken down by `placement` and `bank`.
-5. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
-6. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
-7. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
+5. **Announcement CTR:** `announcement_click` ÷ `announcement_view` by `type` and `updateId`. Compare with `/updates` pageviews. Upgrades from the card land on `pricing_view` with `from = announcement`.
+6. **Which prompts bring buyers to pricing:** `pricing_view` broken down by `from`.
+7. **Pricing to paid:** `conversion_outcome` (`payment_initial_paid` + `lifetime_paid`) ÷ `pricing_view`, per week.
+8. **Checkout drop-off (browser only, a real funnel works):** `pricing_view` → `checkout_start` → `checkout_returned`, with `checkout_cancelled` as a trend alongside.
 
 **Problem reports (data-quality queue):** a Trends insight on `question_report` (total count), broken down by `bank`, `questionId` and `issue`, shown as a table over the last 30 days. Sort by count; a question reported by several students is the first to check. `consented_question_report` duplicates these for consented visitors, so count only `question_report`.
 

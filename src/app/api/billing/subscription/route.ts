@@ -7,6 +7,8 @@ import { createClient } from "@/lib/supabase/server";
 import { describeSubscriptionBanks, recurringPriceSubtotal } from "@/lib/account-billing-view";
 import { readEditableCurrentPlan } from "@/lib/account-plan-target";
 import { getBillingBanks } from "@/lib/banks";
+import { PAUSE_MONTH_OPTIONS, pauseStateOf, pauseWindow } from "@/lib/subscription-pause";
+import { isPauseEnabled } from "@/lib/subscription-lifecycle";
 
 export const runtime = "nodejs";
 const NO_STORE = { "Cache-Control": "private, no-store, max-age=0" };
@@ -40,6 +42,8 @@ async function handleGET() {
     const method = typeof paymentMethod === "object" && paymentMethod !== null ? paymentMethod : null;
     const methodRecord = method as (typeof method & { type?: string; us_bank_account?: { bank_name?: string | null; last4?: string | null }; card?: { brand?: string; last4?: string; exp_month?: number; exp_year?: number } }) | null;
     const priceCache = new Map<string, ReturnType<typeof stripe.prices.retrieve>>();
+    // A customer-level coupon discounts every invoice, like a subscription or item discount.
+    const customerDiscounted = Boolean((customer as { discount?: unknown }).discount);
     const editorEnabled = process.env.STRIPE_PLAN_EDITOR_ENABLED === "true";
     const detailedSubscriptions = await Promise.all(subscriptions.data.map(async (subscription) => {
       let scheduledPlan: { id: string; effectiveAt: string; interval: string; bankSelection: ReturnType<typeof describeSubscriptionBanks> } | null = null;
@@ -72,7 +76,17 @@ async function handleGET() {
       return ({
       id: subscription.id, status: subscription.status, cancelAtPeriodEnd: subscription.cancel_at_period_end,
       pendingUpdate: Boolean(subscription.pending_update), scheduledChange: Boolean(subscription.schedule),
+      // Whether a coupon lowers what they actually pay below the item prices; null when Stripe didn't say.
+      discounted: Array.isArray(subscription.discounts)
+        ? subscription.discounts.length > 0 || customerDiscounted || subscription.items.data.some((item) => Array.isArray(item.discounts) && item.discounts.length > 0)
+        : null,
       cancelAt: subscription.cancel_at ? new Date(subscription.cancel_at * 1000).toISOString() : null,
+      pause: pauseStateOf(subscription, new Date()),
+      // Restart dates for 1/2/3-month pauses, from the subscription's real billing anchor (31st → Feb 28 → Mar 31).
+      pauseResumeDates: subscription.status === "active" && subscription.items.data.length === 1 && subscription.items.data[0].price.recurring?.interval === "month" &&
+        Number.isSafeInteger(subscription.items.data[0].current_period_end) && Number.isSafeInteger(subscription.billing_cycle_anchor)
+        ? Object.fromEntries(PAUSE_MONTH_OPTIONS.map((months) => [months, pauseWindow(subscription.items.data[0].current_period_end, subscription.billing_cycle_anchor, months).resumesAt.toISOString()]))
+        : null,
       bankSelection: describeSubscriptionBanks(subscription.metadata.product_id ?? null, subscription.metadata.selected_bank_ids ?? null),
       items: await Promise.all(subscription.items.data.map(async (item) => {
         let price = item.price;
@@ -109,7 +123,8 @@ async function handleGET() {
       if (candidate.metadata.user_id === user.id && typeof periodEnd === "number" && Number.isSafeInteger(periodEnd) && periodEnd > Math.floor(Date.now() / 1000) &&
         (!candidate.cancel_at || candidate.cancel_at_period_end === true && candidate.cancel_at === periodEnd)) {
         try {
-          readEditableCurrentPlan({ ...candidate, cancel_at: null, cancel_at_period_end: false }, getStripeConfig());
+          // A booked pause is still managed here (undo / resume); plan-change routes refuse while paused.
+          readEditableCurrentPlan({ ...candidate, cancel_at: null, cancel_at_period_end: false, pause_collection: null }, getStripeConfig());
           editable = true;
         } catch { /* Legacy prices and unsupported subscription structures stay read-only. */ }
       }
@@ -120,7 +135,7 @@ async function handleGET() {
       invoicesHasMore: invoices.has_more,
       paymentMethod: methodRecord ? { type: methodRecord.type ?? null, bankName: methodRecord.us_bank_account?.bank_name ?? null, last4: methodRecord.us_bank_account?.last4 ?? methodRecord.card?.last4 ?? null, cardBrand: methodRecord.card?.brand ?? null, cardExpiryMonth: methodRecord.card?.exp_month ?? null, cardExpiryYear: methodRecord.card?.exp_year ?? null } : null,
       bankOptions: editorEnabled ? getBillingBanks().map(({ slug, shortName }) => ({ slug, name: shortName })) : [],
-      management: { editable, reason: editable ? null : "Plan editing is unavailable for this billing arrangement." },
+      management: { editable, pauseEnabled: editable && isPauseEnabled(), reason: editable ? null : "Plan editing is unavailable for this billing arrangement." },
     }, { headers: NO_STORE });
   } catch (error) {
     console.error("Stripe subscription read failed", error instanceof Error ? { name: error.name } : { type: typeof error });

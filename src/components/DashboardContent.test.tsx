@@ -46,6 +46,16 @@ describe("DashboardContent", () => {
     expect(screen.queryByText("Included")).not.toBeInTheDocument();
   });
 
+  it("marks newly launched banks as New and shows one banner: the for-you card in place of the plan card", async () => {
+    const { container } = render(<DashboardContent authenticated accessibleBanks={[]} newBanks={["igcse"]} announcements={{ userId: "u1", boards: [], annualCheck: false, candidates: [{ id: "2026-11-25-ask-pepper", kind: "feature", eyebrow: "New", title: "Ask Pepper", tier: 3, date: "2026-11-25", cta: { label: "Ask Pepper", action: "pepper" } }] }} />);
+    expect(screen.getByRole("link", { name: "Mathematics 0580, new, practice by topic" })).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /, new,/ })).toHaveLength(1);
+    expect(screen.getByRole("link", { name: "Mathematics 0580, new, practice by topic" })).toHaveTextContent("New");
+    const card = await screen.findByRole("complementary", { name: "For you" });
+    expect(container.querySelector(".dashboard-plan-card")).toBeNull();
+    expect(card.compareDocumentPosition(container.querySelector("#cambridge-igcse-panel")!)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+  });
+
   it("sends signed-in free students to plans rather than an empty subscription editor", () => {
     render(<DashboardContent authenticated accessibleBanks={[]} />);
     expect(screen.getAllByRole("link", { name: /see plans/i }).every((link) => link.getAttribute("href")?.startsWith("/pricing"))).toBe(true);
@@ -61,7 +71,9 @@ describe("DashboardContent", () => {
       "Mathematics 0580", "Additional Mathematics 0606", "Chemistry 0620", "Physics 0625", "Biology 0610", "Economics 0455", "Co-ordinated Sciences 0654", "Computer Science 0478",
     ]);
     for (const row of rowsIn(container, "cambridge-igcse")) {
-      expect(row.textContent).toMatch(/\d[\d,]*\squestions/);
+      // The years a bank covers, not how many questions it has.
+      expect(row.textContent).toMatch(/\d{4}–\d{4}/);
+      expect(row.textContent).not.toMatch(/questions/);
       expect(row.closest("[data-subject-tone]")).not.toBeNull();
     }
     expect(container.querySelectorAll("#cambridge-igcse-panel [data-course-icon]")).toHaveLength(7);

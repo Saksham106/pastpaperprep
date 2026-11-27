@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PaymentFailedNotice } from "@/components/PaymentFailedNotice";
 import { PricingPageClient } from "@/components/PricingPageClient";
 import { getBillingBanks } from "@/lib/banks";
 import { PRICING_INTENT_HINT_SCRIPT } from "@/lib/pricing-intent";
@@ -7,7 +8,7 @@ import { formatUpdateDate, lastUpdated } from "@/lib/updates";
 
 export const metadata: Metadata = {
   title: "Pricing",
-  description: "Choose one PastPaperPrep question bank across IGCSE, A Level and IB Maths, Biology, Chemistry, Physics and Economics; build an exact bundle of two to five, or unlock every current bank.",
+  description: "Pick one IGCSE, A Level and IB Maths, Biology, Chemistry, Physics or Economics question bank, build a bundle of two to five, or unlock every bank.",
   alternates: { canonical: "/pricing" },
   openGraph: {
     title: "PastPaperPrep Pricing",
@@ -27,6 +28,8 @@ export default function PricingPage() {
   const updated = lastUpdated();
   return <>
     <script dangerouslySetInnerHTML={{ __html: PRICING_INTENT_HINT_SCRIPT }} />
+    {/* Checkout refuses new plans while a renewal is unpaid, so say so before the student picks one. */}
+    <PaymentFailedNotice placement="pricing" className="shell" />
     <PricingPageClient availableBanks={getBillingBanks()} updated={updated ? { date: updated, label: formatUpdateDate(updated) } : undefined} />
   </>;
 }

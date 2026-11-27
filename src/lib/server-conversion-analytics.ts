@@ -19,6 +19,10 @@ type ConversionInput = {
   interval?: string | null;
   /** Custom bundles only: the banks the buyer picked (Stripe subscription `selected_bank_ids`). */
   selectedBankIds?: unknown;
+  /** Paid invoices only: a coupon or promotion code reduced this invoice (e.g. the annual sale). */
+  discounted?: boolean;
+  /** First paid invoice only: the sale campaign its Checkout carried (subscription `annual_sale`). */
+  campaign?: string | null;
 };
 
 const UUID_NAMESPACE = "a88d86f5-91e9-5c98-bf52-92e5f33193a1";
@@ -87,6 +91,9 @@ export async function captureConversionOutcome(input: ConversionInput): Promise<
     };
     if (input.product && PRODUCTS.has(input.product)) properties.product = input.product;
     if (input.interval && INTERVALS.has(input.interval)) properties.interval = input.interval;
+    if (typeof input.discounted === "boolean") properties.discounted = input.discounted;
+    // A short slug from our own Checkout metadata; anything else is dropped rather than sent.
+    if (typeof input.campaign === "string" && /^[a-z0-9-]{1,40}$/.test(input.campaign)) properties.campaign = input.campaign;
     const covered = input.outcome === "signup_confirmed" ? null : purchasedBanks(input.product, input.selectedBankIds);
     if (covered) {
       properties.bank_scope = covered.scope;
@@ -124,7 +131,7 @@ function anonymousIdSource(eventKey: string): string {
 }
 
 /** True only for an accepted v2 consent recorded in the last twelve months. Any lookup problem is "no". */
-async function hasCurrentConsent(userId: string): Promise<boolean> {
+export async function hasCurrentConsent(userId: string): Promise<boolean> {
   try {
     const lookup = createAdminClient().auth.admin.getUserById(userId);
     let lookupTimer: ReturnType<typeof setTimeout> | undefined;

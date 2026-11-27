@@ -27,6 +27,18 @@ let consentEnabled = false;
 function canCapture() { return true; }
 function canCaptureConsented() { return consentEnabled && readBrowserAnalyticsConsent() === true; }
 
+/**
+ * Browser events go to our own domain; vercel.json forwards /pp-relay/* to PostHog at the edge
+ * with the cookie header removed (no function runs, and the visitor's IP still reaches PostHog
+ * through x-forwarded-for). The name is deliberately plain: filter lists such as EasyPrivacy
+ * block the usual proxy paths (/ingest/i/v0/*), PostHog's batch path (/i/v0/e/ on any host) and
+ * its add-on script names. Server-side code keeps talking to PostHog directly.
+ */
+export const BROWSER_POSTHOG_API_HOST = "/pp-relay";
+/** The classic capture endpoint; PostHog's remote config would switch the SDK to /i/v0/e/. */
+export const BROWSER_CAPTURE_ENDPOINT = "/e/";
+export const POSTHOG_UI_HOST = "https://us.posthog.com";
+
 function projectToken() {
   return process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN?.trim() ?? "";
 }
@@ -37,11 +49,18 @@ function loadClient() {
 
   // The country table is optional enrichment: if its chunk fails to load, analytics still runs without it.
   const countryLookup = import("@/lib/timezone-country").then(({ countryFromTimeZone }) => countryFromTimeZone, () => () => null);
-  clientPromise = Promise.all([import("posthog-js"), countryLookup])
+  // Bundled add-ons: otherwise the SDK fetches these scripts by names that filter lists block.
+  // Each registers itself on window.__PosthogExtensions__, so the SDK skips the download.
+  const addOns = Promise.all([
+    import("posthog-js/dist/web-vitals-with-attribution"),
+    import("posthog-js/dist/dead-clicks-autocapture"),
+  ]).catch(() => undefined);
+  clientPromise = Promise.all([import("posthog-js"), countryLookup, addOns])
     .then(([{ default: posthog }, countryFromTimeZone]) => {
       if (!initialized) {
         posthog.init(projectToken(), {
-          api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || "https://us.i.posthog.com",
+          api_host: BROWSER_POSTHOG_API_HOST,
+          ui_host: POSTHOG_UI_HOST,
           defaults: "2026-05-30",
           cookieless_mode: "always",
           autocapture: false,
@@ -77,6 +96,7 @@ function loadClient() {
             return withTimeZoneCountry(scrubbed, countryFromTimeZone);
           },
         });
+        pinCaptureEndpoint(posthog);
         initialized = true;
       }
       return posthog;
@@ -84,6 +104,18 @@ function loadClient() {
     .catch(() => { clientPromise = null; return null; });
 
   return clientPromise;
+}
+
+/**
+ * Keep the SDK on PostHog's classic /e/ capture endpoint. Its remote config otherwise moves
+ * batches to /i/v0/e/, which EasyPrivacy blocks on every host (so the relay alone wouldn't help).
+ * /e/ accepts the same events. Pinned by posthog-sdk.compat.test.ts against the installed SDK.
+ */
+export function pinCaptureEndpoint(client: object | null | undefined) {
+  if (!client) return;
+  try {
+    Object.defineProperty(client, "analyticsDefaultEndpoint", { configurable: true, enumerable: true, get: () => BROWSER_CAPTURE_ENDPOINT, set: () => {} });
+  } catch { /* Analytics must never break the page. */ }
 }
 
 /**
@@ -263,7 +295,7 @@ function loadConsentedClient() {
     if (!canCaptureConsented() || startedAt !== generation) { consentClientPromise = null; return null; }
     if (!consentInitialized) {
       consentClient = posthog.init(projectToken(), {
-        api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() || "https://us.i.posthog.com", defaults: "2026-05-30",
+        api_host: BROWSER_POSTHOG_API_HOST, ui_host: POSTHOG_UI_HOST, defaults: "2026-05-30",
         autocapture: false, capture_pageview: false, capture_pageleave: false, person_profiles: "identified_only",
         persistence: "localStorage+cookie", persistence_name: `${projectToken()}_consented`, cookie_expiration: 180, cross_subdomain_cookie: false,
         consent_persistence_name: `__ph_opt_in_out_${projectToken()}_consented`,
@@ -279,6 +311,7 @@ function loadConsentedClient() {
           return scrubbed;
         },
       }, "consented");
+      pinCaptureEndpoint(consentClient);
       consentInitialized = true;
     }
     return consentClient;

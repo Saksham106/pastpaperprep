@@ -15,6 +15,7 @@ export const CHECKOUT_ERROR_CODES = [
   "BANKS_ALREADY_OWNED",
   "LIFETIME_ACTIVE",
   "LIFETIME_PAYMENT_PENDING",
+  "SALE_UNAVAILABLE",
 ] as const;
 
 export type CheckoutErrorCode = (typeof CHECKOUT_ERROR_CODES)[number];
@@ -28,7 +29,9 @@ export function isCheckoutErrorCode(value: unknown): value is CheckoutErrorCode 
 
 export type CheckoutErrorAction =
   | { kind: "link"; href: string; label: string }
-  | { kind: "portal"; label: string };
+  | { kind: "portal"; label: string }
+  /** Pay the failed renewal (Stripe hosted invoice, portal fallback); paying is what unblocks the purchase. */
+  | { kind: "pay_invoice" };
 
 export type CheckoutErrorCopy = { message: string; action?: CheckoutErrorAction };
 
@@ -40,7 +43,7 @@ const COPY: Record<CheckoutErrorCode, CheckoutErrorCopy> = {
   CHECKOUT_UNAVAILABLE: { message: "Checkout couldn’t open. Try again in a minute." },
   CHECKOUT_IN_PROGRESS: { message: "Checkout is already opening. Try again in a moment." },
   ACCESS_CHANGED: { message: "Your access just changed. Refresh the page and try again.", action: SUBSCRIPTION_LINK },
-  PAYMENT_ISSUE: { message: "Your last payment didn’t go through. Update your payment method to continue.", action: { kind: "portal", label: "Update payment" } },
+  PAYMENT_ISSUE: { message: "Your last payment didn’t go through. Pay it first, then you can change your plan.", action: { kind: "pay_invoice" } },
   BILLING_CONFLICT: { message: "You already have a subscription. Change it from your subscription page.", action: { ...SUBSCRIPTION_LINK, label: "Manage subscription" } },
   // Normally the client follows the route's manageUrl; this covers a response it would not trust.
   MANAGE_EXISTING_PLAN: { message: "Change your current plan from your subscription page.", action: { ...SUBSCRIPTION_LINK, label: "Manage subscription" } },
@@ -49,6 +52,7 @@ const COPY: Record<CheckoutErrorCode, CheckoutErrorCopy> = {
   BANKS_ALREADY_OWNED: { message: "You already have one of these banks. Pick banks you don’t have yet." },
   LIFETIME_ACTIVE: { message: "Lifetime access already covers every bank.", action: SUBSCRIPTION_LINK },
   LIFETIME_PAYMENT_PENDING: { message: "Your Lifetime payment is still being confirmed. Check back in a minute.", action: { kind: "link", href: "/account", label: "View account" } },
+  SALE_UNAVAILABLE: { message: "The sale price isn’t available right now. Try again in a few minutes.", action: SUPPORT_LINK },
 };
 
 export function copyForCheckoutError(code: CheckoutErrorCode): CheckoutErrorCopy {

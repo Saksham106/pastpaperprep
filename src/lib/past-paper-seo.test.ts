@@ -175,7 +175,7 @@ describe('paper-number descriptions name the most-tested topics', () => {
   });
   it('drops topics that would not fit, and falls back without them', () => {
     const long = ['A very long topic name that goes on and on', 'Another very long topic name that goes on', 'A third very long topic name'];
-    expect(paperNumberCopy(bank, '4', [p(2019), p(2026)], long).description).toBe('Every IGCSE Maths 0580 Paper 4 from 2019–2026 with its mark scheme. Free, no sign-up.');
-    expect(paperNumberCopy(bank, '4', [p(2019), p(2026)]).description).toBe('Every IGCSE Maths 0580 Paper 4 from 2019–2026 with its mark scheme. Free, no sign-up.');
+    expect(paperNumberCopy(bank, '4', [p(2019), p(2026)], long).description).toBe('Every IGCSE Maths 0580 Paper 4 from 2019–2026 with its mark scheme, listed by session and variant code with timings and marks. Free, no sign-up.');
+    expect(paperNumberCopy(bank, '4', [p(2019), p(2026)]).description).toBe('Every IGCSE Maths 0580 Paper 4 from 2019–2026 with its mark scheme, listed by session and variant code with timings and marks. Free, no sign-up.');
   });
 });

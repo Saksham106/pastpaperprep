@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "IB Diploma past-paper questions by topic for Maths AA and AI, Biology, Chemistry, Physics, Economics, Computer Science and Business Management, HL and SL.",
   alternates: { canonical: "/ib" },
-  openGraph: { url: "/ib", ...socialPreview("ib") },
+  openGraph: { url: "/ib", type: "website", ...socialPreview("ib") },
 };
 export default function IbPage() {
   return (

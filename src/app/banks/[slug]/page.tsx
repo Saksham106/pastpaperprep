@@ -16,7 +16,7 @@ import { resolveSubject } from "@/lib/past-paper-pages";
 import { subjectSlugForBank } from "@/lib/past-paper-catalog";
 import { fitTitle, pageTitle, subjectSearchName } from "@/lib/past-paper-seo";
 import { getLandingManifest, topicFilterHref, topicPath } from "@/lib/search-landing";
-import { socialPreview } from "@/lib/seo";
+import { socialPreview, syllabusSubjectJsonLd } from "@/lib/seo";
 import { hasPublishedExplanations } from "@/lib/explanations";
 import { bankLastUpdated, formatUpdateDate } from "@/lib/updates";
 import { bankFacts } from "@/lib/quick-facts";
@@ -107,11 +107,8 @@ export default async function BankPage({ params }: { params: Promise<{ slug: str
             description: topical.description,
             ...(updated ? { dateModified: updated } : {}),
             isPartOf: { "@id": "https://pastpaperprep.com/#website" },
-            about: {
-              "@type": "Course",
-              name: bank.title,
-              educationalLevel: bank.qualification,
-            },
+            educationalLevel: bank.qualification,
+            about: syllabusSubjectJsonLd(bank.title),
           },
           {
             "@type": "BreadcrumbList",

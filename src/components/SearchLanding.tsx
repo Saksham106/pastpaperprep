@@ -24,6 +24,7 @@ import { paperFacts, topicFacts } from "@/lib/quick-facts";
 import { hasPublishedExplanations } from "@/lib/explanations";
 import { QuickFacts } from "@/components/QuickFacts";
 import { subjectSearchName } from "@/lib/past-paper-seo";
+import { syllabusSubjectJsonLd } from "@/lib/seo";
 import {
   courseOverview,
   officialQualificationSource,
@@ -76,7 +77,7 @@ export function QualificationHub({ qualification, title, intro, notesHref, chemi
   }) : [];
   return (
     <div className="search-hub shell public-editorial">
-      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${path}`, ...(updated ? { dateModified: updated } : {}), mainEntity: banks.map((bank) => ({ "@type": "Course", name: bank.title, url: `${SITE_URL}/syllabus/${bank.slug}` })) }} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: title, url: `${SITE_URL}${path}`, ...(updated ? { dateModified: updated } : {}), mainEntity: { "@type": "ItemList", itemListElement: banks.map((bank, index) => ({ "@type": "ListItem", position: index + 1, name: bank.title, url: `${SITE_URL}/syllabus/${bank.slug}` })) } }} />
       <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: title }]} />
       <header className="landing-hero landing-hero-hub">
         <div><p className="eyebrow">Qualification hub</p><h1>{title}</h1></div>
@@ -156,7 +157,7 @@ export function SyllabusLanding({ bank, manifest, fullPapersHref, aaNotes = [] }
   return (
     <div className={`search-landing shell public-editorial course-tone-${tone}`} data-subject-tone={tone}>
       <JsonLd data={{ "@context": "https://schema.org", "@graph": [
-        { "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@type": "CollectionPage", url: `${SITE_URL}${hubPath}` }, about: { "@type": "Course", name: bank.title, educationalLevel: bank.qualification } },
+        { "@type": "CollectionPage", name: `${bank.title} syllabus and past-paper practice guide`, description: `A plain-English guide to ${bank.shortName}, its assessment structure, archive topic map, and focused past-paper practice.`, url: `${SITE_URL}${canonicalPath}`, isPartOf: { "@type": "CollectionPage", url: `${SITE_URL}${hubPath}` }, educationalLevel: bank.qualification, about: syllabusSubjectJsonLd(bank.title) },
         { "@type": "BreadcrumbList", itemListElement: [
           { "@type": "ListItem", position: 1, name: "PastPaperPrep", item: `${SITE_URL}/` },
           { "@type": "ListItem", position: 2, name: bank.qualification, item: `${SITE_URL}${hubPath}` },

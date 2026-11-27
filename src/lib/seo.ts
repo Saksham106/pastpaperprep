@@ -38,5 +38,15 @@ export const SOCIAL_IMAGE_URL = SOCIAL_IMAGE.url;
  */
 export function socialPreview(qualification?: Qualification | PastPaperQualification) {
   const preview = SOCIAL_PREVIEWS[qualificationInfo(qualification).socialPreview];
-  return { images: [preview.image], videos: [preview.video] };
+  // siteName and locale are repeated here because a page-level openGraph drops the layout's.
+  return { siteName: "PastPaperPrep", locale: "en_US", images: [preview.image], videos: [preview.video] };
+}
+
+/**
+ * What a bank or syllabus page is about: the exam syllabus, named as a plain Thing. These pages are PastPaperPrep
+ * resources about a Cambridge or IB course, not the course itself, so they don't use Course markup (Google's
+ * course structured data is for real curricula from their actual provider).
+ */
+export function syllabusSubjectJsonLd(name: string) {
+  return { "@type": "Thing", name };
 }

@@ -3,6 +3,8 @@ import { Geist, IBM_Plex_Mono, Young_Serif } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SessionAwareSiteHeader } from "@/components/SessionAwareSiteHeader";
+import { AnnualSaleBanner } from "@/components/AnnualSaleBanner";
+import { ANNUAL_SALE_HINT_SCRIPT, annualSaleConfigured } from "@/lib/annual-sale";
 import { SiteHelper } from "@/components/helper/SiteHelper";
 import { notesNavVisible } from "@/lib/course-notes/visibility";
 import { pastPaperLinksEnabled } from "@/lib/past-paper-nav";
@@ -44,11 +46,9 @@ export const metadata: Metadata = {
   publisher: "PastPaperPrep",
   category: "education",
   openGraph: {
-    siteName: "PastPaperPrep",
     title: "PastPaperPrep | IGCSE, A Level & IB Maths, Sciences and Economics Past Papers",
     description: "Topic-by-topic practice across Cambridge IGCSE, Cambridge A Level and IB Mathematics, Biology, Chemistry, Physics, Co-ordinated Sciences, and Economics.",
     type: "website",
-    locale: "en_US",
     ...socialPreview(),
   },
   twitter: {
@@ -62,12 +62,16 @@ export const metadata: Metadata = {
     : undefined,
 };
 
+// Read once at build time (pages are static): the banner ships only while a sale coupon is configured.
+const annualSale = annualSaleConfigured(process.env, Date.now());
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable} ${mono.variable} ${youngSerif.variable}`} suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: SESSION_HINT_SCRIPT }} /></head>
+      <head><script dangerouslySetInnerHTML={{ __html: SESSION_HINT_SCRIPT }} />{annualSale ? <script dangerouslySetInnerHTML={{ __html: ANNUAL_SALE_HINT_SCRIPT }} /> : null}</head>
       <body data-build-revision={process.env.NEXT_PUBLIC_BUILD_REVISION ?? "local"}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableColorScheme storageKey="pastpaperprep-theme" disableTransitionOnChange>
+          {annualSale ? <AnnualSaleBanner /> : null}
           <SessionAwareSiteHeader pastPapers={pastPaperLinksEnabled()} notes={notesNavVisible()} />
           <BankNavigationFeedback />
           <main><PageTransition>{children}</PageTransition></main>

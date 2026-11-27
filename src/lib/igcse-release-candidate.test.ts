@@ -45,7 +45,7 @@ describe("IGCSE Biology and Economics release candidate", () => {
 
     type RuntimeSummary = { questions: unknown[]; paperCount: number };
     for (const [slug, runtime] of Object.entries(runtimes) as [IGCSEReleaseBankSlug, RuntimeSummary][]) {
-      expect(getIGCSERuntimeArtifact(slug, environment)).toBe(runtime);
+      expect(getIGCSERuntimeArtifact(slug, environment)).toEqual(runtime);
       expect(getCatalogBank(slug)?.questionCount).toBe(runtime.questions.length);
       expect(getCatalogBank(slug)?.paperCount).toBe(runtime.paperCount);
     }

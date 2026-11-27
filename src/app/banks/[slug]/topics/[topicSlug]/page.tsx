@@ -42,10 +42,15 @@ export async function generateMetadata({
           `${subjectSearchName(bank)} ${topic.label} Past Paper Questions`,
           `${subjectSearchName(bank)} ${topic.label} Questions`,
           `${topic.label} Questions | ${subjectSearchName(bank)}`,
+          `${topic.label} | ${subjectSearchName(bank)}`,
         )),
-        description: `Practise ${topic.count.toLocaleString()} ${bankSearchName(bank)} ${topic.label} past-paper questions from ${bank.years}. Start with the free questions, check answers, and build a worksheet.`,
+        description: [
+          `Practise ${topic.count.toLocaleString()} ${bankSearchName(bank)} ${topic.label} past-paper questions from ${bank.years}. Start with the free questions, check answers, and build a worksheet.`,
+          `Practise ${topic.count.toLocaleString()} ${bankSearchName(bank)} ${topic.label} past-paper questions from ${bank.years}, with answers and worksheets.`,
+          `${topic.count.toLocaleString()} ${topic.label} past-paper questions from ${bank.years}, with answers and worksheets.`,
+        ].find((d) => d.length <= 160) ?? `${topic.label} past-paper questions, with answers and worksheets.`,
         alternates: { canonical: topicPath(bank.slug, topic) },
-        openGraph: { url: topicPath(bank.slug, topic), ...socialPreview(bank.qualification) },
+        openGraph: { url: topicPath(bank.slug, topic), type: "website", ...socialPreview(bank.qualification) },
       }
     : {};
 }

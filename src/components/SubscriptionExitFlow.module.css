@@ -1,0 +1,69 @@
+.page { min-height: 70vh; padding: clamp(28px, 6vw, 72px) 20px 96px; }
+.shell { max-width: 600px; margin: 0 auto; display: grid; gap: 18px; }
+.shell h1 { margin: 0; color: var(--ink); font: 800 clamp(1.8rem, 4.2vw, 2.45rem)/1.12 var(--font-body); letter-spacing: -.02em; text-wrap: balance; outline: none; }
+.lede { margin: -4px 0 4px; color: var(--muted); font-size: 1rem; line-height: 1.55; }
+.muted { color: var(--muted); }
+.back { justify-self: start; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; color: var(--muted); font-size: .88rem; font-weight: 700; text-decoration: none; }
+.back:hover { color: var(--ink); }
+.step { margin: 0; color: var(--cobalt); font: 600 .74rem/1 var(--font-mono); letter-spacing: .08em; text-transform: uppercase; }
+
+.recap { display: flex; justify-content: space-between; gap: 16px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.recap p { margin: 0; }
+.recapName { color: var(--ink); font-weight: 800; font-size: 1.02rem; }
+.recapBanks { margin-top: 3px !important; color: var(--muted); font-size: .86rem; }
+.recapBilling { text-align: right; color: var(--ink); font-weight: 700; font-size: .95rem; font-variant-numeric: tabular-nums; }
+.recapBilling .muted { margin-top: 3px; font-weight: 500; font-size: .84rem; }
+
+.reasons, .months { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: 10px; }
+.reason, .month { position: relative; display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 14px 18px; color: var(--ink); background: var(--surface-raised); border: 1.5px solid var(--line); border-radius: 14px; font-size: .97rem; font-weight: 650; cursor: pointer; transition: border-color .15s ease, background-color .15s ease, box-shadow .15s ease; }
+.reason:hover, .month:hover { border-color: var(--line-strong); }
+.reason[data-selected], .month[data-selected] { border-color: var(--cobalt); background: var(--cobalt-faint); box-shadow: 0 0 0 3px color-mix(in srgb, var(--cobalt) 14%, transparent); }
+.reason input, .month input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--cobalt); }
+.reason:has(input:focus-visible), .month:has(input:focus-visible) { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.months { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.month { flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px; }
+.month input { position: absolute; top: 16px; right: 16px; }
+.monthLength { font-size: 1.12rem; font-weight: 800; }
+.monthDate { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: .84rem; font-weight: 600; }
+.note { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+
+.comment { display: grid; gap: 8px; color: var(--ink); font-size: .9rem; font-weight: 700; }
+.comment textarea { width: 100%; min-height: 88px; padding: 12px 14px; color: var(--ink); background: var(--surface-raised); border: 1.5px solid var(--line); border-radius: 12px; font: 500 .95rem/1.5 var(--font-body); resize: vertical; }
+.comment textarea:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; border-color: var(--cobalt); }
+
+.card { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+.featured { padding: 22px 20px; background: linear-gradient(180deg, var(--cobalt-faint), var(--surface-raised)); border: 1.5px solid color-mix(in srgb, var(--cobalt) 38%, var(--line)); }
+.cardIcon { display: grid; place-items: center; width: 46px; height: 46px; color: var(--cobalt); background: var(--cobalt-soft); border-radius: 12px; font-size: 1.5rem; }
+.cardBody h2 { margin: 0 0 4px; color: var(--ink); font: 800 1.06rem/1.3 var(--font-body); }
+.cardBody p { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.5; }
+.cardBody a { color: var(--cobalt); font-weight: 700; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.actions > * { flex: 1 1 220px; }
+.primary, .primaryButton, .secondary, .primarySmall, .secondarySmall { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 12px 22px; border-radius: 999px; font: 800 .98rem/1.2 var(--font-body); text-align: center; text-decoration: none; cursor: pointer; transition: filter .15s ease, background-color .15s ease, transform .1s ease; }
+.primary, .primaryButton, .primarySmall { color: var(--accent-contrast); background: var(--cobalt); border: 1.5px solid var(--cobalt); box-shadow: 0 6px 18px color-mix(in srgb, var(--cobalt) 28%, transparent); }
+.secondary, .secondarySmall { color: var(--ink); background: transparent; border: 1.5px solid var(--line-strong); }
+.primarySmall, .secondarySmall { min-height: 44px; padding: 10px 18px; font-size: .9rem; white-space: nowrap; }
+.primary:hover, .primaryButton:hover:not(:disabled), .primarySmall:hover:not(:disabled) { filter: brightness(.94); }
+.secondary:hover:not(:disabled), .secondarySmall:hover { background: var(--surface); }
+.primary:active, .primaryButton:active, .secondary:active { transform: translateY(1px); }
+.primary:focus-visible, .primaryButton:focus-visible, .secondary:focus-visible, .primarySmall:focus-visible, .secondarySmall:focus-visible, .back:focus-visible, .inlineLink:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+.shell button:disabled { opacity: .6; cursor: wait; }
+
+.aside { margin: 0; color: var(--muted); font-size: .9rem; text-align: center; }
+.inlineLink { padding: 0; color: var(--cobalt); background: none; border: 0; font: inherit; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.error { margin: 0; padding: 12px 14px; color: var(--ink); background: color-mix(in srgb, #d64545 12%, var(--surface)); border: 1px solid color-mix(in srgb, #d64545 40%, var(--line)); border-radius: 12px; font-size: .9rem; }
+.doneIcon { display: grid; place-items: center; width: 60px; height: 60px; color: var(--cobalt); background: var(--cobalt-soft); border-radius: 50%; font-size: 2.1rem; }
+
+@media (max-width: 560px) {
+  .card { grid-template-columns: auto 1fr; }
+  .card > :last-child { grid-column: 1 / -1; width: 100%; }
+  .months { grid-template-columns: 1fr; }
+  .month { flex-direction: row; align-items: center; justify-content: space-between; }
+  .month input { position: static; order: -1; }
+  .recap { flex-direction: column; gap: 8px; }
+  .recapBilling { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reason, .month, .primary, .primaryButton, .secondary { transition: none; }
+}

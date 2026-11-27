@@ -7,7 +7,9 @@ import { captureServerException } from "@/lib/server-error-tracking";
 import { fetchAccessEntitlements } from "@/lib/custom-bundle-access";
 import type { AccessEntitlement } from "@/lib/access";
 import { createClient } from "@/lib/supabase/server";
-import { recentNews } from "@/lib/updates";
+import { announcementCandidates, newBankSlugs } from "@/lib/announcements";
+import { helperConfigured } from "@/lib/helper/config";
+import { qualificationIdOfSlug } from "@/lib/qualifications";
 
 export const metadata = { title: "Dashboard" };
 
@@ -16,6 +18,7 @@ export default async function DashboardPage() {
   const { data: claimsData } = await supabase.auth.getClaims();
   const userId = claimsData?.claims?.sub;
   let accessibleBanks: BankSlug[] = [];
+  let entitlements: (AccessEntitlement & { source?: unknown })[] = [];
 
   if (typeof userId === "string") {
     const result = await fetchAccessEntitlements(supabase as never, userId);
@@ -29,9 +32,22 @@ export default async function DashboardPage() {
       }
       throw result.error;
     }
-    const entitlements = result.rows as AccessEntitlement[];
+    entitlements = result.rows as typeof entitlements;
     accessibleBanks = getAvailableBanks().filter(({ slug }) => hasBankAccess(slug, entitlements)).map(({ slug }) => slug);
   }
 
-  return <DashboardContent authenticated={typeof userId === "string"} accessibleBanks={accessibleBanks} availableBanks={getAvailableBanks()} news={recentNews(1)[0]} />;
+  const banks = getAvailableBanks();
+  const now = new Date();
+  // All Access, Lifetime and complimentary all-bank grants already include every new bank.
+  const allAccess = banks.length > 0 && accessibleBanks.length === banks.length;
+  const grants = (row: AccessEntitlement) => banks.some(({ slug }) => hasBankAccess(slug, [row], now));
+  // Only a current Stripe subscription can be monthly; Lifetime has nothing to switch.
+  const lifetime = entitlements.some((row) => row.productId === "lifetime_all_access" && grants(row));
+  const announcements = typeof userId === "string" ? {
+    userId,
+    candidates: announcementCandidates({ banks, accessible: accessibleBanks, allAccess, now, pepper: helperConfigured() }),
+    boards: allAccess ? [] : [...new Set(accessibleBanks.map(qualificationIdOfSlug))],
+    annualCheck: !lifetime && entitlements.some((row) => row.source === "stripe" && grants(row)),
+  } : undefined;
+  return <DashboardContent authenticated={typeof userId === "string"} accessibleBanks={accessibleBanks} availableBanks={banks} newBanks={newBankSlugs({ banks, now })} announcements={announcements} />;
 }

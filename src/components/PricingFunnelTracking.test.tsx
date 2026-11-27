@@ -18,7 +18,7 @@ describe("pricing and checkout funnel events", () => {
   it("reports one pricing view with the preselected bank and the prompt that sent them", () => {
     const { rerender } = render(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_igcse" source="top_note" />);
     rerender(<PricingContent authenticated={false} hasPaidAccess={false} initialProductId="bank_igcse" source="top_note" />);
-    expect(eventsNamed("pricing_view")).toEqual([["pricing_view", { product: "bank_igcse", from: "top_note", interval: "monthly", signedIn: false, hasPaidAccess: false, bankCount: 1 }]]);
+    expect(eventsNamed("pricing_view")).toEqual([["pricing_view", { product: "bank_igcse", from: "top_note", interval: "monthly", signedIn: false, hasPaidAccess: false, bankCount: 1, annualSale: false }]]);
     expect(eventsNamed("checkout_cancelled")).toHaveLength(0);
   });
 

@@ -102,7 +102,7 @@ describe("Economics 0455 combined 2019-2026 release (finalized)", () => {
     expect(r.runtimeArtifact.assetManifestSha256).toBe(jsonSha(manifest));
     expect(r.runtimeArtifact.finalizedContentSha256).toBe(jsonSha(r.questions));
     expect(r.runtimeArtifact.contentSha256).toBe(jsonSha(candidate.questions));
-    expect(getIGCSERuntimeArtifact("igcse-economics-0455", RELEASE_ENVIRONMENT)).toBe(runtime);
+    expect(getIGCSERuntimeArtifact("igcse-economics-0455", RELEASE_ENVIRONMENT)).toEqual(runtime);
     expect([candidate.releaseStatus, candidate.runtimeArtifact.assetVerification, candidate.runtimeArtifact.storageState]).toEqual(["authorized_production_candidate", "pending_storage_release", "pending_upload"]);
     expect([candidate.runtimeArtifact.storageReceiptSha256, candidate.runtimeArtifact.assetManifestSha256, candidate.runtimeArtifact.finalizedContentSha256]).toEqual([null, null, null]);
     expect(candidate.runtimeArtifact.contentSha256).toBe(jsonSha(candidate.questions));

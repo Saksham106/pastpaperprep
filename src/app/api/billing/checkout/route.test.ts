@@ -14,6 +14,7 @@ const sessionsCreate = vi.fn();
 const sessionsList = vi.fn();
 const sessionsExpire = vi.fn();
 const subscriptionsList = vi.fn();
+const couponsRetrieve = vi.fn();
 const adminRpc = vi.fn();
 let billingEnabled = true;
 
@@ -65,6 +66,7 @@ vi.mock("@/lib/stripe", () => ({
     customers: { create: customersCreate, search: customersSearch },
     checkout: { sessions: { create: sessionsCreate, expire: sessionsExpire, list: sessionsList } },
     subscriptions: { list: subscriptionsList },
+    coupons: { retrieve: couponsRetrieve },
   })),
 }));
 vi.mock("@/lib/stripe-config", async (importOriginal) => {
@@ -173,6 +175,19 @@ describe("POST /api/billing/checkout", () => {
     expect(await response.json()).toMatchObject({ code: "MANAGE_EXISTING_PLAN", manageUrl: "/account/subscription" });
     expect(sessionsCreate).not.toHaveBeenCalled();
     expect(adminRpc).toHaveBeenCalledWith("reserve_billing_checkout", expect.anything());
+  });
+  it("never opens a second subscription while the current plan is paused", async () => {
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", schedule: null, pending_update: null, pause_collection: { behavior: "void" }, cancel_at_period_end: false, cancel_at: null,
+      metadata: { user_id: user.id, product_id: "bank_ib_sl", billing_interval: "monthly", price_id: "price_single_monthly" },
+      items: { data: [{ id: "si_existing", price: { id: "price_single_monthly", recurring: { interval: "month" } }, quantity: 1 }] } }], has_more: false });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(409);
+    expect(sessionsCreate).not.toHaveBeenCalled();
   });
   it("preserves separately billed legacy add-ons when the single-plan editor is enabled", async () => {
     vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
@@ -1082,5 +1097,157 @@ describe("POST /api/billing/checkout", () => {
 
     expect(response.status).toBe(503);
     expect(sessionsCreate).not.toHaveBeenCalled();
+  });
+
+  describe("annual sale", () => {
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    const saleCoupon = { id: "bf-40", valid: true, percent_off: 40, amount_off: null, duration: "once" };
+    const coupons: Record<string, typeof saleCoupon> = { "bf-25": { ...saleCoupon, id: "bf-25", percent_off: 25 }, "bf-30": { ...saleCoupon, id: "bf-30", percent_off: 30 }, "bf-35": { ...saleCoupon, id: "bf-35", percent_off: 35 }, "bf-40": saleCoupon };
+    const checkout = (body: Record<string, unknown>) => POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify(body) }));
+    const createdSession = () => sessionsCreate.mock.calls[0]?.[0] as Record<string, unknown>;
+
+    beforeEach(() => {
+      vi.useFakeTimers({ toFake: ["Date"] });
+      vi.setSystemTime(new Date("2026-11-28T12:00:00Z"));
+      vi.stubEnv("STRIPE_SALE_COUPON_SINGLE", "bf-25");
+      vi.stubEnv("STRIPE_SALE_COUPON_BUILDER_SMALL", "bf-30");
+      vi.stubEnv("STRIPE_SALE_COUPON_BUILDER_LARGE", "bf-35");
+      vi.stubEnv("STRIPE_SALE_COUPON_ALL", "bf-40");
+      getUser.mockResolvedValue({ data: { user } });
+      mockAdminRpc("cus_existing");
+      sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/session" });
+      couponsRetrieve.mockImplementation(async (id: string) => coupons[id]);
+    });
+    afterEach(() => vi.useRealTimers());
+
+    it("applies the verified coupon to annual checkout and drops promotion codes", async () => {
+      const response = await checkout({ interval: "annual", productId: "bundle_custom", selectedBankIds: ["ib-sl", "igcse"] });
+
+      expect(response.status).toBe(200);
+      expect(couponsRetrieve).toHaveBeenCalledWith("bf-30", {}, { timeout: 10_000 });
+      const session = createdSession();
+      expect(session.discounts).toEqual([{ coupon: "bf-30" }]);
+      expect(session).not.toHaveProperty("allow_promotion_codes");
+      expect(session.metadata).toMatchObject({ annual_sale: "black-friday-2026", billing_interval: "annual" });
+      // The subscription carries the campaign so its first paid invoice can be attributed.
+      expect((session.subscription_data as { metadata: Record<string, string> }).metadata).toMatchObject({ annual_sale: "black-friday-2026" });
+      // Mid-window, the default 24-hour expiry ends before the sale does.
+      expect(session).not.toHaveProperty("expires_at");
+    });
+
+    it.each([
+      ["One Bank", { productId: "bank_ib_hl" }, "bf-25"],
+      ["three banks", { productId: "bundle_custom", selectedBankIds: ["igcse", "ib-hl", "ib-sl"] }, "bf-30"],
+      ["four banks", { productId: "bundle_custom", selectedBankIds: ["igcse", "ib-hl", "ib-sl", "ib-ai-hl"] }, "bf-35"],
+      ["five banks", { productId: "bundle_custom", selectedBankIds: ["igcse", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] }, "bf-35"],
+      ["All Access", { productId: "bundle_all" }, "bf-40"],
+      ["six banks promoted to All Access", { productId: "bundle_custom", selectedBankIds: ["igcse", "igcse-additional", "ib-hl", "ib-sl", "ib-ai-hl", "ib-ai-sl"] }, "bf-40"],
+    ])("ladders the coupon for %s", async (_label, body, couponId) => {
+      const response = await checkout({ interval: "annual", ...body });
+
+      expect(response.status).toBe(200);
+      expect(createdSession().discounts).toEqual([{ coupon: couponId }]);
+    });
+
+    it("never discounts monthly checkout and keeps promotion codes", async () => {
+      const response = await checkout({ interval: "monthly", productId: "bundle_all" });
+
+      expect(response.status).toBe(200);
+      expect(couponsRetrieve).not.toHaveBeenCalled();
+      const session = createdSession();
+      expect(session).not.toHaveProperty("discounts");
+      expect(session.allow_promotion_codes).toBe(true);
+      expect(session.metadata).not.toHaveProperty("annual_sale");
+      expect((session.subscription_data as { metadata: Record<string, string> }).metadata).not.toHaveProperty("annual_sale");
+    });
+
+    it.each([
+      ["before the window", "2026-11-25T23:59:59Z"],
+      ["after the window", "2026-12-02T00:00:00Z"],
+    ])("charges full annual price %s", async (_label, now) => {
+      vi.setSystemTime(new Date(now));
+      const response = await checkout({ interval: "annual", productId: "bundle_all" });
+
+      expect(response.status).toBe(200);
+      expect(couponsRetrieve).not.toHaveBeenCalled();
+      expect(createdSession()).not.toHaveProperty("discounts");
+      expect(createdSession().allow_promotion_codes).toBe(true);
+    });
+
+    it("is inert without the coupon env var", async () => {
+      vi.stubEnv("STRIPE_SALE_COUPON_SINGLE", " ");
+      const response = await checkout({ interval: "annual", productId: "bundle_all" });
+
+      expect(response.status).toBe(200);
+      expect(couponsRetrieve).not.toHaveBeenCalled();
+      expect(createdSession()).not.toHaveProperty("discounts");
+      expect(createdSession().allow_promotion_codes).toBe(true);
+    });
+
+    it.each([
+      ["a different percentage", async () => ({ ...saleCoupon, percent_off: 25 })],
+      ["an expired coupon", async () => ({ ...saleCoupon, valid: false })],
+      ["a repeating coupon", async () => ({ ...saleCoupon, duration: "forever" })],
+      ["a deleted coupon", async () => { throw Object.assign(new Error("No such coupon"), { code: "resource_missing" }); }],
+    ])("stops with SALE_UNAVAILABLE instead of a full-price Checkout for %s", async (_label, lookup) => {
+      couponsRetrieve.mockImplementation(lookup);
+      const error = vi.spyOn(console, "error").mockImplementation(() => undefined);
+      const response = await checkout({ interval: "annual", productId: "bundle_all" });
+
+      expect(response.status).toBe(503);
+      await expect(response.json()).resolves.toMatchObject({ code: "SALE_UNAVAILABLE" });
+      expect(sessionsCreate).not.toHaveBeenCalled();
+      expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", expect.objectContaining({ p_user_id: user.id }));
+      expect(error).toHaveBeenCalled();
+    });
+
+    it("still sells monthly at full price while a sale coupon is broken", async () => {
+      couponsRetrieve.mockRejectedValue(Object.assign(new Error("No such coupon"), { code: "resource_missing" }));
+      const response = await checkout({ interval: "monthly", productId: "bundle_all" });
+
+      expect(response.status).toBe(200);
+      expect(couponsRetrieve).not.toHaveBeenCalled();
+      expect(createdSession().allow_promotion_codes).toBe(true);
+    });
+
+    it("fails without creating a session and releases the reservation when Stripe cannot be reached", async () => {
+      couponsRetrieve.mockRejectedValue(Object.assign(new Error("timeout"), { code: "ETIMEDOUT" }));
+      vi.spyOn(console, "error").mockImplementation(() => undefined);
+      const response = await checkout({ interval: "annual", productId: "bundle_all" });
+
+      expect(response.status).toBe(503);
+      expect(sessionsCreate).not.toHaveBeenCalled();
+      expect(adminRpc).toHaveBeenCalledWith("release_billing_checkout", expect.objectContaining({ p_user_id: user.id }));
+    });
+
+    it("expires a sale session at the sale end on the last day", async () => {
+      vi.setSystemTime(new Date("2026-12-01T20:00:00Z"));
+      await checkout({ interval: "annual", productId: "bundle_all" });
+
+      expect(createdSession().expires_at).toBe(Date.parse("2026-12-02T00:00:00Z") / 1000);
+    });
+
+    it("keeps Stripe's 30-minute minimum expiry in the sale's last minutes", async () => {
+      vi.setSystemTime(new Date("2026-12-01T23:50:00Z"));
+      await checkout({ interval: "annual", productId: "bundle_all" });
+
+      expect(createdSession().expires_at).toBe(Date.parse("2026-12-02T00:21:00Z") / 1000);
+    });
+
+    it("does not reuse a full-price annual session opened before the sale", async () => {
+      sessionsList.mockResolvedValue({ data: [{
+        id: "cs_full_price",
+        status: "open",
+        expires_at: 4_102_444_800,
+        url: "https://checkout.stripe.com/c/pay/cs_full_price",
+        cancel_url: "https://pastpaperprep.com/pricing?interval=annual&product=bundle_all&checkout=cancelled",
+        metadata: { user_id: user.id, product_id: "bundle_all", billing_interval: "annual", price_id: "price_all_annual" },
+      }] });
+      const response = await checkout({ interval: "annual", productId: "bundle_all" });
+
+      await expect(response.json()).resolves.toEqual({ url: "https://checkout.stripe.com/session" });
+      expect(sessionsExpire).toHaveBeenCalledWith("cs_full_price");
+      expect(createdSession().discounts).toEqual([{ coupon: "bf-40" }]);
+    });
   });
 });

@@ -7,10 +7,10 @@ import { freeTierScope } from "@/lib/free-tier-scope";
 import { socialPreview } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "For teachers: free past papers and worked answers to share",
+  title: { absolute: "Free Past Papers and Worked Answers for Teachers" },
   description: "Free Cambridge IGCSE, A Level and IB past papers with mark schemes, worked answers, topic breakdowns and grade thresholds that students open without signing up.",
   alternates: { canonical: "/teachers" },
-  openGraph: { url: "/teachers", ...socialPreview() },
+  openGraph: { url: "/teachers", type: "website", ...socialPreview() },
 };
 
 /** What a teacher can hand to a class for free. Every item links to a live page; free-tier wording comes from the access policy. */

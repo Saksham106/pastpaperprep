@@ -121,6 +121,13 @@ export function CourseTopicView({ topic, courseHref, stages }: { topic: { n: num
           </div>
         </section>
       ) : null}
+
+      <div className={styles.sheets}>
+        <span className={styles.lbl}>Course tools</span>
+        <Link href={`${courseHref}/cheat-sheet`}>Whole-course cheat sheet</Link>
+        <Link href={`${courseHref}/glossary`}>Glossary</Link>
+        <Link href={`${courseHref}/command-terms`}>Command terms</Link>
+      </div>
     </div>
   );
 }

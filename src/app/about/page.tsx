@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: "About us",
   description: "What PastPaperPrep does, who it is for, how its question banks work, and how archive coverage is handled.",
   alternates: { canonical: "/about" },
-  openGraph: { url: "/about", ...socialPreview() },
+  openGraph: { url: "/about", type: "website", ...socialPreview() },
 };
 
 /** Screenshots of the live site, October 2026 (public/product). */

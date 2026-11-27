@@ -24,6 +24,9 @@ import { QualificationTabs } from "@/components/QualificationTabs";
 import { PricingBankFocus, secondSubjectOptions } from "@/components/PricingBankFocus";
 import { TestimonialGrid } from "@/components/Testimonial";
 import { PRICING_TESTIMONIALS } from "@/lib/testimonials";
+import { ANNUAL_SALE, ANNUAL_SALE_MAX_PERCENT, annualSaleLiveInBrowser, annualSaleTierForBankCount } from "@/lib/annual-sale";
+import { AnnualSaleHeadline, AnnualSalePrice } from "@/components/AnnualSalePrice";
+import { useAnnualSaleLive } from "@/components/useAnnualSaleLive";
 
 function bankSlugForProduct(productId: string): BankSlug | undefined {
   return getCatalogBanksForDisplay().find((bank) => bank.productId === productId)?.slug;
@@ -82,6 +85,8 @@ function BankTable({ banks }: { banks: readonly Bank[] }) {
 export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames = [], currentPlanProductIds = [], complimentaryAccess = false, manualAccess = false, previewOnly = false, previewStacked = false, addOnIntent = false, ownedBankIds = [], initialInterval = "monthly", initialLifetimeSelected = false, initialProductId, initialBankIds, availableBanks = getCatalogRuntimeBanks(), source, checkoutStatus, updated, staticFallback = false }: { authenticated: boolean; hasPaidAccess: boolean; currentPlanNames?: string[]; currentPlanProductIds?: readonly ProductId[]; complimentaryAccess?: boolean; manualAccess?: boolean; previewOnly?: boolean; previewStacked?: boolean; addOnIntent?: boolean; ownedBankIds?: readonly BankSlug[]; initialInterval?: BillingInterval; initialLifetimeSelected?: boolean; initialProductId?: ProductId; initialBankIds?: readonly BankSlug[]; availableBanks?: readonly Bank[]; source?: UpgradePlacement; checkoutStatus?: "cancelled"; updated?: { date: string; label: string }; /** The CDN's signed-out HTML, replaced in the browser before it is interactive. */ staticFallback?: boolean }) {
   const [interval, setInterval] = useState<BillingInterval>(initialInterval);
   const [lifetimeSelected, setLifetimeSelected] = useState(initialLifetimeSelected ?? false);
+  const annualSaleLive = useAnnualSaleLive();
+  const annualSaleShown = annualSaleLive && interval === "annual" && !lifetimeSelected;
   // Client navigation (e.g. the "add another subject" chips) changes these props without
   // remounting. When the URL intent changes, re-adopt its billing choice; manual edits
   // stand across unrelated rerenders.
@@ -134,6 +139,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
       signedIn: authenticated,
       hasPaidAccess,
       bankCount: hasPaidAccess ? 0 : initialCustomBankIds?.length ?? 0,
+      // Read directly: on this first effect the hook still holds its server value.
+      annualSale: annualSaleLiveInBrowser(),
     });
     if (checkoutStatus === "cancelled") { trackProductEvent("checkout_cancelled", {}); clearCheckoutParam(); }
     // Report the page as it was first opened; later selections are separate events.
@@ -193,6 +200,10 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           : `Billed ${plan.annual} once a year. Save ${plan.annualSaving}`
         : "Billed monthly";
 
+    const saleShown = annualSaleShown && !hasPaidAccess;
+    const saleAnnualCents = saleShown ? isBuilder ? builderAnnualTotalCents : plan.mode === "all" ? PRICING_MODEL.allAccess.annualCents : PRICING_MODEL.oneBank.annualCents : null;
+    const salePercent = ANNUAL_SALE.tiers[isBuilder ? annualSaleTierForBankCount(Math.max(2, builderQuantity)) : plan.mode === "all" ? "all" : "single"].percentOff;
+
     const current = hasPaidAccess && currentPlanMode === plan.mode;
     const currentAllAccess = ownsAllAccess || !addOnBanks.length;
     const canAdd = hasPaidAccess && !currentAllAccess && !manualAccess;
@@ -206,8 +217,13 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
           </div>
           {current ? <span className="pricing-badge pricing-badge-current">{plan.mode === "single" && individualBankSubscriptions > 1 ? "Your subscriptions" : "Your access"}</span> : plan.popular ? <span className="pricing-badge">Most popular</span> : null}
         </div>
-        <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>
-        {!hasPaidAccess && interval === "annual" ? <p className="plan-billing-note">{billingNote}</p> : null}
+        {saleAnnualCents !== null
+          ? <AnnualSaleHeadline annualCents={saleAnnualCents} percentOff={salePercent} live={isBuilder} />
+          : <div className="plan-price"><strong aria-live={isBuilder ? "polite" : undefined}>{headlinePrice}</strong><span>/ month</span></div>}
+        {!hasPaidAccess && interval === "annual" ? saleShown
+          ? <AnnualSalePrice annualCents={saleAnnualCents} percentOff={salePercent}
+            percentLabel={isBuilder ? `${ANNUAL_SALE.tiers.builderSmall.percentOff}–${ANNUAL_SALE.tiers.builderLarge.percentOff}%` : undefined} />
+          : <p className="plan-billing-note">{billingNote}</p> : null}
         {hasPaidAccess && !canAdd && plan.mode === "all" ? null : plan.mode === "all" ? (
           <PlanCheckout
             options={[{ productId: "bundle_all", label: "All Access" }]}
@@ -231,6 +247,8 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             initialBankIds={preselectedBankIds}
             availableBanks={cardBanks}
             onSelectionChange={isBuilder ? handleBuilderSelectionChange : undefined}
+            // Someone building a 2+ bank plan is not nudged from One Bank as well.
+            upgradeNudge={isBuilder || builderBankIds.length < 2}
             ctaLabel={hasPaidAccess && isBuilder ? `Add ${builderQuantity} banks` : checkoutCta}
           />
         )}
@@ -241,7 +259,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
 
   const billingToggle = <div className="billing-toggle" role="group" aria-label="Billing period">
     <button type="button" aria-pressed={!lifetimeSelected && interval === "monthly"} onClick={() => chooseInterval("monthly")}>Monthly</button>
-    <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">Save up to {maximumAnnualSavingPercent()}%</span></button>
+    <button className="billing-toggle-annual" type="button" aria-pressed={!lifetimeSelected && interval === "annual"} onClick={() => chooseInterval("annual")}>Annual <span className="billing-savings">{annualSaleLive ? `Up to ${ANNUAL_SALE_MAX_PERCENT}% off` : `Save up to ${maximumAnnualSavingPercent()}%`}</span></button>
     <button className="billing-toggle-lifetime" type="button" aria-pressed={lifetimeSelected} onClick={() => chooseInterval("lifetime")}>Lifetime</button>
   </div>;
 

@@ -9,8 +9,10 @@ import styles from "./helper.module.css";
 export const creditsLeft = (credits: HelperCredits): number => credits.planLeft + credits.packLeft;
 
 /** A slim bar for this week's plan credits, then what's left and when the week resets. */
-export function CreditsLine({ credits, cost }: { credits: HelperCredits; cost?: number }) {
+export function CreditsLine({ credits, cost, surface }: { credits: HelperCredits; cost?: number; surface?: string }) {
   const share = credits.weekly > 0 ? Math.min(credits.planLeft / credits.weekly, 1) : 0;
+  // Running low (a quarter of the week or less, and no pack to fall back on): a quiet way to top up before it runs out.
+  const low = share <= 0.25 && credits.packLeft === 0 && creditsLeft(credits) >= HELPER_CREDIT_COST.message;
   return (
     <p className={styles.credits}>
       <span className={styles.creditsBar} aria-hidden="true"><span style={{ width: `${Math.round(share * 100)}%` }} /></span>
@@ -18,6 +20,7 @@ export function CreditsLine({ credits, cost }: { credits: HelperCredits; cost?: 
         {cost && cost > HELPER_CREDIT_COST.message
           ? `A photo uses ${cost} credits · ${formatCredits(creditsLeft(credits))} left`
           : `${percentLeft(credits)} left · ${formatCredits(credits.planLeft)}${credits.packLeft > 0 ? ` + ${formatCredits(credits.packLeft)} pack` : ""} credits · resets ${resetDay(credits.resetsAt)}`}
+        {low && <> · <Link className={styles.creditsMore} href="/account#pepper-credits" onClick={() => trackProductEvent("helper_credits_click", { surface: surface ?? "unknown", action: "low" })}>Get more</Link></>}
       </span>
     </p>
   );

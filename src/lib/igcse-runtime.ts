@@ -1,10 +1,7 @@
 import { createHash } from "node:crypto";
-import biology from "@/data/production/igcse-biology-0610.json";
-import economics from "@/data/production/igcse-economics-0455.json";
+import { join } from "node:path";
+import { readCorpusJson } from "@/lib/corpus-json";
 import biologyTaxonomy from "@/data/classification/igcse-biology-0610-official-taxonomy-v2.json";
-import chemistry from "@/data/production/igcse-chemistry-0620.json";
-import physics from "@/data/production/igcse-physics-0625.json";
-import coordinated from "@/data/production/igcse-coordinated-sciences-0654.json";
 import economicsTaxonomy from "@/data/igcse-economics-0455-taxonomy.json";
 import chemistryTaxonomy from "@/data/igcse-chemistry-0620-official-taxonomy.json";
 import chemistryOtherTargets from "../../scripts/data/0620-other-retrieval-targets.json";
@@ -12,27 +9,15 @@ import biologySecondaryTargets from "../../scripts/data/0610-extension-material-
 import physicsTaxonomy from "@/data/igcse-physics-0625-official-taxonomy.json";
 import coordinatedTaxonomy from "@/data/igcse-coordinated-sciences-0654-taxonomy.json";
 // "IGCSE" here names the shared gated release machinery; it also holds the IB Computer Science and IB Business Management banks.
-import computerScience from "@/data/production/igcse-computer-science-0478.json";
 import computerScienceTaxonomy from "@/data/igcse-computer-science-0478-taxonomy.json";
-import ibComputerScienceHl from "@/data/production/ib-computer-science-hl.json";
-import ibComputerScienceSl from "@/data/production/ib-computer-science-sl.json";
 import ibComputerScienceTaxonomy from "@/data/ib-computer-science-taxonomy.json";
-import ibBusinessManagementHl from "@/data/production/ib-business-management-hl.json";
-import ibBusinessManagementSl from "@/data/production/ib-business-management-sl.json";
 import ibBusinessManagementTaxonomy from "@/data/ib-business-management-taxonomy.json";
-import aLevelMaths9709 from "@/data/production/a-level-maths-9709.json";
 import aLevelMaths9709Taxonomy from "@/data/a-level-maths-9709-taxonomy.json";
-import aLevelPhysics9702 from "@/data/production/a-level-physics-9702.json";
 import aLevelPhysics9702Taxonomy from "@/data/a-level-physics-9702-taxonomy.json";
-import aLevelChemistry9701 from "@/data/production/a-level-chemistry-9701.json";
 import aLevelChemistry9701Taxonomy from "@/data/a-level-chemistry-9701-taxonomy.json";
-import aLevelBiology9700 from "@/data/production/a-level-biology-9700.json";
 import aLevelBiology9700Taxonomy from "@/data/a-level-biology-9700-taxonomy.json";
-import aLevelEconomics9708 from "@/data/production/a-level-economics-9708.json";
 import aLevelEconomics9708Taxonomy from "@/data/a-level-economics-9708-taxonomy.json";
-import aLevelComputerScience9618 from "@/data/production/a-level-computer-science-9618.json";
 import aLevelComputerScience9618Taxonomy from "@/data/a-level-computer-science-9618-taxonomy.json";
-import aLevelFurtherMaths9231 from "@/data/production/a-level-further-maths-9231.json";
 import aLevelFurtherMaths9231Taxonomy from "@/data/a-level-further-maths-9231-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
@@ -183,25 +168,27 @@ export const IGCSE_RUNTIME_COUNTS = {
   "a-level-computer-science-9618": [750, 85],
   "a-level-further-maths-9231": [813, 116],
 } as const;
-const ARTIFACTS: Record<IGCSEReleaseBankSlug, IGCSEArtifact> = {
-  "igcse-biology-0610": biology as IGCSEArtifact,
-  "igcse-economics-0455": economics as IGCSEArtifact,
-  "igcse-chemistry-0620": chemistry as IGCSEArtifact,
-  "igcse-physics-0625": physics as IGCSEArtifact,
-  "igcse-coordinated-sciences-0654": coordinated as IGCSEArtifact,
-  "igcse-computer-science-0478": computerScience as IGCSEArtifact,
-  "ib-computer-science-hl": ibComputerScienceHl as IGCSEArtifact,
-  "ib-computer-science-sl": ibComputerScienceSl as IGCSEArtifact,
-  "ib-business-management-hl": ibBusinessManagementHl as IGCSEArtifact,
-  "ib-business-management-sl": ibBusinessManagementSl as IGCSEArtifact,
-  "a-level-maths-9709": aLevelMaths9709 as IGCSEArtifact,
-  "a-level-physics-9702": aLevelPhysics9702 as IGCSEArtifact,
-  "a-level-chemistry-9701": aLevelChemistry9701 as IGCSEArtifact,
-  "a-level-biology-9700": aLevelBiology9700 as IGCSEArtifact,
-  "a-level-economics-9708": aLevelEconomics9708 as IGCSEArtifact,
-  "a-level-computer-science-9618": aLevelComputerScience9618 as IGCSEArtifact,
-  "a-level-further-maths-9231": aLevelFurtherMaths9231 as IGCSEArtifact,
+// Read from disk, not imported (see src/lib/corpus-json.ts). Keep each path a literal so file tracing finds it.
+const ARTIFACT_FILES: Record<IGCSEReleaseBankSlug, string> = {
+  "igcse-biology-0610": join(process.cwd(), "src/data/production/igcse-biology-0610.json"),
+  "igcse-economics-0455": join(process.cwd(), "src/data/production/igcse-economics-0455.json"),
+  "igcse-chemistry-0620": join(process.cwd(), "src/data/production/igcse-chemistry-0620.json"),
+  "igcse-physics-0625": join(process.cwd(), "src/data/production/igcse-physics-0625.json"),
+  "igcse-coordinated-sciences-0654": join(process.cwd(), "src/data/production/igcse-coordinated-sciences-0654.json"),
+  "igcse-computer-science-0478": join(process.cwd(), "src/data/production/igcse-computer-science-0478.json"),
+  "ib-computer-science-hl": join(process.cwd(), "src/data/production/ib-computer-science-hl.json"),
+  "ib-computer-science-sl": join(process.cwd(), "src/data/production/ib-computer-science-sl.json"),
+  "ib-business-management-hl": join(process.cwd(), "src/data/production/ib-business-management-hl.json"),
+  "ib-business-management-sl": join(process.cwd(), "src/data/production/ib-business-management-sl.json"),
+  "a-level-maths-9709": join(process.cwd(), "src/data/production/a-level-maths-9709.json"),
+  "a-level-physics-9702": join(process.cwd(), "src/data/production/a-level-physics-9702.json"),
+  "a-level-chemistry-9701": join(process.cwd(), "src/data/production/a-level-chemistry-9701.json"),
+  "a-level-biology-9700": join(process.cwd(), "src/data/production/a-level-biology-9700.json"),
+  "a-level-economics-9708": join(process.cwd(), "src/data/production/a-level-economics-9708.json"),
+  "a-level-computer-science-9618": join(process.cwd(), "src/data/production/a-level-computer-science-9618.json"),
+  "a-level-further-maths-9231": join(process.cwd(), "src/data/production/a-level-further-maths-9231.json"),
 };
+const artifactFor = (bank: IGCSEReleaseBankSlug) => readCorpusJson(ARTIFACT_FILES[bank]) as IGCSEArtifact;
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "igcse-biology-0610": biologyTaxonomy,
   "igcse-economics-0455": economicsTaxonomy,
@@ -787,7 +774,7 @@ export function assertPrintedMarksRepair(bank: IGCSEReleaseBankSlug, artifact: I
 
 export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment: Record<string, string | undefined> = process.env) {
   if (!isIGCSEReleaseEnabled(environment)) throw new Error("IGCSE release banks are disabled");
-  const artifact = ARTIFACTS[bank];
+  const artifact = artifactFor(bank);
   const [questions, papers] = IGCSE_RUNTIME_COUNTS[bank];
   const metadata = artifact.runtimeArtifact;
   const taxonomySealed = typeof metadata?.releaseTaxonomySha256 === "string"
@@ -828,5 +815,5 @@ export function getIGCSERuntimeArtifact(bank: IGCSEReleaseBankSlug, environment:
 }
 
 export function getIGCSECandidateRuntime(bank: IGCSEReleaseBankSlug) {
-  return ARTIFACTS[bank];
+  return artifactFor(bank);
 }
