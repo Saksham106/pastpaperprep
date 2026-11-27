@@ -36,6 +36,8 @@ export const config = {
     "/:path((?:d|%64)(?:e|%65)(?:v|%76)(?:-|%2[dD])(?:e|%65)(?:x|%78)(?:p|%70)(?:l|%6[cC])(?:a|%61)(?:n|%6[eE])(?:a|%61)(?:t|%74)(?:i|%69)(?:o|%6[fF])(?:n|%6[eE])(?:s|%73)(?:(?:/|%2[fF]).*)?)",
     "/_next/static/:path(.*(?:\\.|%2[eE])(?:m|%6[dD])(?:a|%61)(?:p|%70))",
     "/account/:path*",
+    // Signed-in cancel / pause pages refresh the session like /account.
+    "/subscription/:path*",
     "/dashboard/:path*",
     // /pricing itself is CDN-served and reads the session through /api/pricing/account;
     // a proxy match would put a function in front of every cache hit.

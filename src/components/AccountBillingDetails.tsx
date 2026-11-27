@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { AccountSubscriptionEditor } from "@/components/AccountSubscriptionEditor";
+import type { PauseState } from "@/lib/subscription-pause";
 
 type Item = {
   id: string; quantity: number | null; recurringSubtotalCents: number | null;
@@ -10,7 +11,7 @@ type Item = {
   currentPeriodEnd: string | null;
 };
 type Subscription = {
-  id: string; status: string; cancelAtPeriodEnd: boolean; cancelAt: string | null; pendingUpdate?: boolean; scheduledChange?: boolean;
+  id: string; status: string; cancelAtPeriodEnd: boolean; cancelAt: string | null; pendingUpdate?: boolean; scheduledChange?: boolean; pause?: PauseState;
   scheduledPlan?: { id: string; effectiveAt: string; interval: string; bankSelection: { kind: "all" } | { kind: "selected"; banks: { slug: string; name: string }[] } | { kind: "unknown" } } | null;
   bankSelection: { kind: "all" } | { kind: "selected"; banks: { slug: string; name: string }[] } | { kind: "unknown" };
   items: Item[];
@@ -20,7 +21,7 @@ type BillingResponse = {
   invoices: { id: string; status: string | null; amountPaid: number; amountDue: number; currency: string; created: string; hostedInvoiceUrl?: string | null }[];
   invoicesHasMore?: boolean;
   paymentMethod: { type: string | null; bankName?: string | null; last4?: string | null; cardBrand?: string | null; cardExpiryMonth?: number | null; cardExpiryYear?: number | null } | null;
-  management: { editable: boolean; reason?: string };
+  management: { editable: boolean; pauseEnabled?: boolean; reason?: string };
   bankOptions?: { slug: string; name: string }[];
 };
 export type BillingLoadState = { kind: "loading" } | { kind: "none" } | { kind: "error" } | { kind: "loaded"; data: BillingResponse };
@@ -48,7 +49,7 @@ function cadence(item: Item) {
 }
 
 /** Shares the exact live summary with the local example, rather than duplicating markup. */
-export function CurrentSubscriptionSummary({ subscription: sub, item, billingManagement }: { subscription: Pick<Subscription, "status" | "cancelAtPeriodEnd" | "bankSelection">; item: Item | null; billingManagement?: "enabled" | "preview" | "inline" }) {
+export function CurrentSubscriptionSummary({ subscription: sub, item, billingManagement }: { subscription: Pick<Subscription, "status" | "cancelAtPeriodEnd" | "bankSelection"> & { pause?: PauseState }; item: Item | null; billingManagement?: "enabled" | "preview" | "inline" }) {
   const amount = item ? money(item.recurringSubtotalCents, item.price.currency) : null;
   const interval = item ? cadence(item) : null;
   const periodEnd = item ? date(item.currentPeriodEnd) : null;
@@ -56,15 +57,16 @@ export function CurrentSubscriptionSummary({ subscription: sub, item, billingMan
     const cadenceLabel = interval === "month" ? "mo" : interval === "year" ? "yr" : interval;
     const bankNames = sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map(bank => bank.name).join(" · ") : sub.bankSelection.kind === "all" ? "All question banks" : "Bank details unavailable";
     const ending = sub.cancelAtPeriodEnd || sub.status === "canceled";
+    const pause = sub.pause?.kind === "scheduled" || sub.pause?.kind === "paused" ? sub.pause : null;
     return <div className="account-current-access-summary account-current-access-summary-compact">
       <div className="account-plan-summary-main">
         <p className="account-plan-summary-kicker">Your plan</p>
-        <div className="account-plan-summary-heading"><h2>{sub.bankSelection.kind === "all" ? "All Access" : sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.length === 1 ? "One Bank" : "Build Your Plan" : "Subscription"}</h2><span className="account-plan-summary-status" data-active={sub.status === "active" && !ending}>{ending ? "Ending" : sub.status.replaceAll("_", " ")}</span></div>
+        <div className="account-plan-summary-heading"><h2>{sub.bankSelection.kind === "all" ? "All Access" : sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.length === 1 ? "One Bank" : "Build Your Plan" : "Subscription"}</h2><span className="account-plan-summary-status" data-active={sub.status === "active" && !ending && !pause}>{ending ? "Ending" : pause ? pause.kind === "paused" ? "Paused" : "Pausing" : sub.status.replaceAll("_", " ")}</span></div>
         <p className="account-plan-summary-banks">{bankNames}</p>
       </div>
       <div className="account-plan-summary-billing">
         <p className="account-plan-summary-price">{amount && cadenceLabel ? <>{amount}<span> / {cadenceLabel}</span></> : "Price unavailable"}</p>
-        {periodEnd ? <p className="account-plan-summary-date">{ending ? "Access until" : sub.status === "active" || sub.status === "trialing" ? "Renews" : "Period ends"} {periodEnd}</p> : null}
+        {pause ? <p className="account-plan-summary-date">{pause.kind === "paused" ? `Restarts ${date(pause.resumesAt)}` : `Access until ${date(pause.accessUntil)}`}</p> : periodEnd ? <p className="account-plan-summary-date">{ending ? "Access until" : sub.status === "active" || sub.status === "trialing" ? "Renews" : "Period ends"} {periodEnd}</p> : null}
       </div>
       {billingManagement === "enabled" ? <Link className="account-plan-summary-link" href="/account/billing">Manage billing <span aria-hidden="true">↗</span></Link> : billingManagement === "preview" ? <span className="account-plan-summary-link account-plan-summary-link-disabled" aria-disabled="true" title="Unavailable in this preview">Manage billing <span aria-hidden="true">↗</span></span> : <span className="account-plan-summary-link">Manage subscription <span aria-hidden="true">↗</span></span>}
     </div>;
@@ -175,8 +177,9 @@ export function AccountBillingDetails({ mode, complimentaryAllAccess = false, bi
           {(showPlanEditor || mode === "subscription" && !showPlanEditor) && !(readOnly && !showPlanEditor) && state.data.management.editable && current.length === 1 && sub.status === "active" && item && state.data.bankOptions?.length ? <AccountSubscriptionEditor
             demo={readOnly}
             managementOnly={!showPlanEditor}
-            key={`${sub.id}:${sub.cancelAtPeriodEnd}:${item.id}:${item.price.interval}:${item.recurringSubtotalCents}:${sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map((bank) => bank.slug).sort().join(",") : sub.bankSelection.kind}`}
-            subscription={{ id: sub.id, cancelAtPeriodEnd: sub.cancelAtPeriodEnd, bankSelection: sub.bankSelection, item }}
+            key={`${sub.id}:${sub.cancelAtPeriodEnd}:${sub.pause?.kind ?? "none"}:${item.id}:${item.price.interval}:${item.recurringSubtotalCents}:${sub.bankSelection.kind === "selected" ? sub.bankSelection.banks.map((bank) => bank.slug).sort().join(",") : sub.bankSelection.kind}`}
+            subscription={{ id: sub.id, cancelAtPeriodEnd: sub.cancelAtPeriodEnd, pause: sub.pause, bankSelection: sub.bankSelection, item }}
+            pauseEnabled={state.data.management.pauseEnabled === true}
             bankOptions={state.data.bankOptions}
             onUpdated={(message) => { setOperationNotice(message ?? "Billing state updated."); void refresh(); }}
             billingInterval={billingInterval}

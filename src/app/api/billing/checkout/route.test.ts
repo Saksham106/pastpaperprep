@@ -176,6 +176,19 @@ describe("POST /api/billing/checkout", () => {
     expect(sessionsCreate).not.toHaveBeenCalled();
     expect(adminRpc).toHaveBeenCalledWith("reserve_billing_checkout", expect.anything());
   });
+  it("never opens a second subscription while the current plan is paused", async () => {
+    vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
+    const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };
+    getUser.mockResolvedValue({ data: { user } });
+    userFrom.mockReturnValue(entitlementQuery([]));
+    mockAdminRpc("cus_existing");
+    subscriptionsList.mockResolvedValue({ data: [{ status: "active", schedule: null, pending_update: null, pause_collection: { behavior: "void" }, cancel_at_period_end: false, cancel_at: null,
+      metadata: { user_id: user.id, product_id: "bank_ib_sl", billing_interval: "monthly", price_id: "price_single_monthly" },
+      items: { data: [{ id: "si_existing", price: { id: "price_single_monthly", recurring: { interval: "month" } }, quantity: 1 }] } }], has_more: false });
+    const response = await POST(new Request("https://pastpaperprep.com/api/billing/checkout", { method: "POST", body: JSON.stringify({ interval: "monthly", productId: "bank_ib_hl" }) }));
+    expect(response.status).toBe(409);
+    expect(sessionsCreate).not.toHaveBeenCalled();
+  });
   it("preserves separately billed legacy add-ons when the single-plan editor is enabled", async () => {
     vi.stubEnv("STRIPE_PLAN_EDITOR_ENABLED", "true");
     const user = { id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", email: "student@example.com" };

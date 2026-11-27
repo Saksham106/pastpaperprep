@@ -6,6 +6,7 @@ import { processReferralInvoicePaid, processReferralChargeRefunded, processRefer
 import { createStripeClient } from "@/lib/stripe";
 import { getStripeConfig } from "@/lib/stripe-config";
 import { buildSubscriptionSync, getSubscriptionEventReference } from "@/lib/stripe-subscriptions";
+import { invoiceFromPausedSubscription, subscriptionPauseRelevant, verifyCurrentPeriodPaid } from "@/lib/pause-period-payment";
 import { verifyScheduledRenewalPayment } from "@/lib/account-schedule-invoice";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { captureConversionOutcome } from "@/lib/server-conversion-analytics";
@@ -236,9 +237,13 @@ async function handlePOST(request: Request) {
         // Lookup/analytics failure must never affect invoice or entitlement processing.
       }
     }
-    // Most paid invoices have nothing to do with the app's scheduled editor.
-    // Only its exact scheduled renewal can also reconcile bank entitlements.
-    if (invoice.status !== "paid" || invoice.billing_reason !== "subscription_cycle" || typeof subscriptionId !== "string") {
+    // Most paid invoices have nothing to do with entitlements. Two kinds reconcile them: the app editor's exact
+    // scheduled renewal, and a renewal (or early-resume charge) for a period a pause touches, whose access
+    // waits for this payment.
+    // An off-cycle (`subscription_update`) payment matters only as an early-resume charge: the invoice's own
+    // metadata snapshot shows the app's pause window, so unrelated paid invoices skip any extra Stripe read.
+    const earlyResumeCharge = invoice.billing_reason === "subscription_update" && invoiceFromPausedSubscription(invoice);
+    if (invoice.status !== "paid" || (invoice.billing_reason !== "subscription_cycle" && !earlyResumeCharge) || typeof subscriptionId !== "string") {
       return NextResponse.json({ received: true });
     }
     try {
@@ -246,11 +251,17 @@ async function handlePOST(request: Request) {
       const latestInvoiceId = typeof current.latest_invoice === "string" ? current.latest_invoice : current.latest_invoice?.id;
       if (latestInvoiceId !== invoice.id) return NextResponse.json({ received: true });
       const scheduleId = typeof current.schedule === "string" ? current.schedule : current.schedule?.id;
-      if (!scheduleId) return NextResponse.json({ received: true });
-      const schedule = await stripe.subscriptionSchedules.retrieve(scheduleId, {}, { timeout: 60_000 });
-      if (schedule.metadata?.owner !== "pastpaperprep") return NextResponse.json({ received: true });
-      invoicePaidReference = subscriptionId;
-      invoicePaidId = invoice.id;
+      if (!scheduleId) {
+        if (!subscriptionPauseRelevant(current)) return NextResponse.json({ received: true });
+        invoicePaidReference = subscriptionId;
+        invoicePaidId = invoice.id;
+      } else {
+        if (invoice.billing_reason !== "subscription_cycle") return NextResponse.json({ received: true });
+        const schedule = await stripe.subscriptionSchedules.retrieve(scheduleId, {}, { timeout: 60_000 });
+        if (schedule.metadata?.owner !== "pastpaperprep") return NextResponse.json({ received: true });
+        invoicePaidReference = subscriptionId;
+        invoicePaidId = invoice.id;
+      }
     } catch {
       return NextResponse.json({ error: "Could not verify scheduled invoice" }, { status: 500 });
     }
@@ -334,6 +345,19 @@ async function handlePOST(request: Request) {
         return NextResponse.json({ error: "Scheduled renewal payment is pending or unverifiable" }, { status: 503 });
       }
 
+      // A pause keeps Stripe's status `active` while voiding invoices: for a period it touches, access needs
+      // a verified paid invoice for that exact period.
+      // Proof is only needed to grant access: a canceled/deleted/unpaid subscription is revoked without it, so a
+      // slow invoice lookup can never delay a terminal revocation.
+      let pausePeriodPaid = false;
+      const wouldGrant = event.type !== "customer.subscription.deleted" && (currentSubscription.status === "active" || currentSubscription.status === "trialing");
+      if (wouldGrant && subscriptionPauseRelevant(currentSubscription as Stripe.Subscription)) {
+        try {
+          pausePeriodPaid = await verifyCurrentPeriodPaid(stripe, currentSubscription as Stripe.Subscription);
+        } catch {
+          return NextResponse.json({ error: "Could not verify paused period payment" }, { status: 500 });
+        }
+      }
       let sync;
       try {
         const subscription = currentSubscription as Stripe.Subscription;
@@ -358,7 +382,7 @@ async function handlePOST(request: Request) {
           { ...event, type: invoicePaidReference ? "customer.subscription.updated" : event.type, data: { object: currentSubscription } },
           (productId, catalogPriceId, catalogInterval) => productId === metadataProductId && catalogPriceId === priceId && catalogInterval === interval,
           // Phase-two metadata is the unpaid target selection; never grace-grant it.
-          { allowPastDueGrace: !unpaidScheduledTarget },
+          { allowPastDueGrace: !unpaidScheduledTarget, pausePeriodPaid },
         );
       } catch {
         const { error } = await admin.rpc("invalidate_stripe_subscription_event", {

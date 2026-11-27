@@ -6,6 +6,7 @@ const retrieveSubscription = vi.fn();
 const retrieveSchedule = vi.fn();
 const releaseSchedule = vi.fn();
 const retrieveInvoice = vi.fn();
+const listInvoices = vi.fn();
 const retrieveCharge = vi.fn();
 const retrieveDispute = vi.fn();
 const retrievePaymentIntent = vi.fn().mockResolvedValue({ id: "pi_lifetime", status: "succeeded", customer: "cus_1", amount_received: 29900, currency: "usd", metadata: { user_id: "150a3d0e-4c34-45cc-9748-68252f0fb8f1", product_id: "lifetime_all_access", purchase_type: "lifetime", billing_intent_id: "intent_lifetime_1" } });
@@ -20,7 +21,7 @@ vi.mock("@/lib/stripe", () => ({
     webhooks: { constructEvent },
     subscriptions: { retrieve: retrieveSubscription },
     subscriptionSchedules: { retrieve: retrieveSchedule, release: releaseSchedule },
-    invoices: { retrieve: retrieveInvoice },
+    invoices: { retrieve: retrieveInvoice, list: listInvoices },
     charges: { retrieve: retrieveCharge },
     disputes: { retrieve: retrieveDispute },
     paymentIntents: { retrieve: retrievePaymentIntent },
@@ -106,6 +107,7 @@ function request(signature = "valid") {
 describe("POST /api/stripe/webhook", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    listInvoices.mockReset().mockResolvedValue({ data: [], has_more: false });
     processReferralInvoicePaid.mockReset().mockResolvedValue(undefined);
     processReferralChargeRefunded.mockReset().mockResolvedValue(undefined);
     processReferralDisputeChanged.mockReset().mockResolvedValue(undefined);
@@ -452,6 +454,86 @@ describe("POST /api/stripe/webhook", () => {
       p_status: "active",
       p_expires_at: new Date((1_799_000_000 + 14 * 24 * 60 * 60) * 1000).toISOString(),
     }));
+  });
+
+  describe("pauses", () => {
+    const START = 1_799_000_000, END = 1_801_000_000;
+    const periodLine = (extra: Record<string, unknown> = {}) => ({ amount: 2500, quantity: 1, period: { start: START, end: END }, pricing: { type: "price_details", price_details: { price: "price_monthly" } },
+      parent: { type: "subscription_item_details", subscription_item_details: { subscription: "sub_1", subscription_item: "si_1", proration: false } }, ...extra });
+    const invoiceWith = (status: string, extra: Record<string, unknown> = {}) => ({ id: "in_p", created: 1_800_000_000, status, customer: "cus_1", billing_reason: "subscription_cycle", amount_due: 2500, amount_paid: status === "paid" ? 2500 : 0,
+      parent: { type: "subscription_details", subscription_details: { subscription: "sub_1", metadata: {} } },
+      lines: { has_more: false, data: [periodLine()] }, ...extra });
+    const baseItem = { ...subscriptionEvent.data.object.items.data[0], id: "si_1" };
+    const pausedSub = (extra: Record<string, unknown> = {}) => ({ ...structuredClone(subscriptionEvent.data.object), items: { data: [baseItem] }, schedule: null, latest_invoice: "in_newer", pause_collection: { behavior: "void" }, ...extra });
+    const paidList = (...invoices: unknown[]) => listInvoices.mockResolvedValue({ data: invoices, has_more: false });
+    const applied = () => rpc.mock.calls.find(([name]) => name === "apply_stripe_subscription_event")?.[1] as { p_status: string; p_expires_at: string | null };
+
+    it("keeps already-paid access for an outside pause even when a newer unrelated invoice is latest", async () => {
+      retrieveSubscription.mockResolvedValue(pausedSub());
+      paidList(invoiceWith("paid"));
+      constructEvent.mockReturnValue(subscriptionEvent);
+      expect((await POST(request())).status).toBe(200);
+      expect(listInvoices).toHaveBeenCalledWith({ subscription: "sub_1", status: "paid", limit: 100 }, expect.any(Object));
+      expect(applied()).toMatchObject({ p_status: "active", p_expires_at: new Date(END * 1000).toISOString() });
+    });
+    it("grants nothing for a voided paused period, or for a partial-period credit", async () => {
+      retrieveSubscription.mockResolvedValue(pausedSub());
+      paidList(invoiceWith("paid", { lines: { has_more: false, data: [periodLine({ period: { start: START + 500, end: END } })] } }));
+      constructEvent.mockReturnValue(subscriptionEvent);
+      expect((await POST(request())).status).toBe(200);
+      expect(applied()).toMatchObject({ p_status: "revoked", p_expires_at: null });
+    });
+    it("gives no past-due grace to the first renewal after an app pause, then restores access when it's paid", async () => {
+      const metadata = { user_id: userId, product_id: "bundle_all", pause_access_until: new Date((START - 30 * 86400) * 1000).toISOString(), pause_resumes_at: new Date(START * 1000).toISOString() };
+      retrieveSubscription.mockResolvedValue(pausedSub({ status: "past_due", pause_collection: null, metadata }));
+      paidList();
+      constructEvent.mockReturnValue(subscriptionEvent);
+      expect((await POST(request())).status).toBe(200);
+      expect(applied()).toMatchObject({ p_status: "revoked", p_expires_at: null });
+      rpc.mockClear();
+      const paid = invoiceWith("paid");
+      retrieveSubscription.mockResolvedValue(pausedSub({ status: "active", pause_collection: null, metadata, latest_invoice: "in_p" }));
+      paidList(paid);
+      constructEvent.mockReturnValue({ id: "evt_resume_paid", created: 1_800_000_002, type: "invoice.paid", data: { object: paid } });
+      expect((await POST(request())).status).toBe(200);
+      expect(applied()).toMatchObject({ p_status: "active", p_expires_at: new Date(END * 1000).toISOString() });
+    });
+    it("retries a grant when the invoice lookup fails", async () => {
+      retrieveSubscription.mockResolvedValue(pausedSub());
+      listInvoices.mockRejectedValue(new Error("timeout"));
+      constructEvent.mockReturnValue(subscriptionEvent);
+      expect((await POST(request())).status).toBe(500);
+      expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+    });
+    it("still revokes a canceled paused subscription when the invoice lookup would fail", async () => {
+      retrieveSubscription.mockResolvedValue(pausedSub({ status: "canceled" }));
+      listInvoices.mockRejectedValue(new Error("timeout"));
+      constructEvent.mockReturnValue({ ...subscriptionEvent, type: "customer.subscription.deleted" });
+      expect((await POST(request())).status).toBe(200);
+      expect(listInvoices).not.toHaveBeenCalled();
+      expect(applied()).toMatchObject({ p_status: "revoked" });
+    });
+    it("ignores unrelated off-cycle paid invoices without reading the subscription", async () => {
+      constructEvent.mockReturnValue({ id: "evt_update_paid", created: 1_800_000_002, type: "invoice.paid", data: { object: invoiceWith("paid", { billing_reason: "subscription_update", amount_paid: 0 }) } });
+      expect((await POST(request())).status).toBe(200);
+      expect(retrieveSubscription).not.toHaveBeenCalled();
+      expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+    });
+    it("re-syncs on an early-resume charge, recognised from the invoice's own metadata", async () => {
+      const metadata = { user_id: userId, product_id: "bundle_all", pause_access_until: new Date((START - 30 * 86400) * 1000).toISOString(), pause_resumes_at: new Date((START + 86400 - 60) * 1000).toISOString() };
+      const charge = invoiceWith("paid", { billing_reason: "subscription_update", parent: { type: "subscription_details", subscription_details: { subscription: "sub_1", metadata } } });
+      retrieveSubscription.mockResolvedValue(pausedSub({ pause_collection: null, metadata, latest_invoice: "in_p" }));
+      paidList(charge);
+      constructEvent.mockReturnValue({ id: "evt_early_resume", created: 1_800_000_002, type: "invoice.paid", data: { object: charge } });
+      expect((await POST(request())).status).toBe(200);
+      expect(applied()).toMatchObject({ p_status: "active", p_expires_at: new Date(END * 1000).toISOString() });
+    });
+    it("leaves ordinary renewals without a pause or schedule alone", async () => {
+      retrieveSubscription.mockResolvedValue({ ...subscriptionEvent.data.object, schedule: null, latest_invoice: "in_p" });
+      constructEvent.mockReturnValue({ id: "evt_plain_paid", created: 1_800_000_002, type: "invoice.paid", data: { object: invoiceWith("paid") } });
+      expect((await POST(request())).status).toBe(200);
+      expect(rpc).not.toHaveBeenCalledWith("apply_stripe_subscription_event", expect.anything());
+    });
   });
 
   it("does not grant a scheduled target while its renewal invoice is draft", async () => {

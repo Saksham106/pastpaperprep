@@ -16,7 +16,7 @@ describe("AccountBillingDetails", () => {
     render(<AccountBillingDetails mode="subscription" showPlanEditor={false} />);
     expect(await screen.findByTestId("subscription-detail")).toHaveTextContent("Mathematics 0580");
     expect(screen.queryByRole("heading", { name: "Choose your plan" })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Cancel subscription" })).toHaveAttribute("href", "/subscription/cancel");
     expect(screen.getByText(/\$6\.00.*month/i)).toBeInTheDocument();
   });
   it("shows exact separate plans, prices, banks, and renewal dates without implying consolidation", async () => {
@@ -43,7 +43,7 @@ describe("AccountBillingDetails", () => {
     expect(screen.getByRole("button", { name: "Switch to All Access" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Your bank" })).toBeDisabled();
     expect(screen.getByText(/base rate before discounts, credits, or taxes/i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Cancel subscription" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Cancel subscription" })).toHaveAttribute("href", "/subscription/cancel");
   });
   it("shows a verified scheduled bank reduction and lets its owner undo before renewal", async () => {
     const response = { subscriptions: [{ ...subscription("sub_one", ["IB Math AA HL", "IGCSE Mathematics"], 1000), scheduledChange: true, scheduledPlan: { id: "sub_sched_1", effectiveAt: "2026-10-25T00:00:00.000Z", interval: "monthly", bankSelection: { kind: "selected", banks: [{ slug: "igcse", name: "IGCSE Mathematics" }] } } }], invoices: [], paymentMethod: null, management: { editable: false }, bankOptions: [{ slug: "igcse", name: "IGCSE Mathematics" }] };

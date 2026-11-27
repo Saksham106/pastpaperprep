@@ -251,22 +251,49 @@ describe("account subscription editor", () => {
     expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "create", selectedBankIds: ["ib-sl"], allAccess: false, interval: "monthly", snapshot: renewalSnapshot });
     expect(screen.getByRole("status")).toHaveTextContent(/after renewal payment is verified/i);
   });
-  it("reviews period-end cancellation and offers undo while access is still active", async () => {
-    const fetch = vi.fn().mockResolvedValueOnce(response({ status: "canceling", cancelAtPeriodEnd: true, effectiveAt: "2026-10-25T00:00:00Z" })).mockResolvedValueOnce(response({ status: "active", cancelAtPeriodEnd: false, effectiveAt: "2026-10-25T00:00:00Z" }));
+  it("links to the cancel page and keeps undo for a scheduled cancellation", async () => {
+    const fetch = vi.fn().mockResolvedValueOnce(response({ status: "active", cancelAtPeriodEnd: false, effectiveAt: "2026-10-25T00:00:00Z" }));
     vi.stubGlobal("fetch", fetch);
     const updated = vi.fn();
     const { rerender } = render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={updated} />);
-    fireEvent.click(screen.getByRole("button", { name: "Cancel subscription" }));
-    expect(screen.getByText(/oct 25, 2026/i)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Confirm cancellation" }));
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
-    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "cancel" });
-    await waitFor(() => expect(updated).toHaveBeenCalledOnce());
+    expect(screen.getByRole("link", { name: "Cancel subscription" })).toHaveAttribute("href", "/subscription/cancel");
+    expect(screen.queryByRole("link", { name: "Pause subscription" })).not.toBeInTheDocument();
     rerender(<AccountSubscriptionEditor subscription={plan(true)} bankOptions={banks} onUpdated={updated} />);
     fireEvent.click(screen.getByRole("button", { name: "Undo cancellation" }));
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
-    expect(JSON.parse(fetch.mock.calls[1][1].body)).toEqual({ intent: "undo" });
-    await waitFor(() => expect(updated).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(updated).toHaveBeenCalledOnce());
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "undo" });
+  });
+  it("offers pause on monthly plans only when the server enables it", () => {
+    vi.stubGlobal("fetch", vi.fn());
+    const { rerender } = render(<AccountSubscriptionEditor subscription={plan()} bankOptions={banks} onUpdated={vi.fn()} pauseEnabled />);
+    expect(screen.getByRole("link", { name: "Pause subscription" })).toHaveAttribute("href", "/subscription/pause");
+    rerender(<AccountSubscriptionEditor subscription={{ ...plan(), item: { ...plan().item, price: { interval: "year" } } }} bankOptions={banks} onUpdated={vi.fn()} pauseEnabled />);
+    expect(screen.queryByRole("link", { name: "Pause subscription" })).not.toBeInTheDocument();
+  });
+  it("resumes a booked pause for free and locks plan changes meanwhile", async () => {
+    const fetch = vi.fn().mockResolvedValueOnce(response({ status: "active", renewsAt: "2026-10-25T00:00:00Z" }));
+    vi.stubGlobal("fetch", fetch);
+    const updated = vi.fn();
+    render(<AccountSubscriptionEditor subscription={{ ...plan(), pause: { kind: "scheduled", accessUntil: "2026-10-25T00:00:00Z", resumesAt: "2026-11-25T00:00:00Z" } }} bankOptions={banks} onUpdated={updated} pauseEnabled />);
+    expect(screen.getByText(/Pausing from/)).toHaveTextContent("Nov 25, 2026");
+    expect(screen.getByRole("button", { name: "Switch to All Access" })).toBeDisabled();
+    expect(screen.getByRole("link", { name: "Cancel subscription" })).toHaveAttribute("href", "/subscription/cancel");
+    fireEvent.click(screen.getByRole("button", { name: "Resume now" }));
+    await waitFor(() => expect(updated).toHaveBeenCalledWith("You’re back. Your plan renews on Oct 25, 2026 as usual."));
+    expect(fetch.mock.calls[0][0]).toBe("/api/billing/subscription/pause");
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "undo" });
+  });
+  it("resumes early only after the student confirms paying today", async () => {
+    const fetch = vi.fn().mockResolvedValueOnce(response({ status: "resumed", renewsAt: "2026-11-30T00:00:00Z" }));
+    vi.stubGlobal("fetch", fetch);
+    const updated = vi.fn();
+    render(<AccountSubscriptionEditor subscription={{ ...plan(), item: { ...plan().item, recurringSubtotalCents: 600 }, pause: { kind: "paused", accessUntil: "2026-10-25T00:00:00Z", resumesAt: "2026-12-25T00:00:00Z" } }} bankOptions={banks} onUpdated={updated} pauseEnabled />);
+    fireEvent.click(screen.getByRole("button", { name: "Resume now" }));
+    expect(fetch).not.toHaveBeenCalled();
+    expect(screen.getByText(/You’ll pay \$6.00 today/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Pay $6.00" }));
+    await waitFor(() => expect(updated).toHaveBeenCalledOnce());
+    expect(JSON.parse(fetch.mock.calls[0][1].body)).toEqual({ intent: "resume_now" });
   });
   it("requires a new quote after a conflict and does not confirm a stale snapshot", async () => {
     const fetch = vi.fn().mockResolvedValueOnce(response(preview)).mockResolvedValueOnce(response({ error: "Quote changed; preview again" }, 409));

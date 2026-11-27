@@ -23,6 +23,7 @@ export type AccountPlanSubscription = {
   metadata?: Record<string, string | undefined> | null;
   schedule?: unknown;
   pending_update?: unknown;
+  pause_collection?: unknown;
   cancel_at_period_end?: unknown;
   cancel_at?: unknown;
 };
@@ -64,7 +65,7 @@ export function resolveAccountPlanTarget(input: AccountPlanTargetInput, config: 
 }
 
 export function readEditableCurrentPlan(subscription: AccountPlanSubscription, config: StripeConfig, environment: Environment = process.env): EditableCurrentPlan {
-  if (!subscription || typeof subscription !== "object" || subscription.status !== "active" || subscription.schedule != null || subscription.pending_update != null || subscription.cancel_at_period_end !== false || subscription.cancel_at != null) throw new Error("Subscription is not editable");
+  if (!subscription || typeof subscription !== "object" || subscription.status !== "active" || subscription.schedule != null || subscription.pending_update != null || subscription.pause_collection != null || subscription.cancel_at_period_end !== false || subscription.cancel_at != null) throw new Error("Subscription is not editable");
   const items = subscription.items?.data;
   if (!Array.isArray(items) || items.length !== 1) throw new Error("Expected exactly one subscription item");
   const item = items[0];

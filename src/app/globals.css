@@ -1275,6 +1275,11 @@ main { min-height: 72vh; }
 .account-plan-timing { max-width: none; }
 .account-editor-actions .account-cancel-action, .account-editor-actions .account-cancel-action:first-child { margin-left: auto; color: var(--muted); background: transparent; border-color: transparent; box-shadow: none; }
 .account-editor-actions .account-cancel-action:hover { color: var(--ink); text-decoration: underline; }
+.account-editor-actions a.account-cancel-action, .account-editor-actions a.account-pause-action { min-height: 42px; padding: 9px 15px; display: inline-flex; align-items: center; color: var(--muted); font-size: .88rem; font-weight: 760; text-decoration: none; border-radius: 8px; }
+.account-editor-actions a.account-pause-action { margin-left: auto; }
+.account-editor-actions a.account-pause-action + a.account-cancel-action { margin-left: 0; }
+.account-editor-actions a.account-cancel-action:hover, .account-editor-actions a.account-pause-action:hover { color: var(--ink); text-decoration: underline; }
+.account-editor-actions a.account-cancel-action:focus-visible, .account-editor-actions a.account-pause-action:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
 @media (max-width: 760px) { .account-pricing-grid .pricing-option { min-height: 530px; } }
 .account-hub-header { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:24px; margin-bottom:38px; padding-bottom:26px; border-bottom:1px solid var(--line); }
 .account-billing-hub .account-hub-header h1 { margin:0; text-align:left; font:700 clamp(1.85rem,3vw,2.5rem)/1.15 var(--font-display); letter-spacing:-.035em; }

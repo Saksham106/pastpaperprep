@@ -50,6 +50,10 @@ describe("resolveAccountPlanTarget", () => {
 });
 
 describe("readEditableCurrentPlan", () => {
+  it("refuses plan edits while a pause is booked", () => {
+    const current = subscription(BANK_PRODUCTS[one]!, "price_single_m", 1);
+    expect(() => readEditableCurrentPlan({ ...current, metadata: { product_id: BANK_PRODUCTS[one]! }, pause_collection: { behavior: "void" } }, config, env)).toThrow("Subscription is not editable");
+  });
   it("accepts an exact currently configured one-bank subscription", () => {
     const current = subscription(BANK_PRODUCTS[one]!, "price_single_m", 1);
     const result = readEditableCurrentPlan({ ...current, metadata: { product_id: BANK_PRODUCTS[one]! } }, config, env);
