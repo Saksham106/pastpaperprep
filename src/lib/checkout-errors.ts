@@ -15,6 +15,7 @@ export const CHECKOUT_ERROR_CODES = [
   "BANKS_ALREADY_OWNED",
   "LIFETIME_ACTIVE",
   "LIFETIME_PAYMENT_PENDING",
+  "SALE_UNAVAILABLE",
 ] as const;
 
 export type CheckoutErrorCode = (typeof CHECKOUT_ERROR_CODES)[number];
@@ -49,6 +50,7 @@ const COPY: Record<CheckoutErrorCode, CheckoutErrorCopy> = {
   BANKS_ALREADY_OWNED: { message: "You already have one of these banks. Pick banks you don’t have yet." },
   LIFETIME_ACTIVE: { message: "Lifetime access already covers every bank.", action: SUBSCRIPTION_LINK },
   LIFETIME_PAYMENT_PENDING: { message: "Your Lifetime payment is still being confirmed. Check back in a minute.", action: { kind: "link", href: "/account", label: "View account" } },
+  SALE_UNAVAILABLE: { message: "The sale price isn’t available right now. Try again in a few minutes.", action: SUPPORT_LINK },
 };
 
 export function copyForCheckoutError(code: CheckoutErrorCode): CheckoutErrorCopy {

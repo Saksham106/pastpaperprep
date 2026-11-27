@@ -6,6 +6,8 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
 import { BANKS, type Bank, type BankSlug } from "@/lib/banks";
 import { getCatalogBank } from "@/lib/catalog";
+import { PlanUpgradeNudge } from "@/components/PlanUpgradeNudge";
+import { annualSaleLiveInBrowser } from "@/lib/annual-sale";
 import { trackProductEvent } from "@/lib/product-analytics";
 import { BankPicker, type PickerBank } from "@/components/BankPicker";
 import { qualificationIdOf } from "@/lib/qualifications";
@@ -190,7 +192,7 @@ export function CheckoutButton({
 
   async function start() {
     if (pending) return;
-    trackProductEvent("checkout_start", { interval, productId, bankCount: selectedBankIds?.length ?? 0 });
+    trackProductEvent("checkout_start", { interval, productId, bankCount: selectedBankIds?.length ?? 0, annualSale: annualSaleLiveInBrowser() });
     setPending(true);
     setError(null);
     setNeedsLogin(false);
@@ -363,6 +365,7 @@ export function CustomBundleCheckout({
   availableBanks = BANKS,
   onSelectionChange,
   ctaLabel = "Continue to checkout",
+  upgradeNudge = true,
 }: {
   mode: "single" | "builder";
   interval: BillingInterval;
@@ -374,6 +377,8 @@ export function CustomBundleCheckout({
   availableBanks?: readonly Bank[];
   onSelectionChange?: (selectedBankIds: readonly BankSlug[]) => void;
   ctaLabel?: string;
+  /** Off when another card already carries the buyer's selection (One Bank while the builder is in use). */
+  upgradeNudge?: boolean;
 }) {
   const selectableBanks = availableBanks.filter((bank) => mode !== "single" || Boolean(bankProductForSlug(bank.slug)));
   const [acknowledged, setAcknowledged] = useState(false);
@@ -437,6 +442,7 @@ export function CustomBundleCheckout({
         isDisabled={(slug) => mode === "builder" && hasPaidAccess && selectedBankIds.length >= 5 && !selectedBankIds.includes(slug as BankSlug)}
       />
       {selectionNote ? <p className="custom-bundle-selection-note">{selectionNote}</p> : null}
+      {canCheckout && !hasPaidAccess && upgradeNudge ? <PlanUpgradeNudge interval={interval} mode={mode} selectedBankIds={bankSelection} /> : null}
       {!canCheckout && pickPrompt ? <div className="billing-actions"><button className="button primary" type="button" disabled>{pickPrompt}</button></div> : null}
       {canCheckout ? <>
         {previewOnly ? <div className="billing-actions"><button className="button primary" type="button" disabled>{resolvedCtaLabel}</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div> : <>

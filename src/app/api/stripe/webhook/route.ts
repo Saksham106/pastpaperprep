@@ -227,6 +227,9 @@ async function handlePOST(request: Request) {
             product: metadataProductId,
             interval,
             selectedBankIds: current.metadata?.selected_bank_ids,
+            discounted: (invoice.total_discount_amounts ?? []).some((discount) => discount.amount > 0),
+            // Plan changes copy subscription metadata forward, so only the first invoice is attributed.
+            ...(invoice.billing_reason === "subscription_create" && current.metadata?.annual_sale ? { campaign: current.metadata.annual_sale } : {}),
           });
         }
       } catch {
