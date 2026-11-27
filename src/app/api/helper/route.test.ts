@@ -210,12 +210,24 @@ describe("POST /api/helper (one Pepper for every surface)", () => {
     expect(mocks.after).toHaveBeenCalledTimes(1);
     await mocks.after.mock.calls[0][0];
     expect(mocks.capture).toHaveBeenCalledTimes(1);
-    const arg = mocks.capture.mock.calls[0][0] as { userId: string; rounds: Array<Record<string, unknown>>; meta: Record<string, unknown> };
+    const arg = mocks.capture.mock.calls[0][0] as { userId: string; browserConsent: boolean; rounds: Array<Record<string, unknown>>; meta: Record<string, unknown> };
     expect(arg.userId).toBe("user-1");
     expect(arg.rounds).toHaveLength(1);
     expect(arg.rounds[0]).toMatchObject({ round: 0, stopReason: "end_turn", inputTokens: 1, outputTokens: 1, error: false });
-    expect(arg.meta).toMatchObject({ surface: "site", photo: false, refused: false, navigated: false, creditsCost: expect.any(Number) });
+    expect(arg.meta).toMatchObject({ surface: "site", photo: false, refused: false, navigated: false, creditsReserved: expect.any(Number), creditsSpent: expect.any(Number) });
+    expect(arg.browserConsent).toBe(false);
     expect(JSON.stringify(arg)).not.toContain("expanding");
+  });
+
+  it("passes this browser's analytics choice, read from its consent cookie", async () => {
+    for (const [cookie, expected] of [["ppp_analytics_consent=v2.accepted", true], ["ppp_analytics_consent=v2.rejected", false], ["ppp_analytics_consent=v1.accepted", false]] as const) {
+      mocks.capture.mockClear(); mocks.after.mockClear();
+      const base = request(siteBody());
+      const withCookie = new Request(base, { headers: { "content-type": "application/json", cookie: `other=1; ${cookie}` } });
+      await events(await POST(withCookie));
+      await mocks.after.mock.calls[0][0];
+      expect((mocks.capture.mock.calls[0][0] as { browserConsent: boolean }).browserConsent, cookie).toBe(expected);
+    }
   });
 
   it("still resolves the capture when the model call fails, flagging the round as an error", async () => {

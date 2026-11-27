@@ -7,6 +7,7 @@ import { consumeHelperCredits, releaseHelperCredits } from "@/lib/helper/allowan
 import { HELPER_BOARDS, helperBoard } from "@/lib/helper/config";
 import { formatCredits, helperCreditCost, HELPER_DAILY_CREDIT_GUARD } from "@/lib/helper/credits";
 import { HelperAccessError, loadHelperContext, type HelperContext } from "@/lib/helper/context";
+import { ANALYTICS_CONSENT_COOKIE, parseAnalyticsConsent } from "@/lib/analytics-consent";
 import { captureHelperGenerations, type HelperRoundStats } from "@/lib/helper/llm-analytics";
 import { buildPepperMessages } from "@/lib/helper/pepper-prompt";
 import { parsePepperRequest } from "@/lib/helper/pepper-request";
@@ -44,6 +45,11 @@ let client: Anthropic | undefined;
 function anthropic(): Anthropic {
   client ??= new Anthropic();
   return client;
+}
+
+function requestCookie(request: Request, name: string): string | undefined {
+  const prefix = `${name}=`;
+  return request.headers.get("cookie")?.split(";").map((part) => part.trim()).find((part) => part.startsWith(prefix))?.slice(prefix.length);
 }
 
 async function handlePOST(request: Request) {
@@ -114,14 +120,16 @@ async function handlePOST(request: Request) {
 
   // Model-call analytics (counts only, never text): collected per round, sent after the response has finished.
   const rounds: HelperRoundStats[] = [];
-  const outcome = { refused: false, navigated: false };
+  const outcome = { refused: false, navigated: false, creditsSpent: cost };
+  const browserConsent = parseAnalyticsConsent(requestCookie(request, ANALYTICS_CONSENT_COOKIE)) === true;
   let finishAnalytics: () => void = () => {};
   const analyticsDone = new Promise<void>((resolve) => { finishAnalytics = resolve; });
   try {
     after(analyticsDone.then(() => captureHelperGenerations({
       userId,
+      browserConsent,
       rounds,
-      meta: { surface, mode: parsed.mode, photo: Boolean(parsed.image), ...(question ? { bank: question.bank } : {}), ...outcome, creditsCost: cost, tier },
+      meta: { surface, mode: parsed.mode, photo: Boolean(parsed.image), ...(question ? { bank: question.bank } : {}), refused: outcome.refused, navigated: outcome.navigated, creditsReserved: cost, creditsSpent: outcome.creditsSpent, tier },
     })));
   } catch {
     finishAnalytics();
@@ -151,13 +159,14 @@ async function handlePOST(request: Request) {
         if (!result.sentText && !result.navigated) {
           // Nothing reached the student: give the message back (only ever before the first words).
           await releaseHelperCredits(userId, charge);
+          outcome.creditsSpent = 0;
           send({ type: "error", message: REFUSED, status: 422 });
         } else {
           send({ type: "done", credits, cost });
         }
       } catch (error) {
         if (abort.signal.aborted) return;
-        if (!sentText) await releaseHelperCredits(userId, charge);
+        if (!sentText) { await releaseHelperCredits(userId, charge); outcome.creditsSpent = 0; }
         const busy = error instanceof Anthropic.RateLimitError || (error instanceof Anthropic.APIError && (error.status ?? 0) >= 500);
         if (sentText) send({ type: "text", text: HELPER_SITE_CUT_OFF });
         send({ type: "error", message: busy ? BUSY : FAILED, status: busy ? 503 : 502 });

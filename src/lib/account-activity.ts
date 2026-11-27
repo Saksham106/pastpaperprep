@@ -34,9 +34,21 @@ export function activityArea(pathname: string): ActivityArea {
 
 type RpcClient = { rpc: (name: string, args: Record<string, unknown>) => PromiseLike<unknown> };
 
+// The account the last observation was queued for (best effort, per tab).
+let lastQueuedAccount: string | undefined;
+
+/**
+ * Best-effort observation of one page for the signed-in account. The account is fixed when the
+ * page is queued: if a different account (or nobody) is signed in by the time it would be sent,
+ * it is dropped rather than credited to someone else.
+ */
 export function recordAccountActivity(pathname: string, client: () => RpcClient = createClient) {
-  if (typeof window === "undefined" || !browserAccountId()) return;
+  if (typeof window === "undefined") return;
+  const account = browserAccountId();
+  if (!account) return;
+  lastQueuedAccount = account;
   const send = () => {
+    if (browserAccountId() !== account) return;
     try {
       void Promise.resolve(client().rpc("record_account_activity", { p_area: activityArea(pathname) })).catch(() => {});
     } catch { /* Never affect the page. */ }
@@ -45,3 +57,17 @@ export function recordAccountActivity(pathname: string, client: () => RpcClient 
   if (typeof window.requestIdleCallback === "function") window.requestIdleCallback(send, { timeout: 5000 });
   else window.setTimeout(send, 1500);
 }
+
+/**
+ * After a sign-in on the page already open: count that page for the new account, once. Supabase
+ * also reports a session on tab refocus, so nothing is sent unless the account actually changed.
+ */
+export function recordAccountActivityAfterAuthChange(pathname: string | null | undefined, client: () => RpcClient = createClient) {
+  if (!pathname || typeof window === "undefined") return;
+  const account = browserAccountId();
+  if (!account || account === lastQueuedAccount) return;
+  recordAccountActivity(pathname, client);
+}
+
+/** Tests only. */
+export function resetAccountActivityForTests() { lastQueuedAccount = undefined; }

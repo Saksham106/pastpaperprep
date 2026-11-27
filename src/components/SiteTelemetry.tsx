@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import { AnalyticsConsentBanner } from "@/components/AnalyticsConsentBanner";
-import { recordAccountActivity } from "@/lib/account-activity";
+import { recordAccountActivity, recordAccountActivityAfterAuthChange } from "@/lib/account-activity";
 import { createClient } from "@/lib/supabase/browser";
 import { ANALYTICS_CONSENT_VERSION, analyticsChoiceMaxAgeSeconds, isConsentPromptPath, readBrowserAnalyticsConsent } from "@/lib/analytics-consent";
 import { disableProductAnalytics, initializeProductAnalytics, initializeConsentedAnalytics, setProductAnalyticsIdentity, trackConsentedProductEvent, trackProductEvent } from "@/lib/product-analytics";
@@ -134,6 +134,8 @@ export function SiteTelemetry() {
     };
     void bootstrap();
     const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      // Signing in without changing page: count the open page for the new account (deferred, like below).
+      window.setTimeout(() => recordAccountActivityAfterAuthChange(lastBaselinePath.current), 0);
       const nextVersion = ++generation.current;
       accepted.current = false;
       setAnalyticsReady(false);

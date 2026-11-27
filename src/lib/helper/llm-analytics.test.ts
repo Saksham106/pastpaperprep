@@ -7,7 +7,7 @@ vi.mock("@/lib/server-conversion-analytics", () => ({ hasCurrentConsent: mocks.c
 import { buildGenerationProperties, captureHelperGenerations, type HelperRoundStats } from "@/lib/helper/llm-analytics";
 
 const round: HelperRoundStats = { round: 0, model: "claude-sonnet-5-5", stopReason: "end_turn", inputTokens: 10, outputTokens: 20, cacheReadTokens: 5, cacheWriteTokens: 2, latencyMs: 1234, error: false };
-const meta = { surface: "question" as const, mode: "hint", photo: true, bank: "igcse", refused: false, navigated: false, creditsCost: 20, tier: "free" };
+const meta = { surface: "question" as const, mode: "hint", photo: true, bank: "igcse", refused: false, navigated: false, creditsReserved: 20, creditsSpent: 20, tier: "free" };
 const fetchMock = vi.fn();
 const sent = () => JSON.parse(fetchMock.mock.calls[0][1].body as string) as { api_key: string; batch: Array<{ event: string; distinct_id: string; properties: Record<string, unknown> }> };
 
@@ -28,7 +28,7 @@ describe("helper LLM analytics", () => {
       $ai_trace_id: "trace", $ai_model: "claude-sonnet-5-5", $ai_provider: "anthropic", $ai_input_tokens: 10, $ai_output_tokens: 20,
       $ai_cache_read_input_tokens: 5, $ai_cache_creation_input_tokens: 2, $ai_latency: 1.234, $ai_stop_reason: "end_turn",
       $ai_is_error: true, $ai_http_status: 529, $geoip_disable: true, $process_person_profile: false,
-      surface: "question", mode: "hint", photo: true, bank: "igcse", round: 0, rounds_total: 2, refused: false, navigated: false, credits_cost: 20, tier: "free",
+      surface: "question", mode: "hint", photo: true, bank: "igcse", round: 0, rounds_total: 2, refused: false, navigated: false, credits_reserved: 20, credits_spent: 20, tier: "free",
     });
   });
 
@@ -40,9 +40,9 @@ describe("helper LLM analytics", () => {
     for (const key of ["$ai_input", "$ai_output_choices", "$ai_output", "prompt", "text", "reply", "question", "bank"]) expect(p).not.toHaveProperty(key);
   });
 
-  it("ties events to the account with consent, one lookup per message, one batched request", async () => {
+  it("ties events to the account only when this browser opted in and the account's acceptance is current", async () => {
     mocks.consent.mockResolvedValue(true);
-    await captureHelperGenerations({ userId: "u1", rounds: [round, { ...round, round: 1 }], meta });
+    await captureHelperGenerations({ userId: "u1", browserConsent: true, rounds: [round, { ...round, round: 1 }], meta });
     expect(mocks.consent).toHaveBeenCalledTimes(1);
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(String(fetchMock.mock.calls[0][0])).toBe("https://us.i.posthog.com/batch/");
@@ -53,8 +53,23 @@ describe("helper LLM analytics", () => {
     expect(new Set(body.batch.map((e) => e.properties.$ai_trace_id)).size).toBe(1);
   });
 
+  it("stays anonymous when this browser hasn't opted in, even if the account once accepted (no lookup)", async () => {
+    mocks.consent.mockResolvedValue(true);
+    await captureHelperGenerations({ userId: "u1", browserConsent: false, rounds: [round], meta });
+    expect(mocks.consent).not.toHaveBeenCalled();
+    const [event] = sent().batch;
+    expect(event.distinct_id).toMatch(/^anon:[0-9a-f-]{36}$/);
+    expect(event.properties.$process_person_profile).toBe(false);
+  });
+
+  it("counts a reply the student stopped as cancelled, not as a model error", () => {
+    const p = buildGenerationProperties("t", { ...round, error: false, cancelled: true }, 1, { ...meta, creditsSpent: 20 }, false);
+    expect(p).toMatchObject({ $ai_is_error: false, cancelled: true, credits_reserved: 20, credits_spent: 20 });
+    expect(buildGenerationProperties("t", round, 1, { ...meta, creditsSpent: 0 }, false)).toMatchObject({ credits_reserved: 20, credits_spent: 0 });
+  });
+
   it("is anonymous without consent", async () => {
-    await captureHelperGenerations({ userId: "u1", rounds: [round], meta });
+    await captureHelperGenerations({ userId: "u1", browserConsent: true, rounds: [round], meta });
     const [event] = sent().batch;
     expect(event.distinct_id).toMatch(/^anon:[0-9a-f-]{36}$/);
     expect(JSON.stringify(event)).not.toContain("u1");
@@ -64,10 +79,10 @@ describe("helper LLM analytics", () => {
   it("does nothing without a token and swallows fetch failures", async () => {
     vi.stubEnv("POSTHOG_PROJECT_TOKEN", "");
     vi.stubEnv("NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN", "");
-    await captureHelperGenerations({ userId: "u1", rounds: [round], meta });
+    await captureHelperGenerations({ userId: "u1", browserConsent: true, rounds: [round], meta });
     expect(fetchMock).not.toHaveBeenCalled();
     vi.stubEnv("POSTHOG_PROJECT_TOKEN", "phc_test");
     fetchMock.mockRejectedValue(new Error("down"));
-    await expect(captureHelperGenerations({ userId: "u1", rounds: [round], meta })).resolves.toBeUndefined();
+    await expect(captureHelperGenerations({ userId: "u1", browserConsent: true, rounds: [round], meta })).resolves.toBeUndefined();
   });
 });

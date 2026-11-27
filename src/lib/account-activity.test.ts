@@ -4,10 +4,10 @@ const { accountId } = vi.hoisted(() => ({ accountId: vi.fn<() => string | undefi
 vi.mock("@/lib/product-analytics", () => ({ browserAccountId: accountId }));
 vi.mock("@/lib/supabase/browser", () => ({ createClient: () => { throw new Error("tests pass their own client"); } }));
 
-import { activityArea, recordAccountActivity } from "@/lib/account-activity";
+import { activityArea, recordAccountActivity, recordAccountActivityAfterAuthChange, resetAccountActivityForTests } from "@/lib/account-activity";
 
 describe("account activity", () => {
-  afterEach(() => { vi.useRealTimers(); accountId.mockReset(); });
+  afterEach(() => { vi.useRealTimers(); accountId.mockReset(); resetAccountActivityForTests(); vi.unstubAllGlobals(); });
 
   it("maps pages to a fixed set of areas", () => {
     expect(activityArea("/")).toBe("home");
@@ -52,4 +52,30 @@ describe("account activity", () => {
     await vi.advanceTimersByTimeAsync(1500);
     vi.unstubAllGlobals();
   });
+
+  it("drops a queued page if another account is signed in by the time it would be sent", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal("requestIdleCallback", undefined);
+    accountId.mockReturnValue("account-a");
+    const rpc = vi.fn().mockResolvedValue({ error: null });
+    recordAccountActivity("/banks/igcse", () => ({ rpc }));
+    accountId.mockReturnValue("account-b");
+    await vi.advanceTimersByTimeAsync(1500);
+    expect(rpc).not.toHaveBeenCalled();
+  });
+
+  it("counts the open page once for a newly signed-in account, not on every session refresh", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal("requestIdleCallback", undefined);
+    const rpc = vi.fn().mockResolvedValue({ error: null });
+    accountId.mockReturnValue(undefined);
+    recordAccountActivity("/banks/igcse", () => ({ rpc }));
+    accountId.mockReturnValue("account-a");
+    recordAccountActivityAfterAuthChange("/banks/igcse", () => ({ rpc }));
+    recordAccountActivityAfterAuthChange("/banks/igcse", () => ({ rpc }));
+    await vi.advanceTimersByTimeAsync(1500);
+    expect(rpc).toHaveBeenCalledTimes(1);
+    expect(rpc).toHaveBeenCalledWith("record_account_activity", { p_area: "bank" });
+  });
 });
+

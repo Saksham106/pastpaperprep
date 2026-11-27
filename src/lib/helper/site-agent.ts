@@ -67,9 +67,12 @@ export async function runSiteAgent(options: {
     final = await stream.finalMessage();
     } catch (error) {
       const status = (error as { status?: unknown } | null)?.status;
+      // A student closing the reply aborts the stream: that is a cancellation, not a model failure.
+      const cancelled = signal?.aborted === true;
       options.onRound?.({
         round, model, stopReason: null, inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0,
-        latencyMs: Date.now() - startedAt, error: true, ...(typeof status === "number" ? { httpStatus: status } : {}),
+        latencyMs: Date.now() - startedAt, error: !cancelled, ...(cancelled ? { cancelled: true } : {}),
+        ...(!cancelled && typeof status === "number" ? { httpStatus: status } : {}),
       });
       throw error;
     }
