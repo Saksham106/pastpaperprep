@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { PaymentFailedNotice } from "@/components/PaymentFailedNotice";
 import { PricingPageClient } from "@/components/PricingPageClient";
 import { getBillingBanks } from "@/lib/banks";
 import { PRICING_INTENT_HINT_SCRIPT } from "@/lib/pricing-intent";
@@ -27,6 +28,8 @@ export default function PricingPage() {
   const updated = lastUpdated();
   return <>
     <script dangerouslySetInnerHTML={{ __html: PRICING_INTENT_HINT_SCRIPT }} />
+    {/* Checkout refuses new plans while a renewal is unpaid, so say so before the student picks one. */}
+    <PaymentFailedNotice placement="pricing" className="shell" />
     <PricingPageClient availableBanks={getBillingBanks()} updated={updated ? { date: updated, label: formatUpdateDate(updated) } : undefined} />
   </>;
 }

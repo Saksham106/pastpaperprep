@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { PayFailedRenewalButton } from "@/components/PaymentFailedNotice";
 import { CaretDown, Check } from "@phosphor-icons/react";
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import type { ProductId } from "@/lib/access";
@@ -36,7 +37,7 @@ async function responsePayload(response: Response): Promise<Record<string, unkno
 type BillingInterval = "monthly" | "annual";
 
 /** Short copy for a failed checkout, with the one step that fixes it. */
-function CheckoutErrorNotice({ error, navigate }: { error: CheckoutErrorCopy; navigate: Navigate }) {
+function CheckoutErrorNotice({ error, navigate, onResolved }: { error: CheckoutErrorCopy; navigate: Navigate; onResolved?: () => void }) {
   const { action } = error;
   return (
     <div className="checkout-error">
@@ -45,6 +46,7 @@ function CheckoutErrorNotice({ error, navigate }: { error: CheckoutErrorCopy; na
         {action?.kind === "link" ? <> {action.href.startsWith("mailto:") ? <a href={action.href}>{action.label}</a> : <Link href={action.href}>{action.label}</Link>}</> : null}
       </p>
       {action?.kind === "portal" ? <PortalButton navigate={navigate} label={action.label} /> : null}
+      {action?.kind === "pay_invoice" ? <div className="billing-actions compact"><PayFailedRenewalButton navigate={navigate} onResolved={onResolved} /></div> : null}
     </div>
   );
 }
@@ -262,6 +264,8 @@ export function LifetimeCheckout({ authenticated, previewOnly = false, accessCov
   const [error, setError] = useState<CheckoutErrorCopy | null>(null);
   const [needsLogin, setNeedsLogin] = useState(false);
   const [eligibility, setEligibility] = useState<"loading" | "eligible" | "conversion_eligible" | "covered" | "billing_support" | "payment_issue" | "error">(authenticated ? "loading" : "eligible");
+  // Bumped once a failed renewal is verified as settled, so the server decides again whether Lifetime can be bought.
+  const [eligibilityCheck, setEligibilityCheck] = useState(0);
   useEffect(() => {
     if (!authenticated || previewOnly) return;
     const controller = new AbortController();
@@ -279,13 +283,14 @@ export function LifetimeCheckout({ authenticated, previewOnly = false, accessCov
       })
       .catch(() => { if (!controller.signal.aborted) setEligibility("error"); });
     return () => controller.abort();
-  }, [authenticated, previewOnly]);
+  }, [authenticated, previewOnly, eligibilityCheck]);
   if (accessCovered && complimentary) return <div className="billing-actions"><button className="button primary" disabled type="button">Complimentary access is active</button><p className="custom-bundle-selection-note">This account already has complimentary access.</p></div>;
   if (accessCovered) return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime access is active</button><p className="custom-bundle-selection-note">This account already has lifetime access.</p></div>;
   if (previewOnly) return <div className="billing-actions"><button className="button primary" disabled type="button">Unlock lifetime access</button><p className="custom-bundle-selection-note">Preview only — checkout is disabled.</p></div>;
   if (eligibility === "loading") return <div className="billing-actions"><button className="button primary" disabled type="button">Checking billing eligibility…</button></div>;
   if (eligibility === "covered") return <div className="billing-actions"><button className="button primary" disabled type="button">Access is already active</button><p className="custom-bundle-selection-note">This account already has lifetime or complimentary access.</p></div>;
-  if (eligibility === "payment_issue") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><CheckoutErrorNotice error={copyForCheckoutError("PAYMENT_ISSUE")} navigate={navigate} /></div>;
+  // One step only: paying the failed renewal (a disabled checkout button beside it read as a second action).
+  if (eligibility === "payment_issue") return <div className="billing-actions"><CheckoutErrorNotice error={copyForCheckoutError("PAYMENT_ISSUE")} navigate={navigate} onResolved={() => { setEligibility("loading"); setEligibilityCheck((count) => count + 1); }} /></div>;
   if (eligibility === "billing_support" || eligibility === "error") return <div className="billing-actions"><button className="button primary" disabled type="button">Lifetime checkout unavailable</button><p className="custom-bundle-selection-note">We couldn’t safely verify this billing arrangement. Manage billing or contact support before purchasing.</p></div>;
   if (!authenticated) return <Link prefetch={false} className="button primary" href={`/login?next=${encodeURIComponent("/pricing?plan=lifetime")}`}>Unlock lifetime access</Link>;
   async function start() {

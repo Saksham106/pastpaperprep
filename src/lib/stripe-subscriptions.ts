@@ -39,7 +39,7 @@ export type SubscriptionSync = {
   expiresAt: string | null;
 };
 
-const PAST_DUE_GRACE_SECONDS = 14 * 24 * 60 * 60;
+export const PAST_DUE_GRACE_SECONDS = 14 * 24 * 60 * 60;
 
 function record(value: unknown, message: string): ObjectRecord {
   if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error(message);

@@ -1,0 +1,82 @@
+.slot {
+  margin-top: 18px;
+}
+
+.slot[data-placement="account"] {
+  margin: 0 0 22px;
+}
+
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 12px 12px 18px;
+  color: var(--ink);
+  background: var(--danger-soft);
+  border: 1px solid color-mix(in srgb, var(--danger) 28%, transparent);
+  border-radius: 12px;
+}
+
+.message {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.error {
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.paid {
+  margin: 0;
+  font-weight: 600;
+}
+
+.action {
+  flex: 0 0 auto;
+  min-height: 42px;
+}
+
+.dismiss {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dismiss:hover,
+.dismiss:focus-visible {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+@media (max-width: 640px) {
+  .notice {
+    flex-wrap: wrap;
+    padding: 14px;
+  }
+
+  .message {
+    flex-basis: calc(100% - 50px);
+  }
+
+  .dismiss {
+    order: 2;
+  }
+
+  .action {
+    order: 3;
+    width: 100%;
+  }
+}
