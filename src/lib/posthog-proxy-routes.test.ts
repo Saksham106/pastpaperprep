@@ -17,10 +17,12 @@ describe("PostHog reverse proxy (vercel.json)", () => {
     ]);
   });
 
-  // Same-origin requests carry the site's cookies, including Supabase session tokens.
-  it("removes the cookie header on every proxied request", () => {
+  // Same-origin requests carry the site's cookies (Supabase session tokens) and a Referer with
+  // the full page URL, query string included; the event scrubber never sees HTTP headers.
+  it("removes the cookie and referer headers on every proxied request", () => {
     for (const route of ingestRoutes) {
       expect(route.transforms, route.src).toContainEqual({ type: "request.headers", op: "delete", target: { key: "cookie" } });
+      expect(route.transforms, route.src).toContainEqual({ type: "request.headers", op: "delete", target: { key: "referer" } });
     }
   });
 
