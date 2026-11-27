@@ -151,8 +151,11 @@ export const PRIVATE_FREE_QUESTION_YEARS: Partial<Record<BankSlug, readonly numb
 
 export const PRIVATE_PREVIEW_QUESTION_IDS: Partial<Record<BankSlug, readonly string[]>> = {};
 
-/** Syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`, `ib-cs-2019-…`, `ibbm-2020-…`, `cbse-12-physics-2024-…`), then the IB year-first form. */
-const SYLLABUS_PREFIXED_ID = /^(?:\d{4}|ib-cs|ibbm|cbse-\d{2}-[a-z]+)-(\d{4})-/;
+/**
+ * Syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`, `ib-cs-2019-…`, `ibbm-2020-…`; CBSE in the toolkit's form
+ * `cbse12p-2025-m-111-q5` or the bank-slug form `cbse-12-physics-2024-…`), then the IB year-first form.
+ */
+const SYLLABUS_PREFIXED_ID = /^(?:\d{4}|ib-cs|ibbm|cbse\d{2}[a-z]+|cbse-\d{2}-[a-z]+)-(\d{4})-/;
 const YEAR_FIRST_ID = /^(\d{4})-/;
 
 export function questionYear(questionId: string): number | null {

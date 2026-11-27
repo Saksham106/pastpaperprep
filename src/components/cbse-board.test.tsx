@@ -82,6 +82,9 @@ describe("CBSE board registration", () => {
     for (const slug of CBSE_BANKS) expect(freeQuestionYears(slug)).toEqual([2023]);
     expect(questionYear("cbse-12-physics-2024-main-55-1-1-q3")).toBe(2024);
     expect(questionYear("cbse-10-maths-2023-compartment-30-1-1-q12")).toBe(2023);
+    // The ingestion toolkit's id form.
+    expect(questionYear("cbse12p-2025-m-111-q5-or")).toBe(2025);
+    expect(questionYear("cbse10m-2023-c-30-1-1-q2")).toBe(2023);
   });
 
   it("cites a CBSE question by its set on worksheets", () => {
