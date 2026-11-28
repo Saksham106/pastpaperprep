@@ -8,8 +8,9 @@ import privateIndex from "@/data/private-index/cbse-12-chemistry.json";
 import aliases from "@/data/question-id-aliases.json";
 import manifestJson from "../../data/storage/cbse-12-chemistry.manifest.json";
 import dryRun from "../../data/storage/cbse-12-chemistry.dry-run.json";
-import { assertContentSealedCandidate, blankedCandidateSha256, RELEASE_BANKS } from "../../scripts/igcse-release.mjs";
-import { buildRuntime, sourceRootPath } from "../../scripts/generate-cbse-12-chemistry-runtime.mjs";
+import receipt from "../../data/storage/cbse-12-chemistry.receipt.json";
+import { assertContentSealedCandidate, blankedCandidateSha256, manifestSha256, RELEASE_BANKS, runtimeSha256 as releaseRuntimeSha256 } from "../../scripts/igcse-release.mjs";
+import { buildRuntime, reconstructCandidate, sourceRootPath } from "../../scripts/generate-cbse-12-chemistry-runtime.mjs";
 import { freeQuestionYears, isPreviewQuestion } from "@/lib/access";
 import { getBank, isIGCSEReleaseBank, isPrivateBankIndexEnabled } from "@/lib/banks";
 import { getCatalogBank, getCatalogBanksForDisplay, isPendingStoragePreview } from "@/lib/catalog";
@@ -66,18 +67,20 @@ describe("CBSE Class 12 Chemistry runtime", () => {
     expect(runtime.questions.filter((question) => question.format === "multiple_choice")).toHaveLength(933);
   });
 
-  it("is sealed to its pinned, content-derived candidate", () => {
-    expect(runtime.publicationStatus).toBe("authorized_production_candidate");
+  it("is finalized from its pinned, content-derived candidate", () => {
+    expect(runtime.publicationStatus).toBe("production");
     expect(runtime.runtimeArtifact.originalCandidateRuntimeSha256).toBe(CANDIDATE);
-    expect(blankedCandidateSha256(runtimeJson)).toBe(CANDIDATE);
-    expect(() => assertContentSealedCandidate(slug, runtimeJson)).not.toThrow();
+    expect(releaseRuntimeSha256(runtimeJson)).toBe((runtimeJson.runtimeArtifact as unknown as { runtimeSha256: string }).runtimeSha256);
+    const candidate = reconstructCandidate(runtimeJson);
+    expect(blankedCandidateSha256(candidate)).toBe(CANDIDATE);
+    expect(() => assertContentSealedCandidate(slug, candidate)).not.toThrow();
     expect(runtime.runtimeArtifact).toMatchObject({ sourceRepository: "cbse-12-chemistry-topic-practice", sourceCommit: "33bc420" });
     expect(createHash("sha256").update(readFileSync(join(ROOT, "src/data/cbse-12-chemistry-taxonomy.json"))).digest("hex")).toBe(runtime.taxonomy.sha256);
   });
 
   it.skipIf(!existsSync(sourceRootPath()))("rebuilds byte-identically from the pinned source workspace", async () => {
     const built = await buildRuntime();
-    expect(built.serialized).toBe(readFileSync(join(ROOT, "src/data/production/cbse-12-chemistry.json"), "utf8"));
+    expect(JSON.stringify(reconstructCandidate(runtimeJson))).toBe(JSON.stringify(built.artifact));
     expect(built.taxonomySerialized).toBe(readFileSync(join(ROOT, "src/data/cbse-12-chemistry-taxonomy.json"), "utf8"));
   });
 
@@ -145,11 +148,26 @@ describe("CBSE Class 12 Chemistry topic picker on the real rows", () => {
   });
 });
 
-describe("CBSE Class 12 Chemistry storage plan", () => {
+describe("CBSE Class 12 Chemistry storage", () => {
+  it("is finalized against a complete verified readback of exactly the manifest's crops", () => {
+    const read = receipt as unknown as { bank: string; storageState: string; failed: unknown[]; assetManifestSha256: string; completed: string[]; readbackProvenance: { log: string; logSha256: string; existedBefore: number } };
+    expect(read).toMatchObject({ bank: slug, storageState: "verified_readback", failed: [], assetManifestSha256: manifestSha256(manifest) });
+    expect([...read.completed].sort()).toEqual(manifest.assets.map((asset) => asset.objectKey).sort());
+    const logText = readFileSync(join(ROOT, read.readbackProvenance.log), "utf8");
+    expect(createHash("sha256").update(logText).digest("hex")).toBe(read.readbackProvenance.logSha256);
+    const log = logText.split("\n").filter(Boolean).map((line) => JSON.parse(line) as { key: string; sha256: string; bytes: number; status: string; existedBefore: boolean });
+    const byKey = new Map(manifest.assets.map((asset) => [asset.objectKey, asset as unknown as { sha256: string; size: number }]));
+    expect(log).toHaveLength(4072);
+    expect(new Set(log.map((row) => row.key)).size).toBe(4072);
+    for (const row of log) expect(row.status === "verified" && !row.existedBefore && byKey.get(row.key)?.sha256 === row.sha256 && byKey.get(row.key)?.size === row.bytes, row.key).toBe(true);
+    const meta = runtimeJson.runtimeArtifact as unknown as Record<string, string>;
+    expect(meta).toMatchObject({ assetVerification: "verified_readback", assetManifestSha256: manifestSha256(manifest) });
+    expect(meta.storageReceiptSha256).toBe(createHash("sha256").update(readFileSync(join(ROOT, "data/storage/cbse-12-chemistry.receipt.json"), "utf8")).digest("hex"));
+  });
+
   it("plans a create-only upload of exactly the runtime's 4,072 crops under a new prefix", () => {
     const refs = new Set(runtime.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages]));
     expect(refs.size).toBe(4072);
-    expect(manifest.storageState).toBe("pending_upload");
     expect(manifest.originalCandidateRuntimeSha256).toBe(CANDIDATE);
     expect(manifest.objectPrefix).toBe(`${PREFIX}/`);
     expect(manifest.assets.map((asset) => asset.objectKey.slice(manifest.objectPrefix.length)).sort()).toEqual([...refs].sort());

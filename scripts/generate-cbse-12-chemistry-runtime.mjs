@@ -30,8 +30,9 @@
  * src/data/cbse-12-chemistry-taxonomy.json and the bank's alias ids in src/data/question-id-aliases.json.
  * The runtime stays a candidate until the owner-approved R2 upload is read back and it is finalized.
  *
- *   node scripts/generate-cbse-12-chemistry-runtime.mjs          write the outputs
- *   node scripts/generate-cbse-12-chemistry-runtime.mjs --check  rebuild and compare with the committed outputs
+ *   node scripts/generate-cbse-12-chemistry-runtime.mjs          write the outputs (a finalized runtime is never overwritten)
+ *   node scripts/generate-cbse-12-chemistry-runtime.mjs --check  rebuild and compare with the committed outputs (for a
+ *                                                                finalized runtime, with its reconstructed candidate)
  */
 import { createHash } from "node:crypto";
 import { readFile, readdir, writeFile } from "node:fs/promises";
@@ -442,6 +443,28 @@ export async function buildRuntime({ sourceRoot = sourceRootPath() } = {}) {
   };
 }
 
+/** The candidate a finalized runtime was made from: the fields `generate-igcse-release.mjs --finalize` sets, put back. */
+export function reconstructCandidate(finalized) {
+  const candidate = JSON.parse(JSON.stringify(finalized));
+  for (const question of candidate.questions) {
+    question.publicationStatus = CANDIDATE_PUBLICATION_STATUS;
+    question.classificationReviewStatus = "candidate_not_approved";
+  }
+  candidate.releaseStatus = CANDIDATE_PUBLICATION_STATUS;
+  candidate.publicationStatus = CANDIDATE_PUBLICATION_STATUS;
+  candidate.assetVerification = "pending_upload";
+  const meta = candidate.runtimeArtifact;
+  meta.assetVerification = "pending_upload";
+  meta.publicationStatus = CANDIDATE_PUBLICATION_STATUS;
+  meta.assetManifestSha256 = null;
+  meta.storageReceiptSha256 = null;
+  delete meta.storageState;
+  delete meta.finalizedContentSha256;
+  meta.runtimeSha256 = null;
+  meta.runtimeSha256 = sha256(JSON.stringify(candidate));
+  return candidate;
+}
+
 export function createPrivateIndex(artifact) {
   return {
     version: 1,
@@ -464,6 +487,10 @@ async function main() {
   const repo = path.resolve(import.meta.dirname, "..");
   const built = await buildRuntime();
   const aliasFile = JSON.parse(await readFile(path.join(repo, ALIASES_OUTPUT), "utf8"));
+  // Once uploaded and finalized, the committed runtime is the finalized one: compare its reconstructed candidate, and
+  // never overwrite it (that would drop the verified read-back).
+  const current = await readFile(path.join(repo, RUNTIME_OUTPUT), "utf8").then(JSON.parse).catch(() => null);
+  const finalized = current?.runtimeArtifact?.assetVerification === "verified_readback";
   const outputs = {
     [RUNTIME_OUTPUT]: built.serialized,
     [PRIVATE_INDEX_OUTPUT]: `${JSON.stringify(createPrivateIndex(built.artifact))}\n`,
@@ -473,10 +500,14 @@ async function main() {
   const differs = [];
   for (const [relative, text] of Object.entries(outputs)) {
     const target = path.join(repo, relative);
+    if (relative === RUNTIME_OUTPUT && finalized) {
+      if (JSON.stringify(reconstructCandidate(current)) !== JSON.stringify(built.artifact)) differs.push(`${relative} (finalized: its candidate differs)`);
+      continue;
+    }
     if (check) { if ((await readFile(target, "utf8").catch(() => "")) !== text) differs.push(relative); }
     else await writeFile(target, text);
   }
-  console.log(JSON.stringify({ ...built.report, ...(check ? { check: differs.length ? "DIFFERS" : "MATCHES", differs } : {}) }));
+  console.log(JSON.stringify({ ...built.report, finalized, ...(check ? { check: differs.length ? "DIFFERS" : "MATCHES", differs } : {}) }));
   if (differs.length) process.exitCode = 1;
 }
 
