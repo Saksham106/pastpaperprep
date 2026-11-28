@@ -25,7 +25,7 @@ describe('retired question id aliases', () => {
   });
 
   it('covers exactly the retired 2026 donated ids and the A Level duplicate variants onto live questions', async () => {
-    expect(Object.keys(banks).sort()).toEqual(['a-level-biology-9700', 'a-level-chemistry-9701', 'a-level-computer-science-9618', 'a-level-economics-9708', 'a-level-further-maths-9231', 'a-level-maths-9709', 'a-level-physics-9702', 'cbse-12-chemistry', 'ib-hl', 'ib-sl']);
+    expect(Object.keys(banks).sort()).toEqual(['a-level-biology-9700', 'a-level-chemistry-9701', 'a-level-computer-science-9618', 'a-level-economics-9708', 'a-level-further-maths-9231', 'a-level-maths-9709', 'a-level-physics-9702', 'cbse-10-science', 'cbse-12-chemistry', 'ib-hl', 'ib-sl']);
     expect(Object.keys(banks['a-level-physics-9702'])).toHaveLength(184);
     expect(Object.keys(banks['a-level-chemistry-9701'])).toHaveLength(381);
     expect(Object.keys(banks['a-level-biology-9700'])).toHaveLength(60);
@@ -37,6 +37,7 @@ describe('retired question id aliases', () => {
     expect(Object.keys(banks['a-level-maths-9709'])).toHaveLength(149);
     // CBSE: a question printed in up to three sets of a region maps the other sets' copies onto one canonical question.
     expect(Object.keys(banks['cbse-12-chemistry'])).toHaveLength(997);
+    expect(Object.keys(banks['cbse-10-science'])).toHaveLength(966);
     // One to one, except 9618 May/June 2021 Paper 3: Cambridge printed one paper as variants 31, 32 and 33, so 32 and 33
     // both map onto 31.
     const triple = Object.entries(banks['a-level-computer-science-9618']).filter(([oldId]) => /^9618-2021-s-3[23]-/.test(oldId));

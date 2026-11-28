@@ -33,6 +33,7 @@ const R2_PRIVATE_BANKS: ReadonlySet<string> = new Set<BankSlug>([
   "a-level-computer-science-9618",
   "a-level-further-maths-9231",
   "cbse-12-chemistry",
+  "cbse-10-science",
   "ib-economics-hl",
   "ib-economics-sl",
 ]);

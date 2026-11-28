@@ -116,7 +116,8 @@ export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonl
     "Amines": ["Structure of amines", "Classification (Amines)", "Nomenclature (Amines)", "Preparation of amines", "Physical properties of amines", "Chemical reactions of amines", "Methods of preparation of diazonium salts", "Physical properties of diazonium salts", "Chemical reactions of diazonium salts", "Importance of diazonium salts in synthesis of aromatic compounds"],
     "Biomolecules": ["Carbohydrates", "Proteins", "Enzymes", "Vitamins", "Nucleic acids", "Hormones"],
   },
-  // NCERT section titles in chapter-tree.json order (cbse-10-science-topic-practice, sha256 483c25c02503…, 2026-11-27).
+  // NCERT section titles in curriculum order: the runtime's taxonomy (cbse-10-science-topic-practice cd87616, checked equal
+  // in src/lib/cbse-10-science.test.ts).
   "cbse-10-science": {
 "Chemical Reactions and Equations": ["Chemical Equations", "Types of Chemical Reactions", "Have You Observed the Effects of Oxidation Reactions in Everyday Life?"],
     "Acids, Bases and Salts": ["Understanding the Chemical Properties of Acids and Bases", "What Do All Acids and All Bases Have in Common?", "How Strong Are Acid or Base Solutions?", "More About Salts"],

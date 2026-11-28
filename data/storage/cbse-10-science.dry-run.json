@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "cbse-10-science",
+  "date": "2026-11-27",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "cbse-10-science/releases/full2375-v1-957e2ef49450/",
+  "objects": 5317,
+  "bytes": 60237014,
+  "uniqueKeys": 5317,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 5317,
+  "sha256MatchesSegmentationRecord": 5317,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "957e2ef49450e08822aeb413448ed5053e7aff93536d502b656fa751452ab75f",
+  "sourceCommit": "cd87616",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (scripts/r2-upload-worker) against data/storage/cbse-10-science.manifest.json, then generate-igcse-release.mjs --finalize cbse-10-science. The free year goes to the free bucket with scripts/free-copy after the upload is read back."
+}
