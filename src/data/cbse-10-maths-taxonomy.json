@@ -1,0 +1,316 @@
+{
+  "artifact": "cbse_10_maths_student_taxonomy",
+  "version": "cbse10m_curriculum_taxonomy@1",
+  "qualification": "CBSE Class 10 Mathematics (Standard 041, Basic 241)",
+  "era": "2023",
+  "note": "Topics are the curriculum's fifteen chapters in curriculum order, grouped by its seven units; subtopics are its content clauses. Standard and Basic share them; each level sits its own paper.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "8fd0bc7ca10b87a22b34a1e6bed76f07e3dc61956f089c8ce40539ef1cedbd5e",
+  "chapters": [
+    {
+      "id": "cbse10m:2023:1",
+      "code": "1",
+      "label": "Real Numbers",
+      "era": "2023",
+      "official": true,
+      "questions": 288,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Fundamental Theorem of Arithmetic (HCF and LCM)",
+          "curriculumTitle": "Fundamental Theorem of Arithmetic (HCF and LCM)"
+        },
+        {
+          "code": "1.2",
+          "label": "Irrationality proofs",
+          "curriculumTitle": "Irrationality proofs"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:2",
+      "code": "2",
+      "label": "Polynomials",
+      "era": "2023",
+      "official": true,
+      "questions": 263,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Zeros of a polynomial",
+          "curriculumTitle": "Zeros of a polynomial"
+        },
+        {
+          "code": "2.2",
+          "label": "Zeros and coefficients of quadratic polynomials",
+          "curriculumTitle": "Zeros and coefficients of quadratic polynomials"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:3",
+      "code": "3",
+      "label": "Pair of Linear Equations in Two Variables",
+      "era": "2023",
+      "official": true,
+      "questions": 266,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Graphical method; consistency",
+          "curriculumTitle": "Graphical method; consistency"
+        },
+        {
+          "code": "3.2",
+          "label": "Algebraic conditions for the number of solutions",
+          "curriculumTitle": "Algebraic conditions for the number of solutions"
+        },
+        {
+          "code": "3.3",
+          "label": "Substitution and elimination; situational problems",
+          "curriculumTitle": "Substitution and elimination; situational problems"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:4",
+      "code": "4",
+      "label": "Quadratic Equations",
+      "era": "2023",
+      "official": true,
+      "questions": 248,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Standard form",
+          "curriculumTitle": "Standard form"
+        },
+        {
+          "code": "4.2",
+          "label": "Factorisation, quadratic formula, discriminant and nature of roots",
+          "curriculumTitle": "Factorisation, quadratic formula, discriminant and nature of roots"
+        },
+        {
+          "code": "4.3",
+          "label": "Situational problems",
+          "curriculumTitle": "Situational problems"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:5",
+      "code": "5",
+      "label": "Arithmetic Progressions",
+      "era": "2023",
+      "official": true,
+      "questions": 240,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Arithmetic progressions",
+          "curriculumTitle": "Arithmetic progressions"
+        },
+        {
+          "code": "5.2",
+          "label": "nth term and sum of the first n terms",
+          "curriculumTitle": "nth term and sum of the first n terms"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:6",
+      "code": "6",
+      "label": "Coordinate Geometry",
+      "era": "2023",
+      "official": true,
+      "questions": 330,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Distance formula",
+          "curriculumTitle": "Distance formula"
+        },
+        {
+          "code": "6.2",
+          "label": "Section formula (internal division)",
+          "curriculumTitle": "Section formula (internal division)"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:7",
+      "code": "7",
+      "label": "Triangles",
+      "era": "2023",
+      "official": true,
+      "questions": 338,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Similar triangles",
+          "curriculumTitle": "Similar triangles"
+        },
+        {
+          "code": "7.2",
+          "label": "Basic proportionality theorem and its converse",
+          "curriculumTitle": "Basic proportionality theorem and its converse"
+        },
+        {
+          "code": "7.3",
+          "label": "Similarity criteria (AAA, SSS, SAS)",
+          "curriculumTitle": "Similarity criteria (AAA, SSS, SAS)"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:8",
+      "code": "8",
+      "label": "Circles",
+      "era": "2023",
+      "official": true,
+      "questions": 309,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Tangent perpendicular to the radius",
+          "curriculumTitle": "Tangent perpendicular to the radius"
+        },
+        {
+          "code": "8.2",
+          "label": "Tangents from an external point",
+          "curriculumTitle": "Tangents from an external point"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:9",
+      "code": "9",
+      "label": "Introduction to Trigonometry",
+      "era": "2023",
+      "official": true,
+      "questions": 255,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Trigonometric ratios of an acute angle",
+          "curriculumTitle": "Trigonometric ratios of an acute angle"
+        },
+        {
+          "code": "9.2",
+          "label": "Ratios of 0°, 30°, 45°, 60° and 90°",
+          "curriculumTitle": "Ratios of 0°, 30°, 45°, 60° and 90°"
+        },
+        {
+          "code": "9.3",
+          "label": "Relationships between the ratios",
+          "curriculumTitle": "Relationships between the ratios"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:10",
+      "code": "10",
+      "label": "Trigonometric Identities",
+      "era": "2023",
+      "official": true,
+      "questions": 223,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "sin²A + cos²A = 1 and simple identities",
+          "curriculumTitle": "sin²A + cos²A = 1 and simple identities"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:11",
+      "code": "11",
+      "label": "Heights and Distances",
+      "era": "2023",
+      "official": true,
+      "questions": 176,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "Angles of elevation and depression",
+          "curriculumTitle": "Angles of elevation and depression"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:12",
+      "code": "12",
+      "label": "Areas Related to Circles",
+      "era": "2023",
+      "official": true,
+      "questions": 210,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Areas of sectors and segments",
+          "curriculumTitle": "Areas of sectors and segments"
+        },
+        {
+          "code": "12.2",
+          "label": "Areas and perimeters of plane figures with circles",
+          "curriculumTitle": "Areas and perimeters of plane figures with circles"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:13",
+      "code": "13",
+      "label": "Surface Areas and Volumes",
+      "era": "2023",
+      "official": true,
+      "questions": 197,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Combinations of solids",
+          "curriculumTitle": "Combinations of solids"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:14",
+      "code": "14",
+      "label": "Statistics",
+      "era": "2023",
+      "official": true,
+      "questions": 239,
+      "subtopics": [
+        {
+          "code": "14.1",
+          "label": "Mean of grouped data",
+          "curriculumTitle": "Mean of grouped data"
+        },
+        {
+          "code": "14.2",
+          "label": "Median of grouped data",
+          "curriculumTitle": "Median of grouped data"
+        },
+        {
+          "code": "14.3",
+          "label": "Mode of grouped data",
+          "curriculumTitle": "Mode of grouped data"
+        }
+      ]
+    },
+    {
+      "id": "cbse10m:2023:15",
+      "code": "15",
+      "label": "Probability",
+      "era": "2023",
+      "official": true,
+      "questions": 290,
+      "subtopics": [
+        {
+          "code": "15.1",
+          "label": "Classical probability",
+          "curriculumTitle": "Classical probability"
+        }
+      ]
+    }
+  ]
+}

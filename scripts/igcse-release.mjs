@@ -164,6 +164,15 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96',
   },
+  // CBSE Class 10 Mathematics, Standard (041, paper 1) and Basic (241, paper 2): 3,826 rows (146 sets with questions of 156;
+  // 2023-2026 main, compartment and the 2026 second exam; 2,503 aliases served through their canonical question, 58 held),
+  // one segmentation lane, built with ../ppp-ingestion-toolkit.
+  'cbse-10-maths': {
+    prefix: 'cbse-10-maths/releases/full3826-v1-da3dfa9d1cbd',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_10_MATHS_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: 'da3dfa9d1cbdea6d7c5b97e1b18f7d079d4713a9ae81180f301c7afe16700446',
+  },
 };
 
 export function sha256(value) {
@@ -301,7 +310,7 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
   // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700, Economics 9708, Computer Science 9618 and Further Mathematics 9231 sources, and the CBSE sources (assets/<paper>/questions|markschemes/<file>).
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618' || bank === 'a-level-further-maths-9231' || bank === 'cbse-12-chemistry' || bank === 'cbse-10-science' || bank === 'cbse-12-physics' || bank === 'cbse-12-biology') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618' || bank === 'a-level-further-maths-9231' || bank === 'cbse-12-chemistry' || bank === 'cbse-10-science' || bank === 'cbse-12-physics' || bank === 'cbse-12-biology' || bank === 'cbse-10-maths') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

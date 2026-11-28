@@ -52,7 +52,7 @@ describe("CBSE board registration", () => {
       expect(HELD_BANKS).toContain(bank.slug);
       expect(isCbseBank(bank.slug)).toBe(true);
       // The private release lane is joined with each bank's runtime pins, not before.
-      expect(isIGCSEReleaseBank(bank.slug)).toBe(["cbse-12-chemistry", "cbse-10-science", "cbse-12-physics", "cbse-12-biology"].includes(bank.slug));
+      expect(isIGCSEReleaseBank(bank.slug)).toBe(["cbse-12-chemistry", "cbse-10-science", "cbse-12-physics", "cbse-12-biology", "cbse-10-maths"].includes(bank.slug));
     }
   });
 

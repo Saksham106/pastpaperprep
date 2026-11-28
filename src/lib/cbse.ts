@@ -103,6 +103,25 @@ export const CBSE_10_SCIENCE_GROUPS = (["Biology", "Chemistry", "Physics"] as co
  * A bank not listed yet groups subtopics by the questions that carry them.
  */
 export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonly<Record<string, readonly string[]>>>> = {
+  // Curriculum clauses in taxonomy order (cbse-10-maths-topic-practice 369d650; the runtime's taxonomy). Standard and
+  // Basic share them.
+  "cbse-10-maths": {
+    "Real Numbers": ["Fundamental Theorem of Arithmetic (HCF and LCM)", "Irrationality proofs"],
+    "Polynomials": ["Zeros of a polynomial", "Zeros and coefficients of quadratic polynomials"],
+    "Pair of Linear Equations in Two Variables": ["Graphical method; consistency", "Algebraic conditions for the number of solutions", "Substitution and elimination; situational problems"],
+    "Quadratic Equations": ["Standard form", "Factorisation, quadratic formula, discriminant and nature of roots", "Situational problems"],
+    "Arithmetic Progressions": ["Arithmetic progressions", "nth term and sum of the first n terms"],
+    "Coordinate Geometry": ["Distance formula", "Section formula (internal division)"],
+    "Triangles": ["Similar triangles", "Basic proportionality theorem and its converse", "Similarity criteria (AAA, SSS, SAS)"],
+    "Circles": ["Tangent perpendicular to the radius", "Tangents from an external point"],
+    "Introduction to Trigonometry": ["Trigonometric ratios of an acute angle", "Ratios of 0°, 30°, 45°, 60° and 90°", "Relationships between the ratios"],
+    "Trigonometric Identities": ["sin²A + cos²A = 1 and simple identities"],
+    "Heights and Distances": ["Angles of elevation and depression"],
+    "Areas Related to Circles": ["Areas of sectors and segments", "Areas and perimeters of plane figures with circles"],
+    "Surface Areas and Volumes": ["Combinations of solids"],
+    "Statistics": ["Mean of grouped data", "Median of grouped data", "Mode of grouped data"],
+    "Probability": ["Classical probability"],
+  },
   // Curriculum clauses in taxonomy order (cbse-12-biology-topic-practice 23da57a; the runtime's taxonomy). The two
   // earlier-syllabus topics have no subtopics.
   "cbse-12-biology": {
