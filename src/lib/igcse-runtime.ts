@@ -24,6 +24,7 @@ import cbse10ScienceTaxonomy from "@/data/cbse-10-science-taxonomy.json";
 import cbse12PhysicsTaxonomy from "@/data/cbse-12-physics-taxonomy.json";
 import cbse12BiologyTaxonomy from "@/data/cbse-12-biology-taxonomy.json";
 import cbse10MathsTaxonomy from "@/data/cbse-10-maths-taxonomy.json";
+import cbse12MathsTaxonomy from "@/data/cbse-12-maths-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
 type IGCSEArtifact = {
@@ -177,6 +178,7 @@ export const IGCSE_RUNTIME_COUNTS = {
   "cbse-12-physics": [1624, 74],
   "cbse-12-biology": [1805, 68],
   "cbse-10-maths": [3826, 146],
+  "cbse-12-maths": [2088, 75],
 } as const;
 // Read from disk, not imported (see src/lib/corpus-json.ts). Keep each path a literal so file tracing finds it.
 const ARTIFACT_FILES: Record<IGCSEReleaseBankSlug, string> = {
@@ -202,6 +204,7 @@ const ARTIFACT_FILES: Record<IGCSEReleaseBankSlug, string> = {
   "cbse-12-physics": join(process.cwd(), "src/data/production/cbse-12-physics.json"),
   "cbse-12-biology": join(process.cwd(), "src/data/production/cbse-12-biology.json"),
   "cbse-10-maths": join(process.cwd(), "src/data/production/cbse-10-maths.json"),
+  "cbse-12-maths": join(process.cwd(), "src/data/production/cbse-12-maths.json"),
 };
 const artifactFor = (bank: IGCSEReleaseBankSlug) => readCorpusJson(ARTIFACT_FILES[bank]) as IGCSEArtifact;
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
@@ -227,6 +230,7 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "cbse-12-physics": cbse12PhysicsTaxonomy,
   "cbse-12-biology": cbse12BiologyTaxonomy,
   "cbse-10-maths": cbse10MathsTaxonomy,
+  "cbse-12-maths": cbse12MathsTaxonomy,
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -252,6 +256,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "cbse-12-physics": "d2e3683c8e1d91a9d7c540c229d251754379406d3b25c64c304a2e0eabea6225",
   "cbse-12-biology": "0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96",
   "cbse-10-maths": "da3dfa9d1cbdea6d7c5b97e1b18f7d079d4713a9ae81180f301c7afe16700446",
+  "cbse-12-maths": "6929531a08feab796a760c86559a7639d2d57796f14454840075cc95c74a13b5",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -277,6 +282,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "cbse-12-physics": "d2e3683c8e1d91a9d7c540c229d251754379406d3b25c64c304a2e0eabea6225",
   "cbse-12-biology": "0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96",
   "cbse-10-maths": "da3dfa9d1cbdea6d7c5b97e1b18f7d079d4713a9ae81180f301c7afe16700446",
+  "cbse-12-maths": "6929531a08feab796a760c86559a7639d2d57796f14454840075cc95c74a13b5",
 };
 
 function canonicalSha256(value: unknown) {

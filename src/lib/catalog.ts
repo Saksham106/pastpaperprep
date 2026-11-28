@@ -40,7 +40,7 @@ const CBSE_COUNTS: Record<string, { questionCount: number; paperCount: number }>
   "cbse-10-science": { questionCount: 2375, paperCount: 78 },
   "cbse-12-physics": { questionCount: 1624, paperCount: 74 },
   "cbse-12-chemistry": { questionCount: 1844, paperCount: 75 },
-  "cbse-12-maths": { questionCount: 0, paperCount: 0 },
+  "cbse-12-maths": { questionCount: 2088, paperCount: 75 },
   "cbse-12-biology": { questionCount: 1805, paperCount: 68 },
 };
 

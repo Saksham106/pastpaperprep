@@ -1,0 +1,351 @@
+{
+  "artifact": "cbse_12_maths_student_taxonomy",
+  "version": "cbse12m_curriculum_taxonomy@1",
+  "qualification": "CBSE Class 12 Mathematics (041)",
+  "era": "2023",
+  "note": "Topics are the curriculum's thirteen chapters in curriculum order, grouped by its six units; subtopics are its content clauses, one of them earlier syllabus (random variables, on 2023-2025 papers only). One paper.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "df40742d8a4104fb57951f9e0ddd13b992a1109a9c5ceb1ef0beec645a6355fb",
+  "chapters": [
+    {
+      "id": "cbse12m:2023:1",
+      "code": "1",
+      "label": "Relations and Functions",
+      "era": "2023",
+      "official": true,
+      "questions": 102,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Types of relations and equivalence relations",
+          "curriculumTitle": "Types of relations and equivalence relations"
+        },
+        {
+          "code": "1.2",
+          "label": "One-one and onto functions",
+          "curriculumTitle": "One-one and onto functions"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:2",
+      "code": "2",
+      "label": "Inverse Trigonometric Functions",
+      "era": "2023",
+      "official": true,
+      "questions": 118,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Domain, range and principal values",
+          "curriculumTitle": "Domain, range and principal values"
+        },
+        {
+          "code": "2.2",
+          "label": "Graphs of inverse trigonometric functions",
+          "curriculumTitle": "Graphs of inverse trigonometric functions"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:3",
+      "code": "3",
+      "label": "Matrices",
+      "era": "2023",
+      "official": true,
+      "questions": 187,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Types of matrices, transpose, symmetric and skew-symmetric matrices",
+          "curriculumTitle": "Types of matrices, transpose, symmetric and skew-symmetric matrices"
+        },
+        {
+          "code": "3.2",
+          "label": "Matrix operations and their properties",
+          "curriculumTitle": "Matrix operations and their properties"
+        },
+        {
+          "code": "3.3",
+          "label": "Invertible matrices",
+          "curriculumTitle": "Invertible matrices"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:4",
+      "code": "4",
+      "label": "Determinants",
+      "era": "2023",
+      "official": true,
+      "questions": 129,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Determinants, minors and cofactors; area of a triangle",
+          "curriculumTitle": "Determinants, minors and cofactors; area of a triangle"
+        },
+        {
+          "code": "4.2",
+          "label": "Adjoint and inverse of a matrix",
+          "curriculumTitle": "Adjoint and inverse of a matrix"
+        },
+        {
+          "code": "4.3",
+          "label": "Solving linear equations using the inverse of a matrix",
+          "curriculumTitle": "Solving linear equations using the inverse of a matrix"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:5",
+      "code": "5",
+      "label": "Continuity and Differentiability",
+      "era": "2023",
+      "official": true,
+      "questions": 253,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Continuity and differentiability",
+          "curriculumTitle": "Continuity and differentiability"
+        },
+        {
+          "code": "5.2",
+          "label": "Chain rule, inverse trigonometric and implicit differentiation",
+          "curriculumTitle": "Chain rule, inverse trigonometric and implicit differentiation"
+        },
+        {
+          "code": "5.3",
+          "label": "Exponential and logarithmic functions; logarithmic differentiation",
+          "curriculumTitle": "Exponential and logarithmic functions; logarithmic differentiation"
+        },
+        {
+          "code": "5.4",
+          "label": "Parametric differentiation",
+          "curriculumTitle": "Parametric differentiation"
+        },
+        {
+          "code": "5.5",
+          "label": "Second-order derivatives",
+          "curriculumTitle": "Second-order derivatives"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:6",
+      "code": "6",
+      "label": "Applications of Derivatives",
+      "era": "2023",
+      "official": true,
+      "questions": 182,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Rate of change",
+          "curriculumTitle": "Rate of change"
+        },
+        {
+          "code": "6.2",
+          "label": "Increasing and decreasing functions",
+          "curriculumTitle": "Increasing and decreasing functions"
+        },
+        {
+          "code": "6.3",
+          "label": "Maxima and minima",
+          "curriculumTitle": "Maxima and minima"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:7",
+      "code": "7",
+      "label": "Integrals",
+      "era": "2023",
+      "official": true,
+      "questions": 254,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Indefinite integrals and integration by substitution",
+          "curriculumTitle": "Indefinite integrals and integration by substitution"
+        },
+        {
+          "code": "7.2",
+          "label": "Integration by partial fractions",
+          "curriculumTitle": "Integration by partial fractions"
+        },
+        {
+          "code": "7.3",
+          "label": "Integration by parts",
+          "curriculumTitle": "Integration by parts"
+        },
+        {
+          "code": "7.4",
+          "label": "Standard integrals (x² ± a², a² − x², quadratics)",
+          "curriculumTitle": "Standard integrals (x² ± a², a² − x², quadratics)"
+        },
+        {
+          "code": "7.5",
+          "label": "Definite integrals and their properties",
+          "curriculumTitle": "Definite integrals and their properties"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:8",
+      "code": "8",
+      "label": "Application of the Integrals",
+      "era": "2023",
+      "official": true,
+      "questions": 80,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Area under simple curves",
+          "curriculumTitle": "Area under simple curves"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:9",
+      "code": "9",
+      "label": "Differential Equations",
+      "era": "2023",
+      "official": true,
+      "questions": 151,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Order, degree, general and particular solutions",
+          "curriculumTitle": "Order, degree, general and particular solutions"
+        },
+        {
+          "code": "9.2",
+          "label": "Separation of variables",
+          "curriculumTitle": "Separation of variables"
+        },
+        {
+          "code": "9.3",
+          "label": "Homogeneous differential equations",
+          "curriculumTitle": "Homogeneous differential equations"
+        },
+        {
+          "code": "9.4",
+          "label": "Linear differential equations",
+          "curriculumTitle": "Linear differential equations"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:10",
+      "code": "10",
+      "label": "Vectors",
+      "era": "2023",
+      "official": true,
+      "questions": 193,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "Vector basics, components and the section formula",
+          "curriculumTitle": "Vector basics, components and the section formula"
+        },
+        {
+          "code": "10.2",
+          "label": "Scalar (dot) product",
+          "curriculumTitle": "Scalar (dot) product"
+        },
+        {
+          "code": "10.3",
+          "label": "Vector (cross) product",
+          "curriculumTitle": "Vector (cross) product"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:11",
+      "code": "11",
+      "label": "Three-dimensional Geometry",
+      "era": "2023",
+      "official": true,
+      "questions": 180,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "Direction cosines and direction ratios of a line",
+          "curriculumTitle": "Direction cosines and direction ratios of a line"
+        },
+        {
+          "code": "11.2",
+          "label": "Equations of a line",
+          "curriculumTitle": "Equations of a line"
+        },
+        {
+          "code": "11.3",
+          "label": "Skew lines and shortest distance",
+          "curriculumTitle": "Skew lines and shortest distance"
+        },
+        {
+          "code": "11.4",
+          "label": "Angle between two lines",
+          "curriculumTitle": "Angle between two lines"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:12",
+      "code": "12",
+      "label": "Linear Programming",
+      "era": "2023",
+      "official": true,
+      "questions": 120,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Constraints, objective function and optimisation",
+          "curriculumTitle": "Constraints, objective function and optimisation"
+        },
+        {
+          "code": "12.2",
+          "label": "Graphical method and feasible regions",
+          "curriculumTitle": "Graphical method and feasible regions"
+        }
+      ]
+    },
+    {
+      "id": "cbse12m:2023:13",
+      "code": "13",
+      "label": "Probability",
+      "era": "2023",
+      "official": true,
+      "questions": 163,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Conditional probability",
+          "curriculumTitle": "Conditional probability"
+        },
+        {
+          "code": "13.2",
+          "label": "Multiplication theorem and independent events",
+          "curriculumTitle": "Multiplication theorem and independent events"
+        },
+        {
+          "code": "13.3",
+          "label": "Total probability and Bayes' theorem",
+          "curriculumTitle": "Total probability and Bayes' theorem"
+        },
+        {
+          "code": "13.4",
+          "label": "Random variables and probability distributions (earlier syllabus)",
+          "curriculumTitle": "Random variables and probability distributions (earlier syllabus)",
+          "allowedYears": [
+            2023,
+            2024,
+            2025
+          ]
+        }
+      ]
+    }
+  ]
+}

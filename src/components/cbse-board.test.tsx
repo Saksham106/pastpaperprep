@@ -52,7 +52,7 @@ describe("CBSE board registration", () => {
       expect(HELD_BANKS).toContain(bank.slug);
       expect(isCbseBank(bank.slug)).toBe(true);
       // The private release lane is joined with each bank's runtime pins, not before.
-      expect(isIGCSEReleaseBank(bank.slug)).toBe(["cbse-12-chemistry", "cbse-10-science", "cbse-12-physics", "cbse-12-biology", "cbse-10-maths"].includes(bank.slug));
+      expect(isIGCSEReleaseBank(bank.slug)).toBe(["cbse-12-chemistry", "cbse-10-science", "cbse-12-physics", "cbse-12-biology", "cbse-10-maths", "cbse-12-maths"].includes(bank.slug));
     }
   });
 
@@ -163,13 +163,14 @@ describe("CBSE chapters", () => {
 
   it("groups subtopics under their chapter, never under another board's default vocabulary", () => {
     const questions = normalizeBankQuestions("cbse-12-maths", [
-      { id: "cbse-12-maths-2024-main-65-1-1-q1", number: 1, paper: 1, year: 2024, session: "Main", primaryTopic: "Matrices", subtopics: ["Types of matrices"] },
+      { id: "cbse-12-maths-2024-main-65-1-1-q1", number: 1, paper: 1, year: 2024, session: "Main", primaryTopic: "Matrices", subtopics: ["Invertible matrices"] },
       { id: "cbse-12-maths-2024-main-65-1-1-q2", number: 2, paper: 1, year: 2024, session: "Main", primaryTopic: "Integrals", subtopics: ["Integration by parts"] },
     ]);
+    const integrals = CBSE_SUBTOPICS["cbse-12-maths"]!.Integrals;
     const groups = getSubtopicGroups(questions, ["Integrals"], []);
     expect(groups.relevant).toEqual(["Integration by parts"]);
-    expect(groups.other).toEqual(["Types of matrices"]);
-    expect(getControlledSubtopics("cbse-12-maths", "Integrals")).toEqual([]);
+    expect(groups.other).toEqual(["Invertible matrices"]);
+    expect(getControlledSubtopics("cbse-12-maths", "Integrals")).toEqual(integrals);
   });
 
   it("pins Class 10 Science sections under their chapters, in NCERT order", () => {

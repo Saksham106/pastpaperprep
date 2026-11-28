@@ -82,7 +82,7 @@ export function studentTaxonomy(config, source, used, subtopicLabelFor) {
   const earlier = source.earlier_syllabus_topics.map((entry) => ({ id: entry.id, code: entry.code, label: entry.title, era: entry.era, official: false, allowedYears: [...entry.allowed_years], questions: used.get(entry.id) ?? 0, subtopics: [] }));
   const chapters = source.topics.map((entry) => ({
     id: entry.id, code: entry.code, label: entry.title, ...(config.groupChapters ? { group: entry.group } : {}), era: entry.era, official: true, questions: used.get(entry.id) ?? 0,
-    subtopics: entry.subtopics.map((subtopic) => ({ code: subtopic.code, label: subtopicLabelFor.get(subtopic.code), curriculumTitle: subtopic.title })),
+    subtopics: entry.subtopics.map((subtopic) => ({ code: subtopic.code, label: subtopicLabelFor.get(subtopic.code), curriculumTitle: subtopic.title, ...(subtopic.earlier_syllabus ? { allowedYears: [...subtopic.earlier_syllabus.allowed_years] } : {}) })),
   }));
   if (chapters.length !== config.expected.topics || chapters.flatMap((chapter) => chapter.subtopics).length !== config.expected.subtopics || earlier.length !== (config.expected.earlierTopics ?? 0)) throw new Error(`${config.label} taxonomy shape drifted`);
   if (config.groupChapters && chapters.some((chapter) => !config.groupChapters.includes(chapter.group))) throw new Error(`${config.label} chapter groups drifted`);
@@ -166,9 +166,14 @@ function mcqFields(config, question, entry, settlements, disputes) {
   const disputed = (config.disputedKeys ?? []).includes(question.id);
   if (dispute || disputed || entry.key_note !== undefined) {
     // The canonical row carries the exclusion and the note; the segmentation record keeps the scheme's key.
-    if (!dispute || !disputed || dispute.decided_by !== "owner" || dispute.note !== entry.key_note || dispute.official_key !== entry.mcq_key || entry.excluded_from_self_marking !== true) fail(`${question.id} disputed key is not the owner's recorded decision`);
+    // The owner's decision on the item, or the owner's rule ("No auto-mark, show note") applied by the coordinator, as the
+    // file's rule records, with the reviewer and date of the item.
+    const ownerRule = dispute?.decided_by === "owner" || (typeof disputes.rule === "string" && disputes.rule.includes('"No auto-mark, show note"') && Boolean(dispute?.reviewer) && Boolean(dispute?.date));
+    if (!dispute || !disputed || !ownerRule || dispute.note !== entry.key_note || dispute.official_key !== entry.mcq_key || entry.excluded_from_self_marking !== true) fail(`${question.id} disputed key is not the owner's recorded decision`);
     if (typeof entry.key_note !== "string" || entry.key_note !== entry.key_note.trim() || !entry.key_note || entry.key_note.length > 200) fail(`${question.id} key note is empty, untrimmed or over 200 characters`);
-    if (JSON.stringify(entry.mcq_keys) !== JSON.stringify([entry.mcq_key]) || JSON.stringify(question.mcq_keys) !== JSON.stringify([entry.mcq_key]) || !/^[A-D]$/.test(entry.mcq_key)) fail(`${question.id} disputed item's official key drifted`);
+    // The official key read from the scheme, or (scheme key unread) settled from the scheme page, as the settlements file records.
+    const settledOfficial = entry.mcq_key_source === "settlement" && !question.mcq_keys?.length && JSON.stringify(settledLetters(settlements?.items?.[question.id])) === JSON.stringify([entry.mcq_key]);
+    if (JSON.stringify(entry.mcq_keys) !== JSON.stringify([entry.mcq_key]) || (JSON.stringify(question.mcq_keys) !== JSON.stringify([entry.mcq_key]) && !settledOfficial) || !/^[A-D]$/.test(entry.mcq_key)) fail(`${question.id} disputed item's official key drifted`);
     return {
       answer: entry.mcq_key,
       answerProvenance: { status: "official", questionId: question.id, source: entry.mcq_key_source },
@@ -215,7 +220,8 @@ const paperOfLevel = (config, level) => (config.levels ? config.levels[level] : 
 /** Question ids an issue names: full ids, or "Q31" on that paper (both the question and its OR alternative). */
 function issueQuestionIds(config, paperId, issue) {
   const ids = [...issue.matchAll(new RegExp(`${config.code}-20\\d{2}-[mce]-[12][0-9a-z]{2}-q\\d+(?:-or)?`, "g"))].map((match) => match[0]);
-  for (const match of issue.matchAll(/\bQ(\d+)\b/g)) ids.push(`${paperId}-q${match[1]}`, `${paperId}-q${match[1]}-or`);
+  // "Q38 not found between Q37 and end": Q37 only says where Q38 was looked for.
+  for (const match of issue.replace(/ between Q\d+ and (?:Q\d+|end)\b/, "").matchAll(/\bQ(\d+)\b/g)) ids.push(`${paperId}-q${match[1]}`, `${paperId}-q${match[1]}-or`);
   return [...new Set(ids)];
 }
 
@@ -224,12 +230,21 @@ function issueQuestionIds(config, paperId, issue) {
  * or aliases, or the paper is in the recorded gate waiver, whose reviewed decision for every question it names must hold
  * here ("served" questions served, "held" questions held). An issue that names no question needs the waiver.
  */
+/** A waiver's per-question decisions hold: served, held, or absent from the segmentation (and so never served). */
+function checkWaiverDecisions(config, paper, waiver, servedIds, heldIds) {
+  const fail = failer(config);
+  for (const decided of waiver.questions) {
+    const holds = decided.decision === "served" ? servedIds.has(decided.id)
+      : decided.decision === "held" ? heldIds.has(decided.id)
+      : decided.decision === "absent" && !servedIds.has(decided.id) && !paper.questions.some((question) => question.id === decided.id);
+    if (!holds) fail(`${paper.paper_id} waiver decision for ${decided.id} (${decided.decision}) does not hold`);
+  }
+}
+
 function checkPaperIssues(config, paper, servedIds, heldIds, waivers) {
   const fail = failer(config);
   const waiver = waivers.get(paper.paper_id);
-  if (waiver) for (const decided of waiver.questions) {
-    if (decided.decision === "served" ? !servedIds.has(decided.id) : decided.decision !== "held" || !heldIds.has(decided.id)) fail(`${paper.paper_id} waiver decision for ${decided.id} (${decided.decision}) does not hold`);
-  }
+  if (waiver) checkWaiverDecisions(config, paper, waiver, servedIds, heldIds);
   for (const issue of paper.issues) {
     const named = issueQuestionIds(config, paper.paper_id, issue);
     if (!named.length && !waiver) fail(`${paper.paper_id} issue "${issue}" names no question and is not waived`);
@@ -280,10 +295,21 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   if (totals.canonical_questions !== expected.canonical || totals.labelled_questions !== expected.rows || totals.served_alias_questions !== expected.servedAliases || totals.held_questions !== expected.held || totals.excluded_questions !== 0 || totals.universe_papers !== expected.sets || totals.acquired_papers !== expected.sets - (config.sourceGaps ?? []).length) fail(`coverage totals drifted: ${JSON.stringify(totals)}`);
   // Gate waivers: exactly the recorded ones, and the receipt applied exactly those.
   const waiverGates = gateWaivers.waivers.map((waiver) => waiver.gate);
-  if (JSON.stringify(waiverGates) !== JSON.stringify(config.waivedGates ?? []) || JSON.stringify((coverage.gates?.waivers_applied ?? []).map((waiver) => waiver.gate)) !== JSON.stringify(waiverGates)) fail("gate waivers drifted");
+  const sortedGates = (gates) => JSON.stringify([...gates].sort());
+  if (sortedGates(waiverGates) !== sortedGates(config.waivedGates ?? []) || new Set(waiverGates).size !== waiverGates.length || sortedGates((coverage.gates?.waivers_applied ?? []).map((waiver) => waiver.gate)) !== sortedGates(waiverGates)) fail("gate waivers drifted");
   if (coverage.gates && (!coverage.gates.passed || coverage.gates.failed.length)) fail("coverage receipt gates did not pass");
   const waivers = new Map(gateWaivers.waivers.flatMap((waiver) => waiver.gate === "cbse.segmentation_clean" ? waiver.papers.map((paper) => [paper.paper, paper]) : []));
-  if (finalLabels.held.length || finalLabels.review_overlays?.length || finalLabels.dropped_empty_earlier_syllabus_topics.length) fail("final labels carry held rows, overlays or earlier-syllabus topics; review before building");
+  if (finalLabels.held.length || finalLabels.dropped_empty_earlier_syllabus_topics.length) fail("final labels carry held rows or dropped earlier-syllabus topics; review before building");
+  // Recorded label overlays (a reviewed rule that adds secondaries): exactly the pinned files, read back by hash, each
+  // addition present on its final label.
+  const overlayPins = pins.reviewOverlays ?? {};
+  if (JSON.stringify(finalLabels.review_overlays ?? []) !== JSON.stringify(Object.values(overlayPins).map((entry) => entry.overlay)) || JSON.stringify(finalLabels.inputs?.review_overlays_sha256 ?? {}) !== JSON.stringify(Object.fromEntries(Object.entries(overlayPins).map(([file, entry]) => [file, entry.sha256])))) fail("label review overlays drifted");
+  const overlayAdditions = [];
+  for (const [file, entry] of Object.entries(overlayPins)) {
+    const reviewed = JSON.parse(await pinnedBytes(config, sourceRoot, `data/classification/review-overlays/${file}`, entry.sha256));
+    if (reviewed.overlay !== entry.overlay || !Array.isArray(reviewed.additions) || reviewed.additions.length !== entry.additions) fail(`review overlay ${file} drifted`);
+    overlayAdditions.push(...reviewed.additions);
+  }
   // Recorded label corrections (a reviewed label audit): exactly the pinned files, read back by hash.
   const corrections = pins.reviewCorrections ?? {};
   if (JSON.stringify(finalLabels.review_corrections ?? []) !== JSON.stringify(Object.keys(corrections).map((file) => file.replace(/\.json$/, ""))) || JSON.stringify(finalLabels.inputs?.review_corrections_sha256 ?? {}) !== JSON.stringify(corrections)) fail("label review corrections drifted");
@@ -293,6 +319,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   const heldIds = Object.keys(held.questions).sort();
   if (heldIds.length !== expected.held) fail(`held ${heldIds.length}`);
   const labels = new Map(finalLabels.labels.map((label) => [label.id, label]));
+  for (const addition of overlayAdditions) if (!labels.get(addition.id)?.secondaries.includes(addition.code)) fail(`${addition.id} lacks overlay secondary ${addition.code}`);
   if (labels.size !== expected.rows || finalLabels.labels.length !== expected.rows) fail("labels do not cover the release once each");
   // Earlier-syllabus topics: named NCERT chapters the rationalised curriculum dropped, which papers still ask about. They have
   // no subtopics, list after the current chapters, and serve only questions from their allowed years.
@@ -301,6 +328,10 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   const topicsByCode = new Map([...sourceTaxonomy.topics, ...earlierTopics].map((entry) => [entry.code, entry]));
   const subtopicsByCode = new Map(sourceTaxonomy.topics.flatMap((entry) => entry.subtopics.map((subtopic) => [subtopic.code, { ...subtopic, topic: entry.code }])));
   const subtopicLabelFor = subtopicLabels(config, sourceTaxonomy);
+  // Earlier-syllabus subtopics (a clause the curriculum dropped, under a current chapter): titled as such, serving only
+  // questions from their allowed years.
+  const earlierSubtopics = [...subtopicsByCode.values()].filter((subtopic) => subtopic.earlier_syllabus);
+  if (earlierSubtopics.length !== (expected.earlierSubtopics ?? 0) || earlierSubtopics.some((subtopic) => !subtopic.title.endsWith(" (earlier syllabus)") || !Array.isArray(subtopic.earlier_syllabus.allowed_years) || !subtopic.earlier_syllabus.allowed_years.length)) fail("earlier-syllabus subtopics drifted");
 
   const segmented = new Map(segmentation.papers.flatMap((paper) => paper.questions.map((question) => [question.id, { paper, question }])));
   if (segmentation.papers.length !== expected.sets) fail("segmentation drifted");
@@ -317,6 +348,17 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     if (config.levels && paper.level !== (paper.paper_id.split("-")[3][0] === "1" ? "standard" : "basic")) fail(`${paper.paper_id} level ${paper.level}`);
     if (paper.max_marks !== config.paperFacts[paperOfLevel(config, paper.level)]?.totalMarks) fail(`${paper.paper_id} maximum ${paper.max_marks}`);
     checkPaperIssues(config, paper, servedIds, heldSet, waivers);
+  }
+  // A pages_alternate waiver (mixed-language pages) clears crops one by one: every question served from its papers must be
+  // cleared ("served": checked English-only and complete), and none it marks "held" may be served.
+  for (const waiver of gateWaivers.waivers.filter((entry) => entry.gate !== "cbse.segmentation_clean")) {
+    if (waiver.gate !== "cbse.pages_alternate") fail(`unknown waiver ${waiver.gate}`);
+    for (const decided of waiver.papers) {
+      const paper = segmentation.papers.find((entry) => entry.paper_id === decided.paper) ?? fail(`waived ${decided.paper} is not a set`);
+      const cleared = new Set(decided.questions.filter((entry) => entry.decision === "served").map((entry) => entry.id));
+      for (const entry of decided.questions) if (!["served", "held"].includes(entry.decision) || (entry.decision === "held" && servedIds.has(entry.id))) fail(`${paper.paper_id} language decision for ${entry.id} (${entry.decision}) does not hold`);
+      for (const question of paper.questions) if (servedIds.has(question.id) && !cleared.has(question.id)) fail(`${question.id} is served from a mixed-language paper without a language check`);
+    }
   }
   if (JSON.stringify([...segmentation.summary.papers_with_issues].sort()) !== JSON.stringify(segmentation.papers.filter((paper) => paper.issues.length).map((paper) => paper.paper_id).sort())) fail("segmentation issue summary drifted");
   for (const paperId of waivers.keys()) if (!segmentation.papers.some((paper) => paper.paper_id === paperId && paper.issues.length)) fail(`waived ${paperId} has no issue left: remove the waiver`);
@@ -384,6 +426,10 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     if (overlay.rows[question.id]) overlayRowsUsed.add(question.id);
     const further = furtherCodes.map((code) => subtopicLabelFor.get(code));
     const subtopics = [...(primarySubtopic ? [subtopicLabelFor.get(primarySubtopic.code)] : []), ...further];
+    for (const code of [...(primarySubtopic ? [primarySubtopic.code] : []), ...furtherCodes]) {
+      const allowed = subtopicsByCode.get(code).earlier_syllabus?.allowed_years;
+      if (allowed && !allowed.includes(question.year)) fail(`${question.id} (${question.year}) carries ${subtopicsByCode.get(code).title}, not allowed that year`);
+    }
 
     for (const alias of entry.alias_ids) if (canonical.aliases[alias]?.canonical_id !== question.id) fail(`alias ${alias} does not resolve to ${question.id}`);
     const transcript = blind.transcripts.get(question.id);

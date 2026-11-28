@@ -122,6 +122,23 @@ export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonl
     "Statistics": ["Mean of grouped data", "Median of grouped data", "Mode of grouped data"],
     "Probability": ["Classical probability"],
   },
+  // Curriculum clauses in taxonomy order (cbse-12-maths-topic-practice ec81723; the runtime's taxonomy). Random variables is
+  // an earlier-syllabus clause, served on 2023-2025 papers only.
+  "cbse-12-maths": {
+    "Relations and Functions": ["Types of relations and equivalence relations", "One-one and onto functions"],
+    "Inverse Trigonometric Functions": ["Domain, range and principal values", "Graphs of inverse trigonometric functions"],
+    "Matrices": ["Types of matrices, transpose, symmetric and skew-symmetric matrices", "Matrix operations and their properties", "Invertible matrices"],
+    "Determinants": ["Determinants, minors and cofactors; area of a triangle", "Adjoint and inverse of a matrix", "Solving linear equations using the inverse of a matrix"],
+    "Continuity and Differentiability": ["Continuity and differentiability", "Chain rule, inverse trigonometric and implicit differentiation", "Exponential and logarithmic functions; logarithmic differentiation", "Parametric differentiation", "Second-order derivatives"],
+    "Applications of Derivatives": ["Rate of change", "Increasing and decreasing functions", "Maxima and minima"],
+    "Integrals": ["Indefinite integrals and integration by substitution", "Integration by partial fractions", "Integration by parts", "Standard integrals (x² ± a², a² − x², quadratics)", "Definite integrals and their properties"],
+    "Application of the Integrals": ["Area under simple curves"],
+    "Differential Equations": ["Order, degree, general and particular solutions", "Separation of variables", "Homogeneous differential equations", "Linear differential equations"],
+    "Vectors": ["Vector basics, components and the section formula", "Scalar (dot) product", "Vector (cross) product"],
+    "Three-dimensional Geometry": ["Direction cosines and direction ratios of a line", "Equations of a line", "Skew lines and shortest distance", "Angle between two lines"],
+    "Linear Programming": ["Constraints, objective function and optimisation", "Graphical method and feasible regions"],
+    "Probability": ["Conditional probability", "Multiplication theorem and independent events", "Total probability and Bayes' theorem", "Random variables and probability distributions (earlier syllabus)"],
+  },
   // Curriculum clauses in taxonomy order (cbse-12-biology-topic-practice 23da57a; the runtime's taxonomy). The two
   // earlier-syllabus topics have no subtopics.
   "cbse-12-biology": {

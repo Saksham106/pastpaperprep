@@ -81,6 +81,7 @@ declare const data: {
     "cbse-12-physics": Record<string, string>;
     "cbse-12-biology": Record<string, string>;
     "cbse-10-maths": Record<string, string>;
+    "cbse-12-maths": Record<string, string>;
   };
 };
 export default data;
