@@ -100,7 +100,7 @@ export function studentTaxonomy(config, source, used, subtopicLabelFor) {
 }
 
 function runtimeAsset(config, kind, asset, paperId) {
-  const match = new RegExp(`^assets\\/(${config.code}-20\\d{2}-[mce]-1[0-9a-z]{2})\\/(questions|markschemes)\\/(q\\d+(?:-or)?-\\d+-\\d+\\.webp)$`).exec(asset.path);
+  const match = new RegExp(`^assets\\/(${config.code}-20\\d{2}-[mce]-[12][0-9a-z]{2})\\/(questions|markschemes)\\/(q\\d+(?:-or)?-\\d+-\\d+\\.webp)$`).exec(asset.path);
   if (!match || match[2] !== kind || match[1] !== paperId) throw new Error(`Unexpected ${config.label} ${kind} asset path: ${asset.path}`);
   if (!/^[0-9a-f]{64}$/.test(asset.sha256 ?? "")) throw new Error(`${config.label} ${asset.path} has no SHA-256`);
   return `${kind}/${match[1]}/${match[3]}`;
@@ -208,9 +208,12 @@ function settledLetters(settlement) {
   return Array.isArray(value) ? value : typeof value === "string" ? [value] : null;
 }
 
+/** The paper number of a level ("standard" -> 1, "basic" -> 2) for a bank with levels, else 1. */
+const paperOfLevel = (config, level) => (config.levels ? config.levels[level] : 1);
+
 /** Question ids an issue names: full ids, or "Q31" on that paper (both the question and its OR alternative). */
 function issueQuestionIds(config, paperId, issue) {
-  const ids = [...issue.matchAll(new RegExp(`${config.code}-20\\d{2}-[mce]-1[0-9a-z]{2}-q\\d+(?:-or)?`, "g"))].map((match) => match[0]);
+  const ids = [...issue.matchAll(new RegExp(`${config.code}-20\\d{2}-[mce]-[12][0-9a-z]{2}-q\\d+(?:-or)?`, "g"))].map((match) => match[0]);
   for (const match of issue.matchAll(/\bQ(\d+)\b/g)) ids.push(`${paperId}-q${match[1]}`, `${paperId}-q${match[1]}-or`);
   return [...new Set(ids)];
 }
@@ -231,7 +234,8 @@ function checkPaperIssues(config, paper, servedIds, heldIds, waivers) {
     if (!named.length && !waiver) fail(`${paper.paper_id} issue "${issue}" names no question and is not waived`);
     for (const id of named) if (servedIds.has(id) && waiver?.questions.find((decided) => decided.id === id)?.decision !== "served") fail(`${paper.paper_id} issue "${issue}" names served ${id} without a reviewed decision`);
   }
-  if (paper.printed_total !== config.paperFacts[1].totalMarks && !waiver) fail(`${paper.paper_id} printed total ${paper.printed_total} != ${config.paperFacts[1].totalMarks}`);
+  const total = config.paperFacts[paperOfLevel(config, paper.level)]?.totalMarks;
+  if (paper.printed_total !== total && !waiver) fail(`${paper.paper_id} printed total ${paper.printed_total} != ${total}`);
 }
 
 export async function buildRuntime(config, { sourceRoot = sourceRootPath(config) } = {}) {
@@ -272,7 +276,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   if (overlay.inputs?.final_labels_sha256 !== pins.labels || overlay.inputs?.taxonomy_sha256 !== pins.taxonomy || overlay.inputs?.segmentation_sha256 !== pins.segmentation) fail("secondary-subtopic overlay was made against different inputs");
   if (coverage.verdict !== "PASS" || coverage.problems.length) fail("coverage receipt is not PASS");
   const totals = coverage.totals;
-  if (totals.canonical_questions !== expected.canonical || totals.labelled_questions !== expected.rows || totals.served_alias_questions !== expected.servedAliases || totals.held_questions !== expected.held || totals.excluded_questions !== 0 || totals.universe_papers !== expected.sets) fail(`coverage totals drifted: ${JSON.stringify(totals)}`);
+  if (totals.canonical_questions !== expected.canonical || totals.labelled_questions !== expected.rows || totals.served_alias_questions !== expected.servedAliases || totals.held_questions !== expected.held || totals.excluded_questions !== 0 || totals.universe_papers !== expected.sets || totals.acquired_papers !== expected.sets - (config.sourceGaps ?? []).length) fail(`coverage totals drifted: ${JSON.stringify(totals)}`);
   // Gate waivers: exactly the recorded ones, and the receipt applied exactly those.
   const waiverGates = gateWaivers.waivers.map((waiver) => waiver.gate);
   if (JSON.stringify(waiverGates) !== JSON.stringify(config.waivedGates ?? []) || JSON.stringify((coverage.gates?.waivers_applied ?? []).map((waiver) => waiver.gate)) !== JSON.stringify(waiverGates)) fail("gate waivers drifted");
@@ -301,8 +305,16 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   if (segmentation.papers.length !== expected.sets) fail("segmentation drifted");
   const heldSet = new Set(heldIds);
   const servedIds = new Set(canonical.canonical_questions.map((entry) => entry.id).filter((id) => !heldSet.has(id)));
+  // Source gaps: a set whose question paper CBSE does not publish (and no mirror has), recorded in the source manifest.
+  const sourceGaps = new Set((sources.gaps ?? []).filter((gap) => gap.role === "question_paper").map((gap) => gap.paper));
+  if (JSON.stringify([...sourceGaps].sort()) !== JSON.stringify([...(config.sourceGaps ?? [])].sort())) fail("source gaps drifted");
   for (const paper of segmentation.papers) {
-    if (paper.max_marks !== config.paperFacts[1].totalMarks) fail(`${paper.paper_id} maximum ${paper.max_marks}`);
+    if (sourceGaps.has(paper.paper_id)) {
+      if (paper.questions.length || paper.issues.some((issue) => !issue.startsWith("source gap"))) fail(`${paper.paper_id} is a source gap with questions or other issues`);
+      continue;
+    }
+    if (config.levels && paper.level !== (paper.paper_id.split("-")[3][0] === "1" ? "standard" : "basic")) fail(`${paper.paper_id} level ${paper.level}`);
+    if (paper.max_marks !== config.paperFacts[paperOfLevel(config, paper.level)]?.totalMarks) fail(`${paper.paper_id} maximum ${paper.max_marks}`);
     checkPaperIssues(config, paper, servedIds, heldSet, waivers);
   }
   if (JSON.stringify([...segmentation.summary.papers_with_issues].sort()) !== JSON.stringify(segmentation.papers.filter((paper) => paper.issues.length).map((paper) => paper.paper_id).sort())) fail("segmentation issue summary drifted");
@@ -335,7 +347,12 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     if (!found) fail(`${entry.id} is not segmented`);
     const { paper, question } = found;
     if (question.held || question.excluded_from_practice || entry.excluded_from_practice || question.removed_parts.length) fail(`${question.id} is held, excluded or has removed parts`);
-    if (question.paper !== 1 || entry.paper_number !== 1 || question.level !== null || entry.levels.length) fail(`${question.id} paper or level drifted`);
+    // One paper, or (Class 10 Maths) Standard on paper 1 and Basic on paper 2; a question printed in both levels' papers is
+    // one canonical row on its own level's paper, marked "both" so it shows under both level tabs.
+    const bothLevels = Boolean(config.levels) && entry.levels.length === 2;
+    if (config.levels
+      ? question.level !== entry.level || question.paper !== paperOfLevel(config, question.level) || entry.paper_number !== question.paper || !entry.levels.includes(question.level) || entry.levels.some((level) => !(level in config.levels)) || new Set(entry.levels).size !== entry.levels.length
+      : question.paper !== 1 || entry.paper_number !== 1 || question.level !== null || entry.levels.length) fail(`${question.id} paper or level drifted`);
     const session = SESSION_LABELS[question.session];
     if (!session || !config.sessions.includes(question.session) || session.series !== entry.series_code || question.year !== entry.year || question.set_code !== entry.set_code || paper.set_code !== question.set_code) fail(`${question.id} session or set drifted`);
     if (entry.exam_status !== "sat") fail(`${question.id} exam status ${entry.exam_status}`);
@@ -382,7 +399,8 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
       paperId: paper.paper_id,
       number: question.number,
       label: question.label,
-      paper: 1,
+      paper: question.paper,
+      ...(bothLevels ? { syllabusRoute: "both" } : {}),
       year: question.year,
       session: session.label,
       examStatus: entry.exam_status,
@@ -405,7 +423,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
       skills: [],
       assessmentObjectives: [],
       marks: question.marks,
-      maxMarks: config.paperFacts[1].totalMarks,
+      maxMarks: config.paperFacts[question.paper].totalMarks,
       marksSource: "printed_question_paper",
       ...mcq,
       summary: `${question.alternative === "or" ? "(OR) " : ""}${transcript}`.slice(0, 220),
@@ -470,7 +488,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     setCount: expected.sets,
     questionCount: questions.length,
     marks_ready: true,
-    paperFacts: { 1: { ...config.paperFacts[1] } },
+    paperFacts: Object.fromEntries(Object.entries(config.paperFacts).map(([paper, facts]) => [paper, { ...facts }])),
     heldQuestionIds: heldIds,
     excludedQuestionIds: [],
     excludedFromSelfMarkingIds: [...config.excludedFromSelfMarking, ...(config.disputedKeys ?? [])],

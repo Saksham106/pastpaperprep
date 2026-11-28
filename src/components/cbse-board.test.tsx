@@ -148,7 +148,7 @@ describe("CBSE chapters", () => {
       expect(new Set(chapters).size).toBe(chapters.length);
       expect(CBSE_TOPICS[slug].every((unit) => unit.chapters.length > 0)).toBe(true);
     }
-    expect(cbseChapterOrder("cbse-10-maths")).toHaveLength(14);
+    expect(cbseChapterOrder("cbse-10-maths")).toHaveLength(15);
     expect(cbseChapterOrder("cbse-12-physics")).toHaveLength(14);
   });
 

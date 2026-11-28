@@ -23,8 +23,8 @@ export type CbseUnit = { unit: string; chapters: readonly string[] };
 /**
  * Topics are chapters, in curriculum order, grouped by unit (Class 10 Science by its physics, chemistry and biology
  * chapters). Titles are the content sessions' syllabus trees (CBSE curriculum 2025-26 / 2026-27 wording, which differs
- * from NCERT in places: "Applications of Derivatives", "Human Health and Diseases"); Class 10 Maths follows NCERT until
- * its tree lands. A runtime's `primaryTopic` must be one of these titles exactly, or a named "(earlier syllabus)" topic,
+ * from NCERT in places: "Applications of Derivatives", "Human Health and Diseases", Class 10 Maths' "Trigonometric
+ * Identities" and "Heights and Distances"). A runtime's `primaryTopic` must be one of these titles exactly, or a named "(earlier syllabus)" topic,
  * which the picker lists after them.
  */
 export const CBSE_TOPICS: Readonly<Record<(typeof CBSE_BANKS)[number], readonly CbseUnit[]>> = {
@@ -33,7 +33,8 @@ export const CBSE_TOPICS: Readonly<Record<(typeof CBSE_BANKS)[number], readonly 
     { unit: "Algebra", chapters: ["Polynomials", "Pair of Linear Equations in Two Variables", "Quadratic Equations", "Arithmetic Progressions"] },
     { unit: "Coordinate Geometry", chapters: ["Coordinate Geometry"] },
     { unit: "Geometry", chapters: ["Triangles", "Circles"] },
-    { unit: "Trigonometry", chapters: ["Introduction to Trigonometry", "Some Applications of Trigonometry"] },
+    // The curriculum splits NCERT's "Some Applications of Trigonometry" into identities and heights and distances.
+    { unit: "Trigonometry", chapters: ["Introduction to Trigonometry", "Trigonometric Identities", "Heights and Distances"] },
     { unit: "Mensuration", chapters: ["Areas Related to Circles", "Surface Areas and Volumes"] },
     { unit: "Statistics and Probability", chapters: ["Statistics", "Probability"] },
   ],
