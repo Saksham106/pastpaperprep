@@ -65,6 +65,7 @@ const AUTHORIZED_PRODUCTION_CANDIDATE_STATES = {
   'a-level-further-maths-9231': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'cbse-12-chemistry': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'cbse-10-science': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
+  'cbse-12-physics': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved'], unresolvedCount: 0 },
   'igcse-physics-0625': { publicationStatus: 'authorized_production_candidate', classificationReviewStatuses: ['candidate_not_approved', UNRESOLVED_TAXONOMY_STATUS], unresolvedCount: 336 },
 };
 

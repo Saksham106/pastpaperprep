@@ -78,6 +78,7 @@ const LOCAL_FOLDERS: Record<string, string[]> = {
   "a-level-computer-science-9618": ["cambridge-a-level-computer-science-9618-topic-practice"],
   "cbse-12-chemistry": ["cbse-12-chemistry-topic-practice"],
   "cbse-10-science": ["cbse-10-science-topic-practice"],
+  "cbse-12-physics": ["cbse-12-physics-topic-practice"],
 };
 const SKIP_DIRECTORIES = new Set(["node_modules", ".git", ".worktrees", ".venv", "venv", "__pycache__"]);
 

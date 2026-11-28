@@ -102,6 +102,23 @@ export const CBSE_10_SCIENCE_GROUPS = (["Biology", "Chemistry", "Physics"] as co
  * A bank not listed yet groups subtopics by the questions that carry them.
  */
 export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonly<Record<string, readonly string[]>>>> = {
+  // Curriculum clauses in taxonomy order (cbse-12-physics-topic-practice b2537af; the runtime's taxonomy).
+  "cbse-12-physics": {
+    "Electric Charges and Fields": ["Electric charge and Coulomb's law", "Electric field and electric dipole", "Electric flux and Gauss's theorem"],
+    "Electrostatic Potential and Capacitance": ["Electric potential and potential energy", "Conductors, insulators and dielectrics", "Capacitors and capacitance"],
+    "Current Electricity": ["Current, drift velocity and Ohm's law", "Resistivity, energy and power", "Cells, emf and internal resistance", "Kirchhoff's rules and Wheatstone bridge"],
+    "Moving Charges and Magnetism": ["Magnetic field and the Biot-Savart law", "Ampere's law and solenoids", "Force on a moving charge", "Forces and torques on current-carrying conductors", "Moving coil galvanometer"],
+    "Magnetism and Matter": ["Bar magnet and magnetic field lines", "Magnetic properties of materials"],
+    "Electromagnetic Induction": ["Faraday's laws and Lenz's law", "Self and mutual induction"],
+    "Alternating Current": ["Peak and RMS values, reactance and impedance", "LCR series circuit and resonance", "Power in AC circuits", "AC generator and transformer"],
+    "Electromagnetic Waves": ["Displacement current and electromagnetic waves", "Electromagnetic spectrum"],
+    "Ray Optics and Optical Instruments": ["Reflection and spherical mirrors", "Refraction, total internal reflection and optical fibres", "Refraction at spherical surfaces and lenses", "Refraction through a prism", "Microscopes and telescopes"],
+    "Wave Optics": ["Wavefronts and Huygens' principle", "Interference and Young's double slit experiment", "Diffraction at a single slit"],
+    "Dual Nature of Radiation and Matter": ["Photoelectric effect", "Matter waves and de Broglie relation"],
+    "Atoms": ["Alpha-particle scattering and Rutherford's model", "Bohr model and hydrogen spectrum"],
+    "Nuclei": ["Composition and size of nucleus, nuclear force", "Mass defect and binding energy", "Nuclear fission and fusion"],
+    "Semiconductor Electronics: Materials, Devices and Simple Circuits": ["Energy bands and semiconductors", "p-n junction and diode characteristics", "Diode as a rectifier"],
+  },
   // Curriculum clauses in taxonomy order (cbse-12-chemistry-topic-practice 33bc420; a title several chapters share carries
   // its chapter, as in the runtime: scripts/generate-cbse-12-chemistry-runtime.mjs).
   "cbse-12-chemistry": {

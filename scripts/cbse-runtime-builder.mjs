@@ -186,7 +186,10 @@ function mcqFields(config, question, entry, settlements, disputes) {
   // A scheme that prints two answers ("(A) resistor / (C) capacitor") gives both letters in both records, with no source.
   const segmentationKeys = JSON.stringify(question.mcq_keys);
   const printedPair = two && entry.mcq_key === null && entry.mcq_key_source === null && segmentationKeys === JSON.stringify(two);
-  if (!Array.isArray(keys) || !keys.every((key) => /^[A-D]$/.test(key)) || (keys[0] !== entry.mcq_key && !printedPair) || (segmentationKeys !== JSON.stringify(keys) && !(two && segmentationKeys === JSON.stringify([keys[0]])))) fail(`${question.id} MCQ key ${JSON.stringify(keys)} is not a checked official key`);
+  // A settled single key replaces a misread in the segmentation record (e.g. OCR took the next row's letter), only where
+  // the pinned settlements file records that same letter.
+  const settledSingle = !two && keys?.length === 1 && entry.mcq_key_source === "settlement" && settlements?.items?.[question.id]?.settled_key === keys[0];
+  if (!Array.isArray(keys) || !keys.every((key) => /^[A-D]$/.test(key)) || (keys[0] !== entry.mcq_key && !printedPair) || (segmentationKeys !== JSON.stringify(keys) && !(two && segmentationKeys === JSON.stringify([keys[0]])) && !settledSingle)) fail(`${question.id} MCQ key ${JSON.stringify(keys)} is not a checked official key`);
   if (two ? JSON.stringify(keys) !== JSON.stringify(two) || (!printedPair && (entry.mcq_key_source !== "settlement" || (settlements && JSON.stringify(settlements.items?.[question.id]?.settled_keys) !== JSON.stringify(two)))) : keys.length !== 1) fail(`${question.id} key letters drifted`);
   return {
     answer: keys[0],

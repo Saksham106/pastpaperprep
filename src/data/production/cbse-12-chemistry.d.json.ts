@@ -132,6 +132,7 @@ declare const data: {
       msRowReviews: string;
       sourceManifest: string;
       blindResults: string;
+      transcriptCorrections: string;
     };
     sourceCandidateSha256: string;
     releaseTaxonomySha256: string;
