@@ -204,8 +204,9 @@ function mcqFields(config, question, entry, settlements, disputes) {
 /** A settlement's letters: `settled_key` as one letter or a list, or `settled_keys`. */
 function settledLetters(settlement) {
   if (!settlement) return null;
-  const value = settlement.settled_key ?? settlement.settled_keys;
-  return Array.isArray(value) ? value : typeof value === "string" ? [value] : null;
+  const value = settlement.settled_key || settlement.settled_keys;
+  const letters = Array.isArray(value) ? value : typeof value === "string" ? [value] : null;
+  return letters?.length && letters.every((letter) => /^[A-D]$/.test(letter)) ? letters : null;
 }
 
 /** The paper number of a level ("standard" -> 1, "basic" -> 2) for a bank with levels, else 1. */
@@ -358,12 +359,14 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     if (entry.exam_status !== "sat") fail(`${question.id} exam status ${entry.exam_status}`);
     // Marks: the question paper's printed marks; a scheme total that differs is served only with a reviewed "serve".
     if (entry.printed_marks !== question.marks || !(question.marks > 0)) fail(`${question.id} marks drifted`);
+    const msReview = reviewedMs[question.id] ?? reviewedMs[question.id.replace(/-or$/, "")];
+    const servedAtPrinted = msReview?.decision === "serve" && msReview.served_marks === question.marks;
     if (question.marks_status === "ms_marks_differ") {
-      const review = reviewedMs[question.id] ?? reviewedMs[question.id.replace(/-or$/, "")];
-      if (review?.decision !== "serve" || review.served_marks !== question.marks) fail(`${question.id} scheme total differs without a reviewed serve`);
+      if (!servedAtPrinted) fail(`${question.id} scheme total differs without a reviewed serve`);
     } else if (question.marks_status === "mcq_key_missing") {
-      // The scheme's key was not read; served only with a settled key (checked in mcqFields) and reconciled marks.
-      if (question.format !== "multiple_choice" || entry.mcq_key_source !== "settlement" || !settledLetters(settlements?.items?.[question.id]) || question.ms_marks !== question.marks) fail(`${question.id} key missing without a settlement`);
+      // The scheme's key was not read; served only with a settled key (checked in mcqFields), and scheme marks that equal the
+      // printed marks or are settled by a reviewed "serve" at the printed marks (as the toolkit's cbse.served_marks_reviewed).
+      if (question.format !== "multiple_choice" || entry.mcq_key_source !== "settlement" || !settledLetters(settlements?.items?.[question.id])?.length || (question.ms_marks !== question.marks && !servedAtPrinted)) fail(`${question.id} key missing without a settlement`);
     } else if (question.marks_status !== "reconciled" || question.ms_marks !== question.marks) fail(`${question.id} marks status ${question.marks_status}`);
     const label = labels.get(question.id);
     if (!label) fail(`${question.id} has no final label`);
