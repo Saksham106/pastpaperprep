@@ -25,7 +25,10 @@ import { getSubtopicGroups, getTopicOptions } from "@/lib/taxonomy-router";
 
 const ROOT = process.cwd();
 const slug = "cbse-12-chemistry";
-const CANDIDATE = "f34054df3005f67b3aa77090e5109d4c3a6c405812da6a14add691586b72c71e";
+/** The candidate the crops were uploaded for (it names the prefix and the manifest). */
+const FIRST_CANDIDATE = "f34054df3005f67b3aa77090e5109d4c3a6c405812da6a14add691586b72c71e";
+/** The current candidate: 11 reviewed transcript fixes applied, crops byte-identical. */
+const CANDIDATE = "e8801103f0b540e443bd1f0a53cd7ef26aecf68f023f2d9fef6dd7794dd9d9da";
 const PREFIX = "cbse-12-chemistry/releases/full1844-v1-f34054df3005";
 type Row = Record<string, unknown> & { id: string; year: number; paperId: string; format: string; marks: number; primaryTopic: string; secondaryTopics: string[]; subtopics: string[]; questionImages: string[]; markschemeImages: string[]; aliasIds: string[] };
 const runtime = runtimeJson as unknown as { questionCount: number; paperCount: number; years: string; heldQuestionIds: string[]; excludedFromSelfMarkingIds: string[]; paperFacts: Record<string, { totalMarks: number; durationMinutes: number }>; publicationStatus: string; runtimeArtifact: { originalCandidateRuntimeSha256: string; sourceCommit: string; sourceRepository: string }; taxonomy: { sha256: string }; questions: Row[] };
@@ -82,6 +85,11 @@ describe("CBSE Class 12 Chemistry runtime", () => {
     const built = await buildRuntime();
     expect(JSON.stringify(reconstructCandidate(runtimeJson))).toBe(JSON.stringify(built.artifact));
     expect(built.taxonomySerialized).toBe(readFileSync(join(ROOT, "src/data/cbse-12-chemistry-taxonomy.json"), "utf8"));
+  });
+
+  it("serves the 11 reviewed transcript fixes as accessible text", () => {
+    const fixed = runtime.questions.find((question) => question.id === "cbse12c-2023-m-121-q22")!;
+    expect(fixed.accessibleText).toMatch(/K2\[NiCl4\] 2 × 1$/);
   });
 
   it("frees 2023 (main and compartment): 448 questions", () => {
@@ -168,7 +176,7 @@ describe("CBSE Class 12 Chemistry storage", () => {
   it("plans a create-only upload of exactly the runtime's 4,072 crops under a new prefix", () => {
     const refs = new Set(runtime.questions.flatMap((question) => [...question.questionImages, ...question.markschemeImages]));
     expect(refs.size).toBe(4072);
-    expect(manifest.originalCandidateRuntimeSha256).toBe(CANDIDATE);
+    expect(manifest.originalCandidateRuntimeSha256).toBe(FIRST_CANDIDATE);
     expect(manifest.objectPrefix).toBe(`${PREFIX}/`);
     expect(manifest.assets.map((asset) => asset.objectKey.slice(manifest.objectPrefix.length)).sort()).toEqual([...refs].sort());
     expect(manifest.assets.every((asset) => asset.contentType === "image/webp")).toBe(true);

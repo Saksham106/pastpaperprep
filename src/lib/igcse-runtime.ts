@@ -235,7 +235,7 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-economics-9708": "264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd",
   "a-level-computer-science-9618": "a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6",
   "a-level-further-maths-9231": "3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171",
-  "cbse-12-chemistry": "f34054df3005f67b3aa77090e5109d4c3a6c405812da6a14add691586b72c71e",
+  "cbse-12-chemistry": "e8801103f0b540e443bd1f0a53cd7ef26aecf68f023f2d9fef6dd7794dd9d9da",
   "cbse-10-science": "957e2ef49450e08822aeb413448ed5053e7aff93536d502b656fa751452ab75f",
 };
 
@@ -257,7 +257,7 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-economics-9708": "264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd",
   "a-level-computer-science-9618": "a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6",
   "a-level-further-maths-9231": "3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171",
-  "cbse-12-chemistry": "f34054df3005f67b3aa77090e5109d4c3a6c405812da6a14add691586b72c71e",
+  "cbse-12-chemistry": "e8801103f0b540e443bd1f0a53cd7ef26aecf68f023f2d9fef6dd7794dd9d9da",
   "cbse-10-science": "957e2ef49450e08822aeb413448ed5053e7aff93536d502b656fa751452ab75f",
 };
 

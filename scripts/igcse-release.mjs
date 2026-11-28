@@ -132,12 +132,13 @@ export const RELEASE_BANKS = {
     originalCandidateRuntimeSha256: '3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171',
   },
   // CBSE Class 12 Chemistry (043): 1,844 rows (75 sets, 2023-2026 main + compartment; 997 aliases served through their
-  // canonical question, 5 held), one segmentation lane, built with ../ppp-ingestion-toolkit.
+  // canonical question, 5 held), one segmentation lane, built with ../ppp-ingestion-toolkit. The prefix is named for the first
+  // candidate (f34054df...); the 11 reviewed transcript fixes changed text only, so the byte-identical verified crops stay under it.
   'cbse-12-chemistry': {
     prefix: 'cbse-12-chemistry/releases/full1844-v1-f34054df3005',
     sourceRootEnv: 'PASTPAPERPREP_CBSE_12_CHEMISTRY_SOURCE_ROOT',
     candidateSeal: 'blanked-v1',
-    originalCandidateRuntimeSha256: 'f34054df3005f67b3aa77090e5109d4c3a6c405812da6a14add691586b72c71e',
+    originalCandidateRuntimeSha256: 'e8801103f0b540e443bd1f0a53cd7ef26aecf68f023f2d9fef6dd7794dd9d9da',
   },
   // CBSE Class 10 Science (086): 2,375 rows (78 sets, 2023-2026 main, compartment and the 2026 second exam; 966 aliases served
   // through their canonical question, 144 held), one segmentation lane, built with ../ppp-ingestion-toolkit.

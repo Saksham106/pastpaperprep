@@ -50,8 +50,10 @@ export async function blindTranscripts(config, sourceRoot) {
   const files = (await readdir(directory, { withFileTypes: true })).filter((entry) => entry.isFile() && entry.name.endsWith(".json")).map((entry) => entry.name).sort();
   const lines = [];
   const transcripts = new Map();
+  const fileSha256 = {};
   for (const file of files) {
     const bytes = await readFile(path.join(directory, file));
+    fileSha256[file] = sha256(bytes);
     lines.push(`${file} ${sha256(bytes)}`);
     for (const row of JSON.parse(bytes.toString("utf8")).rows ?? []) {
       if (typeof row.transcript !== "string" || !row.transcript.trim()) continue;
@@ -59,7 +61,7 @@ export async function blindTranscripts(config, sourceRoot) {
       transcripts.set(row.id, row.transcript.trim());
     }
   }
-  return { pin: sha256(`${lines.join("\n")}\n`), transcripts };
+  return { pin: sha256(`${lines.join("\n")}\n`), transcripts, fileSha256 };
 }
 
 /**
@@ -145,14 +147,32 @@ export function furtherSubtopics(config, id, label, entry, subtopicsByCode) {
   return [...new Set(codes)].sort((a, b) => order.indexOf(a) - order.indexOf(b));
 }
 
-/** Multiple-choice answer fields: the official key with provenance, a settled two-letter key, or none for a notice item. */
-function mcqFields(config, question, entry, settlements) {
+/**
+ * Multiple-choice answer fields: the official key with provenance; a two-letter key (settled, or printed as two answers in
+ * the scheme); none for a notice item ("full marks for any option"), whose scheme crop shows instead; or, for a disputed
+ * official key (owner, 2026-11-27: "No auto-mark, show note"), the official key with its note, never self-marked.
+ */
+function mcqFields(config, question, entry, settlements, disputes) {
   const fail = failer(config);
   if (question.format !== "multiple_choice") {
     if (question.mcq_key !== null || entry.mcq_key !== null || question.mcq_keys?.length) fail(`${question.id} is structured but has an MCQ key`);
     return {};
   }
   if (question.marks !== 1) fail(`${question.id} MCQ is not one mark`);
+  const dispute = disputes?.items?.[question.id];
+  const disputed = (config.disputedKeys ?? []).includes(question.id);
+  if (dispute || disputed || entry.key_note !== undefined) {
+    // The canonical row carries the exclusion and the note; the segmentation record keeps the scheme's key.
+    if (!dispute || !disputed || dispute.decided_by !== "owner" || dispute.note !== entry.key_note || dispute.official_key !== entry.mcq_key || entry.excluded_from_self_marking !== true) fail(`${question.id} disputed key is not the owner's recorded decision`);
+    if (typeof entry.key_note !== "string" || entry.key_note !== entry.key_note.trim() || !entry.key_note || entry.key_note.length > 200) fail(`${question.id} key note is empty, untrimmed or over 200 characters`);
+    if (JSON.stringify(entry.mcq_keys) !== JSON.stringify([entry.mcq_key]) || JSON.stringify(question.mcq_keys) !== JSON.stringify([entry.mcq_key]) || !/^[A-D]$/.test(entry.mcq_key)) fail(`${question.id} disputed item's official key drifted`);
+    return {
+      answer: entry.mcq_key,
+      answerProvenance: { status: "official", questionId: question.id, source: entry.mcq_key_source },
+      excludedFromSelfMarking: true,
+      keyNote: entry.key_note,
+    };
+  }
   const excluded = config.excludedFromSelfMarking.includes(question.id);
   if (excluded !== (entry.excluded_from_self_marking === true) || excluded !== (question.excluded_from_self_marking === true)) fail(`${question.id} self-marking exclusion drifted`);
   if (excluded) {
@@ -163,13 +183,15 @@ function mcqFields(config, question, entry, settlements) {
   const keys = entry.mcq_keys;
   const two = config.twoLetterKeys[question.id];
   // A settled two-letter key is applied to the canonical row; the segmentation record may keep the scheme's first letter.
+  // A scheme that prints two answers ("(A) resistor / (C) capacitor") gives both letters in both records, with no source.
   const segmentationKeys = JSON.stringify(question.mcq_keys);
-  if (!Array.isArray(keys) || !keys.every((key) => /^[A-D]$/.test(key)) || keys[0] !== entry.mcq_key || (segmentationKeys !== JSON.stringify(keys) && !(two && segmentationKeys === JSON.stringify([keys[0]])))) fail(`${question.id} MCQ key ${JSON.stringify(keys)} is not a checked official key`);
-  if (two ? JSON.stringify(keys) !== JSON.stringify(two) || entry.mcq_key_source !== "settlement" || (settlements && JSON.stringify(settlements.items?.[question.id]?.settled_keys) !== JSON.stringify(two)) : keys.length !== 1) fail(`${question.id} key letters drifted`);
+  const printedPair = two && entry.mcq_key === null && entry.mcq_key_source === null && segmentationKeys === JSON.stringify(two);
+  if (!Array.isArray(keys) || !keys.every((key) => /^[A-D]$/.test(key)) || (keys[0] !== entry.mcq_key && !printedPair) || (segmentationKeys !== JSON.stringify(keys) && !(two && segmentationKeys === JSON.stringify([keys[0]])))) fail(`${question.id} MCQ key ${JSON.stringify(keys)} is not a checked official key`);
+  if (two ? JSON.stringify(keys) !== JSON.stringify(two) || (!printedPair && (entry.mcq_key_source !== "settlement" || (settlements && JSON.stringify(settlements.items?.[question.id]?.settled_keys) !== JSON.stringify(two)))) : keys.length !== 1) fail(`${question.id} key letters drifted`);
   return {
     answer: keys[0],
     ...(two ? { acceptedAnswers: [...two] } : {}),
-    answerProvenance: { status: "official", questionId: question.id, source: entry.mcq_key_source },
+    answerProvenance: { status: "official", questionId: question.id, source: entry.mcq_key_source ?? (printedPair ? "scheme_two_answers" : null) },
   };
 }
 
@@ -212,10 +234,24 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   const msReviews = pins.msRowReviews ? await pinned(config, sourceRoot, "data/review/ms-row-reviews.json", pins.msRowReviews) : { items: {} };
   // Settled keys: pinned where the bank's canonical rows carry a settlement the segmentation does not.
   const settlements = pins.mcqKeySettlements ? await pinned(config, sourceRoot, "data/review/mcq-key-settlements.json", pins.mcqKeySettlements) : null;
+  // Disputed official keys: the owner's recorded decisions, pinned.
+  const disputes = pins.mcqKeyDisputes ? await pinned(config, sourceRoot, "data/review/mcq-key-disputes.json", pins.mcqKeyDisputes) : null;
+  if (disputes && JSON.stringify(Object.keys(disputes.items).sort()) !== JSON.stringify([...(config.disputedKeys ?? [])].sort())) fail("disputed keys drifted");
   const gateWaivers = pins.gateWaivers ? await pinned(config, sourceRoot, "data/gate-waivers.json", pins.gateWaivers) : { waivers: [] };
   const sources = await pinned(config, sourceRoot, "data/source-manifest.json", pins.sourceManifest);
   const blind = await blindTranscripts(config, sourceRoot);
   if (blind.pin !== pins.blindResults) fail(`blind results ${blind.pin} != pinned ${pins.blindResults}`);
+  // Reviewed transcript fixes over the immutable blind results, made against exactly these blind files.
+  if (pins.transcriptCorrections) {
+    const corrections = await pinned(config, sourceRoot, "data/classification/transcript-corrections.json", pins.transcriptCorrections);
+    const madeAgainst = Object.entries(corrections.blind_results_sha256 ?? {});
+    if (!madeAgainst.length || madeAgainst.some(([file, hash]) => blind.fileSha256[file] !== hash)) fail("transcript corrections were made against different blind results");
+    if (JSON.stringify(Object.keys(corrections.rows).sort()) !== JSON.stringify([...config.transcriptCorrections].sort())) fail("transcript corrections drifted");
+    for (const [id, row] of Object.entries(corrections.rows)) {
+      if (!blind.transcripts.has(id) || typeof row.transcript !== "string" || !row.transcript.trim() || !row.replacements?.length) fail(`transcript correction ${id} is invalid`);
+      blind.transcripts.set(id, row.transcript.trim());
+    }
+  }
   const expected = config.expected;
 
   // Inputs made against each other.
@@ -229,7 +265,11 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   if (JSON.stringify(waiverGates) !== JSON.stringify(config.waivedGates ?? []) || JSON.stringify((coverage.gates?.waivers_applied ?? []).map((waiver) => waiver.gate)) !== JSON.stringify(waiverGates)) fail("gate waivers drifted");
   if (coverage.gates && (!coverage.gates.passed || coverage.gates.failed.length)) fail("coverage receipt gates did not pass");
   const waivers = new Map(gateWaivers.waivers.flatMap((waiver) => waiver.gate === "cbse.segmentation_clean" ? waiver.papers.map((paper) => [paper.paper, paper]) : []));
-  if (finalLabels.held.length || finalLabels.review_corrections?.length || finalLabels.dropped_empty_earlier_syllabus_topics.length) fail("final labels carry held rows, corrections or earlier-syllabus topics; review before building");
+  if (finalLabels.held.length || finalLabels.review_overlays?.length || finalLabels.dropped_empty_earlier_syllabus_topics.length) fail("final labels carry held rows, overlays or earlier-syllabus topics; review before building");
+  // Recorded label corrections (a reviewed label audit): exactly the pinned files, read back by hash.
+  const corrections = pins.reviewCorrections ?? {};
+  if (JSON.stringify(finalLabels.review_corrections ?? []) !== JSON.stringify(Object.keys(corrections).map((file) => file.replace(/\.json$/, ""))) || JSON.stringify(finalLabels.inputs?.review_corrections_sha256 ?? {}) !== JSON.stringify(corrections)) fail("label review corrections drifted");
+  for (const [file, hash] of Object.entries(corrections)) await pinnedBytes(config, sourceRoot, `data/classification/review-corrections/${file}`, hash);
 
   if (!canonical.frozen || canonical.canonical_questions.length !== expected.canonical || Object.keys(canonical.aliases).length !== expected.aliasesInManifest) fail("canonical manifest drifted");
   const heldIds = Object.keys(held.questions).sort();
@@ -283,7 +323,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     const label = labels.get(question.id);
     if (!label) fail(`${question.id} has no final label`);
     if (label.format !== question.format || entry.format !== question.format) fail(`${question.id} format drifted`);
-    const mcq = mcqFields(config, question, entry, settlements);
+    const mcq = mcqFields(config, question, entry, settlements, disputes);
 
     const codes = [label.primary, ...label.secondaries];
     if (new Set(codes).size !== codes.length) fail(`${question.id} repeats a chapter`);
@@ -372,7 +412,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   if (questions.length !== expected.rows || new Set(questions.map((question) => question.id)).size !== expected.rows) fail(`rows ${questions.length}`);
   if (questions.filter((question) => question.format === "multiple_choice").length !== expected.multipleChoice || questions.filter((question) => question.format === "structured").length !== expected.structured) fail("format counts drifted");
   if (questions.filter((question) => config.freeYears.includes(question.year)).length !== expected.freeRows) fail("free-year count drifted");
-  if (questions.filter((question) => question.excludedFromSelfMarking).length !== config.excludedFromSelfMarking.length) fail("exclusion count drifted");
+  if (questions.filter((question) => question.excludedFromSelfMarking).length !== config.excludedFromSelfMarking.length + (config.disputedKeys ?? []).length) fail("exclusion count drifted");
   if (crops !== expected.crops) fail(`crops ${crops}`);
   if (used.size !== expected.topics) fail(`chapters used ${used.size}`);
   const years = questions.map((question) => question.year);
@@ -403,7 +443,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     paperFacts: { 1: { ...config.paperFacts[1] } },
     heldQuestionIds: heldIds,
     excludedQuestionIds: [],
-    excludedFromSelfMarkingIds: [...config.excludedFromSelfMarking],
+    excludedFromSelfMarkingIds: [...config.excludedFromSelfMarking, ...(config.disputedKeys ?? [])],
     ...(gateWaivers.waivers.length ? { gateWaivers: gateWaivers.waivers.map((waiver) => ({ gate: waiver.gate, approvedBy: waiver.approved_by, date: waiver.date, expires: waiver.expires, papers: waiver.papers.map((paper) => paper.paper) })) } : {}),
     sourceCandidate: { paths: ["data/classification/final-labels.json"], sha256: [pins.labels], questionCount: questions.length },
     taxonomy: { path: outputs.taxonomy, version: taxonomy.version, sha256: taxonomyFileSha },

@@ -64,6 +64,8 @@ export const CONFIG = {
     sourceManifest: "f26eab45f1aac71da98b5700cce587b9b754fe7bba86f2f92edad54f4359ce92",
     /** SHA-256 over the sorted "<file> <sha256>" lines of every top-level blind-results/*.json file. */
     blindResults: "6e8e9c7a7940b408dbd441afff914e1fe5335d214d9660fbedf680c94eed1c7f",
+    /** Reviewed row-level transcript fixes over the blind results (11 rows: marks or symbols the blind read missed). */
+    transcriptCorrections: "4d977ba58e8963c4b82bda91036028bd918ac3408d7556185417d80ba8ce1c38",
   },
   /** The CBSE Chemistry (043) theory paper: 70 marks, 3 hours (curriculum 2025-26 assessment scheme; every set prints it). */
   paperFacts: { 1: { name: "Chemistry (Theory)", durationMinutes: 180, totalMarks: 70 } },
@@ -71,6 +73,11 @@ export const CONFIG = {
   /** Scheme-notice items (full marks for any option, printing errors): served without a key and never self-marked. */
   excludedFromSelfMarking: [
     "cbse12c-2023-m-111-q13", "cbse12c-2023-m-111-q6", "cbse12c-2023-m-112-q4", "cbse12c-2023-m-133-q9", "cbse12c-2024-m-112-q4", "cbse12c-2025-c-1s2-q14",
+  ],
+  /** Questions whose accessible text is the reviewed fix in transcript-corrections.json, not the blind read. */
+  transcriptCorrections: [
+    "cbse12c-2023-m-121-q22", "cbse12c-2023-m-121-q23", "cbse12c-2023-m-121-q24", "cbse12c-2023-m-121-q27", "cbse12c-2023-m-121-q29", "cbse12c-2023-m-121-q31",
+    "cbse12c-2023-m-151-q31", "cbse12c-2024-c-1s1-q32-or", "cbse12c-2025-m-121-q32", "cbse12c-2025-m-143-q27", "cbse12c-2026-c-171-q29",
   ],
   /** Settled two-letter official keys (mcq-key-settlements.json): either letter scores. */
   twoLetterKeys: {
