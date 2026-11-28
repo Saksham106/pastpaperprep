@@ -375,6 +375,7 @@ export function PricingContent({ authenticated, hasPaidAccess, currentPlanNames 
             { id: "pricing-cambridge", label: "Cambridge IGCSE", qualification: "igcse" as const, panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge IGCSE")} /> },
             { id: "pricing-ib", label: "IB Diploma", qualification: "ib" as const, panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "International Baccalaureate")} /> },
             { id: "pricing-a-level", label: "Cambridge A Level", qualification: "a-level" as const, panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "Cambridge A Level")} /> },
+            { id: "pricing-cbse", label: "CBSE", qualification: "cbse" as const, panel: <BankTable banks={availableBanks.filter((bank) => bank.qualification === "CBSE")} /> },
           ].filter((item) => item.panel.props.banks.length > 0)} />
         </section>
 

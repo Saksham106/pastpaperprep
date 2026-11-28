@@ -1,0 +1,419 @@
+{
+  "artifact": "cbse_10_science_student_taxonomy",
+  "version": "cbse10s_curriculum_taxonomy@1",
+  "qualification": "CBSE Class 10 Science (086)",
+  "era": "2023",
+  "note": "Topics are the thirteen NCERT chapters in book order, each in its science (chemistry, biology or physics); subtopics are the NCERT sections. One combined paper; no earlier-syllabus topics.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "c6a1865f58ef545ec4b30bf5fba9929c3dd07358a021866509b0e361694a796f",
+  "chapters": [
+    {
+      "id": "cbse10s:2023:1",
+      "code": "1",
+      "label": "Chemical Reactions and Equations",
+      "group": "chemistry",
+      "era": "2023",
+      "official": true,
+      "questions": 203,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Chemical Equations",
+          "curriculumTitle": "Chemical Equations"
+        },
+        {
+          "code": "1.2",
+          "label": "Types of Chemical Reactions",
+          "curriculumTitle": "Types of Chemical Reactions"
+        },
+        {
+          "code": "1.3",
+          "label": "Have You Observed the Effects of Oxidation Reactions in Everyday Life?",
+          "curriculumTitle": "Have You Observed the Effects of Oxidation Reactions in Everyday Life?"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:2",
+      "code": "2",
+      "label": "Acids, Bases and Salts",
+      "group": "chemistry",
+      "era": "2023",
+      "official": true,
+      "questions": 231,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Understanding the Chemical Properties of Acids and Bases",
+          "curriculumTitle": "Understanding the Chemical Properties of Acids and Bases"
+        },
+        {
+          "code": "2.2",
+          "label": "What Do All Acids and All Bases Have in Common?",
+          "curriculumTitle": "What Do All Acids and All Bases Have in Common?"
+        },
+        {
+          "code": "2.3",
+          "label": "How Strong Are Acid or Base Solutions?",
+          "curriculumTitle": "How Strong Are Acid or Base Solutions?"
+        },
+        {
+          "code": "2.4",
+          "label": "More About Salts",
+          "curriculumTitle": "More About Salts"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:3",
+      "code": "3",
+      "label": "Metals and Non-metals",
+      "group": "chemistry",
+      "era": "2023",
+      "official": true,
+      "questions": 186,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Physical Properties",
+          "curriculumTitle": "Physical Properties"
+        },
+        {
+          "code": "3.2",
+          "label": "Chemical Properties of Metals",
+          "curriculumTitle": "Chemical Properties of Metals"
+        },
+        {
+          "code": "3.3",
+          "label": "How do Metals and Non-metals React?",
+          "curriculumTitle": "How do Metals and Non-metals React?"
+        },
+        {
+          "code": "3.4",
+          "label": "Occurrence of Metals",
+          "curriculumTitle": "Occurrence of Metals"
+        },
+        {
+          "code": "3.5",
+          "label": "Corrosion",
+          "curriculumTitle": "Corrosion"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:4",
+      "code": "4",
+      "label": "Carbon and its Compounds",
+      "group": "chemistry",
+      "era": "2023",
+      "official": true,
+      "questions": 176,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Bonding in Carbon – The Covalent Bond",
+          "curriculumTitle": "Bonding in Carbon – The Covalent Bond"
+        },
+        {
+          "code": "4.2",
+          "label": "Versatile Nature of Carbon",
+          "curriculumTitle": "Versatile Nature of Carbon"
+        },
+        {
+          "code": "4.3",
+          "label": "Chemical Properties of Carbon Compounds",
+          "curriculumTitle": "Chemical Properties of Carbon Compounds"
+        },
+        {
+          "code": "4.4",
+          "label": "Some Important Carbon Compounds – Ethanol and Ethanoic Acid",
+          "curriculumTitle": "Some Important Carbon Compounds – Ethanol and Ethanoic Acid"
+        },
+        {
+          "code": "4.5",
+          "label": "Soaps and Detergents",
+          "curriculumTitle": "Soaps and Detergents"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:5",
+      "code": "5",
+      "label": "Life Processes",
+      "group": "biology",
+      "era": "2023",
+      "official": true,
+      "questions": 253,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "What are Life Processes?",
+          "curriculumTitle": "What are Life Processes?"
+        },
+        {
+          "code": "5.2",
+          "label": "Nutrition",
+          "curriculumTitle": "Nutrition"
+        },
+        {
+          "code": "5.3",
+          "label": "Respiration",
+          "curriculumTitle": "Respiration"
+        },
+        {
+          "code": "5.4",
+          "label": "Transportation",
+          "curriculumTitle": "Transportation"
+        },
+        {
+          "code": "5.5",
+          "label": "Excretion",
+          "curriculumTitle": "Excretion"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:6",
+      "code": "6",
+      "label": "Control and Coordination",
+      "group": "biology",
+      "era": "2023",
+      "official": true,
+      "questions": 172,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Animals – Nervous System",
+          "curriculumTitle": "Animals – Nervous System"
+        },
+        {
+          "code": "6.2",
+          "label": "Coordination in Plants",
+          "curriculumTitle": "Coordination in Plants"
+        },
+        {
+          "code": "6.3",
+          "label": "Hormones in Animals",
+          "curriculumTitle": "Hormones in Animals"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:7",
+      "code": "7",
+      "label": "How do Organisms Reproduce?",
+      "group": "biology",
+      "era": "2023",
+      "official": true,
+      "questions": 189,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Do Organisms Create Exact Copies of Themselves?",
+          "curriculumTitle": "Do Organisms Create Exact Copies of Themselves?"
+        },
+        {
+          "code": "7.2",
+          "label": "Modes of Reproduction Used by Single Organisms",
+          "curriculumTitle": "Modes of Reproduction Used by Single Organisms"
+        },
+        {
+          "code": "7.3",
+          "label": "Sexual Reproduction",
+          "curriculumTitle": "Sexual Reproduction"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:8",
+      "code": "8",
+      "label": "Heredity",
+      "group": "biology",
+      "era": "2023",
+      "official": true,
+      "questions": 125,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Accumulation of Variation During Reproduction",
+          "curriculumTitle": "Accumulation of Variation During Reproduction"
+        },
+        {
+          "code": "8.2",
+          "label": "Heredity",
+          "curriculumTitle": "Heredity"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:9",
+      "code": "9",
+      "label": "Light – Reflection and Refraction",
+      "group": "physics",
+      "era": "2023",
+      "official": true,
+      "questions": 188,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Reflection of Light",
+          "curriculumTitle": "Reflection of Light"
+        },
+        {
+          "code": "9.2",
+          "label": "Spherical Mirrors",
+          "curriculumTitle": "Spherical Mirrors"
+        },
+        {
+          "code": "9.3",
+          "label": "Refraction of Light",
+          "curriculumTitle": "Refraction of Light"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:10",
+      "code": "10",
+      "label": "The Human Eye and the Colourful World",
+      "group": "physics",
+      "era": "2023",
+      "official": true,
+      "questions": 163,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "The Human Eye",
+          "curriculumTitle": "The Human Eye"
+        },
+        {
+          "code": "10.2",
+          "label": "Defects of Vision and Their Correction",
+          "curriculumTitle": "Defects of Vision and Their Correction"
+        },
+        {
+          "code": "10.3",
+          "label": "Refraction of Light through a Prism",
+          "curriculumTitle": "Refraction of Light through a Prism"
+        },
+        {
+          "code": "10.4",
+          "label": "Dispersion of White Light by a Glass Prism",
+          "curriculumTitle": "Dispersion of White Light by a Glass Prism"
+        },
+        {
+          "code": "10.5",
+          "label": "Atmospheric Refraction",
+          "curriculumTitle": "Atmospheric Refraction"
+        },
+        {
+          "code": "10.6",
+          "label": "Scattering of Light",
+          "curriculumTitle": "Scattering of Light"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:11",
+      "code": "11",
+      "label": "Electricity",
+      "group": "physics",
+      "era": "2023",
+      "official": true,
+      "questions": 192,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "Electric Current and Circuit",
+          "curriculumTitle": "Electric Current and Circuit"
+        },
+        {
+          "code": "11.2",
+          "label": "Electric Potential and Potential Difference",
+          "curriculumTitle": "Electric Potential and Potential Difference"
+        },
+        {
+          "code": "11.3",
+          "label": "Circuit Diagram",
+          "curriculumTitle": "Circuit Diagram"
+        },
+        {
+          "code": "11.4",
+          "label": "Ohm's Law",
+          "curriculumTitle": "Ohm's Law"
+        },
+        {
+          "code": "11.5",
+          "label": "Factors on which the Resistance of a Conductor Depends",
+          "curriculumTitle": "Factors on which the Resistance of a Conductor Depends"
+        },
+        {
+          "code": "11.6",
+          "label": "Resistance of a System of Resistors",
+          "curriculumTitle": "Resistance of a System of Resistors"
+        },
+        {
+          "code": "11.7",
+          "label": "Heating Effect of Electric Current",
+          "curriculumTitle": "Heating Effect of Electric Current"
+        },
+        {
+          "code": "11.8",
+          "label": "Electric Power",
+          "curriculumTitle": "Electric Power"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:12",
+      "code": "12",
+      "label": "Magnetic Effects of Electric Current",
+      "group": "physics",
+      "era": "2023",
+      "official": true,
+      "questions": 169,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Magnetic Field and Field Lines",
+          "curriculumTitle": "Magnetic Field and Field Lines"
+        },
+        {
+          "code": "12.2",
+          "label": "Magnetic Field due to a Current-Carrying Conductor",
+          "curriculumTitle": "Magnetic Field due to a Current-Carrying Conductor"
+        },
+        {
+          "code": "12.3",
+          "label": "Force on a Current-Carrying Conductor in a Magnetic Field",
+          "curriculumTitle": "Force on a Current-Carrying Conductor in a Magnetic Field"
+        },
+        {
+          "code": "12.4",
+          "label": "Domestic Electric Circuits",
+          "curriculumTitle": "Domestic Electric Circuits"
+        }
+      ]
+    },
+    {
+      "id": "cbse10s:2023:13",
+      "code": "13",
+      "label": "Our Environment",
+      "group": "biology",
+      "era": "2023",
+      "official": true,
+      "questions": 162,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Eco-system — What are its Components?",
+          "curriculumTitle": "Eco-system — What are its Components?"
+        },
+        {
+          "code": "13.2",
+          "label": "How do our Activities affect the Environment?",
+          "curriculumTitle": "How do our Activities affect the Environment?"
+        }
+      ]
+    }
+  ]
+}

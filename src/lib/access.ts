@@ -1,7 +1,7 @@
 import type { BankSlug, ProductionBankSlug } from "@/lib/banks";
 import { BANK_CATALOG } from "@/lib/catalog";
 
-export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bank_igcse_computer_science_0478" | "bank_ib_computer_science_hl" | "bank_ib_computer_science_sl" | "bank_ib_business_management_hl" | "bank_ib_business_management_sl" | "bank_a_level_maths_9709" | "bank_a_level_physics_9702" | "bank_a_level_chemistry_9701" | "bank_a_level_biology_9700" | "bank_a_level_economics_9708" | "bank_a_level_computer_science_9618" | "bank_a_level_further_maths_9231" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom" | "lifetime_all_access";
+export type ProductId = "bank_igcse" | "bank_igcse_additional" | "bank_ib_hl" | "bank_ib_sl" | "bank_ib_ai_hl" | "bank_ib_ai_sl" | "bank_ib_chemistry_hl" | "bank_ib_chemistry_sl" | "bank_ib_physics_hl" | "bank_ib_physics_sl" | "bank_ib_biology_hl" | "bank_ib_biology_sl" | "bank_ib_economics_hl" | "bank_ib_economics_sl" | "bank_igcse_biology_0610" | "bank_igcse_economics_0455" | "bank_igcse_chemistry_0620" | "bank_igcse_physics_0625" | "bank_igcse_coordinated_sciences_0654" | "bank_igcse_computer_science_0478" | "bank_ib_computer_science_hl" | "bank_ib_computer_science_sl" | "bank_ib_business_management_hl" | "bank_ib_business_management_sl" | "bank_a_level_maths_9709" | "bank_a_level_physics_9702" | "bank_a_level_chemistry_9701" | "bank_a_level_biology_9700" | "bank_a_level_economics_9708" | "bank_a_level_computer_science_9618" | "bank_a_level_further_maths_9231" | "bank_cbse_10_maths" | "bank_cbse_10_science" | "bank_cbse_12_physics" | "bank_cbse_12_chemistry" | "bank_cbse_12_maths" | "bank_cbse_12_biology" | "bundle_igcse" | "bundle_ib_aa" | "bundle_ib_ai" | "bundle_ib_chemistry" | "bundle_ib_physics" | "bundle_ib_biology" | "bundle_ib_economics" | "bundle_all" | "bundle_custom" | "lifetime_all_access";
 export type EntitlementStatus = "active" | "trialing" | "expired" | "revoked";
 
 export type AccessEntitlement = {
@@ -140,12 +140,22 @@ export const PRIVATE_FREE_QUESTION_YEARS: Partial<Record<BankSlug, readonly numb
   "a-level-computer-science-9618": [2021, 2022],
   // A Level Further Mathematics 9231: the 2020 syllabus's first two years, including the unsat May/June 2020 papers.
   "a-level-further-maths-9231": [2020, 2021],
+  // CBSE: 2023 main and compartment papers (the first year after the two-term 2022 exams), proposed in the CBSE plan.
+  "cbse-10-maths": [2023],
+  "cbse-10-science": [2023],
+  "cbse-12-physics": [2023],
+  "cbse-12-chemistry": [2023],
+  "cbse-12-maths": [2023],
+  "cbse-12-biology": [2023],
 };
 
 export const PRIVATE_PREVIEW_QUESTION_IDS: Partial<Record<BankSlug, readonly string[]>> = {};
 
-/** Syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`, `ib-cs-2019-…`, `ibbm-2020-…`), then the IB year-first form. */
-const SYLLABUS_PREFIXED_ID = /^(?:\d{4}|ib-cs|ibbm)-(\d{4})-/;
+/**
+ * Syllabus-prefixed id (`0580-2016-…`, `0654-2021-…`, `ib-cs-2019-…`, `ibbm-2020-…`; CBSE in the toolkit's form
+ * `cbse12p-2025-m-111-q5` or the bank-slug form `cbse-12-physics-2024-…`), then the IB year-first form.
+ */
+const SYLLABUS_PREFIXED_ID = /^(?:\d{4}|ib-cs|ibbm|cbse\d{2}[a-z]+|cbse-\d{2}-[a-z]+)-(\d{4})-/;
 const YEAR_FIRST_ID = /^(\d{4})-/;
 
 export function questionYear(questionId: string): number | null {

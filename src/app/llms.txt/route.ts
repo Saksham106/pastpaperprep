@@ -33,6 +33,7 @@ export async function GET() {
   const igcse = banks.filter((bank) => bank.qualification === "Cambridge IGCSE");
   const ib = banks.filter((bank) => bank.qualification === "IB Diploma");
   const aLevel = banks.filter((bank) => bank.qualification === "Cambridge A Level");
+  const cbse = banks.filter((bank) => bank.qualification === "CBSE");
   // Explanation coverage straight from the published list, so this line can't drift from the banks.
   const explained = (bank: CatalogBank) => (available as Record<string, string[]>)[bank.slug]?.length ?? 0;
   const partial = banks.filter((bank) => explained(bank) < bank.questionCount);
@@ -55,15 +56,15 @@ export async function GET() {
 
   const body = `# PastPaperPrep
 
-> PastPaperPrep is a past-paper practice site for Cambridge IGCSE${aLevel.length ? ", Cambridge A Level" : ""} and IB Diploma students, tutors and teachers. It sorts real exam questions by topic, shows the mark scheme for each question, and turns any selection into a printable PDF worksheet. Whole past papers and mark schemes are free to read without an account.
+> PastPaperPrep is a past-paper practice site for Cambridge IGCSE${aLevel.length ? ", Cambridge A Level" : ""}${cbse.length ? ", IB Diploma and CBSE" : " and IB Diploma"} students, tutors and teachers. It sorts real exam questions by topic, shows the mark scheme for each question, and turns any selection into a printable PDF worksheet. Whole past papers and mark schemes are free to read without an account.
 
 Key facts${updated ? `, as of ${updated}` : ""}:
 
-- ${questions.toLocaleString("en-US")} past-paper questions across ${banks.length} question banks (${igcse.length} Cambridge IGCSE, ${aLevel.length ? `${aLevel.length} Cambridge A Level, ` : ""}${ib.length} IB Diploma).
+- ${questions.toLocaleString("en-US")} past-paper questions across ${banks.length} question banks (${igcse.length} Cambridge IGCSE, ${aLevel.length ? `${aLevel.length} Cambridge A Level, ` : ""}${ib.length} IB Diploma${cbse.length ? `, ${cbse.length} CBSE` : ""}).
 ${papers.length ? `- ${papers.reduce((total, bank) => total + bank.paperCount, 0).toLocaleString("en-US")} whole past papers with mark schemes, free and without sign-up, at ${SITE_URL}/past-papers.\n` : ""}- Questions come from official past papers, not newly written look-alikes. ${coverage}
 - Free plan: free exam years in ${freeTierScope(banks)}, no card needed.
 - Paid plans (US dollars): one bank ${monthly(1)}/month or ${annual(1)}/year; ${PRICING_MODEL.builder.minBanks} to ${PRICING_MODEL.builder.maxBanks} banks from ${monthly(PRICING_MODEL.builder.minBanks)}/month or ${annual(PRICING_MODEL.builder.minBanks)}/year; All Access to every bank ${monthly(PRICING_MODEL.allAccess.minBanks)}/month or ${annual(PRICING_MODEL.allAccess.minBanks)}/year (annual saves up to ${maximumAnnualSavingPercent()}%); Lifetime All Access ${formatPrice(LIFETIME_OFFER.amountCents)} once. Cancel any time.
-- Independent: not affiliated with Cambridge International or the International Baccalaureate.
+- Independent: not affiliated with Cambridge International${cbse.length ? ", the International Baccalaureate or CBSE" : " or the International Baccalaureate"}.
 
 ## Cambridge IGCSE question banks
 
@@ -73,7 +74,7 @@ ${igcse.map(bankLine).join("\n")}
 
 ${ib.map(bankLine).join("\n")}
 
-${aLevel.length ? `## Cambridge A Level question banks\n\n${aLevel.map(bankLine).join("\n")}\n\n` : ""}${papers.length ? `## Free past papers
+${aLevel.length ? `## Cambridge A Level question banks\n\n${aLevel.map(bankLine).join("\n")}\n\n` : ""}${cbse.length ? `## CBSE question banks\n\n${cbse.map(bankLine).join("\n")}\n\n` : ""}${papers.length ? `## Free past papers
 
 - [All free past papers](${SITE_URL}/past-papers)
 ${papers.map((bank) => `- [${bank.name} past papers](${SITE_URL}/past-papers/${bank.subjectSlug}): ${bank.paperCount} papers, ${bank.years}`).join("\n")}

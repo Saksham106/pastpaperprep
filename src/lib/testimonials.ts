@@ -41,9 +41,9 @@ export const ABOUT_TESTIMONIAL: Testimonial = { quote: "I'm a full-time IGCSE tu
 
 /**
  * Boards with no quotes from their own students yet. Their pages show no quote rather than another board's
- * (owner, 2026-11-18: no IB quotes on A Level pages until there are A Level ones).
+ * (owner, 2026-11-18: no IB quotes on A Level pages until there are A Level ones). CBSE likewise.
  */
-const BOARDS_WITHOUT_QUOTES: readonly QualificationId[] = ["a-level"];
+const BOARDS_WITHOUT_QUOTES: readonly QualificationId[] = ["a-level", "cbse"];
 
 /** `testimonial` on a bank's pages, or nothing when the bank's board has no quotes of its own yet. */
 export function testimonialForBank(slug: string | null | undefined, testimonial: Testimonial): Testimonial | undefined {

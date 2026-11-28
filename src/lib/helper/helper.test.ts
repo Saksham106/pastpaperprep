@@ -43,11 +43,13 @@ describe("parsePepperRequest", () => {
 });
 
 describe("helper config", () => {
-  it("maps banks to boards and runs on every board", () => {
+  it("maps banks to boards and runs on every launched board", () => {
     expect(helperBoard("igcse-physics-0625")).toBe("igcse");
     expect(helperBoard("a-level-maths-9709")).toBe("a-level");
     expect(helperBoard("ib-hl")).toBe("ib");
-    expect(Object.values(HELPER_BOARDS).every(Boolean)).toBe(true);
+    expect(helperBoard("cbse-12-physics")).toBe("cbse");
+    // CBSE is held: the owner switches the helper on with its launch.
+    expect(HELPER_BOARDS).toEqual({ igcse: true, "a-level": true, ib: true, cbse: false });
   });
 
   it("offers the owner's three chips", () => {

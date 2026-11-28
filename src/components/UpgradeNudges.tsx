@@ -85,7 +85,7 @@ export function FeedTeaserCard({ bank, question, topicLabel, href, slot, sentVie
   return (
     <aside ref={viewRef} className="upgrade-card is-teaser" aria-label="Upgrade: newest paper">
       <header className="question-card-header">
-        <div className="question-meta"><span>{question.year} {question.session}</span>{" "}<span>Paper {question.paper}</span>{" "}<span>Question {question.number}</span>{question.marks !== null && <>{" "}<span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span></>}</div>
+        <div className="question-meta"><span>{question.year} {question.session}</span>{" "}{!bank.startsWith("cbse-") && <><span>Paper {question.paper}</span>{" "}</>}<span>Question {question.number}</span>{question.marks !== null && <>{" "}<span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span></>}</div>
         <span className="upgrade-lock">{question.year} paper</span>
       </header>
       <div className="question-topic"><strong>{topicLabel}</strong></div>

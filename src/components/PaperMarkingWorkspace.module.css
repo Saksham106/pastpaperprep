@@ -16,6 +16,9 @@
 .question label { min-width: 0; display: flex; align-items: baseline; gap: 10px; }
 .question label b { min-width: 30px; color: var(--muted); font: 600 .84rem/1.2 var(--font-mono); }
 .question label span { overflow: hidden; color: var(--ink-soft); font-size: .86rem; text-overflow: ellipsis; white-space: nowrap; }
+.keyNoteLabel { min-width: 0; margin: 0; display: flex; align-items: baseline; gap: 10px; }
+.keyNoteLabel b { min-width: 30px; color: var(--muted); font: 600 .84rem/1.2 var(--font-mono); }
+.keyNoteLabel span { overflow: hidden; color: var(--ink-soft); font-size: .86rem; text-overflow: ellipsis; white-space: nowrap; }
 .visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .stepper { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
 .stepper button { width: 32px; height: 34px; display: grid; place-items: center; color: var(--muted); background: transparent; border: 0; border-radius: 9px; }

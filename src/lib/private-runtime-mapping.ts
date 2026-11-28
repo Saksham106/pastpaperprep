@@ -21,6 +21,12 @@ export const PRIVATE_RUNTIME_OBJECT_PREFIXES: Partial<Record<BankSlug, string>> 
   "a-level-economics-9708": "a-level-economics-9708/releases/full3208-v1-a51a32c54f4e/",
   "a-level-computer-science-9618": "a-level-computer-science-9618/releases/full750-v1-a456b8f0af53/",
   "a-level-further-maths-9231": "a-level-further-maths-9231/releases/full813-v1-89c4fe2cbc19/",
+  "cbse-12-chemistry": "cbse-12-chemistry/releases/full1844-v1-f34054df3005/",
+  "cbse-10-science": "cbse-10-science/releases/full2375-v1-957e2ef49450/",
+  "cbse-12-physics": "cbse-12-physics/releases/full1624-v1-d2e3683c8e1d/",
+  "cbse-12-biology": "cbse-12-biology/releases/full1805-v1-0ba3847d4293/",
+  "cbse-10-maths": "cbse-10-maths/releases/full3826-v1-da3dfa9d1cbd/",
+  "cbse-12-maths": "cbse-12-maths/releases/full2088-v1-6929531a08fe/",
 };
 
 export function getPrivateBankObjectPrefix(bank: BankSlug): string {

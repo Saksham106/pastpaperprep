@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "cbse-12-biology",
+  "date": "2026-11-28",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "cbse-12-biology/releases/full1805-v1-0ba3847d4293/",
+  "objects": 4093,
+  "bytes": 56039456,
+  "uniqueKeys": 4093,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 4093,
+  "sha256MatchesSegmentationRecord": 4093,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96",
+  "sourceCommit": "23da57a",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (scripts/r2-upload-worker) against data/storage/cbse-12-biology.manifest.json, then generate-igcse-release.mjs --finalize cbse-12-biology. The free year goes to the free bucket with scripts/free-copy after the upload is read back."
+}

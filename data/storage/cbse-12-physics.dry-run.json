@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "cbse-12-physics",
+  "date": "2026-11-27",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "cbse-12-physics/releases/full1624-v1-d2e3683c8e1d/",
+  "objects": 3909,
+  "bytes": 51825192,
+  "uniqueKeys": 3909,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 3909,
+  "sha256MatchesSegmentationRecord": 3909,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "d2e3683c8e1d91a9d7c540c229d251754379406d3b25c64c304a2e0eabea6225",
+  "sourceCommit": "b2537af",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (scripts/r2-upload-worker) against data/storage/cbse-12-physics.manifest.json, then generate-igcse-release.mjs --finalize cbse-12-physics. The free year goes to the free bucket with scripts/free-copy after the upload is read back."
+}

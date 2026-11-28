@@ -2,7 +2,8 @@ import { Atom, ChartLineUp, Cpu, Dna, Flask, MathOperations, Microscope } from "
 export type CourseTone = "math" | "chemistry" | "physics" | "biology" | "economics" | "coordinated" | "computer-science";
 
 export function courseToneForBank(bank: { subject: string }): CourseTone {
-  if (bank.subject.includes("Co-ordinated")) return "coordinated";
+  // CBSE Class 10 Science is one combined science paper, like Co-ordinated Sciences.
+  if (bank.subject.includes("Co-ordinated") || /^Science\b/.test(bank.subject)) return "coordinated";
   if (bank.subject.includes("Computer Science")) return "computer-science";
   if (bank.subject.includes("Chemistry")) return "chemistry";
   if (bank.subject.includes("Physics")) return "physics";

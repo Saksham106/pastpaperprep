@@ -1,0 +1,207 @@
+/**
+ * CBSE (India) Class 10 and Class 12 board banks. Pure and client-safe.
+ *
+ * Class 10 Mathematics is sat at one of two levels with separate papers: Standard (041) and Basic (241). Both cover
+ * the same syllabus, so the bank shows level tabs (Standard / Basic / All) the way IGCSE banks show Core / Extended,
+ * and a level tab never narrows the chapter list. The runtime's `paper` names the level; a question printed in both
+ * levels' papers is one canonical row (the other copies are its aliases) marked `syllabusRoute: "both"`.
+ */
+export const CBSE_10_MATHS = "cbse-10-maths" as const;
+
+export const CBSE_BANKS = ["cbse-10-maths", "cbse-10-science", "cbse-12-physics", "cbse-12-chemistry", "cbse-12-maths", "cbse-12-biology"] as const;
+
+export type Cbse10MathsLevel = { paper: 1 | 2; route: "standard" | "basic"; label: string; code: string };
+
+/** `paper` in the cbse-10-maths runtime: 1 = Standard (041), 2 = Basic (241). Every other CBSE bank uses paper 1. */
+export const CBSE_10_MATHS_LEVELS: readonly Cbse10MathsLevel[] = [
+  { paper: 1, route: "standard", label: "Standard", code: "041" },
+  { paper: 2, route: "basic", label: "Basic", code: "241" },
+];
+
+export type CbseUnit = { unit: string; chapters: readonly string[] };
+
+/**
+ * Topics are chapters, in curriculum order, grouped by unit (Class 10 Science by its physics, chemistry and biology
+ * chapters). Titles are the content sessions' syllabus trees (CBSE curriculum 2025-26 / 2026-27 wording, which differs
+ * from NCERT in places: "Applications of Derivatives", "Human Health and Diseases", Class 10 Maths' "Trigonometric
+ * Identities" and "Heights and Distances"). A runtime's `primaryTopic` must be one of these titles exactly, or a named "(earlier syllabus)" topic,
+ * which the picker lists after them.
+ */
+export const CBSE_TOPICS: Readonly<Record<(typeof CBSE_BANKS)[number], readonly CbseUnit[]>> = {
+  "cbse-10-maths": [
+    { unit: "Number Systems", chapters: ["Real Numbers"] },
+    { unit: "Algebra", chapters: ["Polynomials", "Pair of Linear Equations in Two Variables", "Quadratic Equations", "Arithmetic Progressions"] },
+    { unit: "Coordinate Geometry", chapters: ["Coordinate Geometry"] },
+    { unit: "Geometry", chapters: ["Triangles", "Circles"] },
+    // The curriculum splits NCERT's "Some Applications of Trigonometry" into identities and heights and distances.
+    { unit: "Trigonometry", chapters: ["Introduction to Trigonometry", "Trigonometric Identities", "Heights and Distances"] },
+    { unit: "Mensuration", chapters: ["Areas Related to Circles", "Surface Areas and Volumes"] },
+    { unit: "Statistics and Probability", chapters: ["Statistics", "Probability"] },
+  ],
+  "cbse-10-science": [
+    // NCERT chapter order (1-13); Our Environment (13) is a biology chapter after the physics ones.
+    { unit: "Chemistry", chapters: ["Chemical Reactions and Equations", "Acids, Bases and Salts", "Metals and Non-metals", "Carbon and its Compounds"] },
+    { unit: "Biology", chapters: ["Life Processes", "Control and Coordination", "How do Organisms Reproduce?", "Heredity"] },
+    { unit: "Physics", chapters: ["Light – Reflection and Refraction", "The Human Eye and the Colourful World", "Electricity", "Magnetic Effects of Electric Current"] },
+    { unit: "Biology", chapters: ["Our Environment"] },
+  ],
+  "cbse-12-physics": [
+    { unit: "Electrostatics", chapters: ["Electric Charges and Fields", "Electrostatic Potential and Capacitance"] },
+    { unit: "Current Electricity", chapters: ["Current Electricity"] },
+    { unit: "Magnetic Effects of Current and Magnetism", chapters: ["Moving Charges and Magnetism", "Magnetism and Matter"] },
+    { unit: "Electromagnetic Induction and Alternating Currents", chapters: ["Electromagnetic Induction", "Alternating Current"] },
+    { unit: "Electromagnetic Waves", chapters: ["Electromagnetic Waves"] },
+    { unit: "Optics", chapters: ["Ray Optics and Optical Instruments", "Wave Optics"] },
+    { unit: "Dual Nature of Radiation and Matter", chapters: ["Dual Nature of Radiation and Matter"] },
+    { unit: "Atoms and Nuclei", chapters: ["Atoms", "Nuclei"] },
+    { unit: "Electronic Devices", chapters: ["Semiconductor Electronics: Materials, Devices and Simple Circuits"] },
+  ],
+  "cbse-12-chemistry": [
+    { unit: "Physical Chemistry", chapters: ["Solutions", "Electrochemistry", "Chemical Kinetics"] },
+    { unit: "Inorganic Chemistry", chapters: ["d- and f-Block Elements", "Coordination Compounds"] },
+    { unit: "Organic Chemistry", chapters: ["Haloalkanes and Haloarenes", "Alcohols, Phenols and Ethers", "Aldehydes, Ketones and Carboxylic Acids", "Amines", "Biomolecules"] },
+  ],
+  "cbse-12-maths": [
+    { unit: "Relations and Functions", chapters: ["Relations and Functions", "Inverse Trigonometric Functions"] },
+    { unit: "Algebra", chapters: ["Matrices", "Determinants"] },
+    { unit: "Calculus", chapters: ["Continuity and Differentiability", "Applications of Derivatives", "Integrals", "Application of the Integrals", "Differential Equations"] },
+    { unit: "Vectors and Three-dimensional Geometry", chapters: ["Vectors", "Three-dimensional Geometry"] },
+    { unit: "Linear Programming", chapters: ["Linear Programming"] },
+    { unit: "Probability", chapters: ["Probability"] },
+  ],
+  "cbse-12-biology": [
+    { unit: "Reproduction", chapters: ["Sexual Reproduction in Flowering Plants", "Human Reproduction", "Reproductive Health"] },
+    { unit: "Genetics and Evolution", chapters: ["Principles of Inheritance and Variation", "Molecular Basis of Inheritance", "Evolution"] },
+    { unit: "Biology and Human Welfare", chapters: ["Human Health and Diseases", "Microbes in Human Welfare"] },
+    { unit: "Biotechnology and its Applications", chapters: ["Biotechnology - Principles and Processes", "Biotechnology and its Applications"] },
+    { unit: "Ecology and Environment", chapters: ["Organisms and Populations", "Ecosystem", "Biodiversity and its Conservation"] },
+  ],
+};
+
+export function isCbseTopicBank(bank: string | undefined): bank is (typeof CBSE_BANKS)[number] {
+  return (CBSE_BANKS as readonly string[]).includes(bank ?? "");
+}
+
+/** A CBSE bank's chapters in curriculum order. */
+export function cbseChapterOrder(bank: (typeof CBSE_BANKS)[number]): readonly string[] {
+  return CBSE_TOPICS[bank].flatMap((unit) => unit.chapters);
+}
+
+/**
+ * Class 10 Science is one paper, printed in Biology, Chemistry and Physics sections (2026). Tabs scope the chapter list to
+ * one science, the way A Level paper tabs scope topics; "All" (the default) is the whole paper. Tab order follows the paper.
+ */
+export const CBSE_10_SCIENCE = "cbse-10-science" as const;
+export const CBSE_10_SCIENCE_GROUPS = (["Biology", "Chemistry", "Physics"] as const).map((group) => ({
+  route: group.toLowerCase(),
+  label: group,
+  chapters: CBSE_TOPICS["cbse-10-science"].filter((unit) => unit.unit === group).flatMap((unit) => unit.chapters),
+}));
+
+/**
+ * Subtopic labels in curriculum order, topic -> its subtopics, per bank, from each content session's syllabus tree.
+ * A bank not listed yet groups subtopics by the questions that carry them.
+ */
+export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonly<Record<string, readonly string[]>>>> = {
+  // Curriculum clauses in taxonomy order (cbse-10-maths-topic-practice 369d650; the runtime's taxonomy). Standard and
+  // Basic share them.
+  "cbse-10-maths": {
+    "Real Numbers": ["Fundamental Theorem of Arithmetic (HCF and LCM)", "Irrationality proofs"],
+    "Polynomials": ["Zeros of a polynomial", "Zeros and coefficients of quadratic polynomials"],
+    "Pair of Linear Equations in Two Variables": ["Graphical method; consistency", "Algebraic conditions for the number of solutions", "Substitution and elimination; situational problems"],
+    "Quadratic Equations": ["Standard form", "Factorisation, quadratic formula, discriminant and nature of roots", "Situational problems"],
+    "Arithmetic Progressions": ["Arithmetic progressions", "nth term and sum of the first n terms"],
+    "Coordinate Geometry": ["Distance formula", "Section formula (internal division)"],
+    "Triangles": ["Similar triangles", "Basic proportionality theorem and its converse", "Similarity criteria (AAA, SSS, SAS)"],
+    "Circles": ["Tangent perpendicular to the radius", "Tangents from an external point"],
+    "Introduction to Trigonometry": ["Trigonometric ratios of an acute angle", "Ratios of 0°, 30°, 45°, 60° and 90°", "Relationships between the ratios"],
+    "Trigonometric Identities": ["sin²A + cos²A = 1 and simple identities"],
+    "Heights and Distances": ["Angles of elevation and depression"],
+    "Areas Related to Circles": ["Areas of sectors and segments", "Areas and perimeters of plane figures with circles"],
+    "Surface Areas and Volumes": ["Combinations of solids"],
+    "Statistics": ["Mean of grouped data", "Median of grouped data", "Mode of grouped data"],
+    "Probability": ["Classical probability"],
+  },
+  // Curriculum clauses in taxonomy order (cbse-12-maths-topic-practice ec81723; the runtime's taxonomy). Random variables is
+  // an earlier-syllabus clause, served on 2023-2025 papers only.
+  "cbse-12-maths": {
+    "Relations and Functions": ["Types of relations and equivalence relations", "One-one and onto functions"],
+    "Inverse Trigonometric Functions": ["Domain, range and principal values", "Graphs of inverse trigonometric functions"],
+    "Matrices": ["Types of matrices, transpose, symmetric and skew-symmetric matrices", "Matrix operations and their properties", "Invertible matrices"],
+    "Determinants": ["Determinants, minors and cofactors; area of a triangle", "Adjoint and inverse of a matrix", "Solving linear equations using the inverse of a matrix"],
+    "Continuity and Differentiability": ["Continuity and differentiability", "Chain rule, inverse trigonometric and implicit differentiation", "Exponential and logarithmic functions; logarithmic differentiation", "Parametric differentiation", "Second-order derivatives"],
+    "Applications of Derivatives": ["Rate of change", "Increasing and decreasing functions", "Maxima and minima"],
+    "Integrals": ["Indefinite integrals and integration by substitution", "Integration by partial fractions", "Integration by parts", "Standard integrals (x² ± a², a² − x², quadratics)", "Definite integrals and their properties"],
+    "Application of the Integrals": ["Area under simple curves"],
+    "Differential Equations": ["Order, degree, general and particular solutions", "Separation of variables", "Homogeneous differential equations", "Linear differential equations"],
+    "Vectors": ["Vector basics, components and the section formula", "Scalar (dot) product", "Vector (cross) product"],
+    "Three-dimensional Geometry": ["Direction cosines and direction ratios of a line", "Equations of a line", "Skew lines and shortest distance", "Angle between two lines"],
+    "Linear Programming": ["Constraints, objective function and optimisation", "Graphical method and feasible regions"],
+    "Probability": ["Conditional probability", "Multiplication theorem and independent events", "Total probability and Bayes' theorem", "Random variables and probability distributions (earlier syllabus)"],
+  },
+  // Curriculum clauses in taxonomy order (cbse-12-biology-topic-practice 23da57a; the runtime's taxonomy). The two
+  // earlier-syllabus topics have no subtopics.
+  "cbse-12-biology": {
+    "Sexual Reproduction in Flowering Plants": ["Flower structure and gametophytes", "Pollination and outbreeding devices", "Pollen-pistil interaction and double fertilisation", "Post-fertilisation events: endosperm, embryo, seed and fruit", "Apomixis, parthenocarpy and polyembryony"],
+    "Human Reproduction": ["Male and female reproductive systems", "Gametogenesis", "Menstrual cycle", "Fertilisation, embryo development and implantation", "Pregnancy, placenta, parturition and lactation"],
+    "Reproductive Health": ["Reproductive health and sexually transmitted diseases", "Birth control, contraception and MTP", "Amniocentesis, infertility and assisted reproductive technologies"],
+    "Principles of Inheritance and Variation": ["Mendelian inheritance", "Deviations from Mendelism and polygenic inheritance", "Chromosome theory, linkage and crossing over", "Sex determination", "Sex-linked inheritance", "Mendelian and chromosomal disorders"],
+    "Molecular Basis of Inheritance": ["Search for the genetic material", "Structure of DNA and RNA; DNA packaging", "DNA replication", "Central dogma: transcription, genetic code and translation", "Gene expression and regulation: lac operon", "Genome projects and DNA fingerprinting"],
+    "Evolution": ["Origin of life and evidences for evolution", "Darwin and the modern synthetic theory", "Mechanism of evolution, gene flow, drift and Hardy-Weinberg", "Adaptive radiation and human evolution"],
+    "Human Health and Diseases": ["Pathogens and common human diseases", "Immunity and vaccines", "Cancer, HIV and AIDS", "Adolescence: drug and alcohol abuse"],
+    "Microbes in Human Welfare": ["Microbes in food processing and industrial production; antibiotics", "Microbes in sewage treatment and energy generation", "Microbes as biocontrol agents and biofertilisers"],
+    "Biotechnology - Principles and Processes": ["Principles of biotechnology", "Tools of recombinant DNA technology", "Processes of recombinant DNA technology"],
+    "Biotechnology and its Applications": ["Biotechnology in medicine: insulin, vaccines, stem cells and gene therapy", "Genetically modified crops: Bt crops", "Transgenic animals", "Biosafety, biopiracy and patents"],
+    "Organisms and Populations": ["Population interactions", "Population attributes and growth"],
+    "Ecosystem": ["Ecosystem structure and components", "Productivity and decomposition", "Energy flow and ecological pyramids"],
+    "Biodiversity and its Conservation": ["Biodiversity: concept, patterns and importance", "Loss of biodiversity", "Biodiversity conservation"],
+  },
+  // Curriculum clauses in taxonomy order (cbse-12-physics-topic-practice b2537af; the runtime's taxonomy).
+  "cbse-12-physics": {
+    "Electric Charges and Fields": ["Electric charge and Coulomb's law", "Electric field and electric dipole", "Electric flux and Gauss's theorem"],
+    "Electrostatic Potential and Capacitance": ["Electric potential and potential energy", "Conductors, insulators and dielectrics", "Capacitors and capacitance"],
+    "Current Electricity": ["Current, drift velocity and Ohm's law", "Resistivity, energy and power", "Cells, emf and internal resistance", "Kirchhoff's rules and Wheatstone bridge"],
+    "Moving Charges and Magnetism": ["Magnetic field and the Biot-Savart law", "Ampere's law and solenoids", "Force on a moving charge", "Forces and torques on current-carrying conductors", "Moving coil galvanometer"],
+    "Magnetism and Matter": ["Bar magnet and magnetic field lines", "Magnetic properties of materials"],
+    "Electromagnetic Induction": ["Faraday's laws and Lenz's law", "Self and mutual induction"],
+    "Alternating Current": ["Peak and RMS values, reactance and impedance", "LCR series circuit and resonance", "Power in AC circuits", "AC generator and transformer"],
+    "Electromagnetic Waves": ["Displacement current and electromagnetic waves", "Electromagnetic spectrum"],
+    "Ray Optics and Optical Instruments": ["Reflection and spherical mirrors", "Refraction, total internal reflection and optical fibres", "Refraction at spherical surfaces and lenses", "Refraction through a prism", "Microscopes and telescopes"],
+    "Wave Optics": ["Wavefronts and Huygens' principle", "Interference and Young's double slit experiment", "Diffraction at a single slit"],
+    "Dual Nature of Radiation and Matter": ["Photoelectric effect", "Matter waves and de Broglie relation"],
+    "Atoms": ["Alpha-particle scattering and Rutherford's model", "Bohr model and hydrogen spectrum"],
+    "Nuclei": ["Composition and size of nucleus, nuclear force", "Mass defect and binding energy", "Nuclear fission and fusion"],
+    "Semiconductor Electronics: Materials, Devices and Simple Circuits": ["Energy bands and semiconductors", "p-n junction and diode characteristics", "Diode as a rectifier"],
+  },
+  // Curriculum clauses in taxonomy order (cbse-12-chemistry-topic-practice 33bc420; a title several chapters share carries
+  // its chapter, as in the runtime: scripts/generate-cbse-12-chemistry-runtime.mjs).
+  "cbse-12-chemistry": {
+    "Solutions": ["Types of solutions", "Expression of concentration of solutions", "Solubility", "Vapour pressure of liquid solutions", "Ideal and non-ideal solutions", "Colligative properties and determination of molar mass", "Abnormal molecular masses"],
+    "Electrochemistry": ["Electrochemical cells", "Galvanic cells", "Nernst equation", "Conductance of electrolytic solutions", "Electrolytic cells and electrolysis", "Batteries", "Fuel cells", "Corrosion"],
+    "Chemical Kinetics": ["Rate of a chemical reaction", "Factors influencing rate of reaction", "Integrated rate equations", "Temperature dependence of the rate of a reaction", "Collision theory of chemical reactions"],
+    "d- and f-Block Elements": ["Position in the periodic table", "Electronic configuration of the d-block elements", "General properties of the transition elements", "Some important compounds of transition elements", "The lanthanoids", "The actinoids", "Applications of d- and f-block elements"],
+    "Coordination Compounds": ["Werner's theory of coordination compounds", "Important terms pertaining to coordination compounds", "Nomenclature of coordination compounds", "Isomerism in coordination compounds", "Bonding in coordination compounds", "Bonding in metal carbonyls", "Importance and applications of coordination compounds"],
+    "Haloalkanes and Haloarenes": ["Classification (Haloalkanes and Haloarenes)", "Nomenclature (Haloalkanes and Haloarenes)", "Nature of the C–X bond", "Methods of preparation of haloalkanes", "Preparation of haloarenes", "Physical properties", "Chemical reactions", "Polyhalogen compounds"],
+    "Alcohols, Phenols and Ethers": ["Classification (Alcohols, Phenols and Ethers)", "Nomenclature (Alcohols, Phenols and Ethers)", "Structures of functional groups", "Preparation of alcohols and phenols", "Physical properties of alcohols and phenols", "Chemical reactions of alcohols and phenols", "Some commercially important alcohols", "Ethers"],
+    "Aldehydes, Ketones and Carboxylic Acids": ["Nomenclature and structure of the carbonyl group", "Preparation of aldehydes and ketones", "Physical properties and chemical reactions of aldehydes and ketones", "Uses of aldehydes and ketones", "Nomenclature and structure of the carboxyl group", "Methods of preparation of carboxylic acids", "Physical properties and chemical reactions of carboxylic acids", "Uses of carboxylic acids"],
+    "Amines": ["Structure of amines", "Classification (Amines)", "Nomenclature (Amines)", "Preparation of amines", "Physical properties of amines", "Chemical reactions of amines", "Methods of preparation of diazonium salts", "Physical properties of diazonium salts", "Chemical reactions of diazonium salts", "Importance of diazonium salts in synthesis of aromatic compounds"],
+    "Biomolecules": ["Carbohydrates", "Proteins", "Enzymes", "Vitamins", "Nucleic acids", "Hormones"],
+  },
+  // NCERT section titles in curriculum order: the runtime's taxonomy (cbse-10-science-topic-practice cd87616, checked equal
+  // in src/lib/cbse-10-science.test.ts).
+  "cbse-10-science": {
+"Chemical Reactions and Equations": ["Chemical Equations", "Types of Chemical Reactions", "Have You Observed the Effects of Oxidation Reactions in Everyday Life?"],
+    "Acids, Bases and Salts": ["Understanding the Chemical Properties of Acids and Bases", "What Do All Acids and All Bases Have in Common?", "How Strong Are Acid or Base Solutions?", "More About Salts"],
+    "Metals and Non-metals": ["Physical Properties", "Chemical Properties of Metals", "How do Metals and Non-metals React?", "Occurrence of Metals", "Corrosion"],
+    "Carbon and its Compounds": ["Bonding in Carbon – The Covalent Bond", "Versatile Nature of Carbon", "Chemical Properties of Carbon Compounds", "Some Important Carbon Compounds – Ethanol and Ethanoic Acid", "Soaps and Detergents"],
+    "Life Processes": ["What are Life Processes?", "Nutrition", "Respiration", "Transportation", "Excretion"],
+    "Control and Coordination": ["Animals – Nervous System", "Coordination in Plants", "Hormones in Animals"],
+    "How do Organisms Reproduce?": ["Do Organisms Create Exact Copies of Themselves?", "Modes of Reproduction Used by Single Organisms", "Sexual Reproduction"],
+    "Heredity": ["Accumulation of Variation During Reproduction", "Heredity"],
+    "Light – Reflection and Refraction": ["Reflection of Light", "Spherical Mirrors", "Refraction of Light"],
+    "The Human Eye and the Colourful World": ["The Human Eye", "Defects of Vision and Their Correction", "Refraction of Light through a Prism", "Dispersion of White Light by a Glass Prism", "Atmospheric Refraction", "Scattering of Light"],
+    "Electricity": ["Electric Current and Circuit", "Electric Potential and Potential Difference", "Circuit Diagram", "Ohm's Law", "Factors on which the Resistance of a Conductor Depends", "Resistance of a System of Resistors", "Heating Effect of Electric Current", "Electric Power"],
+    "Magnetic Effects of Electric Current": ["Magnetic Field and Field Lines", "Magnetic Field due to a Current-Carrying Conductor", "Force on a Current-Carrying Conductor in a Magnetic Field", "Domestic Electric Circuits"],
+    "Our Environment": ["Eco-system — What are its Components?", "How do our Activities affect the Environment?"],
+  },
+};

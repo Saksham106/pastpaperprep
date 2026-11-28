@@ -33,6 +33,8 @@ const SUBJECTS: readonly { name: string; tone: CourseTone; matches: (bank: Bank)
   // Business Management shares Economics' pastel tone and icon (the same business and economics family).
   { name: "Business Management", tone: "economics", matches: (bank) => bank.subject.includes("Business Management") },
   { name: "Co-ordinated Sciences", tone: "coordinated", matches: (bank) => bank.subject.includes("Co-ordinated") },
+  // CBSE Class 10 Science (combined physics, chemistry and biology).
+  { name: "Science", tone: "coordinated", matches: (bank) => /^Science\b/.test(bank.subject) },
   { name: "Computer Science", tone: "computer-science", matches: (bank) => bank.subject.includes("Computer Science") },
 ];
 

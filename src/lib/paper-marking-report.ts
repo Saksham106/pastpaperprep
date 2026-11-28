@@ -18,8 +18,12 @@ function compareReview(a: TopicReview, b: TopicReview): number {
   return net(b) - net(a) || b.lostEvidence.length - a.lostEvidence.length || meanLoss(b) - meanLoss(a);
 }
 
-/** `erratum`: a reviewed correction to the official key for this question (src/lib/mcq-key-errata.ts), shown only while marking. */
-export type MarkingManifest = { maxMarks: number; questions: readonly { id: string; number: number; maxMarks: number; topics: readonly string[]; erratum?: KeyErratum }[] };
+/**
+ * `erratum`: a reviewed correction to the official key for this question (src/lib/mcq-key-errata.ts), shown only while marking.
+ * `keyNote`: the official key is disputed (CBSE, owner 2026-11-27), so the question is shown with this note and never
+ * self-marked: it takes no marks and leaves the score, which is out of the remaining marks.
+ */
+export type MarkingManifest = { maxMarks: number; questions: readonly { id: string; number: number; maxMarks: number; topics: readonly string[]; erratum?: KeyErratum; keyNote?: string }[] };
 export type QuestionMarks = Record<string, number | null>;
 export type QuestionEvidence = { questionId: string; number: number; earned: number; maxMarks: number };
 export type TopicReview = { topic: string; lostEvidence: QuestionEvidence[]; fullMarkEvidence: QuestionEvidence[]; exposureCount: number };
@@ -38,11 +42,15 @@ export function createPaperMarkingReport(paper: MarkingManifest, marks: Question
   for (const [id, earned] of Object.entries(marks)) {
     if (!ids.has(id)) throw new Error('Unknown question ID');
     const question = paper.questions.find(q => q.id === id)!;
+    if (question.keyNote && earned !== null) throw new Error('Question is not self-marked');
     if (earned !== null && (!Number.isSafeInteger(earned) || earned < 0 || earned > question.maxMarks)) throw new Error('Invalid question marks');
   }
   let markedTotal = 0, markedMaximum = 0, unmarkedCount = 0;
   const topics = new Map<string, TopicReview>();
+  let scoredMaximum = 0;
   for (const question of paper.questions) {
+    if (question.keyNote) continue;
+    scoredMaximum += question.maxMarks;
     const earned = marks[question.id];
     if (earned == null) { unmarkedCount++; continue; }
     markedTotal += earned;
@@ -56,7 +64,7 @@ export function createPaperMarkingReport(paper: MarkingManifest, marks: Question
     }
   }
   const complete = unmarkedCount === 0;
-  return { markedTotal, markedMaximum, unmarkedCount, complete, overallScore: complete ? { earned: markedTotal, maxMarks: paper.maxMarks } : null, priorities: [...topics.values()].filter(t => t.lostEvidence.length).sort(compareReview), successfulTopics: [...topics.values()].filter(t => t.fullMarkEvidence.length) };
+  return { markedTotal, markedMaximum, unmarkedCount, complete, scoredMaximum, overallScore: complete ? { earned: markedTotal, maxMarks: scoredMaximum } : null, priorities: [...topics.values()].filter(t => t.lostEvidence.length).sort(compareReview), successfulTopics: [...topics.values()].filter(t => t.fullMarkEvidence.length) };
 }
 
 export type NotesLink = { href: string; label: string };

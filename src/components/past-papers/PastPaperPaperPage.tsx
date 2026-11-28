@@ -20,7 +20,7 @@ import { withKeyErrata } from '@/lib/mcq-key-errata';
 import shell from './PastPaperPages.module.css';
 import styles from './PastPaperPaperPage.module.css';
 
-const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' }, 'a-level': { name: 'Cambridge A Level', path: '/past-papers/a-level' } } as const;
+const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' }, 'a-level': { name: 'Cambridge A Level', path: '/past-papers/a-level' }, cbse: { name: 'CBSE', path: '/past-papers/cbse' } } as const;
 const sessionKey = (p: WholePaperSummary) => p.year * 10 + sessionRank(p.session);
 /** Short chip text: "42" for IGCSE, "P2 TZ1" for IB. */
 const isCambridge = (p: WholePaperSummary) => p.qualification === 'Cambridge IGCSE' || p.qualification === 'Cambridge A Level';

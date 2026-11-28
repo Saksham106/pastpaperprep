@@ -61,11 +61,13 @@ npx tsx scripts/publish-free-assets.mts copy-delete /tmp/free-copy
 **Any bank, including held (`pendingStorage`) banks** (`scripts/free-copy/free-copy.mts`, `--bank` is repeatable). The publish script skips held banks, so use this one to publish a bank's free files before it launches. It lists the files with the app's own `listFreePublicAssets`, so the set matches what the site will link to. Logs, the Worker secret and the receipt go to `--out` (default `~/.cache/ppp-upload-work/free-copy/<bank>`), which must be outside the repo. Pass the same `--bank` list (or the same `--out`) to every step; a step without either stops.
 
 ```bash
-# Held banks only: the full `npm run generate:asset-manifest` skips them, so generate theirs first
+# Held banks only: the full `npm run generate:asset-manifest` skips them, so generate theirs first, with the
+# production release flags (as a launch build sees the bank). Not PASTPAPERPREP_PREVIEW_PENDING_BANKS: the dev-only
+# preview gives a held release-lane bank local `/questions/...` paths, and `list` stops with "unsafe asset path".
+export NODE_ENV=production PASTPAPERPREP_ENABLE_IGCSE_RELEASE_BANKS=true PASTPAPERPREP_IGCSE_RELEASE_ASSETS_VERIFIED=true
 mkdir -p generated/asset-manifest generated/question-search
-NODE_ENV=development PASTPAPERPREP_PREVIEW_PENDING_BANKS=true npx tsx scripts/generate-asset-manifest.mts --bank <slug>
+npx tsx scripts/generate-asset-manifest.mts --bank <slug>     # writes generated/asset-manifest/<slug>.production.json
 # Run `list` and every later command with the same env, so the manifest name matches
-export NODE_ENV=development PASTPAPERPREP_PREVIEW_PENDING_BANKS=true
 npx tsx scripts/free-copy/free-copy.mts list   --bank <slug>   # offline: writes free-list.json and prints counts
 npx tsx scripts/free-copy/free-copy.mts deploy --bank <slug>   # owner approval: deploys, waits for 403, bundles the list
 npx tsx scripts/free-copy/free-copy.mts copy   --bank <slug>   # owner approval: waits for 403, self-test, create-only copy

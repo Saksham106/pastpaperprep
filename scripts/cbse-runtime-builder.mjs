@@ -1,0 +1,648 @@
+/**
+ * Shared CBSE runtime builder. Each bank's generator (scripts/generate-cbse-<…>-runtime.mjs) holds its pinned source and
+ * reviewed decisions in a config; this module reads the toolkit's outputs, checks them fail-closed, and writes the
+ * candidate runtime, private index, student taxonomy and alias block. Deterministic: the same pins give the same bytes.
+ *
+ * Toolkit inputs read from the source workspace (every one SHA-256 pinned in the config):
+ *   data/canonical-manifest.json, data/segmentation/full/segmentation.json, data/classification/final-labels.json,
+ *   data/classification/secondary-subtopics.json, data/classification/blind-results/*.json (accessible text),
+ *   data/taxonomy/taxonomy.json, data/held-questions.json, data/source-manifest.json, data/coverage-receipt.json,
+ *   and, where the bank has them, data/review/ms-row-reviews.json and data/gate-waivers.json.
+ */
+import { createHash } from "node:crypto";
+import { readFile, readdir, writeFile } from "node:fs/promises";
+import path from "node:path";
+
+export const RIGHTS_STATUS = "user_attested_rights_authorized";
+export const CANDIDATE_PUBLICATION_STATUS = "authorized_production_candidate";
+export const ALIASES_OUTPUT = "src/data/question-id-aliases.json";
+const SESSION_LABELS = { main: { label: "Main", series: "m" }, compartment: { label: "Compartment", series: "c" }, second_exam: { label: "Second exam", series: "e" } };
+const ERA = "2023";
+
+const sha256 = (value) => createHash("sha256").update(value).digest("hex");
+
+export const outputsFor = (bank) => ({
+  runtime: `src/data/production/${bank}.json`,
+  privateIndex: `src/data/private-index/${bank}.json`,
+  taxonomy: `src/data/${bank}-taxonomy.json`,
+});
+
+export function sourceRootPath(config, environment = process.env) {
+  return environment[config.sourceRootEnv]?.trim() || config.defaultSourceRoot;
+}
+
+function failer(config) {
+  return (message) => { throw new Error(`${config.label} ${message}`); };
+}
+
+async function pinnedBytes(config, sourceRoot, relative, expected) {
+  const bytes = await readFile(path.join(sourceRoot, relative));
+  const actual = sha256(bytes);
+  if (actual !== expected) throw new Error(`${config.label} source ${relative} SHA-256 ${actual} != pinned ${expected}`);
+  return bytes;
+}
+async function pinned(config, sourceRoot, relative, expected) {
+  return JSON.parse((await pinnedBytes(config, sourceRoot, relative, expected)).toString("utf8"));
+}
+
+export async function blindTranscripts(config, sourceRoot) {
+  const directory = path.join(sourceRoot, "data/classification/blind-results");
+  const files = (await readdir(directory, { withFileTypes: true })).filter((entry) => entry.isFile() && entry.name.endsWith(".json")).map((entry) => entry.name).sort();
+  const lines = [];
+  const transcripts = new Map();
+  const fileSha256 = {};
+  for (const file of files) {
+    const bytes = await readFile(path.join(directory, file));
+    fileSha256[file] = sha256(bytes);
+    lines.push(`${file} ${sha256(bytes)}`);
+    for (const row of JSON.parse(bytes.toString("utf8")).rows ?? []) {
+      if (typeof row.transcript !== "string" || !row.transcript.trim()) continue;
+      if (transcripts.has(row.id)) throw new Error(`${config.label} ${row.id} has more than one blind transcript`);
+      transcripts.set(row.id, row.transcript.trim());
+    }
+  }
+  return { pin: sha256(`${lines.join("\n")}\n`), transcripts, fileSha256 };
+}
+
+/**
+ * Subtopic labels by code: the curriculum title, qualified with its chapter where several chapters share a title
+ * ("Classification (Amines)"), because the subtopic filter matches labels. Fails closed unless the result is unique.
+ */
+export function subtopicLabels(config, source) {
+  const count = new Map();
+  for (const entry of source.topics) for (const subtopic of entry.subtopics) count.set(subtopic.title, (count.get(subtopic.title) ?? 0) + 1);
+  const labels = new Map();
+  for (const entry of source.topics) for (const subtopic of entry.subtopics) labels.set(subtopic.code, count.get(subtopic.title) > 1 ? `${subtopic.title} (${entry.title})` : subtopic.title);
+  if (new Set(labels.values()).size !== labels.size) throw new Error(`${config.label} subtopic labels are not unique`);
+  return labels;
+}
+
+/** Student taxonomy: the chapters in curriculum order (with their science, where the bank groups them), each with its subtopics. */
+export function studentTaxonomy(config, source, used, subtopicLabelFor) {
+  const earlier = source.earlier_syllabus_topics.map((entry) => ({ id: entry.id, code: entry.code, label: entry.title, era: entry.era, official: false, allowedYears: [...entry.allowed_years], questions: used.get(entry.id) ?? 0, subtopics: [] }));
+  const chapters = source.topics.map((entry) => ({
+    id: entry.id, code: entry.code, label: entry.title, ...(config.groupChapters ? { group: entry.group } : {}), era: entry.era, official: true, questions: used.get(entry.id) ?? 0,
+    subtopics: entry.subtopics.map((subtopic) => ({ code: subtopic.code, label: subtopicLabelFor.get(subtopic.code), curriculumTitle: subtopic.title, ...(subtopic.earlier_syllabus ? { allowedYears: [...subtopic.earlier_syllabus.allowed_years] } : {}) })),
+  }));
+  if (chapters.length !== config.expected.topics || chapters.flatMap((chapter) => chapter.subtopics).length !== config.expected.subtopics || earlier.length !== (config.expected.earlierTopics ?? 0)) throw new Error(`${config.label} taxonomy shape drifted`);
+  if (config.groupChapters && chapters.some((chapter) => !config.groupChapters.includes(chapter.group))) throw new Error(`${config.label} chapter groups drifted`);
+  return {
+    artifact: `${config.bank.replaceAll("-", "_")}_student_taxonomy`,
+    version: source.version,
+    qualification: config.course,
+    era: ERA,
+    note: config.taxonomyNote,
+    sourceTaxonomyPath: "data/taxonomy/taxonomy.json",
+    sourceTaxonomySHA256: config.sha256.taxonomy,
+    chapters,
+    ...(earlier.length ? { earlierSyllabusTopics: earlier } : {}),
+  };
+}
+
+function runtimeAsset(config, kind, asset, paperId) {
+  const match = new RegExp(`^assets\\/(${config.code}-20\\d{2}-[mce]-[12][0-9a-z]{2})\\/(questions|markschemes)\\/(q\\d+(?:-or)?-\\d+-\\d+\\.webp)$`).exec(asset.path);
+  if (!match || match[2] !== kind || match[1] !== paperId) throw new Error(`Unexpected ${config.label} ${kind} asset path: ${asset.path}`);
+  if (!/^[0-9a-f]{64}$/.test(asset.sha256 ?? "")) throw new Error(`${config.label} ${asset.path} has no SHA-256`);
+  return `${kind}/${match[1]}/${match[3]}`;
+}
+
+export function seal(artifact) {
+  const blanked = (fields) => JSON.stringify({
+    ...artifact,
+    runtimeArtifact: {
+      ...artifact.runtimeArtifact,
+      sourceCandidateSha256: fields.includes("candidate") ? null : artifact.runtimeArtifact.sourceCandidateSha256,
+      originalCandidateRuntimeSha256: fields.includes("candidate") ? null : artifact.runtimeArtifact.originalCandidateRuntimeSha256,
+      runtimeSha256: fields.includes("runtime") ? null : artifact.runtimeArtifact.runtimeSha256,
+    },
+  });
+  const candidate = sha256(blanked(["candidate", "runtime"]));
+  artifact.runtimeArtifact.sourceCandidateSha256 = candidate;
+  artifact.runtimeArtifact.originalCandidateRuntimeSha256 = candidate;
+  artifact.runtimeArtifact.runtimeSha256 = sha256(blanked(["runtime"]));
+  return { candidate, runtime: artifact.runtimeArtifact.runtimeSha256 };
+}
+
+/**
+ * The reviewed further subtopics of one question, in curriculum order: at least one for every secondary chapter, optionally
+ * more of the primary chapter (never its primary subtopic again), and only under the question's own chapters.
+ */
+export function furtherSubtopics(config, id, label, entry, subtopicsByCode, earlierCodes = new Set()) {
+  const fail = failer(config);
+  const allowed = new Set([label.primary, ...label.secondaries]);
+  for (const code of Object.keys(entry)) if (!allowed.has(code)) fail(`${id} overlay names chapter ${code}, which is not its primary or a secondary`);
+  const codes = [];
+  for (const code of [label.primary, ...label.secondaries]) {
+    const subtopics = entry[code]?.subtopics;
+    if (subtopics === undefined) {
+      // An earlier-syllabus topic has no subtopics of its own.
+      if (code !== label.primary && !earlierCodes.has(code)) fail(`${id} secondary chapter ${code} has no reviewed subtopic`);
+      continue;
+    }
+    if (!Array.isArray(subtopics) || !subtopics.length || new Set(subtopics).size !== subtopics.length || typeof entry[code].evidence !== "string" || !entry[code].evidence.trim()) fail(`${id} overlay entry for ${code} is malformed`);
+    for (const subtopic of subtopics) {
+      if (subtopicsByCode.get(subtopic)?.topic !== code) fail(`${id} subtopic ${subtopic} is not under chapter ${code}`);
+      if (code === label.primary && subtopic === label.primary_subtopic) fail(`${id} overlay repeats the primary subtopic ${subtopic}`);
+    }
+    codes.push(...subtopics);
+  }
+  const order = [...subtopicsByCode.keys()];
+  return [...new Set(codes)].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+}
+
+/**
+ * Multiple-choice answer fields: the official key with provenance; a two-letter key (settled, or printed as two answers in
+ * the scheme); none for a notice item ("full marks for any option"), whose scheme crop shows instead; or, for a disputed
+ * official key (owner, 2026-11-27: "No auto-mark, show note"), the official key with its note, never self-marked.
+ */
+function mcqFields(config, question, entry, settlements, disputes) {
+  const fail = failer(config);
+  if (question.format !== "multiple_choice") {
+    if (question.mcq_key !== null || entry.mcq_key !== null || question.mcq_keys?.length) fail(`${question.id} is structured but has an MCQ key`);
+    return {};
+  }
+  if (question.marks !== 1) fail(`${question.id} MCQ is not one mark`);
+  const dispute = disputes?.items?.[question.id];
+  const disputed = (config.disputedKeys ?? []).includes(question.id);
+  if (dispute || disputed || entry.key_note !== undefined) {
+    // The canonical row carries the exclusion and the note; the segmentation record keeps the scheme's key.
+    // The owner's decision on the item, or the owner's rule ("No auto-mark, show note") applied by the coordinator, as the
+    // file's rule records, with the reviewer and date of the item.
+    const ownerRule = dispute?.decided_by === "owner" || (typeof disputes.rule === "string" && disputes.rule.includes('"No auto-mark, show note"') && Boolean(dispute?.reviewer) && Boolean(dispute?.date));
+    if (!dispute || !disputed || !ownerRule || dispute.note !== entry.key_note || dispute.official_key !== entry.mcq_key || entry.excluded_from_self_marking !== true) fail(`${question.id} disputed key is not the owner's recorded decision`);
+    if (typeof entry.key_note !== "string" || entry.key_note !== entry.key_note.trim() || !entry.key_note || entry.key_note.length > 200) fail(`${question.id} key note is empty, untrimmed or over 200 characters`);
+    // The official key read from the scheme, or (scheme key unread) settled from the scheme page, as the settlements file records.
+    const settledOfficial = entry.mcq_key_source === "settlement" && !question.mcq_keys?.length && JSON.stringify(settledLetters(settlements?.items?.[question.id])) === JSON.stringify([entry.mcq_key]);
+    if (JSON.stringify(entry.mcq_keys) !== JSON.stringify([entry.mcq_key]) || (JSON.stringify(question.mcq_keys) !== JSON.stringify([entry.mcq_key]) && !settledOfficial) || !/^[A-D]$/.test(entry.mcq_key)) fail(`${question.id} disputed item's official key drifted`);
+    return {
+      answer: entry.mcq_key,
+      answerProvenance: { status: "official", questionId: question.id, source: entry.mcq_key_source },
+      excludedFromSelfMarking: true,
+      keyNote: entry.key_note,
+    };
+  }
+  const excluded = config.excludedFromSelfMarking.includes(question.id);
+  if (excluded !== (entry.excluded_from_self_marking === true) || excluded !== (question.excluded_from_self_marking === true)) fail(`${question.id} self-marking exclusion drifted`);
+  if (excluded) {
+    if (!question.ms_notices?.some((notice) => notice.kind === "full_marks_all" || notice.kind === "any_attempt")) fail(`${question.id} is excluded without a full-marks or any-attempt notice`);
+    if (entry.key_note !== undefined) fail(`${question.id} carries a key_note, which needs an owner decision and app review`);
+    return { excludedFromSelfMarking: true };
+  }
+  const keys = entry.mcq_keys;
+  const two = config.twoLetterKeys[question.id];
+  // A settled two-letter key is applied to the canonical row; the segmentation record may keep the scheme's first letter.
+  // A scheme that prints two answers ("(A) resistor / (C) capacitor") gives both letters in both records, with no source.
+  const segmentationKeys = JSON.stringify(question.mcq_keys);
+  const printedPair = two && entry.mcq_key === null && entry.mcq_key_source === null && segmentationKeys === JSON.stringify(two);
+  // A settled key replaces a misread or unread key in the segmentation record (OCR took the next row's letter, or "(A)" from
+  // "Assertion (A)"), only where the pinned settlements file records exactly those letters.
+  const settled = entry.mcq_key_source === "settlement" && Boolean(settlements) && JSON.stringify(settledLetters(settlements.items?.[question.id])) === JSON.stringify(keys);
+  if (!Array.isArray(keys) || !keys.every((key) => /^[A-D]$/.test(key)) || (keys[0] !== entry.mcq_key && !printedPair) || (segmentationKeys !== JSON.stringify(keys) && !(two && segmentationKeys === JSON.stringify([keys[0]])) && !settled)) fail(`${question.id} MCQ key ${JSON.stringify(keys)} is not a checked official key`);
+  if (two ? JSON.stringify(keys) !== JSON.stringify(two) || (!printedPair && (entry.mcq_key_source !== "settlement" || (settlements && !settled))) : keys.length !== 1) fail(`${question.id} key letters drifted`);
+  return {
+    answer: keys[0],
+    ...(two ? { acceptedAnswers: [...two] } : {}),
+    answerProvenance: { status: "official", questionId: question.id, source: entry.mcq_key_source ?? (printedPair ? "scheme_two_answers" : null) },
+  };
+}
+
+/** A settlement's letters: `settled_key` as one letter or a list, or `settled_keys`. */
+function settledLetters(settlement) {
+  if (!settlement) return null;
+  const value = settlement.settled_key || settlement.settled_keys;
+  const letters = Array.isArray(value) ? value : typeof value === "string" ? [value] : null;
+  return letters?.length && letters.every((letter) => /^[A-D]$/.test(letter)) ? letters : null;
+}
+
+/** The paper number of a level ("standard" -> 1, "basic" -> 2) for a bank with levels, else 1. */
+const paperOfLevel = (config, level) => (config.levels ? config.levels[level] : 1);
+
+/** Question ids an issue names: full ids, or "Q31" on that paper (both the question and its OR alternative). */
+function issueQuestionIds(config, paperId, issue) {
+  const ids = [...issue.matchAll(new RegExp(`${config.code}-20\\d{2}-[mce]-[12][0-9a-z]{2}-q\\d+(?:-or)?`, "g"))].map((match) => match[0]);
+  // "Q38 not found between Q37 and end": Q37 only says where Q38 was looked for.
+  for (const match of issue.replace(/ between Q\d+ and (?:Q\d+|end)\b/, "").matchAll(/\bQ(\d+)\b/g)) ids.push(`${paperId}-q${match[1]}`, `${paperId}-q${match[1]}-or`);
+  return [...new Set(ids)];
+}
+
+/**
+ * A paper with segmentation issues is served only when each issue is accounted for: it names only questions that are held
+ * or aliases, or the paper is in the recorded gate waiver, whose reviewed decision for every question it names must hold
+ * here ("served" questions served, "held" questions held). An issue that names no question needs the waiver.
+ */
+/** A waiver's per-question decisions hold: served, held, or absent from the segmentation (and so never served). */
+function checkWaiverDecisions(config, paper, waiver, servedIds, heldIds) {
+  const fail = failer(config);
+  for (const decided of waiver.questions) {
+    const holds = decided.decision === "served" ? servedIds.has(decided.id)
+      : decided.decision === "held" ? heldIds.has(decided.id)
+      : decided.decision === "absent" && !servedIds.has(decided.id) && !paper.questions.some((question) => question.id === decided.id);
+    if (!holds) fail(`${paper.paper_id} waiver decision for ${decided.id} (${decided.decision}) does not hold`);
+  }
+}
+
+function checkPaperIssues(config, paper, servedIds, heldIds, waivers) {
+  const fail = failer(config);
+  const waiver = waivers.get(paper.paper_id);
+  if (waiver) checkWaiverDecisions(config, paper, waiver, servedIds, heldIds);
+  for (const issue of paper.issues) {
+    const named = issueQuestionIds(config, paper.paper_id, issue);
+    if (!named.length && !waiver) fail(`${paper.paper_id} issue "${issue}" names no question and is not waived`);
+    for (const id of named) if (servedIds.has(id) && waiver?.questions.find((decided) => decided.id === id)?.decision !== "served") fail(`${paper.paper_id} issue "${issue}" names served ${id} without a reviewed decision`);
+  }
+  const total = config.paperFacts[paperOfLevel(config, paper.level)]?.totalMarks;
+  if (paper.printed_total !== total && !waiver) fail(`${paper.paper_id} printed total ${paper.printed_total} != ${total}`);
+}
+
+export async function buildRuntime(config, { sourceRoot = sourceRootPath(config) } = {}) {
+  const fail = failer(config);
+  const pins = config.sha256;
+  const canonical = await pinned(config, sourceRoot, "data/canonical-manifest.json", pins.canonicalManifest);
+  const finalLabels = await pinned(config, sourceRoot, "data/classification/final-labels.json", pins.labels);
+  const overlay = await pinned(config, sourceRoot, "data/classification/secondary-subtopics.json", pins.secondarySubtopics);
+  const segmentation = await pinned(config, sourceRoot, "data/segmentation/full/segmentation.json", pins.segmentation);
+  const held = await pinned(config, sourceRoot, "data/held-questions.json", pins.heldQuestions);
+  const sourceTaxonomy = await pinned(config, sourceRoot, "data/taxonomy/taxonomy.json", pins.taxonomy);
+  const coverage = await pinned(config, sourceRoot, "data/coverage-receipt.json", pins.coverageReceipt);
+  const msReviews = pins.msRowReviews ? await pinned(config, sourceRoot, "data/review/ms-row-reviews.json", pins.msRowReviews) : { items: {} };
+  // Settled keys: pinned where the bank's canonical rows carry a settlement the segmentation does not.
+  const settlements = pins.mcqKeySettlements ? await pinned(config, sourceRoot, "data/review/mcq-key-settlements.json", pins.mcqKeySettlements) : null;
+  // Disputed official keys: the owner's recorded decisions, pinned.
+  const disputes = pins.mcqKeyDisputes ? await pinned(config, sourceRoot, "data/review/mcq-key-disputes.json", pins.mcqKeyDisputes) : null;
+  if (disputes && JSON.stringify(Object.keys(disputes.items).sort()) !== JSON.stringify([...(config.disputedKeys ?? [])].sort())) fail("disputed keys drifted");
+  const gateWaivers = pins.gateWaivers ? await pinned(config, sourceRoot, "data/gate-waivers.json", pins.gateWaivers) : { waivers: [] };
+  const sources = await pinned(config, sourceRoot, "data/source-manifest.json", pins.sourceManifest);
+  const blind = await blindTranscripts(config, sourceRoot);
+  if (blind.pin !== pins.blindResults) fail(`blind results ${blind.pin} != pinned ${pins.blindResults}`);
+  // Reviewed transcript fixes over the immutable blind results, made against exactly these blind files.
+  if (pins.transcriptCorrections) {
+    const corrections = await pinned(config, sourceRoot, "data/classification/transcript-corrections.json", pins.transcriptCorrections);
+    const madeAgainst = Object.entries(corrections.blind_results_sha256 ?? {});
+    if (!madeAgainst.length || madeAgainst.some(([file, hash]) => blind.fileSha256[file] !== hash)) fail("transcript corrections were made against different blind results");
+    if (JSON.stringify(Object.keys(corrections.rows).sort()) !== JSON.stringify([...config.transcriptCorrections].sort())) fail("transcript corrections drifted");
+    for (const [id, row] of Object.entries(corrections.rows)) {
+      if (!blind.transcripts.has(id) || typeof row.transcript !== "string" || !row.transcript.trim() || !row.replacements?.length) fail(`transcript correction ${id} is invalid`);
+      blind.transcripts.set(id, row.transcript.trim());
+    }
+  }
+  const expected = config.expected;
+
+  // Inputs made against each other.
+  if (finalLabels.inputs?.taxonomy_sha256 !== pins.taxonomy) fail("final labels were made against a different taxonomy");
+  if (overlay.inputs?.final_labels_sha256 !== pins.labels || overlay.inputs?.taxonomy_sha256 !== pins.taxonomy || overlay.inputs?.segmentation_sha256 !== pins.segmentation) fail("secondary-subtopic overlay was made against different inputs");
+  if (coverage.verdict !== "PASS" || coverage.problems.length) fail("coverage receipt is not PASS");
+  const totals = coverage.totals;
+  if (totals.canonical_questions !== expected.canonical || totals.labelled_questions !== expected.rows || totals.served_alias_questions !== expected.servedAliases || totals.held_questions !== expected.held || totals.excluded_questions !== 0 || totals.universe_papers !== expected.sets || totals.acquired_papers !== expected.sets - (config.sourceGaps ?? []).length) fail(`coverage totals drifted: ${JSON.stringify(totals)}`);
+  // Gate waivers: exactly the recorded ones, and the receipt applied exactly those.
+  const waiverGates = gateWaivers.waivers.map((waiver) => waiver.gate);
+  const sortedGates = (gates) => JSON.stringify([...gates].sort());
+  if (sortedGates(waiverGates) !== sortedGates(config.waivedGates ?? []) || new Set(waiverGates).size !== waiverGates.length || sortedGates((coverage.gates?.waivers_applied ?? []).map((waiver) => waiver.gate)) !== sortedGates(waiverGates)) fail("gate waivers drifted");
+  if (coverage.gates && (!coverage.gates.passed || coverage.gates.failed.length)) fail("coverage receipt gates did not pass");
+  const waivers = new Map(gateWaivers.waivers.flatMap((waiver) => waiver.gate === "cbse.segmentation_clean" ? waiver.papers.map((paper) => [paper.paper, paper]) : []));
+  if (finalLabels.held.length || finalLabels.dropped_empty_earlier_syllabus_topics.length) fail("final labels carry held rows or dropped earlier-syllabus topics; review before building");
+  // Recorded label overlays (a reviewed rule that adds secondaries): exactly the pinned files, read back by hash, each
+  // addition present on its final label.
+  const overlayPins = pins.reviewOverlays ?? {};
+  if (JSON.stringify(finalLabels.review_overlays ?? []) !== JSON.stringify(Object.values(overlayPins).map((entry) => entry.overlay)) || JSON.stringify(finalLabels.inputs?.review_overlays_sha256 ?? {}) !== JSON.stringify(Object.fromEntries(Object.entries(overlayPins).map(([file, entry]) => [file, entry.sha256])))) fail("label review overlays drifted");
+  const overlayAdditions = [];
+  for (const [file, entry] of Object.entries(overlayPins)) {
+    const reviewed = JSON.parse(await pinnedBytes(config, sourceRoot, `data/classification/review-overlays/${file}`, entry.sha256));
+    if (reviewed.overlay !== entry.overlay || !Array.isArray(reviewed.additions) || reviewed.additions.length !== entry.additions) fail(`review overlay ${file} drifted`);
+    overlayAdditions.push(...reviewed.additions);
+  }
+  // Recorded label corrections (a reviewed label audit): exactly the pinned files, read back by hash.
+  const corrections = pins.reviewCorrections ?? {};
+  if (JSON.stringify(finalLabels.review_corrections ?? []) !== JSON.stringify(Object.keys(corrections).map((file) => file.replace(/\.json$/, ""))) || JSON.stringify(finalLabels.inputs?.review_corrections_sha256 ?? {}) !== JSON.stringify(corrections)) fail("label review corrections drifted");
+  for (const [file, hash] of Object.entries(corrections)) await pinnedBytes(config, sourceRoot, `data/classification/review-corrections/${file}`, hash);
+
+  if (!canonical.frozen || canonical.canonical_questions.length !== expected.canonical || Object.keys(canonical.aliases).length !== expected.aliasesInManifest) fail("canonical manifest drifted");
+  const heldIds = Object.keys(held.questions).sort();
+  if (heldIds.length !== expected.held) fail(`held ${heldIds.length}`);
+  const labels = new Map(finalLabels.labels.map((label) => [label.id, label]));
+  for (const addition of overlayAdditions) if (!labels.get(addition.id)?.secondaries.includes(addition.code)) fail(`${addition.id} lacks overlay secondary ${addition.code}`);
+  if (labels.size !== expected.rows || finalLabels.labels.length !== expected.rows) fail("labels do not cover the release once each");
+  // Earlier-syllabus topics: named NCERT chapters the rationalised curriculum dropped, which papers still ask about. They have
+  // no subtopics, list after the current chapters, and serve only questions from their allowed years.
+  const earlierTopics = sourceTaxonomy.earlier_syllabus_topics;
+  if (earlierTopics.length !== (expected.earlierTopics ?? 0) || earlierTopics.some((entry) => !entry.title.endsWith(" (earlier syllabus)") || entry.subtopics?.length || !Array.isArray(entry.allowed_years))) fail("earlier-syllabus topics drifted");
+  const topicsByCode = new Map([...sourceTaxonomy.topics, ...earlierTopics].map((entry) => [entry.code, entry]));
+  const subtopicsByCode = new Map(sourceTaxonomy.topics.flatMap((entry) => entry.subtopics.map((subtopic) => [subtopic.code, { ...subtopic, topic: entry.code }])));
+  const subtopicLabelFor = subtopicLabels(config, sourceTaxonomy);
+  // Earlier-syllabus subtopics (a clause the curriculum dropped, under a current chapter): titled as such, serving only
+  // questions from their allowed years.
+  const earlierSubtopics = [...subtopicsByCode.values()].filter((subtopic) => subtopic.earlier_syllabus);
+  if (earlierSubtopics.length !== (expected.earlierSubtopics ?? 0) || earlierSubtopics.some((subtopic) => !subtopic.title.endsWith(" (earlier syllabus)") || !Array.isArray(subtopic.earlier_syllabus.allowed_years) || !subtopic.earlier_syllabus.allowed_years.length)) fail("earlier-syllabus subtopics drifted");
+
+  const segmented = new Map(segmentation.papers.flatMap((paper) => paper.questions.map((question) => [question.id, { paper, question }])));
+  if (segmentation.papers.length !== expected.sets) fail("segmentation drifted");
+  const heldSet = new Set(heldIds);
+  const servedIds = new Set(canonical.canonical_questions.map((entry) => entry.id).filter((id) => !heldSet.has(id)));
+  // Source gaps: a set whose question paper CBSE does not publish (and no mirror has), recorded in the source manifest.
+  const sourceGaps = new Set((sources.gaps ?? []).filter((gap) => gap.role === "question_paper").map((gap) => gap.paper));
+  if (JSON.stringify([...sourceGaps].sort()) !== JSON.stringify([...(config.sourceGaps ?? [])].sort())) fail("source gaps drifted");
+  for (const paper of segmentation.papers) {
+    if (sourceGaps.has(paper.paper_id)) {
+      if (paper.questions.length || paper.issues.some((issue) => !issue.startsWith("source gap"))) fail(`${paper.paper_id} is a source gap with questions or other issues`);
+      continue;
+    }
+    if (config.levels && paper.level !== (paper.paper_id.split("-")[3][0] === "1" ? "standard" : "basic")) fail(`${paper.paper_id} level ${paper.level}`);
+    if (paper.max_marks !== config.paperFacts[paperOfLevel(config, paper.level)]?.totalMarks) fail(`${paper.paper_id} maximum ${paper.max_marks}`);
+    checkPaperIssues(config, paper, servedIds, heldSet, waivers);
+  }
+  // A pages_alternate waiver (mixed-language pages) clears crops one by one: every question served from its papers must be
+  // cleared ("served": checked English-only and complete), and none it marks "held" may be served.
+  for (const waiver of gateWaivers.waivers.filter((entry) => entry.gate !== "cbse.segmentation_clean")) {
+    if (waiver.gate !== "cbse.pages_alternate") fail(`unknown waiver ${waiver.gate}`);
+    for (const decided of waiver.papers) {
+      const paper = segmentation.papers.find((entry) => entry.paper_id === decided.paper) ?? fail(`waived ${decided.paper} is not a set`);
+      const cleared = new Set(decided.questions.filter((entry) => entry.decision === "served").map((entry) => entry.id));
+      for (const entry of decided.questions) if (!["served", "held"].includes(entry.decision) || (entry.decision === "held" && servedIds.has(entry.id))) fail(`${paper.paper_id} language decision for ${entry.id} (${entry.decision}) does not hold`);
+      for (const question of paper.questions) if (servedIds.has(question.id) && !cleared.has(question.id)) fail(`${question.id} is served from a mixed-language paper without a language check`);
+    }
+  }
+  if (JSON.stringify([...segmentation.summary.papers_with_issues].sort()) !== JSON.stringify(segmentation.papers.filter((paper) => paper.issues.length).map((paper) => paper.paper_id).sort())) fail("segmentation issue summary drifted");
+  for (const paperId of waivers.keys()) if (!segmentation.papers.some((paper) => paper.paper_id === paperId && paper.issues.length)) fail(`waived ${paperId} has no issue left: remove the waiver`);
+  // Official cbse.gov.in files, except a reviewed host exception the config lists (a paper CBSE does not publish), whose URL
+  // must be the manifest's recorded host source.
+  const hostExceptions = config.hostExceptions ?? [];
+  const sourceUrl = (paperId, kind) => {
+    const file = sources.papers[paperId]?.[kind];
+    const url = file?.url;
+    if (typeof url === "string" && url.startsWith("https://www.cbse.gov.in/")) return url;
+    const host = (sources.host_sources ?? []).find((entry) => entry.paper === paperId && entry.role === kind);
+    if (!hostExceptions.includes(`${paperId}:${kind}`) || !host || host.url !== url || !url?.startsWith("https://") || !String(file?.override ?? "").startsWith("reviewed host exception")) fail(`${paperId} ${kind} has no official source`);
+    return url;
+  };
+  const usedExceptions = (sources.host_sources ?? []).map((entry) => `${entry.paper}:${entry.role}`).sort();
+  if (JSON.stringify(usedExceptions) !== JSON.stringify([...hostExceptions].sort())) fail("host exceptions drifted");
+  const reviewedMs = msReviews.items;
+
+  const questions = [];
+  const used = new Map();
+  const overlayRowsUsed = new Set();
+  let crops = 0;
+  for (const entry of canonical.canonical_questions) {
+    if (heldSet.has(entry.id)) {
+      if (labels.has(entry.id)) fail(`held ${entry.id} has a label`);
+      continue;
+    }
+    const found = segmented.get(entry.id);
+    if (!found) fail(`${entry.id} is not segmented`);
+    const { paper, question } = found;
+    if (question.held || question.excluded_from_practice || entry.excluded_from_practice || question.removed_parts.length) fail(`${question.id} is held, excluded or has removed parts`);
+    // One paper, or (Class 10 Maths) Standard on paper 1 and Basic on paper 2; a question printed in both levels' papers is
+    // one canonical row on its own level's paper, marked "both" so it shows under both level tabs.
+    const bothLevels = Boolean(config.levels) && entry.levels.length === 2;
+    if (config.levels
+      ? question.level !== entry.level || question.paper !== paperOfLevel(config, question.level) || entry.paper_number !== question.paper || !entry.levels.includes(question.level) || entry.levels.some((level) => !(level in config.levels)) || new Set(entry.levels).size !== entry.levels.length
+      : question.paper !== 1 || entry.paper_number !== 1 || question.level !== null || entry.levels.length) fail(`${question.id} paper or level drifted`);
+    const session = SESSION_LABELS[question.session];
+    if (!session || !config.sessions.includes(question.session) || session.series !== entry.series_code || question.year !== entry.year || question.set_code !== entry.set_code || paper.set_code !== question.set_code) fail(`${question.id} session or set drifted`);
+    if (entry.exam_status !== "sat") fail(`${question.id} exam status ${entry.exam_status}`);
+    // Marks: the question paper's printed marks; a scheme total that differs is served only with a reviewed "serve".
+    if (entry.printed_marks !== question.marks || !(question.marks > 0)) fail(`${question.id} marks drifted`);
+    const msReview = reviewedMs[question.id] ?? reviewedMs[question.id.replace(/-or$/, "")];
+    const servedAtPrinted = msReview?.decision === "serve" && msReview.served_marks === question.marks;
+    if (question.marks_status === "ms_marks_differ") {
+      if (!servedAtPrinted) fail(`${question.id} scheme total differs without a reviewed serve`);
+    } else if (question.marks_status === "mcq_key_missing") {
+      // The scheme's key was not read; served only with a settled key (checked in mcqFields), and scheme marks that equal the
+      // printed marks or are settled by a reviewed "serve" at the printed marks (as the toolkit's cbse.served_marks_reviewed).
+      if (question.format !== "multiple_choice" || entry.mcq_key_source !== "settlement" || !settledLetters(settlements?.items?.[question.id])?.length || (question.ms_marks !== question.marks && !servedAtPrinted)) fail(`${question.id} key missing without a settlement`);
+    } else if (question.marks_status !== "reconciled" || question.ms_marks !== question.marks) fail(`${question.id} marks status ${question.marks_status}`);
+    const label = labels.get(question.id);
+    if (!label) fail(`${question.id} has no final label`);
+    if (label.format !== question.format || entry.format !== question.format) fail(`${question.id} format drifted`);
+    const mcq = mcqFields(config, question, entry, settlements, disputes);
+
+    const codes = [label.primary, ...label.secondaries];
+    if (new Set(codes).size !== codes.length) fail(`${question.id} repeats a chapter`);
+    const resolved = codes.map((code) => topicsByCode.get(code) ?? fail(`${question.id} uses unknown chapter ${code}`));
+    for (const topic of resolved) if (topic.allowed_years && !topic.allowed_years.includes(question.year)) fail(`${question.id} (${question.year}) carries ${topic.title}, not allowed that year`);
+    const earlierPrimary = earlierTopics.includes(resolved[0]);
+    const primarySubtopic = earlierPrimary ? null : subtopicsByCode.get(label.primary_subtopic);
+    if (earlierPrimary ? label.primary_subtopic !== null : !primarySubtopic || primarySubtopic.topic !== label.primary) fail(`${question.id} subtopic ${label.primary_subtopic} is not under ${label.primary}`);
+    const furtherCodes = furtherSubtopics(config, question.id, label, overlay.rows[question.id] ?? {}, subtopicsByCode, new Set(earlierTopics.map((entry) => entry.code)));
+    if (overlay.rows[question.id]) overlayRowsUsed.add(question.id);
+    const further = furtherCodes.map((code) => subtopicLabelFor.get(code));
+    const subtopics = [...(primarySubtopic ? [subtopicLabelFor.get(primarySubtopic.code)] : []), ...further];
+    for (const code of [...(primarySubtopic ? [primarySubtopic.code] : []), ...furtherCodes]) {
+      const allowed = subtopicsByCode.get(code).earlier_syllabus?.allowed_years;
+      if (allowed && !allowed.includes(question.year)) fail(`${question.id} (${question.year}) carries ${subtopicsByCode.get(code).title}, not allowed that year`);
+    }
+
+    for (const alias of entry.alias_ids) if (canonical.aliases[alias]?.canonical_id !== question.id) fail(`alias ${alias} does not resolve to ${question.id}`);
+    const transcript = blind.transcripts.get(question.id);
+    if (!transcript) fail(`${question.id} has no blind transcript`);
+    const questionImages = question.question_images.map((asset) => runtimeAsset(config, "questions", asset, paper.paper_id));
+    const markschemeImages = question.markscheme_images.map((asset) => runtimeAsset(config, "markschemes", asset, paper.paper_id));
+    if (!questionImages.length || !markschemeImages.length) fail(`${question.id} is missing crops`);
+    crops += questionImages.length + markschemeImages.length;
+    for (const topic of resolved) used.set(topic.id, (used.get(topic.id) ?? 0) + 1);
+    const [primary, ...secondaries] = resolved;
+    questions.push({
+      id: question.id,
+      canonicalId: question.id,
+      aliasIds: [...entry.alias_ids],
+      bankSlug: config.bank,
+      paperId: paper.paper_id,
+      number: question.number,
+      label: question.label,
+      paper: question.paper,
+      ...(bothLevels ? { syllabusRoute: "both" } : {}),
+      year: question.year,
+      session: session.label,
+      examStatus: entry.exam_status,
+      format: question.format,
+      section: question.section,
+      zone: question.set_code,
+      component: question.set_code,
+      setCodes: [...entry.set_codes],
+      courseEra: ERA,
+      era: ERA,
+      subject: config.subject,
+      course: config.course,
+      primaryTopic: primary.title,
+      primaryTopicId: primary.id,
+      secondaryTopics: secondaries.map((topic) => topic.title),
+      secondaryTopicIds: secondaries.map((topic) => topic.id),
+      subtopics,
+      detailedSubtopics: subtopics,
+      secondarySubtopics: further,
+      skills: [],
+      assessmentObjectives: [],
+      marks: question.marks,
+      maxMarks: config.paperFacts[question.paper].totalMarks,
+      marksSource: "printed_question_paper",
+      ...mcq,
+      summary: `${question.alternative === "or" ? "(OR) " : ""}${transcript}`.slice(0, 220),
+      accessibleText: transcript,
+      questionImages,
+      markschemeImages,
+      questionImageHashes: question.question_images.map((asset) => asset.sha256),
+      markschemeImageHashes: question.markscheme_images.map((asset) => asset.sha256),
+      officialMarkscheme: { images: markschemeImages, imageHashes: question.markscheme_images.map((asset) => asset.sha256) },
+      officialCodeRefs: resolved.map((topic) => topic.id),
+      sourceQuestionUrl: sourceUrl(paper.paper_id, "question_paper"),
+      sourceMarkSchemeUrl: sourceUrl(paper.paper_id, "mark_scheme"),
+      sourceType: "actual_past_paper",
+      sourceId: question.id,
+      publicationStatus: CANDIDATE_PUBLICATION_STATUS,
+      classificationReviewStatus: "candidate_not_approved",
+      classificationProvenance: {
+        selectedSource: "final-labels",
+        labelSource: label.source,
+        primaryCode: label.primary,
+        primarySubtopic: label.primary_subtopic,
+        secondaryCodes: [...label.secondaries],
+        furtherSubtopicCodes: furtherCodes,
+        markAllocation: label.mark_allocation,
+        taxonomyPath: outputsFor(config.bank).taxonomy,
+      },
+      marks_ready: true,
+      rightsStatus: RIGHTS_STATUS,
+    });
+  }
+
+  const stray = Object.keys(overlay.rows).filter((id) => !overlayRowsUsed.has(id));
+  if (stray.length) fail(`overlay rows for questions not in the release: ${stray.join(", ")}`);
+  if (questions.length !== expected.rows || new Set(questions.map((question) => question.id)).size !== expected.rows) fail(`rows ${questions.length}`);
+  if (questions.filter((question) => question.format === "multiple_choice").length !== expected.multipleChoice || questions.filter((question) => question.format === "structured").length !== expected.structured) fail("format counts drifted");
+  if (questions.filter((question) => config.freeYears.includes(question.year)).length !== expected.freeRows) fail("free-year count drifted");
+  if (questions.filter((question) => question.excludedFromSelfMarking).length !== config.excludedFromSelfMarking.length + (config.disputedKeys ?? []).length) fail("exclusion count drifted");
+  if (crops !== expected.crops) fail(`crops ${crops}`);
+  if (used.size !== expected.topics + (expected.earlierTopics ?? 0)) fail(`chapters used ${used.size}`);
+  const years = questions.map((question) => question.year);
+  const yearRange = `${Math.min(...years)}-${Math.max(...years)}`;
+  if (yearRange !== expected.years) fail(`years ${yearRange}`);
+  const papers = new Set(questions.map((question) => question.paperId));
+
+  // Aliases of served questions only (a held canonical's aliases are not served either).
+  const aliases = Object.fromEntries(questions.flatMap((question) => question.aliasIds.map((alias) => [alias, question.id])).sort(([a], [b]) => a.localeCompare(b)));
+  if (Object.keys(aliases).length !== expected.servedAliases) fail(`served aliases ${Object.keys(aliases).length}`);
+
+  const outputs = outputsFor(config.bank);
+  const taxonomy = studentTaxonomy(config, sourceTaxonomy, used, subtopicLabelFor);
+  const taxonomySerialized = `${JSON.stringify(taxonomy, null, 2)}\n`;
+  const taxonomyFileSha = sha256(taxonomySerialized);
+  const artifact = {
+    version: `${config.bank}-full${questions.length}-v1`,
+    releaseStatus: CANDIDATE_PUBLICATION_STATUS,
+    rightsStatus: RIGHTS_STATUS,
+    sourceType: "actual_past_paper",
+    specimenQuestionsIncluded: false,
+    liveOnlyUnderReleaseGate: true,
+    years: yearRange,
+    paperCount: papers.size,
+    setCount: expected.sets,
+    questionCount: questions.length,
+    marks_ready: true,
+    paperFacts: Object.fromEntries(Object.entries(config.paperFacts).map(([paper, facts]) => [paper, { ...facts }])),
+    heldQuestionIds: heldIds,
+    excludedQuestionIds: [],
+    excludedFromSelfMarkingIds: [...config.excludedFromSelfMarking, ...(config.disputedKeys ?? [])],
+    ...(gateWaivers.waivers.length ? { gateWaivers: gateWaivers.waivers.map((waiver) => ({ gate: waiver.gate, approvedBy: waiver.approved_by, date: waiver.date, expires: waiver.expires, papers: waiver.papers.map((paper) => paper.paper) })) } : {}),
+    sourceCandidate: { paths: ["data/classification/final-labels.json"], sha256: [pins.labels], questionCount: questions.length },
+    taxonomy: { path: outputs.taxonomy, version: taxonomy.version, sha256: taxonomyFileSha },
+    questions,
+    publicationStatus: CANDIDATE_PUBLICATION_STATUS,
+    assetVerification: "pending_upload",
+    runtimeArtifact: {
+      schemaVersion: "igcse-production-runtime-v1",
+      sourceRepository: config.sourceRepository,
+      sourceCommit: config.sourceCommit,
+      toolkitCommit: config.toolkitCommit,
+      sourceSha256: pins,
+      sourceCandidateSha256: null,
+      releaseTaxonomySha256: taxonomyFileSha,
+      runtimeTaxonomySha256: sha256(JSON.stringify(taxonomy)),
+      publicationStatus: CANDIDATE_PUBLICATION_STATUS,
+      rightsStatus: RIGHTS_STATUS,
+      assetVerification: "pending_upload",
+      assetManifestSha256: null,
+      storageReceiptSha256: null,
+      contentSha256: sha256(JSON.stringify(questions)),
+      marksReady: true,
+      marksRepairStatus: "verified_against_print",
+      marksRepairUnresolvedCount: 0,
+      originalCandidateRuntimeSha256: null,
+      runtimeSha256: null,
+    },
+  };
+  const seals = seal(artifact);
+  return {
+    artifact, serialized: `${JSON.stringify(artifact, null, 2)}\n`, seals, taxonomy, taxonomySerialized, aliases,
+    report: { status: "PASS", bank: config.bank, rows: questions.length, papers: papers.size, years: yearRange, aliases: Object.keys(aliases).length, crops, freeRows: expected.freeRows, blindPin: blind.pin, candidate: seals.candidate },
+  };
+}
+
+/** The candidate a finalized runtime was made from: the fields `generate-igcse-release.mjs --finalize` sets, put back. */
+export function reconstructCandidate(finalized) {
+  const candidate = JSON.parse(JSON.stringify(finalized));
+  for (const question of candidate.questions) {
+    question.publicationStatus = CANDIDATE_PUBLICATION_STATUS;
+    question.classificationReviewStatus = "candidate_not_approved";
+  }
+  candidate.releaseStatus = CANDIDATE_PUBLICATION_STATUS;
+  candidate.publicationStatus = CANDIDATE_PUBLICATION_STATUS;
+  candidate.assetVerification = "pending_upload";
+  const meta = candidate.runtimeArtifact;
+  meta.assetVerification = "pending_upload";
+  meta.publicationStatus = CANDIDATE_PUBLICATION_STATUS;
+  meta.assetManifestSha256 = null;
+  meta.storageReceiptSha256 = null;
+  delete meta.storageState;
+  delete meta.finalizedContentSha256;
+  meta.runtimeSha256 = null;
+  meta.runtimeSha256 = sha256(JSON.stringify(candidate));
+  return candidate;
+}
+
+export function createPrivateIndex(config, artifact) {
+  return {
+    version: 1,
+    bank: config.bank,
+    questions: artifact.questions.map((question) => ({
+      id: question.id, number: question.number, paper: question.paper, year: question.year, session: question.session,
+      primaryTopic: question.primaryTopic, secondaryTopics: [...question.secondaryTopics], skills: [...question.skills],
+      subtopics: [...question.subtopics], subject: question.subject, zone: question.zone, component: question.component, marks: question.marks,
+    })),
+  };
+}
+
+export function withBankAliases(config, file, aliases) {
+  const note = file.note.includes(config.aliasNote) ? file.note : `${file.note} ${config.aliasNote}`;
+  return { ...file, note, banks: { ...file.banks, [config.bank]: aliases } };
+}
+
+/**
+ * CLI: write the outputs, or with --check rebuild and compare. Once uploaded and finalized, the committed runtime is the
+ * finalized one: --check compares its reconstructed candidate, and writing never overwrites it (that would drop the
+ * verified read-back).
+ */
+export async function runCli(config, repo) {
+  const check = process.argv.includes("--check");
+  const built = await buildRuntime(config);
+  const outputs = outputsFor(config.bank);
+  const aliasFile = JSON.parse(await readFile(path.join(repo, ALIASES_OUTPUT), "utf8"));
+  const current = await readFile(path.join(repo, outputs.runtime), "utf8").then(JSON.parse).catch(() => null);
+  const finalized = current?.runtimeArtifact?.assetVerification === "verified_readback";
+  const files = {
+    [outputs.runtime]: built.serialized,
+    [outputs.privateIndex]: `${JSON.stringify(createPrivateIndex(config, built.artifact))}\n`,
+    [outputs.taxonomy]: built.taxonomySerialized,
+    [ALIASES_OUTPUT]: `${JSON.stringify(withBankAliases(config, aliasFile, built.aliases), null, 1)}\n`,
+  };
+  const differs = [];
+  for (const [relative, text] of Object.entries(files)) {
+    const target = path.join(repo, relative);
+    if (relative === outputs.runtime && finalized) {
+      if (JSON.stringify(reconstructCandidate(current)) !== JSON.stringify(built.artifact)) differs.push(`${relative} (finalized: its candidate differs)`);
+      continue;
+    }
+    if (check) { if ((await readFile(target, "utf8").catch(() => "")) !== text) differs.push(relative); }
+    else await writeFile(target, text);
+  }
+  console.log(JSON.stringify({ ...built.report, finalized, ...(check ? { check: differs.length ? "DIFFERS" : "MATCHES", differs } : {}) }));
+  if (differs.length) process.exitCode = 1;
+}

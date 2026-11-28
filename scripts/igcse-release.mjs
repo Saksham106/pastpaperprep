@@ -131,6 +131,56 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: '3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171',
   },
+  // CBSE Class 12 Chemistry (043): 1,844 rows (75 sets, 2023-2026 main + compartment; 997 aliases served through their
+  // canonical question, 5 held), one segmentation lane, built with ../ppp-ingestion-toolkit. The prefix is named for the first
+  // candidate (f34054df...); the 11 reviewed transcript fixes changed text only, so the byte-identical verified crops stay under it.
+  'cbse-12-chemistry': {
+    prefix: 'cbse-12-chemistry/releases/full1844-v1-f34054df3005',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_12_CHEMISTRY_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: 'e8801103f0b540e443bd1f0a53cd7ef26aecf68f023f2d9fef6dd7794dd9d9da',
+  },
+  // CBSE Class 10 Science (086): 2,375 rows (78 sets, 2023-2026 main, compartment and the 2026 second exam; 966 aliases served
+  // through their canonical question, 144 held), one segmentation lane, built with ../ppp-ingestion-toolkit.
+  'cbse-10-science': {
+    prefix: 'cbse-10-science/releases/full2375-v1-957e2ef49450',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_10_SCIENCE_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '957e2ef49450e08822aeb413448ed5053e7aff93536d502b656fa751452ab75f',
+  },
+  // CBSE Class 12 Physics (042): 1,624 rows (75 sets, 2023-2026 main + compartment; 720 aliases served through their canonical
+  // question, 405 held), one segmentation lane, built with ../ppp-ingestion-toolkit.
+  'cbse-12-physics': {
+    prefix: 'cbse-12-physics/releases/full1624-v1-d2e3683c8e1d',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_12_PHYSICS_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: 'd2e3683c8e1d91a9d7c540c229d251754379406d3b25c64c304a2e0eabea6225',
+  },
+  // CBSE Class 12 Biology (044): 1,805 rows (69 sets, 2023-2026 main + compartment; 813 aliases served through their canonical
+  // question, 35 held), one segmentation lane, built with ../ppp-ingestion-toolkit.
+  'cbse-12-biology': {
+    prefix: 'cbse-12-biology/releases/full1805-v1-0ba3847d4293',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_12_BIOLOGY_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96',
+  },
+  // CBSE Class 10 Mathematics, Standard (041, paper 1) and Basic (241, paper 2): 3,826 rows (146 sets with questions of 156;
+  // 2023-2026 main, compartment and the 2026 second exam; 2,503 aliases served through their canonical question, 58 held),
+  // one segmentation lane, built with ../ppp-ingestion-toolkit.
+  'cbse-10-maths': {
+    prefix: 'cbse-10-maths/releases/full3826-v1-da3dfa9d1cbd',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_10_MATHS_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: 'da3dfa9d1cbdea6d7c5b97e1b18f7d079d4713a9ae81180f301c7afe16700446',
+  },
+  // CBSE Class 12 Mathematics (041): 2,088 rows (75 sets, 2023-2026 main + compartment; 1,034 aliases served through their
+  // canonical question, 201 held), one segmentation lane, built with ../ppp-ingestion-toolkit.
+  'cbse-12-maths': {
+    prefix: 'cbse-12-maths/releases/full2088-v1-6929531a08fe',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_12_MATHS_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '6929531a08feab796a760c86559a7639d2d57796f14454840075cc95c74a13b5',
+  },
 };
 
 export function sha256(value) {
@@ -267,8 +317,8 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
     return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
-  // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700, Economics 9708, Computer Science 9618 and Further Mathematics 9231 sources (assets/<paper>/questions|markschemes/<file>).
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618' || bank === 'a-level-further-maths-9231') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700, Economics 9708, Computer Science 9618 and Further Mathematics 9231 sources, and the CBSE sources (assets/<paper>/questions|markschemes/<file>).
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618' || bank === 'a-level-further-maths-9231' || bank === 'cbse-12-chemistry' || bank === 'cbse-10-science' || bank === 'cbse-12-physics' || bank === 'cbse-12-biology' || bank === 'cbse-10-maths' || bank === 'cbse-12-maths') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;

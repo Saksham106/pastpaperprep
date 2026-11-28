@@ -30,7 +30,7 @@ import aaTaxonomy from "@/data/aa-official-subtopics/taxonomy.json";
 import aaOverlay from "@/data/aa-official-subtopics/overlay.json";
 import biologyOfficialTaxonomy from "@/data/ib-biology-official-subtopics/taxonomy.json";
 import biologyOfficialOverlay from "@/data/ib-biology-official-subtopics/overlay.json";
-import { deriveCourseRoute, type CourseRoute } from "@/lib/course-route";
+import { resolveCourseRoute, type CourseRoute } from "@/lib/course-route";
 import { project0610Sections } from "@/lib/igcse-0610-official.mjs";
 import { project0654Sections } from "@/lib/igcse-0654-official.mjs";
 import { project0625Sections } from "@/lib/igcse-0625-official.mjs";
@@ -339,7 +339,7 @@ function normalizeQuestion(slug: BankSlug, raw: RawQuestion, economicsAssetMode:
     bankSlug: slug,
     number: integer(raw.number),
     paper,
-    syllabusRoute: deriveCourseRoute(slug, paper),
+    syllabusRoute: resolveCourseRoute(slug, paper, raw.syllabusRoute, primaryTopic),
     year: integer(raw.year),
     session: text(raw.session),
     primaryTopic,

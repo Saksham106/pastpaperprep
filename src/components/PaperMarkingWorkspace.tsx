@@ -95,6 +95,9 @@ function PaperMarkingSession({ paper, onClose, practice, notesLinks }: { paper: 
   const report = valid ? createPaperMarkingReport(paper, marks) : null;
   const top = report?.priorities[0];
   const errata = paper.questions.filter(q => q.erratum);
+  // Questions with a disputed official key are never self-marked, so the paper is scored out of the rest.
+  const firstMarked = paper.questions.find(q => !q.keyNote)?.id;
+  const scoredMaximum = paper.questions.reduce((sum, q) => sum + (q.keyNote ? 0 : q.maxMarks), 0);
   const lesson = report ? topicLessonRecommendation(report.priorities, notesLinks) : null;
   function openReport() {
     if (!valid || !report?.markedMaximum) return;
@@ -109,14 +112,17 @@ function PaperMarkingSession({ paper, onClose, practice, notesLinks }: { paper: 
         <h2 id="paper-self-marking">Your marks</h2>
         <p className={styles.note}>{storageFailure ? 'Marks work here, but could not be saved on this device.' : 'Saved on this device. No account needed.'}</p>
       </div>
-      <p className={styles.total} aria-label="Marks so far">{report?.markedTotal ?? 0}<span> / {paper.maxMarks}</span></p>
+      <p className={styles.total} aria-label="Marks so far">{report?.markedTotal ?? 0}<span> / {scoredMaximum}</span></p>
     </header>
     {!showReport ? <form onSubmit={event => { event.preventDefault(); openReport(); }}>
-      <ol className={styles.questions}>{paper.questions.map(q => <li key={q.id} className={styles.question} data-filled={values[q.id]?.trim() && !errors[q.id] ? '' : undefined}>
+      <ol className={styles.questions}>{paper.questions.map(q => q.keyNote ? <li key={q.id} className={styles.question} data-not-self-marked="">
+        <p className={styles.keyNoteLabel}><b>Q{q.number}</b><span>{q.topics[0]}</span></p>
+        <p className={styles.erratum} id={`key-note-${q.id}`}><b>Not self-marked.</b> {q.keyNote}</p>
+      </li> : <li key={q.id} className={styles.question} data-filled={values[q.id]?.trim() && !errors[q.id] ? '' : undefined}>
         <label htmlFor={`marks-${q.id}`}><b>Q{q.number}</b><span>{q.topics[0]}</span><span className={styles.visuallyHidden}>Question {q.number} marks</span></label>
         <div className={styles.stepper}>
           <button type="button" aria-label={`Remove a mark from question ${q.number}`} onClick={() => step(q.id, q.maxMarks, -1)}><Minus aria-hidden="true" weight="bold" /></button>
-          <input ref={q.number === 1 ? firstInput : undefined} id={`marks-${q.id}`} aria-label={`Question ${q.number} marks`} type="text" inputMode="numeric" autoComplete="off" placeholder="–" value={values[q.id] ?? ''} onChange={event => update(q.id, event.target.value)} aria-invalid={Boolean(errors[q.id])} aria-describedby={`max-${q.id}${q.erratum ? ` erratum-${q.id}` : ''}${errors[q.id] ? ` error-${q.id}` : ''}`} />
+          <input ref={q.id === firstMarked ? firstInput : undefined} id={`marks-${q.id}`} aria-label={`Question ${q.number} marks`} type="text" inputMode="numeric" autoComplete="off" placeholder="–" value={values[q.id] ?? ''} onChange={event => update(q.id, event.target.value)} aria-invalid={Boolean(errors[q.id])} aria-describedby={`max-${q.id}${q.erratum ? ` erratum-${q.id}` : ''}${errors[q.id] ? ` error-${q.id}` : ''}`} />
           <span id={`max-${q.id}`}>/ {q.maxMarks}</span>
           <button type="button" aria-label={`Add a mark to question ${q.number}`} onClick={() => step(q.id, q.maxMarks, 1)}><Plus aria-hidden="true" weight="bold" /></button>
         </div>
@@ -129,7 +135,7 @@ function PaperMarkingSession({ paper, onClose, practice, notesLinks }: { paper: 
       </div>
     </form> : report && <div className={styles.report} aria-live="polite">
       <div className={styles.resultHeading}>
-        <h3 ref={reportHeading} tabIndex={-1}>{report.complete ? `${report.markedTotal} / ${paper.maxMarks} paper marks` : `${report.markedTotal} / ${report.markedMaximum} marks on marked questions`}</h3>
+        <h3 ref={reportHeading} tabIndex={-1}>{report.complete ? `${report.markedTotal} / ${scoredMaximum} paper marks` : `${report.markedTotal} / ${report.markedMaximum} marks on marked questions`}</h3>
         {!report.complete && <p className={styles.note}>{report.unmarkedCount} questions unmarked. This is a partial report, not a paper score.</p>}
       </div>
       {errata.length > 0 && <div className={styles.errata}>

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "igcse-upload-dry-run-v1",
+  "bank": "cbse-10-maths",
+  "date": "2026-11-28",
+  "mode": "dry_run_local_only",
+  "r2Writes": 0,
+  "bucket": "pastpaperprep-assets",
+  "objectPrefix": "cbse-10-maths/releases/full3826-v1-da3dfa9d1cbd/",
+  "objects": 8619,
+  "bytes": 171362076,
+  "uniqueKeys": 8619,
+  "allKeysUnderNewPrefix": true,
+  "localSha256ReHashed": 8619,
+  "sha256MatchesSegmentationRecord": 8619,
+  "mismatches": 0,
+  "originalCandidateRuntimeSha256": "da3dfa9d1cbdea6d7c5b97e1b18f7d079d4713a9ae81180f301c7afe16700446",
+  "sourceCommit": "369d650",
+  "nextStep": "Owner approval in the session that runs it, then the create-only R2 Worker upload (scripts/r2-upload-worker) against data/storage/cbse-10-maths.manifest.json, then generate-igcse-release.mjs --finalize cbse-10-maths. The free year goes to the free bucket with scripts/free-copy after the upload is read back."
+}

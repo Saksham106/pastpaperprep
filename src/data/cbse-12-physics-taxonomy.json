@@ -1,0 +1,366 @@
+{
+  "artifact": "cbse_12_physics_student_taxonomy",
+  "version": "cbse12p_curriculum_taxonomy@1",
+  "qualification": "CBSE Class 12 Physics (042)",
+  "era": "2023",
+  "note": "Topics are the curriculum's fourteen chapters in curriculum order, grouped by its nine units; subtopics are its content clauses. One theory paper; no earlier-syllabus topics.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "7bf0ec4c5a297c2b7b3088f706895e76b5248e55ad670d61c2e7b0aa65a08eac",
+  "chapters": [
+    {
+      "id": "cbse12p:2023:1",
+      "code": "1",
+      "label": "Electric Charges and Fields",
+      "era": "2023",
+      "official": true,
+      "questions": 97,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Electric charge and Coulomb's law",
+          "curriculumTitle": "Electric charge and Coulomb's law"
+        },
+        {
+          "code": "1.2",
+          "label": "Electric field and electric dipole",
+          "curriculumTitle": "Electric field and electric dipole"
+        },
+        {
+          "code": "1.3",
+          "label": "Electric flux and Gauss's theorem",
+          "curriculumTitle": "Electric flux and Gauss's theorem"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:2",
+      "code": "2",
+      "label": "Electrostatic Potential and Capacitance",
+      "era": "2023",
+      "official": true,
+      "questions": 102,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Electric potential and potential energy",
+          "curriculumTitle": "Electric potential and potential energy"
+        },
+        {
+          "code": "2.2",
+          "label": "Conductors, insulators and dielectrics",
+          "curriculumTitle": "Conductors, insulators and dielectrics"
+        },
+        {
+          "code": "2.3",
+          "label": "Capacitors and capacitance",
+          "curriculumTitle": "Capacitors and capacitance"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:3",
+      "code": "3",
+      "label": "Current Electricity",
+      "era": "2023",
+      "official": true,
+      "questions": 177,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Current, drift velocity and Ohm's law",
+          "curriculumTitle": "Current, drift velocity and Ohm's law"
+        },
+        {
+          "code": "3.2",
+          "label": "Resistivity, energy and power",
+          "curriculumTitle": "Resistivity, energy and power"
+        },
+        {
+          "code": "3.3",
+          "label": "Cells, emf and internal resistance",
+          "curriculumTitle": "Cells, emf and internal resistance"
+        },
+        {
+          "code": "3.4",
+          "label": "Kirchhoff's rules and Wheatstone bridge",
+          "curriculumTitle": "Kirchhoff's rules and Wheatstone bridge"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:4",
+      "code": "4",
+      "label": "Moving Charges and Magnetism",
+      "era": "2023",
+      "official": true,
+      "questions": 190,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Magnetic field and the Biot-Savart law",
+          "curriculumTitle": "Magnetic field and the Biot-Savart law"
+        },
+        {
+          "code": "4.2",
+          "label": "Ampere's law and solenoids",
+          "curriculumTitle": "Ampere's law and solenoids"
+        },
+        {
+          "code": "4.3",
+          "label": "Force on a moving charge",
+          "curriculumTitle": "Force on a moving charge"
+        },
+        {
+          "code": "4.4",
+          "label": "Forces and torques on current-carrying conductors",
+          "curriculumTitle": "Forces and torques on current-carrying conductors"
+        },
+        {
+          "code": "4.5",
+          "label": "Moving coil galvanometer",
+          "curriculumTitle": "Moving coil galvanometer"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:5",
+      "code": "5",
+      "label": "Magnetism and Matter",
+      "era": "2023",
+      "official": true,
+      "questions": 41,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Bar magnet and magnetic field lines",
+          "curriculumTitle": "Bar magnet and magnetic field lines"
+        },
+        {
+          "code": "5.2",
+          "label": "Magnetic properties of materials",
+          "curriculumTitle": "Magnetic properties of materials"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:6",
+      "code": "6",
+      "label": "Electromagnetic Induction",
+      "era": "2023",
+      "official": true,
+      "questions": 104,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Faraday's laws and Lenz's law",
+          "curriculumTitle": "Faraday's laws and Lenz's law"
+        },
+        {
+          "code": "6.2",
+          "label": "Self and mutual induction",
+          "curriculumTitle": "Self and mutual induction"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:7",
+      "code": "7",
+      "label": "Alternating Current",
+      "era": "2023",
+      "official": true,
+      "questions": 111,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Peak and RMS values, reactance and impedance",
+          "curriculumTitle": "Peak and RMS values, reactance and impedance"
+        },
+        {
+          "code": "7.2",
+          "label": "LCR series circuit and resonance",
+          "curriculumTitle": "LCR series circuit and resonance"
+        },
+        {
+          "code": "7.3",
+          "label": "Power in AC circuits",
+          "curriculumTitle": "Power in AC circuits"
+        },
+        {
+          "code": "7.4",
+          "label": "AC generator and transformer",
+          "curriculumTitle": "AC generator and transformer"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:8",
+      "code": "8",
+      "label": "Electromagnetic Waves",
+      "era": "2023",
+      "official": true,
+      "questions": 86,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Displacement current and electromagnetic waves",
+          "curriculumTitle": "Displacement current and electromagnetic waves"
+        },
+        {
+          "code": "8.2",
+          "label": "Electromagnetic spectrum",
+          "curriculumTitle": "Electromagnetic spectrum"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:9",
+      "code": "9",
+      "label": "Ray Optics and Optical Instruments",
+      "era": "2023",
+      "official": true,
+      "questions": 183,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Reflection and spherical mirrors",
+          "curriculumTitle": "Reflection and spherical mirrors"
+        },
+        {
+          "code": "9.2",
+          "label": "Refraction, total internal reflection and optical fibres",
+          "curriculumTitle": "Refraction, total internal reflection and optical fibres"
+        },
+        {
+          "code": "9.3",
+          "label": "Refraction at spherical surfaces and lenses",
+          "curriculumTitle": "Refraction at spherical surfaces and lenses"
+        },
+        {
+          "code": "9.4",
+          "label": "Refraction through a prism",
+          "curriculumTitle": "Refraction through a prism"
+        },
+        {
+          "code": "9.5",
+          "label": "Microscopes and telescopes",
+          "curriculumTitle": "Microscopes and telescopes"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:10",
+      "code": "10",
+      "label": "Wave Optics",
+      "era": "2023",
+      "official": true,
+      "questions": 114,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "Wavefronts and Huygens' principle",
+          "curriculumTitle": "Wavefronts and Huygens' principle"
+        },
+        {
+          "code": "10.2",
+          "label": "Interference and Young's double slit experiment",
+          "curriculumTitle": "Interference and Young's double slit experiment"
+        },
+        {
+          "code": "10.3",
+          "label": "Diffraction at a single slit",
+          "curriculumTitle": "Diffraction at a single slit"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:11",
+      "code": "11",
+      "label": "Dual Nature of Radiation and Matter",
+      "era": "2023",
+      "official": true,
+      "questions": 135,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "Photoelectric effect",
+          "curriculumTitle": "Photoelectric effect"
+        },
+        {
+          "code": "11.2",
+          "label": "Matter waves and de Broglie relation",
+          "curriculumTitle": "Matter waves and de Broglie relation"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:12",
+      "code": "12",
+      "label": "Atoms",
+      "era": "2023",
+      "official": true,
+      "questions": 102,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Alpha-particle scattering and Rutherford's model",
+          "curriculumTitle": "Alpha-particle scattering and Rutherford's model"
+        },
+        {
+          "code": "12.2",
+          "label": "Bohr model and hydrogen spectrum",
+          "curriculumTitle": "Bohr model and hydrogen spectrum"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:13",
+      "code": "13",
+      "label": "Nuclei",
+      "era": "2023",
+      "official": true,
+      "questions": 85,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Composition and size of nucleus, nuclear force",
+          "curriculumTitle": "Composition and size of nucleus, nuclear force"
+        },
+        {
+          "code": "13.2",
+          "label": "Mass defect and binding energy",
+          "curriculumTitle": "Mass defect and binding energy"
+        },
+        {
+          "code": "13.3",
+          "label": "Nuclear fission and fusion",
+          "curriculumTitle": "Nuclear fission and fusion"
+        }
+      ]
+    },
+    {
+      "id": "cbse12p:2023:14",
+      "code": "14",
+      "label": "Semiconductor Electronics: Materials, Devices and Simple Circuits",
+      "era": "2023",
+      "official": true,
+      "questions": 144,
+      "subtopics": [
+        {
+          "code": "14.1",
+          "label": "Energy bands and semiconductors",
+          "curriculumTitle": "Energy bands and semiconductors"
+        },
+        {
+          "code": "14.2",
+          "label": "p-n junction and diode characteristics",
+          "curriculumTitle": "p-n junction and diode characteristics"
+        },
+        {
+          "code": "14.3",
+          "label": "Diode as a rectifier",
+          "curriculumTitle": "Diode as a rectifier"
+        }
+      ]
+    }
+  ]
+}

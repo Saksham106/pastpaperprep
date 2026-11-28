@@ -5,13 +5,17 @@
 export const HELPER_NAME = "Pepper";
 
 
-export type HelperBoard = "igcse" | "a-level" | "ib";
-/** Boards the helper runs on. The owner switched IB on on 2026-11-24; turning a board off is this one line. */
-export const HELPER_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: true };
+export type HelperBoard = "igcse" | "a-level" | "ib" | "cbse";
+/**
+ * Boards the helper runs on. The owner switched IB on on 2026-11-24; turning a board off is this one line. CBSE stays off
+ * until the owner switches it on with its launch.
+ */
+export const HELPER_BOARDS: Readonly<Record<HelperBoard, boolean>> = { igcse: true, "a-level": true, ib: true, cbse: false };
 
 export function helperBoard(bank: string): HelperBoard {
   if (bank.startsWith("ib-")) return "ib";
   if (bank.startsWith("a-level-")) return "a-level";
+  if (bank.startsWith("cbse-")) return "cbse";
   return "igcse";
 }
 

@@ -14,9 +14,14 @@ import {
 export type EconomicsBankSlug = "ib-economics-hl" | "ib-economics-sl";
 // "IGCSE release" is the historical name of the shared gated, private-storage release machinery
 // (sealed runtimes, R2 assets, one release gate). It also covers the IB Computer Science and IB Business Management banks.
-export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "ib-business-management-hl" | "ib-business-management-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618" | "a-level-further-maths-9231";
+export type IGCSEReleaseBankSlug = "igcse-biology-0610" | "igcse-economics-0455" | "igcse-chemistry-0620" | "igcse-physics-0625" | "igcse-coordinated-sciences-0654" | "igcse-computer-science-0478" | "ib-computer-science-hl" | "ib-computer-science-sl" | "ib-business-management-hl" | "ib-business-management-sl" | "a-level-maths-9709" | "a-level-physics-9702" | "a-level-chemistry-9701" | "a-level-biology-9700" | "a-level-economics-9708" | "a-level-computer-science-9618" | "a-level-further-maths-9231" | "cbse-12-chemistry" | "cbse-10-science" | "cbse-12-physics" | "cbse-12-biology" | "cbse-10-maths" | "cbse-12-maths";
+/**
+ * CBSE banks are held (pendingStorage) until their content lands. Each joins the private release lane (IGCSE_RELEASE_SLUGS,
+ * with runtime pins in igcse-runtime.ts) in the commit that adds its runtime (Class 12 Chemistry first); none uses public storage.
+ */
+export type CbseBankSlug = Extract<BankSlug, `cbse-${string}`>;
 export type { BankSlug };
-export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug>;
+export type ProductionBankSlug = Exclude<BankSlug, EconomicsBankSlug | IGCSEReleaseBankSlug | CbseBankSlug>;
 export type LegacyProductionBankSlug = ProductionBankSlug;
 export const ECONOMICS_PRODUCT_IDS = ["bank_ib_economics_hl", "bank_ib_economics_sl", "bundle_ib_economics"] as const;
 
@@ -70,8 +75,18 @@ const IGCSE_RELEASE_SLUGS = new Set<BankSlug>([
   "a-level-economics-9708",
   "a-level-computer-science-9618",
   "a-level-further-maths-9231",
+  // CBSE: the same private-storage lane, each bank joining with its runtime pins. Held (pendingStorage) until switched on.
+  "cbse-12-chemistry",
+  "cbse-10-science",
+  "cbse-12-physics",
+  "cbse-12-biology",
+  "cbse-10-maths",
+  "cbse-12-maths",
 ]);
 
+export function isCbseBank(slug: string): slug is CbseBankSlug {
+  return slug.startsWith("cbse-");
+}
 export function isIGCSEReleaseBank(slug: string): slug is IGCSEReleaseBankSlug {
   return IGCSE_RELEASE_SLUGS.has(slug as BankSlug);
 }

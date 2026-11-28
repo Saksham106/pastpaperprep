@@ -19,6 +19,12 @@ import aLevelBiology9700Taxonomy from "@/data/a-level-biology-9700-taxonomy.json
 import aLevelEconomics9708Taxonomy from "@/data/a-level-economics-9708-taxonomy.json";
 import aLevelComputerScience9618Taxonomy from "@/data/a-level-computer-science-9618-taxonomy.json";
 import aLevelFurtherMaths9231Taxonomy from "@/data/a-level-further-maths-9231-taxonomy.json";
+import cbse12ChemistryTaxonomy from "@/data/cbse-12-chemistry-taxonomy.json";
+import cbse10ScienceTaxonomy from "@/data/cbse-10-science-taxonomy.json";
+import cbse12PhysicsTaxonomy from "@/data/cbse-12-physics-taxonomy.json";
+import cbse12BiologyTaxonomy from "@/data/cbse-12-biology-taxonomy.json";
+import cbse10MathsTaxonomy from "@/data/cbse-10-maths-taxonomy.json";
+import cbse12MathsTaxonomy from "@/data/cbse-12-maths-taxonomy.json";
 import { isIGCSEReleaseEnabled, type IGCSEReleaseBankSlug } from "@/lib/banks";
 
 type IGCSEArtifact = {
@@ -167,6 +173,12 @@ export const IGCSE_RUNTIME_COUNTS = {
   "a-level-economics-9708": [3207, 183],
   "a-level-computer-science-9618": [750, 85],
   "a-level-further-maths-9231": [813, 116],
+  "cbse-12-chemistry": [1844, 75],
+  "cbse-10-science": [2375, 78],
+  "cbse-12-physics": [1624, 74],
+  "cbse-12-biology": [1805, 68],
+  "cbse-10-maths": [3826, 146],
+  "cbse-12-maths": [2088, 75],
 } as const;
 // Read from disk, not imported (see src/lib/corpus-json.ts). Keep each path a literal so file tracing finds it.
 const ARTIFACT_FILES: Record<IGCSEReleaseBankSlug, string> = {
@@ -187,6 +199,12 @@ const ARTIFACT_FILES: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-economics-9708": join(process.cwd(), "src/data/production/a-level-economics-9708.json"),
   "a-level-computer-science-9618": join(process.cwd(), "src/data/production/a-level-computer-science-9618.json"),
   "a-level-further-maths-9231": join(process.cwd(), "src/data/production/a-level-further-maths-9231.json"),
+  "cbse-12-chemistry": join(process.cwd(), "src/data/production/cbse-12-chemistry.json"),
+  "cbse-10-science": join(process.cwd(), "src/data/production/cbse-10-science.json"),
+  "cbse-12-physics": join(process.cwd(), "src/data/production/cbse-12-physics.json"),
+  "cbse-12-biology": join(process.cwd(), "src/data/production/cbse-12-biology.json"),
+  "cbse-10-maths": join(process.cwd(), "src/data/production/cbse-10-maths.json"),
+  "cbse-12-maths": join(process.cwd(), "src/data/production/cbse-12-maths.json"),
 };
 const artifactFor = (bank: IGCSEReleaseBankSlug) => readCorpusJson(ARTIFACT_FILES[bank]) as IGCSEArtifact;
 const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
@@ -207,6 +225,12 @@ const RUNTIME_TAXONOMIES: Record<IGCSEReleaseBankSlug, unknown> = {
   "a-level-economics-9708": aLevelEconomics9708Taxonomy,
   "a-level-computer-science-9618": aLevelComputerScience9618Taxonomy,
   "a-level-further-maths-9231": aLevelFurtherMaths9231Taxonomy,
+  "cbse-12-chemistry": cbse12ChemistryTaxonomy,
+  "cbse-10-science": cbse10ScienceTaxonomy,
+  "cbse-12-physics": cbse12PhysicsTaxonomy,
+  "cbse-12-biology": cbse12BiologyTaxonomy,
+  "cbse-10-maths": cbse10MathsTaxonomy,
+  "cbse-12-maths": cbse12MathsTaxonomy,
 };
 
 const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -227,6 +251,12 @@ const EXPECTED_CANDIDATE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-economics-9708": "264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd",
   "a-level-computer-science-9618": "a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6",
   "a-level-further-maths-9231": "3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171",
+  "cbse-12-chemistry": "e8801103f0b540e443bd1f0a53cd7ef26aecf68f023f2d9fef6dd7794dd9d9da",
+  "cbse-10-science": "957e2ef49450e08822aeb413448ed5053e7aff93536d502b656fa751452ab75f",
+  "cbse-12-physics": "d2e3683c8e1d91a9d7c540c229d251754379406d3b25c64c304a2e0eabea6225",
+  "cbse-12-biology": "0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96",
+  "cbse-10-maths": "da3dfa9d1cbdea6d7c5b97e1b18f7d079d4713a9ae81180f301c7afe16700446",
+  "cbse-12-maths": "6929531a08feab796a760c86559a7639d2d57796f14454840075cc95c74a13b5",
 };
 
 const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
@@ -247,6 +277,12 @@ const EXPECTED_SOURCE_SHA256: Record<IGCSEReleaseBankSlug, string> = {
   "a-level-economics-9708": "264205541ced6de96ea479d18441317a01a0661833ca8e1119b7b60882351ccd",
   "a-level-computer-science-9618": "a456b8f0af531650a0d6b02fce3f1e5f1c1e13062572ab575d92e0eceba2e4b6",
   "a-level-further-maths-9231": "3e81092533b4fa5c3459f0d3a4576af53beb264fe7a84d1006f58f5763fd0171",
+  "cbse-12-chemistry": "e8801103f0b540e443bd1f0a53cd7ef26aecf68f023f2d9fef6dd7794dd9d9da",
+  "cbse-10-science": "957e2ef49450e08822aeb413448ed5053e7aff93536d502b656fa751452ab75f",
+  "cbse-12-physics": "d2e3683c8e1d91a9d7c540c229d251754379406d3b25c64c304a2e0eabea6225",
+  "cbse-12-biology": "0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96",
+  "cbse-10-maths": "da3dfa9d1cbdea6d7c5b97e1b18f7d079d4713a9ae81180f301c7afe16700446",
+  "cbse-12-maths": "6929531a08feab796a760c86559a7639d2d57796f14454840075cc95c74a13b5",
 };
 
 function canonicalSha256(value: unknown) {

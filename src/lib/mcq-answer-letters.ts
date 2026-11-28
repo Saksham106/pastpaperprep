@@ -1,8 +1,9 @@
 import reviewedLetters from "@/data/reviewed-mcq-answer-letters.json";
 import { bankRuntimeCacheKey } from "@/lib/bank-runtime-key";
 import type { BankSlug } from "@/lib/banks";
-import { formatMcqAnswer, isMcqAnswer, MCQ_ANSWER_LETTERS, type McqAnswer, type McqLetter } from "@/lib/mcq-answer";
+import { formatMcqAnswer, isMcqAnswer, MCQ_ANSWER_LETTERS, MCQ_NOTE_MAX_LENGTH, type McqAnswer, type McqLetter } from "@/lib/mcq-answer";
 import { loadBankRawQuestions } from "@/lib/question-loader";
+import { CBSE_BANKS } from "@/lib/cbse";
 
 // Server-only. Letters reach a reader only on an authorized answer asset: the asset manifest
 // (sign and free routes, static free index) and the PDF signer. Never copy them onto
@@ -38,23 +39,55 @@ const MCQ_COMPONENTS: Partial<Record<BankSlug, (component: string) => boolean>> 
   "a-level-economics-9708": (component) => /^[13]\d$/.test(component),
 };
 
-export const MCQ_ANSWER_BANKS = Object.keys(MCQ_COMPONENTS) as BankSlug[];
+/**
+ * CBSE banks: a CBSE "component" is a set code ("55/1/1"), so a row is MCQ when its own `format` says so (Section A
+ * multiple choice, including Assertion-Reason), at one mark.
+ */
+const MCQ_FORMAT_BANKS: ReadonlySet<string> = new Set(CBSE_BANKS);
+
+export const MCQ_ANSWER_BANKS = [...Object.keys(MCQ_COMPONENTS), ...MCQ_FORMAT_BANKS] as BankSlug[];
 
 export function isMcqAnswerBank(bank: string): bank is BankSlug {
-  return Object.hasOwn(MCQ_COMPONENTS, bank);
+  return Object.hasOwn(MCQ_COMPONENTS, bank) || MCQ_FORMAT_BANKS.has(bank);
 }
 
 export function isMcqRow(bank: BankSlug, raw: RawQuestion): boolean {
+  if (MCQ_FORMAT_BANKS.has(bank)) return raw.marks === 1 && raw.format === "multiple_choice";
   const component = MCQ_COMPONENTS[bank];
   return Boolean(component) && raw.marks === 1 && typeof raw.component === "string" && component!(raw.component);
 }
 
-/** The source's own letter, trusted only with official provenance for that same question. */
+/** Longest `keyNote` a row may carry: the answer-asset limit (`isMcqAnswer`), so a note is never dropped on delivery. */
+export const KEY_NOTE_MAX_LENGTH = MCQ_NOTE_MAX_LENGTH;
+
+/**
+ * A row's note beside its official letter, for a key the board printed but the physics or chemistry disputes ("CBSE's
+ * marking scheme gives (B). The physics suggests (A): …"). Such a row is also `excludedFromSelfMarking`. A malformed
+ * note throws, so a build never serves one it could not check.
+ */
+export function rowKeyNote(raw: RawQuestion): string | null {
+  if (raw.keyNote === undefined || raw.keyNote === null) return null;
+  const note = raw.keyNote;
+  if (typeof note !== "string" || !note.trim() || note !== note.trim() || note.length > KEY_NOTE_MAX_LENGTH) throw new Error(`Invalid keyNote on ${String(raw.id)}: 1-${KEY_NOTE_MAX_LENGTH} trimmed characters`);
+  if (raw.excludedFromSelfMarking !== true) throw new Error(`keyNote on ${String(raw.id)} needs excludedFromSelfMarking: true`);
+  return note;
+}
+
+/**
+ * The source's own letter, trusted only with official provenance for that same question, with any disputed-key note.
+ * `acceptedAnswers` (CBSE settled keys) lists every letter that scores; it must start with `answer`.
+ */
 export function productionMcqAnswer(raw: RawQuestion): McqAnswer | null {
   const provenance = raw.answerProvenance as Record<string, unknown> | null | undefined;
   if (typeof raw.answer !== "string" || !(MCQ_ANSWER_LETTERS as readonly string[]).includes(raw.answer)) return null;
   if (!provenance || typeof provenance !== "object" || provenance.status !== "official" || provenance.questionId !== raw.id) return null;
-  return { answers: [raw.answer as McqLetter], note: null };
+  const accepted = raw.acceptedAnswers;
+  if (accepted !== undefined) {
+    const answer = { answers: accepted, note: rowKeyNote(raw) };
+    if (!Array.isArray(accepted) || accepted[0] !== raw.answer || accepted.length < 2 || !isMcqAnswer(answer)) throw new Error(`Invalid acceptedAnswers on ${String(raw.id)}`);
+    return answer as McqAnswer;
+  }
+  return { answers: [raw.answer as McqLetter], note: rowKeyNote(raw) };
 }
 
 export type ReviewedMcqAnswerLetters = {

@@ -1,0 +1,428 @@
+{
+  "artifact": "cbse_12_biology_student_taxonomy",
+  "version": "cbse12b_curriculum_taxonomy@1",
+  "qualification": "CBSE Class 12 Biology (044)",
+  "era": "2023",
+  "note": "Topics are the curriculum's thirteen chapters in curriculum order, then two earlier-syllabus topics (NCERT chapters the rationalised curriculum dropped that the papers still ask about); subtopics are the current chapters' content clauses. One theory paper.",
+  "sourceTaxonomyPath": "data/taxonomy/taxonomy.json",
+  "sourceTaxonomySHA256": "a5eefe87e3b6ca0f766019f1b7ad573644b69ff1f9a63844dd174bf3378c7a7c",
+  "chapters": [
+    {
+      "id": "cbse12b:2023:1",
+      "code": "1",
+      "label": "Sexual Reproduction in Flowering Plants",
+      "era": "2023",
+      "official": true,
+      "questions": 170,
+      "subtopics": [
+        {
+          "code": "1.1",
+          "label": "Flower structure and gametophytes",
+          "curriculumTitle": "Flower structure and gametophytes"
+        },
+        {
+          "code": "1.2",
+          "label": "Pollination and outbreeding devices",
+          "curriculumTitle": "Pollination and outbreeding devices"
+        },
+        {
+          "code": "1.3",
+          "label": "Pollen-pistil interaction and double fertilisation",
+          "curriculumTitle": "Pollen-pistil interaction and double fertilisation"
+        },
+        {
+          "code": "1.4",
+          "label": "Post-fertilisation events: endosperm, embryo, seed and fruit",
+          "curriculumTitle": "Post-fertilisation events: endosperm, embryo, seed and fruit"
+        },
+        {
+          "code": "1.5",
+          "label": "Apomixis, parthenocarpy and polyembryony",
+          "curriculumTitle": "Apomixis, parthenocarpy and polyembryony"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:2",
+      "code": "2",
+      "label": "Human Reproduction",
+      "era": "2023",
+      "official": true,
+      "questions": 148,
+      "subtopics": [
+        {
+          "code": "2.1",
+          "label": "Male and female reproductive systems",
+          "curriculumTitle": "Male and female reproductive systems"
+        },
+        {
+          "code": "2.2",
+          "label": "Gametogenesis",
+          "curriculumTitle": "Gametogenesis"
+        },
+        {
+          "code": "2.3",
+          "label": "Menstrual cycle",
+          "curriculumTitle": "Menstrual cycle"
+        },
+        {
+          "code": "2.4",
+          "label": "Fertilisation, embryo development and implantation",
+          "curriculumTitle": "Fertilisation, embryo development and implantation"
+        },
+        {
+          "code": "2.5",
+          "label": "Pregnancy, placenta, parturition and lactation",
+          "curriculumTitle": "Pregnancy, placenta, parturition and lactation"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:3",
+      "code": "3",
+      "label": "Reproductive Health",
+      "era": "2023",
+      "official": true,
+      "questions": 93,
+      "subtopics": [
+        {
+          "code": "3.1",
+          "label": "Reproductive health and sexually transmitted diseases",
+          "curriculumTitle": "Reproductive health and sexually transmitted diseases"
+        },
+        {
+          "code": "3.2",
+          "label": "Birth control, contraception and MTP",
+          "curriculumTitle": "Birth control, contraception and MTP"
+        },
+        {
+          "code": "3.3",
+          "label": "Amniocentesis, infertility and assisted reproductive technologies",
+          "curriculumTitle": "Amniocentesis, infertility and assisted reproductive technologies"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:4",
+      "code": "4",
+      "label": "Principles of Inheritance and Variation",
+      "era": "2023",
+      "official": true,
+      "questions": 203,
+      "subtopics": [
+        {
+          "code": "4.1",
+          "label": "Mendelian inheritance",
+          "curriculumTitle": "Mendelian inheritance"
+        },
+        {
+          "code": "4.2",
+          "label": "Deviations from Mendelism and polygenic inheritance",
+          "curriculumTitle": "Deviations from Mendelism and polygenic inheritance"
+        },
+        {
+          "code": "4.3",
+          "label": "Chromosome theory, linkage and crossing over",
+          "curriculumTitle": "Chromosome theory, linkage and crossing over"
+        },
+        {
+          "code": "4.4",
+          "label": "Sex determination",
+          "curriculumTitle": "Sex determination"
+        },
+        {
+          "code": "4.5",
+          "label": "Sex-linked inheritance",
+          "curriculumTitle": "Sex-linked inheritance"
+        },
+        {
+          "code": "4.6",
+          "label": "Mendelian and chromosomal disorders",
+          "curriculumTitle": "Mendelian and chromosomal disorders"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:5",
+      "code": "5",
+      "label": "Molecular Basis of Inheritance",
+      "era": "2023",
+      "official": true,
+      "questions": 221,
+      "subtopics": [
+        {
+          "code": "5.1",
+          "label": "Search for the genetic material",
+          "curriculumTitle": "Search for the genetic material"
+        },
+        {
+          "code": "5.2",
+          "label": "Structure of DNA and RNA; DNA packaging",
+          "curriculumTitle": "Structure of DNA and RNA; DNA packaging"
+        },
+        {
+          "code": "5.3",
+          "label": "DNA replication",
+          "curriculumTitle": "DNA replication"
+        },
+        {
+          "code": "5.4",
+          "label": "Central dogma: transcription, genetic code and translation",
+          "curriculumTitle": "Central dogma: transcription, genetic code and translation"
+        },
+        {
+          "code": "5.5",
+          "label": "Gene expression and regulation: lac operon",
+          "curriculumTitle": "Gene expression and regulation: lac operon"
+        },
+        {
+          "code": "5.6",
+          "label": "Genome projects and DNA fingerprinting",
+          "curriculumTitle": "Genome projects and DNA fingerprinting"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:6",
+      "code": "6",
+      "label": "Evolution",
+      "era": "2023",
+      "official": true,
+      "questions": 120,
+      "subtopics": [
+        {
+          "code": "6.1",
+          "label": "Origin of life and evidences for evolution",
+          "curriculumTitle": "Origin of life and evidences for evolution"
+        },
+        {
+          "code": "6.2",
+          "label": "Darwin and the modern synthetic theory",
+          "curriculumTitle": "Darwin and the modern synthetic theory"
+        },
+        {
+          "code": "6.3",
+          "label": "Mechanism of evolution, gene flow, drift and Hardy-Weinberg",
+          "curriculumTitle": "Mechanism of evolution, gene flow, drift and Hardy-Weinberg"
+        },
+        {
+          "code": "6.4",
+          "label": "Adaptive radiation and human evolution",
+          "curriculumTitle": "Adaptive radiation and human evolution"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:7",
+      "code": "7",
+      "label": "Human Health and Diseases",
+      "era": "2023",
+      "official": true,
+      "questions": 177,
+      "subtopics": [
+        {
+          "code": "7.1",
+          "label": "Pathogens and common human diseases",
+          "curriculumTitle": "Pathogens and common human diseases"
+        },
+        {
+          "code": "7.2",
+          "label": "Immunity and vaccines",
+          "curriculumTitle": "Immunity and vaccines"
+        },
+        {
+          "code": "7.3",
+          "label": "Cancer, HIV and AIDS",
+          "curriculumTitle": "Cancer, HIV and AIDS"
+        },
+        {
+          "code": "7.4",
+          "label": "Adolescence: drug and alcohol abuse",
+          "curriculumTitle": "Adolescence: drug and alcohol abuse"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:8",
+      "code": "8",
+      "label": "Microbes in Human Welfare",
+      "era": "2023",
+      "official": true,
+      "questions": 99,
+      "subtopics": [
+        {
+          "code": "8.1",
+          "label": "Microbes in food processing and industrial production; antibiotics",
+          "curriculumTitle": "Microbes in food processing and industrial production; antibiotics"
+        },
+        {
+          "code": "8.2",
+          "label": "Microbes in sewage treatment and energy generation",
+          "curriculumTitle": "Microbes in sewage treatment and energy generation"
+        },
+        {
+          "code": "8.3",
+          "label": "Microbes as biocontrol agents and biofertilisers",
+          "curriculumTitle": "Microbes as biocontrol agents and biofertilisers"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:9",
+      "code": "9",
+      "label": "Biotechnology - Principles and Processes",
+      "era": "2023",
+      "official": true,
+      "questions": 192,
+      "subtopics": [
+        {
+          "code": "9.1",
+          "label": "Principles of biotechnology",
+          "curriculumTitle": "Principles of biotechnology"
+        },
+        {
+          "code": "9.2",
+          "label": "Tools of recombinant DNA technology",
+          "curriculumTitle": "Tools of recombinant DNA technology"
+        },
+        {
+          "code": "9.3",
+          "label": "Processes of recombinant DNA technology",
+          "curriculumTitle": "Processes of recombinant DNA technology"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:10",
+      "code": "10",
+      "label": "Biotechnology and its Applications",
+      "era": "2023",
+      "official": true,
+      "questions": 110,
+      "subtopics": [
+        {
+          "code": "10.1",
+          "label": "Biotechnology in medicine: insulin, vaccines, stem cells and gene therapy",
+          "curriculumTitle": "Biotechnology in medicine: insulin, vaccines, stem cells and gene therapy"
+        },
+        {
+          "code": "10.2",
+          "label": "Genetically modified crops: Bt crops",
+          "curriculumTitle": "Genetically modified crops: Bt crops"
+        },
+        {
+          "code": "10.3",
+          "label": "Transgenic animals",
+          "curriculumTitle": "Transgenic animals"
+        },
+        {
+          "code": "10.4",
+          "label": "Biosafety, biopiracy and patents",
+          "curriculumTitle": "Biosafety, biopiracy and patents"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:11",
+      "code": "11",
+      "label": "Organisms and Populations",
+      "era": "2023",
+      "official": true,
+      "questions": 100,
+      "subtopics": [
+        {
+          "code": "11.1",
+          "label": "Population interactions",
+          "curriculumTitle": "Population interactions"
+        },
+        {
+          "code": "11.2",
+          "label": "Population attributes and growth",
+          "curriculumTitle": "Population attributes and growth"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:12",
+      "code": "12",
+      "label": "Ecosystem",
+      "era": "2023",
+      "official": true,
+      "questions": 81,
+      "subtopics": [
+        {
+          "code": "12.1",
+          "label": "Ecosystem structure and components",
+          "curriculumTitle": "Ecosystem structure and components"
+        },
+        {
+          "code": "12.2",
+          "label": "Productivity and decomposition",
+          "curriculumTitle": "Productivity and decomposition"
+        },
+        {
+          "code": "12.3",
+          "label": "Energy flow and ecological pyramids",
+          "curriculumTitle": "Energy flow and ecological pyramids"
+        }
+      ]
+    },
+    {
+      "id": "cbse12b:2023:13",
+      "code": "13",
+      "label": "Biodiversity and its Conservation",
+      "era": "2023",
+      "official": true,
+      "questions": 83,
+      "subtopics": [
+        {
+          "code": "13.1",
+          "label": "Biodiversity: concept, patterns and importance",
+          "curriculumTitle": "Biodiversity: concept, patterns and importance"
+        },
+        {
+          "code": "13.2",
+          "label": "Loss of biodiversity",
+          "curriculumTitle": "Loss of biodiversity"
+        },
+        {
+          "code": "13.3",
+          "label": "Biodiversity conservation",
+          "curriculumTitle": "Biodiversity conservation"
+        }
+      ]
+    }
+  ],
+  "earlierSyllabusTopics": [
+    {
+      "id": "cbse12b:earlier:strategies-for-enhancement-in-food-production",
+      "code": "E-strategies-for-enhancement-in-food-production",
+      "label": "Strategies for Enhancement in Food Production (earlier syllabus)",
+      "era": "earlier",
+      "official": false,
+      "allowedYears": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "questions": 15,
+      "subtopics": []
+    },
+    {
+      "id": "cbse12b:earlier:environmental-issues",
+      "code": "E-environmental-issues",
+      "label": "Environmental Issues (earlier syllabus)",
+      "era": "earlier",
+      "official": false,
+      "allowedYears": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "questions": 2,
+      "subtopics": []
+    }
+  ]
+}

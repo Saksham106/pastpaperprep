@@ -433,8 +433,9 @@ access: ExplorerAccess;
   const routeScopesTopics = Boolean(routeConfig?.scopesTopics);
   const hidePaperFilter = Boolean(routeConfig?.hidesPaperFilter) && effectiveCourseRoute !== "all";
   const isCambridge = bank === "igcse" || bank === "igcse-additional";
-  // Cambridge papers come in variants (values "Variant 1/2/3"); only IB has real time zones.
-  const zoneLabel = bank && qualificationIdOfSlug(bank) !== "ib" ? "Variant" : "Time zone";
+  // Cambridge papers come in variants (values "Variant 1/2/3"); only IB has real time zones; CBSE prints sets ("55/1/1").
+  const board = bank ? qualificationIdOfSlug(bank) : undefined;
+  const zoneLabel = board === "cbse" ? "Set" : board && board !== "ib" ? "Variant" : "Time zone";
   const pdfQuote = testimonialForBank(bank, PDF_TESTIMONIAL);
   const calculatorFilter = (CALCULATOR_FILTER_BANKS as readonly string[]).includes(bank);
   const plansHref = plansHrefFor(resolvedAccess.authenticated);
@@ -1575,7 +1576,8 @@ access: ExplorerAccess;
           {!filters.topics?.length && subtopicGroups.all.length > 0 && <button className="text-button subtopic-more" type="button" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide subtopics" : "Show all subtopics"}</button>}
           {!cleanMaths && !!filters.topics?.length && !!subtopicGroups.other.length && <button className="text-button subtopic-more" aria-expanded={showAllSubtopics} onClick={() => setShowAllSubtopics((show) => !show)}>{showAllSubtopics ? "Hide other subtopics" : "Show other subtopics"}</button>}
           <FilterGroup label="Years" filterKey="years" values={options.years} selected={filters.years ?? []} onToggle={toggle} />
-          {!hidePaperFilter && <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />}
+          {/* A one-paper CBSE subject has nothing to filter by paper. */}
+          {!hidePaperFilter && !(board === "cbse" && options.papers.length <= 1) && <FilterGroup label="Papers" filterKey="papers" values={options.papers} selected={filters.papers ?? []} onToggle={toggle} />}
           <button className="more-filters-button" type="button" aria-expanded={showMoreFilters} onClick={() => setShowMoreFilters((show) => !show)}><Funnel aria-hidden="true" /> {showMoreFilters ? "Fewer filters" : "More filters"}</button>
           <div className={`secondary-filters${showMoreFilters ? " is-open" : ""}`} aria-hidden={!showMoreFilters} inert={showMoreFilters ? undefined : true}>
             <div className="secondary-filters-inner">
@@ -1843,7 +1845,10 @@ function QuestionCard({ question, notesLink, fullPaperHref, unlocked, authentica
 
   return (
     <article className={`question-card question-paper${selected && selectable ? " is-selected" : ""}`}>
-      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span>{isNotSatSeries(question.bankSlug, question.year, question.session) && <span>Not sat</span>}<span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
+      <header className="question-card-header"><div className="question-meta"><span>{question.year} {question.session}</span>{isNotSatSeries(question.bankSlug, question.year, question.session) && <span>Not sat</span>}{qualificationIdOfSlug(question.bankSlug) === "cbse"
+        // CBSE: one theory paper per subject (Class 10 Maths' level is its tab), printed as sets: cite the set once.
+        ? <><span>Question {question.number}</span>{question.zone && <span>Set {question.zone}</span>}</>
+        : <><span>Paper {question.paper}</span><span>Question {question.number}</span>{question.component && <span>Component {question.component}</span>}{question.zone && <span>{question.zone}</span>}</>}{question.marks !== null && <span>{question.marks} {question.marks === 1 ? "mark" : "marks"}</span>}</div>{unlocked && selectable && <label className="pdf-select"><input aria-label={`Add question ${question.number} to PDF`} type="checkbox" checked={selected} onChange={onSelect} /> Add to PDF</label>}</header>
       <div className="question-topic"><strong>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, question.primaryTopic) : question.primaryTopic)}</strong>{displayedQuestionSubtopics(question).slice(0, 4).map((topic) => <span key={topic}>{formatPublicLabel(question.bankSlug === "igcse" || question.bankSlug === "igcse-additional" ? formatMathsPickerLabel(question.bankSlug, topic) : topic)}</span>)}</div>
       {unlocked ? <div className="question-images">{questionAsset ? questionAsset.urls.map((source, index) => <SourceCropImage key={source} bankSlug={question.bankSlug} questionId={question.id} src={source} priority={priority && index === 0} crop={questionAsset.displayCrops?.[index]} size={questionAsset.sizesPx?.[index] ?? question.imageSizes?.[index]} alt={`Original question ${question.number}${questionAsset.urls.length > 1 ? ` page ${index + 1}` : ""}`} onError={onQuestionAssetError} />) : <><AssetPlaceholder size={visiblePlaceholderSize(question.bankSlug, question.id, question.imageSizes?.[0])} label="Loading original question" />{Array.from({ length: Math.max(0, question.questionImageCount - 1) }, (_, index) => <AssetPlaceholder key={index} size={question.imageSizes?.[index + 1]} />)}</>}{question.accessibleText ? <p className="sr-only question-transcript">{question.accessibleText}</p> : null}</div> : <div className="question-locked"><strong>{locked?.title ?? "Paid plan required"}</strong><span>{locked?.body ?? "Unlock this bank’s full question set, answers, and PDF export."}</span><IntentPrefetchLink className={locked ? "button primary question-locked-upgrade" : "question-locked-action"} href={locked?.href ?? plansHrefFor(authenticated)} onClick={locked?.onClick}>{locked ? `Unlock from ${UPGRADE_PRICE_LABEL}` : PLANS_LABEL}</IntentPrefetchLink></div>}
       <div className="question-actions">

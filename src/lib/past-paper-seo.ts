@@ -16,6 +16,9 @@ export type FaqItem = { q: string; a: string };
 
 const isIb = (bank: CatalogBank) => bank.qualification === 'IB Diploma';
 const isALevel = (bank: CatalogBank) => bank.qualification === 'Cambridge A Level';
+const isCbse = (bank: CatalogBank) => bank.qualification === 'CBSE';
+/** The board as Cambridge and CBSE subject names start: "Cambridge IGCSE", "Cambridge A Level", "CBSE". */
+const boardName = (bank: CatalogBank) => isCbse(bank) ? 'CBSE' : isALevel(bank) ? 'Cambridge A Level' : 'Cambridge IGCSE';
 /** IB Mathematics: Analysis and Approaches was first examined in May 2021; earlier papers in the AA
  * banks are the previous Mathematics HL/SL course, so name them that way on paper pages. */
 const FIRST_AA_YEAR = 2021;
@@ -27,12 +30,13 @@ export const fitTitle = (...candidates: string[]) => candidates.find(c => c.leng
 /** Same for descriptions, which search results cut at about 160 characters. */
 const fitDescription = (...candidates: string[]) => candidates.find(c => c.length <= 160) ?? candidates.at(-1)!;
 const shortIbSession = (session: string) => session === 'November' ? 'Nov' : session;
-/** The name students type: "IGCSE Maths 0580", "IB Math AA HL", "IB Chemistry SL". */
+/** The name students type: "IGCSE Maths 0580", "IB Math AA HL", "IB Chemistry SL", "CBSE Class 10 Maths". */
 export function subjectSearchName(bank: CatalogBank): string {
+  if (isCbse(bank)) return `CBSE ${bank.title.replace('Mathematics', 'Maths')}`;
   if (!isIb(bank)) return `${isALevel(bank) ? 'A Level' : 'IGCSE'} ${bank.subject.replace('Mathematics', 'Maths')} ${bank.syllabusCode}`;
   return bank.subject.startsWith('Mathematics ') ? `IB Math ${bank.subject.replace('Mathematics ', '')} ${bank.level}` : `IB ${bank.subject} ${bank.level}`;
 }
-const fullName = (bank: CatalogBank) => isIb(bank) ? bank.title : `${isALevel(bank) ? 'Cambridge A Level' : 'Cambridge IGCSE'} ${bank.subject} (${bank.syllabusCode})`;
+const fullName = (bank: CatalogBank) => isIb(bank) ? bank.title : isCbse(bank) ? `CBSE ${bank.title}` : `${boardName(bank)} ${bank.subject} (${bank.syllabusCode})`;
 const scheme = (bank: CatalogBank) => isIb(bank) ? 'markscheme' : 'mark scheme';
 const years = (papers: readonly WholePaperSummary[]) => papers.map(p => p.year);
 export function yearRange(papers: readonly WholePaperSummary[]): string {
@@ -56,14 +60,20 @@ const HUB: Record<'all' | PastPaperQualification, Pick<PageCopy, 'title' | 'h1'>
   igcse: { title: 'Cambridge IGCSE Past Papers with Mark Schemes', h1: 'Cambridge IGCSE past papers' },
   ib: { title: 'IB Past Papers with Markschemes', h1: 'IB past papers' },
   'a-level': { title: 'Cambridge A Level Past Papers with Mark Schemes', h1: 'Cambridge A Level past papers' },
+  cbse: { title: 'CBSE Class 10 & 12 Past Papers with Marking Schemes', h1: 'CBSE past papers' },
 };
 export function hubCopy(paperCount: number, qualification?: PastPaperQualification): PageCopy {
-  const scope = qualification === 'igcse' ? 'Cambridge IGCSE' : qualification === 'ib' ? 'IB Diploma' : qualification === 'a-level' ? 'Cambridge A Level' : 'Cambridge IGCSE, A Level and IB';
+  const scope = qualification === 'igcse' ? 'Cambridge IGCSE' : qualification === 'ib' ? 'IB Diploma' : qualification === 'a-level' ? 'Cambridge A Level' : qualification === 'cbse' ? 'CBSE' : 'Cambridge IGCSE, A Level and IB';
   return { ...HUB[qualification ?? 'all'], description: `${paperCount.toLocaleString('en-US')} ${scope} past papers with mark schemes. Time them, and mark supported papers to see which topics to fix. Free, no sign-up.`, answer: 'Every paper with its mark scheme. Time it, and mark supported papers to see what to fix.' };
 }
 
 /** Board-level questions for the IGCSE and IB hubs; every claim is general and true for the whole board. */
 export function hubFaq(qualification: PastPaperQualification): FaqItem[] {
+  if (qualification === 'cbse') return [
+    { q: 'Are these CBSE past papers free?', a: 'Yes. Every question paper and its marking scheme opens free, with no sign-up.' },
+    { q: 'What does a set code like 55/1/1 mean?', a: 'CBSE prints each paper in several sets for different regions. The first number is the paper, then the series and the set. Sets differ, so each one is extra practice.' },
+    { q: 'Can I practise past-paper questions by chapter instead?', a: 'Yes. The question banks sort real CBSE board questions by chapter, so you can drill one chapter across many years.' },
+  ];
   if (qualification === 'a-level') return [
     { q: 'Are these Cambridge A Level past papers free?', a: 'Yes. Every question paper and its mark scheme opens free, with no sign-up. Most papers can also be timed and self-marked here.' },
     { q: 'What does a code like 9709/12/M/J/24 mean?', a: '9709 is the syllabus (Mathematics), 12 is Paper 1 variant 2, M/J is the May/June series and 24 is 2024. F/M is February/March and O/N is October/November.' },
@@ -165,7 +175,7 @@ export function paperCopy(bank: CatalogBank, p: WholePaperSummary, insertLabel?:
       `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${shortSession(p.session)} ${p.year}, with its mark scheme${extra}.${facts ? ` ${facts}.` : ''}${paperTail(p)}`,
       `${code ? `${code}: ` : ''}${subject} ${p.syllabusCode} Paper ${p.component}, ${shortSession(p.session)} ${p.year}, with its mark scheme${extra}.${facts ? ` ${facts}.` : ''}`,
     ),
-    answer: `${isALevel(bank) ? 'Cambridge A Level' : 'Cambridge IGCSE'} ${bank.subject} ${bank.syllabusCode} ${label} from ${p.session} ${p.year}, with its mark scheme${extra}.`,
+    answer: `${boardName(bank)} ${bank.subject} ${bank.syllabusCode} ${label} from ${p.session} ${p.year}, with its mark scheme${extra}.`,
   };
 }
 
@@ -207,7 +217,7 @@ export function paperJsonLd(bank: CatalogBank, p: WholePaperSummary, path: strin
   const time = p.durationMinutes === null ? null : `PT${Math.floor(p.durationMinutes / 60) ? `${Math.floor(p.durationMinutes / 60)}H` : ''}${p.durationMinutes % 60 ? `${p.durationMinutes % 60}M` : ''}`;
   return {
     '@context': 'https://schema.org', '@type': 'LearningResource', name: copy.title, alternateName: paperCodes(bank, p), description: copy.description, url: absolute(path),
-    learningResourceType: 'Past exam paper', educationalLevel: isIb(bank) ? 'IB Diploma Programme' : isALevel(bank) ? 'Cambridge A Level' : 'Cambridge IGCSE', about: paperSubjectName(bank, p),
+    learningResourceType: 'Past exam paper', educationalLevel: isIb(bank) ? 'IB Diploma Programme' : isCbse(bank) ? `CBSE ${bank.level}` : boardName(bank), about: paperSubjectName(bank, p),
     inLanguage: 'en', isAccessibleForFree: true, ...(time ? { timeRequired: time } : {}),
     isPartOf: { '@type': 'CollectionPage', url: absolute(`/past-papers/${subjectSlugForBank(bank.slug)}`) },
   };

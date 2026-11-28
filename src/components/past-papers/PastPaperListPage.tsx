@@ -116,7 +116,7 @@ function SubjectSummary({ view, subject }: { view: Extract<ListView, { kind: 'su
   </section>;
 }
 
-const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' }, 'a-level': { name: 'Cambridge A Level', path: '/past-papers/a-level' } } as const;
+const QUALIFICATION = { igcse: { name: 'Cambridge IGCSE', path: '/past-papers/igcse' }, ib: { name: 'IB', path: '/past-papers/ib' }, 'a-level': { name: 'Cambridge A Level', path: '/past-papers/a-level' }, cbse: { name: 'CBSE', path: '/past-papers/cbse' } } as const;
 
 /** Subject, year and paper-number pages share one shell: answer first, then the matrix, then links. */
 export function PastPaperListPage({ view }: { view: ListView }) {

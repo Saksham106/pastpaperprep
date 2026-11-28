@@ -29,6 +29,8 @@ export function pdfSourceLabel(question: Pick<PdfLabelQuestion, "bankSlug" | "ye
     const zone = /^TZ[1-3]$/.exec(question.zone ?? "")?.[0];
     return [`${question.year} ${question.session}`, `Paper ${question.paper}`, zone, `Q${question.number}`].filter(Boolean).join(" · ");
   }
+  // CBSE prints each paper as sets ("55/1/1"): the set is the citation, as students quote it.
+  if (question.bankSlug?.startsWith("cbse-") && question.component) return `${question.year} ${question.session} · Set ${question.component} · Q${question.number}`;
   const component = question.component || question.id.match(/-(\d{2})-q\d+$/)?.[1] || String(question.paper);
   const notSat = isNotSatSeries(question.bankSlug, question.year, question.session) ? " (not sat)" : "";
   return `${question.year} ${pdfSessionLabel(question.bankSlug, question.session)}${notSat} · Paper ${component} · Q${question.number}`;

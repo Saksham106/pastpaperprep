@@ -29,6 +29,6 @@ export function articlesForBank(slug: BankSlug, limit = 3): ArticleLink[] {
 }
 
 /** Every guide written for one board, newest first, for that board's hub. */
-export function articlesForExam(exam: "Cambridge IGCSE" | "Cambridge A Level" | "IB Diploma"): ArticleLink[] {
+export function articlesForExam(exam: "Cambridge IGCSE" | "Cambridge A Level" | "IB Diploma" | "CBSE"): ArticleLink[] {
   return ARTICLES.filter((article) => getArticleIndexDetail(article.slug)?.exam === exam).map(link);
 }

@@ -64,7 +64,10 @@ export function subjectTerms(...names: string[]): string[] {
   // "Cambridge A Level" is not IGCSE, so it skips the cambridge -> igcse synonym and gains "alevel".
   const aLevel = names.some(name => /\ba level\b/i.test(name));
   const terms = words.flatMap(word => [word, ...(aLevel && word === "cambridge" ? [] : SYNONYMS[word] ?? [])]);
-  return [...new Set(aLevel ? [...terms, "alevel", "a-level"] : terms)];
+  // CBSE students write the class many ways: "class 10", "10th", "class x", "pyq".
+  const cbseClass = names.some(name => /^cbse$/i.test(name)) ? names.join(" ").match(/\bclass (10|12)\b/i)?.[1] : undefined;
+  const cbse = cbseClass ? [`${cbseClass}th`, cbseClass === "10" ? "x" : "xii", "pyq", "pyqs"] : [];
+  return [...new Set([...terms, ...(aLevel ? ["alevel", "a-level"] : []), ...cbse])];
 }
 
 /** Words that describe a paper rather than a subject, so subject matching skips them. */
