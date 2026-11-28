@@ -24,6 +24,7 @@ export const PRIVATE_RUNTIME_OBJECT_PREFIXES: Partial<Record<BankSlug, string>> 
   "cbse-12-chemistry": "cbse-12-chemistry/releases/full1844-v1-f34054df3005/",
   "cbse-10-science": "cbse-10-science/releases/full2375-v1-957e2ef49450/",
   "cbse-12-physics": "cbse-12-physics/releases/full1624-v1-d2e3683c8e1d/",
+  "cbse-12-biology": "cbse-12-biology/releases/full1805-v1-0ba3847d4293/",
 };
 
 export function getPrivateBankObjectPrefix(bank: BankSlug): string {

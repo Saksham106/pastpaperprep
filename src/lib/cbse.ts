@@ -102,6 +102,23 @@ export const CBSE_10_SCIENCE_GROUPS = (["Biology", "Chemistry", "Physics"] as co
  * A bank not listed yet groups subtopics by the questions that carry them.
  */
 export const CBSE_SUBTOPICS: Partial<Record<(typeof CBSE_BANKS)[number], Readonly<Record<string, readonly string[]>>>> = {
+  // Curriculum clauses in taxonomy order (cbse-12-biology-topic-practice 23da57a; the runtime's taxonomy). The two
+  // earlier-syllabus topics have no subtopics.
+  "cbse-12-biology": {
+    "Sexual Reproduction in Flowering Plants": ["Flower structure and gametophytes", "Pollination and outbreeding devices", "Pollen-pistil interaction and double fertilisation", "Post-fertilisation events: endosperm, embryo, seed and fruit", "Apomixis, parthenocarpy and polyembryony"],
+    "Human Reproduction": ["Male and female reproductive systems", "Gametogenesis", "Menstrual cycle", "Fertilisation, embryo development and implantation", "Pregnancy, placenta, parturition and lactation"],
+    "Reproductive Health": ["Reproductive health and sexually transmitted diseases", "Birth control, contraception and MTP", "Amniocentesis, infertility and assisted reproductive technologies"],
+    "Principles of Inheritance and Variation": ["Mendelian inheritance", "Deviations from Mendelism and polygenic inheritance", "Chromosome theory, linkage and crossing over", "Sex determination", "Sex-linked inheritance", "Mendelian and chromosomal disorders"],
+    "Molecular Basis of Inheritance": ["Search for the genetic material", "Structure of DNA and RNA; DNA packaging", "DNA replication", "Central dogma: transcription, genetic code and translation", "Gene expression and regulation: lac operon", "Genome projects and DNA fingerprinting"],
+    "Evolution": ["Origin of life and evidences for evolution", "Darwin and the modern synthetic theory", "Mechanism of evolution, gene flow, drift and Hardy-Weinberg", "Adaptive radiation and human evolution"],
+    "Human Health and Diseases": ["Pathogens and common human diseases", "Immunity and vaccines", "Cancer, HIV and AIDS", "Adolescence: drug and alcohol abuse"],
+    "Microbes in Human Welfare": ["Microbes in food processing and industrial production; antibiotics", "Microbes in sewage treatment and energy generation", "Microbes as biocontrol agents and biofertilisers"],
+    "Biotechnology - Principles and Processes": ["Principles of biotechnology", "Tools of recombinant DNA technology", "Processes of recombinant DNA technology"],
+    "Biotechnology and its Applications": ["Biotechnology in medicine: insulin, vaccines, stem cells and gene therapy", "Genetically modified crops: Bt crops", "Transgenic animals", "Biosafety, biopiracy and patents"],
+    "Organisms and Populations": ["Population interactions", "Population attributes and growth"],
+    "Ecosystem": ["Ecosystem structure and components", "Productivity and decomposition", "Energy flow and ecological pyramids"],
+    "Biodiversity and its Conservation": ["Biodiversity: concept, patterns and importance", "Loss of biodiversity", "Biodiversity conservation"],
+  },
   // Curriculum clauses in taxonomy order (cbse-12-physics-topic-practice b2537af; the runtime's taxonomy).
   "cbse-12-physics": {
     "Electric Charges and Fields": ["Electric charge and Coulomb's law", "Electric field and electric dipole", "Electric flux and Gauss's theorem"],

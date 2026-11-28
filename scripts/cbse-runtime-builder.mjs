@@ -79,11 +79,12 @@ export function subtopicLabels(config, source) {
 
 /** Student taxonomy: the chapters in curriculum order (with their science, where the bank groups them), each with its subtopics. */
 export function studentTaxonomy(config, source, used, subtopicLabelFor) {
+  const earlier = source.earlier_syllabus_topics.map((entry) => ({ id: entry.id, code: entry.code, label: entry.title, era: entry.era, official: false, allowedYears: [...entry.allowed_years], questions: used.get(entry.id) ?? 0, subtopics: [] }));
   const chapters = source.topics.map((entry) => ({
     id: entry.id, code: entry.code, label: entry.title, ...(config.groupChapters ? { group: entry.group } : {}), era: entry.era, official: true, questions: used.get(entry.id) ?? 0,
     subtopics: entry.subtopics.map((subtopic) => ({ code: subtopic.code, label: subtopicLabelFor.get(subtopic.code), curriculumTitle: subtopic.title })),
   }));
-  if (chapters.length !== config.expected.topics || chapters.flatMap((chapter) => chapter.subtopics).length !== config.expected.subtopics || source.earlier_syllabus_topics.length) throw new Error(`${config.label} taxonomy shape drifted`);
+  if (chapters.length !== config.expected.topics || chapters.flatMap((chapter) => chapter.subtopics).length !== config.expected.subtopics || earlier.length !== (config.expected.earlierTopics ?? 0)) throw new Error(`${config.label} taxonomy shape drifted`);
   if (config.groupChapters && chapters.some((chapter) => !config.groupChapters.includes(chapter.group))) throw new Error(`${config.label} chapter groups drifted`);
   return {
     artifact: `${config.bank.replaceAll("-", "_")}_student_taxonomy`,
@@ -94,6 +95,7 @@ export function studentTaxonomy(config, source, used, subtopicLabelFor) {
     sourceTaxonomyPath: "data/taxonomy/taxonomy.json",
     sourceTaxonomySHA256: config.sha256.taxonomy,
     chapters,
+    ...(earlier.length ? { earlierSyllabusTopics: earlier } : {}),
   };
 }
 
@@ -125,7 +127,7 @@ export function seal(artifact) {
  * The reviewed further subtopics of one question, in curriculum order: at least one for every secondary chapter, optionally
  * more of the primary chapter (never its primary subtopic again), and only under the question's own chapters.
  */
-export function furtherSubtopics(config, id, label, entry, subtopicsByCode) {
+export function furtherSubtopics(config, id, label, entry, subtopicsByCode, earlierCodes = new Set()) {
   const fail = failer(config);
   const allowed = new Set([label.primary, ...label.secondaries]);
   for (const code of Object.keys(entry)) if (!allowed.has(code)) fail(`${id} overlay names chapter ${code}, which is not its primary or a secondary`);
@@ -133,7 +135,8 @@ export function furtherSubtopics(config, id, label, entry, subtopicsByCode) {
   for (const code of [label.primary, ...label.secondaries]) {
     const subtopics = entry[code]?.subtopics;
     if (subtopics === undefined) {
-      if (code !== label.primary) fail(`${id} secondary chapter ${code} has no reviewed subtopic`);
+      // An earlier-syllabus topic has no subtopics of its own.
+      if (code !== label.primary && !earlierCodes.has(code)) fail(`${id} secondary chapter ${code} has no reviewed subtopic`);
       continue;
     }
     if (!Array.isArray(subtopics) || !subtopics.length || new Set(subtopics).size !== subtopics.length || typeof entry[code].evidence !== "string" || !entry[code].evidence.trim()) fail(`${id} overlay entry for ${code} is malformed`);
@@ -176,7 +179,7 @@ function mcqFields(config, question, entry, settlements, disputes) {
   const excluded = config.excludedFromSelfMarking.includes(question.id);
   if (excluded !== (entry.excluded_from_self_marking === true) || excluded !== (question.excluded_from_self_marking === true)) fail(`${question.id} self-marking exclusion drifted`);
   if (excluded) {
-    if (!question.ms_notices?.some((notice) => notice.kind === "full_marks_all")) fail(`${question.id} is excluded without a full-marks notice`);
+    if (!question.ms_notices?.some((notice) => notice.kind === "full_marks_all" || notice.kind === "any_attempt")) fail(`${question.id} is excluded without a full-marks or any-attempt notice`);
     if (entry.key_note !== undefined) fail(`${question.id} carries a key_note, which needs an owner decision and app review`);
     return { excludedFromSelfMarking: true };
   }
@@ -186,16 +189,23 @@ function mcqFields(config, question, entry, settlements, disputes) {
   // A scheme that prints two answers ("(A) resistor / (C) capacitor") gives both letters in both records, with no source.
   const segmentationKeys = JSON.stringify(question.mcq_keys);
   const printedPair = two && entry.mcq_key === null && entry.mcq_key_source === null && segmentationKeys === JSON.stringify(two);
-  // A settled single key replaces a misread in the segmentation record (e.g. OCR took the next row's letter), only where
-  // the pinned settlements file records that same letter.
-  const settledSingle = !two && keys?.length === 1 && entry.mcq_key_source === "settlement" && settlements?.items?.[question.id]?.settled_key === keys[0];
-  if (!Array.isArray(keys) || !keys.every((key) => /^[A-D]$/.test(key)) || (keys[0] !== entry.mcq_key && !printedPair) || (segmentationKeys !== JSON.stringify(keys) && !(two && segmentationKeys === JSON.stringify([keys[0]])) && !settledSingle)) fail(`${question.id} MCQ key ${JSON.stringify(keys)} is not a checked official key`);
-  if (two ? JSON.stringify(keys) !== JSON.stringify(two) || (!printedPair && (entry.mcq_key_source !== "settlement" || (settlements && JSON.stringify(settlements.items?.[question.id]?.settled_keys) !== JSON.stringify(two)))) : keys.length !== 1) fail(`${question.id} key letters drifted`);
+  // A settled key replaces a misread or unread key in the segmentation record (OCR took the next row's letter, or "(A)" from
+  // "Assertion (A)"), only where the pinned settlements file records exactly those letters.
+  const settled = entry.mcq_key_source === "settlement" && Boolean(settlements) && JSON.stringify(settledLetters(settlements.items?.[question.id])) === JSON.stringify(keys);
+  if (!Array.isArray(keys) || !keys.every((key) => /^[A-D]$/.test(key)) || (keys[0] !== entry.mcq_key && !printedPair) || (segmentationKeys !== JSON.stringify(keys) && !(two && segmentationKeys === JSON.stringify([keys[0]])) && !settled)) fail(`${question.id} MCQ key ${JSON.stringify(keys)} is not a checked official key`);
+  if (two ? JSON.stringify(keys) !== JSON.stringify(two) || (!printedPair && (entry.mcq_key_source !== "settlement" || (settlements && !settled))) : keys.length !== 1) fail(`${question.id} key letters drifted`);
   return {
     answer: keys[0],
     ...(two ? { acceptedAnswers: [...two] } : {}),
     answerProvenance: { status: "official", questionId: question.id, source: entry.mcq_key_source ?? (printedPair ? "scheme_two_answers" : null) },
   };
+}
+
+/** A settlement's letters: `settled_key` as one letter or a list, or `settled_keys`. */
+function settledLetters(settlement) {
+  if (!settlement) return null;
+  const value = settlement.settled_key ?? settlement.settled_keys;
+  return Array.isArray(value) ? value : typeof value === "string" ? [value] : null;
 }
 
 /** Question ids an issue names: full ids, or "Q31" on that paper (both the question and its OR alternative). */
@@ -279,7 +289,11 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   if (heldIds.length !== expected.held) fail(`held ${heldIds.length}`);
   const labels = new Map(finalLabels.labels.map((label) => [label.id, label]));
   if (labels.size !== expected.rows || finalLabels.labels.length !== expected.rows) fail("labels do not cover the release once each");
-  const topicsByCode = new Map(sourceTaxonomy.topics.map((entry) => [entry.code, entry]));
+  // Earlier-syllabus topics: named NCERT chapters the rationalised curriculum dropped, which papers still ask about. They have
+  // no subtopics, list after the current chapters, and serve only questions from their allowed years.
+  const earlierTopics = sourceTaxonomy.earlier_syllabus_topics;
+  if (earlierTopics.length !== (expected.earlierTopics ?? 0) || earlierTopics.some((entry) => !entry.title.endsWith(" (earlier syllabus)") || entry.subtopics?.length || !Array.isArray(entry.allowed_years))) fail("earlier-syllabus topics drifted");
+  const topicsByCode = new Map([...sourceTaxonomy.topics, ...earlierTopics].map((entry) => [entry.code, entry]));
   const subtopicsByCode = new Map(sourceTaxonomy.topics.flatMap((entry) => entry.subtopics.map((subtopic) => [subtopic.code, { ...subtopic, topic: entry.code }])));
   const subtopicLabelFor = subtopicLabels(config, sourceTaxonomy);
 
@@ -293,11 +307,19 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   }
   if (JSON.stringify([...segmentation.summary.papers_with_issues].sort()) !== JSON.stringify(segmentation.papers.filter((paper) => paper.issues.length).map((paper) => paper.paper_id).sort())) fail("segmentation issue summary drifted");
   for (const paperId of waivers.keys()) if (!segmentation.papers.some((paper) => paper.paper_id === paperId && paper.issues.length)) fail(`waived ${paperId} has no issue left: remove the waiver`);
+  // Official cbse.gov.in files, except a reviewed host exception the config lists (a paper CBSE does not publish), whose URL
+  // must be the manifest's recorded host source.
+  const hostExceptions = config.hostExceptions ?? [];
   const sourceUrl = (paperId, kind) => {
-    const url = sources.papers[paperId]?.[kind]?.url;
-    if (typeof url !== "string" || !url.startsWith("https://www.cbse.gov.in/")) fail(`${paperId} ${kind} has no official source`);
+    const file = sources.papers[paperId]?.[kind];
+    const url = file?.url;
+    if (typeof url === "string" && url.startsWith("https://www.cbse.gov.in/")) return url;
+    const host = (sources.host_sources ?? []).find((entry) => entry.paper === paperId && entry.role === kind);
+    if (!hostExceptions.includes(`${paperId}:${kind}`) || !host || host.url !== url || !url?.startsWith("https://") || !String(file?.override ?? "").startsWith("reviewed host exception")) fail(`${paperId} ${kind} has no official source`);
     return url;
   };
+  const usedExceptions = (sources.host_sources ?? []).map((entry) => `${entry.paper}:${entry.role}`).sort();
+  if (JSON.stringify(usedExceptions) !== JSON.stringify([...hostExceptions].sort())) fail("host exceptions drifted");
   const reviewedMs = msReviews.items;
 
   const questions = [];
@@ -322,6 +344,9 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     if (question.marks_status === "ms_marks_differ") {
       const review = reviewedMs[question.id] ?? reviewedMs[question.id.replace(/-or$/, "")];
       if (review?.decision !== "serve" || review.served_marks !== question.marks) fail(`${question.id} scheme total differs without a reviewed serve`);
+    } else if (question.marks_status === "mcq_key_missing") {
+      // The scheme's key was not read; served only with a settled key (checked in mcqFields) and reconciled marks.
+      if (question.format !== "multiple_choice" || entry.mcq_key_source !== "settlement" || !settledLetters(settlements?.items?.[question.id]) || question.ms_marks !== question.marks) fail(`${question.id} key missing without a settlement`);
     } else if (question.marks_status !== "reconciled" || question.ms_marks !== question.marks) fail(`${question.id} marks status ${question.marks_status}`);
     const label = labels.get(question.id);
     if (!label) fail(`${question.id} has no final label`);
@@ -331,12 +356,14 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
     const codes = [label.primary, ...label.secondaries];
     if (new Set(codes).size !== codes.length) fail(`${question.id} repeats a chapter`);
     const resolved = codes.map((code) => topicsByCode.get(code) ?? fail(`${question.id} uses unknown chapter ${code}`));
-    const primarySubtopic = subtopicsByCode.get(label.primary_subtopic);
-    if (!primarySubtopic || primarySubtopic.topic !== label.primary) fail(`${question.id} subtopic ${label.primary_subtopic} is not under ${label.primary}`);
-    const furtherCodes = furtherSubtopics(config, question.id, label, overlay.rows[question.id] ?? {}, subtopicsByCode);
+    for (const topic of resolved) if (topic.allowed_years && !topic.allowed_years.includes(question.year)) fail(`${question.id} (${question.year}) carries ${topic.title}, not allowed that year`);
+    const earlierPrimary = earlierTopics.includes(resolved[0]);
+    const primarySubtopic = earlierPrimary ? null : subtopicsByCode.get(label.primary_subtopic);
+    if (earlierPrimary ? label.primary_subtopic !== null : !primarySubtopic || primarySubtopic.topic !== label.primary) fail(`${question.id} subtopic ${label.primary_subtopic} is not under ${label.primary}`);
+    const furtherCodes = furtherSubtopics(config, question.id, label, overlay.rows[question.id] ?? {}, subtopicsByCode, new Set(earlierTopics.map((entry) => entry.code)));
     if (overlay.rows[question.id]) overlayRowsUsed.add(question.id);
     const further = furtherCodes.map((code) => subtopicLabelFor.get(code));
-    const subtopics = [subtopicLabelFor.get(primarySubtopic.code), ...further];
+    const subtopics = [...(primarySubtopic ? [subtopicLabelFor.get(primarySubtopic.code)] : []), ...further];
 
     for (const alias of entry.alias_ids) if (canonical.aliases[alias]?.canonical_id !== question.id) fail(`alias ${alias} does not resolve to ${question.id}`);
     const transcript = blind.transcripts.get(question.id);
@@ -417,7 +444,7 @@ export async function buildRuntime(config, { sourceRoot = sourceRootPath(config)
   if (questions.filter((question) => config.freeYears.includes(question.year)).length !== expected.freeRows) fail("free-year count drifted");
   if (questions.filter((question) => question.excludedFromSelfMarking).length !== config.excludedFromSelfMarking.length + (config.disputedKeys ?? []).length) fail("exclusion count drifted");
   if (crops !== expected.crops) fail(`crops ${crops}`);
-  if (used.size !== expected.topics) fail(`chapters used ${used.size}`);
+  if (used.size !== expected.topics + (expected.earlierTopics ?? 0)) fail(`chapters used ${used.size}`);
   const years = questions.map((question) => question.year);
   const yearRange = `${Math.min(...years)}-${Math.max(...years)}`;
   if (yearRange !== expected.years) fail(`years ${yearRange}`);

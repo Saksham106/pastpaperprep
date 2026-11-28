@@ -183,7 +183,7 @@ export function inferredPdfDpiForBank(bank: UnifiedQuestion["bankSlug"]): number
     // IB Computer Science crops are rendered at 1.5 px/pt (527 pt wide = 791 px), like 0478.
     "ib-computer-science-hl", "ib-computer-science-sl",
     // IB Business Management crops are rendered the same way (527 pt wide = 791 px).
-    "ib-business-management-hl", "ib-business-management-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231", "cbse-12-chemistry", "cbse-10-science", "cbse-12-physics"].includes(bank)) return 108;
+    "ib-business-management-hl", "ib-business-management-sl", "a-level-maths-9709", "a-level-physics-9702", "a-level-chemistry-9701", "a-level-biology-9700", "a-level-economics-9708", "a-level-computer-science-9618", "a-level-further-maths-9231", "cbse-12-chemistry", "cbse-10-science", "cbse-12-physics", "cbse-12-biology"].includes(bank)) return 108;
   if (["ib-biology-hl", "ib-biology-sl", "ib-chemistry-hl", "ib-chemistry-sl",
     "ib-physics-hl", "ib-physics-sl"].includes(bank)) return 126;
   if (bank === "ib-economics-hl" || bank === "ib-economics-sl") return 144;

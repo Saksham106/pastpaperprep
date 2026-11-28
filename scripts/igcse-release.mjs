@@ -156,6 +156,14 @@ export const RELEASE_BANKS = {
     candidateSeal: 'blanked-v1',
     originalCandidateRuntimeSha256: 'd2e3683c8e1d91a9d7c540c229d251754379406d3b25c64c304a2e0eabea6225',
   },
+  // CBSE Class 12 Biology (044): 1,805 rows (69 sets, 2023-2026 main + compartment; 813 aliases served through their canonical
+  // question, 35 held), one segmentation lane, built with ../ppp-ingestion-toolkit.
+  'cbse-12-biology': {
+    prefix: 'cbse-12-biology/releases/full1805-v1-0ba3847d4293',
+    sourceRootEnv: 'PASTPAPERPREP_CBSE_12_BIOLOGY_SOURCE_ROOT',
+    candidateSeal: 'blanked-v1',
+    originalCandidateRuntimeSha256: '0ba3847d4293e900e9ecc7e6418717a54d662be5c2b4b8bac4dd0f75f2693c96',
+  },
 };
 
 export function sha256(value) {
@@ -293,7 +301,7 @@ function sourceRelativePath(bank, reference, coordinatedLane) {
   }
   // The IB Computer Science source keeps assets/<pair>/questions|markschemes/<file> in one segmentation lane.
   // So do the A Level Maths 9709, Physics 9702, Chemistry 9701, Biology 9700, Economics 9708, Computer Science 9618 and Further Mathematics 9231 sources, and the CBSE sources (assets/<paper>/questions|markschemes/<file>).
-  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618' || bank === 'a-level-further-maths-9231' || bank === 'cbse-12-chemistry' || bank === 'cbse-10-science' || bank === 'cbse-12-physics') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
+  if (bank === 'ib-computer-science-hl' || bank === 'ib-computer-science-sl' || bank === 'a-level-maths-9709' || bank === 'a-level-physics-9702' || bank === 'a-level-chemistry-9701' || bank === 'a-level-biology-9700' || bank === 'a-level-economics-9708' || bank === 'a-level-computer-science-9618' || bank === 'a-level-further-maths-9231' || bank === 'cbse-12-chemistry' || bank === 'cbse-10-science' || bank === 'cbse-12-physics' || bank === 'cbse-12-biology') return `data/segmentation/full/assets/${paper}/${kind}/${file}`;
   if (bank === 'igcse-coordinated-sciences-0654') {
     if (!coordinatedLane) throw new Error(`Missing authoritative Co-ordinated Sciences source lane: ${paper}`);
     return `data/segmentation/repair-ms-closure-v1/build-a/${coordinatedLane}/assets/${paper}/${kind === 'questions' ? 'question' : 'markscheme'}/${file}`;
